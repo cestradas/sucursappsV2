@@ -1,4 +1,6 @@
-﻿var UserLoginChallengeHandler = function(usr, key) {
+﻿var banderaServidor = 0;
+
+var UserLoginChallengeHandler = function(usr, key) {
 
     var isChallenged = false;
     var securityCheckName = 'banorteSecurityCheckSa';
@@ -71,12 +73,51 @@
                     console.info("*login onFailure: " +
                         JSON.stringify(response));
 
+                    banderaServidor++;
+
+                    if (banderaServidor == 1) {
+
+                        var user = roots(ROOT1);
+                    } else if (banderaServidor == 2) {
+                        var user = roots(ROOT2);
+                    } else if (banderaServidor == 3) {
+                        var user = roots(ROOT3);
+                    } else if (banderaServidor >= 3) {
+                        console.log("no hy mas servidores");
+
+                    }
+
+
+
+
+
 
                 });
 
         }
 
     }
+
+    function servidor(param) {
+        setTimeout(function() {
+            console.log(param);
+            var wlInitOptions = {
+                mfpContextRoot: param,
+                applicationId: 'com.banorte.sucursapps',
+
+            };
+
+            WL.Client.init(wlInitOptions).then(function() {
+                console.info("VERSION: 1, 22/01/2018")
+                setTimeout(function() {
+                    var userLoginChallengeHandler = UserLoginChallengeHandler(USR, KEY);
+                }, 1000)
+
+            });
+        }, 1000)
+    }
+
+
 
     function logout() {
 
