@@ -1,0 +1,184 @@
+<div class="row">
+
+
+    <div>
+
+        <nav class="navbar navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header"></div>
+                <div class="collapse navbar-collapse" id="navbar-collapse">
+                    <!-- <p class="navbar-text">{{ ::account.name }}</p> -->
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a onClick="currentPage.loadMenu();" id="menud"> <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div ng-cloak class="padding-barToTittle">
+            <h2 class="text-center deleteMargin-h2 color-letra">Comprar tiempo aire</h2>
+        </div>
+
+        <fieldset class="padding-TittleToFieldset padding-fieldset-general">
+            <div class="row sumando-form-group">
+                <div class="col-sm-1 sumando-bg-orange group-name letranegrita">Desde</div>
+                <div class="col-sm-10 group-controls padding-left-0 padding-right-0 sumando-well-white">
+                    <div class="form-group ">
+
+                        <div class="sumando-dropdown-account">
+                            <button style="width: 100% !important; border:0px !important;" class="letrabtn btn-default btn-block dropdown-toggle fondoblanco" type="button">
+                    <table width="100%" class="letranegrita">
+                      <tr>
+                        <td align="left"  width="40%" >Nombre <strong>
+                            <label id="nombreCliente">
+                            </label>
+                          </strong>
+                        </td>
+                        <td align="left" width="40%">
+                          <strong>
+                            <label id="saldoDisponible">$</label> 
+                          </strong>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="left" >Cuenta  <label name="numeroCuenta" id="numeroCuenta">
+                          </label>
+                        </td>
+                        <td align="left">Saldo Disponible
+                        </td>
+                      </tr>
+                    </table>
+                  </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row sumando-form-group letranegrita">
+                <div class="col-sm-1 sumando-bg-red group-name">
+                    Para
+                </div>
+                <div class="col-lg-10 sumando-well-white">
+                    <div class="row form-group">
+                        <div class="col-lg-3">
+                            <label class="control-label col-lg-10">Selecciona un operador de telefon&iacute;a celular</label>
+                        </div>
+                        <!-- <div id="atributo" class="col-lg-2 "> -->
+                        <div id="carriersDiv" class="row col-lg-8" style="height:60px; width:1200px;">
+                            <input type="hidden" id="carrier" name="carrier" required/>
+                            <div class="Telcel col-lg-2" onclick='TelcelImporte()'><img src="./assets/img/7000.png" style="display: inline-block;float: left;" class="imagenTelcel compTelefonica" /></div>
+                            <div class="Movistar col-lg-2" onclick='movistarImporte()'><img src="./assets/img/11000.png" style="display: inline-block;float: left;" class="imagenMovistar compTelefonica" /></div>
+                            <div class="Unefon col-lg-2" onclick='unefonImporte()'><img src="./assets/img/5000.png" style="display: inline-block;float: left;" class="imagenUnefon compTelefonica" /></div>
+                            <div class="Iusacell col-lg-2" onclick='iusacellImporte()'><img src="./assets/img/6000.png" style="display: inline-block;float: left;" class="imagenIusacell compTelefonica" /></div>
+                            <!-- <div class="Nextel"><img src="./images/carriers/nextel.png"  style="display: inline-block;float: left; height:50px; width:100px;"/></div> -->
+                        </div>
+
+                        <style>
+                            .disabledbutton {
+                                pointer-events: none;
+                                opacity: 0.4;
+                            }
+                        </style>
+
+                    </div>
+                    <div class="row padding-InFieldset">
+                        <label style="width: 8.3%;" class="col-lg-2 control-label">Monto</label>
+                        <div class="col-lg-10 amount-list">
+                            <input type="hidden" name="amount" id="amount" placeholder="Monto" required/>
+                            <div id="botonMontos" style="display:none; ">
+                                <div id="muestraMontos" name="muestraMontos" class="btn-group" role="group">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- fin hola mundo -->
+
+
+
+                    <div class="row padding-InFieldset amount-list">
+                        <label class="col-sm-2 control-label">Tel&eacute;fono</label>
+
+                        <div class="col-lg-10">
+                            <input id="telefono" name="telefono" type="text" maxlength="10" class="input-whidth form-control amount input-lg" />
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <label class="col-sm-2 control-label">Correo a notificar</label>
+
+                        <div class="col-sm-10">
+                            <input id="email" name="email" type="text" class="input-whidth form-control input-lg" placeholder="" maxlength="60" />
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row actions-form-group text-right" style="margin:30px 20px 0px 0px;">
+                <div class="col-lg-6"></div>
+                <div class="col-lg-4">
+                    <button class="btn btn-lg " onClick="currentPage.loadMenu();">Regresar</button>
+                </div>
+                <div class="col-lg-1">
+                    <button class="btn btn-danger btn-lg" onclick="onConfirmacionTiempoAire();">Continuar</button>
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Modal -->
+        <!--hasta aqui revise fade-->
+        <div class="modal fade " id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Confirma tu compra de tiempo aire</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <ul class="list-group">
+                            <li class="list-group-item"><strong><label>Operador:</label></strong>
+                                <label id="carrierConfirmar"></label>
+                            </li>
+                            <li class="list-group-item"><strong><label>Importe:</label></strong>
+                                <label id="montoConfirmar"></label>
+                            </li>
+                            <li class="list-group-item"><strong><label>N&uacute;mero de celular:</label></strong>
+                                <label id="telefonoConfirmar"></label>
+                            </li>
+                            <li class="list-group-item"><strong><label>Correo:</label></strong>
+                                <label id="confirMail"></label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer ">
+                        <button type="button" class="btn btn-lg letranegrita" data-dismiss="modal">Cancelar</button>
+                        <button type="button" onClick="onTransfer()" class="btn btn-primary btn-lg letranegrita" style="margin:0px 20px 0px 0px;">Confirmar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="uiv-animate" ui-view></div>
+
+        <div id="modalErrorMessage" class="modal fade" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-error">
+                <div class="modal-content">
+                    <div class="modal-body text-center">
+                        <p>
+                            <label id="errorMensaje"></label>
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onClick="currentPage.loadMenu();">Cerrar</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+    </div>
+</div>
+<!-- Modal End here-->
