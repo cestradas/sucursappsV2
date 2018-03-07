@@ -1,0 +1,149 @@
+<h2 class="text-center">Pago de servicios</h2>
+<form novalidate name="currentForm">
+  <fieldset>
+    <div class="row sumando-form-group ">
+      <div class="col-lg-12 group-controls sumando-bg-white">
+        <div class="row text-center">
+          <img payee-logo ng-src="assets/images/payee_{{ command.payee.idFacturador }}.png" width="150px" alt="{{ command.payee.descripcion }}">
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Cuenta origen</label>
+
+          <div class="col-sm-10">
+            <input type="text" class="form-control input-lg" ng-model="command.consultaSaldosBXI.numeroCuenta" readonly>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="form-group" ng-if="payeeDetail.reciboPago.rUn != '00' && payeeDetail.reciboPago.rUnN" ng-class="{
+                      'has-error':  currentForm.ref01.$invalid && currentForm.ref01.$dirty,
+                      'has-success': currentForm.ref01.$valid}">
+          <label class="col-sm-2 control-label">{{payeeDetail.reciboPago.rUnN}}</label>
+
+          <div class="col-sm-10">
+            <input type="text" class="form-control input-lg" ng-model="command.ref01" name="ref01" ng-required="true" ng-payee-field-validator="{{payeeDetail.reciboPago.rUn}}" />
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="form-group" ng-if="payeeDetail.reciboPago.rDo != '00' && payeeDetail.reciboPago.rDoN" ng-class="{
+                      'has-error':  currentForm.ref02.$invalid && currentForm.ref02.$dirty,
+                      'has-success': currentForm.ref02.$valid}">
+          <label class="col-sm-2 control-label">{{payeeDetail.reciboPago.rDoN}}</label>
+
+          <div class="col-sm-10">
+            <input type="text" class="form-control input-lg" ng-model="command.ref02" name="ref02" ng-payee-field-validator="{{payeeDetail.reciboPago.rDo}}" />
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="form-group" ng-if="payeeDetail.reciboPago.rTr != '00' && payeeDetail.reciboPago.rTrN" ng-class="{
+                      'has-error':  currentForm.ref03.$invalid && currentForm.ref03.$dirty,
+                      'has-success': currentForm.ref03.$valid}">
+          <label class="col-sm-2 control-label">{{payeeDetail.reciboPago.rTrN}}</label>
+
+          <div class="col-sm-10">
+            <input type="text" class="form-control input-lg" ng-model="command.ref03" name="ref03" ng-payee-field-validator="{{payeeDetail.reciboPago.rTr}}" />
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="form-group" ng-if="payeeDetail.reciboPago.rCu != '00' && payeeDetail.reciboPago.rCuN" ng-class="{
+                      'has-error':  currentForm.ref04.$invalid && currentForm.ref04.$dirty,
+                      'has-success': currentForm.ref04.$valid}">
+          <label class="col-sm-2 control-label">{{payeeDetail.reciboPago.rCuN}}</label>
+
+          <div class="col-sm-10">
+            <input type="text" class="form-control input-lg" ng-model="command.ref04" name="ref04" ng-payee-field-validator="{{payeeDetail.reciboPago.rCu}}" />
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="form-group" ng-class="{
+                      'has-error':  currentForm.dueDate.$invalid && currentForm.dueDate.$dirty,
+                      'has-success': currentForm.dueDate.$valid}">
+          <label class="col-lg-3 control-label">Fecha de vencimiento</label>
+
+          <div class="col-lg-9">
+            <input type="text" class="form-control input-lg" ng-model="command.dueDate" name="dueDate" placeholder="yyyy-mm-dd" ng-pattern="/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/" ng-required="true" invalid-popover="La fecha es invalida, la fecha debe estar en formato yyyy-mm-dd. Ejemplo: 2015-10-21."
+            invalid-popover-placement="auto" />
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div ng-class="{
+                      'has-error':  currentForm.amount.$invalid && currentForm.amount.$dirty,
+                      'has-success': currentForm.amount.$valid}">
+          <label for="amount" class="col-md-2 col-lg-2 control-label">Importe</label>
+
+          <div class="col-md-10 col-lg-10">
+            <input name="amount" id="amount" type="text" step="0.01" currency ng-required="true" class="form-control amount input-lg" ng-model="command.amount" ng-min="1" ng-max="7000" invalid-popover="Solo se admite numeros y un maximo de 7000." invalid-popover-placement="auto"
+            />
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="form-group" ng-class="{
+                      'has-error':  currentForm.email.$invalid && currentForm.email.$dirty,
+                      'has-success': currentForm.email.$valid}">
+          <label class="col-md-2 col-lg-2 control-label">Correo a notificar</label>
+
+          <div class="col-md-10 col-lg-10">
+            <input name="email" type="text" class="form-control input-lg" placeholder="" ng-model="command.email" ng-required="true" ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" maxlength="60" invalid-popover="Debe escribir una cuenta de correo valida."
+            invalid-popover-placement="auto" />
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <br/>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-lg" ui-sref="mca.payment.service.init">Regresar</button>
+      <button type="button" class="btn btn-primary btn-lg" ng-click="onValidatePayment()" ng-disabled="currentForm.$invalid">
+        Confirmar
+      </button>
+    </div>
+  </fieldset>
+</form>
+<!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-body">
+        <h4>Confirmar pago</h4>
+
+        <ul class="list-group">
+          <li class="list-group-item">
+            <label>Cuenta origen:</label>
+            {{ command.consultaSaldosBXI.numeroCuenta }}
+          </li>
+          <li class="list-group-item">
+            <label>Servicio:</label>
+            {{ validation.PrecPaCon.chF }}
+          </li>
+          <li class="list-group-item">
+            <label>Importe neto:</label>
+            {{ validation.PrecPaCon.mNP | currency }}
+          </li>
+          <li class="list-group-item">
+            <label>Iva:</label>
+            {{ validation.PrecPaCon.iva | currency }}
+          </li>
+          <li class="list-group-item">
+            <label>Comision:</label>
+            {{ validation.PrecPaCon.coC | currency }}
+          </li>
+          <li class="list-group-item">
+            <label>Importe total:</label>
+            {{ validation.PrecPaCon.toP | currency }}
+          </li>
+          <li class="list-group-item">
+            <label>Correo:</label>
+            {{ command.email }}
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary btn-lg" ng-click="onProcessPayment(command.password);" ng-disabled="disableSubmit">
+          Confirmar
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

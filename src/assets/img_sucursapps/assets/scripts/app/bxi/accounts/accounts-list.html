@@ -1,0 +1,112 @@
+<h2 class="text-center">Mis cuentas</h2>
+<div role="tabpanel">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs sumando-nav-tabs" role="tablist">
+    <li role="presentation" class="active">
+      <a data-target="#debit" aria-controls="home" role="tab" data-toggle="tab">Cuentas de dep&oacutesito</a>
+    </li>
+    <li role="presentation">
+      <a data-target="#credit" aria-controls="profile" role="tab" data-toggle="tab">Cuentas de cr&eacutedito</a>
+    </li>
+    <li role="presentation">
+      <a data-target="#invest" aria-controls="messages" role="tab" data-toggle="tab">Cuentas de
+                inversi&oacuten</a>
+    </li>
+  </ul>
+
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="debit">
+      <div ng-repeat="account in data_chpl | startFrom:currentPageDep*pageSize | limitTo:pageSize" class="account-summary-item">
+        <div class=" sumando-bg-white">
+          <div class="col-lg-5 margin-top-15">
+            <strong>{{ account.accal }}</strong>
+            <br/> Cuenta {{ account.acccn | accountmask }}
+
+          </div>
+          <div class="col-lg-4 text-right margin-top-15">
+            {{ ::account.accab | currency }}
+            <br/> Saldo Disponible
+          </div>
+          <div class="col-lg-3 text-right padding-right-0">
+            <img src="assets/images/bt_detalle.png" ng-click="viewDetail(account, 1)" />
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+      <div class="row text-center accounts-pager">
+        <a ng-click="currentPageDep=currentPageDep-1" ng-hide="currentPageDep == 0">
+          <span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>
+        </a>
+        {{currentPageDep+1}}/{{numberOfPagesDep()}}
+        <a ng-hide="currentPageDep >= data_chpl.length/pageSize - 1" ng-click="currentPageDep=currentPageDep+1">
+          <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span>
+        </a>
+      </div>
+
+    </div>
+    <div role="tabpanel" class="tab-pane" id="credit">
+      <div ng-repeat="account in accounts.crpl | startFrom:currentPageCr*pageSize | limitTo:pageSize" class="account-summary-item">
+        <div class=" sumando-bg-white">
+          <div class="col-lg-5 margin-top-15">
+            <strong>{{ account.accal }}</strong>
+            <br/> Cuenta {{ account.acccn | accountmask }}
+          </div>
+          <div class="col-lg-4 text-right margin-top-15">
+            {{ ::account.accab | currency }}
+            <br/> Saldo Disponible
+          </div>
+          <div class="col-lg-3 text-right padding-right-0">
+            <img src="assets/images/bt_detalle.png" ng-click="viewDetail(account, 0)" />
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+      <div class="row text-center accounts-pager">
+        <a ng-click="currentPageCr=currentPageCr-1" ng-hide="currentPageCr == 0">
+          <span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>
+        </a>
+        {{currentPageCr+1}}/{{numberOfPagesCr()}}
+        <a ng-hide="currentPageCr >= accounts.crpl.length/pageSize - 1" ng-click="currentPageCr=currentPageCr+1">
+          <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <!-- crpl,crdl -->
+    </div>
+    <div role="tabpanel" class="tab-pane" id="invest">
+      <div ng-repeat="account in data_copl | startFrom:currentPageCo*pageSize | limitTo:pageSize" class="account-summary-item">
+        <div class=" sumando-bg-white">
+          <div class="col-lg-5 margin-top-15">
+            <strong>{{ account.accal }}</strong>
+            <br/> Cuenta {{ account.acccn | accountmask }}
+
+          </div>
+          <div class="col-lg-4 text-right margin-top-15">
+            {{ ::account.accab | currency }}
+            <br/> Saldo Disponible
+          </div>
+          <div class="col-lg-3 text-right padding-right-0">
+            <img src="assets/images/bt_detalle.png" ng-click="viewDetail(account, 0)" />
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+      <div class="row text-center accounts-pager">
+        <a ng-click="currentPageCo=currentPageCo-1" ng-hide="currentPageCo == 0"><span
+                        class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>
+                </a> {{currentPageCo+1}}/{{numberOfPagesCo()}}
+        <a ng-hide="currentPageCo >= data_copl.length/pageSize - 1" ng-click="currentPageCo=currentPageCo+1"><span class="glyphicon glyphicon-circle-arrow-right"
+                                                                  aria-hidden="true"></span>
+                </a>
+      </div>
+
+      <!-- copl,socl,codl -->
+    </div>
+  </div>
+  <div class="row actions-form-group text-right padding-right-5">
+    <button class="btn btn-default btn-lg" style="margin-right: 15px;" ui-sref="bxi.menu2">Regresar</button>
+  </div>
+</div>

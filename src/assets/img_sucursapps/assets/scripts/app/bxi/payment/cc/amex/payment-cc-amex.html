@@ -1,0 +1,30 @@
+<div class="uiv-animate" ui-view></div>
+
+<div id="modalErrorMessage" class="modal fade" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-error">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close bxi-red" data-dismiss="modal" aria-label="Close">
+          <img src="assets/images/close-32-red.png" />
+        </button>
+        <h4 class="modal-title">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    Hubo un problema al efectuar la operacion
+                </h4>
+      </div>
+      <div class="modal-body">
+        <p>El problema ha sido notificado a soporte</p>
+
+        <p>
+          <small>{{errorMessage}}</small>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

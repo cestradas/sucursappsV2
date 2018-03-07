@@ -1,0 +1,125 @@
+body{
+     
+    padding-top: 0px !important;
+    font-family: Gotham-Medium,'Roboto Regular' !important;
+    font-size: 18px !important;
+    line-height: 1.42857143 !important;
+}
+
+h2, h3, h4, h5 {
+    color: #B01657 !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.h2, h2 {
+    font-size: 38px !important;
+}
+
+.h6,h1,h2,h3,h4,h5,h6{
+    font-family:inherit !important;
+    font-weight:500 !important;
+    line-height:1.1 !important;
+    color:inherit;
+}
+button, select {
+    text-transform: none !important;
+}
+
+
+button {
+    overflow: visible !important;
+}
+
+.btn-group-lg>.btn, .btn-lg {
+    padding: 10px 16px;
+    font-size: 23px !important;
+    line-height: 1.3333333 !IMPORTANT;
+    border-radius: 6px;
+}
+
+/*can add global styles to this file, and also import other style files 
+
+body {
+    height: 100%;
+    width: 100%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+
+
+
+.home-img-carousel {
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+}
+
+.term_anim {
+    width: 250px;
+    height: 648px;
+    background: url("./assets/img/term_anim.png") left center;
+    animation: term_anim_play 2.5s steps(7) infinite;
+}
+
+@keyframes term_anim_play {
+    100%,
+    50% {
+        background-position: -1750px
+    }
+}
+
+
+
+
+.nav-img-banorte {
+    background-image: url("./assets/img/navbar_red_top_pleca.png");
+    height: 70px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+
+.menu-grid {
+    max-width: 900px;
+}
+
+.menu-mca-container {
+    width: 900px;
+    height: 550px;
+    margin: 0px auto;
+}
+
+
+
+
+.animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.fast {
+    -webkit-animation-duration: 0.4s;
+    animation-duration: 0.4s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fadeIn {
+    animation-name: fadeIn;
+}*/

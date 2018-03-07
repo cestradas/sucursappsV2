@@ -1,0 +1,58 @@
+<div ng-cloak>
+  <h2 class="text-center">Movimientos de cuenta</h2>
+
+  <div class="row">
+    <div class="col-sm-9">
+      <div class="row">
+        <div class="col-lg-6">
+          <h4>Selecciona una opción</h4>
+        </div>
+        <div class="col-lg-6 text-right">
+          <select class="form-control input-lg" id="account-cicle" ng-model="account_cicle" ng-change="updateTransactions(account_cicle)" ng-options="value.id as value.name for value in [{ id: 0, name: 'Mes Actual' }, { id: 1, name: 'Mes Anterior' }]">
+            <!--<option value="0" selected="selected">Mes Actual</option>
+                        <option value="1">Mes Anterior</option> -->
+          </select>
+        </div>
+      </div>
+      <div class="row padding-top-15">
+        <div class="col-lg-12">
+          <table class="table table-striped accounts-table">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Descripción</th>
+                <th>Importe</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="t in account_transaccions  | startFrom:currentPageDet*pageSize_det | limitTo:pageSize_det">
+                <td>{{t.date | date:'dd/MM/yyyy'}}</td>
+                <td>{{t.desc}}</td>
+                <td ng-show="t.wdra!=0">{{-t.wdra | currency:"-$"}}</td>
+                <td ng-show="t.depo!=0">{{t.depo | currency}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="row text-center accounts-pager">
+            <a ng-click="currentPageDet=currentPageDet-1" ng-hide="currentPageDet == 0">
+              <span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>
+            </a>
+            <a ng-hide="currentPageDet >= numberOfPagesDet()" ng-click="currentPageDet=currentPageDet+1">
+              <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3 panel-account-detail ">
+      <h4>Tu cuenta</h4>
+      <ul class="list-group">
+        <li class="list-group-item" ng-repeat="item in account_balance">
+          <strong>{{ ::item.vkey }}</strong>
+          <br/> {{ ::item.vval }}
+          <br/>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

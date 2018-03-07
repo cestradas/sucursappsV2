@@ -1,0 +1,110 @@
+<div class="container">
+    <h2>Agregar beneficiario</h2>
+    <h4>Utiliza el teclado para llenar los siguientes campos</h4>
+    <br/>
+
+    <form novalidate name="currentForm" method="post" autocomplete="off">
+        <div class="row kiosk-form-container">
+
+
+            <div class="row">
+
+                <div class="form-group col-lg-3 col-md-3" ng-class="{
+                      'has-error':  currentForm.tipoVivienda.$invalid && currentForm.tipoVivienda.$dirty,
+                      'has-success': currentForm.tipoVivienda.$valid}">
+                    <label class="control-label align-right klabel">Tipo de vivienda</label>
+                    <select name="tipoVivienda" class="form-control input-lg" ng-model="command.tipoVivienda"
+                            ng-required="true">
+                        <option>Seleccione una opcion</option>
+                        <option value="1">Casa</option>
+                        <option value="2">Edificio</option>
+                        <option value="3">Apartamento</option>
+                        <option value="4">Unidad habitacional</option>
+                        <option value="5">Manzana</option>
+                        <option value="6">Callejon</option>
+                        <option value="7">Fraccionamiento</option>
+                        <option value="8">Mercado</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-lg-4 col-md-4" ng-class="{
+                      'has-error':  currentForm.nombreCalle.$invalid && currentForm.nombreCalle.$dirty,
+                      'has-success': currentForm.nombreCalle.$valid}">
+                    <label class="control-label align-right klabel">Calle</label>
+                    <input name="nombreCalle" type="text" class="form-control input-lg" placeholder=""
+                           ng-model="command.nombreCalle"
+                           ng-required="true"
+                           maxlength="60"/>
+                </div>
+
+                <div class="form-group col-lg-2 col-md-2" ng-class="{
+                      'has-error':  currentForm.numeroCalle.$invalid && currentForm.numeroCalle.$dirty,
+                      'has-success': currentForm.numeroCalle.$valid}">
+                    <label class="control-label align-right klabel">Numero</label>
+                    <input name="numeroCalle" type="text" class="form-control input-lg" placeholder=""
+                           ng-model="command.numeroCalle"
+                           ng-required="true"
+                           maxlength="60"/>
+                </div>
+
+                <div class="form-group col-lg-3 col-md-3" ng-class="{
+                      'has-error':  currentForm.codigoPostal.$invalid && currentForm.codigoPostal.$dirty,
+                      'has-success': currentForm.codigoPostal.$valid}">
+                    <label class="control-label align-right klabel">Codigo postal</label>
+                    <input name="codigoPostal" type="number" class="form-control input-lg" placeholder=""
+                           ng-model="command.codigoPostal"
+                           ng-required="true"
+                           maxlength="6"/>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="form-group col-lg-4 col-md-4" ng-class="{
+                      'has-error':  currentForm.descripcionColonia.$invalid && currentForm.descripcionColonia.$dirty,
+                      'has-success': currentForm.descripcionColonia.$valid}">
+                    <label class="control-label align-right klabel">Colonia</label>
+                    <input name="descripcionColonia" type="text" class="form-control input-lg" placeholder=""
+                           ng-model="command.descripcionColonia"
+                           ng-required="true"
+                           maxlength="60"/>
+                </div>
+
+                <div class="form-group col-lg-4 col-md-4" ng-class="{
+                      'has-error':  currentForm.codigoEstado.$invalid && currentForm.codigoEstado.$dirty,
+                      'has-success': currentForm.codigoEstado.$valid}">
+                    <label class="control-label align-right klabel">Estado</label>
+                    <select name="codigoEstado" class="form-control input-lg" ng-model="command.estado_seleccionado"
+                            ng-required="true" ng-options="item.nombre for item in estados">
+                        <option value="">Seleccione una opcion</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-lg-4 col-md-4" ng-class="{
+                      'has-error':  currentForm.descripDelegacion.$invalid && currentForm.descripDelegacion.$dirty,
+                      'has-success': currentForm.descripDelegacion.$valid}">
+                    <label class="control-label align-right klabel">Municipio</label>
+                    <select name="codigoDelegacion" class="form-control input-lg" ng-model="command.municipio_seleccionado"
+                            ng-required="true" ng-options="item.nombre for item in command.estado_seleccionado.municipios.municipio">
+                        <option value="">Seleccione una opcion</option>
+                    </select>
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+
+    </form>
+</div>
+
+<div class="kiosk-actions">
+    <div class="row">
+        <a class="btn btn-kiosk btn-kiosk-next pull-right" ng-click="onAddGuardarBeneficiarioClick()"
+           ng-disabled="currentForm.$invalid">GUARDAR
+            BENEFICIARIO</a>
+        <a class="btn btn-kiosk btn-kiosk-back pull-left" ui-sref="kiosk.mc.benef.edit">REGRESAR</a>
+    </div>
+</div>

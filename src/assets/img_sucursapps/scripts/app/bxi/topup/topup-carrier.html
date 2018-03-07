@@ -1,0 +1,152 @@
+<h2 class="text-center">Comprar tiempo aire</h2>
+<form name="currentForm1" >
+  <fieldset>
+    <div class="row sumando-form-group">
+      <div class="col-sm-1 sumando-bg-orange group-name">
+        Desde
+      </div>
+      <div class="col-sm-11 group-controls col-rem-pad-right-left">
+        <div class="form-group" ng-class="{
+          'has-error':  currentForm1.originAccount.$invalid && currentForm1.originAccount.$dirty,
+          'has-success': currentForm1.originAccount.$valid}">
+          <input type="hidden" name="originAccount" ng-model="command.originAccount" required/>
+
+          <div class="dropdown sumando-dropdown-account">
+            <button class="btn btn-default btn-block dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <table ng-if="command.originAccount" width="100%">
+                <tr>
+                  <td align="left" width="40%">
+                    <strong>{{ command.originAccount.accal }}</strong>
+                  </td>
+                  <td align="left" width="40%">
+                    <strong>{{ command.originAccount.accab | currency }}
+                    </strong>
+                  </td>
+                  <td rowspan="2" width="20%" class="dropdown-caret">
+                    <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="left">Cuenta {{ command.originAccount.acccn | accountmask }}</td>
+                  <td align="left">Saldo Disponible</td>
+                </tr>
+              </table>
+              <table ng-if="!command.originAccount" width="100%">
+                <tr>
+                  <td align="left" rowspan="2">Selecciona una cuenta origen...</td>
+                  <td width="10%" rowspan="2" class="dropdown-caret">
+                    <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                  </td>
+                </tr>
+              </table>
+            </button>
+            <ul class="dropdown-menu btn-block" aria-labelledby="dropdownMenu1">
+              <li ng-repeat="account in accounts" data-toggle="dropdown" ng-click="setSelectedAccount(account)">
+                <a href="javascript:void(0)">{{ account.accal }}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row sumando-form-group">
+      <div class="col-sm-1 sumando-bg-orange group-name ">
+        Para
+      </div>
+      <div class="col-sm-11 sumando-bg-white group-controls ">
+        <div class="row form-group carrier-list">
+          <label class="col-lg-2 control-label">Selecciona un operador de telefonía celular</label>
+
+          <div id="atributo" class="col-lg-2 " ng-repeat="carrier in carriers" carrier-vkey="{{ carrier.vkey }}">
+            <input type="hidden" name="carrier" ng-model="command.topupSelected" required/>
+            <img src="assets/images/carriers_{{ carrier.vkey }}.png" ng-click="onCarrierClick(carrier, $event);" width="100%" alt="{{ carrier.vval }}" />
+          </div>
+        </div>
+        <div class="row form-group " ng-if="amounts">
+          <label class="col-lg-2 control-label">Monto</label>
+
+          <div class="col-lg-10 amount-list">
+            <input type="hidden" name="amount" ng-model="command.amount" required/>
+            <button class="btn btn-lg btn-carrier carrier-amount-not-select" ng-repeat="amount in amounts" ng-click="onMontoClick(amount, $event);">{{ amount | currency:"$":0 }}
+            </button>
+          </div>
+        </div>
+        <div class="row form-group amount-list" ng-if="amounts" ng-class="{
+          'has-error':  currentForm.phoneNumber.$invalid && currentForm.phoneNumber.$dirty,
+          'has-success': currentForm.phoneNumber.$valid}">
+          <label class="col-lg-2 control-label">Tel&eacutefono</label>
+
+          <div class="col-lg-10">
+            <input type="tel" name="phoneNumber" ng-model="command.phoneNumber" class="form-control input-lg" required maxlength="10" ng-pattern="/^[0-9 ]{10}$/" />
+          </div>
+        </div>
+        <div class="row form-group " ng-if="amounts">
+          <label class="col-lg-2 control-label">Tel&eacutefonos Frecuentes</label>
+
+          <div class="col-lg-10 phone-list">
+            <button class="btn" ng-repeat="item in phones" ng-click="onTelefonoClick(item, $event);">
+              {{ item.trimmedAlias }}
+              <br/> {{ item.number }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row actions-form-group text-right">
+      <button class="btn btn-lg" ui-sref="bxi.menu2">Regresar</button>
+      <button class="btn btn-primary btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm1.$invalid">
+        Continuar
+      </button>
+    </div>
+  </fieldset>
+</form>
+<!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form novalidate name="currentForm" method="post" autocomplete="off">
+        <div class="modal-body">
+          <h4>Confirma tu compra de tiempo aire</h4>
+
+          <ul class="list-group">
+            <li class="list-group-item">
+              <label>Cuenta origen:</label>
+              {{ command.originAccount.accal }}
+            </li>
+            <li class="list-group-item">
+              <label>Operador:</label>
+              {{ command.topupSelected.vval }}
+            </li>
+            <li class="list-group-item">
+              <label>Número de celular:</label>
+              {{ command.phoneNumber }}
+            </li>
+            <li class="list-group-item">
+              <label>Importe:</label>
+              {{ command.amount | currency }}
+            </li>
+          </ul>
+          <div class="form-group" ng-show="account.uty=='A' && account.ist">
+            <label>Numero de seguridad</label>
+            <input type="text" class="form-control input-lg" ng-model="challenge.rcg" readonly>
+          </div>
+          <div class="form-group" ng-class="{
+            'has-error':  currentForm.password.$invalid && currentForm.password.$dirty,
+            'has-success': currentForm.password.$valid}">
+            <label ng-show="account.uty=='A' && account.ist">Captura tu contraseña y código dinámico Token
+            </label>
+            <label ng-show="account.uty=='A' && !account.ist">Captura tu contraseña y token</label>
+            <label ng-show="account.uty=='B' && !account.ist">Captura tu contraseña</label>
+            <input name="password" type="password" class="form-control input-lg" ng-model="command.code" ng-required="true">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn  btn-lg" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary  btn-lg" ng-click="onProcessTransfer();" ng-disabled="currentForm.$invalid">
+            Confirmar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

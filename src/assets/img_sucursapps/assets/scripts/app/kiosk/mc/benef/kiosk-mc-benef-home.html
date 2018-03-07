@@ -1,0 +1,17 @@
+<div class="container">
+  <h2>Actualizar beneficiarios</h2>
+  <h4>Selecciona un beneficiario que deseas modificar o eliminar</h4>
+
+  <svg chart-three height="400" width="800" chart-data="accountBeneficiaries.datosBeneficiarioArray" on-click="onEditarBeneficiarioClick(data)"/>
+
+</div>
+
+<div class="kiosk-actions">
+  <div class="row">
+    <a class="btn btn-kiosk btn-kiosk-next pull-right" ng-click="onBeneficiariosAgregarClick()">AGREGAR BENEFICIARIO</a>
+  </div>
+  <div class="row ">
+    <a class="btn btn-kiosk btn-kiosk-back pull-left" ui-sref="kiosk.mc.home">REGRESAR</a>
+    <a class="btn btn-kiosk btn-kiosk-next pull-right"  >QUIERO REALIZAR OTRA TRANSACCION</a>
+  </div>
+</div>

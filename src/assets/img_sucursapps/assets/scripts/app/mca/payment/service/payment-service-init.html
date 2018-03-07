@@ -1,0 +1,54 @@
+<h2 class="text-center">Pago de servicios</h2>
+<form novalidate name="currentForm">
+  <fieldset>
+    <div class="row sumando-form-group">
+      <div class="col-sm-1 sumando-bg-orange group-name">
+        Desde
+      </div>
+      <div class="col-sm-11 group-controls padding-left-0 padding-right-0">
+        <div class="form-group">
+
+          <div class="sumando-dropdown-account">
+            <button class="btn btn-default btn-block dropdown-toggle" type="button">
+              <table width="100%">
+                <tr>
+                  <td align="left" width="40%">
+                    <strong>{{ command.datosPersonales.nombreCliente }}
+                    </strong>
+                  </td>
+                  <td align="left" width="40%">
+                    <strong>{{ command.consultaSaldosBXI.saldoDisponible | currency }}
+                    </strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="left">Cuenta {{ command.consultaSaldosBXI.numeroCuenta }}</td>
+                  <td align="left">Saldo Disponible</td>
+                </tr>
+              </table>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row sumando-form-group">
+      <div class="col-lg-1 sumando-bg-red group-name">
+        Para
+      </div>
+      <div class="col-lg-11 group-controls padding-left-0 padding-right-0">
+        <div class="input-group" ng-class="{
+          'has-error':  currentForm.serviceSelected.$invalid && currentForm.serviceSelected.$dirty,
+          'has-success': currentForm.serviceSelected.$valid}">
+          <autocomplete ng-model="command.payeeSelected" data="facturadores_list" attr-placeholder="Escriba el nombre del servicio"></autocomplete>
+        </div>
+      </div>
+    </div>
+    <div class="row actions-form-group text-right">
+      <button class="btn btn-lg" ui-sref="mca.menu">Regresar</button>
+      <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid">
+        Continuar
+      </button>
+    </div>
+  </fieldset>
+</form>

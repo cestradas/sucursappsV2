@@ -1,0 +1,6 @@
+<ul class="list-group">
+  <li class="list-group-item" ng-repeat="item in speiItems" ng-click="onViewDetail(item)">
+    <strong>{{item.cfn}}</strong>
+    <br> {{ item.apds | date:'dd/MM/yyyy hh:mm:ss a' }}
+  </li>
+</ul>

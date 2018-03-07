@@ -1,0 +1,139 @@
+<h2 class="text-center">Comprar tiempo aire</h2>
+<form name="currentForm" novalidate>
+    <fieldset>
+        <div class="row sumando-form-group">
+            <div class="col-sm-1 sumando-bg-orange group-name">
+                Desde
+            </div>
+            <div class="col-sm-11 group-controls padding-left-0 padding-right-0">
+                <div class="form-group">
+
+                    <div class="sumando-dropdown-account">
+                        <button class="btn btn-default btn-block dropdown-toggle" type="button"
+                                >
+                            <table width="100%">
+                                <tr>
+                                    <td align="left" width="40%"><strong>{{ command.datosPersonales.nombreCliente
+                                        }}</strong></td>
+                                    <td align="left" width="40%"><strong>{{ command.consultaSaldosBXI.saldoDisponible |
+                                        currency
+                                        }}</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">Cuenta {{ command.consultaSaldosBXI.numeroCuenta }}</td>
+                                    <td align="left">Saldo Disponible</td>
+                                </tr>
+                            </table>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row sumando-form-group">
+            <div class="col-sm-1 sumando-bg-red group-name">
+                Para
+            </div>
+            <div class="col-lg-11 sumando-well-white">
+                <div class="row form-group carrier-list" ng-class="{
+                            'has-error':  currentForm.carrier.$invalid && currentForm.carrier.$dirty,
+                            'has-success': currentForm.carrier.$valid}">
+                    <label class="col-lg-2 control-label">Selecciona un operador de telefonía celular</label>
+
+                    <div id="atributo" class="col-lg-2 " ng-repeat="carrier in carriers.catEmpresaType"
+                         carrier-idCatEmpresa="{{ carrier.idCatEmpresa }}">
+                        <input type="hidden" name="carrier" ng-model="command.topupSelected" ng-required="true"/>
+                        <img src="assets/images/carriers_{{ carrier.idCatEmpresa }}.png"
+                             ng-click="onCarrierClick(carrier, $event);" width="100%" alt="{{ carrier.nombre }}"/>
+                    </div>
+                </div>
+                <div class="row form-group " ng-if="amounts" ng-class="{
+                            'has-error':  currentForm.amount.$invalid && currentForm.amount.$dirty,
+                            'has-success': currentForm.amount.$valid}">
+                    <label class="col-lg-2 control-label">Monto</label>
+
+                    <div class="col-lg-10 amount-list">
+                        <input type="hidden" name="amount" ng-model="command.amount" ng-required="true"/>
+                        <button class="btn btn-lg btn-carrier carrier-amount-not-select" ng-repeat="amount in amounts"
+                                ng-click="onMontoClick(amount, $event);">{{ amount.importeTiempoAire | currency:"$":0 }}
+                        </button>
+                    </div>
+                </div>
+                <div class="row form-group amount-list" ng-class="{
+                            'has-error':  currentForm.phoneNumber.$invalid && currentForm.phoneNumber.$dirty,
+                            'has-success': currentForm.phoneNumber.$valid}">
+                    <label class="col-lg-2 control-label">Tel&eacutefono</label>
+
+                    <div class="col-lg-10">
+                        <input name="phoneNumber" type="text"
+                               ng-pattern="/^[0-9]{10}$/"
+                               maxlength="10"
+                               class="form-control amount input-lg" ng-model="command.phoneNumber"
+                               ng-required="true"
+                               invalid-popover="Solo se admite numeros y una longitud de 10 caracteres."
+                               invalid-popover-placement="auto"
+                                />
+                    </div>
+                </div>
+                <div class="row form-group" ng-class="{
+                      'has-error':  currentForm.email.$invalid && currentForm.email.$dirty,
+                      'has-success': currentForm.email.$valid}">
+                    <label class="col-sm-2 control-label">Correo a notificar</label>
+
+                    <div class="col-sm-10">
+                        <input name="email" type="text" class="form-control input-lg" placeholder=""
+                               ng-model="command.email" ng-required="true"
+                               ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/"
+                               maxlength="60"
+                               invalid-popover="Debe escribir una cuenta de correo valida."
+                               invalid-popover-placement="auto"/>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row actions-form-group text-right">
+            <button class="btn btn-lg" ui-sref="mca.menu">Regresar</button>
+            <button class="btn btn-primary btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid">
+                Continuar
+            </button>
+        </div>
+    </fieldset>
+</form>
+<!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4>Confirma tu compra de tiempo aire</h4>
+
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <label>Operador:</label>
+                        {{ command.topupSelected.nombre }}
+                    </li>
+                    <li class="list-group-item">
+                        <label>Número de celular:</label>
+                        {{ command.phoneNumber }}
+                    </li>
+                    <li class="list-group-item">
+                        <label>Importe:</label>
+                        {{ command.amount.importeTiempoAire | currency:"$":0 }}
+                    </li>
+                    <li class="list-group-item">
+                        <label>Correo:</label>
+                        {{ command.email }}
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn  btn-lg" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary  btn-lg" ng-click="onProcessTransfer();" ng-disabled="disableSubmit">
+                    Confirmar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

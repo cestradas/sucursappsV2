@@ -1,0 +1,80 @@
+<h2 class="text-center">Pago de servicios</h2>
+<form novalidate name="currentForm">
+  <fieldset>
+    <div class="row sumando-form-group">
+      <div class="col-sm-1 sumando-bg-orange group-name">
+        Desde
+      </div>
+      <div class="col-sm-11 group-controls padding-left-0 padding-right-0">
+        <div class="form-group" ng-class="{
+          'has-error':  currentForm.originAccount.$invalid && currentForm.originAccount.$dirty,
+          'has-success': currentForm.originAccount.$valid}">
+          <div class="sumando-bg-white">
+            <input type="hidden" name="originAccount" ng-model="command.originAccount" ng-required="true" />
+
+            <div class="dropdown sumando-dropdown-account">
+              <button class="btn btn-default btn-block dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <table ng-if="command.originAccount" width="100%" aria-labelledby="dropdownMenu1">
+                  <tr>
+                    <td align="left" width="40%">
+                      <strong>{{ command.originAccount.accal }}</strong>
+                    </td>
+                    <td align="left" width="40%">
+                      <strong>{{ command.originAccount.accab | currency }}
+                      </strong>
+                    </td>
+                    <td rowspan="2" width="20%" class="dropdown-caret">
+                      <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="left">Cuenta {{ command.originAccount.acccn | accountmask }}</td>
+                    <td align="left">Saldo Disponible</td>
+                  </tr>
+                </table>
+                <table ng-if="!command.originAccount" width="100%">
+                  <tr>
+                    <td align="left" rowspan="2">Seleccione una cuenta de origen...</td>
+                    <td width="10%" rowspan="2" class="dropdown-caret">
+                      <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                    </td>
+                  </tr>
+                </table>
+              </button>
+              <ul class="dropdown-menu btn-block" aria-labelledby="dropdownMenu1">
+                <li ng-repeat="account in accounts.chpl" ng-click="setSelectedAccount(account)">
+                  <a href="javascript:void(0)">{{ account.accal }}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row sumando-form-group">
+      <div class="col-lg-1 sumando-bg-orange group-name ">
+        Para
+      </div>
+      <div class="col-lg-11 group-controls padding-left-0 padding-right-0">
+        <div class="input-group" ng-class="{
+          'has-error':  currentForm.serviceSelected.$invalid && currentForm.serviceSelected.$dirty,
+          'has-success': currentForm.serviceSelected.$valid}">
+          <autocomplete ng-model="command.payeeSelected" data="main_list" attr-placeholder="Escriba el nombre del servicio"></autocomplete>
+        </div>
+      </div>
+    </div>
+    <div class="row sumando-form-group margin-top-15">
+      <div class="col-lg-11 col-lg-offset-1 payee-list-favorites">
+        <div class="col-lg-4 " ng-repeat="payee in freq | limitTo:6">
+          <img ng-src="assets/images/payees_{{ payee.payeid }}.png" ng-click="onPayeeClick(payee, $event);" width="300px" />
+        </div>
+      </div>
+    </div>
+    <div class="row actions-form-group text-right">
+      <button class="btn btn-lg" ui-sref="bxi.menu2">Regresar</button>
+      <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid">
+        Continuar
+      </button>
+    </div>
+  </fieldset>
+</form>

@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-sm-12">
+    <h2 class="text-center">Tu pago ha sido enviado</h2>
+    <ul class="list-group sumando-list-group">
+      <li class="list-group-item">
+        <strong>Servicio:</strong>
+        {{ confirmation.cyne }}
+      </li>
+      <li class="list-group-item">
+        <strong>Institucion:</strong>
+        {{ confirmation.bknm }}
+      </li>
+      <li class="list-group-item">
+        <strong>Operacion:</strong>
+        {{ confirmation.txnm }}
+      </li>
+      <li class="list-group-item">
+        <strong>Fecha de operacion:</strong>
+        {{ confirmation.txdt | date:'dd/MM/yyyy' }}
+      </li>
+      <li class="list-group-item">
+        <strong>Clave de rastreo:</strong>
+        {{ confirmation.cnno }}
+      </li>
+      <li class="list-group-item">
+        <strong>Comisión e IVA:</strong>
+        {{ confirmation.ttlx | currency }}
+      </li>
+      <li class="list-group-item">
+        <strong>Cuenta origen:</strong>
+        {{ confirmation.oacn }}
+      </li>
+      <li class="list-group-item">
+        <strong>Hora de Operación:</strong>
+        {{ confirmation.txdt | date:'hh:mm:ss a' }}
+      </li>
+      <li class="list-group-item">
+        <strong>Importe:</strong>
+        {{ amount }}
+      </li>
+    </ul>
+
+  </div>
+
+
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <button class="btn btn-primary pull-right btn-lg" ui-sref="bxi.menu2">
+      Regresar
+    </button>
+  </div>
+</div>

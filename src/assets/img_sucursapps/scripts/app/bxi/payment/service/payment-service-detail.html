@@ -1,0 +1,77 @@
+<h2 class="text-center">Pago de servicios</h2>
+<form novalidate name="currentForm">
+  <fieldset>
+    <div class="row sumando-form-group ">
+      <div class="col-lg-8  col-lg-offset-2 group-controls sumando-bg-white">
+        <div class="row text-center">
+          <img ng-src="assets/images/payee_{{ command.payee.payeid }}.png" width="150px">
+        </div>
+        <div class="form-group">
+          <label>Cuenta origen:</label>
+          <input type="text" class="form-control input-lg" ng-model="command.originAccount.accal" readonly>
+        </div>
+        <div class="form-group" ng-show="payerl.payerq" ng-repeat="payerl in payeeDetail.fact.payerl">
+          <label>{{payerl.payenm}}</label>
+          <input type="text" class="form-control input-lg" ng-model="command.customfields[payerl.payetn]" maxlength="{{payerl.payeln}}" />
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-lg" data-dismiss="modal">Cancelar</button>
+      <button type="button" class="btn btn-primary btn-lg" ng-click="onProcessPayment(command.password);" ng-disabled="currentForm.$invalid">
+        Confirmar
+      </button>
+    </div>
+  </fieldset>
+</form>
+<!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form novalidate name="currentFormModal" method="post" autocomplete="off">
+        <div class="modal-body">
+          <h4>Confirmar pago</h4>
+
+          <div class="text-center">
+            <img ng-src="assets/images/payee_{{ command.payee.payeid }}.png" width="150px" />
+          </div>
+          <ul class="list-group">
+            <li class="list-group-item">
+              <label>Cuenta origen:</label>
+              {{ command.originAccount.accal }}
+            </li>
+            <li class="list-group-item" ng-repeat="d in discount.payerd">
+              <label>{{d.vkey}}:</label>
+              {{ d.vval }}
+            </li>
+          </ul>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group" ng-class="{
+                'has-error':  currentFormModal.password.$invalid && currentFormModal.password.$dirty,
+                'has-success': currentFormModal.password.$valid}">
+                <label ng-show="account.uty=='A' && account.ist">Captura tu contraseña y código dinámico Token
+                </label>
+                <label ng-show="account.uty=='A' && !account.ist">Captura tu contraseña y token</label>
+                <label ng-show="account.uty=='B' && !account.ist">Captura tu contraseña</label>
+                <input name="password" type="password" class="form-control input-lg" ng-model="command.password" ng-required="true">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group" ng-show="account.uty=='A' && account.ist">
+                <label>Numero de seguridad:</label>
+                <input type="text" class="form-control input-lg" ng-model="challenge.rcg" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary btn-lg" ng-click="onProcessPayment(command.password);" ng-disabled="currentFormModal.$invalid">
+            Confirmar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

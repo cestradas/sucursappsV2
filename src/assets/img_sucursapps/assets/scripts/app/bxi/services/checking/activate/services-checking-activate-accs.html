@@ -1,0 +1,25 @@
+<div class="form-group" ng-class="{
+                'has-error':  currentForm.originAccount.$invalid && currentForm.originAccount.$dirty,
+                'has-success': currentForm.originAccount.$valid}">
+  <label>Cuenta Origen</label>
+  <select name="originAccount" class="form-control" ng-model="command.originAccount" ng-options="a.accal for a in ownAccounts" ng-required="true">
+    <option value="">Seleccione una cuenta</option>
+  </select>
+</div>
+
+<div class="form-group" ng-class="{
+                'has-error':  currentForm.originAccount.$invalid && currentForm.originAccount.$dirty,
+                'has-success': currentForm.originAccount.$valid}">
+  <label>Rango de cheques</label>
+  <select name="checkingRange" class="form-control" ng-model="command.checkingRange" ng-options="c for c in checkingRange" ng-change="updateAmounts(command.ccDestinyAccount)" ng-required="true">
+    <option value="">Seleccione un rango</option>
+  </select>
+</div>
+
+<button type="button" class="btn btn-primary pull-right" ui-sref="bxi.services.checking.verify" ng-disabled="currentForm.$invalid">
+  Confirmar
+  <span class="glyphicon glyphicon-circle-arrow-right"></span>
+</button>
+<button type="button" class="btn pull-left" ui-sref="bxi.services.checking">
+  Regresar
+</button>

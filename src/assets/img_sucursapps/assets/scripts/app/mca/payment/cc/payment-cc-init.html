@@ -1,0 +1,143 @@
+<h2 class="text-center">Pago de tarjeta de credito</h2>
+<form novalidate name="currentForm">
+  <fieldset>
+    <div class="row sumando-form-group">
+      <div class="col-sm-1 sumando-bg-orange group-name">
+        Desde
+      </div>
+      <div class="col-sm-11 group-controls padding-left-0 padding-right-0">
+        <div class="form-group">
+
+          <div class="sumando-dropdown-account">
+            <button class="btn btn-default btn-block dropdown-toggle" type="button">
+              <table width="100%">
+                <tr>
+                  <td align="left" width="40%">
+                    <strong>{{ command.datosPersonales.nombreCliente }}
+                    </strong>
+                  </td>
+                  <td align="left" width="40%">
+                    <strong>{{ command.consultaSaldosBXI.saldoDisponible | currency }}
+                    </strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="left">Cuenta {{ command.consultaSaldosBXI.numeroCuenta }}</td>
+                  <td align="left">Saldo Disponible</td>
+                </tr>
+              </table>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row sumando-form-group">
+      <div class="col-sm-1 sumando-bg-red group-name">
+        Para
+      </div>
+      <div class="col-lg-11 sumando-well-white">
+
+        <div class="form-group" ng-class="{
+                                  'has-error':  currentForm.facturadorId.$invalid && bank.facturadorId.$dirty,
+                                  'has-success': currentForm.facturadorId.$valid}">
+          <label class="col-sm-2 control-label">Tipo de tarjeta</label>
+
+          <div class="col-sm-10">
+            <select class="form-control input-lg" ng-model="command.facturadorId" name="facturadorId" ng-required="true">
+              <option value="">Seleccione un tipo de tarjeta</option>
+              <option value="1">Pago de Tarjeta de Crédito Propias Banorte/IXE</option>
+              <option value="2">Pago de Tarjeta de Crédito Terceros Banorte/IXE</option>
+              <option value="3">Pago de Tarjeta de Crédito Otros Bancos</option>
+              <option value="4">Pago de Tarjeta de Crédito American Express</option>
+            </select>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="form-group" ng-class="{
+                      'has-error':  currentForm.reference.$invalid && currentForm.reference.$dirty,
+                      'has-success': currentForm.reference.$valid}">
+          <label class="col-sm-2 control-label">Numero de tarjeta</label>
+
+          <div class="col-sm-10">
+            <input name="reference" type="text" ng-pattern="/^[0-9]{15,16}$/" maxlength="16" class="form-control amount input-lg" ng-model="command.reference" required invalid-popover="Solo se admite numeros y una longitud de 15 o 16 caracteres." invalid-popover-placement="auto"
+            />
+          </div>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="form-group" ng-class="{
+                      'has-error':  currentForm.amount.$invalid && currentForm.amount.$dirty,
+                      'has-success': currentForm.amount.$valid}">
+          <label for="amount" class="col-sm-2 control-label">Importe</label>
+
+          <div class="col-sm-10">
+            <input name="amount" id="amount" type="text" step="0.01" currency ng-required="true" class="form-control amount input-lg" ng-model="command.amount" ng-min="1" ng-max="7000" invalid-popover="Solo se admite numeros y un maximo de 7000." invalid-popover-placement="auto"
+            />
+          </div>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="form-group" ng-class="{
+                      'has-error':  currentForm.email.$invalid && currentForm.email.$dirty,
+                      'has-success': currentForm.email.$valid}">
+          <label class="col-sm-2 control-label">Correo a notificar</label>
+
+          <div class="col-sm-10">
+            <input name="email" type="text" class="form-control input-lg" placeholder="" ng-model="command.email" ng-required="true" ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" invalid-popover="Debe escribir una cuenta de correo valida." invalid-popover-placement="auto"
+            maxlength="60" />
+          </div>
+          <div class="clearfix"></div>
+        </div>
+
+      </div>
+    </div>
+    <div class="row actions-form-group text-right">
+      <button class="btn btn-lg" ui-sref="mca.menu">Regresar</button>
+      <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid">
+        CONTINUAR
+      </button>
+    </div>
+  </fieldset>
+</form>
+<!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form novalidate name="currentForm1" method="post" autocomplete="off">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">Confirmar pago</h4>
+        </div>
+        <div class="modal-body">
+
+          <ul class="list-group">
+            <li class="list-group-item">
+              <label>Cuenta Origen:</label>
+              {{ command.consultaSaldosBXI.numeroCuenta }}
+            </li>
+            <li class="list-group-item">
+              <label>Numero de tarjeta:</label>
+              {{ command.reference }}
+            </li>
+            <li class="list-group-item">
+              <label>Importe:</label>
+              {{ command.amount | currency }}
+            </li>
+            <li class="list-group-item">
+              <label>Correo:</label>
+              {{ command.email }}
+            </li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-lg" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary btn-lg" ng-click="onProcessTransfer()" ng-disabled="disableSubmit">
+            Confirmar
+          </button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

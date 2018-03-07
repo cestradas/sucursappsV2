@@ -1,0 +1,102 @@
+<div class="container">
+    <h2>Actualizar mi domicilio</h2>
+    <h4>Utiliza el teclado para llenar los siguientes campos</h4>
+
+    <form novalidate name="currentForm">
+        <fieldset>
+            <div class="row sumando-form-group ">
+                <div class="group-controls">
+
+                    <div class="form-group">
+                        <div class="col-md-8 col-lg-8"
+                             ng-class="{
+                      'has-error':  currentForm.descripcionCalle.$invalid && currentForm.descripcionCalle.$dirty,
+                      'has-success': currentForm.descripcionCalle.$valid}">
+                            <label class="control-label klabel text-right">Calle</label>
+
+
+                            <input type="text" class="form-control input-lg" ng-model="command.descripcionCalle"
+                                   name="descripcionCalle"
+                                   ng-required="true"/>
+
+
+                        </div>
+                        <div class="col-md-4 col-lg-4"
+                             ng-class="{
+                      'has-error':  currentForm.numeroCalle.$invalid && currentForm.numeroCalle.$dirty,
+                      'has-success': currentForm.numeroCalle.$valid}">
+                            <label class="control-label klabel text-right">Numero</label>
+
+                            <input type="text" class="form-control input-lg" ng-model="command.numeroCalle"
+                                   name="numeroCalle" required/>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-8 col-lg-8"
+                             ng-class="{
+                      'has-error':  currentForm.descColonia.$invalid && currentForm.descColonia.$dirty,
+                      'has-success': currentForm.descColonia.$valid}">
+                            <label class="control-label klabel text-right">Colonia</label>
+
+                            <input type="text" class="form-control input-lg" ng-model="command.descColonia"
+                                   name="descColonia"
+                                   ng-required="true"/>
+
+                        </div>
+                        <div class="col-md-4 col-lg-4"
+                             ng-class="{
+                      'has-error':  currentForm.codigoPostal.$invalid && currentForm.codigoPostal.$dirty,
+                      'has-success': currentForm.codigoPostal.$valid}">
+                            <label class="control-label klabel">Codigo postal</label>
+
+                            <input type="text" class="form-control input-lg" ng-model="command.codigoPostal"
+                                   name="codigoPostal"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <div class="col-md-6 col-lg-6"
+                             ng-class="{
+                      'has-error':  currentForm.codigoEstado.$invalid && currentForm.codigoEstado.$dirty,
+                      'has-success': currentForm.codigoEstado.$valid}">
+
+                            <label class="control-label klabel text-right">Estado</label>
+
+                            <select name="codigoEstado" class="form-control input-lg"
+                                    ng-model="command.estado_seleccionado"
+                                    ng-required="true" ng-options="item.nombre for item in estados">
+                                <option value="">Seleccione una opcion</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6"
+                             ng-class="{
+                      'has-error':  currentForm.delegacionmunicipio.$invalid && currentForm.delegacionmunicipio.$dirty,
+                      'has-success': currentForm.delegacionmunicipio.$valid}">
+                            <label class="control-label klabel text-right">Municipio</label>
+
+                            <select name="delegacionmunicipio" class="form-control input-lg"
+                                    ng-model="command.municipio_seleccionado"
+                                    ng-required="true"
+                                    ng-options="item.nombre for item in command.estado_seleccionado.municipios.municipio">
+                                <option value="">Seleccione una opcion</option>
+                            </select>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<div class="kiosk-actions">
+    <div class="row ">
+        <a class="btn btn-kiosk btn-kiosk-back pull-left" ui-sref="kiosk.mc.home" >REGRESAR</a>
+        <a class="btn btn-kiosk btn-kiosk-next pull-right" ng-click="onActualizarClick()">ACTUALIZAR DOMICILIO</a>
+    </div>
+</div>

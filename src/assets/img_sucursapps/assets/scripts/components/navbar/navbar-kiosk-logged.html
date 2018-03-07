@@ -1,0 +1,68 @@
+<nav class="navbar navbar-fixed-top navbar-top-red-pleca" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand banorte-logo">
+
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse" ng-if="account">
+            <p class="navbar-text">{{ ::account.name }}</p>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span>
+                        &#xA0;Cerrar sesion</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="well kiosk-container kiosk-account-info" ng-if="account">
+    <div class="row">
+        <div class="col-md-2 text-right klabel">
+            No. cliente:
+        </div>
+        <div class="col-md-2">
+            {{ account.datosPersonales.numeroCliente }}
+        </div>
+        <div class="col-md-3 text-right klabel">
+            Nombre:
+        </div>
+        <div class="col-md-5">
+            {{ account.datosPersonales.nombreCliente }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 text-right klabel">
+            No. cuenta:
+        </div>
+        <div class="col-md-2">
+            {{ account.datosPersonales.numeroCuenta }}
+        </div>
+        <div class="col-md-3 text-right klabel">
+            Producto:
+        </div>
+        <div class="col-md-5">
+            {{ account.datosPersonales.descripcionSubprodu }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 text-right klabel">
+            CR y plaza:
+        </div>
+        <div class="col-md-2">
+            {{ account.datosPersonales.crOrigen }} / {{ account.datosPersonales.nombreCiudad }}
+        </div>
+        <div class="col-md-3 text-right klabel">
+            Tipo persona:
+        </div>
+        <div class="col-md-5">
+            {{ account.datosPersonales.segmentoCliente }}
+        </div>
+    </div>
+</div>

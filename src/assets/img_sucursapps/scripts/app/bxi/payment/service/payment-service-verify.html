@@ -1,0 +1,46 @@
+<h2 class="text-center">Pago de servicios</h2>
+<div class="row sumando-form-group">
+  <div class="col-lg-12 group-controls height-500">
+    <div class="row">
+      <div class="col-lg-6">
+        <h3>Confirmar operacion</h3>
+      </div>
+      <div class="col-lg-6">
+        <div class="text-center">
+          <img src="assets/images/payee_{{ command.payee.payeid }}.png" width="150px" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label>Cuenta Origen</label>
+          <input type="text" class="form-control" ng-model="command.originAccount.accal" readonly>
+        </div>
+        <div class="form-group" ng-show="account.uty=='A' && account.ist">
+          <label>Numero de seguridad</label>
+          <input type="text" class="form-control" ng-model="challenge.rcg" readonly>
+        </div>
+        <div class="form-group" ng-class="{
+          'has-error':  currentForm.password.$invalid && currentForm.password.$dirty,
+          'has-success': currentForm.password.$valid}">
+          <label>Contraseña + Token</label>
+          <input name="password" type="password" class="form-control" ng-model="command.password" ng-required="true">
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="form-group" ng-repeat="d in discount.payerd">
+          <label>{{d.vkey}}</label>
+          <input type="text" class="form-control" ng-model="d.vval" readonly>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<button type="button" class="btn btn-primary pull-right" ng-disabled="currentForm.$invalid" ng-click="onProcessPayment(command.password);">
+  Aceptar
+  <span class="glyphicon glyphicon-circle-arrow-right"></span>
+</button>
+<button type="button" class="btn pull-left" ui-sref="bxi.payment.service.accounts">
+  Regresar
+</button>

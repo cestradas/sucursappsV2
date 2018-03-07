@@ -1,0 +1,58 @@
+<div ng-cloak>
+  <div class="page-header">
+    <h2>Transferencia exitosa</h2>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-sm-6 col-md-offset-3">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <strong>Institucion</strong>
+          Banorte
+        </li>
+        <li class="list-group-item" ng-if="confirmation.nmbk!=null">
+          <strong>Banco destino</strong>
+          {{ confirmation.nmbk }}
+        </li>
+        <li class="list-group-item">
+          <strong>Operacion</strong>
+          <br>
+          <span ng-if="confirmation.nmbk==null" class="text-light">Transferencia Rápida Banorte/Ixe</span>
+          <span ng-if="confirmation.nmbk!=null" class="text-light">Transferencia Rápida Otros Bancos</span>
+        </li>
+        <li class="list-group-item">
+          <strong>Fecha de operacion</strong>
+          {{ confirmation.datx | date:'dd/MM/yyyy' }}
+        </li>
+        <li class="list-group-item" ng-if="confirmation.cncn!=null">
+          <strong>Clave de rastreo</strong>
+          {{ confirmation.cncn }}
+        </li>
+        <li class="list-group-item">
+          <strong>Comisión e IVA</strong>
+          {{ confirmation.ttlx | currency }}
+        </li>
+        <li class="list-group-item">
+          <strong>Cuenta Origen</strong>
+          {{ confirmation.oacn }}
+        </li>
+        <li class="list-group-item">
+          <strong>CLABE ó Numero de Plástico</strong>
+          {{ confirmation.daci }}
+        </li>
+        <li class="list-group-item">
+          <strong>Hora de Operación</strong>
+          {{ confirmation.datx | date:'hh:mm:ss a' }}
+        </li>
+        <li class="list-group-item">
+          <strong>Importe</strong>
+          {{ amount | currency }}
+        </li>
+      </ul>
+      <button type="submit" class="btn pull-left btn-lg" ui-sref="bxi.menu2">
+        Regresar
+      </button>
+    </div>
+  </div>
+
+</div>

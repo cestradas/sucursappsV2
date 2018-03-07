@@ -1,0 +1,100 @@
+<div class="container">
+    <h2>Transferencia entre cuentas</h2>
+    <h4>Utiliza el teclado para llenar los siguientes campos</h4>
+    <br/>
+    <br/>
+    <br/>
+
+    <div class="row text-center">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 text-right">
+
+            </div>
+            <div class="col-lg-4 col-md-4 text-center">
+                <form novalidate name="currentForm">
+                    <fieldset>
+                        <div class="row sumando-form-group ">
+                            <div class="group-controls">
+
+                                <div class="form-group"
+                                     ng-class="{
+                      'has-error':  currentForm.amount.$invalid && currentForm.amount.$dirty,
+                      'has-success': currentForm.amount.$valid}">
+                                    <label class="control-label klabel text-right">Importe a transferir</label>
+
+                                    <div>
+                                        <input name="amount" id="amount" type="text" step="0.01" ng-required="true"
+                                               class="form-control amount input-lg" ng-model="command.amount" ng-min="1"
+                                               ng-max="7000"
+                                               invalid-popover="Solo se admite numeros y un maximo de 7000."
+                                               invalid-popover-placement="auto"
+                                                />
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div class="form-group"
+                                     ng-class="{
+                      'has-error':  currentForm.destAccount.$invalid && currentForm.destAccount.$dirty,
+                      'has-success': currentForm.destAccount.$valid}">
+                                    <label class="control-label klabel text-right">Numero de cuenta</label>
+
+                                    <div>
+                                        <input name="destAccount" type="text" ng-pattern="/^[0-9]{10,18}$/" maxlength="18"
+                                               class="form-control amount input-lg" ng-model="command.destAccount"
+                                               required
+                                               invalid-popover="Solo se admite numeros y una longitud entre 10 y 16 caracteres."
+                                               invalid-popover-placement="auto"
+                                                />
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div class="form-group"
+                                     ng-class="{
+                      'has-error':  currentForm.destAccount_confirm.$invalid && currentForm.destAccount_confirm.$dirty,
+                      'has-success': currentForm.destAccount_confirm.$valid}">
+                                    <label class="control-label klabel text-right">Confirmar numero de cuenta</label>
+
+                                    <div>
+                                        <input name="destAccount_confirm" type="text" ng-pattern="/^[0-9]{10,18}$/"
+                                               maxlength="18" class="form-control amount input-lg"
+                                               ng-model="command.destAccount_confirm" ng-match="command.destAccount"
+                                               required
+                                               invalid-popover="Solo se admite numeros y una longitud de 10 y 16 caracteres."
+                                               invalid-popover-placement="auto"
+                                                />
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div class="form-group" ng-class="{
+                                  'has-error':  currentForm.bank.$invalid && bank.bank.$dirty,
+                                  'has-success': currentForm.bank.$valid}"
+                                     ng-if="command.destAccount.length == 18">
+                                    <label class="control-label klabel text-right">Banco Destino</label>
+
+                                    <div >
+                                        <select name="bank" class="form-control input-lg" ng-model="command.bank" ng-options="a.name for a in listBancos" ng-required="true">
+                                            <option value="">Seleccione un banco</option>
+                                        </select>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="kiosk-actions">
+    <div class="row ">
+        <a class="btn btn-kiosk btn-kiosk-back pull-left" ui-sref="kiosk.home">CANCELAR</a>
+        <a class="btn btn-kiosk btn-kiosk-next pull-right" ui-sref="kiosk.trans.confirm" ng-disabled="currentForm.$invalid">CONTINUAR</a>
+    </div>
+</div>

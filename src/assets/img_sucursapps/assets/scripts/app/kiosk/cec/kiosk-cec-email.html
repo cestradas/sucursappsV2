@@ -1,0 +1,54 @@
+<div class="container">
+  <h2>Enviar estado de cuenta</h2>
+  <h4>Utiliza el teclado para llenar los siguientes campos.</h4>
+
+  <form novalidate name="currentForm" method="post" autocomplete="off">
+    <br/>
+    <div class="row kiosk-form-container padding-top-30">
+
+      <div class="form-group" ng-class="{
+                      'has-error':  currentForm.email.$invalid && currentForm.email.$dirty,
+                      'has-success': currentForm.email.$valid}">
+        <label class="col-lg-4 col-md-4 control-label align-right">Correo electrónico</label>
+
+        <div class="col-lg-8 col-md-8">
+          <input name="email" type="text" class="form-control input-lg" placeholder="" ng-model="command.email" ng-required="true" ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" invalid-popover="Debe escribir una cuenta de correo valida." invalid-popover-placement="auto"
+          maxlength="60" />
+        </div>
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="form-group" ng-class="{
+                      'has-error':  currentForm.confirmar_email.$invalid && currentForm.confirmar_email.$dirty,
+                      'has-success': currentForm.confirmar_email.$valid}">
+        <label class="col-lg-4 col-md-4 control-label align-right">Confirma correo electrónico</label>
+
+        <div class="col-lg-8 col-md-8">
+          <input name="confirmar_email" type="text" class="form-control input-lg" placeholder="" ng-model="command.confirmar_email" ng-match="command.email" ng-required="true" ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" invalid-popover-html="Las cuentas de correo deben coincidir."
+          invalid-popover-placement="auto" maxlength="60" />
+        </div>
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="form-group" ng-class="{
+                      'has-error':  currentForm.pcs.$invalid && currentForm.pcs.$dirty,
+                      'has-success': currentForm.pcs.$valid}">
+        <label class="col-lg-4 col-md-4 control-label align-right">Contraseña del archivo</label>
+
+        <div class="col-lg-8 col-md-8">
+          <input name="pss" type="password" class="form-control input-lg" placeholder="" ng-model="command.pcs" ng-required="true" invalid-popover="Debe escribir una contraseña valida." invalid-popover-placement="auto" maxlength="60" />
+          <br/> Esta contraseña sera necesaria para abrir el archivo enviado por correo electronico
+        </div>
+        <div class="clearfix"></div>
+      </div>
+
+    </div>
+  </form>
+</div>
+
+<div class="kiosk-actions">
+  <div class="row ">
+    <a class="btn btn-kiosk btn-kiosk-back pull-left" ui-sref="kiosk.cec.home">CANCELAR</a>
+    <a class="btn btn-kiosk btn-kiosk-next pull-right" ng-click="onEnviarCorreoClick();" ng-disabled="currentForm.$invalid">ENVIAR</a>
+  </div>
+</div>

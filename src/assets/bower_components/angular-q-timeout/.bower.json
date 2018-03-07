@@ -1,0 +1,44 @@
+{
+  "name": "angular-q-timeout",
+  "main": "ng-q-timeout.js",
+  "version": "0.2.0",
+  "homepage": "https://github.com/bahmutov/angular-q-timeout",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "Gruntfile.js",
+    "package.json",
+    "index.html"
+  ],
+  "keywords": [
+    "angular",
+    "angularjs",
+    "q",
+    "$q",
+    "promise",
+    "timeout"
+  ],
+  "dependencies": {
+    "angular": "1.2.28"
+  },
+  "devDependencies": {
+    "angular-mocks": "1.2.28"
+  },
+  "authors": [
+    "Gleb Bahmutov <gleb.bahmutov@gmail.com>"
+  ],
+  "description": "Adds .timeout method to promises returned by $q service",
+  "_release": "0.2.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.2.0",
+    "commit": "283f92640b7ff88a599071f256cf40ce7ec93cbe"
+  },
+  "_source": "https://github.com/bahmutov/angular-q-timeout.git",
+  "_target": "~0.2.0",
+  "_originalSource": "ng-q-timeout"
+}

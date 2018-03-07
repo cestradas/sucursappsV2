@@ -1,0 +1,57 @@
+.tarj_anim_container {
+    width: 250px;
+    height: 500px;
+    overflow: hidden;
+}
+.ca_banner{
+	position:relative;
+	overflow:hidden;
+    margin:20px;
+	float:left;
+	padding:0px;
+	border:0px solid #fff;
+	-moz-box-shadow:0px 0px 0px #aaa inset;
+}
+.ca_slide{
+	width:100%;
+	height:100%;
+	position:relative;
+	overflow:hidden;
+}
+.ca_zone{
+	position:absolute;
+	width:100%;
+}
+.ca_wrap{
+	position:relative;
+	display:table-cell;
+	vertical-align:middle;
+	text-align:center;
+}
+.ca_wrap img.ca_shown{
+	display:inline !important;
+}
+/* Custom styles of banner1 */
+.ca_banner1{
+	width:200px;
+	height:600px;
+}
+.ca_bg1{
+	background:#fff url(../images/pinpadFull.png) no-repeat top left;
+}
+.ca_banner1 .ca_zone1{
+	top:248px;
+	left:0px;
+}
+.ca_banner1 .ca_wrap1{
+	width:190px;
+	height:220px;
+}
+.ca_banner1 .ca_zone2{
+	top:0px;
+	left:0px;
+}
+.ca_banner1 .ca_wrap2{
+	width:200px;
+	height:275px;
+}

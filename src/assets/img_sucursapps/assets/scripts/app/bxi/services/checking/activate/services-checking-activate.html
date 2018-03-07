@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-sm-8 col-sm-offset-2">
+    <div id="form-container">
+      <div class="page-header text-center">
+        <h2>Activar chequera</h2>
+        <div id="status-buttons" class="text-center">
+          <a ui-sref-active="active" ui-sref=".accounts" ng-disabled="true">
+            <span>1</span> Cuentas</a>
+          <a ui-sref-active="active" ui-sref=".verify">
+            <span>2</span> Verificar</a>
+          <a ui-sref-active="active" ui-sref=".finish">
+            <span>3</span> Confirmar</a>
+        </div>
+      </div>
+      <form name="currentForm" ng-submit="processForm()">
+        <div class="uiv-animate" ui-view></div>
+      </form>
+    </div>
+  </div>
+</div>

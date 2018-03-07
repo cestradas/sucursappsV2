@@ -1,0 +1,172 @@
+<h2 class="text-center">Pago tarjeta de cr&eacute;dito otros bancos</h2>
+<form novalidate name="currentForm">
+  <fieldset>
+    <div class="row sumando-form-group">
+      <div class="col-sm-1 sumando-bg-red group-name">
+        Desde
+      </div>
+      <div class="col-sm-11 group-controls padding-left-0 padding-right-0">
+        <div class="form-group" ng-class="{
+          'has-error':  currentForm.originAccount.$invalid && currentForm.originAccount.$dirty,
+          'has-success': currentForm.originAccount.$valid}">
+          <input type="hidden" name="originAccount" ng-model="command.ccOriginAccount" required/>
+
+          <div class="dropdown sumando-dropdown-account">
+            <button class="btn btn-default btn-block dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <table ng-if="command.ccOriginAccount" width="100%">
+                <tr>
+                  <td align="left" width="40%"><strong>{{ command.ccOriginAccount.accal }}</strong>
+                  </td>
+                  <td align="left" width="40%"><strong>{{ command.ccOriginAccount.accab | currency
+                                        }}</strong>
+                  </td>
+                  <td rowspan="2" width="20%" class="dropdown-caret">
+                    <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="left">Cuenta {{ command.ccOriginAccount.acccn | accountmask }}</td>
+                  <td align="left">Saldo Disponible</td>
+                </tr>
+              </table>
+              <table ng-if="!command.ccOriginAccount" width="100%">
+                <tr>
+                  <td align="left" rowspan="2">Seleccione una cuenta de origen...</td>
+                  <td width="10%" rowspan="2" class="dropdown-caret">
+                    <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                  </td>
+                </tr>
+              </table>
+            </button>
+            <ul class="dropdown-menu btn-block" aria-labelledby="dropdownMenu1">
+              <li ng-repeat="account in ccOwnAccounts" ng-click="setSelectedOriginAccount(account)">
+                <a href="javascript:void(0)">{{ account.accal }}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row sumando-form-group">
+      <div class="col-sm-1 sumando-bg-red group-name ">
+        Para
+      </div>
+      <div class="col-sm-11 group-controls padding-left-0 padding-right-0">
+        <div class="form-group" ng-class="{
+          'has-error':  currentForm.destinyAccount.$invalid && currentForm.destinyAccount.$dirty,
+          'has-success': currentForm.destinyAccount.$valid}">
+          <input type="hidden" name="destinyAccount" ng-model="command.ccDestinyAccount" required/>
+
+          <div class="dropdown sumando-dropdown-account">
+            <button class="btn btn-default btn-block dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <table ng-if="command.ccDestinyAccount" width="100%">
+                <tr>
+                  <td align="left" width="40%"><strong>{{ command.ccDestinyAccount.accal }}</strong>
+                  </td>
+                  <td rowspan="2" width="20%" class="dropdown-caret">
+                    <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                  </td>
+                </tr>
+              </table>
+              <table ng-if="!command.ccDestinyAccount" width="100%">
+                <tr>
+                  <td align="left" rowspan="2">Seleccione una cuenta de destino...</td>
+                  <td width="10%" rowspan="2" class="dropdown-caret">
+                    <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                  </td>
+                </tr>
+              </table>
+            </button>
+            <ul class="dropdown-menu btn-block" aria-labelledby="dropdownMenu1">
+              <li ng-repeat="account in ccDestinyAccounts" ng-click="setSelectedDestinyAccount(account)">
+                <a href="javascript:void(0)">{{ account.accal }}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row " ng-if="command.ccDestinyAccount">
+      <div class="col-lg-11 col-lg-offset-1 sumando-well-white">
+        <div class="row">
+          <div class="form-group" ng-if="amounts" ng-class="{
+            'has-error':  currentForm.amount.$invalid && currentForm.amount.$dirty,
+            'has-success': currentForm.amount.$valid}">
+            <label>Importe</label>
+            <input name="amount" id="amount" type="text" step="0.01" currency required class="form-control amount input-lg" ng-model="command.amount" ng-min="1" ng-max="7000" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row actions-form-group text-right">
+      <button class="btn btn-lg" ui-sref="bxi.menu2">Regresar</button>
+      <button class="btn btn-primary btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid">
+        Continuar
+      </button>
+    </div>
+
+
+  </fieldset>
+</form>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form novalidate name="currentForm1" method="post" autocomplete="off">
+        <div class="modal-header">
+          <button type="button" class="close bxi-red" data-dismiss="modal" aria-label="Close">
+            <img src="assets/images/close-32-red.png" />
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Confirmar pago</h4>
+        </div>
+        <div class="modal-body">
+
+          <ul class="list-group">
+            <li class="list-group-item">
+              <label>Cuenta Origen:</label>
+              {{ command.ccOriginAccount.accal }}
+            </li>
+            <li class="list-group-item">
+              <label>Cuenta Destino:</label>
+              {{ command.ccDestinyAccount.accal }}
+            </li>
+            <li class="list-group-item">
+              <label>Importe:</label>
+              {{ command.amount | currency }}
+            </li>
+          </ul>
+
+          <!--
+                    **********************************
+                    **********************************
+                    NUMERO DE SEGURIDAD Y TOKEN
+                    **********************************
+                    **********************************
+                    -->
+          <div class="form-group" ng-show="account.uty=='A' && account.ist">
+            <label>Numero de seguridad</label>
+            <input type="text" class="form-control input-lg" ng-model="challenge.rcg" readonly>
+          </div>
+          <div class="form-group" ng-class="{
+              'has-error':  currentForm1.password.$invalid && currentForm1.password.$dirty,
+              'has-success': currentForm1.password.$valid}">
+            <label ng-show="account.uty=='A' && account.ist">Captura tu contraseña y código dinámico Token
+            </label>
+            <label ng-show="account.uty=='A' && !account.ist">Captura tu contraseña y token</label>
+            <label ng-show="account.uty=='B' && !account.ist">Captura tu contraseña</label>
+            <input name="password" type="password" class="form-control input-lg" ng-model="command.code">
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-lg" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary btn-lg" ng-click="onProcessTransfer();" ng-disabled="currentForm1.$invalid">
+            Confirmar
+          </button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
