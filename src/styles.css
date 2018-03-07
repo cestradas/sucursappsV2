@@ -1,87 +1,445 @@
-/* You can add global styles to this file, and also import other style files */
-
-body {
-    height: 100%;
-    width: 100%;
-    overflow-y: hidden;
-    overflow-x: hidden;
-    background: url("./assets/img/bg_gr_01.png") top left no-repeat fixed #464646;
-    margin: 0;
-    background-size: cover;
-}
-
-
-/*  Home */
-
-.home-img-carousel {
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100%;
-}
-
-.term_anim {
-    width: 250px;
-    height: 648px;
-    background: url("./assets/img/term_anim.png") left center;
-    animation: term_anim_play 2.5s steps(7) infinite;
-}
-
-@keyframes term_anim_play {
-    100%,
-    50% {
-        background-position: -1750px
-    }
-}
-
-
-/*  NavBar */
-
-.nav-img-banorte {
-    background-image: url("./assets/img/navbar_red_top_pleca.png");
-    height: 70px;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-
-/* Menu TDD */
-
-.menu-grid {
-    max-width: 900px;
-}
-
-.menu-mca-container {
-    width: 900px;
-    height: 550px;
-    margin: 0px auto;
-}
-
-
-/*  Animaciones */
-
-.animated {
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-}
-
-.fast {
-    -webkit-animation-duration: 0.4s;
-    animation-duration: 0.4s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-.fadeIn {
-    animation-name: fadeIn;
-}
+        /* You can add global styles to this file, and also import other style files */
+        
+        body {
+            height: 100%;
+            width: 100%;
+            overflow-y: hidden;
+            overflow-x: hidden;
+        }
+        /*  Home */
+        
+        .home-img-carousel {
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 100%;
+        }
+        
+        .term_anim {
+            width: 250px;
+            height: 648px;
+            background: url("./assets/img/term_anim.png") left center;
+            animation: term_anim_play 2.5s steps(7) infinite;
+        }
+        
+        @keyframes term_anim_play {
+            100%,
+            50% {
+                background-position: -1750px
+            }
+        }
+        /*  NavBar */
+        
+        .nav-img-banorte {
+            background-image: url("./assets/img/navbar_red_top_pleca.png");
+            height: 70px;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        /* Menu TDD */
+        
+        .menu-grid {
+            max-width: 900px;
+        }
+        
+        .menu-mca-container {
+            width: 900px;
+            height: 550px;
+            margin: 0px auto;
+        }
+        /*  Animaciones */
+        
+        .animated {
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+        
+        .fast {
+            -webkit-animation-duration: 0.4s;
+            animation-duration: 0.4s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .fadeIn {
+            animation-name: fadeIn;
+        }
+        
+        .padding-barToTittle {
+            padding-top: 55px;
+        }
+        
+        .padding-fieldset-general {
+            padding-left: 5%;
+            padding-right: 5%;
+        }
+        
+        .padding-TittleToFieldset {
+            padding-top: 30px;
+        }
+        
+        .padding-InFieldset {
+            padding-bottom: 25px;
+        }
+        
+        .margin-panelAccount {
+            margin-top: 30px;
+        }
+        
+        .color-fondo {
+            background-color: rgb(201, 200, 200);
+        }
+        
+        .color-letra {
+            color: #eb0029;
+            ;
+        }
+        
+        .sumando-list-group .list-group-item {
+            border: 0px;
+            position: relative;
+            display: block;
+            padding: .75rem 1.25rem;
+            margin-bottom: -1px;
+        }
+        
+        .list-group-item1 {
+            background-color: #e1e1e1 !important;
+            border: 0px !important;
+        }
+        
+        .modal-footer .btn+.btn {
+            margin-left: 5px;
+            margin-bottom: 0
+        }
+        
+        .btn-group .btn-group .btn-toolbar .btn-group .btn-toolbar .input-group .col-xs-1 .col-xs-10 .col-xs-11 .col-xs-12 .col-xs-2 .col-xs-3 .col-xs-4 .col-xs-5 .col-xs-6 .col-xs-7 .col-xs-8 .col-xs-9 .dropdown-menu {
+            float: left;
+        }
+        
+        .navbar-fixed-bottom .navbar-collapse .navbar-fixed-top .navbar-collapse .pre-scrollable {
+            max-height: 340px;
+        }
+        
+        html {
+            font-family: sans-serif;
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%
+        }
+        
+        .kiosk-actions .row {
+            padding-bottom: 15px;
+            margin: 0px;
+        }
+        
+        .col-lg-6,
+        .col-lg-7,
+        .col-lg-8,
+        .col-lg-9,
+        .col-md-1,
+        .col-md-10,
+        .col-md-11,
+        .col-md-12,
+        .col-md-2,
+        .col-md-3,
+        .col-md-4,
+        .col-md-5,
+        .col-md-6,
+        .col-md-7,
+        .col-md-8,
+        .col-md-9,
+        .col-sm-1,
+        .col-sm-10,
+        .col-sm-11,
+        .col-sm-12,
+        .col-sm-2,
+        .col-sm-3,
+        .col-sm-4,
+        .col-sm-5,
+        .col-sm-6,
+        .col-sm-7,
+        .col-sm-8,
+        .col-sm-9,
+        .col-xs-1,
+        .col-xs-10,
+        .col-xs-11,
+        .col-xs-12,
+        .col-xs-2,
+        .col-xs-3,
+        .col-xs-4,
+        .col-xs-5,
+        .col-xs-6,
+        .col-xs-7,
+        .col-xs-8,
+        .col-xs-9 {
+            position: relative;
+            min-height: 1px;
+            padding-left: 15px;
+            padding-right: 15px
+        }
+        
+        .text-right {
+            text-align: right
+        }
+        
+        .form-control {
+            border-radius: 0px !important;
+        }
+        
+        .input-lg,
+        input[type=time] .input-lg,
+        input[type=datetime-local] .input-lg,
+        input[type=month] .input-lg {
+            line-height: 53px
+        }
+        
+        .padding-top-15 {
+            padding-top: 15px;
+        }
+        
+        .col-lg-12 {
+            width: 100%;
+            position: relative;
+            min-height: 1px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        
+        .table {
+            border-collapse: collapse!important
+        }
+        
+        .table-striped>tbody>tr:nth-of-type(odd) {
+            background-color: #f9f9f9
+        }
+        
+        .accounts-table th {
+            background-color: #e1e1e1;
+            border-left: 2px solid #FFFFFF;
+        }
+        
+        .accounts-table th:first-child {
+            background-color: #e1e1e1;
+            border-left: 0px;
+        }
+        
+        .text-center {
+            text-align: center
+        }
+        
+        .accounts-pager {
+            font-size: 1.5em;
+            color: #ff671b;
+        }
+        
+        .panel-account-detail-mca {
+            /*font-size: 0.75em;*/
+            background-color: #e1e1e1;
+        }
+        
+        body {
+            height: 100%;
+            width: 100%;
+            overflow-y: hidden;
+            overflow-x: hidden;
+            background: url("./assets/img/bg_gr_01.png") top left no-repeat fixed #464646;
+            margin: 0;
+            background-size: cover;
+        }
+        
+        .form-group {
+            margin-bottom: 15px
+        }
+        
+        .control-label {
+            padding-top: 6px
+        }
+        
+        .sumando-form-group .group-name {
+            height: 61px;
+            background-color: #ff671b;
+            color: #FFFFFF;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            text-align: center;
+            padding-top: 20px;
+        }
+        
+        .sumando-bg-red {
+            background-color: #c41330;
+        }
+        
+        .actions-form-group {
+            padding-top: 5px;
+        }
+        
+        .btn,
+        .btn-danger.active,
+        .btn-danger:active,
+        .btn-default.active,
+        .btn-default:active,
+        .btn-info.active,
+        .btn-info:active,
+        .btn-primary.active,
+        .btn-primary:active,
+        .btn-warning.active,
+        .btn-warning:active,
+        .btn.active,
+        .btn:active,
+        .dropdown-menu>.disabled>a:focus,
+        .dropdown-menu>.disabled>a:hover,
+        .form-control,
+        .navbar-toggle,
+        .open>.dropdown-toggle.btn-danger,
+        .open>.dropdown-toggle.btn-default,
+        .open>.dropdown-toggle.btn-info,
+        .open>.dropdown-toggle.btn-primary,
+        .open>.dropdown-toggle.btn-warning {
+            background-image: none
+        }
+        
+        .dropup .btn-lg .caret {
+            border-width: 0 5px 5px
+        }
+        
+        .altura {
+            height: 60px !important;
+        }
+        
+        .fondoblanco {
+            background-color: #FFFFFF !important;
+            margin: 0px;
+            padding: 0px;
+        }
+        
+        .letranegrita {
+            font-weight: bold;
+        }
+        
+        .jumbotron .container {
+            max-width: 100%
+        }
+        
+        .navbar-fixed-bottom .navbar-header {
+            width: 100%;
+            text-align: center;
+        }
+        
+        .navbar-collapse .collapse {
+            display: block!important;
+            visibility: visible!important;
+            height: auto!important;
+            padding-bottom: 0;
+            overflow: visible!important
+        }
+        
+        .sumando-dropdown-account .dropdown-toggle {
+            min-height: 61px;
+        }
+        
+        .sumando-well-white {
+            background-color: #FFFFFF;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .kiosk-screen-finish .modal {
+            width: 300px;
+            height: 200px;
+            line-height: 200px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-top: -100px;
+            margin-left: -150px;
+            background-color: #f1c40f;
+            border-radius: 5px;
+            text-align: center;
+            z-index: 2010;
+            /* 1px higher than the overlay layer */
+        }
+        
+        .modal.fade .modal-dialog {
+            -webkit-transform: translate(0, -25%);
+            -ms-transform: translate(0, -25%);
+            -o-transform: translate(0, -25%);
+            transform: translate(0, -25%);
+            -webkit-transition: -webkit-transform .3s ease-out;
+            -moz-transition: -moz-transform .3s ease-out;
+            -o-transition: -o-transform .3s ease-out;
+            transition: transform .3s ease-out
+        }
+        
+        table {
+            background-color: white !important;
+            margin: 0px;
+            padding: 0px;
+        }
+        
+        .modal-content {
+            position: relative;
+            background-color: #fff;
+            border: 1px solid #999;
+            border: 1px solid rgba(0, 0, 0, .2);
+            border-radius: 6px;
+            -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+            box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+            outline: 0
+        }
+        
+        .modal-title {
+            margin: 0;
+            line-height: 1.42857143
+        }
+        
+        .modal-body {
+            position: relative;
+            padding: 15px
+        }
+        
+        .modal-footer {
+            padding: 15px;
+            text-align: right;
+            border-top: 1px solid #e5e5e5
+        }
+        
+        .uiv-animate.ng-leave-active {
+            opacity: 0;
+        }
+        
+        .modal-dialog-error .modal-header {
+            color: #a94442;
+            border: 0;
+            /*background-color: #f5f5f5;*/
+        }
+        
+        .page-link {
+            position: relative;
+            display: block;
+            padding: .5rem .75rem;
+            margin-left: -1px;
+            line-height: 1.25;
+            color: #007bff;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+        }
+        
+        li {
+            display: list-item;
+            text-align: -webkit-match-parent;
+        }
+        
+        li>a:start {
+            color: #007bff
+        }
