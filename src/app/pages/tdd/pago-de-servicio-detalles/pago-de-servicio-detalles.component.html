@@ -1,0 +1,180 @@
+<script src="./js/pagoServiciosMCA.js"></script>
+
+<script type="text/javascript">
+    $.getScript(path + "Keyboard-master/docs/js/demo.js");
+</script>
+
+<script src="./js/validation.js"></script>
+
+<nav class="navbar navbar-fixed-top navbar-top-red-pleca" role="navigation">
+    <div class="container">
+        <div class="navbar-header"></div>
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a onClick="currentPage.loadMenu();" id="menud">
+                        <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="padding-barToTittle">
+    <h2 class="text-center deleteMargin-h2 color-letra">Pago de servicios</h2>
+</div>
+
+<fieldset class="padding-TittleToFieldset padding-fieldset-general">
+    <div class="padding-whitebox-general sumando-well-white">
+        <div class="row">
+            <div class="row text-center" align="center">
+                <h3>
+                    <label class="col-lg-12" id="labelHeader"></label>
+                </h3>
+            </div>
+
+
+
+            <div class="margin-InFieldset letranegrita">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label class="col-sm-2 control-label">Cuenta origen</label>
+                    </div>
+
+                    <div class="col-sm-8">
+                        <input type="text" style="width:700px;" class="form-control input-lg" id="ctaOrigen" readonly>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+
+
+            <div class="margin-InFieldset letranegrita">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label class="col-sm-12 control-label">Fecha de vencimiento</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" style="width: 700px;" class="form-control input-lg" id="fechaVencimientoPayDetail" name="dueDate" placeholder="AAAA-MM-DD" onchange="return validarFormatoFecha(this.value)" />
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+
+
+            <div class="margin-InFieldset letranegrita row">
+                <div class="col-sm-2">
+                    <label for="amount" class="col-sm-12 control-label">Importe</label>
+                </div>
+                <div class="col-sm-9">
+                    <input class="form-control input-lg" style="width: 700px;" name="amount" id="amount" type="text" onchange="mascara()" />
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <br>
+            <div class="margin-InFieldset letranegrita row">
+                <div class="col-sm-2">
+                    <label class="col-sm-10 control-label">Correo a notificar</label>
+                </div>
+                <div class="col-sm-9"><br/>
+                    <input name="email" id="email" style="width: 700px;" type="text" class="form-control input-lg" placeholder="" onchange="validarEmail()" />
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <br/>
+        </div>
+    </div>
+    <div class="modal-footer " style="margin:30px 0px 0px 0px; padding: 0px;">
+        <button type="button" class="btn btn-lg" onclick="BackPayeDetail()">Cancelar</button>
+        <button type="button" class="btn btn-danger btn-lg" onclick="return onValidatePaymentDetail()">
+    Confirmar
+  </button>
+    </div>
+</fieldset>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <h4>Confirmar pago</h4>
+
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <label>Cuenta origen:</label>
+                        <label id="ctaOrigenModal"></label>
+                    </li>
+                    <li class="list-group-item">
+                        <label>Servicio:</label>
+                        <label id="servicio"></label>
+                    </li>
+                    <li class="list-group-item">
+                        <label>Importe neto:</label>
+                        <label id="imtNeto"></label>
+                    </li>
+                    <li class="list-group-item">
+                        <label>Comisi&oacute;n:</label>
+                        <label id="comision">$0.00</label>
+                    </li>
+                    <li class="list-group-item">
+                        <label>Descuentos:</label>
+                        <label id="desc">$0.00</label>
+                    </li>
+                    <li class="list-group-item">
+                        <label>Importe total:</label>
+                        <label id="imtTotal"></label>
+                    </li>
+                    <li class="list-group-item">
+                        <label>Correo:</label>
+                        <label id="correo"></label>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-lg" onclick="esconderModalDetail()">Cancelar</button>
+                <button type="button" class="btn btn-primary btn-lg" onclick="mandaPagFinish()">
+      Confirmar
+    </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="servicioNoDisponible" class="modal fade">
+    <div class="modal-dialog modal-dialog-error">
+        <div class="modal-content">
+            <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
+                <h4>Aviso</h4>
+
+                <p id="mnsErrorModal"></p>
+
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="esconderModal()">Aceptar</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div id="servicioNoDisponible1" class="modal fade">
+    <div class="modal-dialog modal-dialog-error">
+        <div class="modal-content">
+            <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
+                <h4>Aviso</h4>
+
+                <p id="mnsErrorModal1"></p>
+
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="currentPage.loadMenu()">Cerrar</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
