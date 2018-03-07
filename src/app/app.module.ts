@@ -1,4 +1,5 @@
 /// <reference path="../../node_modules/cordova-plugin-mfp/typings/worklight.d.ts" />
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';

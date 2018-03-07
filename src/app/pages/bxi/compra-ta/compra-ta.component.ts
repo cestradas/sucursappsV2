@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
-import 'rxjs/Rx';
+
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 
 
@@ -18,7 +18,7 @@ export class CompraTaComponent implements OnInit {
   postResp;
   tipoMovimiento: string;
   numeroCuenta: string;
-  datosCuenta:any[] = [];
+  datosCuenta: any[] = [];
 
   constructor( private _http: Http, private router: Router ) { }
 
@@ -57,8 +57,8 @@ resourceRequest
           console.log(response.responseJSON);
           console.log(response.responseJSON.SaldoDia);
         
-          //THIS.router.navigate(['/homePage']);
-          //THIS.loading = false;
+          // THIS.router.navigate(['/homePage']);
+          // THIS.loading = false;
           
         },
         function(error) {
