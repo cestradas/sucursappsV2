@@ -1,55 +1,193 @@
 <div id="contenedorPrincipal" align="center">
     <div class="row menu-mca-container">
 
-        <div class="row menu-grid">
-            <div align="center" style="width: 100%; margin-top: 20px;">
+        <div class="row menu-mca-grid" style="width: 100%;">
+            <!--<div align="center" style="width: 100%; margin-top: 20px;">
                 <h2 class="text-center">Operaciones</h2>
+                <label id="sessionCuenta">----</label>
+            </div>-->
+
+
+            <div id="operacionesFrecuentes" class="" style="display: block; width: 100%;">
+                <div>
+                    <h1 class=" text-center " style="margin-top: 220px; margin-bottom: 50px;">Operaciones frecuentes</h1>
+
+                </div>
+                <div class="row ">
+                    <div class="col-md-2 col-sm-2 col-xl-2 " style="margin-left: 120px;">
+                        <a>
+                            <img src="./assets/img/4_Saldos-y-movimientos.png " width="200px " class="styleMenuButton" draggable="false " />
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xl-2 ">
+                        <a id="loadPage2Button ">
+                            <img src="./assets/img/9_Impresión-de-EDC.png " width="200px " class="styleMenuButton" draggable="false " />
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xl-2 ">
+                        <a>
+                            <img src="./assets/img/5_Compra-de-tiempo-aire.png " width="200px " class="styleMenuButton" draggable="false " />
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xl-2 ">
+                        <a>
+                            <img src="./assets/img/6_Transferencias-SPEI.png " width="200px " class="styleMenuButton" draggable="false " />
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xl-2 ">
+                        <a>
+                            <img src="./assets/img/7_Transferencias-cuentas-Banorte.png " width="200px " class="styleMenuButton" draggable="false " />
+                        </a>
+                    </div>
+                </div>
+
+
+                <div class="row " style="margin-top: 40px;">
+                    <div class="col-md-2 col-sm-2 col-xl-2 " style="margin-left: 120px;">
+                        <a>
+                            <h3>Saldos y Movimientos</h3>
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xl-2 ">
+                        <a>
+                            <h3>Impresión de EDC</h3>
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xl-2 ">
+                        <a>
+                            <h3>Compra de tiempo de aire</h3>
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xl-2 ">
+                        <a>
+                            <h3>Transferencias SPEI</h3>
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xl-2 ">
+                        <a>
+                            <h3>Tranferencias cuentas banorte</h3>
+                        </a>
+                    </div>
+                </div>
+
             </div>
 
 
-            <div class="row">
-                <div class="col-md-3 col-sm-3 col-xl-3">
-                    <a id="loadPage1Button" value="Load Page1.html">
-                        <img src="./assets/img/m_saldo.png" width="200px" draggable="false" />
-                    </a>
+            <div id="masOpciones" class="" style="display: none; width: 100%;">
+                <div class="row " style="margin-top: 220px; margin-bottom: 50px;">
+                    <div class="col-md-6 col-sm-6 col-xl-6 ">
+                        <h1>Pagos</h1>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xl-6 ">
+                        <h1>Configuracion de la cuenta</h1>
+                    </div>
                 </div>
-                <div class="col-md-3 col-sm-3 col-xl-3">
-                    <a id="loadPage2Button">
-                        <img src="./assets/img/m_tran_ter.png" width="200px" draggable="false" />
-                    </a>
+                <div class="row ">
+
+                    <div class="col-md-2 col-sm-2 col-xl-2 " style="margin-left: 120px;">
+                        <a>
+                            <img src="./assets/img/10_Pago-de-servicios.png " class="sizeMenuButtons" width="200px " draggable="false " />
+                        </a>
+
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xl-2 ">
+                        <a id="loadPage2Button ">
+                            <img src="./assets/img/11_Pago-de-tarjetas-de-crédito.png " class="sizeMenuButtons" width="200px " draggable="false " />
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xl-1 ">
+
+                    </div>
+                    <div id="espacioSPEI" class="col-md-2 col-sm-2 col-xl-2 ">
+                        <!--<div id="espacioSPEI" class="col-md-2 col-sm-2 col-xl-2 espacioBotones">-->
+                        <a>
+                            <img src="./assets/img/12_Mantenimiento-de-beneficiarios.png " class="sizeMenuButtons" width="200px " draggable="false " />
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xl-2 ">
+                        <a>
+                            <img src="./assets/img/13_Actualizar-datos-de-contacto.png " class="sizeMenuButtons" width="200px " draggable="false " />
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xl-2 ">
+                        <a>
+                            <img src="./assets/img/14_Activar-alertas-Banorte.png " class="sizeMenuButtons" width="200px " draggable="false " />
+                        </a>
+                    </div>
+
                 </div>
-                <div class="col-md-3 col-sm-3 col-xl-3">
-                    <a>
-                        <img src="./assets/img/m_tran_spei.png" width="200px" draggable="false" />
-                    </a>
+
+                <div class="row " style="margin-top: 40px;">
+
+                    <div class="col-md-2 col-sm-2 col-xl-2 " style="margin-left: 120px;">
+                        <a>
+                            <h3>Pago de servicios</h3>
+                        </a>
+
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xl-2 ">
+                        <a>
+                            <h3>Pago de tarjetas de credito</h3>
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xl-1 ">
+
+                    </div>
+                    <div id="espacioTextSPEI" class="col-md-2 col-sm-2 col-xl-2 ">
+                        <!-- ACTIVAR AL QUITAR BTN ALERTAS <div id="espacioTextSPEI" class="col-md-2 col-sm-2 col-xl-2 espacioBotones">-->
+                        <a>
+                            <h3>Mantenimiento de beneficiarios</h3>
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xl-2 ">
+                        <a>
+                            <h3>Actualizar datos de contacto</h3>
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xl-2 ">
+                        <a>
+                            <h3>Activar alertas Banorte</h3>
+                        </a>
+                    </div>
+
                 </div>
-                <div class="col-md-3 col-sm-3 col-xl-3">
-                    <a>
-                        <img src="./assets/img/m_tdc_ter.png" width="200px" draggable="false" />
-                    </a>
-                </div>
+
             </div>
+
+
+
             <br/>
 
-            <div class="row">
-                <div class="col-md-4 col-sm-4 col-xl-4 text-center">
-                    <a onclick="currentPage.loadPageCompraTiempoAire();">
-                        <img src="./assets/img/m_tae.png" width="200px" draggable="false" />
-                    </a>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xl-4 text-center">
-                    <a onclick="currentPage.loadPagePagoServ()">
-                        <img src="./assets/img/m_pagserv.png" width="200px" />
-                    </a>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xl-4 text-center">
-                    <a onclick="currentPage.loadPageEdoCta()">
-                        <img src="./assets/img/m_ied.png" width="200px" draggable="false" />
-                    </a>
-                </div>
-            </div>
+
+
+
 
 
         </div>
+    </div>
+</div>
+
+
+<div id="opciones" class="row " style="display: block; float: right; margin-right: 140px; margin-top: 120px;">
+    <div class="col-md-3 col-sm-3 col-xl-12">
+        <a>
+            <img (click)="moreOptions()" src="./assets/img/8_Más-operaciones.png " width="170px " draggable="false " />
+        </a>
+    </div>
+    <br>
+    <div align="center">
+        <h3>Más operaciones</h3>
+    </div>
+</div>
+
+<div id="regresar" class="row " style="display: none; float: right; margin-right: 140px; margin-top: 120px;">
+    <div class="col-md-3 col-sm-3 col-xl-12">
+        <a>
+            <img (click)="regresar()" src="./assets/img/15_Regresar.png " width="170px " draggable="false " />
+        </a>
+    </div>
+    <br>
+    <div align="center">
+        <h3>Regresar</h3>
     </div>
 </div>

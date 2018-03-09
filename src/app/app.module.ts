@@ -9,12 +9,16 @@ import { FormsModule } from '@angular/forms';
 import { APP_ROUTES } from './app.routes';
 import { LoginComponent } from './login/login.component';
 import { PagesModule } from './pages/pages.module';
+import { MenuBxiComponent } from "./pages/bxi/menu-bxi/menu-bxi.component";
+import { MenutddComponent } from "./tdd/menuTDD/menutdd/menutdd.component";
 import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    MenuBxiComponent,
+    MenutddComponent,
   ],
   imports: [
     BrowserModule,
