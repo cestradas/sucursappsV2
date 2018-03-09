@@ -26,6 +26,12 @@ export class MenuBxiComponent implements OnInit {
     $('div').removeClass('modal-backdrop');
   }
 
+  transferInternacionales() {
+    
+    this.router.navigate(['/transferInternacionales']);
+    $('div').removeClass('modal-backdrop');
+  }
+
   moreOptions() {
 
   
