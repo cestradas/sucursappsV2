@@ -5,6 +5,14 @@
             width: 100%;
             overflow-y: hidden;
             overflow-x: hidden;
+            background: url("./assets/img/bg_gr_01.png") top left no-repeat fixed #464646;
+            margin: 0;
+            background-size: cover;
+        }
+        
+        html {
+            width: 100%;
+            height: 100%;
         }
         /*  Home */
         
@@ -12,6 +20,10 @@
             background-repeat: no-repeat;
             background-size: cover;
             width: 100%;
+        }
+        
+        .sizeMenuBtn {
+            width: 300px;
         }
         
         .term_anim {
@@ -31,7 +43,7 @@
         
         .nav-img-banorte {
             background-image: url("./assets/img/navbar_red_top_pleca.png");
-            height: 70px;
+            height: 80px;
             background-repeat: no-repeat;
             background-size: cover;
         }
@@ -42,9 +54,33 @@
         }
         
         .menu-mca-container {
-            width: 900px;
+            width: 1480px;
             height: 550px;
             margin: 0px auto;
+        }
+        
+        .menu-mca-grid {
+            max-width: 1480px;
+        }
+        
+        .espacioBotones {
+            margin-left: 115px;
+        }
+        /* menu BXI */
+        
+        .titulo {
+            margin-top: 80px;
+            margin-bottom: 80px;
+        }
+        
+        .menu-bxi-container {
+            width: 1480px;
+            height: 550px;
+            margin: 0px auto;
+        }
+        
+        .menu-bxi-grid {
+            max-width: 1480px;
         }
         /*  Animaciones */
         
@@ -62,6 +98,13 @@
             animation-fill-mode: both;
         }
         
+        .slow {
+            -webkit-animation-duration: 5s;
+            animation-duration: 5s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+        
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -74,6 +117,64 @@
         .fadeIn {
             animation-name: fadeIn;
         }
+        
+        @-webkit-keyframes fadeOutUp {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+                -webkit-transform: translate3d(0, -100%, 0);
+                transform: translate3d(0, -100%, 0);
+            }
+        }
+        
+        @keyframes fadeOutUp {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+                -webkit-transform: translate3d(0, -100%, 0);
+                transform: translate3d(0, -100%, 0);
+            }
+        }
+        
+        .fadeOutUp {
+            -webkit-animation-name: fadeOutUp;
+            animation-name: fadeOutUp;
+        }
+        /* Sombra Modales */
+        
+        .shadowModal {
+            -webkit-box-shadow: 10px 7px 79px -8px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow: 10px 7px 79px -8px rgba(0, 0, 0, 0.75);
+            box-shadow: 10px 7px 79px -8px rgba(0, 0, 0, 0.75);
+            border-radius: 1.3rem !important;
+        }
+        /* Modal Content */
+        
+        .instruccionesMargin {
+            margin-bottom: 50px;
+            margin-top: 75px;
+        }
+        /* felechas del carousel */
+        
+        .arrowCarousel {
+            width: 126px !important;
+            height: 63px !important;
+            filter: drop-shadow(5px 5px 10px #444);
+        }
+        /* Estilos BOTONES menú */
+        
+        .styleMenuButton {
+            filter: drop-shadow(2px 13px 17px #444);
+        }
+        
+        .sizeMenuButtons {
+            width: 180px;
+        }
+        /* #David */
         
         .padding-barToTittle {
             padding-top: 55px;
