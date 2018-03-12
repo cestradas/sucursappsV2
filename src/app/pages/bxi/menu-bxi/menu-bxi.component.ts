@@ -13,7 +13,6 @@ declare var $: $;
 })
 export class MenuBxiComponent implements OnInit {
 
-  // let modalTime = 800;
 
   constructor(private _http: Http, private router: Router ) { }
 
@@ -41,37 +40,17 @@ export class MenuBxiComponent implements OnInit {
       document.getElementById('opciones').style.display = 'none';
       document.getElementById('masOpciones').style.display = 'block';
       document.getElementById('regresar').style.display = 'block';
+      $('#operacionesFrecuentes').removeClass('animated fadeOutUp slow');
+      $('#opciones').removeClass('flipOutY fast');
+      
     }, 2000);
 
-   // $('#operacionesFrecuentes').addClass('animated fadeOutUp slow');
-    // $('#opciones').addClass('animated fadeOutUp slow');
-   // $('#curp').removeClass('animated fadeOutUp slow');
+    $('#operacionesFrecuentes').addClass('animated fadeOutUp slow');
+    $('#masOpciones').addClass('animated fadeInUp slow');
 
-
-    /*setTimeout(() => {
-
-      $("#masOpciones").fadeToggle(1000);
-    
-    $("#regresar").fadeToggle(1000);
-    }, 1000);
-    
-
-    
-    $("#operacionesFrecuentes").fadeToggle(1000);
-    
-    $("#opciones").fadeToggle(1000);
-
-    setTimeout(() => {
-      document.getElementById('operacionesFrecuentes').style.display = 'none';
-      document.getElementById('opciones').style.display = 'none';
-      document.getElementById('masOpciones').style.display = 'block';
-      
-    
-      document.getElementById('regresar').style.display = 'block';
-    }, 1000);
-    
-
-    */
+    $('#opciones').addClass('flipOutY fast');
+    $('#regresar').addClass('flipInY slow');
+   
       
     
   }
@@ -86,30 +65,17 @@ export class MenuBxiComponent implements OnInit {
       document.getElementById('opciones').style.display = 'block';
       document.getElementById('masOpciones').style.display = 'none';
       document.getElementById('regresar').style.display = 'none';
+      $('#masOpciones').removeClass('animated fadeOutUp slow');
+      $('#regresar').removeClass('flipOutY fast');
     }, 2000);
-    /*
-    setTimeout(() => {
 
-      $("#operacionesFrecuentes").fadeToggle(1000);
-    
-    $("#opciones").fadeToggle(1000);
-    }, 1000);
+    $('#masOpciones').addClass('animated fadeOutUp slow');
+    $('#operacionesFrecuentes').addClass('animated fadeInUp slow');
 
-
-
-    $("#masOpciones").fadeToggle(1000);
-    
-    $("#regresar").fadeToggle(1000);
-
-    setTimeout(() => {
-
-      document.getElementById('operacionesFrecuentes').style.display = 'block';
-      document.getElementById('masOpciones').style.display = 'none';
-      document.getElementById('opciones').style.display = 'block';
-      document.getElementById('regresar').style.display = 'none';
-    }, 1000);
-
-*/
+    $('#regresar').addClass('flipOutY fast');
+    $('#opciones').addClass('flipInY slow');
+   
+   
    
   }
 

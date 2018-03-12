@@ -1,13 +1,15 @@
 import { RouterModule, Routes } from '@angular/router';
 import { PagesComponent } from './pages.component';
-import { TddMenuComponent } from './tdd/tdd-menu/tdd-menu.component';
+import { MenutddComponent } from './tdd/menuTDD/menutdd/menutdd.component';
+import { MenuBxiComponent } from './bxi/menu-bxi/menu-bxi.component';
 
 
 const pagesRoutes: Routes = [
     {
         path: '', component: PagesComponent,
         children: [
-            { path: 'menuTdd', component: TddMenuComponent},
+            { path: 'menuTdd', component: MenutddComponent},
+            { path: 'menuBXI', component: MenuBxiComponent},
             {path: '', redirectTo: '/menuTdd', pathMatch: 'full' }
         ]
     }

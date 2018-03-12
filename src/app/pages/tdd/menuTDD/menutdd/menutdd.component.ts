@@ -5,9 +5,10 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Route
 import $ from 'jquery';
 
 declare var $: $;
+
 @Component({
-  selector: 'app-tdd',
-  templateUrl: './tdd.component.html',
+  selector: 'app-menutdd',
+  templateUrl: './menutdd.component.html',
   styles: []
 })
 export class MenutddComponent implements OnInit {
@@ -27,13 +28,14 @@ export class MenutddComponent implements OnInit {
   moreOptions() {
 
   
-    setTimeout(() => {
+    // setTimeout(() => {
 
       document.getElementById('operacionesFrecuentes').style.display = 'none';
       document.getElementById('opciones').style.display = 'none';
       document.getElementById('masOpciones').style.display = 'block';
       document.getElementById('regresar').style.display = 'block';
-    }, 2000);
+
+    // }, 2000);
 
    // $('#operacionesFrecuentes').addClass('animated fadeOutUp slow');
    
@@ -45,13 +47,14 @@ export class MenutddComponent implements OnInit {
 
 
 
-    setTimeout(() => {
+    // setTimeout(() => {
 
       document.getElementById('operacionesFrecuentes').style.display = 'block';
       document.getElementById('opciones').style.display = 'block';
       document.getElementById('masOpciones').style.display = 'none';
       document.getElementById('regresar').style.display = 'none';
-    }, 2000);
+
+    // }, 2000);
     
    
   }
