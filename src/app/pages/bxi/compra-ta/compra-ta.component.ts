@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
-
+import 'rxjs/Rx';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-
+import { CurrencyPipe } from '@angular/common';
 
 import $ from 'jquery';
 declare var $: $;
@@ -19,15 +19,16 @@ export class CompraTaComponent implements OnInit {
   tipoMovimiento: string;
   numeroCuenta: string;
   datosCuenta: any[] = [];
+  box_price = 0;
+  box_price_formatted = "$10.00";
 
-  constructor( private _http: Http, private router: Router ) { }
+  constructor( private _http: Http, private router: Router , private currencyPipe: CurrencyPipe) { }
 
   ngOnInit() {
     this.consultaCuentas();
   }
 
 
-  
 
   consultaCuentas() {
      
@@ -55,8 +56,9 @@ resourceRequest
     .then(
         function(response) {
           console.log(response.responseJSON);
-          console.log(response.responseJSON.SaldoDia);
-        
+          
+          THIS.datosCuenta = response.responseJSON;
+          console.log(THIS.datosCuenta);
           // THIS.router.navigate(['/homePage']);
           // THIS.loading = false;
           
