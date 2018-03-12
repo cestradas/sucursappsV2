@@ -1,73 +1,88 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { Http } from '@angular/http';
-
+import { Http, Response, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 
 import $ from 'jquery';
 declare var $: $;
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html'
+  selector: 'app-home',
+  templateUrl: './login.component.html',
+  styles: []
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   forma: string;
   tarjeta: string;
   postResp;
 
-  constructor( public router: Router,
-               public _http: Http ) { }
-
-  ngOnInit() {
-  }
+  constructor( private _http: Http, private router: Router ) {}
 
   onPlasticLogin() {
-    $('#ModalTDDLogin').modal('show');
+    
+    console.log("adentro");
+     $('#ModalTDDLogin').modal('show');
      this.getPosts().subscribe( result => {this.postResp = result; });
 
      console.log(this.postResp);
 
       const THIS: any = this;
 
-  // const formParameters = {
-  //   tarjeta: this.postResp.tr2,
-  //   nip: this.postResp.np
+  const formParameters = {
+    tarjeta: this.postResp.tr2,
+    nip: this.postResp.np
 
-  // };
+  };
 
-//   const resourceRequest = new WLResourceRequest(
-//     'adapters/AdapterBanorteSucursApps/resource/validaNip',
-//     WLResourceRequest.POST);
-// resourceRequest.setTimeout(30000);
-// resourceRequest
-//     .sendFormParameters(formParameters)
-//     .then(
-//         function(response) {
-//           console.log(response.responseText);
-//           sessionStorage.setItem('tipoCliente', response.responseText);
-//           $('div').removeClass('modal-backdrop');
-//           THIS.router.navigate(['/menutdd']);
-//           THIS.loading = false;
-//         },
-//         function(error) {
-//           THIS.loading = false;
-
-//         });
-
+  const resourceRequest = new WLResourceRequest(
+    'adapters/AdapterBanorteSucursApps/resource/validaNip',
+    WLResourceRequest.POST);
+resourceRequest.setTimeout(30000);
+resourceRequest
+    .sendFormParameters(formParameters)
+    .then(
+        function(response) {
+          console.log(response.responseText);
+          sessionStorage.setItem('tipoCliente', response.responseText);
+          THIS.router.navigate(['/homePage']);
+          THIS.loading = false;
+        },
+        function(error) {
+          THIS.loading = false;
+          console.log("hola");
           $('#ModalTDDLogin').modal('hide');
-          $('div').removeClass('modal-backdrop');
 
-          THIS.router.navigate(['/menuTdd']);
+        });
+        console.log("hola");
+        $('#ModalTDDLogin').modal('hide');
 
+  }
 
+  BxiLogin(){
+    console.log("en funcion de bxi");
+    $('#ModalBXILogin').modal('show');
+    
+    
+  }
+
+  validaUsuario(){
+    document.getElementById('view_usr').style.display = 'none';
+    //document.getElementById('view_pass_token_cel').style.display = 'block';
+    document.getElementById('view_pass_token').style.display = 'block';
+    //document.getElementById('view_pass').style.display = 'block';
+  }
+
+  validaTokenFisico(){
+    this.router.navigate(['/menuBXI']);
+    $('div').removeClass('modal-backdrop');
   }
 
   getPosts() {
     return this._http.get('http://localhost:8081/sucursappsdevices/pinpad/read')
                             .map(res => res.json());
   }
+
 
 }

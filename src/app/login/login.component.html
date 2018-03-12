@@ -29,10 +29,10 @@
 
 <br>
 
-<div class="row" style="margin-top: 100px; width: 1920px; margin-right: 0px;margin-left: 0px;">
-    <div class="col-sm-4 text-center animated fadeIn fast" (click)="onPlasticLogin()">
+<div class="row" style="margin-top: 40px; width: 1920px; height: 310px; margin-right: 0px;margin-left: 0px;">
+    <div class="col-sm-4 text-center animated fadeIn fast" (click)="BxiLogin()">
         <a data-toggle="modal">
-            <img class="styleMenuButton" src="./assets/img/btn_acc_bxi.png">
+            <img class="styleMenuButton sizeMenuBtn" src="./assets/img/btn_acc_bxi.png">
         </a>
     </div>
     <div class="col-sm-4  text-center animated fadeIn fast" (click)="onPlasticLogin()">
@@ -40,14 +40,34 @@
         <!-- <a data-toggle="modal" data-target="#ModalTDDLogin" class="">
             <a onClick="pantallaInicio()" class="home-menu-item"> -->
         <a data-toggle="modal" class="">
-            <img class="styleMenuButton" src="./assets/img/btn_acc_tar.png">
+            <img class="styleMenuButton sizeMenuBtn" src="./assets/img/btn_acc_tar.png">
         </a>
         <!-- </a> -->
     </div>
     <div class="col-sm-4  text-center animated fadeIn fast">
         <a ng-click="loadEncuesta()" class="home-menu-item">
             <!-- <a class="home-menu-item" ng-click=""> -->
-            <img class="styleMenuButton" src="./assets/img/btn_acc_eva.png">
+            <img class="styleMenuButton sizeMenuBtn" src="./assets/img/btn_acc_eva.png">
+        </a>
+    </div>
+
+
+</div>
+
+<div class="row" style="width: 1920px; margin-top: 20px; margin-right: 0px;margin-left: 0px;">
+    <div class="col-sm-4 text-center animated fadeIn fast" (click)="BxiLogin()">
+        <a>
+            <h2>Iniciar sesión de <br> banca por internet</h2>
+        </a>
+    </div>
+    <div class="col-sm-4  text-center animated fadeIn fast" (click)="onPlasticLogin()">
+        <a>
+            <h2>Iniciar con tarjeta <br> de debito o crédito</h2>
+        </a>
+    </div>
+    <div class="col-sm-4  text-center animated fadeIn fast">
+        <a>
+            <h2>Evaluar</h2>
         </a>
     </div>
 
@@ -57,28 +77,43 @@
 
 <!-- Modal -->
 <div class="modal fade " id="ModalTDDLogin" tabindex="-1" role="dialog" aria-labelledby="ModalTDDLogin" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 600px;">
         <div class="modal-content shadowModal">
-            <div class="modal-header">
-                <button type="button" class="close bxi-red" data-dismiss="modal" aria-label="Close">
-                    <!--<img src="assets/images/close-32-red.png">-->
-                  </button>
+            <div class="modal-header" align="center" style="align-self: center;">
+                <!--<button type="button" class="close bxi-red" data-dismiss="modal" aria-label="Close">
+                    <img src="assets/images/close-32-red.png">
+                  </button>-->
 
-                <h4 class="modal-title" style="color: #eb012a; font-weight: 700;">
-                    Acceso con tarjeta
+                <h4 class="modal-title" align="center" style="display: block; color: #eb012a;  font-weight: 700;">
+                    Captura tu NIP para continuar
+                </h4>
+                <h4 class="modal-title" align="center" style="display: none; color: #eb012a;  font-weight: 700;">
+                    Captura nuevamente <br> tu NIP para continuar
                 </h4>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-lg-6" style="color: #eb012a">
-                        <h4>1. Inserte la tarjeta</h4>
+                    <div class="col-lg-7" style="color: #eb012a">
 
-                        <h4>2. Retire la tarjeta</h4>
 
-                        <h4>3. Digite su NIP (4 digitos)</h4>
+
+                        <h4 class="instruccionesMargin">Instrucciones:</h4>
+
+                        <div>
+
+                            <h4>1. Inserta la tarjeta</h4>
+                            <br>
+                            <h4>2. Retira la tarjeta</h4>
+                            <br>
+                            <h4>3. Captura tu NIP</h4>
+                            <br>
+                            <h4>4. Presiona el botón verde</h4>
+
+
+                        </div>
 
                     </div>
-                    <div class="col-lg-5" style="margin-left: -38px;">
+                    <div class="col-lg-5" style="margin-left: -30px;">
                         <div class="align-center term_anim">
                             &nbsp;
                         </div>
@@ -133,9 +168,9 @@
                                     <!-- <input type="password"   name="usr" id="usr" /> -->
                                 </div>
                                 <!-- <button [routerLink]="['/menuBXI']" type="button" class="btn btn-primary btn-block btn-lg" style="border: 0; border-color: #eb012a; background-color: #eb0029;" id="botonUsr"> -->
-                                <!-- <button (click)="validaUsuario()" type="button" class="btn btn-primary btn-block btn-lg" style="border: 0; border-color: #eb012a; background-color: #eb0029;" id="botonUsr">
+                                <button (click)="validaUsuario()" type="button" class="btn btn-primary btn-block btn-lg" style="border: 0; border-color: #eb012a; background-color: #eb0029;" id="botonUsr">
                                             Continuar
-                                        </button> -->
+                                        </button>
                                 <br/>
                             </div>
                         </div>
@@ -211,9 +246,9 @@
                                 </div>
 
                                 <!-- <button type="button" class="btn btn-primary btn-block btn-lg" ng-disabled="currentForm.$invalid" ng-click="onPassClick3()"> -->
-                                <!-- <button (click)="validaTokenFisico()" style="border: 0; border-color: #eb012a; background-color: #eb0029;" type="button" class="btn btn-primary btn-block btn-lg">
+                                <button (click)="validaTokenFisico()" style="border: 0; border-color: #eb012a; background-color: #eb0029;" type="button" class="btn btn-primary btn-block btn-lg">
                                   Continuar
-                                </button> -->
+                                </button>
                             </div>
                             <div class="col-lg-3">
                                 <img style="width: 140px;" src="./assets/img/token_fisico.png" />
