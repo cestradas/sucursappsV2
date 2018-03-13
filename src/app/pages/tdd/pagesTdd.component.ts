@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-pages',
+    selector: 'app-pages-tdd',
     templateUrl: './pagesTdd.component.html',
     styles: []
 })

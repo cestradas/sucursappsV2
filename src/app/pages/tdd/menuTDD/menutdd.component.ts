@@ -18,6 +18,34 @@ export class MenutddComponent implements OnInit {
   ngOnInit() {
   }
 
+  mandarPage(id) {
+    
+    console.log(id);
+
+    switch (id) {
+      case 'saldosMov':
+          this.router.navigate(['/movimientoSaldo']);
+          break;
+      // case 'edc':
+          // this.router.navigate(['/compraTiempoAire']);
+          // break;
+      case 'compraTA':
+          this.router.navigate(['/compraTiempoAire']);
+          break;
+      case 'spei':
+          this.router.navigate(['/spei']);
+          break;
+      case 'transBanorte':
+          this.router.navigate(['/transBanorte']);
+          break;
+      case 'pagoServ':
+          this.router.navigate(['/pagoServicios']);
+          break;
+      default:
+      this.router.navigate(['/menuTdd']);
+  }
+
+  }
 
 
   compraTA() {
