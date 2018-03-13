@@ -41,11 +41,11 @@
                                     <th>Descripci&oacute;n</th>
                                     <th>Importe</th>
                                 </tr>
-                                <tr *ngFor="let cuenta of ALIAS; let i = index">
+                                <!-- <tr *ngFor="let cuenta of ALIAS; let i = index">
                                     <td *ngIf="(i>=NumeroDatoInicial) && (i < NumeroDatoFinal)">{{cuenta.Alias}}</td>
                                     <td *ngIf="(i>=NumeroDatoInicial) && (i < NumeroDatoFinal)">{{cuenta.IdCuenta}}</td>
                                     <td *ngIf="(i>=NumeroDatoInicial) && (i < NumeroDatoFinal)">{{cuenta.NoCuenta}}</td>
-                                </tr>
+                                </tr> -->
 
                             </table>
                         </div>
@@ -55,7 +55,7 @@
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination">
                                         <li class="page-item boton"><a class="page-link" ng-click='setPage(page.no)' (click)="PreviousPag(NumeroDatoFinal)" #algo>Previous</a></li>
-                                        <li class="page-item" *ngFor="let pagina of arrayNumPag"><a class="page-link" #paginaNum (click)="Cambiarpagina(paginaNum)">{{pagina + 1}}</a></li>
+                                        <!-- <li class="page-item" *ngFor="let pagina of arrayNumPag"><a class="page-link" #paginaNum (click)="Cambiarpagina(paginaNum)">{{pagina + 1}}</a></li> -->
                                         <li class="page-item"><a class="page-link" (click)="NextPag(NumeroDatoFinal)" #algo1>Next</a></li>
                                     </ul>
                                 </nav>

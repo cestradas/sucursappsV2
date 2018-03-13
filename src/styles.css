@@ -658,6 +658,25 @@ table {
     outline: 0
 }
 
+.breadcroms-color {
+    height: 80px;
+    background-color: #f9f9f9;
+}
+
+.breadcrombs-text {
+    margin-left: 70px;
+}
+
+.breadcroms-icon {
+    margin-right: 15px;
+}
+
+.breadcrombs-out {
+    text-decoration: underline;
+    float: right;
+    margin-right: 70px;
+}
+
 .modal-title {
     margin: 0;
     line-height: 1.42857143

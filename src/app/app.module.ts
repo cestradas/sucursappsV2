@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+
 import { FormsModule } from '@angular/forms';
 
 import { APP_ROUTES } from './app.routes';
@@ -15,15 +17,15 @@ import { HttpModule } from '@angular/http';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    MenuBxiComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     APP_ROUTES,
     FormsModule,
     PagesModule,
-    HttpModule
+    HttpModule,
+    AngularFontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
