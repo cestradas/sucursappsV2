@@ -1,4 +1,7 @@
-import { NgModule } from '@angular/core';
+
+
+
+import { NgModule} from '@angular/core';
 import { PagesComponent } from './pages.component';
 import { PAGES_ROUTES } from './pages.routes';
 
@@ -8,6 +11,9 @@ import { PagesTddModule } from './tdd/pagesTdd.module';
 import { PagesBxiModule } from "./bxi/pagesBxi.module";
 import { BreadcrumbsComponent } from '../shared/breadcrumbs/breadcrumbs.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+
+
+
 
 
 @NgModule({
@@ -23,7 +29,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
         PagesTddModule,
         PagesBxiModule,
         AngularFontAwesomeModule
-    ]
+    ],
 })
 
 export class PagesModule {  }

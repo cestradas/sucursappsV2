@@ -1,3 +1,4 @@
+import { MenutddComponent } from './menuTDD/menutdd.component';
 import { NgModule } from "@angular/core"; 
 import { PagesTddComponent } from './pagesTdd.component';
 import { PAGES_ROUTES_TDD } from './pagesTdd.routes';
@@ -9,6 +10,7 @@ import { CompraTiempoAireComponent } from './compra-tiempo-aire/compra-tiempo-ai
 import { PagoDeServiciosComponent } from './pago-de-servicios/pago-de-servicios.component';
 
 
+
 @NgModule ({
     declarations: [
         PagesTddComponent,
@@ -16,7 +18,8 @@ import { PagoDeServiciosComponent } from './pago-de-servicios/pago-de-servicios.
         CompraTiempoAireComponent,
         TransferenciaSpeiComponent,
         TransferenciaTercerosComponent,
-        PagoDeServiciosComponent
+        PagoDeServiciosComponent,
+        MenutddComponent
     ],
     exports: [],
     imports: [
