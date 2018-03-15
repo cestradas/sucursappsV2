@@ -70,8 +70,7 @@ var UserLoginChallengeHandler = function(usr, key) {
                 },
 
                 function(response) {
-                    console.info("*login onFailure: " +
-                        JSON.stringify(response));
+
 
                     banderaServidor++;
 
@@ -83,14 +82,10 @@ var UserLoginChallengeHandler = function(usr, key) {
                     } else if (banderaServidor == 3) {
                         var user = roots(ROOT3);
                     } else if (banderaServidor >= 3) {
-                        console.log("no hy mas servidores");
+                        console.info("*login onFailure: " +
+                            JSON.stringify(response));
 
                     }
-
-
-
-
-
 
                 });
 

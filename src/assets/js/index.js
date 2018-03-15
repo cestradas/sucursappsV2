@@ -43,7 +43,7 @@ var roots = function(param) {
 
         var prom1 = new Promise(function(resolve, reject) {
             setTimeout(function() {
-                console.log("Promesa terminada");
+                // console.log("Promesa terminada");
                 //termina bien
                 resolve(valRoot(param));
 

@@ -19,18 +19,18 @@
                 </div>
                 <div class="row padding-top-15">
                     <div class="col-lg-12">
-                        <!-- <table class="table table-striped accounts-table">
-          <thead>
-            
-          </thead>
-          <tbody>
-            <tr ng-repeat="t in accountDetail.movimientos  | startFrom:currentPage*pageSize | orderBy:'-numeroMovimientos' | limitTo:pageSize ">
-              <td>{{t.fechaOperacion | date:'dd/MM/yyyy'}}</td>
-              <td>{{t.observaciones}}</td>
-              <td>{{t.importe | currency:"$"}}</td>
-            </tr>
-          </tbody>
-        </table> -->
+                        <table class="table table-striped accounts-table">
+                            <thead>
+
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="t in accountDetail.movimientos  | startFrom:currentPage*pageSize | orderBy:'-numeroMovimientos' | limitTo:pageSize ">
+                                    <!-- <td>{{t.fechaOperacion | date:'dd/MM/yyyy'}}</td>
+                                    <td>{{t.observaciones}}</td>
+                                    <td>{{t.importe | currency:"$"}}</td> -->
+                                </tr>
+                            </tbody>
+                        </table>
 
 
 
@@ -41,11 +41,11 @@
                                     <th>Descripci&oacute;n</th>
                                     <th>Importe</th>
                                 </tr>
-                                <!-- <tr *ngFor="let cuenta of ALIAS; let i = index">
+                                <tr *ngFor="let cuenta of ALIAS; let i = index">
                                     <td *ngIf="(i>=NumeroDatoInicial) && (i < NumeroDatoFinal)">{{cuenta.Alias}}</td>
                                     <td *ngIf="(i>=NumeroDatoInicial) && (i < NumeroDatoFinal)">{{cuenta.IdCuenta}}</td>
                                     <td *ngIf="(i>=NumeroDatoInicial) && (i < NumeroDatoFinal)">{{cuenta.NoCuenta}}</td>
-                                </tr> -->
+                                </tr>
 
                             </table>
                         </div>
