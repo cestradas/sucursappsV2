@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule } from "@angular/core"; 
 import { PagesTddComponent } from './pagesTdd.component';
 import { PAGES_ROUTES_TDD } from './pagesTdd.routes';
 import { SharedModule } from '../../shared/shared.module';
@@ -9,7 +9,7 @@ import { CompraTiempoAireComponent } from './compra-tiempo-aire/compra-tiempo-ai
 import { PagoDeServiciosComponent } from './pago-de-servicios/pago-de-servicios.component';
 
 
-@NgModule({
+@NgModule ({
     declarations: [
         PagesTddComponent,
         MovimientosaldoComponent,
