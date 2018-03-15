@@ -21,7 +21,7 @@ export class LoginComponent {
   constructor( private _http: Http, private router: Router ) {}
 
   onPlasticLogin() {
-    
+
     console.log("adentro");
      $('#ModalTDDLogin').modal('show');
     //  this.getPosts().subscribe( result => {this.postResp = result; });
@@ -48,15 +48,15 @@ resourceRequest
           console.log(response.responseText);
           // sessionStorage.setItem('tipoCliente', response.responseText);
           THIS.router.navigate(['/menuTdd']);
-          
+
         },
         function(error) {
-          
-          
+
+
           // $('#ModalTDDLogin').modal('hide');
 
         });
-        
+
         $('div').removeClass('modal-backdrop');
 
   }
@@ -64,21 +64,10 @@ resourceRequest
   BxiLogin() {
     console.log("en funcion de bxi");
     $('#ModalBXILogin').modal('show');
-    
-    
+
+
   }
 
-  validaUsuario() {
-    document.getElementById('view_usr').style.display = 'none';
-    // document.getElementById('view_pass_token_cel').style.display = 'block';
-    document.getElementById('view_pass_token').style.display = 'block';
-    // document.getElementById('view_pass').style.display = 'block';
-  }
-
-  validaTokenFisico() {
-    this.router.navigate(['/menuBXI']);
-    $('div').removeClass('modal-backdrop');
-  }
 
   getPosts() {
     return this._http.get('http://localhost:8081/sucursappsdevices/pinpad/read')

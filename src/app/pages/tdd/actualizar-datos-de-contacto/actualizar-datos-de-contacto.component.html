@@ -1,0 +1,79 @@
+<div class="padding-barToTittle">
+    <h2 class="text-center deleteMargin-h2 color-letra">Actualizar datos de contacto</h2>
+</div>
+<fieldset class="padding-TittleToFieldset padding-fieldset-general">
+    <div class="row sumando-form-group letranegrita">
+        <div class="col-sm-1 sumando-bg-orange group-name">Cuenta</div>
+        <div class="col-sm-11 group-controls padding-left-0 padding-right-0 sumando-well-white">
+            <div class="form-group ">
+
+                <div class="sumando-dropdown-account">
+                    <button style="width: 100% !important;" class="letranegrita fondoblanco btn btn-default btn-block dropdown-toggle" type="button">
+                  <table width="100%" class="letranegrita">
+                    <tr>
+                      <td align="left"  width="40%" >CUENTA ENLACE PERSONAL <strong>
+                          <label id="nombreCliente"  for="amount" >
+                          </label>
+                        </strong>
+                      </td>
+                      <td align="left" width="40%">
+                        <strong>
+                          <label id="saldoDisponible" for="amount" >$</label> 
+                        </strong>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="left" id="numeroCuenta" >Cuenta<label  for="amount">
+                        </label>
+                      </td>
+                    </tr>
+                  </table>
+                </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>
+
+<fieldset class="padding-TittleToFieldset padding-fieldset-general">
+    <div align="center" class="well sumando-well-white col-sm-12">
+
+        <div class="col-sm-5" align="right">
+            <strong>Correo electr&oacute;nico</strong>
+        </div>
+        <div class="col-sm-4">
+            <input name="correoElectronico" id="correoElectronico" type="text" maxlength="100" height="30" required class="tamimput form-control amount input-lg" />
+        </div>
+        <div class="col-sm-1" align="left">
+            <img src="./assets/img/pencil.png" type="image/png" width="30" height="30" onclick=''>
+        </div>
+        <br>
+        <br>
+
+        <div class="col-sm-5" align="right">
+            <strong>N&uacute;mero de celular</strong>
+        </div>
+        <div class="col-sm-4">
+            <input name="numeroCelular" id="numeroCelular" type="text" maxlength="100" height="30" required class="tamimput form-control amount input-lg" />
+        </div>
+        <div class="col-sm-1" align="left">
+            <img src="./assets/img/pencil.png" type="image/png" width="30" height="30" onclick=''>
+        </div>
+
+
+    </div>
+</fieldset>
+
+
+<div style="margin:30px 0px 0px 0px;">
+    <div class="col-sm-10">
+        <button class="btn pull-right btn-lg letranegrita" onClick="currentPage.loadMenu();">
+                    Cancelar
+                </button>
+    </div>
+    <div style=" padding: 0px;" class="col-sm-1">
+        <button class="btn btn-danger btn-lg letranegrita" onClick="currentPage.loadMenu();">
+                Guardar
+            </button>
+    </div>
+</div>

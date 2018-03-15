@@ -1,4 +1,5 @@
-import { NgModule } from "@angular/core";
+import { MenutddComponent } from './menuTDD/menutdd.component';
+import { NgModule } from "@angular/core"; 
 import { PagesTddComponent } from './pagesTdd.component';
 import { PAGES_ROUTES_TDD } from './pagesTdd.routes';
 import { SharedModule } from '../../shared/shared.module';
@@ -13,14 +14,16 @@ import { FormsModule } from '@angular/forms';
 
 
 
-@NgModule({
+
+@NgModule ({
     declarations: [
         PagesTddComponent,
         MovimientosaldoComponent,
         CompraTiempoAireComponent,
         TransferenciaSpeiComponent,
         TransferenciaTercerosComponent,
-        PagoDeServiciosComponent
+        PagoDeServiciosComponent,
+        MenutddComponent
     ],
     exports: [],
     imports: [

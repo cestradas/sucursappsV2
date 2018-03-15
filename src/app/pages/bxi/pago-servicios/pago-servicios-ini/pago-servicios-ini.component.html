@@ -1,0 +1,108 @@
+<form novalidate>
+  <h2 class="text-center padding-barToTittle deleteMargin-h2" >Pago de Servicios</h2>
+    <fieldset class="padding-fieldset-general padding-TittleToFieldset">
+        <div class="sumando-form-group" > 
+        <div class="col-sm-1 sumando-bg-orange group-name">
+          Desde 
+        </div>
+        <div class="col-sm-11 group-controls padding-left-0 padding-right-0 padding-InFieldset" >
+          <div class="form-group" >
+            <div class="sumando-bg-white">
+              <input type="hidden" >
+              <div class="dropdown sumando-dropdown-account">
+                <button class="btn btn-default btn-block dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="padding-right: 0px;padding-top: 0px;padding-bottom: 0px">
+                <table id="tableOrigen" style="display: none" width="100%">
+                  <tr> 
+                    <td align="left" width="45%">
+                      <strong><label  id="lblAliasOrigen" #lblAliasOrigen></label></strong>
+                    </td>
+                    <td align="left" width="45%">
+                      <strong>$<label id ="lblSaldoOrigen"></label>
+                      </strong>
+                    </td>
+                    <td width="5%" rowspan="2" class="dropdown-caret">
+                      <img src="./assets/img/bg_selectN.png" style="width: 90%;    height: 150%;">
+                    </td> 
+                  </tr>
+                  <tr>
+                    <td align="left">Cuenta <label id="lblCuentaOrigen" #lblCuentaOrigen></label></td>
+                    <td align="left">Saldo Disponible</td>
+                  </tr>
+                </table> 
+                <table  id="tableDefaultOrigen" width="100%">
+                  <tr>
+                    <td align="left" rowspan="2">Seleccione una cuenta de origen...</td>
+                    <td width="5%" rowspan="2" class="dropdown-caret">
+                      <img src="./assets/img/bg_selectN.png" style="width: 90%;    height: 150%;">
+                    </td> 
+                  </tr>  
+                </table>
+              </button>  
+            <div>
+              <ul id="ul_Cuentas" #listaCuentas class="dropdown-menu btn-block" aria-labelledby="dropdownMenu1" style="width: 100%; height: 200px; overflow: auto" >
+                 
+              </ul>
+            </div>
+            </div>
+          </div> 
+        </div>
+      </div>
+        <div class="sumando-form-group">
+        <div class="col-sm-1 sumando-bg-orange group-name ">
+          Para
+        </div>
+        <div class="col-lg-11 group-controls padding-left-0 padding-right-0 padding-InFieldset">
+          <div class="input-group" >
+            <input id="facturador" type="text" placeholder="Facturadores" style="width: 101%" #facturador [matKeyboard]=""  (click)="muestraFacturadores()"/>
+       <div *ngIf="showOptions" class="sumando-bg-white" >
+                                 <ul style="width: 1550px; height: 100px; overflow: auto">
+                                   <li *ngFor="let empresa of listaEmpresas" style="list-style:none;"><a (click)="setValue(empresa)">{{empresa}}</a></li>
+                                 </ul>
+                                                      
+            </div>    
+          </div>
+        </div> 
+      </div>
+      <div class="modal-footer deletePaddingRigth-buttom">
+          <button  class="btn btn-lg"  	type="button"  onclick="">Cancelar</button>
+          <button  type="button" class="btn btn-primary  btn-lg" [disabled]="(facturador.value == '') || (lblCuentaOrigen.textContent == '') || (lblAliasOrigen.textContent == '')" (click)="saveData()" >
+            Continuar
+          </button>
+        </div>
+      </div>
+    </fieldset>
+    </form>
+    <div id="servicioNoDisponible" class="modal fade">
+      <div class="modal-dialog modal-dialog-error">
+          <div class="modal-content">
+              <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
+                  <h4>Aviso</h4>
+                  <p id="mnsErrorModal"></p>
+              </div>
+              <div class="modal-footer text-center">
+                  <button type="button" class="btn btn-default" data-dismiss="modal" onclick="currentPage.loadMenu()">Aceptar</button>
+              </div>
+          </div>
+          <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+  </div>
+  <div id="modalErrorMessage" class="modal fade">
+      <div class="modal-dialog modal-dialog-error">
+          <div class="modal-content">
+              <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
+                  <h4>Aviso</h4>
+
+                  <p id="errorMensaje"></p>
+
+              </div>
+              <div class="modal-footer text-center">
+                  <button type="button" class="btn btn-primary btn-lg"  data-dismiss="modal"  onclick="ocultarModalP()">Cerrar</button>
+              </div>
+          </div>
+          <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+  </div>
+
+
