@@ -13,7 +13,7 @@ declare var $: any;
   templateUrl: './pago-servicios-ini.component.html',
   styleUrls: []
 })
-export class PagoServiciosBxiComponent implements OnInit {
+export class PagoServiciosIniComponent implements OnInit {
 
   @ViewChild('facturador', { read: ElementRef}) facturador: ElementRef ;
   @ViewChild('listaCuentas', { read: ElementRef}) listaCuentas: ElementRef ;

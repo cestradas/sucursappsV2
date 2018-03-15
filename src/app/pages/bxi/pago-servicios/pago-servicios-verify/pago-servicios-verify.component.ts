@@ -3,11 +3,11 @@ import { Component, OnInit } from '@angular/core';
 
 
 @Component({
-  selector: 'app-pago-servicio-verify',
-  templateUrl: './pago-servicio-verify.component.html',
+  selector: 'app-pago-servicios-verify',
+  templateUrl: './pago-servicios-verify.component.html',
   styleUrls: []
 })
-export class PagoServicioVerifyComponent implements OnInit {
+export class PagoServiciosVerifyComponent implements OnInit {
 
    detallePago: any = {
       nombreServicio: '',
