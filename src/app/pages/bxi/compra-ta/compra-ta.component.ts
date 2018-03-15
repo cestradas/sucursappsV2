@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
-import 'rxjs/Rx';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 

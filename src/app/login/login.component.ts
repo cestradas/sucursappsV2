@@ -60,24 +60,13 @@ resourceRequest
 
   }
 
-  BxiLogin(){
+  BxiLogin() {
     console.log("en funcion de bxi");
     $('#ModalBXILogin').modal('show');
     
     
   }
 
-  validaUsuario(){
-    document.getElementById('view_usr').style.display = 'none';
-    //document.getElementById('view_pass_token_cel').style.display = 'block';
-    document.getElementById('view_pass_token').style.display = 'block';
-    //document.getElementById('view_pass').style.display = 'block';
-  }
-
-  validaTokenFisico(){
-    this.router.navigate(['/menuBXI']);
-    $('div').removeClass('modal-backdrop');
-  }
 
   getPosts() {
     return this._http.get('http://localhost:8081/sucursappsdevices/pinpad/read')

@@ -1,13 +1,11 @@
-/// <reference path="../../node_modules/cordova-plugin-mfp/typings/worklight.d.ts" />
 
+/// <reference path="../../node_modules/cordova-plugin-mfp/typings/worklight.d.ts" />
+import { LoginBxiComponent } from './pages/bxi/login-bxi/login-bxi.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { APP_ROUTES } from './app.routes';
 import { LoginComponent } from './login/login.component';
 import { PagesModule } from './pages/pages.module';
@@ -50,7 +48,8 @@ const customLayouts: IKeyboardLayouts = {
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    LoginBxiComponent
   ],
   imports: [
     BrowserModule,

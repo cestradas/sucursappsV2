@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Autenticacion } from './../autenticacion';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2} from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
+import { SesionBxiService } from './../sesion-bxi.service';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 
 import $ from 'jquery';
@@ -13,10 +15,45 @@ declare var $: $;
 })
 export class MenuBxiComponent implements OnInit {
 
-
-  constructor(private _http: Http, private router: Router ) { }
+  @ViewChild('nombreUsuario', { read: ElementRef}) nombreUsuario: ElementRef ;
+  constructor(private service: SesionBxiService, private renderer: Renderer2,  private router: Router ) { }
 
   ngOnInit() {
+    this.setNombreUsuario();
+  }
+
+  setNombreUsuario() {
+    const this_aux = this;
+  // console.log('Dentro setNombreUsuario');
+   // console.log( this_aux.service.infoUsuario);
+    const autenticacion: Autenticacion = new Autenticacion();
+    const detalleUsuario = JSON.parse( this_aux.service.infoUsuario);
+    const div = this.renderer.createElement('div');
+    const nombre = this.renderer.createText(detalleUsuario.NombreUsuario);
+    this.renderer.appendChild(div, nombre);
+    this. renderer.appendChild(this.nombreUsuario.nativeElement, div);
+    autenticacion.consultaCuentasUsuario(this_aux.service.usuarioLogin).then(
+      function(response) {
+          const getCuentasJSON = response.responseJSON;
+            if (getCuentasJSON.Id === '1') {
+                const getCuentas = response.responseText;
+                this_aux.service.infoCuentas = getCuentas;
+            } else {
+              console.log(getCuentasJSON.MensajeAUsuario);
+            }
+      }, function(error) {}
+    );
+  }
+
+  comenzarOperacion(idOperacion) {
+
+    switch (idOperacion) {
+
+      case 'pagoserv': this.router.navigate(['/pagoservicios_bxi']);
+            break;
+
+
+    }
   }
 
 
