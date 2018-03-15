@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -11,6 +12,7 @@ import { PagesTddModule } from './tdd/pagesTdd.module';
 import { PagesBxiModule } from "./bxi/pagesBxi.module";
 import { BreadcrumbsComponent } from '../shared/breadcrumbs/breadcrumbs.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+
 
 
 

@@ -24,7 +24,7 @@ import { HttpModule } from '@angular/http';
     FormsModule,
     PagesModule,
     HttpModule,
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
