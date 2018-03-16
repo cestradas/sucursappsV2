@@ -1,6 +1,6 @@
+import { Autenticacion } from './../../autenticacion';
 import { SesionBxiService } from './../../sesion-bxi.service';
 import { OperacionesBXI } from './../../operacionesBXI';
-import { Autenticacion } from './../../autenticacion';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { Component, OnInit, ViewChild, ElementRef, Renderer2  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -105,7 +105,7 @@ export class PagoServiciosDetailComponent implements OnInit {
   confirmarPago(token) {
       const this_aux = this;
       const autenticacion: Autenticacion = new Autenticacion();
-      const operacionesbxi: OperacionesBXI = new OperacionesBXI;
+      const operacionesbxi: OperacionesBXI = new OperacionesBXI();
       autenticacion.autenticaUsuario(token, this_aux.service.metodoAutenticaLogin).then(
         function(detalleAutentica) {
               // console.log(detalleAutentica.responseJSON);
@@ -118,7 +118,7 @@ export class PagoServiciosDetailComponent implements OnInit {
                     function(respPago) {
                       this_aux.service.detalleConfirmacionPS = respPago.responseText;
                       $('div').removeClass('modal-backdrop');
-                      this_aux.router.navigate(['/pagoservicios_bxi_verify']);
+                      this_aux.router.navigate(['/pagoservicios_verify']);
                     }, function(error) { }
                   );
               } else {

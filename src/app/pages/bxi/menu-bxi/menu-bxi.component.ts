@@ -15,7 +15,7 @@ declare var $: $;
 })
 export class MenuBxiComponent implements OnInit {
 
-  @ViewChild('nombreUsuario', { read: ElementRef}) nombreUsuario: ElementRef ;
+ 
   constructor(private service: SesionBxiService, private renderer: Renderer2,  private router: Router ) { }
 
   ngOnInit() {
@@ -24,14 +24,7 @@ export class MenuBxiComponent implements OnInit {
 
   setNombreUsuario() {
     const this_aux = this;
-  // console.log('Dentro setNombreUsuario');
-   // console.log( this_aux.service.infoUsuario);
     const autenticacion: Autenticacion = new Autenticacion();
-    const detalleUsuario = JSON.parse( this_aux.service.infoUsuario);
-    const div = this.renderer.createElement('div');
-    const nombre = this.renderer.createText(detalleUsuario.NombreUsuario);
-    this.renderer.appendChild(div, nombre);
-    this. renderer.appendChild(this.nombreUsuario.nativeElement, div);
     autenticacion.consultaCuentasUsuario(this_aux.service.usuarioLogin).then(
       function(response) {
           const getCuentasJSON = response.responseJSON;
@@ -46,26 +39,14 @@ export class MenuBxiComponent implements OnInit {
   }
 
   comenzarOperacion(idOperacion) {
-
+    $('div').removeClass('modal-backdrop');
     switch (idOperacion) {
 
-      case 'pagoserv': this.router.navigate(['/pagoservicios_bxi']);
+      case 'pagoserv': this.router.navigate(['/pagoservicios_ini']);
             break;
 
 
     }
-  }
-
-
-  compraTA() {
-    this.router.navigate(['/compraTA']);
-    $('div').removeClass('modal-backdrop');
-  }
-
-  transferInternacionales() {
-    
-    this.router.navigate(['/transferInternacionales']);
-    $('div').removeClass('modal-backdrop');
   }
 
   moreOptions() {

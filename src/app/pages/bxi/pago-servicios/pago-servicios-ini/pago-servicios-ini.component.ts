@@ -13,7 +13,7 @@ declare var $: any;
   templateUrl: './pago-servicios-ini.component.html',
   styleUrls: []
 })
-export class PagoServiciosBxiComponent implements OnInit {
+export class PagoServiciosIniComponent implements OnInit {
 
   @ViewChild('facturador', { read: ElementRef}) facturador: ElementRef ;
   @ViewChild('listaCuentas', { read: ElementRef}) listaCuentas: ElementRef ;
@@ -152,7 +152,7 @@ export class PagoServiciosBxiComponent implements OnInit {
  
                body.off('click');
                this_aux.service.detalleEmpresa_PS = response.responseText;
-               this_aux.router.navigate(['/pagoservicios_bxi_detail']);
+               this_aux.router.navigate(['/pagoservicios_detail']);
  
              } else {
                console.log(detalleEmpresa.MensajeAUsuario);

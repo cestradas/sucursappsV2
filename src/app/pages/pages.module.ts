@@ -1,4 +1,4 @@
-
+import { SesionBxiService } from './bxi/sesion-bxi.service';
 import { FormsModule } from '@angular/forms';
 import { NgModule} from '@angular/core';
 import { PagesComponent } from './pages.component';
@@ -68,7 +68,7 @@ const customLayouts: IKeyboardLayouts = {
         MatButtonModule,
         MatKeyboardModule,
     ],
-    providers: [{ provide: MAT_KEYBOARD_LAYOUTS, useValue: customLayouts}],
+    providers: [SesionBxiService, { provide: MAT_KEYBOARD_LAYOUTS, useValue: customLayouts}],
  
 })
 

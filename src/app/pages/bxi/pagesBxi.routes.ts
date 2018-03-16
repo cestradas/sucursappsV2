@@ -2,12 +2,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { PagesComponent } from '../pages.component';
 import { MenuBxiComponent } from './menu-bxi/menu-bxi.component';
 import { PagesBxiComponent } from './PagesBxi.component';
-
 import { CompraTaComponent } from "./compra-ta/compra-ta.component";
 import { TransferenciaSpeiComponent } from './transferencia-spei/transferencia-spei.component';
 import { TransferenciaFinishSpeiComponent } from "./transferencia-spei/transferencia-finish-spei/transferencia-finish-spei.component";
-
-
+import { PagoServiciosVerifyComponent } from './pago-servicios/pago-servicios-verify/pago-servicios-verify.component';
+import { PagoServiciosIniComponent } from './pago-servicios/pago-servicios-ini/pago-servicios-ini.component';
+import { PagoServiciosDetailComponent } from './pago-servicios/pago-servicios-detail/pago-servicios-detail.component';
 
 const pageRoutesBXI: Routes = [
     {
@@ -15,6 +15,9 @@ const pageRoutesBXI: Routes = [
         children: [
             { path: 'CompraTaComponent', component: CompraTaComponent},
             { path: 'spei', component: TransferenciaSpeiComponent},
+            { path: 'pagoservicios_ini', component: PagoServiciosIniComponent},
+            { path: 'pagoservicios_detail', component: PagoServiciosDetailComponent},
+            { path: 'pagoservicios_verify', component: PagoServiciosVerifyComponent},
             { path: 'TransferFinishSpei', component: TransferenciaFinishSpeiComponent}
             
         ]
