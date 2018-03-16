@@ -21,23 +21,24 @@ export class LoginComponent {
   constructor( private _http: Http, private router: Router ) {}
 
   onPlasticLogin() {
-    
+
     console.log("adentro");
      $('#ModalTDDLogin').modal('show');
-     this.getPosts().subscribe( result => {this.postResp = result; });
+    //  this.getPosts().subscribe( result => {this.postResp = result; });
 
-     console.log(this.postResp);
+    //  console.log(this.postResp);
 
       const THIS: any = this;
 
   const formParameters = {
-    tarjeta: this.postResp.tr2,
-    nip: this.postResp.np
-
+    // tarjeta: this.postResp.tr2,
+    tarjeta: '4334540109018154=151022110000865',
+    // nip: this.postResp.np
+    nip: 'D4D60267FBB0BB28'
   };
 
   const resourceRequest = new WLResourceRequest(
-    'adapters/AdapterBanorteSucursApps/resource/validaNip',
+    'http://localhost:9080/mfp/api/adapters/AdapterBanorteSucursApps/resource/validaNip',
     WLResourceRequest.POST);
 resourceRequest.setTimeout(30000);
 resourceRequest
@@ -45,26 +46,26 @@ resourceRequest
     .then(
         function(response) {
           console.log(response.responseText);
-          sessionStorage.setItem('tipoCliente', response.responseText);
-          THIS.router.navigate(['/homePage']);
-          THIS.loading = false;
+          // sessionStorage.setItem('tipoCliente', response.responseText);
+          THIS.router.navigate(['/menuTdd']);
+
         },
         function(error) {
-          THIS.loading = false;
-          console.log("hola");
-          $('#ModalTDDLogin').modal('hide');
+
+
+          // $('#ModalTDDLogin').modal('hide');
 
         });
-        console.log("hola");
-        $('#ModalTDDLogin').modal('hide');
+
+        $('div').removeClass('modal-backdrop');
 
   }
 
   BxiLogin() {
     console.log("en funcion de bxi");
     $('#ModalBXILogin').modal('show');
-    
-    
+
+
   }
 
 
