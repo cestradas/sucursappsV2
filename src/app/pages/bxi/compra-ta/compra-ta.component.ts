@@ -21,7 +21,7 @@ export class CompraTaComponent implements OnInit {
   box_price = 0;
   box_price_formatted = "$10.00";
 
-  constructor( private _http: Http, private router: Router , private currencyPipe: CurrencyPipe) { }
+  constructor( private _http: Http, private router: Router ) { }
 
   ngOnInit() {
     this.consultaCuentas();
