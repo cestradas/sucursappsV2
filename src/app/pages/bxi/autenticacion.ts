@@ -9,7 +9,7 @@ export class Autenticacion {
           usuario : usuarioBXI
         };
         const  resourceRequest = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursApps/resource/identificaUsuario', WLResourceRequest.POST);
+            'adapters/AdapterBanorteSucursAppsBEL/resource/identificaUsuario', WLResourceRequest.POST);
             resourceRequest.setTimeout(30000);
 
             return  resourceRequest.sendFormParameters(formParameters);
@@ -20,7 +20,7 @@ export class Autenticacion {
 
         const formParameters = { };
         const resourceRequest = new WLResourceRequest(
-          'adapters/AdapterBanorteSucursApps/resource/getMetodosAutenticacion', WLResourceRequest.POST);
+          'adapters/AdapterBanorteSucursAppsBEL/resource/getMetodosAutenticacion', WLResourceRequest.POST);
          resourceRequest.setTimeout(30000);
 
          return resourceRequest.sendFormParameters(formParameters);
@@ -33,7 +33,7 @@ export class Autenticacion {
             tipoMetodoAutentica: metodoAutenticacion
           };
           const resourceRequest = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursApps/resource/autenticaUsuario', WLResourceRequest.POST);
+            'adapters/AdapterBanorteSucursAppsBEL/resource/autenticaUsuario', WLResourceRequest.POST);
            resourceRequest.setTimeout(30000);
 
           return  resourceRequest.sendFormParameters(formParameters);
@@ -44,7 +44,7 @@ export class Autenticacion {
             usuario: usuarioBXI
           };
           const resourceRequest = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursApps/resource/getCuentasUsuario', WLResourceRequest.POST);
+            'adapters/AdapterBanorteSucursAppsBEL/resource/getCuentasUsuario', WLResourceRequest.POST);
            resourceRequest.setTimeout(30000);
 
            return resourceRequest.sendFormParameters(formParameters);

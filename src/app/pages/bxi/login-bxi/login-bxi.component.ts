@@ -13,7 +13,7 @@ declare var $: any;
   styleUrls: [  ]
 })
 export class LoginBxiComponent implements OnInit {
-
+  @ViewChild('imagenToken', { read: ElementRef}) imagenToken: ElementRef ;
   constructor(private router: Router, private service: SesionBxiService ) { }
 
   ngOnInit() {
@@ -27,7 +27,7 @@ export class LoginBxiComponent implements OnInit {
       function(identificacion) {
         // console.log(response.responseJSON);
         const detalleIdentifacionUsurario = identificacion.responseJSON;
-
+        
           if ( detalleIdentifacionUsurario.Id === 'SEG0001') {
               this_aux.service.detalleIdentificacion = detalleIdentifacionUsurario.toString();
               autenticacion.getMetodosAutenticacionUsuario().then(
