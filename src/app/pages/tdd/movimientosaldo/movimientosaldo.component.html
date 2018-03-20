@@ -19,18 +19,18 @@
                 </div>
                 <div class="row padding-top-15">
                     <div class="col-lg-12">
-                        <table class="table table-striped accounts-table">
-                            <thead>
-
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="t in accountDetail.movimientos  | startFrom:currentPage*pageSize | orderBy:'-numeroMovimientos' | limitTo:pageSize ">
-                                    <!-- <td>{{t.fechaOperacion | date:'dd/MM/yyyy'}}</td>
-                                    <td>{{t.observaciones}}</td>
-                                    <td>{{t.importe | currency:"$"}}</td> -->
-                                </tr>
-                            </tbody>
-                        </table>
+                        <!-- <table class="table table-striped accounts-table">
+          <thead>
+            
+          </thead>
+          <tbody>
+            <tr ng-repeat="t in accountDetail.movimientos  | startFrom:currentPage*pageSize | orderBy:'-numeroMovimientos' | limitTo:pageSize ">
+              <td>{{t.fechaOperacion | date:'dd/MM/yyyy'}}</td>
+              <td>{{t.observaciones}}</td>
+              <td>{{t.importe | currency:"$"}}</td>
+            </tr>
+          </tbody>
+        </table> -->
 
 
 
@@ -54,9 +54,9 @@
                             <div class="col-sm-4">
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination">
-                                        <li class="page-item boton"><a class="page-link" ng-click='setPage(page.no)' (click)="PreviousPag(NumeroDatoFinal)" #algo>Previous</a></li>
-                                        <!-- <li class="page-item" *ngFor="let pagina of arrayNumPag"><a class="page-link" #paginaNum (click)="Cambiarpagina(paginaNum)">{{pagina + 1}}</a></li> -->
-                                        <li class="page-item"><a class="page-link" (click)="NextPag(NumeroDatoFinal)" #algo1>Next</a></li>
+                                        <li class="page-item boton"><a class="page-link" ng-click='setPage(page.no)' (click)="PreviousPag(NumeroDatoInicial)" #algo>Anterior</a></li>
+                                        <li class="page-item" *ngFor="let pagina of arrayNumPag"><a class="page-link" #paginaNum (click)="Cambiarpagina(paginaNum)">{{pagina + 1}}</a></li>
+                                        <li class="page-item"><a class="page-link" (click)="NextPag(NumeroDatoFinal)" #algo1>Siguiente</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -77,30 +77,40 @@
                     </li>
                     <li class="list-group-item list-group-item1">
                         <strong>Cuenta:</strong>
-                        <samp id="txtCuenta"></samp>
+                        <samp id="txtCuenta">{{alias.NumeroCuenta}}</samp>
                     </li>
                     <li class="list-group-item list-group-item1">
                         <strong>CLABE:</strong>
-                        <samp id="txtClabe"></samp>
+                        <samp id="txtClabe">{{alias.ClabeCuenta}}</samp>
                     </li>
                     <li class="list-group-item list-group-item1">
                         <strong>Saldo al dia:</strong>
-                        <samp id="txtSaldoDia"></samp>
+                        <samp id="txtSaldoDia">{{alias.SaldoDia}}</samp>
                     </li>
                     <li class="list-group-item list-group-item1">
                         <strong>Saldo disponible:</strong>
-                        <samp id="txtSaldoDisponible"></samp>
+                        <samp id="txtSaldoDisponible">{{alias.SaldoDisponible}}</samp>
                     </li>
                     <li class="list-group-item list-group-item1">
                         <strong>Saldo retenido:</strong>
-                        <samp id="txtSaldoRetenido"></samp>
+                        <samp id="txtSaldoRetenido">{{alias.SaldoRetenido}}</samp>
                     </li>
                     <li class="list-group-item list-group-item1">
                         <strong>Saldo mes anterior:</strong>
-                        <samp id="txtSaldoAnterior"></samp>
+                        <samp id="txtSaldoAnterior">{{alias.SaldoMesAnterior}}</samp>
                     </li>
                 </ul>
             </div>
         </div>
+    </div>
+</div>
+
+
+<div style="margin:30px 0px 0px 0px;" class="row">
+    <div class="col-sm-11"></div>
+    <div style=" padding: 0px;" class="col-sm-1">
+        <button class="btn btn-danger  btn-lg letranegrita">
+    Algo
+  </button>
     </div>
 </div>
