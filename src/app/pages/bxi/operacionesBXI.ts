@@ -13,6 +13,34 @@ export class OperacionesBXI {
 
     }
 
+    consultaClabeSaldo(): any {
+      
+        console.log("adentro cnsultaCuentas");
+    
+        let tipoMovimiento = "1";
+        let numeroCuenta = "0665815063";
+    
+        const THIS: any = this;
+    
+        const formParameters = {
+            tipoMovimiento:  tipoMovimiento,
+            numeroCuenta: numeroCuenta
+        
+        };
+    
+        const resourceRequest = new WLResourceRequest(
+            'adapters/AdapterBanorteSucursApps/resource/consultaClabeSaldo',
+            WLResourceRequest.POST);
+        resourceRequest.setTimeout(30000);
+        resourceRequest
+            .sendFormParameters(formParameters);
+            
+        
+        
+            return resourceRequest.sendFormParameters(formParameters);
+  
+    }
+
     consultaEmpresas() {
 
     const formParameters = { };
@@ -55,6 +83,34 @@ export class OperacionesBXI {
           resourceRequest.setTimeout(30000);
 
           return resourceRequest.sendFormParameters(formParameters);
+    }
+
+    confirmaTransferSPEI(bancoRecep, clabe, nombreBene, rfcBenef, ref, importe, descripcion, correo, rfcEmi): any {
+
+  
+      let formParameters = {
+        bancoRecep:  bancoRecep,
+        clabe: clabe,
+        nombreBene: nombreBene,
+        rfcBenef: rfcBenef,
+        ref: ref,
+        importe: importe,
+        descripcion: descripcion,
+        correo: correo,
+        rfcEmi: rfcEmi
+      };
+     
+  
+        const resourceRequest = new WLResourceRequest(
+            'adapters/AdapterBanorteSucursApps/resource/transferInterSPEI',
+            WLResourceRequest.POST);
+        resourceRequest.setTimeout(30000);
+        resourceRequest
+            .sendFormParameters(formParameters);
+
+        
+    return resourceRequest.sendFormParameters(formParameters);
+
     }
 
 }
