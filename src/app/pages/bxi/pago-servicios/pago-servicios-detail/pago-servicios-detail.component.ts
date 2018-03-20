@@ -29,7 +29,7 @@ export class PagoServiciosDetailComponent implements OnInit {
   labelTipoAutentica: string;
 
 
-  constructor( public service: SesionBxiService, public fb: FormBuilder, private router: Router ) {
+  constructor( private service: SesionBxiService, private fb: FormBuilder, private router: Router ) {
     this.myForm = this.fb.group({
       fcCuentaCargo: ['', [Validators.required]],
       fcTelefono: ['', Validators.required],

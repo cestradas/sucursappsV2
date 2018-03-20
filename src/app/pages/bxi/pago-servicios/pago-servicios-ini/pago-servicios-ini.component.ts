@@ -22,7 +22,7 @@ export class PagoServiciosIniComponent implements OnInit {
   listaEmpresasAux: Array<any> = [];
   showOptions: Boolean = false;
  
-   constructor(  private router: Router, public service: SesionBxiService, private renderer: Renderer2) {
+   constructor(  private router: Router, private service: SesionBxiService, private renderer: Renderer2) {
     }
    ngOnInit() {
  

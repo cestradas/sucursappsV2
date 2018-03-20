@@ -19,7 +19,7 @@ export class PagoServiciosVerifyComponent implements OnInit {
       importe: ''
 
   };
-  constructor(public service: SesionBxiService) { }
+  constructor(private service: SesionBxiService) { }
 
   ngOnInit() {
     const respPago = this.service.detalleConfirmacionPS;
