@@ -81,8 +81,16 @@ export class TransferenciaSpeiComponent implements OnInit {
             
            this.transferSPEI = response.responseJSON;
             
-            console.log(this.transferSPEI);
-            this.router.navigate(['/TransferFinishSpei']);
+           
+            if ( this.transferSPEI.Id === '1') {
+
+              console.log(this.transferSPEI);
+              this.router.navigate(['/TransferFinishSpei']);
+                     
+            } else {
+              console.log(this.transferSPEI.MensajeAUsuario);
+            }
+
 
 
       }, function(error) {
