@@ -32,9 +32,7 @@ export class LoginBxiComponent implements OnInit {
       function(identificacion) {
         console.log(identificacion.responseJSON);
         const detalleIdentifacionUsurario = identificacion.responseJSON;
-        // const imgHtml = this_aux.imagenToken.nativeElement;
-         // this_aux.renderer.setAttribute(imgHtml, 'src', detalleIdentifacionUsurario.UrlImagenPersonal);
-       
+      
           if ( detalleIdentifacionUsurario.Id === 'SEG0001') {
               this_aux.service.detalleIdentificacion = detalleIdentifacionUsurario.toString();
               this_aux.urlImagen = detalleIdentifacionUsurario.UrlImagenPersonal;
