@@ -34,9 +34,12 @@ export class LoginBxiComponent implements OnInit {
         const detalleIdentifacionUsurario = identificacion.responseJSON;
       
           if ( detalleIdentifacionUsurario.Id === 'SEG0001') {
+            
               this_aux.service.detalleIdentificacion = detalleIdentifacionUsurario.toString();
+              this_aux.service.nombreUsuario = detalleIdentifacionUsurario.NombreUsuario; 
               this_aux.urlImagen = detalleIdentifacionUsurario.UrlImagenPersonal;
               this_aux.nombreEnmascarado = detalleIdentifacionUsurario.NombreEnmascarado;
+              
               autenticacion.getMetodosAutenticacionUsuario().then(
                     function(metodos) {
                         // console.log(metodos.responseJSON);

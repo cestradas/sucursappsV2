@@ -16,9 +16,7 @@ export class BreadcrumbsComponent implements OnInit {
 
 
   ngOnInit() {
-    const this_aux = this;
-    const detalleUsuario = JSON.parse( this_aux.service.infoUsuario);
-     this_aux.NombreUsuario = detalleUsuario.NombreUsuario;
+
   }
 
 }
