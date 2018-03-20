@@ -1,132 +1,140 @@
 <form novalidate name="currentForm" method="post">
 
-  <!-- Primera parrte del modal captura usr -->
-  <div id="view_usr" style="display: block;">
+        <!-- Primera parrte del modal captura usr -->
+        <div id="view_usr" style="display: block;">
+            
+                    <h4 style="color: #eb012a;">Iniciar sesi&oacute;n</h4>
       
-              <h4 style="color: #eb012a;">Iniciar sesi&oacute;n</h4>
-
-              <div class="form-group">  
-
-                  <label style="font-weight: 700;">Captura tu usuario</label>
-                  <!-- <input type="password"  class="form-control input-lg qwerty" name="usr" id="usr" ng-model="command.usr" ng-required="true" maxlength="16" ng-pattern="/^[A-Za-z0-9]{2,16}$/" invalid-popover="Solo se admite numeros, letras y una longitud de 2 a 16 caracteres." invalid-popover-placement="auto"
-            /> -->
-                  <input type="password"  name="usr" id="usr"  #usuarioBXI  class="form-control input-lg qwerty" autocomplete="off" [matKeyboard]="" />
-                  <!-- <input type="password"   name="usr" id="usr" /> -->
-              </div>
-              <!-- <button [routerLink]="['/menuBXI']" type="button" class="btn btn-primary btn-block btn-lg" style="border: 0; border-color: #eb012a; background-color: #eb0029;" id="botonUsr"> -->
-              <button  (click)="validaUsuario(usuarioBXI.value)" type="button" class="btn btn-primary btn-block btn-lg" style="border: 0; border-color: #eb012a; background-color: #eb0029;" id="botonUsr">
-                          Continuar
-                      </button>
-              <br/>
-       
-
-  </div>
-
-  <!-- Captura TOKEN CELULAR-->
-  <div id="view_pass_token_cel" style="display: none;">
-      <h4 style="color: #eb012a;">Acceso con token celular</h4>
-
-      <div class="row">
-          <div class="col-lg-3">
-              <div>
-                  <img src="" id="imgTokenTel" />
-              </div>
-              <div>
-
-                  <span id="mensajeSegTel"></span>
-              </div>
+                    <div class="form-group">  
+      
+                        <label style="font-weight: 700;">Captura tu usuario</label>
+                        <!-- <input type="password"  class="form-control input-lg qwerty" name="usr" id="usr" ng-model="command.usr" ng-required="true" maxlength="16" ng-pattern="/^[A-Za-z0-9]{2,16}$/" invalid-popover="Solo se admite numeros, letras y una longitud de 2 a 16 caracteres." invalid-popover-placement="auto"
+                  /> -->
+                        <input type="password"  name="usr" id="usr"  #usuarioBXI  class="form-control input-lg qwerty" autocomplete="off" [matKeyboard]="" />
+                        <!-- <input type="password"   name="usr" id="usr" /> -->
+                    </div>
+                    <!-- <button [routerLink]="['/menuBXI']" type="button" class="btn btn-primary btn-block btn-lg" style="border: 0; border-color: #eb012a; background-color: #eb0029;" id="botonUsr"> -->
+                    <button  (click)="validaUsuario(usuarioBXI.value)" type="button" class="btn btn-primary btn-block btn-lg" style="border: 0; border-color: #eb012a; background-color: #eb0029;" id="botonUsr">
+                                Continuar
+                            </button>
+                    <br/>
+             
+      
+        </div>
+      <div id="viewGeneralAutentica">
+          <div class="row">
+              <div class="col-lg-12"><label>{{nombreEnmascarado}}</label></div>
           </div>
-          <div class="col-lg-5">
-              <div class="form-group">
-                  <label>Captura tu contrase&ntilde;a</label>
-                  <input type="password" class="form-control input-lg" id="passwordTokenTel"   autocomplete="off" [matKeyboard]="num">
-              </div>
-              <div class="form-group">
-                  <label>Numero de seguridad</label>
-                  <input type="text" class="form-control input-lg" id="numSeguridad" readonly>
-              </div>
-              <div class="form-group">
-                  <label>Token</label>
-                  <input type="password" class="form-control input-lg" id="tokenTel"  autocomplete="off" [matKeyboard]="num">
-              </div>
-
-              <button type="button" class="btn btn-primary btn-block btn-lg" style="border: 0; border-color: #eb012a; background-color: #eb0029;" (click)="autenticaUsuario()">
-                        Continuar
-                      </button>
+        <!-- Captura TOKEN CELULAR-->
+        <div id="view_pass_token_cel" style="display: none;">
+            <h4 style="color: #eb012a;">Acceso con token celular</h4>
+      
+            <div class="row">
+                <div class="col-lg-3">
+                    <div>
+                        <img #imagenTokenCel src="{{urlImagen}}"/>
+                    </div>
+                    <div>
+      
+                        <span id="mensajeSegTel"></span>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        <label>Captura tu contrase&ntilde;a</label>
+                        <input type="password" class="form-control input-lg" id="passwordTokenTel"   autocomplete="off" [matKeyboard]="">
+                    </div>
+                    <div class="form-group">
+                        <label>Numero de seguridad</label>
+                        <input type="text" class="form-control input-lg" id="numSeguridad" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Token</label>
+                        <input type="password" class="form-control input-lg" id="tokenTel"  autocomplete="off" [matKeyboard]="'num'">
+                    </div>
+      
+                    <button type="button" class="btn btn-primary btn-block btn-lg" style="border: 0; border-color: #eb012a; background-color: #eb0029;" (click)="autenticaUsuario()">
+                              Continuar
+                            </button>
+                </div>
+                <div class="col-lg-3">
+                    <img style="width: 120px;" src="./assets/img/cel_token.png" />
+                    <br/>
+                    <strong align="center">Debes tener tu token activo y sincronizado</strong>
+                </div>
+            </div>
+      
+        </div>
+      
+        <!-- Acceso con TOKEN FISICO-->
+        <div id="view_pass_token" style="display: none;">
+            <h4 style="color: #eb012a;">Acceso con token</h4>
+      
+            <div class="row">
+                <div class="col-lg-3">
+                    <div>
+                        <img  #imagenTokenFisico src="{{urlImagen}}"  />
+                    </div>
+                    <div>
+      
+                        <span id="mensajeSeg"></span>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        <label>Captura tu contrase&ntilde;a</label>
+                        <input type="password" class="form-control input-lg" id="passwordToken"  autocomplete="off" [matKeyboard]=""/>
+                    </div>
+                    <div class="form-group">
+                        <label>Token</label>
+                        <input type="password" #token class="form-control input-lg" id="token"  autocomplete="off" [matKeyboard]="'num'"/>
+                    </div>
+      
+                    <!-- <button type="button" class="btn btn-primary btn-block btn-lg" ng-disabled="currentForm.$invalid" ng-click="onPassClick3()"> -->
+                    <button (click)="autenticaUsuario(token.value)" style="border: 0; border-color: #eb012a; background-color: #eb0029;" type="button" class="btn btn-primary btn-block btn-lg">
+                      Continuar
+                    </button>
+                </div>
+                <div class="col-lg-3">
+                    <img style="width: 140px;" src="./assets/img/token_fisico.png" />
+                    <br/>
+                    <strong>Debes tener tu token activo y sincronizado</strong>
+                </div>
+            </div>
+      
+        </div>
+      
+        <!-- PASSWORD -->
+        <div id="view_pass" style="display: none;">
+            <div class="row padding-top-100">
+                <div class="col-lg-3">
+                    <div>
+                        <img #imagenTokenPass src="{{urlImagen}}"/>
+                    </div>
+                    <div>
+      
+                        <span id="mensajeSegPass"></span>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+      
+                    <div class="form-group">
+                        <label>Captura tu contrase&ntilde;a</label>
+                        <input type="password"  #claveAcceso class="form-control input-lg" id="password" name="password"  autocomplete="off" [matKeyboard]="num"/>
+                    </div>
+      
+      
+                    <button  style="border: 0; border-color: #eb012a; background-color: #eb0029;" type="button" class="btn btn-primary btn-block btn-lg" (click)="autenticaUsuario(claveAcceso.value)">
+                      Continuar
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="NosoyYo" style="display:none">
+          <div class="row">
+                  <div class="col-lg-12"><label><a (click)="modalIdentificaUsuario()">No soy yo.</a></label></div>
           </div>
-          <div class="col-lg-3">
-              <img style="width: 120px;" src="./assets/img/cel_token.png" />
-              <br/>
-              <strong align="center">Debes tener tu token activo y sincronizado</strong>
-          </div>
+        </div>
       </div>
-
-  </div>
-
-  <!-- Acceso con TOKEN FISICO-->
-  <div id="view_pass_token" style="display: none;">
-      <h4 style="color: #eb012a;">Acceso con token</h4>
-
-      <div class="row">
-          <div class="col-lg-3">
-              <div>
-                  <img src="" #imagenToken />
-              </div>
-              <div>
-
-                  <span id="mensajeSeg"></span>
-              </div>
-          </div>
-          <div class="col-lg-5">
-              <div class="form-group">
-                  <label>Captura tu contrase&ntilde;a</label>
-                  <input type="password" class="form-control input-lg" id="passwordToken"  autocomplete="off" [matKeyboard]="num"/>
-              </div>
-              <div class="form-group">
-                  <label>Token</label>
-                  <input type="password" #token class="form-control input-lg" id="token"  autocomplete="off" [matKeyboard]="num"/>
-              </div>
-
-              <!-- <button type="button" class="btn btn-primary btn-block btn-lg" ng-disabled="currentForm.$invalid" ng-click="onPassClick3()"> -->
-              <button (click)="autenticaUsuario(token.value)" style="border: 0; border-color: #eb012a; background-color: #eb0029;" type="button" class="btn btn-primary btn-block btn-lg">
-                Continuar
-              </button>
-          </div>
-          <div class="col-lg-3">
-              <img style="width: 140px;" src="./assets/img/token_fisico.png" />
-              <br/>
-              <strong>Debes tener tu token activo y sincronizado</strong>
-          </div>
-      </div>
-
-  </div>
-
-  <!-- PASSWORD -->
-  <div id="view_pass" style="display: none;">
-      <div class="row padding-top-100">
-          <div class="col-lg-3">
-              <div>
-                  <img src=" " id="imgTokenPass" />
-              </div>
-              <div>
-
-                  <span id="mensajeSegPass"></span>
-              </div>
-          </div>
-          <div class="col-lg-6">
-
-              <div class="form-group">
-                  <label>Captura tu contrase&ntilde;a</label>
-                  <input type="password"  #claveAcceso class="form-control input-lg" id="password" name="password"  autocomplete="off" [matKeyboard]="num"/>
-              </div>
-
-
-              <button  style="border: 0; border-color: #eb012a; background-color: #eb0029;" type="button" class="btn btn-primary btn-block btn-lg" (click)="autenticaUsuario(claveAcceso.value)">
-                Continuar
-              </button>
-          </div>
-      </div>
-
-  </div>
-
-</form>
+      
+      </form>

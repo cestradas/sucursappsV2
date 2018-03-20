@@ -1,3 +1,278 @@
-<p>
-  pago-servicios-detail works!
-</p>
+<form [formGroup]="myForm"  novalidate>
+    <h2 #rNombreEmpresa  class="text-center padding-barToTittle deleteMargin-h2"></h2>
+    <fieldset class="padding-TittleToFieldset padding-fieldset-general">
+      <div class="sumando-form-group padding-InFieldset ">
+        <div class=" group-controls sumando-bg-white padding-bgWhite">
+          <div class="form-group">
+            <div class="row padding-InFieldset">
+              <div class="col-lg-2">
+              <label >Cuenta origen:</label> 
+              </div>
+              <div class="col-lg-10">
+                <input type="text"  id="idCuentaCargo" formControlName="fcCuentaCargo" #rCuentaCargo class ="form-control input-lg " readonly  >   
+              </div>
+            </div>
+            <div class="row padding-InFieldset" id="serviciosTelmex">
+              <div class="col-lg-12">
+                  <div class="form-group" >
+                      <div class="row ">
+                        <div class=" col-lg-2">
+                          <label> Telefono:</label>    
+                        </div>
+                        <div class="col-lg-4">
+                          <input type="text"   id="idTelefono" class="form-control input-lg" formControlName="fcTelefono" #rTelefono  [matKeyboard]="'num'" />
+                             <div *ngIf="myForm.get('fcTelefono').errors  && myForm.get('fcTelefono').touched" 
+                                   class="alert alert-danger">
+                                   <p  *ngIf="myForm.get('fcTelefono').hasError('required')">
+                                        fcTelefono  requerida.
+                                  </p >
+                                  
+                            </div>
+                        </div>
+                        <div class="col-lg-1">
+                          <label >DV: </label>    
+                        </div>
+                        <div class="col-lg-1">
+                          <input type="text"   id="idDigitoV"  class="form-control input-lg" #rDigitoVerificador formControlName="fcDigitoVerificador" [matKeyboard]="'num'" />
+                        </div>
+                      </div>
+                  </div>         
+              </div>
+            </div>
+            <div class="row padding-InFieldset" id="otrosServicios">
+                    <div class="col-lg-12">
+                        <div class="form-group" >
+                            <div class="row ">
+                              <div class=" col-lg-2">
+                                <label> Referencia:</label>    
+                              </div>
+                              <div class="col-lg-10">
+                                <input type="text"   id="idReferencia" class="form-control input-lg" formControlName="fcReferencia" #rReferencia   [matKeyboard]="'num'" />
+                                   <div *ngIf="myForm.get('fcReferencia').errors  && myForm.get('fcReferencia').touched" 
+                                         class="alert alert-danger">
+                                         <p  *ngIf="myForm.get('fcReferencia').hasError('required')">
+                                            fcReferencia  requerida.
+                                        </p >
+                                        
+                                  </div>
+                              </div>
+                            </div>
+                        </div>         
+                    </div>
+            </div>
+            <div class="row padding-InFieldset">
+              <div class="col-lg-2">
+                  <label >Fecha de vencimiento: </label>    
+              </div>
+              <div class="col-lg-10">
+                  <input type="text" id="txtFechaVencimiento"  class="form-control input-lg "  
+                formControlName="fcFechaVencimiento"   #rFechaVencimiento [matKeyboard]=""  placeholder="AAAA-MM-DD" />
+                    <div *ngIf="myForm.get('fcFechaVencimiento').errors  && myForm.get('fcFechaVencimiento').touched " 
+                                          class="alert alert-danger">
+
+                                    <p color="danger" *ngIf="myForm.get('fcFechaVencimiento').hasError('required')"> fechaVencimiento  requerida.  </p >
+                                    <p color="danger"  *ngIf="myForm.get('fcFechaVencimiento').hasError('pattern')">No es formato solicitado</p>
+                      </div>
+              </div>
+            </div>
+            <div class="row padding-InFieldset">
+                <div class="col-lg-2">
+                  <label >Importe: </label>            
+                </div>
+                <div class="col-lg-10">
+                    <input  type="text"  id="idImporte"  class="form-control input-lg"  formControlName="fcImporte"  #rImporte  [matKeyboard]=""/>
+                    <div *ngIf="myForm.get('fcImporte').errors  && myForm.get('fcImporte').touched" 
+                                          class="alert alert-danger">
+                                    <p color="danger" *ngIf="myForm.get('fcImporte').hasError('required')">importe requerido. </p >
+                                    <p color="danger"  *ngIf="myForm.get('fcImporte').hasError('pattern')">No es formato solicitado</p>
+                      </div>
+                </div>    
+              </div>
+            </div>
+          </div>
+      </div>     
+      <div class="modal-footer deletePaddingRigth-buttom">
+        <button  class="btn btn-lg"  	 >Cancelar</button>
+        <button  type="button" class="btn btn-primary  btn-lg" [disabled]="myForm.invalid" (click)="showDetallePago(rCuentaFacturador.value,rReferencia.value,rTelefono.value, rDigitoVerificador.value, rFechaVencimiento.value, rImporte.value )">
+          Continuar
+        </button>
+      </div>
+    </fieldset>
+  </form>
+  
+    <div id="servicioNoDisponible" class="modal fade">
+      <div class="modal-dialog modal-dialog-error">
+          <div class="modal-content">
+              <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
+                  <h4>Aviso</h4>
+                  <p id="mnsErrorModal"></p>
+              </div>
+              <div class="modal-footer text-center">
+                  <button type="button" class="btn btn-primary btn-lg"  data-dismiss="modal" onclick="ocultarModalSN()">Aceptar</button>
+              </div>
+          </div>
+          <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+  </div>
+  <div class="modal fade alturaModal" id="confirmModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+
+        <div class="modal-body">
+          <h4>Confirmar pago</h4>
+            <div class="row">
+                <div class="col-lg 6">
+                    <label>Cuenta origen:</label>
+                </div>
+                <div class="col-lg 6">
+                    <label >{{cuentaOrigen}}</label>
+                  </div>
+            </div>
+            <div class="row">
+                <div class="col-lg 6">
+                    <label>Servicio:</label>
+                </div>
+                <div class="col-lg 6">
+                    <label >{{nombreServicio}}</label>
+                  </div>
+            </div>
+            <div class="row">
+                <div class="col-lg 6">
+                    <label>Importe neto:</label>
+                </div>
+                <div class="col-lg 6">
+                    <label >${{importe}}</label>
+                  </div>
+            </div>
+            <div class="row">
+                <div class="col-lg 6">
+                    <label>Comision:</label>
+                </div>
+                <div class="col-lg 6">
+                    <label >$0.00</label>
+                  </div>
+            </div>
+            <div class="row">
+                <div class="col-lg 6">
+                    <label>Descuentos:</label>
+                </div>
+                <div class="col-lg 6">
+                    <label >$0.00</label>
+                  </div>
+            </div>
+            <div class="row">
+                <div class="col-lg 6">
+                    <label>Importe total:</label>
+                </div>
+                <div class="col-lg 6">
+                    <label >${{importe}}</label>
+                  </div>
+            </div>
+            <div class="row">
+                <div class="col-lg 12">
+                    <div id="challenger" class="form-group">
+                        <label>N&uacute;mero de seguridad</label>
+                        <input type='text' id='numeroSeguridad' class='form-control input-lg' ng-model='challenge.rcg' readonly>
+              
+                    </div>
+                    <div  id="divPass" class="form-group"  >
+                      <label>{{labelTipoAutentica}}</label>
+                    
+                      <input  type="password"  class="form-control input-lg" #token [matKeyboard]="">
+                    </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button  class="btn btn-lg"  data-dismiss="modal" >Cancelar</button>
+          <button  class="btn btn-primary btn-lg" (click)="confirmarPago(token.value)">
+            Confirmar
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div id="servicioNoDisponible" class="modal fade">
+      <div class="modal-dialog modal-dialog-error">
+          <div class="modal-content">
+              <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
+                  <h4>Aviso</h4>
+
+                  <p id="mnsErrorModal"></p>
+
+              </div>
+              <div class="modal-footer text-center">
+                  <button type="button" class="btn btn-primary btn-lg"  data-dismiss="modal" onclick="currentPage.loadMenu()">Aceptar</button>
+              </div>
+          </div>
+          <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+  </div>
+
+
+
+
+  <div id="modalErrorMessage" class="modal fade">
+      <div class="modal-dialog modal-dialog-error">
+          <div class="modal-content">
+              <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
+                  <h4>Aviso</h4>
+
+                  <p id="errorMensaje"></p>
+
+              </div>
+              <div class="modal-footer text-center">
+                  <button type="button" class="btn btn-primary btn-lg"  data-dismiss="modal" onclick="ocultarModalP()">Aceptar</button>
+              </div>
+          </div>
+          <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+  </div>
+  <div id="modalErrorMessage1" class="modal fade">
+      <div class="modal-dialog modal-dialog-error">
+          <div class="modal-content">
+              <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
+                  <h4>Aviso</h4>
+
+                  <p id="errorMensaje1"></p>
+
+              </div>
+              <div class="modal-footer text-center">
+                  <button type="button" class="btn btn-primary btn-lg"  data-dismiss="modal" onclick="onValidatePaymentDetailBxi()">Aceptar</button>
+              </div>
+          </div>
+          <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+  </div>
+  <div class="uiv-animate" ui-view></div>
+
+  <div id="modalErrorMessageS" class="modal fade " data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-error">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            Hubo un problema al efectuar la operaci&oacute;n
+          </h4>
+        </div>
+        <div class="modal-body">
+          <p>
+            <small><label id="errorMensaje"></label></small>
+          </p>
+        </div>
+        <div id="btnRegresaMenu"   style="display: block" class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" onClick="currentPage.loadMenu();">Cerrar</button>
+        </div>
+        <div id="btnCerrar" style="display: none" class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->

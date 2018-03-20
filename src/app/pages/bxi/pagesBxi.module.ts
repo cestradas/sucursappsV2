@@ -1,7 +1,7 @@
 
 import { SesionBxiService } from './sesion-bxi.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TransferenciaFinishSpeiComponent } from './transferencia-spei/transferencia-finish-spei/transferencia-finish-spei.component';
 import { NgModule } from "@angular/core"; 
 import { PagesBxiComponent } from './PagesBxi.component';
@@ -73,6 +73,7 @@ const customLayouts: IKeyboardLayouts = {
         BrowserAnimationsModule,
         MatButtonModule,
         MatKeyboardModule,
+        ReactiveFormsModule
 
         
     ],

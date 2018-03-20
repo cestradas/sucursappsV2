@@ -1,6 +1,6 @@
 import { Autenticacion } from './../autenticacion';
 import { SesionBxiService } from './../sesion-bxi.service';
-import { Component, OnInit, ViewChild, ElementRef  } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 
 
@@ -13,8 +13,13 @@ declare var $: any;
   styleUrls: [  ]
 })
 export class LoginBxiComponent implements OnInit {
-  @ViewChild('imagenToken', { read: ElementRef}) imagenToken: ElementRef ;
-  constructor(private router: Router, private service: SesionBxiService ) { }
+  @ViewChild('imagenTokenPass', { read: ElementRef}) imagenTokenPass: ElementRef ;
+  @ViewChild('imagenTokenCel', { read: ElementRef}) imagenTokenCel: ElementRef ;
+  @ViewChild('imagenTokenFisico', { read: ElementRef}) imagenTokenFisico: ElementRef ;
+  urlImagen: string;
+  nombreEnmascarado: string;
+
+  constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2) { }
 
   ngOnInit() {
   }
@@ -25,11 +30,15 @@ export class LoginBxiComponent implements OnInit {
     const autenticacion: Autenticacion = new Autenticacion();
     autenticacion.identificaUsuriao(usuarioBxi).then(
       function(identificacion) {
-        // console.log(response.responseJSON);
+        console.log(identificacion.responseJSON);
         const detalleIdentifacionUsurario = identificacion.responseJSON;
-        
+        // const imgHtml = this_aux.imagenToken.nativeElement;
+         // this_aux.renderer.setAttribute(imgHtml, 'src', detalleIdentifacionUsurario.UrlImagenPersonal);
+       
           if ( detalleIdentifacionUsurario.Id === 'SEG0001') {
               this_aux.service.detalleIdentificacion = detalleIdentifacionUsurario.toString();
+              this_aux.urlImagen = detalleIdentifacionUsurario.UrlImagenPersonal;
+              this_aux.nombreEnmascarado = detalleIdentifacionUsurario.NombreEnmascarado;
               autenticacion.getMetodosAutenticacionUsuario().then(
                     function(metodos) {
                         // console.log(metodos.responseJSON);
@@ -79,6 +88,8 @@ export class LoginBxiComponent implements OnInit {
       console.log(nivelMayor + tipoAutenticacion + etiqueta + requierePreparacion );
         const this_aux = this;
         this_aux.service.metodoAutenticaLogin = tipoAutenticacion;
+        document.getElementById('viewGeneralAutentica').style.display = 'block';
+        document.getElementById('NosoyYo').style.display = 'block';
         if ((nivelMayor === 300) && (tipoAutenticacion === 5)) {
 
           this_aux.preparaAutenticacion();
@@ -128,6 +139,14 @@ export class LoginBxiComponent implements OnInit {
 
           }, function(error) {
           });
+    }
+
+    modalIdentificaUsuario() {
+
+      document.getElementById('view_usr').style.display = 'block';
+      document.getElementById('viewGeneralAutentica').style.display = 'none';
+      document.getElementById('NosoyYo').style.display = 'none';
+
     }
 
   }
