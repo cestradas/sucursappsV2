@@ -39,7 +39,7 @@
           <div class="col-lg-5">
               <div class="form-group">
                   <label>Captura tu contrase&ntilde;a</label>
-                  <input type="password" class="form-control input-lg" id="passwordTokenTel"   autocomplete="off">
+                  <input type="password" class="form-control input-lg" id="passwordTokenTel"   autocomplete="off" [matKeyboard]="num">
               </div>
               <div class="form-group">
                   <label>Numero de seguridad</label>
@@ -47,7 +47,7 @@
               </div>
               <div class="form-group">
                   <label>Token</label>
-                  <input type="password" class="form-control input-lg" id="tokenTel"  autocomplete="off">
+                  <input type="password" class="form-control input-lg" id="tokenTel"  autocomplete="off" [matKeyboard]="num">
               </div>
 
               <button type="button" class="btn btn-primary btn-block btn-lg" style="border: 0; border-color: #eb012a; background-color: #eb0029;" (click)="autenticaUsuario()">
@@ -70,7 +70,7 @@
       <div class="row">
           <div class="col-lg-3">
               <div>
-                  <img src="" id="imgToken" />
+                  <img src="" #imagenToken />
               </div>
               <div>
 
@@ -80,11 +80,11 @@
           <div class="col-lg-5">
               <div class="form-group">
                   <label>Captura tu contrase&ntilde;a</label>
-                  <input type="password" class="form-control input-lg" id="passwordToken"  autocomplete="off"/>
+                  <input type="password" class="form-control input-lg" id="passwordToken"  autocomplete="off" [matKeyboard]="num"/>
               </div>
               <div class="form-group">
                   <label>Token</label>
-                  <input type="password" #token class="form-control input-lg" id="token"  autocomplete="off"/>
+                  <input type="password" #token class="form-control input-lg" id="token"  autocomplete="off" [matKeyboard]="num"/>
               </div>
 
               <!-- <button type="button" class="btn btn-primary btn-block btn-lg" ng-disabled="currentForm.$invalid" ng-click="onPassClick3()"> -->
@@ -117,7 +117,7 @@
 
               <div class="form-group">
                   <label>Captura tu contrase&ntilde;a</label>
-                  <input type="password"  #claveAcceso class="form-control input-lg" id="password" name="password"  autocomplete="off" />
+                  <input type="password"  #claveAcceso class="form-control input-lg" id="password" name="password"  autocomplete="off" [matKeyboard]="num"/>
               </div>
 
 
