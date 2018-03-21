@@ -64,17 +64,17 @@ export class PagoServiciosDetailComponent implements OnInit {
   }
 
   showDetallePago(cuenta, referencia, telefono, digito, fecha, importe) {
-      alert('cuenta' + cuenta + 'referencia' + referencia + 'telefono' + telefono
+    const this_aux = this;  
+    alert('cuenta' + cuenta + 'referencia' + referencia + 'telefono' + telefono
       + 'digito' + digito + 'fecha' + fecha + 'importe' + importe);
-      this.cuentaCargo = cuenta;
-      this.importe = importe;
-      this.nombreServicio = this.rNombreEmpresa.nativeElement.textContent;
-      if (this.service.idFacturador === '1310') {
-          this.referenciaPago = telefono + digito;
+      this_aux.cuentaCargo = cuenta;
+      this_aux.importe = importe;
+      if (this_aux.service.idFacturador === '1310') {
+        this_aux.referenciaPago = telefono + digito;
       } else {
-          this.referenciaPago = referencia;
+        this_aux.referenciaPago = referencia;
       }
-      this.setTipoAutenticacionOnModal();
+      this_aux.setTipoAutenticacionOnModal();
   }
 
   setTipoAutenticacionOnModal() {

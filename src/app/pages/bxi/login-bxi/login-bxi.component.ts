@@ -36,7 +36,7 @@ export class LoginBxiComponent implements OnInit {
           if ( detalleIdentifacionUsurario.Id === 'SEG0001') {
             
               this_aux.service.detalleIdentificacion = detalleIdentifacionUsurario.toString();
-              this_aux.service.nombreUsuario = detalleIdentifacionUsurario.NombreUsuario; 
+              this_aux.service.NombreUsuario = detalleIdentifacionUsurario.NombreUsuario; 
               this_aux.urlImagen = detalleIdentifacionUsurario.UrlImagenPersonal;
               this_aux.nombreEnmascarado = detalleIdentifacionUsurario.NombreEnmascarado;
               

@@ -7,7 +7,7 @@ export class SesionBxiService {
     // Datos Especificos
     usuarioLogin: string;
     metodoAutenticaLogin: string;
-    nombreUsuario: string;
+    NombreUsuario: string;
     // Respuesta Servicios
     detalleIdentificacion: string;
     metodosAutenticacionUsario: string;
