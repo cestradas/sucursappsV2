@@ -15,7 +15,7 @@ declare var $: any;
 })
 export class PagoServiciosDetailComponent implements OnInit {
 
-  @ViewChild('rNombreEmpresa', { read: ElementRef}) rNombreEmpresa: ElementRef ;
+ // @ViewChild('rNombreEmpresa', { read: ElementRef}) rNombreEmpresa: ElementRef ;
   @ViewChild('rCuentaCargo', { read: ElementRef}) rCuentaCargo: ElementRef ;
   @ViewChild('rTelefono', { read: ElementRef}) rTelefono: ElementRef ;
   @ViewChild('rDigitoVerificador', { read: ElementRef}) rDigitoVerificador: ElementRef ;
@@ -48,11 +48,12 @@ export class PagoServiciosDetailComponent implements OnInit {
     console.log(this_aux.service.detalleEmpresa_PS);
     this_aux.nombreServicio = JSON.parse(this_aux.service.detalleEmpresa_PS);
     this_aux.service.nombreServicio = this_aux.nombreServicio;
-    this_aux.rNombreEmpresa.nativeElement.textContent = this_aux.nombreServicio.empresa;
+   //  this_aux.rNombreEmpresa.nativeElement.textContent = this_aux.nombreServicio.empresa;
     this.rCuentaCargo.nativeElement.value = this_aux.service.numCuentaSeleccionado;
     if (this_aux.service.idFacturador === '1310') {
         divTelmex.setAttribute('style', 'display: block');
         divOtro.setAttribute('style', 'display: block');
+        
        this_aux.rReferencia.nativeElement.value = 12345;
     } else {
         divTelmex.setAttribute('style', 'display: block');
@@ -81,18 +82,18 @@ export class PagoServiciosDetailComponent implements OnInit {
       const this_aux = this;
       const divChallenge = document.getElementById('challenger');
       const divTokenPass = document.getElementById('divPass');
-      if (this_aux.service.metodoAutenticaLogin.toString() === '5') {
+      if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
 
-        this_aux.labelTipoAutentica = 'Token Fisico';
+        this_aux.labelTipoAutentica = 'Token Celular';
         divChallenge.setAttribute('style', 'display: block');
         divTokenPass.setAttribute('style', 'display: block');
 
-      } else if (this_aux.service.metodoAutenticaLogin.toString()  === '0') {
+      } else if (this_aux.service.metodoAutenticaMayor.toString()  === '0') {
 
         divChallenge.setAttribute('style', 'display: none');
         divTokenPass.setAttribute('style', 'display: block');
         this_aux.labelTipoAutentica = 'Contrase&atilde;a';
-      } else if (this_aux.service.metodoAutenticaLogin.toString()  === '1') {
+      } else if (this_aux.service.metodoAutenticaMayor.toString()  === '1') {
 
         divChallenge.setAttribute('style', 'display: none');
         divTokenPass.setAttribute('style', 'display: block');
@@ -106,7 +107,7 @@ export class PagoServiciosDetailComponent implements OnInit {
       const this_aux = this;
       const autenticacion: Autenticacion = new Autenticacion();
       const operacionesbxi: OperacionesBXI = new OperacionesBXI();
-      autenticacion.autenticaUsuario(token, this_aux.service.metodoAutenticaLogin).then(
+      autenticacion.autenticaUsuario(token, this_aux.service.metodoAutenticaMayor).then(
         function(detalleAutentica) {
               // console.log(detalleAutentica.responseJSON);
               const infoUsuarioJSON = detalleAutentica.responseJSON;

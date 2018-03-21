@@ -88,31 +88,13 @@ export class LoginBxiComponent implements OnInit {
     showModalByTipoAutentica(nivelMayor, tipoAutenticacion, etiqueta, requierePreparacion) {
       console.log(nivelMayor + tipoAutenticacion + etiqueta + requierePreparacion );
         const this_aux = this;
-        this_aux.service.metodoAutenticaLogin = tipoAutenticacion;
+        this_aux.service.metodoAutenticaMayor = tipoAutenticacion;
         document.getElementById('viewGeneralAutentica').style.display = 'block';
         document.getElementById('NosoyYo').style.display = 'block';
-        if ((nivelMayor === 300) && (tipoAutenticacion === 5)) {
-
-          this_aux.preparaAutenticacion();
-
-        } else if ((nivelMayor === 300) && (tipoAutenticacion === 1)) {
-          // TokenFisico
-
-          document.getElementById('view_usr').style.display = 'none';
-          document.getElementById('view_pass_token').style.display = 'block';
-
-        } else if (nivelMayor === 100) {
           // Contraseña
-          this_aux.service.metodoAutenticaLogin = '0';
           document.getElementById('view_usr').style.display = 'none';
           document.getElementById('view_pass').style.display = 'block';
-        }
-    }
-
-    preparaAutenticacion() {
-      console.log('Entro PreparaAutenticacion');
-      document.getElementById('view_usr').style.display = 'none';
-      document.getElementById('view_pass_token_cel').style.display = 'block';
+        
     }
 
 
@@ -120,9 +102,8 @@ export class LoginBxiComponent implements OnInit {
 
       const this_aux = this;
       const autenticacion: Autenticacion = new Autenticacion();
-      console.log(' this_aux.service.metodoAutenticaLogin' +  this_aux.service.metodoAutenticaLogin );
       console.log('entro autenticaUsuario ' );
-      autenticacion.autenticaUsuario(claveAcceso, this_aux.service.metodoAutenticaLogin).then(
+      autenticacion.autenticaUsuario( claveAcceso, "0").then(
           function(response) {
                 // console.log(response.responseJSON);
                 const infoUsuario = response.responseText;
