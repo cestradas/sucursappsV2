@@ -16,7 +16,7 @@ declare var $: any;
 export class PagoServiciosDetailComponent implements OnInit {
 
  // @ViewChild('rNombreEmpresa', { read: ElementRef}) rNombreEmpresa: ElementRef ;
-  @ViewChild('rCuentaCargo', { read: ElementRef}) rCuentaCargo: ElementRef ;
+ // @ViewChild('rCuentaCargo', { read: ElementRef}) rCuentaCargo: ElementRef ;
   @ViewChild('rTelefono', { read: ElementRef}) rTelefono: ElementRef ;
   @ViewChild('rDigitoVerificador', { read: ElementRef}) rDigitoVerificador: ElementRef ;
   @ViewChild('rReferencia', { read: ElementRef}) rReferencia: ElementRef ;
@@ -31,7 +31,6 @@ export class PagoServiciosDetailComponent implements OnInit {
 
   constructor( private service: SesionBxiService, private fb: FormBuilder, private router: Router ) {
     this.myForm = this.fb.group({
-      fcCuentaCargo: ['', [Validators.required]],
       fcTelefono: ['', Validators.required],
       fcReferencia: ['', [Validators.required]],
       fcDigitoVerificador: ['', [Validators.required]],
@@ -45,11 +44,13 @@ export class PagoServiciosDetailComponent implements OnInit {
     const this_aux = this;
     const divTelmex = document.getElementById('serviciosTelmex');
     const divOtro = document.getElementById('otrosServicios');
-    console.log(this_aux.service.detalleEmpresa_PS);
-    this_aux.nombreServicio = JSON.parse(this_aux.service.detalleEmpresa_PS);
+    const detalleEmpresa = JSON.parse(this_aux.service.detalleEmpresa_PS);
+
+    this_aux.nombreServicio =  detalleEmpresa.empresa;
     this_aux.service.nombreServicio = this_aux.nombreServicio;
-   //  this_aux.rNombreEmpresa.nativeElement.textContent = this_aux.nombreServicio.empresa;
-    this.rCuentaCargo.nativeElement.value = this_aux.service.numCuentaSeleccionado;
+    this_aux.cuentaCargo = this_aux.service.numCuentaSeleccionado;
+    // this_aux.rCuentaCargo.nativeElement.value = this_aux.service.numCuentaSeleccionado;
+    
     if (this_aux.service.idFacturador === '1310') {
         divTelmex.setAttribute('style', 'display: block');
         divOtro.setAttribute('style', 'display: block');
@@ -68,7 +69,7 @@ export class PagoServiciosDetailComponent implements OnInit {
     const this_aux = this;  
     alert('cuenta' + cuenta + 'referencia' + referencia + 'telefono' + telefono
       + 'digito' + digito + 'fecha' + fecha + 'importe' + importe);
-      this_aux.cuentaCargo = cuenta;
+
       this_aux.importe = importe;
       if (this_aux.service.idFacturador === '1310') {
         this_aux.referenciaPago = telefono + digito;

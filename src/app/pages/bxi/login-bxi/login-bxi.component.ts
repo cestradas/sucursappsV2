@@ -42,8 +42,7 @@ export class LoginBxiComponent implements OnInit {
               
               autenticacion.getMetodosAutenticacionUsuario().then(
                     function(metodos) {
-                        // console.log(metodos.responseJSON);
-                        // console.log(metodos.responseText);
+                        
                         const  respConsultaMetodos = metodos.responseJSON;
                         if (respConsultaMetodos.Id === 'SEG0001') {
 
@@ -81,14 +80,13 @@ export class LoginBxiComponent implements OnInit {
         }
 
       });
-
-      this.showModalByTipoAutentica(nivelMayor, tipoAutenticacion, etiqueta, requierePreparacion);
+      console.log(nivelMayor + tipoAutenticacion + etiqueta + requierePreparacion );
+      this_aux.service.metodoAutenticaMayor = tipoAutenticacion;
+      this.showModalByTipoAutentica();
     }
 
-    showModalByTipoAutentica(nivelMayor, tipoAutenticacion, etiqueta, requierePreparacion) {
-      console.log(nivelMayor + tipoAutenticacion + etiqueta + requierePreparacion );
+    showModalByTipoAutentica() {
         const this_aux = this;
-        this_aux.service.metodoAutenticaMayor = tipoAutenticacion;
         document.getElementById('viewGeneralAutentica').style.display = 'block';
         document.getElementById('NosoyYo').style.display = 'block';
           // Contraseña

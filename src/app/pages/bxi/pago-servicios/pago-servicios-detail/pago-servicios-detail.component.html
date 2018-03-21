@@ -9,7 +9,7 @@
               <label >Cuenta origen:</label> 
               </div>
               <div class="col-lg-10">
-                <input type="text"  id="idCuentaCargo" formControlName="fcCuentaCargo" #rCuentaCargo class ="form-control input-lg " readonly  >   
+                <input type="text"  id="idCuentaCargo"  #rCuentaCargo class ="form-control input-lg " value="{{cuentaCargo}}"  readonly>   
               </div>
             </div>
             <div class="row padding-InFieldset" id="serviciosTelmex">
@@ -93,7 +93,7 @@
       </div>     
       <div class="modal-footer deletePaddingRigth-buttom">
         <button  class="btn btn-lg"  	 >Cancelar</button>
-        <button  type="button" class="btn btn-primary  btn-lg" [disabled]="myForm.invalid" (click)="showDetallePago(rCuentaFacturador.value,rReferencia.value,rTelefono.value, rDigitoVerificador.value, rFechaVencimiento.value, rImporte.value )">
+        <button  type="button" class="btn btn-primary  btn-lg" [disabled]="myForm.invalid" (click)="showDetallePago(rCuentaCargo.value,rReferencia.value,rTelefono.value, rDigitoVerificador.value, rFechaVencimiento.value, rImporte.value )">
           Continuar
         </button>
       </div>
