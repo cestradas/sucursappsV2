@@ -342,6 +342,13 @@ html {
     width: 180px;
 }
 
+.color-botones {
+    border: 0;
+    border-color: #eb012a;
+    background-color: #eb0029;
+    color: #fff;
+}
+
 
 /* Teclado */
 
