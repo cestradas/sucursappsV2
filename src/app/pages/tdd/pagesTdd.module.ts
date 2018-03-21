@@ -8,6 +8,7 @@ import { TransferenciaSpeiComponent } from './transferencia-spei/transferencia-s
 import { TransferenciaTercerosComponent } from './transferencia-terceros/transferencia-terceros.component';
 import { CompraTiempoAireComponent } from './compra-tiempo-aire/compra-tiempo-aire.component';
 import { PagoDeServiciosComponent } from './pago-de-servicios/pago-de-servicios.component';
+import { MantenimientoBenefComponent } from './tdd/mantenimiento-benef/mantenimiento-benef.component';
 import { CommonModule } from '@angular/common';
 import { AppComponent } from "../../app.component";
 import { FormsModule } from '@angular/forms';
@@ -23,6 +24,7 @@ import { FormsModule } from '@angular/forms';
         TransferenciaSpeiComponent,
         TransferenciaTercerosComponent,
         PagoDeServiciosComponent,
+	MantenimientoBenefComponent,
         MenutddComponent
     ],
     exports: [],

@@ -1,0 +1,350 @@
+<form [formGroup]="myForm1" (ngSubmit)="saveData()" novalidate>
+    <h2 class="text-center padding-barToTittle deleteMargin-h2">Mantenimiento de Beneficiarios</h2>
+    <fieldset class="padding-fieldset-general padding-TittleToFieldset">
+        <div class="sumando-form-group">
+            <div class="col-sm-1 sumando-bg-orange group-name">
+                Cuenta
+            </div>
+            <div class="col-sm-11 group-controls padding-left-0 padding-right-0 padding-InFieldset">
+                <div class="form-group">
+                    <div class="sumando-bg-white">
+                        <input type="hidden" name="originAccount">
+
+                        <div class="dropdown sumando-dropdown-account">
+                            <button class="btn btn-default btn-block dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="padding-right: 0px;padding-top: 0px;padding-bottom: 0px">
+                <table id="tableOrigen" style="display: none" width="100%">
+                  <tr> 
+                    <td align="left" width="45%">
+                      <strong><label  id="lblAliasOrigen" #lblAliasOrigen></label></strong>
+                    </td>
+                    <td align="left" width="45%">
+                      <strong>$<label id ="lblSaldoOrigen"></label>
+                      </strong>
+                    </td>
+                    <td width="5%" rowspan="2" class="dropdown-caret">
+                      <img src="./assets/img/bg_selectN.png" style="width: 90%;    height: 150%;">
+                    </td> 
+                  </tr>
+                  <tr>
+                    <td align="left">Cuenta <label id="lblCuentaOrigen" #lblCuentaOrigen></label></td>
+                    <td align="left">Saldo Disponible</td>
+                  </tr>
+                </table> 
+                <table  id="tableDefaultOrigen" width="100%">
+                  <tr>
+                    <td align="left" rowspan="2">Cuenta Enlace Personal</td>
+                    <td width="5%" rowspan="2" class="dropdown-caret">
+                      <img style="width: 90%;    height: 150%;">
+                    </td> 
+                  </tr>  
+                </table>
+              </button>
+                            <div>
+                                <ul id="ul_Cuentas" #listaCuentas class="dropdown-menu btn-block" aria-labelledby="dropdownMenu1" style="width: 100%; height: 200px; overflow: auto">
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3>Beneficiarios de la Cuenta</h3>
+                <table id="tableBeneficiary" width="100%">
+                    <tr>
+                        <th>No. Cliente</th>
+                        <th>Nombre o Razón Social</th>
+                        <th>Parentesco</th>
+                        <th>RFC</th>
+                        <th>Fecha de Nacimiento</th>
+                        <th>(%)</th>
+                        <th>Modificar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                    <tr *ngFor="let beneficiario of BEN, let i = index">
+                        <td *ngIf="(i>=NumeroDatoInicial) && (i < NumeroDatoFinal)" style="text-align: center">{{beneficiario.NumeroCliente}}</td>
+                        <td *ngIf="(i>=NumeroDatoInicial) && (i < NumeroDatoFinal)" style="text-align: center">{{beneficiario.RazonSocial}}{{beneficiario.NombreBeneficia}} {{beneficiario.ApPaternoBenef}} {{beneficiario.ApMaternoBenef}}</td>
+                        <td *ngIf="(i>=NumeroDatoInicial) && (i < NumeroDatoFinal)" style="text-align: center">{{beneficiario.Parentesco}}</td>
+                        <td *ngIf="(i>=NumeroDatoInicial) && (i < NumeroDatoFinal)" style="text-align: center">{{beneficiario.RegistroFederal}}</td>
+                        <td *ngIf="(i>=NumeroDatoInicial) && (i < NumeroDatoFinal)" style="text-align: center">{{beneficiario.FechaNacimiento}}</td>
+                        <td *ngIf="(i>=NumeroDatoInicial) && (i < NumeroDatoFinal)" style="text-align: center">{{beneficiario.PorcentajeBenef}}</td>
+                        <td align=center>
+                            <button id="buttonImage" type="button"><img src="./assets/img/edit.png" 
+                                alt= "Modificar Beneficiario" (click)="modificaBeneficiario()" width="50px" height="50px" /></button>
+                        </td>
+                        <td align=center>
+                            <button id="buttonImage" type="button"><img src="./assets/img/trash.png" 
+                                (click)="bajaBeneficiarioModal(beneficiario)" alt="Eliminar Beneficiario" width="50px" height="50px" /></button>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-lg-10">
+                        <button type="button" (click)="altaBeneficiario()" class="btn btn-primary btn-lg">Alta</button>
+                    </div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary btn-lg">Guardar Cambios</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer deletePaddingRigth-buttom">
+                <button class="btn btn-lg" onclick="">Cancelar</button>
+            </div>
+        </div>
+    </fieldset>
+
+    <!-- Modal Alta de Beneficiarios-->
+
+    <div class="modal benef" id="altaBenefModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-content-aux">
+                <h2 class="text-center padding-barToTittle deleteMargin-h2">Alta de Beneficiario</h2>
+                <br>
+                <div class="modal-body modal-body-aux">
+
+                    <div class="row">
+                        <div class="col-lg-2" style="left: 11%">Nombre(s) </div>
+                        <div class="col-lg-2">
+                            <input type=text id=inputText formControlName="nombres" type="text" style="margin-top: -4px; text-align: center" placeholder="Ingrese Nombre(s)">
+                        </div>
+                        <div class=" col-lg-2 " style="left: -1% ">Apellido Paterno </div>
+                        <div class="col-lg-2 ">
+                            <input type=text id=inputText style=" width: 90% !important; margin-left: -60%; margin-top: -4px; text-align: center" placeholder="Ingrese Apellido Paterno">
+                        </div>
+                        <div class="col-lg-2 " style="left: -8% ">Apellido Materno </div>
+                        <div class="col-lg-2 ">
+                            <input type=text id=inputText style=" width: 90% !important; margin-left: -304px; margin-top: -4px; text-align: center" placeholder="Ingrese Apellido Materno">
+                        </div>
+                    </div>
+                    <div>
+                        <p style="color: red; margin-left: 324px" *ngIf="myForm1.get( 'nombres').errors && myForm1.get( 'nombres').dirty">Nombre es Requerido</p>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row ">
+                        <div class="col-lg-2 " style="left: 10% ">F.Nacimiento </div>
+                        <div class="col-lg-2 ">
+                            <input type=text id=inputText style="margin-top: -4px; text-align: center" placeholder="DD-MM-AAAA ">
+                        </div>
+                        <div class="col-lg-2 " style="left: 30px ">Parentesco </div>
+                        <div class="col-lg-2 ">
+                            <input type=text id=inputText style=" width: 90% !important; margin-left: -60%; margin-top: -4px; text-align: center" placeholder="Ingrese Parentesco ">
+                        </div>
+                        <div class="col-lg-2 " style="left: -142px">Tipo de Persona </div>
+                        <div class="col-lg-2 ">
+                            <select id="selTypePerson " style=" width: 90% !important; margin-left: -304px; text-align: center">                            
+                            <option>Seleccione Opción</option>
+                            <option>Persona Física</option>
+                            <option>Persona Moral</option>
+                          </select>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row ">
+                        <div class="col-lg-2 " style="left: 9% ">% Asignado al Beneficiario </div>
+                        <div class="col-lg-2 ">
+                            <input type=text id=inputText style="margin-left: 111px; width: 36% !important; text-align: center; margin-top: -4px" placeholder="%">
+                        </div>
+                        <div class="col-lg-5 " style="left: -17px ">(La suma de los porcentajes asignados a sus beneficiarios, debe ser igual a 100%)</div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row ">
+                        <div class="col-lg-2 " style="left: 15% ">CP </div>
+                        <div class="col-lg-1 ">
+                            <input type=text id=inputText style="width: 60% !important; margin-top: -4px; text-align: center" placeholder="CP ">
+                        </div>
+                        <div class="col-lg-1 ">
+                            <button type="button " class="btn btn-primary btn-lg " style="margin-left: -74px; font-size: 16px !important; margin-top: -9px ">Consulta CP</button>
+                        </div>
+                        <div class="col-lg-2 " style="left: -16px ">Estado </div>
+                        <div class="col-lg-2 ">
+                            <input type=text id=inputText style="margin-left: -263px; width: 70% !important; text-align: center" placeholder="Ingrese Estado ">
+                        </div>
+                        <div class="col-lg-2 " style="left: -193px ">Delegación/Municipio </div>
+                        <div class="col-lg-2 ">
+                            <input type=text id=inputText style=" width: 90% !important; margin-left: -304px; margin-top: -4px; text-align: center " placeholder="Delegación/Municipio ">
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row ">
+                        <div class="col-lg-2 " style="left: 12% ">Colonia </div>
+                        <div class="col-lg-2 ">
+                            <select id="selColonia " style="width: 214px; text-align: center">
+                            <option>Seleccione Colonia</option>
+                          </select>
+                        </div>
+                        <div class="col-lg-2 " style="left: -1px ">Calle </div>
+                        <div class="col-lg-3 ">
+                            <input type=text id=inputText style="margin-left: -263px; width: 90% !important; margin-top: -4px; text-align: center" placeholder="Ingrese Calle">
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row ">
+                        <div class="col-lg-2 " style="left: 14% ">País </div>
+                        <div class="col-lg-2 ">
+                            <select id="selPais " style="width: 214px; text-align: center ">
+                            <option>Seleccione País</option>
+                          </select>
+                        </div>
+                        <div class="col-lg-2 " style="left: -21px ">No. Ext </div>
+                        <div class="col-lg-2 ">
+                            <input type=text id=inputText style="margin-left: -263px; width: 30% !important; margin-top: -4px; text-align: center" placeholder="No. Ext ">
+                        </div>
+                        <div class="col-lg-2 " style="left: -25% ">Departamento </div>
+                        <div class="col-lg-2 ">
+                            <input type=text id=inputText style="margin-left: -651px; width: 30% !important; margin-top: -4px; text-align: center " placeholder="Dpto ">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer ">
+                    <button type="button " class="btn btn-lg ">Cancelar</button>
+                    <button type="button " class="btn btn-primary btn-lg ">Confirmar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Modificación de Beneficiarios-->
+
+    <div class="modal benef" id="ModificacionBenefModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-content-aux">
+                <h2 class="text-center padding-barToTittle deleteMargin-h2">Modificación de Beneficiario</h2>
+                <br>
+                <div class="modal-body modal-body-aux">
+
+                    <div class="row">
+                        <div class="col-lg-2" style="left: 11%">Nombre(s) </div>
+                        <div class="col-lg-2">
+                            <input type=text id=inputText formControlName="nombres" type="text" style="margin-top: -4px; text-align: center" placeholder="Ingrese Nombre(s)">
+                        </div>
+                        <div class=" col-lg-2 " style="left: -1% ">Apellido Paterno </div>
+                        <div class="col-lg-2 ">
+                            <input type=text id=inputText style=" width: 90% !important; margin-left: -60%; margin-top: -4px; text-align: center" placeholder="Ingrese Apellido Paterno">
+                        </div>
+                        <div class="col-lg-2 " style="left: -8% ">Apellido Materno </div>
+                        <div class="col-lg-2 ">
+                            <input type=text id=inputText style=" width: 90% !important; margin-left: -304px; margin-top: -4px; text-align: center" placeholder="Ingrese Apellido Materno">
+                        </div>
+                    </div>
+                    <div>
+                        <p style="color: red; margin-left: 324px" *ngIf="myForm1.get( 'nombres').errors && myForm1.get( 'nombres').dirty">Nombre es Requerido</p>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row ">
+                        <div class="col-lg-2 " style="left: 10% ">F.Nacimiento </div>
+                        <div class="col-lg-2 ">
+                            <input type=text id=inputText style="margin-top: -4px; text-align: center" placeholder="DD-MM-AAAA ">
+                        </div>
+                        <div class="col-lg-2 " style="left: 30px ">Parentesco </div>
+                        <div class="col-lg-2 ">
+                            <input type=text id=inputText style=" width: 90% !important; margin-left: -60%; margin-top: -4px; text-align: center " placeholder="Ingrese Parentesco ">
+                        </div>
+                        <div class="col-lg-2 " style="left: -142px ">Tipo de Persona </div>
+                        <div class="col-lg-2 ">
+                            <input id="TypePerson " style=" width: 90% !important; margin-left: -304px; margin-top: -4px; text-align: center">
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row ">
+                        <div class="col-lg-2 " style="left: 9% ">% Asignado al Beneficiario </div>
+                        <div class="col-lg-2 ">
+                            <input type=text id=inputText style="margin-left: 111px; width: 36% !important; text-align: center; margin-top: -4px; text-align: center" placeholder="%">
+                        </div>
+                        <div class="col-lg-5 " style="left: -17px ">(La suma de los porcentajes asignados a sus beneficiarios, debe ser igual a 100%)</div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row ">
+                        <div class="col-lg-2 " style="left: 15% ">CP </div>
+                        <div class="col-lg-1 ">
+                            <input type=text id=inputText style="width: 60% !important; margin-top: -4px; text-align: center" placeholder="CP ">
+                        </div>
+                        <div class="col-lg-1 ">
+                            <button type="button " class="btn btn-primary btn-lg " style="margin-left: -74px; font-size: 16px !important; margin-top: -9px ">Consulta CP</button>
+                        </div>
+                        <div class="col-lg-2 " style="left: -16px ">Estado </div>
+                        <div class="col-lg-2 ">
+                            <input type=text id=inputText style="margin-left: -263px; width: 70% !important; margin-top: -4px; text-align: center" placeholder="Ingrese Estado ">
+                        </div>
+                        <div class="col-lg-2 " style="left: -193px ">Delegación/Municipio </div>
+                        <div class="col-lg-2 ">
+                            <input type=text id=inputText style=" width: 90% !important; margin-left: -304px; margin-top: -4px; text-align: center" placeholder="Delegación/Municipio ">
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row ">
+                        <div class="col-lg-2 " style="left: 12% ">Colonia </div>
+                        <div class="col-lg-2 ">
+                            <select id="selColonia " style="width: 214px; text-align: center">
+                                <option>Seleccione Colonia</option>
+                              </select>
+                        </div>
+                        <div class="col-lg-2 " style="left: -1px ">Calle </div>
+                        <div class="col-lg-3 ">
+                            <input type=text id=inputText style="margin-left: -263px; width: 90% !important; margin-top: -4px; text-align: center" placeholder="Ingrese Calle">
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row ">
+                        <div class="col-lg-2 " style="left: 14% ">País </div>
+                        <div class="col-lg-2 ">
+                            <select id="selPais " style="width: 214px">
+                                <option style="text-align: center">Seleccione País</option>
+                              </select>
+                        </div>
+                        <div class="col-lg-2 " style="left: -21px ">No. Ext </div>
+                        <div class="col-lg-2 ">
+                            <input type=text id=inputText style="margin-left: -263px; width: 30% !important; margin-top: -4px; text-align: center " placeholder="No. Ext ">
+                        </div>
+                        <div class="col-lg-2 " style="left: -25% ">Departamento </div>
+                        <div class="col-lg-2 ">
+                            <input type=text id=inputText style="margin-left: -651px; width: 30% !important; margin-top: -4px; text-align: center " placeholder="Dpto ">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer ">
+                    <button type="button " class="btn btn-lg ">Cancelar</button>
+                    <button type="button " class="btn btn-primary btn-lg ">Actualizar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Baja de Beneficiario -->
+
+    <div id="modalBajaBeneficiarios" class="modal eliminar">
+        <div class="modal-dialog modal-dialog-error">
+            <div class="modal-content modal-aux-eliminar">
+                <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
+                    <h4>Aviso</h4>
+
+                    <p>Confirmar la eliminación del beneficiario: </p>
+
+                </div>
+                <div class="modal-footer text-center">
+                    <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)="bajaBeneficiarios()" ng-click="location.reload()" style="margin-right: 44px">Aceptar</button>
+                    <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+</form>

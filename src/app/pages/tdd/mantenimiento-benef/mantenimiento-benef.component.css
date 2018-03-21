@@ -1,0 +1,43 @@
+th {
+    background-color: #83837d2f;
+    text-align: center;
+    padding: 8px;
+}
+
+table#tableBeneficiary,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+button#buttonImage {
+    background-color: transparent;
+    border: transparent;
+}
+
+.modal-dialog {
+    z-index: 1050 !important;
+    position: absolute !important;
+}
+
+.modal-content-aux {
+    width: 380% !important;
+    height: 750px !important;
+}
+
+.modal-aux-eliminar {
+    width: 300px !important;
+    height: 300px !important;
+    margin-left: 267%;
+    margin-top: 180px;
+}
+
+#inputText {
+    font-size: 18px;
+}
+
+#pTable {
+    background-color: white;
+    padding: 30px;
+}
