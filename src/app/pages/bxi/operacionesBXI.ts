@@ -6,7 +6,7 @@ export class OperacionesBXI {
             numCuenta : numCuenta_seleccionada
           };
           const resourceRequest1 = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursApps/resource/getSaldoCuenta', WLResourceRequest.POST);
+            'adapters/AdapterBanorteSucursAppsBEL/resource/getSaldoCuenta', WLResourceRequest.POST);
             resourceRequest1.setTimeout(30000);
 
             return resourceRequest1.sendFormParameters(formParameters1);
@@ -29,7 +29,7 @@ export class OperacionesBXI {
         };
     
         const resourceRequest = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursApps/resource/consultaClabeSaldo',
+            'adapters/AdapterBanorteSucursAppsBEL/resource/consultaClabeSaldo',
             WLResourceRequest.POST);
         resourceRequest.setTimeout(30000);
         resourceRequest
@@ -45,7 +45,7 @@ export class OperacionesBXI {
 
     const formParameters = { };
     const resourceRequest = new WLResourceRequest(
-        'adapters/AdapterBanorteSucursApps/resource/getEmpresas', WLResourceRequest.POST);
+        'adapters/AdapterBanorteSucursAppsBEL/resource/getEmpresas', WLResourceRequest.POST);
        resourceRequest.setTimeout(30000);
 
        return resourceRequest.sendFormParameters(formParameters);
@@ -58,7 +58,7 @@ export class OperacionesBXI {
           };
 
           const resourceRequest = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursApps/resource/getDetalleEmpresa', WLResourceRequest.POST);
+            'adapters/AdapterBanorteSucursAppsBEL/resource/getDetalleEmpresa', WLResourceRequest.POST);
           resourceRequest.setTimeout(30000);
 
          return  resourceRequest.sendFormParameters(formParameters);
@@ -75,10 +75,10 @@ export class OperacionesBXI {
           let resourceRequest;
           if (idFacturador === '1003') {
              resourceRequest = new WLResourceRequest(
-                'adapters/AdapterBanorteSucursApps/resource/pagoDisposicionCredito', WLResourceRequest.POST);
+                'adapters/AdapterBanorteSucursAppsBEL/resource/pagoDisposicionCredito', WLResourceRequest.POST);
           } else {
              resourceRequest = new WLResourceRequest(
-                'adapters/AdapterBanorteSucursApps/resource/pagoConcentracionEmpresarial', WLResourceRequest.POST);
+                'adapters/AdapterBanorteSucursAppsBEL/resource/pagoConcentracionEmpresarial', WLResourceRequest.POST);
           }
           resourceRequest.setTimeout(30000);
 
