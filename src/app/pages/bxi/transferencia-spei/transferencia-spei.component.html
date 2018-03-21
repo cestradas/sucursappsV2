@@ -7,37 +7,45 @@
         <div class="col-sm-1 sumando-bg-red group-name">
             Desde
         </div>
-        <div id="contOrigin" class="col-sm-11 group-controls padding-left-0 padding-right-0 sumando-well-white">
+        <div class="col-sm-11 group-controls  padding-InFieldset" style="padding-left: 0px; padding-right:  0px;">
             <div class="form-group">
-                <input type="hidden" name="originAccount" required/>
+                <div class="sumando-bg-white">
+                    <input type="hidden">
+                    <div class="dropdown sumando-dropdown-account">
+                        <button class="btn btn-default btn-block dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="padding-right: 0px;padding-top: 0px;padding-bottom: 0px">
+                  <table id="tableOrigen" style="display: none" width="100%">
+                    <tr> 
+                      <td align="left" width="45%">
+                        <strong><label  id="lblAliasOrigen" #lblAliasOrigen></label></strong>
+                      </td>
+                      <td align="left" width="45%">
+                        <strong>$<label id ="lblSaldoOrigen"></label>
+                        </strong>
+                      </td>
+                      <td width="5%" rowspan="2" class="dropdown-caret">
+                        <img  class="select-img" src="./assets/img/bg_selectN.png">
+                      </td> 
+                    </tr>
+                    <tr>
+                      <td align="left">Cuenta <label id="lblCuentaOrigen" #lblCuentaOrigen></label></td>
+                      <td align="left">Saldo Disponible</td>
+                    </tr>
+                  </table> 
+                  <table  id="tableDefaultOrigen" width="100%">
+                    <tr>
+                      <td align="left" rowspan="2">Seleccione una cuenta de origen...</td>
+                      <td width="5%" rowspan="2" class="dropdown-caret">
+                        <img src="./assets/img/bg_selectN.png" class="select-img">
+                      </td> 
+                    </tr>  
+                  </table>
+                </button>
+                        <div>
+                            <ul id="ul_Cuentas" #listaCuentas class="dropdown-menu btn-block" aria-labelledby="dropdownMenu1" style="width: 100%; height: 200px; overflow: auto">
 
-                <div class="sumando-dropdown-account">
-                    <button style="width: 100% !important;" class=" letranegrita fondoblanco btn btn-default btn-block dropdown-toggle" type="button">
-                <table  width="100%" class="letranegrita">  
-                  <tr>
-                    <td align="left" width="45%">
-                      <strong><label id="TitularSPEI"></label></strong>
-                    </td>
-                    <td align="left" width="45%">
-                      <strong> <label id="SaldoSPEI"></label>
-                      </strong>
-                    </td>
-                    <td rowspan="2" width="10%" class="dropdown-caret">
-                      
-                    </td>
-                  </tr>
-                  <tr>
-                    <td align="left">Cuenta <label id="CuentaSPEI"></label></td>
-                    <td align="left">Saldo Disponible</td> {{datosCuenta.SaldoDisponible}}
-                  </tr>
-                </table>
-               
-              </button>
-                    <ul class="dropdown-menu btn-block" aria-labelledby="dropdownMenu1">
-                        <li>
-                            <a></a>
-                        </li>
-                    </ul>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

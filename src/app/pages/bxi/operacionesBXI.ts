@@ -6,7 +6,7 @@ export class OperacionesBXI {
             numCuenta : numCuenta_seleccionada
           };
           const resourceRequest1 = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursAppsBEL/resource/getSaldoCuenta', WLResourceRequest.POST);
+            'adapters/AdapterBanorteSucursApps/resource/getSaldoCuenta', WLResourceRequest.POST);
             resourceRequest1.setTimeout(30000);
 
             return resourceRequest1.sendFormParameters(formParameters1);
@@ -14,38 +14,38 @@ export class OperacionesBXI {
     }
 
     consultaClabeSaldo(): any {
-
+      
         console.log("adentro cnsultaCuentas");
-
+    
         let tipoMovimiento = "1";
         let numeroCuenta = "0665815063";
-
+    
         const THIS: any = this;
-
+    
         const formParameters = {
             tipoMovimiento:  tipoMovimiento,
             numeroCuenta: numeroCuenta
-
+        
         };
-
+    
         const resourceRequest = new WLResourceRequest(
             'adapters/AdapterBanorteSucursApps/resource/consultaClabeSaldo',
             WLResourceRequest.POST);
         resourceRequest.setTimeout(30000);
         resourceRequest
             .sendFormParameters(formParameters);
-
-
-
+            
+        
+        
             return resourceRequest.sendFormParameters(formParameters);
-
+  
     }
 
     consultaEmpresas() {
 
     const formParameters = { };
     const resourceRequest = new WLResourceRequest(
-        'adapters/AdapterBanorteSucursAppsBEL/resource/getEmpresas', WLResourceRequest.POST);
+        'adapters/AdapterBanorteSucursApps/resource/getEmpresas', WLResourceRequest.POST);
        resourceRequest.setTimeout(30000);
 
        return resourceRequest.sendFormParameters(formParameters);
@@ -58,7 +58,7 @@ export class OperacionesBXI {
           };
 
           const resourceRequest = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursAppsBEL/resource/getDetalleEmpresa', WLResourceRequest.POST);
+            'adapters/AdapterBanorteSucursApps/resource/getDetalleEmpresa', WLResourceRequest.POST);
           resourceRequest.setTimeout(30000);
 
          return  resourceRequest.sendFormParameters(formParameters);
@@ -75,10 +75,10 @@ export class OperacionesBXI {
           let resourceRequest;
           if (idFacturador === '1003') {
              resourceRequest = new WLResourceRequest(
-                'adapters/AdapterBanorteSucursAppsBEL/resource/pagoDisposicionCredito', WLResourceRequest.POST);
+                'adapters/AdapterBanorteSucursApps/resource/pagoDisposicionCredito', WLResourceRequest.POST);
           } else {
              resourceRequest = new WLResourceRequest(
-                'adapters/AdapterBanorteSucursAppsBEL/resource/pagoConcentracionEmpresarial', WLResourceRequest.POST);
+                'adapters/AdapterBanorteSucursApps/resource/pagoConcentracionEmpresarial', WLResourceRequest.POST);
           }
           resourceRequest.setTimeout(30000);
 
@@ -87,6 +87,7 @@ export class OperacionesBXI {
 
     confirmaTransferSPEI(bancoRecep, clabe, nombreBene, rfcBenef, ref, importe, descripcion, correo, rfcEmi): any {
 
+  
       let formParameters = {
         bancoRecep:  bancoRecep,
         clabe: clabe,
@@ -98,16 +99,16 @@ export class OperacionesBXI {
         correo: correo,
         rfcEmi: rfcEmi
       };
-
-
+     
+  
         const resourceRequest = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursApps/resource/transferInterSPEI',
+            'adapters/AdapterBanorteSucursAppsBEL/resource/transferInterSPEI',
             WLResourceRequest.POST);
         resourceRequest.setTimeout(30000);
         resourceRequest
             .sendFormParameters(formParameters);
 
-
+        
     return resourceRequest.sendFormParameters(formParameters);
 
     }
