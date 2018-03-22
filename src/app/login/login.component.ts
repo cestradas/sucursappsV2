@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 
 import $ from 'jquery';
+import { SesionTDDService } from '../services/breadcrums/breadcroms.service';
 declare var $: $;
 
 @Component({
@@ -18,7 +19,9 @@ export class LoginComponent {
   tarjeta: string;
   postResp;
 
-  constructor( private _http: Http, private router: Router ) {}
+  constructor( private _http: Http, 
+               private router: Router, 
+               private _service: SesionTDDService  ) {}
 
   onPlasticLogin() {
 
@@ -38,15 +41,17 @@ export class LoginComponent {
   };
 
   const resourceRequest = new WLResourceRequest(
-    'http://localhost:9080/mfp/api/adapters/AdapterBanorteSucursApps/resource/validaNip',
+    'adapters/AdapterBanorteSucursApps/resource/validaNip',
     WLResourceRequest.POST);
 resourceRequest.setTimeout(30000);
 resourceRequest
     .sendFormParameters(formParameters)
     .then(
         function(response) {
-          console.log(response.responseText);
-          // sessionStorage.setItem('tipoCliente', response.responseText);
+          
+          let res = response.responseJSON;
+
+          THIS._service.datosBreadCroms.nombreUsuarioTDD = res.Tran_NombrePersona;
           THIS.router.navigate(['/menuTdd']);
 
         },
@@ -57,7 +62,7 @@ resourceRequest
 
         });
 
-        $('div').removeClass('modal-backdrop');
+        // $('div').removeClass('modal-backdrop');
 
   }
 

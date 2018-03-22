@@ -11,7 +11,7 @@ const pagesRoutes: Routes = [
         path: '', component: PagesComponent,
         children: [
             { path: 'menuTdd', component: MenutddComponent},
-            { path: 'menuBXI', component: MenuBxiComponent},
+            { path: 'menuBXI', component: MenuBxiComponent}
             
         ]
         

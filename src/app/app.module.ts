@@ -14,6 +14,7 @@ import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { IKeyboardLayouts, keyboardLayouts, MAT_KEYBOARD_LAYOUTS, MatKeyboardModule, KeyboardClassKey } from '@ngx-material-keyboard/core';
+import { ServiceModule } from './services/service.module';
 
 const customLayouts: IKeyboardLayouts = {
   ...keyboardLayouts,
@@ -63,6 +64,7 @@ const customLayouts: IKeyboardLayouts = {
     BrowserAnimationsModule,
     MatButtonModule,
     MatKeyboardModule,
+    ServiceModule
   ],
   providers: [SesionBxiService, { provide: MAT_KEYBOARD_LAYOUTS, useValue: customLayouts}],
   bootstrap: [AppComponent]

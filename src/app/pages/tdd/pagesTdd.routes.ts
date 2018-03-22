@@ -19,6 +19,7 @@ const pageRoutesTDD: Routes = [
             { path: 'spei', component: TransferenciaSpeiComponent},
             { path: 'transBanorte', component: TransferenciaTercerosComponent},
             { path: 'pagoServicios', component: PagoDeServiciosComponent},
+            { path: '', pathMatch: 'full', redirectTo: '/menuTdd' }
             
         ]
     }

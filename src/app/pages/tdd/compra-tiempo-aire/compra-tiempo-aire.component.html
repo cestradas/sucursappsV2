@@ -9,29 +9,32 @@
             <div class="form-group ">
 
                 <div class="sumando-dropdown-account">
-                    <button style="width: 100% !important; border:0px !important;" class="letrabtn btn-default btn-block dropdown-toggle fondoblanco" type="button">
-                      <table width="100%" class="letranegrita">
+                    <table width="100%" class="letranegrita">
                         <tr>
-                          <td align="left"  width="40%" >Nombre <strong>
+                            <td align="left" width="40%">Nombre <strong>
                               <label id="nombreCliente">
+                                  {{ nombreUsuarioTdd }} 
                               </label>
                             </strong>
-                          </td>
-                          <td align="left" width="40%">
-                            <strong>
-                              <label id="saldoDisponible">$</label> 
+                            </td>
+                            <td align="left" width="40%">
+                                <strong>
+                              <label id="saldoDisponible">{{ saldoClienteTdd | currency }}</label> 
                             </strong>
-                          </td>
+                            </td>
                         </tr>
                         <tr>
-                          <td align="left" >Cuenta  <label name="numeroCuenta" id="numeroCuenta">
-                            </label>
-                          </td>
-                          <td align="left">Saldo Disponible
-                          </td>
+                            <td align="left">Cuenta
+                                <strong>
+                                <label name="numeroCuenta" id="numeroCuenta">
+                                    {{ cuentaClienteTdd }}
+                                </label>
+                            </strong>
+                            </td>
+                            <td align="left">Saldo Disponible
+                            </td>
                         </tr>
-                      </table>
-                    </button>
+                    </table>
                 </div>
             </div>
         </div>
