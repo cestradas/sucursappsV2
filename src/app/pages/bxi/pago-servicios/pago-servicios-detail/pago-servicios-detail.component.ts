@@ -60,16 +60,17 @@ export class PagoServiciosDetailComponent implements OnInit {
 
   }
 
-  showDetallePago(cuenta, referencia, telefono, digito, fecha, importe) {
-    const this_aux = this;  
-      this_aux.importe = importe;
-      this_aux.fechaVencimiento = fecha;
+  showDetallePago( myForm) {
+    const this_aux = this; 
+    console.log(myForm);
+      this_aux.importe = myForm.fcImporte.toString();
+      this_aux.fechaVencimiento = myForm.fcFechaVencimiento.toString();
       if (this_aux.service.idFacturador === '1310') {
-        this_aux.referenciaPago = telefono + digito;
+        this_aux.referenciaPago = myForm.fcTelefono.toString() + myForm.fcDigitoVerificador.toString();
       } else {
-        this_aux.referenciaPago = referencia;
+        this_aux.referenciaPago = myForm.fcReferencia.toString();
       }
-      this_aux.setTipoAutenticacionOnModal();
+       this_aux.setTipoAutenticacionOnModal();
   }
 
   setTipoAutenticacionOnModal() {

@@ -101,16 +101,16 @@
       </div>
       <div class="modal-footer deletePaddingRigth-buttom">
             <button  class="btn btn-lg"  	 >Cancelar</button>
-            <div *ngIf="myForm.get('fcTelefono') !== null && myForm.get('fcDigitoVerificador') !== null">
-                    <button  type="button" class="btn btn-primary  btn-lg" [disabled]="myForm.invalid" (click)="showDetallePago(rCuentaCargo.value, 0 , rTelefono.value , rDigitoVerificador.value, rFechaVencimiento.value, rImporte.value )">
+           <!-- <div *ngIf="myForm.get('fcTelefono') !== null && myForm.get('fcDigitoVerificador') !== null">-->
+                    <button  type="button" class="btn btn-primary  btn-lg" [disabled]="myForm.invalid" (click)="showDetallePago(myForm.value)">
                             Continuar
                     </button>
-            </div>
+           <!-- </div>
             <div *ngIf="myForm.get('fcReferencia') !== null">
-                    <button  type="button" class="btn btn-primary  btn-lg" [disabled]="myForm.invalid" (click)="showDetallePago(rCuentaCargo.value,rReferencia.value, 0, 0, rFechaVencimiento.value, rImporte.value )">
+                    <button  type="button" class="btn btn-primary  btn-lg" [disabled]="myForm.invalid" (click)="showDetallePago(myForm )">
                             Continuar
                     </button>
-            </div>
+            </div>-->
     </div>     
  </fieldset>
 </form>
