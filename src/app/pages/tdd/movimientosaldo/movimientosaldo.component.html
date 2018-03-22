@@ -11,9 +11,9 @@
                         <h4 class="color-letra">Selecciona una opci&oacute;n</h4>
                     </div>
                     <div style="width: 980px" class="col-lg-6 text-right">
-                        <select class="form-control input-lg" id="account-cicle" onchange="procedure(this.value)">
-              <option value="0">Mes Actual</option>
-              <option value="1">Mes Anterior</option>
+                        <select class="form-control input-lg" id="account-cicle" (change)="calcularFecha()">
+                                <option value="0" #mes >Mes Actual</option>
+                                <option value="1" #mes>Mes Anterior</option> 
               </select>
                     </div>
                 </div>
@@ -41,10 +41,10 @@
                                     <th>Descripci&oacute;n</th>
                                     <th>Importe</th>
                                 </tr>
-                                <tr *ngFor="let cuenta of ALIAS; let i = index">
-                                    <td *ngIf="(i>=NumeroDatoInicial) && (i < NumeroDatoFinal)">{{cuenta.Alias}}</td>
-                                    <td *ngIf="(i>=NumeroDatoInicial) && (i < NumeroDatoFinal)">{{cuenta.IdCuenta}}</td>
-                                    <td *ngIf="(i>=NumeroDatoInicial) && (i < NumeroDatoFinal)">{{cuenta.NoCuenta}}</td>
+                                <tr *ngFor="let movimiento of movimientosCue; let i = index">
+                                    <td *ngIf="(i>=NumeroDatoInicial) && (i < NumeroDatoFinal)">{{movimiento.FechaOperacion}}</td>
+                                    <td *ngIf="(i>=NumeroDatoInicial) && (i < NumeroDatoFinal)">{{movimiento.DescripVariableUno}}</td>
+                                    <td *ngIf="(i>=NumeroDatoInicial) && (i < NumeroDatoFinal)">{{movimiento.ImporteAbono}}</td>
                                 </tr>
 
                             </table>
