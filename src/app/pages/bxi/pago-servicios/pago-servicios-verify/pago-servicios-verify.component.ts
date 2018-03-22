@@ -52,9 +52,10 @@ export class PagoServiciosVerifyComponent implements OnInit {
       });
 
     } else {
+
       this_aux.detallePago.fechaOperacion = respPagoJson.FechaUno;
       this_aux.detallePago.horaOperacion = respPagoJson.HoraOperacion;
-      const certificadoPago = respPagoJson.certificadoPago;
+      const certificadoPago = respPagoJson.CertificadoPago;
         certificadoPago.forEach(element => {
           this_aux.detallePago.comisioneiva = element.ImporteComisionRespCons;
           this_aux.detallePago.importe = element.ImporteTotal;
