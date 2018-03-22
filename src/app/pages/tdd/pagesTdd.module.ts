@@ -35,7 +35,7 @@ import { BrowserModule } from '@angular/platform-browser';
         FormsModule,
         CommonModule,
         ReactiveFormsModule,
-	BrowserModule
+        BrowserModule
     ]
 })
 

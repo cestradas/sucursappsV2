@@ -15,36 +15,36 @@ import { MatButtonModule } from '@angular/material/button';
 import { IKeyboardLayouts, keyboardLayouts, MAT_KEYBOARD_LAYOUTS, MatKeyboardModule, KeyboardClassKey } from '@ngx-material-keyboard/core';
 
 const customLayouts: IKeyboardLayouts = {
-    ...keyboardLayouts,
-    'Numerico': {
-      'name': 'NumPad',
-      'keys': [
-        [
-          ['1', '!', '|'],
-          ['2', '"', '@'],
-          ['3', '\'', '#'],
-          ['4', '$', '~']
-        ],
-        [
-          ['5', '%', '\u20ac'],
-          ['6', '&', '\u00ac'],
-          ['7', '/'],
-          ['8', '('],
-        ],
-        [
-          ['9', ')'],
-          ['0', '='],
-          ['-', ';'],
-          ['.', ':']
-        ],
-        [
-          [KeyboardClassKey.Space, KeyboardClassKey.Space, KeyboardClassKey.Space, KeyboardClassKey.Space],
-        ]
+  ...keyboardLayouts,
+  'Numerico': {
+    'name': 'NumPad',
+    'keys': [
+      [
+        ['9'],
+        ['8'],
+        ['7'],
+        [KeyboardClassKey.Bksp]
       ],
-      'lang': ['num']
-    }
-  };
-
+      [
+        ['6' ],
+        ['5'],
+        ['4'],
+        ['.'],
+      ],
+      [
+        ['3'],
+        ['2'],
+        ['1'],
+        ['-']
+      ],
+      [
+        ['0'],
+        [KeyboardClassKey.Space],
+      ]
+    ],
+    'lang': ['num']
+  }
+};
 
 
 

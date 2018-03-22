@@ -21,25 +21,26 @@ const customLayouts: IKeyboardLayouts = {
     'name': 'NumPad',
     'keys': [
       [
-        ['1', '!', '|'],
-        ['2', '"', '@'],
-        ['3', '\'', '#'],
-        ['4', '$', '~']
+        ['9'],
+        ['8'],
+        ['7'],
+        [KeyboardClassKey.Bksp]
       ],
       [
-        ['5', '%', '\u20ac'],
-        ['6', '&', '\u00ac'],
-        ['7', '/'],
-        ['8', '('],
+        ['6' ],
+        ['5'],
+        ['4'],
+        ['.'],
       ],
       [
-        ['9', ')'],
-        ['0', '='],
-        ['-', ';'],
-        ['.', ':']
+        ['3'],
+        ['2'],
+        ['1'],
+        ['-']
       ],
       [
-        [KeyboardClassKey.Space, KeyboardClassKey.Space, KeyboardClassKey.Space, KeyboardClassKey.Space],
+        ['0'],
+        [KeyboardClassKey.Space],
       ]
     ],
     'lang': ['num']
