@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 export class MovimientosaldoComponent implements OnInit {
 DatosJSON: any;
 ALIAS: any;
-alias: any;
+alias: any = '';
 TamArray: any;
 numPaginas: any;
 tamPaginas: any = 8;
@@ -16,30 +16,44 @@ NumeroDatoInicial: any = 0;
 NumeroDatoFinal: any = 8;
 Comparador: any;
 contador: any;
+movimientos: any;
+movimientosCue: any;
+dia: any;
+mes: any;
+anio: any;
+options = 0;
+par = 0;
+fechaCompleta: any;
 constructor() {
-
-
   }
 
   ngOnInit() {
-     this.movimientos();
     this.consultaClabeSaldo ("1", "0100000034");
   }
 
+calcularFecha() {
+  const this_aux = this;
+  this_aux.options = this_aux.options + 1 ;
+  console.log(this_aux.options % 2 + "par o impar");
+  this_aux.par = this_aux.options % 2;
+  
+  if (  this_aux.par === 0 ) {
+    console.log("si");
 
-movimientos() {
-  // tslint:disable-next-line:max-line-length
-  const Infocuentas = '{"Id":"1","ArrayCuentas":[{"Alias":"Suma N\u00f3mina","IdCuenta":92425410,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425411,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425412,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425467,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425467,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425467,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425467,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425467,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425467,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425467,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425467,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425467,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425467,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425467,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425467,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425467,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425467,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425467,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425467,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425467,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425467,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425467,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425467,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425467,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425467,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425467,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425467,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425467,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425467,"NoCuenta":"0101361424"},{"Alias":"Suma N\u00f3mina","IdCuenta":92425467,"NoCuenta":"0101361424"}],"MensajeAUsuario":"SUCCESS"}';
-  this.DatosJSON = JSON.parse(Infocuentas);
-  this.ALIAS = this.DatosJSON.ArrayCuentas;
-  this.TamArray = this.ALIAS.length;
-  this.numPaginas = this.TamArray / this.tamPaginas;
-  let i = 0;
-  for (i; i < this.numPaginas; i ++) {
-    this.arrayNumPag.push(i);
+    
+    
+  } else {
+    this_aux.dia = new Date().getUTCDate();
+    this_aux.mes = new Date().getUTCMonth() + 1;
+    this_aux.anio = new Date().getFullYear();
+
+   // this_aux.fechaCompleta = ;
+    console.log("no");
+    console.log(this_aux.dia + " Este es el dia " + this_aux.mes + " este es el mes" + this_aux.anio + "Este es el año");
   }
 
-
+  console.log(this_aux.options);
+  console.log(this_aux.par);
 }
 
 Cambiarpagina(NumeroPag) {
@@ -75,11 +89,16 @@ Cambiarpagina(NumeroPag) {
     
     consultaClabeSaldo(tipoMovimiento, numeroCuenta) {
       const this_aux = this;
-      console.log("si entre: ", tipoMovimiento, numeroCuenta);
+
+     
+
       const formParameters = {
         txtTipoMov : tipoMovimiento, 
         txtNumCuenta: numeroCuenta
       }; 
+
+      console.log("si entre: ", tipoMovimiento, numeroCuenta);
+
       const resourceRequest = new WLResourceRequest(
         'adapters/AdapterBanorteSucursApps/resource/ConsultaClabesSaldos', WLResourceRequest.POST);
         resourceRequest.setTimeout(30000);
@@ -89,16 +108,60 @@ Cambiarpagina(NumeroPag) {
            console.log(response.responseText);
            this_aux.alias = response.responseJSON;
            console.log(this_aux.alias);
-           console.log(this_aux.alias.SaldoDisponible);
+           console.log(this_aux.alias.DescripVariableUno);
             const detalleCuenta = response.responseJSON;
             if ( detalleCuenta.Id === '1') {
 
               const textTitular = detalleCuenta.SaldoDia;
+              this_aux.ConsultaMovimientos("0100000034", "2018-02-01", "2018-02-28", "N", "N", "100");
             } else {
               console.log(detalleCuenta.MensajeAUsuario);
             }
           }, function(error) {
       });
 
+       
     }
+
+    
+    ConsultaMovimientos(numeroCue, fDesde, fHasta, comi, pag, numreg) {
+      const this_aux = this;
+      console.log("si entre 2: ", numeroCue, fDesde, fHasta, comi, pag, numreg);
+      const formParameters = {
+        cuenta: numeroCue,
+        fechaDesde: fDesde,
+        fechaHasta: fHasta,
+        Comision: comi,
+        Pagina: pag,
+        numeroRegistros: numreg
+      }; 
+      const resourceRequest = new WLResourceRequest(
+        'adapters/AdapterBanorteSucursApps/resource/ConsultaMovimientos', WLResourceRequest.POST);
+        resourceRequest.setTimeout(30000);
+        
+        resourceRequest.sendFormParameters(formParameters).then(
+          function(response) {
+           // console.log(response.responseText);
+           this_aux.movimientos = response.responseJSON;
+           console.log(this_aux.movimientos);
+             this_aux.movimientosCue = this_aux.movimientos.movimientos;
+             this_aux.TamArray = this_aux.movimientosCue.length;
+             this_aux.numPaginas = this_aux.TamArray / this_aux.tamPaginas;
+        let i = 0;
+      for (i; i < this_aux.numPaginas; i ++) {
+        this_aux.arrayNumPag.push(i);
+      }
+           console.log(this_aux.movimientos.movimientos[0]);
+           console.log(this_aux.movimientosCue[0].DescripVariableUno);
+            const detalleCuenta = response.responseJSON;
+            if ( detalleCuenta.Id === '1') {
+
+              const textTitular = detalleCuenta;
+            } else {
+              console.log(detalleCuenta.MensajeAUsuario);
+            }
+          }, function(error) {
+      });
+
+    }  
 }
