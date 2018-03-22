@@ -55,7 +55,7 @@ export class TransferenciaSpeiComponent implements OnInit {
       
     console.log("ngForm", forma);
     console.log("Valor forma", forma.value) ;
-    console.log("Valor forma", forma.value.accountNumber) ; 
+    
     console.log("adentro Trnsferencias Internacionales SPEI ");
 
 

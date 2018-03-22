@@ -52,7 +52,7 @@
     </div>
 
 
-    <form (ngSubmit)="onConfirmacion(forma)" #forma="ngForm">
+    <form (ngSubmit)="showDetallePago(forma)" #forma="ngForm">
         <div id="divisionInputs"></div>
         <div class="row sumando-form-group letranegrita">
             <div class="col-sm-1 sumando-bg-red group-name">Para</div>
@@ -224,7 +224,7 @@
             </div>
             <!-- <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
             <div class="col-sm-1">
-                <button id="continuarspei" name="continuarspei" class="btn btn-danger btn-lg" type="submit" (click)="showDetallePago(rSel1.value, rClabe.value , rBeneficiario.value, rRfc.value, rDescripcion.value, rImporte.value, rReferencia.value, rEmail.value, rRfcEmisor.value )">
+                <button id="continuarspei" name="continuarspei" class="btn btn-danger btn-lg" type="submit">
                     Continuar</button>
             </div>
         </div>
