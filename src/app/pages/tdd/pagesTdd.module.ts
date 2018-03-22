@@ -12,6 +12,7 @@ import { PagoDeServiciosComponent } from './pago-de-servicios/pago-de-servicios.
 import { CommonModule } from '@angular/common';
 import { AppComponent } from "../../app.component";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 
@@ -33,7 +34,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         PAGES_ROUTES_TDD,
         FormsModule,
         CommonModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+	BrowserModule
     ]
 })
 

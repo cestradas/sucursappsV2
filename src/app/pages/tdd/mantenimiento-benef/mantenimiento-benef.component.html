@@ -70,11 +70,11 @@
                         <td *ngIf="(i>=NumeroDatoInicial) && (i < NumeroDatoFinal)" style="text-align: center">{{beneficiario.FechaNacimiento}}</td>
                         <td *ngIf="(i>=NumeroDatoInicial) && (i < NumeroDatoFinal)" style="text-align: center">{{beneficiario.PorcentajeBenef}}</td>
                         <td align=center>
-                            <button id="buttonImage" type="button"><img src="./assets/img/edit.png" 
+                            <button id="buttonImage" type="button"><img src="/src/assets/img/edit.png" 
                                 alt= "Modificar Beneficiario" (click)="modificaBeneficiario()" width="50px" height="50px" /></button>
                         </td>
                         <td align=center>
-                            <button id="buttonImage" type="button"><img src="./assets/img/trash.png" 
+                            <button id="buttonImage" type="button"><img src="./src/assets/img/trash.png" 
                                 (click)="bajaBeneficiarioModal(beneficiario)" alt="Eliminar Beneficiario" width="50px" height="50px" /></button>
                         </td>
                     </tr>
@@ -138,8 +138,8 @@
                         <div class="col-lg-2 ">
                             <select id="selTypePerson " style=" width: 90% !important; margin-left: -304px; text-align: center">                            
                             <option>Seleccione Opción</option>
-                            <option>Persona Física</option>
-                            <option>Persona Moral</option>
+                            <option value = "F">Persona Física</option>
+                            <option value = "M">Persona Moral</option>
                           </select>
                         </div>
                     </div>

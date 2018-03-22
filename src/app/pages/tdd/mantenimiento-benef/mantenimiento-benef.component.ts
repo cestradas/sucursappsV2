@@ -58,13 +58,11 @@ myForm1:  FormGroup;
     console.log("adentro consultarBeneficiarios");
 
     let numCuenta = "0665815045";
-    let nombProceso = "C";
  
       const THIS: any = this;
 
   const formParameters = {
-    numeroCuenta:  numCuenta,
-    nombreProceso: nombProceso
+    numeroCuenta:  numCuenta
   };
 
   const resourceRequest = new WLResourceRequest(
@@ -81,7 +79,7 @@ resourceRequest
         },
         function(error) {
           THIS.loading = false;
-          console.log("holaError");          
+          console.log("Error al consultar Beneficiarios");          
         });
         console.log("Salió de Response");
   }
@@ -91,14 +89,12 @@ resourceRequest
     console.log("adentro BajaBeneficiarios");
 
     let numCuenta = "0665815045";
-    let nombProceso = "B";
     let numConsec = this.consecutivoSeleccionado;
  
       const THIS: any = this;
 
   const formParameters = {
     numeroCuenta:  numCuenta,
-    nombreProceso: nombProceso,
     numeroConsecutivo: numConsec
   };
 

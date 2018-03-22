@@ -7,6 +7,7 @@ import { TransferenciaSpeiComponent } from './transferencia-spei/transferencia-s
 import { TransferenciaTercerosComponent } from './transferencia-terceros/transferencia-terceros.component';
 import { CompraTiempoAireComponent } from './compra-tiempo-aire/compra-tiempo-aire.component';
 import { PagoDeServiciosComponent } from './pago-de-servicios/pago-de-servicios.component';
+import { MantenimientoBenefComponent } from './mantenimiento-benef/mantenimiento-benef.component';
 
 
 
@@ -19,6 +20,7 @@ const pageRoutesTDD: Routes = [
             { path: 'spei', component: TransferenciaSpeiComponent},
             { path: 'transBanorte', component: TransferenciaTercerosComponent},
             { path: 'pagoServicios', component: PagoDeServiciosComponent},
+            { path: 'mantoBeneficiarios', component: MantenimientoBenefComponent},
             
         ]
     }
