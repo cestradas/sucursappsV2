@@ -17,25 +17,25 @@ export class PagoServiciosDetailComponent implements OnInit {
 
  // @ViewChild('rNombreEmpresa', { read: ElementRef}) rNombreEmpresa: ElementRef ;
  // @ViewChild('rCuentaCargo', { read: ElementRef}) rCuentaCargo: ElementRef ;
-  @ViewChild('rTelefono', { read: ElementRef}) rTelefono: ElementRef ;
-  @ViewChild('rDigitoVerificador', { read: ElementRef}) rDigitoVerificador: ElementRef ;
-  @ViewChild('rReferencia', { read: ElementRef}) rReferencia: ElementRef ;
+
   myForm: FormGroup;
+  labelTipoAutentica: string;
+  nombreServicio: any;
   cuentaCargo: string;
   importe: string;
   referenciaPago: string;
   fechaVencimiento: string;
-  nombreServicio: any;
-  labelTipoAutentica: string;
+  
+  
 
 
   constructor( private service: SesionBxiService, private fb: FormBuilder, private router: Router ) {
     this.myForm = this.fb.group({
       fcTelefono: ['', Validators.required],
-      fcReferencia: ['', [Validators.required]],
-      fcDigitoVerificador: ['', [Validators.required]],
-      fcFechaVencimiento: ['', [Validators.required , Validators.pattern(/^[0-9]+[0-9]*$/ )  ]],
-      fcImporte: ['', [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/ )]]
+       fcReferencia: ['', [Validators.required]],
+       fcDigitoVerificador: ['', [Validators.required]],
+      fcFechaVencimiento: ['', [Validators.required /*Validators.pattern(/^[0-9]+[0-9]*$/ )*/  ]],
+      fcImporte: ['', [Validators.required /*Validators.pattern(/^[0-9]+[0-9]*$/ )*/]]
     });
    }
 
@@ -49,28 +49,25 @@ export class PagoServiciosDetailComponent implements OnInit {
     this_aux.nombreServicio =  detalleEmpresa.empresa;
     this_aux.service.nombreServicio = this_aux.nombreServicio;
     this_aux.cuentaCargo = this_aux.service.numCuentaSeleccionado;
-    // this_aux.rCuentaCargo.nativeElement.value = this_aux.service.numCuentaSeleccionado;
     
     if (this_aux.service.idFacturador === '1310') {
         divTelmex.setAttribute('style', 'display: block');
         divOtro.setAttribute('style', 'display: block');
-        
-       this_aux.rReferencia.nativeElement.value = 12345;
+        this_aux.myForm.removeControl('fcReferencia');
     } else {
         divTelmex.setAttribute('style', 'display: block');
         divOtro.setAttribute('style', 'display: block');
-       this_aux.rTelefono.nativeElement.value = 1234567890;
-       this_aux.rDigitoVerificador.nativeElement.value = 1;
+        this_aux.myForm.removeControl('fcTelefono');
+        this_aux.myForm.removeControl('fcDigitoVerificador');
+       
     }
 
   }
 
   showDetallePago(cuenta, referencia, telefono, digito, fecha, importe) {
     const this_aux = this;  
-    alert('cuenta' + cuenta + 'referencia' + referencia + 'telefono' + telefono
-      + 'digito' + digito + 'fecha' + fecha + 'importe' + importe);
-
       this_aux.importe = importe;
+      this_aux.fechaVencimiento = fecha;
       if (this_aux.service.idFacturador === '1310') {
         this_aux.referenciaPago = telefono + digito;
       } else {

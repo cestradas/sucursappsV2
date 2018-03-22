@@ -73,7 +73,7 @@ export class OperacionesBXI {
             fechaVencimiento: fechaVencimiento
           };
           let resourceRequest;
-          if (idFacturador === '1003') {
+          if (idFacturador === '1310') {
              resourceRequest = new WLResourceRequest(
                 'adapters/AdapterBanorteSucursAppsBEL/resource/pagoDisposicionCredito', WLResourceRequest.POST);
           } else {

@@ -17,7 +17,9 @@ export class LoginBxiComponent implements OnInit {
   @ViewChild('imagenTokenCel', { read: ElementRef}) imagenTokenCel: ElementRef ;
   @ViewChild('imagenTokenFisico', { read: ElementRef}) imagenTokenFisico: ElementRef ;
   urlImagen: string;
+  urlImagenAux: string;
   nombreEnmascarado: string;
+  nombreEnmascaradoAux: string;
 
   constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2) { }
 
@@ -37,8 +39,8 @@ export class LoginBxiComponent implements OnInit {
             
               this_aux.service.detalleIdentificacion = detalleIdentifacionUsurario.toString();
               this_aux.service.NombreUsuario = detalleIdentifacionUsurario.NombreUsuario; 
-              this_aux.urlImagen = detalleIdentifacionUsurario.UrlImagenPersonal;
-              this_aux.nombreEnmascarado = detalleIdentifacionUsurario.NombreEnmascarado;
+              this_aux.urlImagenAux = detalleIdentifacionUsurario.UrlImagenPersonal;
+              this_aux.nombreEnmascaradoAux = detalleIdentifacionUsurario.NombreEnmascarado;
               
               autenticacion.getMetodosAutenticacionUsuario().then(
                     function(metodos) {
@@ -92,6 +94,8 @@ export class LoginBxiComponent implements OnInit {
           // Contraseña
           document.getElementById('view_usr').style.display = 'none';
           document.getElementById('view_pass').style.display = 'block';
+          this_aux.nombreEnmascarado = this_aux.nombreEnmascaradoAux;
+          this_aux.urlImagen = this_aux.urlImagenAux;
         
     }
 

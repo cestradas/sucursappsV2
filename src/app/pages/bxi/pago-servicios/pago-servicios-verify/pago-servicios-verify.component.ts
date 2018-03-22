@@ -22,18 +22,57 @@ export class PagoServiciosVerifyComponent implements OnInit {
   constructor(private service: SesionBxiService) { }
 
   ngOnInit() {
-    const respPago = this.service.detalleConfirmacionPS;
+
+    const this_aux = this;
+    const respPago = this_aux.service.detalleConfirmacionPS;
     const respPagoJson = JSON.parse(respPago);
-    this.detallePago.nombreServicio = this.service.nombreServicio;
-    this.detallePago.fechaOperacion = respPagoJson.FechaUno;
-    this.detallePago.claveRastreo = respPagoJson.ClaveConfirmacion;
-    this.detallePago.comisioneiva = respPagoJson.ImporteComisionRespCons;
-    this.detallePago.cuentaCargo = this.service.numCuentaSeleccionado;
-    this.detallePago.horaOperacion = respPagoJson.HoraOperacion;
-    this.detallePago.importe = respPagoJson.ImporteTotal;
+    console.log(respPagoJson);
+    this_aux.detallePago.nombreServicio = this_aux.service.nombreServicio;
+    this_aux.detallePago.cuentaCargo = this_aux.service.numCuentaSeleccionado;
+    if (this.service.idFacturador === '1310') {
+
+      const certificadoPago = respPagoJson.CertificadoPago;
+      certificadoPago.forEach(element => {
+          if (element.FechaUno !== undefined) {
+            this_aux.detallePago.fechaOperacion = element.FechaUno;
+          }
+          if (element.ImporteTotal !== undefined) {
+            this_aux.detallePago.importe = element.ImporteTotal;
+          }
+          if (element.ClaveConfirmacion !== undefined) {
+            this_aux.detallePago.claveRastreo = element.ClaveConfirmacion;
+          }
+          if (element.ImporteComisionRespCons !== undefined) {
+            this_aux.detallePago.comisioneiva = element.ImporteComisionRespCons;
+          }
+          if (element.HoraOperacion !== undefined) {
+            this_aux.detallePago.horaOperacion = element.HoraOperacion ;
+
+          }
+      });
+
+    } else {
+      this_aux.detallePago.fechaOperacion = respPagoJson.FechaUno;
+      this_aux.detallePago.horaOperacion = respPagoJson.HoraOperacion;
+      const certificadoPago = respPagoJson.certificadoPago;
+        certificadoPago.forEach(element => {
+          this_aux.detallePago.comisioneiva = element.ImporteComisionRespCons;
+          this_aux.detallePago.importe = element.ImporteTotal;
+          });
+      
+      const datosEmpresa = respPagoJson.DatosPagoEmpresa;
+        datosEmpresa.forEach(element => {
+          this_aux.detallePago.claveRastreo = element.ClaveConfirmacion;
+        });
+      
+     
+      }
+      
+     
   }
 
   irMenuBXI() {
+
   }
 
 }

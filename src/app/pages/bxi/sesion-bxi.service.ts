@@ -26,6 +26,7 @@ export class SesionBxiService {
     // Respuesta Servicios
       detalleConfirmacionPS: string;
 
+  
 
   constructor() {  }
 
