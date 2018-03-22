@@ -6,7 +6,8 @@ export class SesionBxiService {
   // Login
     // Datos Especificos
     usuarioLogin: string;
-    metodoAutenticaLogin: string;
+    metodoAutenticaMayor: string;
+    NombreUsuario: string;
     // Respuesta Servicios
     detalleIdentificacion: string;
     metodosAutenticacionUsario: string;
@@ -25,6 +26,7 @@ export class SesionBxiService {
     // Respuesta Servicios
       detalleConfirmacionPS: string;
 
+  
 
   constructor() {  }
 

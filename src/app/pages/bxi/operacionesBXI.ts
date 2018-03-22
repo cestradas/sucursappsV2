@@ -14,31 +14,31 @@ export class OperacionesBXI {
     }
 
     consultaClabeSaldo(): any {
-
+      
         console.log("adentro cnsultaCuentas");
-
+    
         let tipoMovimiento = "1";
         let numeroCuenta = "0665815063";
-
+    
         const THIS: any = this;
-
+    
         const formParameters = {
             tipoMovimiento:  tipoMovimiento,
             numeroCuenta: numeroCuenta
-
+        
         };
-
+    
         const resourceRequest = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursApps/resource/consultaClabeSaldo',
+            'adapters/AdapterBanorteSucursAppsBEL/resource/consultaClabeSaldo',
             WLResourceRequest.POST);
         resourceRequest.setTimeout(30000);
         resourceRequest
             .sendFormParameters(formParameters);
-
-
-
+            
+        
+        
             return resourceRequest.sendFormParameters(formParameters);
-
+  
     }
 
     consultaEmpresas() {
@@ -73,7 +73,7 @@ export class OperacionesBXI {
             fechaVencimiento: fechaVencimiento
           };
           let resourceRequest;
-          if (idFacturador === '1003') {
+          if (idFacturador === '1310') {
              resourceRequest = new WLResourceRequest(
                 'adapters/AdapterBanorteSucursAppsBEL/resource/pagoDisposicionCredito', WLResourceRequest.POST);
           } else {
@@ -87,6 +87,7 @@ export class OperacionesBXI {
 
     confirmaTransferSPEI(bancoRecep, clabe, nombreBene, rfcBenef, ref, importe, descripcion, correo, rfcEmi): any {
 
+  
       let formParameters = {
         bancoRecep:  bancoRecep,
         clabe: clabe,
@@ -98,16 +99,16 @@ export class OperacionesBXI {
         correo: correo,
         rfcEmi: rfcEmi
       };
-
-
+     
+  
         const resourceRequest = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursApps/resource/transferInterSPEI',
+            'adapters/AdapterBanorteSucursAppsBEL/resource/transferInterSPEI',
             WLResourceRequest.POST);
         resourceRequest.setTimeout(30000);
         resourceRequest
             .sendFormParameters(formParameters);
 
-
+        
     return resourceRequest.sendFormParameters(formParameters);
 
     }

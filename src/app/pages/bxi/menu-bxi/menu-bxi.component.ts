@@ -19,6 +19,7 @@ export class MenuBxiComponent implements OnInit {
   constructor(private service: SesionBxiService, private renderer: Renderer2,  private router: Router ) { }
 
   ngOnInit() {
+    $('div').removeClass('modal-backdrop');
     this.setNombreUsuario();
   }
 
@@ -43,6 +44,10 @@ export class MenuBxiComponent implements OnInit {
     switch (idOperacion) {
 
       case 'pagoserv': this.router.navigate(['/pagoservicios_ini']);
+            break;
+      case 'trnasfSPEI': this.router.navigate(['/speiBXI']);
+            break;
+      case 'compraTA': this.router.navigate(['/CompraTaComponent']);
             break;
 
 

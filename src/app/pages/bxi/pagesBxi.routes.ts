@@ -14,7 +14,7 @@ const pageRoutesBXI: Routes = [
         path: '', component: PagesBxiComponent,
         children: [
             { path: 'CompraTaComponent', component: CompraTaComponent},
-            { path: 'spei', component: TransferenciaSpeiComponent},
+            { path: 'speiBXI', component: TransferenciaSpeiComponent},
             { path: 'pagoservicios_ini', component: PagoServiciosIniComponent},
             { path: 'pagoservicios_detail', component: PagoServiciosDetailComponent},
             { path: 'pagoservicios_verify', component: PagoServiciosVerifyComponent},

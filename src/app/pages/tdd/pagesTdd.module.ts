@@ -1,3 +1,4 @@
+import { MantenimientoBenefComponent } from './mantenimiento-benef/mantenimiento-benef.component';
 import { MenutddComponent } from './menuTDD/menutdd.component';
 import { NgModule } from "@angular/core"; 
 import { PagesTddComponent } from './pagesTdd.component';
@@ -10,7 +11,8 @@ import { CompraTiempoAireComponent } from './compra-tiempo-aire/compra-tiempo-ai
 import { PagoDeServiciosComponent } from './pago-de-servicios/pago-de-servicios.component';
 import { CommonModule } from '@angular/common';
 import { AppComponent } from "../../app.component";
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 
@@ -23,6 +25,7 @@ import { FormsModule } from '@angular/forms';
         TransferenciaSpeiComponent,
         TransferenciaTercerosComponent,
         PagoDeServiciosComponent,
+        MantenimientoBenefComponent,
         MenutddComponent
     ],
     exports: [],
@@ -30,7 +33,9 @@ import { FormsModule } from '@angular/forms';
         SharedModule,
         PAGES_ROUTES_TDD,
         FormsModule,
-        CommonModule
+        CommonModule,
+        ReactiveFormsModule,
+        BrowserModule
     ]
 })
 

@@ -42,6 +42,10 @@ html {
     }
 }
 
+.modal-bxi {
+    height: 400px;
+}
+
 
 /*  NavBar */
 
@@ -89,6 +93,12 @@ html {
 
 .menu-bxi-grid {
     max-width: 1480px;
+}
+
+.select-img {
+    width: 69%;
+    height: 152%;
+    margin-left: 24px;
 }
 
 
@@ -332,6 +342,13 @@ html {
     width: 180px;
 }
 
+.color-botones {
+    border: 0;
+    border-color: #eb012a;
+    background-color: #eb0029;
+    color: #fff;
+}
+
 
 /* Teclado */
 
@@ -440,7 +457,7 @@ html {
 }
 
 .mat-keyboard-wrapper {
-    background-color: #e60d0d !important;
+    background-color: #f5f5f5 !important;
     border-radius: 2px !important;
     display: -webkit-box !important;
     display: -ms-flexbox !important;
@@ -493,7 +510,7 @@ html {
     font-family: 'Material Icons';
     font-style: normal;
     font-weight: 400;
-    src: url(https://fonts.gstatic.com/s/materialicons/v36/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+    src: url("assets/assets/fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2");
 }
 
 .material-icons {

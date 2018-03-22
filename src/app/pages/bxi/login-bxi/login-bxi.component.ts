@@ -1,6 +1,6 @@
 import { Autenticacion } from './../autenticacion';
 import { SesionBxiService } from './../sesion-bxi.service';
-import { Component, OnInit, ViewChild, ElementRef  } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 
 
@@ -13,8 +13,15 @@ declare var $: any;
   styleUrls: [  ]
 })
 export class LoginBxiComponent implements OnInit {
-  @ViewChild('imagenToken', { read: ElementRef}) imagenToken: ElementRef ;
-  constructor(private router: Router, private service: SesionBxiService ) { }
+  @ViewChild('imagenTokenPass', { read: ElementRef}) imagenTokenPass: ElementRef ;
+  @ViewChild('imagenTokenCel', { read: ElementRef}) imagenTokenCel: ElementRef ;
+  @ViewChild('imagenTokenFisico', { read: ElementRef}) imagenTokenFisico: ElementRef ;
+  urlImagen: string;
+  urlImagenAux: string;
+  nombreEnmascarado: string;
+  nombreEnmascaradoAux: string;
+
+  constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2) { }
 
   ngOnInit() {
   }
@@ -25,15 +32,19 @@ export class LoginBxiComponent implements OnInit {
     const autenticacion: Autenticacion = new Autenticacion();
     autenticacion.identificaUsuriao(usuarioBxi).then(
       function(identificacion) {
-        // console.log(response.responseJSON);
+        console.log(identificacion.responseJSON);
         const detalleIdentifacionUsurario = identificacion.responseJSON;
-        
+      
           if ( detalleIdentifacionUsurario.Id === 'SEG0001') {
+            
               this_aux.service.detalleIdentificacion = detalleIdentifacionUsurario.toString();
+              this_aux.service.NombreUsuario = detalleIdentifacionUsurario.NombreUsuario; 
+              this_aux.urlImagenAux = detalleIdentifacionUsurario.UrlImagenPersonal;
+              this_aux.nombreEnmascaradoAux = detalleIdentifacionUsurario.NombreEnmascarado;
+              
               autenticacion.getMetodosAutenticacionUsuario().then(
                     function(metodos) {
-                        // console.log(metodos.responseJSON);
-                        // console.log(metodos.responseText);
+                        
                         const  respConsultaMetodos = metodos.responseJSON;
                         if (respConsultaMetodos.Id === 'SEG0001') {
 
@@ -71,36 +82,21 @@ export class LoginBxiComponent implements OnInit {
         }
 
       });
-
-      this.showModalByTipoAutentica(nivelMayor, tipoAutenticacion, etiqueta, requierePreparacion);
+      console.log(nivelMayor + tipoAutenticacion + etiqueta + requierePreparacion );
+      this_aux.service.metodoAutenticaMayor = tipoAutenticacion;
+      this.showModalByTipoAutentica();
     }
 
-    showModalByTipoAutentica(nivelMayor, tipoAutenticacion, etiqueta, requierePreparacion) {
-      console.log(nivelMayor + tipoAutenticacion + etiqueta + requierePreparacion );
+    showModalByTipoAutentica() {
         const this_aux = this;
-        this_aux.service.metodoAutenticaLogin = tipoAutenticacion;
-        if ((nivelMayor === 300) && (tipoAutenticacion === 5)) {
-
-          this_aux.preparaAutenticacion();
-
-        } else if ((nivelMayor === 300) && (tipoAutenticacion === 1)) {
-          // TokenFisico
-
-          document.getElementById('view_usr').style.display = 'none';
-          document.getElementById('view_pass_token').style.display = 'block';
-
-        } else if (nivelMayor === 100) {
+        document.getElementById('viewGeneralAutentica').style.display = 'block';
+        document.getElementById('NosoyYo').style.display = 'block';
           // Contraseña
-          this_aux.service.metodoAutenticaLogin = '0';
           document.getElementById('view_usr').style.display = 'none';
           document.getElementById('view_pass').style.display = 'block';
-        }
-    }
-
-    preparaAutenticacion() {
-      console.log('Entro PreparaAutenticacion');
-      document.getElementById('view_usr').style.display = 'none';
-      document.getElementById('view_pass_token_cel').style.display = 'block';
+          this_aux.nombreEnmascarado = this_aux.nombreEnmascaradoAux;
+          this_aux.urlImagen = this_aux.urlImagenAux;
+        
     }
 
 
@@ -108,9 +104,8 @@ export class LoginBxiComponent implements OnInit {
 
       const this_aux = this;
       const autenticacion: Autenticacion = new Autenticacion();
-      console.log(' this_aux.service.metodoAutenticaLogin' +  this_aux.service.metodoAutenticaLogin );
       console.log('entro autenticaUsuario ' );
-      autenticacion.autenticaUsuario(claveAcceso, this_aux.service.metodoAutenticaLogin).then(
+      autenticacion.autenticaUsuario( claveAcceso, "0").then(
           function(response) {
                 // console.log(response.responseJSON);
                 const infoUsuario = response.responseText;
@@ -128,6 +123,14 @@ export class LoginBxiComponent implements OnInit {
 
           }, function(error) {
           });
+    }
+
+    modalIdentificaUsuario() {
+
+      document.getElementById('view_usr').style.display = 'block';
+      document.getElementById('viewGeneralAutentica').style.display = 'none';
+      document.getElementById('NosoyYo').style.display = 'none';
+
     }
 
   }
