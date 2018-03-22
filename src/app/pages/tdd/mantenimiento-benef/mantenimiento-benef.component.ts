@@ -66,7 +66,7 @@ myForm1:  FormGroup;
   };
 
   const resourceRequest = new WLResourceRequest(
-    'http://localhost:9080/mfp/api/adapters/AdapterBanorteSucursApps/resource/consultaMantenimientoBeneficiarios',
+    'adapters/AdapterBanorteSucursApps/resource/consultaMantenimientoBeneficiarios',
     WLResourceRequest.POST);
 resourceRequest.setTimeout(30000);
 resourceRequest
@@ -99,7 +99,7 @@ resourceRequest
   };
 
   const resourceRequest = new WLResourceRequest(
-    'http://localhost:9080/mfp/api/adapters/AdapterBanorteSucursApps/resource/bajaMantenimientoBeneficiarios',
+    'adapters/AdapterBanorteSucursApps/resource/bajaMantenimientoBeneficiarios',
     WLResourceRequest.POST);
 resourceRequest.setTimeout(30000);
 resourceRequest
