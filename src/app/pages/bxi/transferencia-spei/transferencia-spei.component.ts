@@ -5,6 +5,7 @@ import 'rxjs/Rx';
 import { FormsModule, NgForm, FormGroup } from '@angular/forms';
 import { SesionBxiService } from '../sesion-bxi.service';
 import { OperacionesBXI } from '../operacionesBXI';
+import { Autenticacion } from '../autenticacion';
 
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
@@ -24,6 +25,8 @@ let correo = "";
 let rfcEmi = "";
 
 
+
+
 @Component({
   selector: 'app-transferencia-spei',
   templateUrl: './transferencia-spei.component.html',
@@ -33,6 +36,8 @@ export class TransferenciaSpeiComponent implements OnInit {
   @ViewChild('listaCuentas', { read: ElementRef}) listaCuentas: ElementRef ;
   datosCuenta: any[] = [];
   transferSPEI: any[] = [];
+
+  labelTipoAutentica: string;
  
   
   constructor(private _http: Http, private router: Router, public service: SesionBxiService, private renderer: Renderer2) { }
@@ -44,6 +49,55 @@ export class TransferenciaSpeiComponent implements OnInit {
     
 
   }
+
+  showDetallePago(forma: NgForm) {
+    const this_aux = this;  
+      
+    console.log("ngForm", forma);
+    console.log("Valor forma", forma.value) ;
+    console.log("Valor forma", forma.value.accountNumber) ; 
+    console.log("adentro Trnsferencias Internacionales SPEI ");
+
+
+  
+    bancoRecep =  forma.value.sel1;
+    clabe = forma.value.clabe;
+    nombreBene = forma.value.beneficiario;
+    rfcBenef = forma.value.rfc;
+    ref = forma.value.referencia;
+   
+    importe = forma.value.importe;
+    descripcion = forma.value.descripcion;
+    correo = forma.value.email;
+    rfcEmi = forma.value.rfcEmisor;
+  
+      this_aux.setTipoAutenticacionOnModal();
+  }
+
+  setTipoAutenticacionOnModal() {
+    const this_aux = this;
+    const divChallenge = document.getElementById('challenger');
+    const divTokenPass = document.getElementById('divPass');
+    if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
+
+      this_aux.labelTipoAutentica = 'Token Celular';
+      divChallenge.setAttribute('style', 'display: block');
+      divTokenPass.setAttribute('style', 'display: block');
+
+    } else if (this_aux.service.metodoAutenticaMayor.toString()  === '0') {
+
+      divChallenge.setAttribute('style', 'display: none');
+      divTokenPass.setAttribute('style', 'display: block');
+      this_aux.labelTipoAutentica = 'Contrase&atilde;a';
+    } else if (this_aux.service.metodoAutenticaMayor.toString()  === '1') {
+
+      divChallenge.setAttribute('style', 'display: none');
+      divTokenPass.setAttribute('style', 'display: block');
+      this_aux.labelTipoAutentica = 'Token Fisico';
+    }
+
+  $('#confirmModal').modal('show');
+}
 
   fillSelectCuentas() {
     const this_aux = this;
@@ -102,11 +156,6 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
 
 
 
-  guardar( forma: NgForm ) {
-    console.log("ngForm", forma);
-    console.log("Valor forma", forma.value) ;
-    
-  }
 
   onConfirmacion( forma: NgForm ) {
 
@@ -158,6 +207,45 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
   
   
   }
+
+
+  confirmarSPEI(token) {
+    const this_aux = this;
+    const autenticacion: Autenticacion = new Autenticacion();
+    const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+    autenticacion.autenticaUsuario(token, this_aux.service.metodoAutenticaMayor).then(
+      function(detalleAutentica) {
+            // console.log(detalleAutentica.responseJSON);
+            const infoUsuarioJSON = detalleAutentica.responseJSON;
+            if (infoUsuarioJSON.Id === 'SEG0001') {
+                console.log('Nivel de autenticacion alcanzado');
+
+                operacionesbxi.confirmaTransferSPEI(bancoRecep, clabe, nombreBene, rfcBenef, ref, importe, descripcion, correo, rfcEmi)
+                .then(
+                  function(response) {
+                    console.log(response.responseJSON);
+            
+                    this.transferSPEI = response.responseJSON;
+                     
+                    
+                     if ( this.transferSPEI.Id === '1') {
+         
+                       console.log(this.transferSPEI);
+                       this.router.navigate(['/TransferFinishSpei']);
+                              
+                     } else {
+                       console.log(this.transferSPEI.MensajeAUsuario);
+                     }
+
+                  }, function(error) { }
+                );
+            } else {
+              console.log(infoUsuarioJSON.MensajeAUsuario);
+            }
+      }, function(error) {
+      });
+
+}
   
   consultaCuentas() {
        
