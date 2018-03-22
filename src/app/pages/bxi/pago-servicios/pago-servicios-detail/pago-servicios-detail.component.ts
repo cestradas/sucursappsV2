@@ -42,8 +42,6 @@ export class PagoServiciosDetailComponent implements OnInit {
   ngOnInit() {
 
     const this_aux = this;
-    const divTelmex = document.getElementById('serviciosTelmex');
-    const divOtro = document.getElementById('otrosServicios');
     const detalleEmpresa = JSON.parse(this_aux.service.detalleEmpresa_PS);
 
     this_aux.nombreServicio =  detalleEmpresa.empresa;
@@ -51,12 +49,10 @@ export class PagoServiciosDetailComponent implements OnInit {
     this_aux.cuentaCargo = this_aux.service.numCuentaSeleccionado;
     
     if (this_aux.service.idFacturador === '1310') {
-        divTelmex.setAttribute('style', 'display: block');
-        divOtro.setAttribute('style', 'display: block');
+
         this_aux.myForm.removeControl('fcReferencia');
     } else {
-        divTelmex.setAttribute('style', 'display: block');
-        divOtro.setAttribute('style', 'display: block');
+       
         this_aux.myForm.removeControl('fcTelefono');
         this_aux.myForm.removeControl('fcDigitoVerificador');
        

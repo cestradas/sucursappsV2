@@ -1,70 +1,72 @@
 <form [formGroup]="myForm"  novalidate>
     <h2 class="text-center padding-barToTittle deleteMargin-h2">{{nombreServicio}}</h2>
     <fieldset class="padding-TittleToFieldset padding-fieldset-general">
-      <div class="sumando-form-group padding-InFieldset ">
-        <div class=" group-controls sumando-bg-white padding-bgWhite">
-          <div class="form-group">
-            <div class="row padding-InFieldset">
-              <div class="col-lg-2">
-              <label >Cuenta origen:</label> 
-              </div>
-              <div class="col-lg-10">
-                <input type="text"  id="idCuentaCargo"  #rCuentaCargo class ="form-control input-lg " value="{{cuentaCargo}}"  readonly>   
-              </div>
-            </div>
-            <div class="row padding-InFieldset" id="serviciosTelmex">
-              <div class="col-lg-12">
-                  <div class="form-group" >
-                      <div class="row ">
-                        <div class=" col-lg-2">
-                          <label> Telefono:</label>    
-                        </div>
-                        <div class="col-lg-4">
-                          <input type="text"   id="idTelefono" class="form-control input-lg" formControlName="fcTelefono" #rTelefono  [matKeyboard]="'num'" />
-                            <div *ngIf="myForm.get('fcTelefono') !== null">
-                                    <div *ngIf="myForm.get('fcTelefono').errors  && myForm.get('fcTelefono').touched" 
-                                        class="alert alert-danger">
-                                        <p  *ngIf="myForm.get('fcTelefono').hasError('required')">
-                                            fcTelefono  requerida.
-                                        </p >   
+        <div class="sumando-form-group padding-InFieldset ">
+            <div class=" group-controls sumando-bg-white padding-bgWhite">
+                <div class="form-group">
+                <div class="row padding-InFieldset">
+                    <div class="col-lg-2">
+                        <label >Cuenta origen:</label> 
+                    </div>
+                    <div class="col-lg-10">
+                        <input type="text"  id="idCuentaCargo"  #rCuentaCargo class ="form-control input-lg " value="{{cuentaCargo}}"  readonly>   
+                    </div>
+                </div>
+                <div *ngIf="myForm.get('fcTelefono') !== null && myForm.get('fcDigitoVerificador') !== null">
+                    <div class="row padding-InFieldset">
+                        <div class="col-lg-12">
+                            <div class="form-group" >
+                                <div class="row ">
+                                    <div class=" col-lg-2">
+                                        <label> Telefono:</label>    
                                     </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-1">
-                          <label >DV: </label>    
-                        </div>
-                        <div class="col-lg-1">
-                          <input type="text"   id="idDigitoV"  class="form-control input-lg" #rDigitoVerificador formControlName="fcDigitoVerificador" [matKeyboard]="'num'" />
-                          <div *ngIf="myForm.get('fcDigitoVerificador') !== null">
-                            <label>Presente</label>
-                          </div>
-                        </div>
-                      </div>
-                  </div>         
-              </div>
-            </div>
-            <div class="row padding-InFieldset" id="otrosServicios">
-                    <div class="col-lg-12">
-                        <div class="form-group" >
-                            <div class="row ">
-                              <div class=" col-lg-2">
-                                <label> Referencia:</label>    
-                              </div>
-                              <div class="col-lg-10">
-                                <input type="text"   id="idReferencia" class="form-control input-lg" formControlName="fcReferencia" #rReferencia   [matKeyboard]="'num'" />
-                                <div *ngIf="myForm.get('fcReferencia') !== null">
-                                        <div *ngIf="myForm.get('fcReferencia').errors  && myForm.get('fcReferencia').touched" 
-                                              class="alert alert-danger">
-                                              <p  *ngIf="myForm.get('fcReferencia').hasError('required')">
-                                                 fcReferencia  requerida.
-                                             </p >
-                                             
-                                       </div>
+                                    <div class="col-lg-4">
+                                        <input type="text"   id="idTelefono" class="form-control input-lg" formControlName="fcTelefono" #rTelefono  [matKeyboard]="'num'" />
+                                            <div *ngIf="myForm.get('fcTelefono').errors  && myForm.get('fcTelefono').touched" 
+                                                class="alert alert-danger">
+                                                <p  *ngIf="myForm.get('fcTelefono').hasError('required')">
+                                                    fcTelefono  requerida.
+                                                </p >   
+                                            </div>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <label >DV: </label>    
+                                    </div>
+                                    <div class="col-lg-1">
+                                    <input type="text"   id="idDigitoV"  class="form-control input-lg" #rDigitoVerificador formControlName="fcDigitoVerificador" [matKeyboard]="'num'" />
+                                    <div *ngIf="myForm.get('fcDigitoVerificador').errors  && myForm.get('fcDigitoVerificador').touched" 
+                                            class="alert alert-danger">
+                                                <p  *ngIf="myForm.get('fcDigitoVerificador').hasError('required')">
+                                                        fcDigitoVerificador  requerida.
+                                                </p >   
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
                             </div>
                         </div>         
                     </div>
+             </div>
+             <div *ngIf="myForm.get('fcReferencia') !== null">
+                <div class="row padding-InFieldset">
+                    <div class="col-lg-12">
+                        <div class="form-group" >
+                            <div class="row ">
+                                <div class=" col-lg-2">
+                                    <label> Referencia:</label>    
+                                </div>
+                                <div class="col-lg-10">
+                                    <input type="text"   id="idReferencia" class="form-control input-lg" formControlName="fcReferencia" #rReferencia   [matKeyboard]="'num'" />
+                                       <div *ngIf="myForm.get('fcReferencia').errors  && myForm.get('fcReferencia').touched" 
+                                            class="alert alert-danger">
+                                            <p  *ngIf="myForm.get('fcReferencia').hasError('required')">
+                                                fcReferencia  requerida.
+                                            </p >  
+                                       </div>
+                                </div>
+                            </div>
+                        </div>         
+                    </div>
+                </div>
             </div>
             <div class="row padding-InFieldset">
               <div class="col-lg-2">
@@ -96,15 +98,22 @@
               </div>
             </div>
           </div>
-      </div>     
-      <div class="modal-footer deletePaddingRigth-buttom">
-        <button  class="btn btn-lg"  	 >Cancelar</button>
-        <button  type="button" class="btn btn-primary  btn-lg" [disabled]="myForm.invalid" (click)="showDetallePago(rCuentaCargo.value,rReferencia.value,rTelefono.value, rDigitoVerificador.value, rFechaVencimiento.value, rImporte.value )">
-          Continuar
-        </button>
       </div>
-    </fieldset>
-  </form>
+      <div class="modal-footer deletePaddingRigth-buttom">
+            <button  class="btn btn-lg"  	 >Cancelar</button>
+            <div *ngIf="myForm.get('fcTelefono') !== null && myForm.get('fcDigitoVerificador') !== null">
+                    <button  type="button" class="btn btn-primary  btn-lg" [disabled]="myForm.invalid" (click)="showDetallePago(rCuentaCargo.value, 0 , rTelefono.value , rDigitoVerificador.value, rFechaVencimiento.value, rImporte.value )">
+                            Continuar
+                    </button>
+            </div>
+            <div *ngIf="myForm.get('fcReferencia') !== null">
+                    <button  type="button" class="btn btn-primary  btn-lg" [disabled]="myForm.invalid" (click)="showDetallePago(rCuentaCargo.value,rReferencia.value, 0, 0, rFechaVencimiento.value, rImporte.value )">
+                            Continuar
+                    </button>
+            </div>
+    </div>     
+ </fieldset>
+</form>
 <!-- Modal -->
 <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

@@ -174,11 +174,15 @@ export class PagoServiciosIniComponent implements OnInit {
      }
  
      setClickOnBody() {
+       console.log('click');
        const this_aux = this;
        const body = $('body');
-       console.log($('body'));
+       // console.log($('body'));
  
      body.on('click', function() {
+        if (this_aux.listaEmpresas.length === 0) {
+            this_aux.listaEmpresas = this_aux.listaEmpresasAux; // rellenar cuando regrese y no haya coincidencia
+        }
          console.log( this_aux.facturador.nativeElement.value);
          const auxOption = [];
          const valueInput = this_aux.facturador.nativeElement.value;
@@ -192,9 +196,10 @@ export class PagoServiciosIniComponent implements OnInit {
              }
  
          });
-         //  validar que aux option no sea 0
+         
            this_aux.listaEmpresas = auxOption;
        }
+       console.log('lista llena');
      });
    }
  
