@@ -97,7 +97,17 @@ export class PagoServiciosIniComponent implements OnInit {
 getEmpresas() {
       
        const this_aux = this;
-      if (localStorage.getItem('Facturadores')) {
+      if (localStorage.getItem('Facturadores') !== null) {
+            const facturadores =  localStorage.getItem('Facturadores').toString();
+            this_aux.arrayEmpresas = JSON.parse(facturadores);
+            
+            this_aux.arrayEmpresas.forEach(empresa => {
+              const descripcion = empresa.Descripcion;
+              const idEmpresa = empresa.IdFacturador;
+              this_aux.listaEmpresas.push(descripcion);
+              });
+            console.log(this_aux.listaEmpresas);
+            this_aux.listaEmpresasAux = this_aux.listaEmpresas;
 
       } else {
 
@@ -109,11 +119,11 @@ getEmpresas() {
                 if (consultaEmpresas.Id === '1') {
 
                   this_aux.arrayEmpresas = consultaEmpresas.Facturadores;
-                  localStorage.setItem('Facturadores', this_aux.arrayEmpresas.toString());
+                  localStorage.setItem('Facturadores', JSON.stringify(this_aux.arrayEmpresas ));
                   this_aux.arrayEmpresas.forEach(empresa => {
-                    const descripcion = empresa.Descripcion;
-                    const idEmpresa = empresa.IdFacturador;
-                    this_aux.listaEmpresas.push(descripcion);
+                        const descripcion = empresa.Descripcion;
+                        const idEmpresa = empresa.IdFacturador;
+                        this_aux.listaEmpresas.push(descripcion);
                     });
                   console.log(this_aux.listaEmpresas);
                   this_aux.listaEmpresasAux = this_aux.listaEmpresas;

@@ -38,7 +38,6 @@ export class LoginBxiComponent implements OnInit {
           if ( detalleIdentifacionUsurario.Id === 'SEG0001') {
             
               this_aux.service.detalleIdentificacion = detalleIdentifacionUsurario.toString();
-              this_aux.service.NombreUsuario = detalleIdentifacionUsurario.NombreUsuario; 
               this_aux.urlImagenAux = detalleIdentifacionUsurario.UrlImagenPersonal;
               this_aux.nombreEnmascaradoAux = detalleIdentifacionUsurario.NombreEnmascarado;
               
@@ -107,11 +106,11 @@ export class LoginBxiComponent implements OnInit {
       console.log('entro autenticaUsuario ' );
       autenticacion.autenticaUsuario( claveAcceso, "0").then(
           function(response) {
-                // console.log(response.responseJSON);
+                 console.log(response.responseJSON);
                 const infoUsuario = response.responseText;
                 const infoUsuarioJSON = response.responseJSON;
                 if (infoUsuarioJSON.Id === 'SEG0001') {
-
+                  this_aux.service.NombreUsuario = infoUsuarioJSON.NombreUsuario; 
                     this_aux.service.infoUsuario = infoUsuario;
                     this_aux.router.navigate(['/menuBXI']);
                     $('div').removeClass('modal-backdrop');
