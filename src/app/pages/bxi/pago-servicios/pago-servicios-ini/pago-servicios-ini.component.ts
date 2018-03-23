@@ -113,7 +113,6 @@ export class PagoServiciosIniComponent implements OnInit {
                });
                console.log(this_aux.listaEmpresas);
                this_aux.listaEmpresasAux = this_aux.listaEmpresas;
-               this_aux.setClickOnBody();
  
             } else {
              console.log(consultaEmpresas.MensajeAUsuario);
@@ -163,9 +162,10 @@ export class PagoServiciosIniComponent implements OnInit {
      }
  
      muestraFacturadores() {
-       const aux_this = this;
-       aux_this.showOptions = true;
+       const this_aux = this;
+       this_aux.showOptions = true;
        console.log('muestraFacturadores');
+       this_aux.setClickOnBody();
      }
  
      setValue(value) {
