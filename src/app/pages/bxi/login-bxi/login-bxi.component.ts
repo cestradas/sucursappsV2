@@ -34,17 +34,17 @@ export class LoginBxiComponent implements OnInit {
       function(identificacion) {
         console.log(identificacion.responseJSON);
         const detalleIdentifacionUsurario = identificacion.responseJSON;
-      
+
           if ( detalleIdentifacionUsurario.Id === 'SEG0001') {
-            
+
               this_aux.service.detalleIdentificacion = detalleIdentifacionUsurario.toString();
-              this_aux.service.NombreUsuario = detalleIdentifacionUsurario.NombreUsuario; 
+              this_aux.service.NombreUsuario = detalleIdentifacionUsurario.NombreUsuario;
               this_aux.urlImagenAux = detalleIdentifacionUsurario.UrlImagenPersonal;
               this_aux.nombreEnmascaradoAux = detalleIdentifacionUsurario.NombreEnmascarado;
-              
+
               autenticacion.getMetodosAutenticacionUsuario().then(
                     function(metodos) {
-                        
+
                         const  respConsultaMetodos = metodos.responseJSON;
                         if (respConsultaMetodos.Id === 'SEG0001') {
 
@@ -96,7 +96,7 @@ export class LoginBxiComponent implements OnInit {
           document.getElementById('view_pass').style.display = 'block';
           this_aux.nombreEnmascarado = this_aux.nombreEnmascaradoAux;
           this_aux.urlImagen = this_aux.urlImagenAux;
-        
+
     }
 
 
@@ -113,6 +113,8 @@ export class LoginBxiComponent implements OnInit {
                 if (infoUsuarioJSON.Id === 'SEG0001') {
 
                     this_aux.service.infoUsuario = infoUsuario;
+                    this_aux.service.infoUsuarioSIC = infoUsuarioJSON.Sic;
+
                     this_aux.router.navigate(['/menuBXI']);
                     $('div').removeClass('modal-backdrop');
 
@@ -134,7 +136,3 @@ export class LoginBxiComponent implements OnInit {
     }
 
   }
-
-
-
-
