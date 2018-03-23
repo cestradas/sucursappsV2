@@ -16,6 +16,7 @@ export class SesionBxiService {
   // Menu BXI
       // Respuesta Servicios
      infoCuentas: string;
+     infoUsuarioSIC: string;
 
   // PagoServcios
     // Datos Especificos
@@ -26,7 +27,7 @@ export class SesionBxiService {
     // Respuesta Servicios
       detalleConfirmacionPS: string;
 
-  
+
 
   constructor() {  }
 
