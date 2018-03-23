@@ -94,34 +94,40 @@ export class PagoServiciosIniComponent implements OnInit {
  
  
  
-     getEmpresas() {
- 
+getEmpresas() {
+      
        const this_aux = this;
-       const operacionesbxi: OperacionesBXI = new OperacionesBXI();
-       operacionesbxi.consultaEmpresas().then(
-           function(response) {
-             console.log(response.responseJSON);
-             const consultaEmpresas = response.responseJSON;
- 
-            if (consultaEmpresas.Id === '1') {
-               this_aux.arrayEmpresas = consultaEmpresas.Facturadores;
-               this_aux.arrayEmpresas.forEach(empresa => {
- 
-                 const descripcion = empresa.Descripcion;
-                 const idEmpresa = empresa.IdFacturador;
-                 this_aux.listaEmpresas.push(descripcion);
-               });
-               console.log(this_aux.listaEmpresas);
-               this_aux.listaEmpresasAux = this_aux.listaEmpresas;
- 
-            } else {
-             console.log(consultaEmpresas.MensajeAUsuario);
-            }
- 
-           }, function(error) {
- 
-           });
-       }
+      if (localStorage.getItem('Facturadores')) {
+
+      } else {
+
+          const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+          operacionesbxi.consultaEmpresas().then(
+          function(response) {
+                console.log(response.responseJSON);
+                const consultaEmpresas = response.responseJSON;
+                if (consultaEmpresas.Id === '1') {
+
+                  this_aux.arrayEmpresas = consultaEmpresas.Facturadores;
+                  localStorage.setItem('Facturadores', this_aux.arrayEmpresas.toString());
+                  this_aux.arrayEmpresas.forEach(empresa => {
+                    const descripcion = empresa.Descripcion;
+                    const idEmpresa = empresa.IdFacturador;
+                    this_aux.listaEmpresas.push(descripcion);
+                    });
+                  console.log(this_aux.listaEmpresas);
+                  this_aux.listaEmpresasAux = this_aux.listaEmpresas;
+                
+                  } else {
+
+                console.log(consultaEmpresas.MensajeAUsuario);
+                }
+    
+              }, function(error) {
+    
+              });
+      }
+}
  
      getIdEmpresa(empresaSeleccionada: string) {
          const this_aux =  this;
