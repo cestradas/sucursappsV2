@@ -1,5 +1,6 @@
 {
     "root": "/mfp",
+    "root1": "/DEVMFPSapp",
     "user": "sucursApps",
     "key": "adm-sucusWeb"
 }

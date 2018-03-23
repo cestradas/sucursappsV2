@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import $ from 'jquery';
+declare var $: $;
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+
+  constructor () {
+
+    $('#_modal_please_wait').modal('show');
+    
+  }
+
 }

@@ -18,22 +18,38 @@ export class BreadcrumbsComponent implements OnInit {
 
 
   ngOnInit() {
-    // const this_aux = this;
-    // const detalleUsuario = JSON.parse( this_aux.service.infoUsuario);
-    //  this_aux.NombreUsuario = detalleUsuario.NombreUsuario;
     
     if ( this._service.datosBreadCroms.nombreUsuarioTDD !== '' ) {
 
       this.NombreUsuario =  this._service.datosBreadCroms.nombreUsuarioTDD;
 
     } 
-    // else if ( this.service. ) {
+     if ( this.service.NombreUsuario !== '' || this.service.NombreUsuario === undefined ) {
 
-    // }
+      this.NombreUsuario = this.service.NombreUsuario;
+
+    }
      
   }
 
    cerrarSesion() {
+
+    console.log("Cerrar sesion");
+
+    const resourceRequest = new WLResourceRequest(
+      'adapters/AdapterBanorteSucursApps/resource/cerrarSesion',
+      WLResourceRequest.POST);
+  resourceRequest.setTimeout(30000);
+  resourceRequest.send().then(
+          function(response) {
+            
+            console.log(response);
+  
+          },
+          function(error) {
+            
+  
+          });
 
   }
 
