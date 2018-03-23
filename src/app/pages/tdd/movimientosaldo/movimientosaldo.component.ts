@@ -100,7 +100,7 @@ Cambiarpagina(NumeroPag) {
       console.log("si entre: ", tipoMovimiento, numeroCuenta);
 
       const resourceRequest = new WLResourceRequest(
-        'adapters/AdapterBanorteSucursApps/resource/ConsultaClabesSaldos', WLResourceRequest.POST);
+        'adapters/AdapterBanorteSucursApps/resource/consultaClabesSaldos', WLResourceRequest.POST);
         resourceRequest.setTimeout(30000);
         
         resourceRequest.sendFormParameters(formParameters).then(
@@ -136,7 +136,7 @@ Cambiarpagina(NumeroPag) {
         numeroRegistros: numreg
       }; 
       const resourceRequest = new WLResourceRequest(
-        'adapters/AdapterBanorteSucursApps/resource/ConsultaMovimientos', WLResourceRequest.POST);
+        'adapters/AdapterBanorteSucursApps/resource/consultaMovimientos', WLResourceRequest.POST);
         resourceRequest.setTimeout(30000);
         
         resourceRequest.sendFormParameters(formParameters).then(
