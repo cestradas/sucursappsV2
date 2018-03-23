@@ -165,6 +165,7 @@ export class PagoServiciosIniComponent implements OnInit {
      muestraFacturadores() {
        const aux_this = this;
        aux_this.showOptions = true;
+       console.log('muestraFacturadores');
      }
  
      setValue(value) {
@@ -177,7 +178,6 @@ export class PagoServiciosIniComponent implements OnInit {
        console.log('click');
        const this_aux = this;
        const body = $('body');
-       // console.log($('body'));
  
      body.on('click', function() {
         if (this_aux.listaEmpresas.length === 0) {

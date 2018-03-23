@@ -16,7 +16,7 @@ import { IKeyboardLayouts, keyboardLayouts, MAT_KEYBOARD_LAYOUTS, MatKeyboardMod
 import { PagoServiciosIniComponent } from './pago-servicios/pago-servicios-ini/pago-servicios-ini.component';
 import { PagoServiciosDetailComponent } from './pago-servicios/pago-servicios-detail/pago-servicios-detail.component';
 import { PagoServiciosVerifyComponent } from './pago-servicios/pago-servicios-verify/pago-servicios-verify.component';
-
+import { PagoTarjetaCreditoComponent } from './pagos-tarjeta-credito/pago-tarjeta-credito/pago-tarjeta-credito.component';
 const customLayouts: IKeyboardLayouts = {
   ...keyboardLayouts,
   'Numerico': {
@@ -61,6 +61,7 @@ const customLayouts: IKeyboardLayouts = {
         PagoServiciosIniComponent,
         PagoServiciosDetailComponent,
         PagoServiciosVerifyComponent,
+        PagoTarjetaCreditoComponent,
 
         
         

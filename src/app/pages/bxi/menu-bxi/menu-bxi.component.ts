@@ -49,7 +49,8 @@ export class MenuBxiComponent implements OnInit {
             break;
       case 'compraTA': this.router.navigate(['/CompraTaComponent']);
             break;
-
+      case 'pagotar': this.router.navigate(['/pagoTarjetaCredito_ini']);
+            break;
 
     }
   }
