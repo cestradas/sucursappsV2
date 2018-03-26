@@ -19,7 +19,7 @@ export class MenuBxiComponent implements OnInit {
   constructor(private service: SesionBxiService, private renderer: Renderer2,  private router: Router ) { }
 
   ngOnInit() {
-    $('div').removeClass('modal-backdrop');
+  
     this.setNombreUsuario();
   }
 
@@ -39,6 +39,7 @@ export class MenuBxiComponent implements OnInit {
                   const resCuentasXBeneficiario = cuentasBeneficiario.responseJSON;
                   this_aux.service.infoCuentasBeneficiarios = resCuentasXBeneficiario.CuentasTotales;
                   $('#_modal_please_wait').modal('hide'); 
+                  $('div').removeClass('modal-backdrop');
                 });
             } else {
               console.log(getCuentasJSON.MensajeAUsuario);

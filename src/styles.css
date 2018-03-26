@@ -928,3 +928,22 @@ table {
     box-shadow: none;
     margin: 230px auto;
 }
+
+.selectModificado{
+	
+	background: url(./assets/img/bg_selectN.png) no-repeat 96% 0;
+   background-repeat: no-repeat;
+	background-position: center right;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+	overflow: hidden;
+	padding-right: 19%;
+	
+	
+}
+select.selectModificado::-ms-expand {
+	display: none;
+}
