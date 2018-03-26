@@ -27,6 +27,12 @@ export class SesionBxiService {
     // Respuesta Servicios
       detalleConfirmacionPS: string;
 
+      // Transferencia SPEI
+   // Datos especificos
+
+   // Respuesta del servicio
+   detalleConfirmacionSPEI: string;
+
 
 
   constructor() {  }
