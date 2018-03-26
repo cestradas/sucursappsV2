@@ -21,22 +21,22 @@ export class PagoServiciosIniComponent implements OnInit {
   listaEmpresas:  Array<any> = [];
   listaEmpresasAux: Array<any> = [];
   showOptions: Boolean = false;
- 
+
    constructor(  private router: Router, private service: SesionBxiService, private renderer: Renderer2) {
     }
    ngOnInit() {
- 
+
        this.fillSelectCuentas();
        this.getEmpresas();
- 
+
    }
- 
+
    saveData() {
- 
+
      const empresaSelect = this.facturador.nativeElement.value;
      this.getIdEmpresa(empresaSelect);
    }
- 
+
    fillSelectCuentas() {
              const this_aux = this;
              const cuentasString = this_aux.service.infoCuentas;
@@ -53,11 +53,11 @@ export class PagoServiciosIniComponent implements OnInit {
                    this.renderer.appendChild(li, a);
                    this.renderer.appendChild(this.listaCuentas.nativeElement, li);
              });
- 
+
         }
- 
+
      setDatosCuentaSeleccionada(elementHTML) {
- 
+
        const this_aux = this;
        console.log(elementHTML);
        const tableOrigen = document.getElementById('tableOrigen');
@@ -65,18 +65,18 @@ export class PagoServiciosIniComponent implements OnInit {
        const lblCuentaOrigen = document.getElementById('lblCuentaOrigen');
        const lblAliasOrigen = document.getElementById('lblAliasOrigen');
        const numCuenta_seleccionada = elementHTML.value;
- 
+
        tableOrigen.setAttribute('style', 'display: block');
        tableDefaultOrigen.setAttribute('style', 'display: none');
- 
+
        lblAliasOrigen.innerHTML = elementHTML.textContent;
        lblCuentaOrigen.innerHTML = numCuenta_seleccionada.toString();
        this_aux.service.numCuentaSeleccionado = numCuenta_seleccionada;
        this_aux.getSaldoDeCuenta(numCuenta_seleccionada);
      }
- 
+
      getSaldoDeCuenta(numCuenta_seleccionada) {
- 
+
        const operacionesbxi: OperacionesBXI = new OperacionesBXI();
        operacionesbxi.getSaldo(numCuenta_seleccionada).then(
            function(response1) {
@@ -91,16 +91,16 @@ export class PagoServiciosIniComponent implements OnInit {
            }, function(error) {
        });
      }
- 
- 
- 
+
+
+
 getEmpresas() {
-      
+
        const this_aux = this;
       if (localStorage.getItem('Facturadores') !== null) {
             const facturadores =  localStorage.getItem('Facturadores').toString();
             this_aux.arrayEmpresas = JSON.parse(facturadores);
-            
+
             this_aux.arrayEmpresas.forEach(empresa => {
               const descripcion = empresa.Descripcion;
               const idEmpresa = empresa.IdFacturador;
@@ -127,18 +127,18 @@ getEmpresas() {
                     });
                   console.log(this_aux.listaEmpresas);
                   this_aux.listaEmpresasAux = this_aux.listaEmpresas;
-                
+
                   } else {
 
                 console.log(consultaEmpresas.MensajeAUsuario);
                 }
-    
+
               }, function(error) {
-    
+
               });
       }
 }
- 
+
      getIdEmpresa(empresaSeleccionada: string) {
          const this_aux =  this;
          console.log(empresaSeleccionada);
@@ -154,7 +154,7 @@ getEmpresas() {
          this_aux.service.idFacturador = valueFacturador;
          this_aux.getDetalleEmpresa(valueFacturador);
      }
- 
+
      getDetalleEmpresa(idFacturador) {
        const this_aux =  this;
        const operacionesbxi: OperacionesBXI = new OperacionesBXI();
@@ -164,37 +164,41 @@ getEmpresas() {
              const detalleEmpresa = response.responseJSON;
              const body = $('body');
              if (detalleEmpresa.Id === '1') {
- 
+
                body.off('click');
                this_aux.service.detalleEmpresa_PS = response.responseText;
                this_aux.router.navigate(['/pagoservicios_detail']);
- 
+
              } else {
                console.log(detalleEmpresa.MensajeAUsuario);
              }
            }, function(error) {
- 
+
            });
      }
- 
+
      muestraFacturadores() {
+
+       // ESTILO TECLADO (QUITAR ESTILO AL SALIR DE PAGINA PARA EVITAR QUE BAJE MAS EN OTRAS PANTALLAS)
+       $( ".cdk-overlay-container" ).css( "margin-top", "24%" );
+
        const this_aux = this;
        this_aux.showOptions = true;
        console.log('muestraFacturadores');
        this_aux.setClickOnBody();
      }
- 
+
      setValue(value) {
        const aux_this = this;
        aux_this.showOptions = false;
        aux_this.facturador.nativeElement.value = value ;
      }
- 
+
      setClickOnBody() {
        console.log('click');
        const this_aux = this;
        const body = $('body');
- 
+
      body.on('click', function() {
         if (this_aux.listaEmpresas.length === 0) {
             this_aux.listaEmpresas = this_aux.listaEmpresasAux; // rellenar cuando regrese y no haya coincidencia
@@ -205,18 +209,18 @@ getEmpresas() {
          if (valueInput.toUpperCase() === '') {
            this_aux.listaEmpresas = this_aux.listaEmpresasAux;
          } else {
- 
+
            this_aux.listaEmpresas.forEach(element => {
              if (element.includes(valueInput.toUpperCase())) {
                auxOption.push(element);
              }
- 
+
          });
-         
+
            this_aux.listaEmpresas = auxOption;
        }
        console.log('lista llena');
      });
    }
- 
+
  }

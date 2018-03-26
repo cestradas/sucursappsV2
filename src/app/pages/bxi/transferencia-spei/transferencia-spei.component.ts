@@ -193,17 +193,18 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
 
         console.log(response.responseJSON);
             
-           this.transferSPEI = response.responseJSON;
+           // this.transferSPEI = response.responseJSON;
             
            
-            if ( this.transferSPEI.Id === '1') {
+            // if ( this.transferSPEI.Id === '1') {
 
               console.log(this.transferSPEI);
+              this_aux.service.detalleConfirmacionSPEI = response.responseText;
               this.router.navigate(['/TransferFinishSpei']);
                      
-            } else {
-              console.log(this.transferSPEI.MensajeAUsuario);
-            }
+            // } else {
+            //  console.log(this.transferSPEI.MensajeAUsuario);
+            // }
 
 
 

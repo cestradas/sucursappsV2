@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SesionBxiService } from './../../sesion-bxi.service';
 import { TransferenciaSpeiComponent } from "../../transferencia-spei/transferencia-spei.component";
 
 @Component({
@@ -8,9 +9,34 @@ import { TransferenciaSpeiComponent } from "../../transferencia-spei/transferenc
 })
 export class TransferenciaFinishSpeiComponent implements OnInit {
 
-  constructor() { }
+  detallePago: any = {
+    referenciaNumerica: '',
+    claveRastreoSpei: '',
+    fechaOperacion: '',
+    comision: '',
+    importeIva: '',
+    cuentaOrdenante: '',
+    cuentaClabeBeneficia: '',
+    nombreBeneficario: '',
+    importeOperacion: '',
+    totalCargo: ''
+
+};
+
+  constructor(private service: SesionBxiService) { }
 
   ngOnInit() {
+
+    const this_aux = this;
+    const respPago = this_aux.service.detalleConfirmacionSPEI;
+    const respPagoJson = JSON.parse(respPago);
+    console.log(respPagoJson);
+
+    this_aux.detallePago.referenciaNumerica = respPago;
+
+    const certificadoPago = respPagoJson.CertificadoPago;
+  
+
   }
 
 }

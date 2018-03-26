@@ -59,6 +59,25 @@
 
 
 
+
+
+            <!-- 
+
+            <div class="col-sm-11">
+                <div class="input-group">
+                    <input class="form-control" id="facturador" type="text" placeholder="Facturadores" #facturador [matKeyboard]="" (click)="muestraFacturadores()" />
+                    <div *ngIf="showOptions" class="sumando-bg-white">
+                        <ul style="width: 1550px; height: 100px; overflow: auto">
+                            <li *ngFor="let empresa of listaEmpresas" style="list-style:none;"><a (click)="setValue(empresa)">{{empresa}}</a></li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+-->
+
+
+
             <div class="col-sm-11 sumando-well-white">
                 <div class="row">
                     <div class="form-group col-sm-2">
@@ -136,7 +155,7 @@
                         <label for="amount" class="col-sm-2 control-label">Clabe</label>
                     </div>
                     <div class="col-sm-9">
-                        <input name="clabe" [(ngModel)]="clabe" id="clabe" #rClabe value="{{clabe}}" type="text" maxlength="18" required class="input-whidth form-control amount input-lg" />
+                        <input name="clabe" [(ngModel)]="clabe" id="clabe" #rClabe value="{{clabe}}" [matKeyboard]="" type="text" maxlength="18" required class="input-whidth form-control amount input-lg" />
                     </div>
                     <div class="clearfix"></div>
 
@@ -146,7 +165,7 @@
                         <label for="amount" class="col-sm-2 control-label">Beneficiario</label>
                     </div>
                     <div class="col-sm-4">
-                        <input name="beneficiario" [(ngModel)]="beneficiario" id="beneficiario" #rBeneficiario value="{{beneficiario}}" type="text" maxlength="100" required class="form-control amount input-lg" />
+                        <input name="beneficiario" [matKeyboard]="" [(ngModel)]="beneficiario" id="beneficiario" #rBeneficiario value="{{beneficiario}}" type="text" maxlength="100" required class="form-control amount input-lg" />
                     </div>
 
                     <div class="col-sm-1">
@@ -198,7 +217,7 @@
                         <label class="col-sm-12 control-label">RFC emisor</label>
                     </div>
                     <div class="col-sm-9">
-                        <input name="rfcEmisor" [(ngModel)]="rfcEmisor" id="rfcEmisor" #rRfcEmisor value="{{rfcEmisor}}" type="text" maxlength="13" required class="input-whidth form-control amount input-lg" />
+                        <input [matKeyboard]="" name="rfcEmisor" [(ngModel)]="rfcEmisor" id="rfcEmisor" #rRfcEmisor value="{{rfcEmisor}}" type="text" maxlength="13" required class="input-whidth form-control amount input-lg" />
                     </div>
                     <div class="clearfix"></div>
 
@@ -246,7 +265,7 @@
                         <label>Cuenta origen:</label>
                     </div>
                     <div class="col-lg 6">
-                        <label>{{ctaO}}</label>
+                        <label>{{numCuenta_seleccionada}}</label>
                     </div>
                 </div>
                 <div class="row">
@@ -278,7 +297,7 @@
                         <label>Correo:</label>
                     </div>
                     <div class="col-lg 6">
-                        <label>{{correo}}</label>
+                        <label>{{email}}</label>
                     </div>
                 </div>
                 <div class="row">
