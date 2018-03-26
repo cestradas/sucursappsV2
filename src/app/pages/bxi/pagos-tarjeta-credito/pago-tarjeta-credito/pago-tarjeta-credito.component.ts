@@ -14,6 +14,8 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
   ngOnInit() {
     this.fillSelectCuentas();
+    this.fillCuentasBeneficiario();
+    
   }
 
     fillSelectCuentas() {
@@ -69,5 +71,10 @@ export class PagoTarjetaCreditoComponent implements OnInit {
           }
         }, function(error) {
     });
+  }
+
+  fillCuentasBeneficiario () {
+    const this_aux = this;
+    console.log(this_aux.service.infoCuentasBeneficiarios);
   }
 }

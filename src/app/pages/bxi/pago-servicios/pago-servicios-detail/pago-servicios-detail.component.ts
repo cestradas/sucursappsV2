@@ -54,8 +54,7 @@ export class PagoServiciosDetailComponent implements OnInit {
     } else {
        
         this_aux.myForm.removeControl('fcTelefono');
-        this_aux.myForm.removeControl('fcDigitoVerificador');
-       
+        this_aux.myForm.removeControl('fcDigitoVerificador');       
     }
 
   }

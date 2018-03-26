@@ -35,8 +35,6 @@ export class OperacionesBXI {
         resourceRequest
             .sendFormParameters(formParameters);
 
-
-
             return resourceRequest.sendFormParameters(formParameters);
 
     }
@@ -111,8 +109,25 @@ export class OperacionesBXI {
             .sendFormParameters(formParameters);
 
 
-    return resourceRequest.sendFormParameters(formParameters);
+         return resourceRequest.sendFormParameters(formParameters);
 
+    }
+
+    consultaCuentasBeneficiarios(usuarioBXI) {
+
+        const formParameters = {
+            usuario : usuarioBXI
+          };
+
+        const resourceRequest = new WLResourceRequest(
+            'adapters/AdapterBanorteSucursAppsBEL/resource/getCuentasBeneficiarios',
+            WLResourceRequest.POST);
+        resourceRequest.setTimeout(30000);
+        resourceRequest
+            .sendFormParameters(formParameters);
+
+
+         return resourceRequest.sendFormParameters(formParameters);
     }
 
 }

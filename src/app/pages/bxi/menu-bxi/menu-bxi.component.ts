@@ -1,9 +1,9 @@
+import { OperacionesBXI } from './../operacionesBXI';
 import { Autenticacion } from './../autenticacion';
 import { Component, OnInit, ViewChild, ElementRef, Renderer2} from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { SesionBxiService } from './../sesion-bxi.service';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-
 import $ from 'jquery';
 
 declare var $: $;
@@ -26,12 +26,19 @@ export class MenuBxiComponent implements OnInit {
   setNombreUsuario() {
     const this_aux = this;
     const autenticacion: Autenticacion = new Autenticacion();
+    const operaciones: OperacionesBXI = new OperacionesBXI();
     autenticacion.consultaCuentasUsuario(this_aux.service.usuarioLogin).then(
       function(response) {
           const getCuentasJSON = response.responseJSON;
             if (getCuentasJSON.Id === '1') {
                 const getCuentas = response.responseText;
                 this_aux.service.infoCuentas = getCuentas;
+                operaciones.consultaCuentasBeneficiarios(this_aux.service.usuarioLogin).then(
+                  function(cuentasBeneficiario) {
+                  console.log(cuentasBeneficiario.responseJSON);
+                  const resCuentasXBeneficiario = cuentasBeneficiario.responseJSON;
+                      this_aux.service.infoCuentasBeneficiarios = resCuentasXBeneficiario.CuentasTotales;
+                  });
             } else {
               console.log(getCuentasJSON.MensajeAUsuario);
             }
