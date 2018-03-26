@@ -16,6 +16,7 @@ export class SesionBxiService {
   // Menu BXI
       // Respuesta Servicios
      infoCuentas: string;
+     infoCuentasBeneficiarios: string;
      infoUsuarioSIC: string;
 
   // PagoServcios

@@ -10,10 +10,16 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Route
 export class PagoTarjetaCreditoComponent implements OnInit {
   @ViewChild('listaCuentas', { read: ElementRef}) listaCuentas: ElementRef ;
   myForm: FormGroup;
-  constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2) { }
+  constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2,  private fb: FormBuilder) { 
+    this.myForm = this.fb.group({
+      
+    });
+  }
 
   ngOnInit() {
     this.fillSelectCuentas();
+    this.fillCuentasBeneficiario();
+    
   }
 
     fillSelectCuentas() {
@@ -69,5 +75,10 @@ export class PagoTarjetaCreditoComponent implements OnInit {
           }
         }, function(error) {
     });
+  }
+
+  fillCuentasBeneficiario () {
+    const this_aux = this;
+    console.log(this_aux.service.infoCuentasBeneficiarios);
   }
 }

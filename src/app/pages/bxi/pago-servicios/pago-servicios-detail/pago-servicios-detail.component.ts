@@ -54,9 +54,9 @@ export class PagoServiciosDetailComponent implements OnInit {
     } else {
        
         this_aux.myForm.removeControl('fcTelefono');
-        this_aux.myForm.removeControl('fcDigitoVerificador');
-       
+        this_aux.myForm.removeControl('fcDigitoVerificador');       
     }
+    $('#_modal_please_wait').modal('hide');
 
   }
 
@@ -99,6 +99,7 @@ export class PagoServiciosDetailComponent implements OnInit {
   }
 
   confirmarPago(token) {
+    $('#_modal_please_wait').modal('show');
       const this_aux = this;
       const autenticacion: Autenticacion = new Autenticacion();
       const operacionesbxi: OperacionesBXI = new OperacionesBXI();

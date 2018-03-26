@@ -1,6 +1,8 @@
 import { SesionBxiService } from './../../sesion-bxi.service';
 import { Component, OnInit } from '@angular/core';
 
+declare var jquery: any; // jquery
+declare var $: any;
 
 @Component({
   selector: 'app-pago-servicios-verify',
@@ -69,7 +71,7 @@ export class PagoServiciosVerifyComponent implements OnInit {
      
       }
       
-     
+      $('#_modal_please_wait').modal('hide');
   }
 
   irMenuBXI() {
