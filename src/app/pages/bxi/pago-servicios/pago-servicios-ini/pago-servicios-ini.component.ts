@@ -21,6 +21,7 @@ export class PagoServiciosIniComponent implements OnInit {
   listaEmpresas:  Array<any> = [];
   listaEmpresasAux: Array<any> = [];
   showOptions: Boolean = false;
+  empresaInLocal: string ;
 
    constructor(  private router: Router, private service: SesionBxiService, private renderer: Renderer2) {
     }
@@ -98,6 +99,8 @@ getEmpresas() {
 
        const this_aux = this;
       if (localStorage.getItem('Facturadores') !== null) {
+
+           this_aux.empresaInLocal = '1';
             const facturadores =  localStorage.getItem('Facturadores').toString();
             this_aux.arrayEmpresas = JSON.parse(facturadores);
 
@@ -202,6 +205,12 @@ getEmpresas() {
      body.on('click', function() {
         if (this_aux.listaEmpresas.length === 0) {
             this_aux.listaEmpresas = this_aux.listaEmpresasAux; // rellenar cuando regrese y no haya coincidencia
+        }
+
+        if ( this_aux.empresaInLocal === '1') {
+          // tslint:disable-next-line:max-line-length
+          this_aux.listaEmpresas = this_aux.listaEmpresasAux; // rellenar cuando regrese , no haya coincidencia y los facturadores esten en localStorage
+            this_aux.empresaInLocal = '0';
         }
          console.log( this_aux.facturador.nativeElement.value);
          const auxOption = [];
