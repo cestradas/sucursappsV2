@@ -27,6 +27,7 @@ export class PagoServiciosIniComponent implements OnInit {
     }
    ngOnInit() {
 
+     $('#_modal_please_wait').modal('show');
        this.fillSelectCuentas();
        this.getEmpresas();
 
@@ -111,6 +112,7 @@ getEmpresas() {
               });
             console.log(this_aux.listaEmpresas);
             this_aux.listaEmpresasAux = this_aux.listaEmpresas;
+            $('#_modal_please_wait').modal('hide');
 
       } else {
 
@@ -130,10 +132,12 @@ getEmpresas() {
                     });
                   console.log(this_aux.listaEmpresas);
                   this_aux.listaEmpresasAux = this_aux.listaEmpresas;
+                  $('#_modal_please_wait').modal('hide');
 
                   } else {
 
                 console.log(consultaEmpresas.MensajeAUsuario);
+                $('#_modal_please_wait').modal('hide');
                 }
 
               }, function(error) {
@@ -159,6 +163,7 @@ getEmpresas() {
      }
 
      getDetalleEmpresa(idFacturador) {
+      $('#_modal_please_wait').modal('show');
        const this_aux =  this;
        const operacionesbxi: OperacionesBXI = new OperacionesBXI();
        operacionesbxi.consultaDetalleEmpresa(idFacturador).then(
@@ -203,15 +208,11 @@ getEmpresas() {
        const body = $('body');
 
      body.on('click', function() {
-        if (this_aux.listaEmpresas.length === 0) {
+       
+      /*if (this_aux.listaEmpresas.length === 0) {
             this_aux.listaEmpresas = this_aux.listaEmpresasAux; // rellenar cuando regrese y no haya coincidencia
         }
-
-        if ( this_aux.empresaInLocal === '1') {
-          // tslint:disable-next-line:max-line-length
-          this_aux.listaEmpresas = this_aux.listaEmpresasAux; // rellenar cuando regrese , no haya coincidencia y los facturadores esten en localStorage
-            this_aux.empresaInLocal = '0';
-        }
+      */
          console.log( this_aux.facturador.nativeElement.value);
          const auxOption = [];
          const valueInput = this_aux.facturador.nativeElement.value;

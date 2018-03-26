@@ -37,8 +37,9 @@ export class MenuBxiComponent implements OnInit {
                   function(cuentasBeneficiario) {
                   console.log(cuentasBeneficiario.responseJSON);
                   const resCuentasXBeneficiario = cuentasBeneficiario.responseJSON;
-                      this_aux.service.infoCuentasBeneficiarios = resCuentasXBeneficiario.CuentasTotales;
-                  });
+                  this_aux.service.infoCuentasBeneficiarios = resCuentasXBeneficiario.CuentasTotales;
+                  $('#_modal_please_wait').modal('hide'); 
+                });
             } else {
               console.log(getCuentasJSON.MensajeAUsuario);
             }

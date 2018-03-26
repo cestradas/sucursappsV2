@@ -27,6 +27,7 @@ export class LoginBxiComponent implements OnInit {
   }
 
   validaUsuario(usuarioBxi) {
+    $('#_modal_please_wait').modal('show');
     const this_aux = this;
     this_aux.service.usuarioLogin = usuarioBxi;
     const autenticacion: Autenticacion = new Autenticacion();
@@ -95,12 +96,13 @@ export class LoginBxiComponent implements OnInit {
           document.getElementById('view_pass').style.display = 'block';
           this_aux.nombreEnmascarado = this_aux.nombreEnmascaradoAux;
           this_aux.urlImagen = this_aux.urlImagenAux;
+          $('#_modal_please_wait').modal('hide');
 
     }
 
 
     autenticaUsuario(claveAcceso) {
-
+      $('#_modal_please_wait').modal('show');
       const this_aux = this;
       const autenticacion: Autenticacion = new Autenticacion();
       console.log('entro autenticaUsuario ' );
@@ -120,6 +122,7 @@ export class LoginBxiComponent implements OnInit {
                 } else {
 
                   console.log(infoUsuarioJSON.MensajeAUsuario);
+                  $('#_modal_please_wait').modal('show');
                 }
 
           }, function(error) {
