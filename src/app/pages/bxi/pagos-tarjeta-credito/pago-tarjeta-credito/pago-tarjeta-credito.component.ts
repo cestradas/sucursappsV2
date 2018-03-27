@@ -14,6 +14,11 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   @ViewChild('rcbFiltro', { read: ElementRef}) rcbFiltro: ElementRef ;
 
   myForm: FormGroup;
+  listaCuentasBen: Array<any> = [];
+  existenPropias = false;
+  existenTerceros = false;
+  existenExternas = false;
+  existenAMEX = false;
 
   constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2,  private fb: FormBuilder) { 
     this.myForm = this.fb.group({
@@ -49,7 +54,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target); });
     this.renderer.appendChild(a, textoCuenta),
     this.renderer.appendChild(li, a);
-    this.renderer.appendChild(this.listaCuentas.nativeElement, li);
+    this.renderer.appendChild(this_aux.listaCuentas.nativeElement, li);
   }
   
   setDatosCuentaSeleccionada(elementHTML) {
@@ -92,7 +97,6 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   
     const this_aux = this;
     let cuenta;
-    const listaCuentasBen: Array<any> = [];
     const cuentasUsuario = this_aux.service.infoCuentas;
     const jsoncuentasUsuario = JSON.parse(cuentasUsuario); // JSON CON CUENTAS PROPIAS
     const arrayCuentasXBeneficiario = JSON.parse(this_aux.service.infoCuentasBeneficiarios); // JSON CON CUENTAS DE BENEFICIARIOS
@@ -100,8 +104,8 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
     cuentasArray.forEach(cuentaUsuario => {
 
-         if (cuentaUsuario.TipoCuenta === '5') {
-          listaCuentasBen.push(cuentaUsuario);
+         if (cuentaUsuario.TipoCuenta.toString() === '5') {
+          this_aux.listaCuentasBen.push(cuentaUsuario);
           this_aux.crearListaBeneficiarios(cuentaUsuario);
          }
 
@@ -111,13 +115,14 @@ export class PagoTarjetaCreditoComponent implements OnInit {
           cuenta.forEach(data => {
 
             if ( data.TipoCuenta === '9' || data.TipoCuenta === '2'  ) {
-              listaCuentasBen.push(data);
+              this_aux.listaCuentasBen.push(data);
               this_aux.crearListaBeneficiarios(data);
             }
           });
     });
     
-    console.log(listaCuentasBen);
+    console.log(this_aux.listaCuentasBen);
+    this_aux.defineFiltros();
   }
 
   crearListaBeneficiarios(data) {
@@ -130,8 +135,30 @@ export class PagoTarjetaCreditoComponent implements OnInit {
             this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaBeneficiario(event.target); });
             this.renderer.appendChild(a, textoCuenta),
             this.renderer.appendChild(li, a);
-            this.renderer.appendChild(this.listaCuentasBeneficiario.nativeElement, li);
+            this.renderer.appendChild(this_aux.listaCuentasBeneficiario.nativeElement, li);
       
+  }
+
+  defineFiltros() {
+
+    const this_aux = this;
+    this_aux.listaCuentasBen.forEach(cuenta => {
+
+      if (cuenta.TipoCuenta.toString() === '9') {
+        this_aux.existenTerceros = true;
+      }
+      if (cuenta.TipoCuenta.toString() === '5') {
+        this_aux.existenPropias = true;
+      }
+      if (cuenta.TipoCuenta.toString() === '2' && cuenta.ClaveBanco.toString() === '40103' ) {
+        this.existenAMEX = true;
+      }
+      if (cuenta.TipoCuenta.toString() === '2' && cuenta.ClaveBanco.toString() !== '40103') {
+        this.existenExternas = true;
+      } 
+
+    });
+
   }
 
   setDatosCuentaBeneficiario(elementHTML) {
@@ -151,12 +178,19 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     
   }
 
-  setCuentasBenficiarioXTipo(listaCuentasBen) {
-    
+  setCuentasBenficiarioXTipo() {
     const this_aux = this;
-    listaCuentasBen.forEach(auxcuenta => {
+    console.log('setCuentasBenficiarioXTipo');
+    console.log('this_aux.rcbFiltro =' + this_aux.rcbFiltro.nativeElement.value.toString());
+    const node = document.getElementById("ul_CuentasBen");
+    console.log(node);
+    while (node.firstChild) {
+      node.removeChild(node.firstChild);
+     }
 
-      if (auxcuenta.TipoCuenta === this_aux.rcbFiltro.nativeElement.value) {
+    this_aux.listaCuentasBen.forEach(auxcuenta => {
+
+      if (auxcuenta.TipoCuenta.toString() === this_aux.rcbFiltro.nativeElement.value.toString()) {
 
        const li =  this.renderer.createElement('li');
        const a = this.renderer.createElement('a');
@@ -165,7 +199,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
        this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaBeneficiario(event.target); });
        this.renderer.appendChild(a, textoCuenta),
        this.renderer.appendChild(li, a);
-       this.renderer.appendChild(this.listaCuentasBeneficiario.nativeElement, li);
+       this.renderer.appendChild(this_aux.listaCuentasBeneficiario.nativeElement, li);
       }
 
      
