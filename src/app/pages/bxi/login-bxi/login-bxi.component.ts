@@ -122,7 +122,7 @@ export class LoginBxiComponent implements OnInit {
                 } else {
 
                   console.log(infoUsuarioJSON.MensajeAUsuario);
-                  $('#_modal_please_wait').modal('show');
+                  $('#_modal_please_wait').modal('hide');
                 }
 
           }, function(error) {

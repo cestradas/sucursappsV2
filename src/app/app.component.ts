@@ -12,7 +12,7 @@ export class AppComponent {
 
   constructor () {
 
-    $('#_modal_please_wait').modal('show');
+    
     
   }
 
