@@ -19,7 +19,8 @@ export class MenuBxiComponent implements OnInit {
   constructor(private service: SesionBxiService, private renderer: Renderer2,  private router: Router ) { }
 
   ngOnInit() {
-  
+    const body = $('body');
+    body.off('click');
     this.setNombreUsuario();
   }
 
@@ -37,7 +38,8 @@ export class MenuBxiComponent implements OnInit {
                   function(cuentasBeneficiario) {
                   console.log(cuentasBeneficiario.responseJSON);
                   const resCuentasXBeneficiario = cuentasBeneficiario.responseJSON;
-                  this_aux.service.infoCuentasBeneficiarios = resCuentasXBeneficiario.CuentasTotales;
+                  this_aux.service.infoCuentasBeneficiarios = JSON.stringify(resCuentasXBeneficiario.arrayCuentasXBeneficiario);
+                  console.log(this_aux.service.infoCuentasBeneficiarios);
                   $('#_modal_please_wait').modal('hide'); 
                   $('div').removeClass('modal-backdrop');
                 });

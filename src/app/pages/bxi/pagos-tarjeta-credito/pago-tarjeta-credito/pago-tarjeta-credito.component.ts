@@ -9,6 +9,7 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Route
 })
 export class PagoTarjetaCreditoComponent implements OnInit {
   @ViewChild('listaCuentas', { read: ElementRef}) listaCuentas: ElementRef ;
+  @ViewChild('listaCuentas', { read: ElementRef}) listaCuentasBeneficiario: ElementRef ;
   myForm: FormGroup;
   constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2,  private fb: FormBuilder) { 
     this.myForm = this.fb.group({
@@ -77,8 +78,45 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     });
   }
 
+
   fillCuentasBeneficiario () {
+  
     const this_aux = this;
-    console.log(this_aux.service.infoCuentasBeneficiarios);
+    let cuenta;
+    const arrayCuentasXBeneficiario = JSON.parse(this_aux.service.infoCuentasBeneficiarios);
+    arrayCuentasXBeneficiario.forEach(element => {
+      cuenta = element.Cuenta;
+          cuenta.forEach(data => {
+
+            const li =  this.renderer.createElement('li');
+            const a = this.renderer.createElement('a');
+            const textoCuenta = this.renderer.createText( data.DescripcionTipoCuenta);
+            this.renderer.setProperty(a, 'value', data.CUENTA);
+            this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaBeneficiario(event.target); });
+            this.renderer.appendChild(a, textoCuenta),
+            this.renderer.appendChild(li, a);
+            this.renderer.appendChild(this.listaCuentasBeneficiario.nativeElement, li);
+            
+          });
+    });
+
+  }
+
+  setDatosCuentaBeneficiario(elementHTML) {
+ 
+    const this_aux = this;
+    console.log(elementHTML);
+    const tableBeneficiarios = document.getElementById('tableBeneficiarios');
+    const tableDefaultBeneficiarios = document.getElementById('tableDefaultBeneficiarios');
+    const lblCuentaDestino = document.getElementById('lblCuentaDestino');
+    const lbDescripcionCtaBen = document.getElementById('lbDescripcionCtaBen');
+    const numCuenta_seleccionada = elementHTML.value;
+
+    tableBeneficiarios.setAttribute('style', 'display: block');
+    tableDefaultBeneficiarios.setAttribute('style', 'display: none');
+
+    lbDescripcionCtaBen.innerHTML = elementHTML.textContent;
+    lblCuentaDestino.innerHTML = numCuenta_seleccionada.toString();
+    
   }
 }

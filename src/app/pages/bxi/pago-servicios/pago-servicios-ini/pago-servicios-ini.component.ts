@@ -101,7 +101,6 @@ getEmpresas() {
        const this_aux = this;
       if (localStorage.getItem('Facturadores') !== null) {
 
-           this_aux.empresaInLocal = '1';
             const facturadores =  localStorage.getItem('Facturadores').toString();
             this_aux.arrayEmpresas = JSON.parse(facturadores);
 
@@ -188,7 +187,7 @@ getEmpresas() {
      muestraFacturadores() {
 
        // ESTILO TECLADO (QUITAR ESTILO AL SALIR DE PAGINA PARA EVITAR QUE BAJE MAS EN OTRAS PANTALLAS)
-       $( ".cdk-overlay-container" ).css( "margin-top", "20%" );
+       $( ".cdk-overlay-container" ).css( "margin-top", "20 %" );
 
        const this_aux = this;
        this_aux.showOptions = true;
@@ -227,7 +226,14 @@ getEmpresas() {
 
          });
 
-           this_aux.listaEmpresas = auxOption;
+         if (valueInput.toUpperCase() === '') {
+
+          this_aux.listaEmpresas = this_aux.listaEmpresasAux;
+
+         } else {
+
+          this_aux.listaEmpresas = auxOption;
+         }
        }
        console.log('lista llena');
      });

@@ -63,46 +63,53 @@
       </div>
     </div>
    </div>
-   <div class=" row sumando-form-group">
-     <div class="col-sm-1 sumando-bg-orange group-name ">
-       Para
-     </div>
-     <div class="col-sm-11 group-controls padding-left-0 padding-right-0">
-       <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
-         <input type="hidden" name="destinyAccount" id="destinyAccount" required/>
-
-         <div class="dropdown sumando-dropdown-account">
-           <button class="btn btn-default btn-block dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="padding-right: 0px;padding-top: 0px;padding-bottom: 0px">
-             <table id="tableDestino" style="display: none" width="100%">
-               <tr>
-                 <td align="left" width="90%">
-                   <strong><label id="lblAliasDestino" ></label></strong>
-                 </td>
-                 <td rowspan="2" width="10%" class="dropdown-caret">
-                   <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
-                 </td>
-               </tr>
-               <tr>
-                 <td align="left">Cuenta <label id="lblCuentaDestino" ></label></td>
-               </tr>
-             </table>
-             <table id="tableDefaultDestino" width="100%">
-               <tr>
-                 <td align="left" rowspan="2">Seleccione una cuenta de destino...</td>
-                 <td width="5%" rowspan="2" class="dropdown-caret">
-                   <img src="images/bg_selectN.png" style="width: 90%;    height: 150%;">
-                 </td>
-               </tr>
-             </table>
-           </button>
-           <ul class="dropdown-menu btn-block" aria-labelledby="dropdownMenu1" style="width: 100%; height: 200px; overflow: auto">
-             <li id="listaBeneficiario">
-             </li>
-           </ul>
-         </div>
+   <div class="row sumando-form-group padding-InFieldset"> 
+      <div class="col-sm-1 sumando-bg-orange group-name">
+        Para 
+      </div>
+      <div class="col-sm-11 group-controls padding-left-0 padding-right-0" >
+         <div class="form-group" >
+           <div class="sumando-bg-white">
+             <input type="hidden" >
+             <div class="dropdown sumando-dropdown-account">
+               <button class="btn btn-default btn-block dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="padding-right: 0px;padding-top: 0px;padding-bottom: 0px">
+               <table id="tableBeneficiarios" style="display: none" width="100%">
+                 <tr> 
+                   <td align="left" width="45%">
+                     <strong><label  id="lbCuentaBeneficiario" #lbDescripcionCtaBen></label></strong>
+                   </td>
+                  <!-- <td align="left" width="45%">
+                     <strong>$<label id ="lblSaldoOrigen"></label>
+                     </strong>
+                   </td>-->
+                   <td width="5%" rowspan="2" class="dropdown-caret">
+                     <img src="./assets/img/bg_selectN.png" style="width: 90%;    height: 150%;">
+                   </td> 
+                 </tr>
+                 <tr>
+                   <td align="left">Cuenta <label id="lblCuentaOrigen" #lblCuentaDestino></label></td>
+                   <!--<td align="left">Saldo Disponible</td-->
+                 </tr>
+               </table> 
+               <table  id="tableDefaultBeneficiarios" width="100%">
+                 <tr>
+                   <td align="left" rowspan="2">Seleccione una cuenta destino...</td>
+                   <td width="5%" rowspan="2" class="dropdown-caret">
+                     <img src="./assets/img/bg_selectN.png" style="width: 90%;    height: 150%;">
+                   </td> 
+                 </tr>  
+               </table>
+             </button>  
+           <div>
+             <ul id="ul_Cuentas" #listaCuentasBeneficiario  class="dropdown-menu btn-block" aria-labelledby="dropdownMenu1" style="width: 100%; height: 200px; overflow: auto" >
+                
+             </ul>
+           </div>
+           </div>
+         </div> 
        </div>
      </div>
-   </div>
+    </div>
    <div class="row">
      <div class="col-lg-11 col-lg-offset-1 sumando-well-white" style="padding-right: 0px;width: 92.0%;padding-bottom: 0px;margin-bottom: 25px;padding-top: 25px">
         <div class="form-group padding-InFieldset" style="margin-bottom: 0px" >
