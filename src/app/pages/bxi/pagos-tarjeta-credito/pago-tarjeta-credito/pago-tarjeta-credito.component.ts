@@ -190,18 +190,22 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
     this_aux.listaCuentasBen.forEach(auxcuenta => {
 
-      if (auxcuenta.TipoCuenta.toString() === this_aux.rcbFiltro.nativeElement.value.toString()) {
-
-       const li =  this.renderer.createElement('li');
-       const a = this.renderer.createElement('a');
-       const textoCuenta = this.renderer.createText( auxcuenta.DescripcionTipoCuenta);
-       this.renderer.setProperty(a, 'value', auxcuenta.CUENTA);
-       this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaBeneficiario(event.target); });
-       this.renderer.appendChild(a, textoCuenta),
-       this.renderer.appendChild(li, a);
-       this.renderer.appendChild(this_aux.listaCuentasBeneficiario.nativeElement, li);
+      if (this_aux.rcbFiltro.nativeElement.value.toString() === "20") {
+        if ( auxcuenta.TipoCuenta.toString() === "2" && auxcuenta.ClaveBanco.toString() === "40103") {
+          this_aux.crearListaBeneficiarios(auxcuenta);
+        }
+      } 
+      if (this_aux.rcbFiltro.nativeElement.value.toString() === "2") {
+        if ( auxcuenta.TipoCuenta.toString() === "2" && auxcuenta.ClaveBanco.toString() !== "40103") {
+          this_aux.crearListaBeneficiarios(auxcuenta);
+        }
       }
+      if (this_aux.rcbFiltro.nativeElement.value.toString() === "5" || this_aux.rcbFiltro.nativeElement.value.toString() === "9"  ) {
+          if (auxcuenta.TipoCuenta.toString() === this_aux.rcbFiltro.nativeElement.value.toString()) {
 
+            this_aux.crearListaBeneficiarios(auxcuenta);
+          }
+      }
      
    });
 
