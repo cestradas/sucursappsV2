@@ -130,4 +130,19 @@ export class OperacionesBXI {
          return resourceRequest.sendFormParameters(formParameters);
     }
 
+    pagoTarjetaCredito(tipoTarjeta, montoAPagar, cuentaAbono, cuentaCargo): any {
+        const formParameters = {
+            tipoTarjeta: tipoTarjeta,
+            montoAPagar: montoAPagar,
+            cuentaAbono: cuentaAbono,
+            cuentaCargo: cuentaCargo,
+          };
+         
+         const    resourceRequest = new WLResourceRequest(
+                'adapters/AdapterBanorteSucursAppsBEL/resource/pagoDisposicionCredito', WLResourceRequest.POST);
+          resourceRequest.setTimeout(30000);
+
+          return resourceRequest.sendFormParameters(formParameters);
+    }
+
 }

@@ -72,7 +72,7 @@
            <div class="sumando-bg-white">
              <input type="hidden" >
              <div class="dropdown sumando-dropdown-account">
-               <button class="btn btn-default btn-block dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="padding-right: 0px;padding-top: 0px;padding-bottom: 0px">
+               <button class="btn btn-default btn-block dropdown-toggle" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="padding-right: 0px;padding-top: 0px;padding-bottom: 0px">
                <table id="tableBeneficiarios" style="display: none" width="100%">
                  <tr> 
                    <td align="left" width="45%">
@@ -117,18 +117,80 @@
        <div class="col-lg-1 padding-labelToInput">
          <label>Importe: </label>
        </div>
-       <div class="col-lg-10">
-         <input name="amount" id="amount" type="text" step="0.01" currency required class="form-control amount input-lg" ng-model="command.amount" ng-min="1" ng-max="7000" />
-       </div>
+        <div class="col-lg-10">
+          <input  id="txtImporte" type="text"class="form-control input-lg" #rImporte formControlName="fcImporte" [matKeyboard]="'num'" />
+              <div *ngIf="myForm.get('fcImporte').errors  && myForm.get('fcImporte').touched" 
+                      class="alert alert-danger">
+                      <p color="danger" *ngIf="myForm.get('fcImporte').hasError('required')">importe requerido. </p >
+                      <p color="danger"  *ngIf="myForm.get('fcImporte').hasError('pattern')">No es formato solicitado</p>
+              </div>
+        </div>
      </div>
    </div>
      </div>
    </div>
    <div class="row actions-form-group text-right">
-     <button class="btn btn-lg" onClick="currentPage.loadMenu();">Regresar</button>
-     <button class="btn btn-primary btn-lg" onClick="onConfirmacion();">
+     <button class="btn btn-lg" >Regresar</button>
+     <button class="btn btn-primary btn-lg" (click)="confirmaOperacion(rImporte.value)"
+     [disabled]="(myForm.get('fcImporte').invalid || (lblAliasOrigen.value == '') || (lblCuentaOrigen.value == '') || (lblCuentaDestino.value == ''))" >
        Continuar
      </button>
    </div>
  </fieldset>
+ <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content shadowModal ">
+
+            <div class="modal-body" style="padding: 2rem;">
+
+                <h4 style="color: #eb012a; font-weight: 700;">Confirmar pago</h4>
+                <div class="row">
+                    <div class="col-lg 6">
+                        <label>Cuenta origen:</label>
+                    </div>
+                    <div class="col-lg 6">
+                        <label>{{CuentaOrigen}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg 6">
+                        <label>Cuenta Destino:</label>
+                    </div>
+                    <div class="col-lg 6">
+                        <label>{{CuentaDestino}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg 6">
+                        <label>Importe:</label>
+                    </div>
+                    <div class="col-lg 6">
+                        <label>$${{Importe}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg 12">
+                        <div id="challenger" class="form-group">
+                            <label>N&uacute;mero de seguridad</label>
+                            <input type='text' id='numeroSeguridad' class='form-control input-lg' ng-model='challenge.rcg' readonly>
+
+                        </div>
+                        <div id="divPass" class="form-group">
+                            <label>TipoAutentica</label>
+
+                            <input type="password" class="form-control input-lg" #token [matKeyboard]="">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
+                    <button class="color-botones btn btn-lg " (click)="confirmarPago(token.value)">
+                            Confirmar
+                          </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div> 
 </form>
