@@ -1,4 +1,4 @@
-
+import { ModalBxiErrorComponentComponent } from './modales/modal-bxi-error-component/modal-bxi-error-component.component';
 import { SesionBxiService } from './sesion-bxi.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -17,6 +17,7 @@ import { PagoServiciosIniComponent } from './pago-servicios/pago-servicios-ini/p
 import { PagoServiciosDetailComponent } from './pago-servicios/pago-servicios-detail/pago-servicios-detail.component';
 import { PagoServiciosVerifyComponent } from './pago-servicios/pago-servicios-verify/pago-servicios-verify.component';
 import { PagoTarjetaCreditoComponent } from './pagos-tarjeta-credito/pago-tarjeta-credito/pago-tarjeta-credito.component';
+
 // tslint:disable-next-line:max-line-length
 import { PagoTarjetaCreditoVerifyComponent } from './pagos-tarjeta-credito/pago-tarjeta-credito-verify/pago-tarjeta-credito-verify.component';
 const customLayouts: IKeyboardLayouts = {
@@ -65,9 +66,7 @@ const customLayouts: IKeyboardLayouts = {
         PagoServiciosVerifyComponent,
         PagoTarjetaCreditoComponent,
         PagoTarjetaCreditoVerifyComponent,
-
-        
-        
+        ModalBxiErrorComponentComponent
     ],
     exports: [],
     imports: [

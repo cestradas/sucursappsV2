@@ -8,6 +8,7 @@
      <div class="col-sm-11 group-controls padding-left-0 padding-right-0 padding-InFieldset">
         
           <select class="selectModificado" #rcbFiltro (change)="setCuentasBenficiarioXTipo()">
+                <option value="0" disabled selected></option>
                 <option *ngIf='existenPropias' value="5">Propias Banorte</option>
                 <option *ngIf='existenTerceros' value="9"> Terceros Banorte</option>
                 <option *ngIf='existenExternas' value="2"> Otros Bancos</option>
