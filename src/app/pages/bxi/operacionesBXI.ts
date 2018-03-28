@@ -139,7 +139,7 @@ export class OperacionesBXI {
           };
          
          const    resourceRequest = new WLResourceRequest(
-                'adapters/AdapterBanorteSucursAppsBEL/resource/pagoDisposicionCredito', WLResourceRequest.POST);
+                'adapters/AdapterBanorteSucursAppsBEL/resource/pagoTarjetaCredito', WLResourceRequest.POST);
           resourceRequest.setTimeout(30000);
 
           return resourceRequest.sendFormParameters(formParameters);

@@ -84,6 +84,7 @@ export class LoginBxiComponent implements OnInit {
       });
       console.log(nivelMayor + tipoAutenticacion + etiqueta + requierePreparacion );
       this_aux.service.metodoAutenticaMayor = tipoAutenticacion;
+      this_aux.service.metodoAutenticaEtiqueta = etiqueta;
       this.showModalByTipoAutentica();
     }
 

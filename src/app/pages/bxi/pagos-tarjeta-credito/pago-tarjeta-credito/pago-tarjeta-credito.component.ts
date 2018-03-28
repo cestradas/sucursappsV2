@@ -207,7 +207,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
         }
       } 
       if (this_aux.rcbFiltro.nativeElement.value.toString() === "2") {
-        this_aux.tipoTarjeta = '2230';
+        this_aux.tipoTarjeta = '165';
         if ( auxcuenta.TipoCuenta.toString() === "2" && auxcuenta.ClaveBanco.toString() !== "40103") {
           this_aux.crearListaBeneficiarios(auxcuenta);
         }
