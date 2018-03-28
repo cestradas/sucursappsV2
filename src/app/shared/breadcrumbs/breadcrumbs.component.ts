@@ -28,7 +28,7 @@ export class BreadcrumbsComponent implements OnInit {
       this.NombreUsuario =  this._service.datosBreadCroms.nombreUsuarioTDD;
 
     } 
-     if ( this.service.NombreUsuario !== '' && this.service.NombreUsuario !== undefined ) {
+     if ( this.service.NombreUsuario !== '' || this.service.NombreUsuario !== undefined ) {
 
       this.NombreUsuario = this.service.NombreUsuario;
 

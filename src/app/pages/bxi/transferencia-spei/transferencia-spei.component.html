@@ -59,6 +59,25 @@
 
 
 
+
+
+            <!-- 
+
+            <div class="col-sm-11">
+                <div class="input-group">
+                    <input class="form-control" id="facturador" type="text" placeholder="Facturadores" #facturador [matKeyboard]="" (click)="muestraFacturadores()" />
+                    <div *ngIf="showOptions" class="sumando-bg-white">
+                        <ul style="width: 1550px; height: 100px; overflow: auto">
+                            <li *ngFor="let empresa of listaEmpresas" style="list-style:none;"><a (click)="setValue(empresa)">{{empresa}}</a></li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+-->
+
+
+
             <div class="col-sm-11 sumando-well-white">
                 <div class="row">
                     <div class="form-group col-sm-2">
@@ -136,7 +155,7 @@
                         <label for="amount" class="col-sm-2 control-label">Clabe</label>
                     </div>
                     <div class="col-sm-9">
-                        <input name="clabe" [(ngModel)]="clabe" id="clabe" #rClabe value="{{clabe}}" type="text" maxlength="18" required class="input-whidth form-control amount input-lg" />
+                        <input name="clabe" [(ngModel)]="clabe" id="clabe" #rClabe value="{{clabe}}" [matKeyboard]="" type="text" maxlength="18" required class="input-whidth form-control amount input-lg" />
                     </div>
                     <div class="clearfix"></div>
 
@@ -146,7 +165,7 @@
                         <label for="amount" class="col-sm-2 control-label">Beneficiario</label>
                     </div>
                     <div class="col-sm-4">
-                        <input name="beneficiario" [(ngModel)]="beneficiario" id="beneficiario" #rBeneficiario value="{{beneficiario}}" type="text" maxlength="100" required class="form-control amount input-lg" />
+                        <input name="beneficiario" [matKeyboard]="" [(ngModel)]="beneficiario" id="beneficiario" #rBeneficiario value="{{beneficiario}}" type="text" maxlength="100" required class="form-control amount input-lg" />
                     </div>
 
                     <div class="col-sm-1">
@@ -198,7 +217,7 @@
                         <label class="col-sm-12 control-label">RFC emisor</label>
                     </div>
                     <div class="col-sm-9">
-                        <input name="rfcEmisor" [(ngModel)]="rfcEmisor" id="rfcEmisor" #rRfcEmisor value="{{rfcEmisor}}" type="text" maxlength="13" required class="input-whidth form-control amount input-lg" />
+                        <input [matKeyboard]="" name="rfcEmisor" [(ngModel)]="rfcEmisor" id="rfcEmisor" #rRfcEmisor value="{{rfcEmisor}}" type="text" maxlength="13" required class="input-whidth form-control amount input-lg" />
                     </div>
                     <div class="clearfix"></div>
 
@@ -246,15 +265,15 @@
                         <label>Cuenta origen:</label>
                     </div>
                     <div class="col-lg 6">
-                        <label>{{cuentaOrigen}}</label>
+                        <label>{{numCuenta_seleccionada}}</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg 6">
-                        <label>Servicio:</label>
+                        <label>Clabe:</label>
                     </div>
                     <div class="col-lg 6">
-                        <label>{{nombreServicio}}</label>
+                        <label>{{clabe}}</label>
                     </div>
                 </div>
                 <div class="row">
@@ -275,10 +294,10 @@
                 </div>
                 <div class="row">
                     <div class="col-lg 6">
-                        <label>Descuentos:</label>
+                        <label>Correo:</label>
                     </div>
                     <div class="col-lg 6">
-                        <label>$0.00</label>
+                        <label>{{email}}</label>
                     </div>
                 </div>
                 <div class="row">
@@ -362,90 +381,3 @@
   
     </div>
   </div> -->
-
-
-<!-- Modal -->
-<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="ModalBXIConfirm" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content shadowModal ">
-            <!--<div class="modal-header">
-    
-                </div>
-            -->
-
-            <div class="modal-body" style="padding: 2rem;">
-
-                <h4 style="color: #eb012a; font-weight: 700;">Confirmar pago</h4>
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>Cuenta origen:</label>
-                    </div>
-                    <div class="col-lg 6">
-                        <label>{{cuentaOrigen}}</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>Servicio:</label>
-                    </div>
-                    <div class="col-lg 6">
-                        <label>{{nombreServicio}}</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>Importe neto:</label>
-                    </div>
-                    <div class="col-lg 6">
-                        <label>$${{importe}}</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>Comision:</label>
-                    </div>
-                    <div class="col-lg 6">
-                        <label>$0.00</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>Descuentos:</label>
-                    </div>
-                    <div class="col-lg 6">
-                        <label>$0.00</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>Importe total:</label>
-                    </div>
-                    <div class="col-lg 6">
-                        <label>$${{importe}}</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg 12">
-                        <div id="challenger" class="form-group">
-                            <label>N&uacute;mero de seguridad</label>
-                            <input type='text' id='numeroSeguridad' class='form-control input-lg' ng-model='challenge.rcg' readonly>
-
-                        </div>
-                        <div id="divPass" class="form-group">
-                            <label>TipoAutentica</label>
-
-                            <input type="password" class="form-control input-lg" #token [matKeyboard]="">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                    <button class="color-botones btn btn-lg " (click)="confirmarPago(token.value)">
-                            Confirmar
-                          </button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>

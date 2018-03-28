@@ -1,3 +1,5 @@
+// tslint:disable-next-line:max-line-length
+import { PagoTarjetaCreditoVerifyComponent } from './pagos-tarjeta-credito/pago-tarjeta-credito-verify/pago-tarjeta-credito-verify.component';
 import { PagoTarjetaCreditoComponent } from './pagos-tarjeta-credito/pago-tarjeta-credito/pago-tarjeta-credito.component';
 import { Routes, RouterModule } from '@angular/router';
 import { PagesComponent } from '../pages.component';
@@ -9,6 +11,8 @@ import { TransferenciaFinishSpeiComponent } from "./transferencia-spei/transfere
 import { PagoServiciosVerifyComponent } from './pago-servicios/pago-servicios-verify/pago-servicios-verify.component';
 import { PagoServiciosIniComponent } from './pago-servicios/pago-servicios-ini/pago-servicios-ini.component';
 import { PagoServiciosDetailComponent } from './pago-servicios/pago-servicios-detail/pago-servicios-detail.component';
+
+
 const pageRoutesBXI: Routes = [
     {
         path: '', component: PagesBxiComponent,
@@ -19,7 +23,8 @@ const pageRoutesBXI: Routes = [
             { path: 'pagoservicios_detail', component: PagoServiciosDetailComponent},
             { path: 'pagoservicios_verify', component: PagoServiciosVerifyComponent},
             { path: 'TransferFinishSpei', component: TransferenciaFinishSpeiComponent},
-            { path: 'pagoTarjetaCredito_ini', component: PagoTarjetaCreditoComponent}
+            { path: 'pagoTarjetaCredito_ini', component: PagoTarjetaCreditoComponent},
+            { path: 'pagoTarjetaCredito_verify', component: PagoTarjetaCreditoVerifyComponent}
             
         ]
     }

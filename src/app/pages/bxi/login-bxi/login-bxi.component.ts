@@ -27,6 +27,7 @@ export class LoginBxiComponent implements OnInit {
   }
 
   validaUsuario(usuarioBxi) {
+    $('#_modal_please_wait').modal('show');
     const this_aux = this;
     this_aux.service.usuarioLogin = usuarioBxi;
     const autenticacion: Autenticacion = new Autenticacion();
@@ -34,17 +35,16 @@ export class LoginBxiComponent implements OnInit {
       function(identificacion) {
         console.log(identificacion.responseJSON);
         const detalleIdentifacionUsurario = identificacion.responseJSON;
-      
+
           if ( detalleIdentifacionUsurario.Id === 'SEG0001') {
-            
+
               this_aux.service.detalleIdentificacion = detalleIdentifacionUsurario.toString();
-              this_aux.service.NombreUsuario = detalleIdentifacionUsurario.NombreUsuario; 
               this_aux.urlImagenAux = detalleIdentifacionUsurario.UrlImagenPersonal;
               this_aux.nombreEnmascaradoAux = detalleIdentifacionUsurario.NombreEnmascarado;
-              
+
               autenticacion.getMetodosAutenticacionUsuario().then(
                     function(metodos) {
-                        
+
                         const  respConsultaMetodos = metodos.responseJSON;
                         if (respConsultaMetodos.Id === 'SEG0001') {
 
@@ -84,6 +84,7 @@ export class LoginBxiComponent implements OnInit {
       });
       console.log(nivelMayor + tipoAutenticacion + etiqueta + requierePreparacion );
       this_aux.service.metodoAutenticaMayor = tipoAutenticacion;
+      this_aux.service.metodoAutenticaEtiqueta = etiqueta;
       this.showModalByTipoAutentica();
     }
 
@@ -96,29 +97,33 @@ export class LoginBxiComponent implements OnInit {
           document.getElementById('view_pass').style.display = 'block';
           this_aux.nombreEnmascarado = this_aux.nombreEnmascaradoAux;
           this_aux.urlImagen = this_aux.urlImagenAux;
-        
+          $('#_modal_please_wait').modal('hide');
+
     }
 
 
     autenticaUsuario(claveAcceso) {
-
+      $('#_modal_please_wait').modal('show');
       const this_aux = this;
       const autenticacion: Autenticacion = new Autenticacion();
       console.log('entro autenticaUsuario ' );
       autenticacion.autenticaUsuario( claveAcceso, "0").then(
           function(response) {
-                // console.log(response.responseJSON);
+                 console.log(response.responseJSON);
                 const infoUsuario = response.responseText;
                 const infoUsuarioJSON = response.responseJSON;
                 if (infoUsuarioJSON.Id === 'SEG0001') {
-
+                  this_aux.service.NombreUsuario = infoUsuarioJSON.NombreUsuario; 
                     this_aux.service.infoUsuario = infoUsuario;
+                    this_aux.service.infoUsuarioSIC = infoUsuarioJSON.Sic;
+
                     this_aux.router.navigate(['/menuBXI']);
                     $('div').removeClass('modal-backdrop');
 
                 } else {
 
                   console.log(infoUsuarioJSON.MensajeAUsuario);
+                  $('#_modal_please_wait').modal('hide');
                 }
 
           }, function(error) {
@@ -134,7 +139,3 @@ export class LoginBxiComponent implements OnInit {
     }
 
   }
-
-
-
-

@@ -549,6 +549,28 @@ html {
 }
 
 
+/* Select con imagen flecha */
+
+.selectModificado {
+    background-image: url("assets/img/bg_selectN.png");
+    background-color: white;
+    background-size: 3.5% 98%;
+    background-repeat: no-repeat;
+    background-position: center right;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    overflow: hidden;
+    padding-right: 18%;
+}
+
+select.selectModificado::-ms-expand {
+    display: none;
+}
+
+
 /* #Styles old sucurs */
 
 .padding-barToTittle {
@@ -917,14 +939,4 @@ table {
     color: #a94442;
     border: 0;
     /*background-color: #f5f5f5;*/
-}
-
-.sumando-loading-modal-dialog .modal-content {
-    height: 110px;
-    width: 110px;
-    background-color: transparent;
-    border: 1px;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    margin: 230px auto;
 }

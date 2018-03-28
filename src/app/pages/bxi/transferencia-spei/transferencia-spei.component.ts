@@ -13,6 +13,9 @@ import { CurrencyPipe } from '@angular/common';
 import $ from 'jquery';
 declare var $: $;
 
+let sic = "";
+let ctaO = "";
+
 let bancoRecep = "";
 let clabe = "";
 let nombreBene = "";
@@ -165,6 +168,9 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
     console.log("adentro Trnsferencias Internacionales SPEI ");
 
     const this_aux =  this;
+
+    sic = this_aux.service.infoUsuarioSIC;
+    ctaO = this_aux.service.numCuentaSeleccionado;
   
     bancoRecep =  forma.value.sel1;
     clabe = forma.value.clabe;
@@ -181,22 +187,24 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
     // numCuenta = document.getElementById("accountNumber").value;
   
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
-    operacionesbxi.confirmaTransferSPEI(bancoRecep, clabe, nombreBene, rfcBenef, ref, importe, descripcion, correo, rfcEmi).then(
+    
+    operacionesbxi.confirmaTransferSPEI( ctaO, sic, bancoRecep, clabe, nombreBene, rfcBenef, ref, importe, descripcion, correo, rfcEmi).then(
       function(response) {
 
         console.log(response.responseJSON);
             
-           this.transferSPEI = response.responseJSON;
+           // this.transferSPEI = response.responseJSON;
             
            
-            if ( this.transferSPEI.Id === '1') {
+            // if ( this.transferSPEI.Id === '1') {
 
               console.log(this.transferSPEI);
+              this_aux.service.detalleConfirmacionSPEI = response.responseText;
               this.router.navigate(['/TransferFinishSpei']);
                      
-            } else {
-              console.log(this.transferSPEI.MensajeAUsuario);
-            }
+            // } else {
+            //  console.log(this.transferSPEI.MensajeAUsuario);
+            // }
 
 
 
@@ -211,6 +219,10 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
 
   confirmarSPEI(token) {
     const this_aux = this;
+
+    sic = this_aux.service.infoUsuarioSIC;
+    ctaO = this_aux.service.numCuentaSeleccionado;
+
     const autenticacion: Autenticacion = new Autenticacion();
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     autenticacion.autenticaUsuario(token, this_aux.service.metodoAutenticaMayor).then(
@@ -220,7 +232,7 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
             if (infoUsuarioJSON.Id === 'SEG0001') {
                 console.log('Nivel de autenticacion alcanzado');
 
-                operacionesbxi.confirmaTransferSPEI(bancoRecep, clabe, nombreBene, rfcBenef, ref, importe, descripcion, correo, rfcEmi)
+                operacionesbxi.confirmaTransferSPEI(ctaO, sic, bancoRecep, clabe, nombreBene, rfcBenef, ref, importe, descripcion, correo, rfcEmi)
                 .then(
                   function(response) {
                     console.log(response.responseJSON);

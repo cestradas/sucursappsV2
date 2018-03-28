@@ -14,31 +14,29 @@ export class OperacionesBXI {
     }
 
     consultaClabeSaldo(): any {
-      
+
         console.log("adentro cnsultaCuentas");
-    
+
         let tipoMovimiento = "1";
         let numeroCuenta = "0665815063";
-    
+
         const THIS: any = this;
-    
+
         const formParameters = {
             tipoMovimiento:  tipoMovimiento,
             numeroCuenta: numeroCuenta
-        
+
         };
-    
+
         const resourceRequest = new WLResourceRequest(
             'adapters/AdapterBanorteSucursAppsBEL/resource/consultaClabeSaldo',
             WLResourceRequest.POST);
         resourceRequest.setTimeout(30000);
         resourceRequest
             .sendFormParameters(formParameters);
-            
-        
-        
+
             return resourceRequest.sendFormParameters(formParameters);
-  
+
     }
 
     consultaEmpresas() {
@@ -85,10 +83,12 @@ export class OperacionesBXI {
           return resourceRequest.sendFormParameters(formParameters);
     }
 
-    confirmaTransferSPEI(bancoRecep, clabe, nombreBene, rfcBenef, ref, importe, descripcion, correo, rfcEmi): any {
+    confirmaTransferSPEI(ctaO, sic, bancoRecep, clabe, nombreBene, rfcBenef, ref, importe, descripcion, correo, rfcEmi): any {
 
-  
+
       let formParameters = {
+        ctaO: ctaO,
+        sic: sic,
         bancoRecep:  bancoRecep,
         clabe: clabe,
         nombreBene: nombreBene,
@@ -99,8 +99,8 @@ export class OperacionesBXI {
         correo: correo,
         rfcEmi: rfcEmi
       };
-     
-  
+
+
         const resourceRequest = new WLResourceRequest(
             'adapters/AdapterBanorteSucursAppsBEL/resource/transferInterSPEI',
             WLResourceRequest.POST);
@@ -108,9 +108,41 @@ export class OperacionesBXI {
         resourceRequest
             .sendFormParameters(formParameters);
 
-        
-    return resourceRequest.sendFormParameters(formParameters);
 
+         return resourceRequest.sendFormParameters(formParameters);
+
+    }
+
+    consultaCuentasBeneficiarios(usuarioBXI) {
+
+        const formParameters = {
+            usuario : usuarioBXI
+          };
+
+        const resourceRequest = new WLResourceRequest(
+            'adapters/AdapterBanorteSucursAppsBEL/resource/getCuentasBeneficiarios',
+            WLResourceRequest.POST);
+        resourceRequest.setTimeout(30000);
+        resourceRequest
+            .sendFormParameters(formParameters);
+
+
+         return resourceRequest.sendFormParameters(formParameters);
+    }
+
+    pagoTarjetaCredito(tipoTarjeta, montoAPagar, cuentaAbono, cuentaCargo): any {
+        const formParameters = {
+            tipoTarjeta: tipoTarjeta,
+            montoAPagar: montoAPagar,
+            cuentaAbono: cuentaAbono,
+            cuentaCargo: cuentaCargo,
+          };
+         
+         const    resourceRequest = new WLResourceRequest(
+                'adapters/AdapterBanorteSucursAppsBEL/resource/pagoTarjetaCredito', WLResourceRequest.POST);
+          resourceRequest.setTimeout(30000);
+
+          return resourceRequest.sendFormParameters(formParameters);
     }
 
 }
