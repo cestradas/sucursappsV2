@@ -36,6 +36,15 @@ export class SesionBxiService {
    detalleConfirmacionSPEI: string;
 
 
+   // PagoTarjetas
+    // Datos Especificos
+    numCtaBenSeleccionada: string;
+    nameBancoDestino: string;
+    nameOperacion: string;
+   // Respuesta Servicios
+     detallePagoTarjeta: string;
+
+
 
   constructor() {  }
 

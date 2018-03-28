@@ -37,6 +37,8 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   }
 
   ngOnInit() {
+    
+    this.resetLista();
     this.fillSelectCuentas();
     this.fillCuentasBeneficiario();
     
@@ -50,9 +52,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       const cuentasArray = consultaCuentas.ArrayCuentas;
         cuentasArray.forEach(cuenta => {
           this_aux.crearListaCuentas(cuenta); 
-
       });
-
   }
 
   crearListaCuentas(cuenta) {
@@ -111,49 +111,52 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     const jsoncuentasUsuario = JSON.parse(cuentasUsuario); // JSON CON CUENTAS PROPIAS
     const arrayCuentasXBeneficiario = JSON.parse(this_aux.service.infoCuentasBeneficiarios); // JSON CON CUENTAS DE BENEFICIARIOS
     const cuentasArray = jsoncuentasUsuario.ArrayCuentas;
-
     cuentasArray.forEach(cuentaUsuario => {
-
          if (cuentaUsuario.TipoCuenta.toString() === '5') {
           this_aux.listaCuentasBen.push(cuentaUsuario);
-          this_aux.crearListaBeneficiarios(cuentaUsuario);
+          this_aux.crearListaBeneficiarios(cuentaUsuario, true);
          }
 
       });
     arrayCuentasXBeneficiario.forEach(element1 => {
       cuenta = element1.Cuenta;
           cuenta.forEach(data => {
-
-            if ( data.TipoCuenta === '9' || data.TipoCuenta === '2'  ) {
+            if ( data.TipoCuenta === '9' ) {
               this_aux.listaCuentasBen.push(data);
-              this_aux.crearListaBeneficiarios(data);
+              this_aux.crearListaBeneficiarios(data, true);
+            }
+            if (  data.TipoCuenta === '2'  ) {
+              this_aux.listaCuentasBen.push(data);
+              this_aux.crearListaBeneficiarios(data, false);
             }
           });
     });
-    
     console.log(this_aux.listaCuentasBen);
     this_aux.defineFiltros();
   }
 
-  crearListaBeneficiarios(data) {
+  crearListaBeneficiarios(data, isBanorte) {
 
             const this_aux = this;
             const li =  this.renderer.createElement('li');
             const a = this.renderer.createElement('a');
             const textoCuenta = this.renderer.createText( data.Alias);
-            this.renderer.setProperty(a, 'value', data.NoCuenta);
+            if ( isBanorte) {
+                this.renderer.setProperty(a, 'value', data.NoCuenta + ',Banorte' );
+            } else {
+              this.renderer.setProperty(a, 'value', data.NoCuenta + ',' + data.DescripcionBanco);
+            }
             this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaBeneficiario(event.target); });
             this.renderer.appendChild(a, textoCuenta),
             this.renderer.appendChild(li, a);
             this.renderer.appendChild(this_aux.listaCuentasBeneficiario.nativeElement, li);
       
-  }
+  }   
 
   defineFiltros() {
 
     const this_aux = this;
     this_aux.listaCuentasBen.forEach(cuenta => {
-
       if (cuenta.TipoCuenta.toString() === '9') {
         this_aux.existenTerceros = true;
       }
@@ -166,7 +169,6 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       if (cuenta.TipoCuenta.toString() === '2' && cuenta.ClaveBanco.toString() !== '40103') {
         this.existenExternas = true;
       } 
-
     });
 
   }
@@ -179,46 +181,51 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     const tableDefaultBeneficiarios = document.getElementById('tableDefaultBeneficiarios');
     const lblCuentaDestino = document.getElementById('lblCuentaDestino');
     const lbDescripcionCtaBen = document.getElementById('lbDescripcionCtaBen');
-    const numCuentaDestinario_seleccionada = elementHTML.value;
+    const valueElement = elementHTML.value;
 
     tableBeneficiarios.setAttribute('style', 'display: block');
     tableDefaultBeneficiarios.setAttribute('style', 'display: none');
     lbDescripcionCtaBen.innerHTML = elementHTML.textContent;
-    lblCuentaDestino.innerHTML = numCuentaDestinario_seleccionada.toString();
-    this_aux.CuentaDestino = numCuentaDestinario_seleccionada;
+    lblCuentaDestino.innerHTML = this_aux.getNumeroCuentaDestino(valueElement);
+    this_aux.CuentaDestino =  this_aux.getNumeroCuentaDestino(valueElement);
+    this_aux.service.numCtaBenSeleccionada = this_aux.CuentaDestino;
+    this_aux.service.nameBancoDestino = this_aux.getNameInstitucion(valueElement);
+
   }
 
   setCuentasBenficiarioXTipo() {
     const this_aux = this;
     console.log('setCuentasBenficiarioXTipo');
     console.log('this_aux.rcbFiltro =' + this_aux.rcbFiltro.nativeElement.value.toString());
-    const node = document.getElementById("ul_CuentasBen");
-    console.log(node);
-    while (node.firstChild) {
-      node.removeChild(node.firstChild);
-     }
-
+    this_aux.resetLista();
     this_aux.listaCuentasBen.forEach(auxcuenta => {
 
       if (this_aux.rcbFiltro.nativeElement.value.toString() === "20") {
         this_aux.tipoTarjeta = '2230';
+        this_aux.service.nameOperacion = "Pago tarjeta de credito American Express";
         if ( auxcuenta.TipoCuenta.toString() === "2" && auxcuenta.ClaveBanco.toString() === "40103") {
-          this_aux.crearListaBeneficiarios(auxcuenta);
+          this_aux.crearListaBeneficiarios(auxcuenta, false);
         }
       } 
       if (this_aux.rcbFiltro.nativeElement.value.toString() === "2") {
         this_aux.tipoTarjeta = '165';
+        this_aux.service.nameOperacion = "Pago tarjeta de credito Otros Bancos";
         if ( auxcuenta.TipoCuenta.toString() === "2" && auxcuenta.ClaveBanco.toString() !== "40103") {
-          this_aux.crearListaBeneficiarios(auxcuenta);
+          this_aux.crearListaBeneficiarios(auxcuenta, false);
         }
       }
       if (this_aux.rcbFiltro.nativeElement.value.toString() === "5" || this_aux.rcbFiltro.nativeElement.value.toString() === "9"  ) {
         this_aux.tipoTarjeta = '165';  
+        if (this_aux.rcbFiltro.nativeElement.value.toString() === "5") {
+          this_aux.service.nameOperacion = "Pago tarjeta de credito Propias Banorte";
+        } else {
+          this_aux.service.nameOperacion = "Pago tarjeta de credito Terceros Banorte";
+        }
         if (auxcuenta.TipoCuenta.toString() === this_aux.rcbFiltro.nativeElement.value.toString()) {
-
-            this_aux.crearListaBeneficiarios(auxcuenta);
+            this_aux.crearListaBeneficiarios(auxcuenta, true);
           }
         }  
+      
    });
   }
 
@@ -256,8 +263,9 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   }
 
   confirmarPago(token) {
+    const this_aux = this;
+    alert(this_aux.tipoTarjeta + this_aux.Importe + this_aux.CuentaDestino + this_aux.CuentaOrigen);
     $('#_modal_please_wait').modal('show');
-      const this_aux = this;
       const autenticacion: Autenticacion = new Autenticacion();
       const operacionesbxi: OperacionesBXI = new OperacionesBXI();
       autenticacion.autenticaUsuario(token, this_aux.service.metodoAutenticaMayor).then(
@@ -271,6 +279,9 @@ export class PagoTarjetaCreditoComponent implements OnInit {
                       function(detallePago) {
                           console.log('Pago Validado');
                           console.log(detallePago.responseJSON);
+                          this_aux.service.detallePagoTarjeta = detallePago.responseText;
+                          $('div').removeClass('modal-backdrop');
+                           this_aux.router.navigate(['/pagoTarjetaCredito_verify']);
                       }
                   ); 
               } else {
@@ -278,7 +289,35 @@ export class PagoTarjetaCreditoComponent implements OnInit {
               }
         }, function(error) {
         });
+  }
 
+  getNumeroCuentaDestino(text) {
+    const  separador = ',';
+    const  arregloDeSubCadenas = text.split(separador);
+    const numCuentaDestino = arregloDeSubCadenas[0];
+    console.log(arregloDeSubCadenas);
+    console.log(numCuentaDestino);
+
+    return numCuentaDestino; 
+  }
+
+  getNameInstitucion(text) {
+    const  separador = ',';
+    const  arregloDeSubCadenas = text.split(separador);
+    const nameInstitucion = arregloDeSubCadenas[1];
+    console.log(arregloDeSubCadenas);
+    console.log(nameInstitucion);
+
+    return nameInstitucion; 
+  }
+
+
+  resetLista() {
+    const node = document.getElementById("ul_CuentasBen");
+    console.log(node);
+    while (node.firstChild) {
+      node.removeChild(node.firstChild);
+     }
   }
 
 }
