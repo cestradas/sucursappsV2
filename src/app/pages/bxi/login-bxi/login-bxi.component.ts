@@ -2,7 +2,7 @@ import { Autenticacion } from './../autenticacion';
 import { SesionBxiService } from './../sesion-bxi.service';
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 declare var jquery: any; // jquery
 declare var $: any;
@@ -20,10 +20,18 @@ export class LoginBxiComponent implements OnInit {
   urlImagenAux: string;
   nombreEnmascarado: string;
   nombreEnmascaradoAux: string;
+  myForm: FormGroup;
 
-  constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2) { }
+  constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2, private fb: FormBuilder) {
+    this.myForm = this.fb.group({
+      fcUsuario: ['', Validators.required],
+      fcPass: ['', Validators.required]
+      
+    });
+   }
 
   ngOnInit() {
+    
   }
 
   validaUsuario(usuarioBxi) {
@@ -135,6 +143,7 @@ export class LoginBxiComponent implements OnInit {
       document.getElementById('view_usr').style.display = 'block';
       document.getElementById('viewGeneralAutentica').style.display = 'none';
       document.getElementById('NosoyYo').style.display = 'none';
+      
 
     }
 
