@@ -13,9 +13,42 @@ import { CommonModule } from '@angular/common';
 import { AppComponent } from "../../app.component";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatKeyboardModule, KeyboardClassKey, MAT_KEYBOARD_LAYOUTS, IKeyboardLayouts, keyboardLayouts } from '@ngx-material-keyboard/core';
 
 
-
+const customLayouts: IKeyboardLayouts = {
+    ...keyboardLayouts,
+    'Numerico': {
+      'name': 'NumPad',
+      'keys': [
+        [
+          ['9'],
+          ['8'],
+          ['7'],
+          [KeyboardClassKey.Bksp]
+        ],
+        [
+          ['6' ],
+          ['5'],
+          ['4'],
+          ['.'],
+        ],
+        [
+          ['3'],
+          ['2'],
+          ['1'],
+          ['-']
+        ],
+        [
+          ['0'],
+          [KeyboardClassKey.Space],
+        ]
+      ],
+      'lang': ['num']
+    }
+  };
 
 @NgModule ({
     declarations: [
@@ -35,8 +68,13 @@ import { BrowserModule } from '@angular/platform-browser';
         FormsModule,
         CommonModule,
         ReactiveFormsModule,
-        BrowserModule
-    ]
+        BrowserModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatKeyboardModule,
+    ],
+    providers: [{ provide: MAT_KEYBOARD_LAYOUTS, useValue: customLayouts}],
+  bootstrap: [AppComponent]
 })
 
 export class PagesTddModule {} 

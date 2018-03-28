@@ -1,5 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
+.sumando-loading-modal-dialog .modal-content {
+    height: 110px;
+    width: 110px;
+    background-color: transparent;
+    border: 1px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    margin: 230px auto;
+}
+
 body {
     height: 100%;
     width: 100%;
