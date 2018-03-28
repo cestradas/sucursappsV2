@@ -14,17 +14,21 @@ export class BreadcrumbsComponent implements OnInit {
 
   NombreUsuario: string; 
   constructor(private service: SesionBxiService,
-              private _service: SesionTDDService )  {}
+              private _service: SesionTDDService,
+              private router: Router )  {}
 
 
   ngOnInit() {
+
+    console.log("TDD ", this._service.datosBreadCroms.nombreUsuarioTDD);
+    console.log("BEL ", this.service.NombreUsuario); 
     
     if ( this._service.datosBreadCroms.nombreUsuarioTDD !== '' ) {
 
       this.NombreUsuario =  this._service.datosBreadCroms.nombreUsuarioTDD;
 
     } 
-     if ( this.service.NombreUsuario !== '' || this.service.NombreUsuario === undefined ) {
+     if ( this.service.NombreUsuario !== '' && this.service.NombreUsuario !== undefined ) {
 
       this.NombreUsuario = this.service.NombreUsuario;
 
@@ -33,6 +37,8 @@ export class BreadcrumbsComponent implements OnInit {
   }
 
    cerrarSesion() {
+
+    const THIS: any = this;
 
     console.log("Cerrar sesion");
 
@@ -44,10 +50,14 @@ export class BreadcrumbsComponent implements OnInit {
           function(response) {
             
             console.log(response);
+
+            THIS.router.navigate(['/login']);
   
           },
           function(error) {
             
+            console.log(error);
+            THIS.router.navigate(['/login']);
   
           });
 
