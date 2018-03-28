@@ -14,11 +14,15 @@ export class BreadcrumbsComponent implements OnInit {
 
   NombreUsuario: string; 
   constructor(private service: SesionBxiService,
-              private _service: SesionTDDService )  {}
+              private _service: SesionTDDService,
+              private router: Router )  {}
 
 
   ngOnInit() {
-   
+
+    console.log("TDD ", this._service.datosBreadCroms.nombreUsuarioTDD);
+    console.log("BEL ", this.service.NombreUsuario); 
+    
     if ( this._service.datosBreadCroms.nombreUsuarioTDD !== '' ) {
 
       this.NombreUsuario =  this._service.datosBreadCroms.nombreUsuarioTDD;
@@ -34,6 +38,8 @@ export class BreadcrumbsComponent implements OnInit {
 
    cerrarSesion() {
 
+    const THIS: any = this;
+
     console.log("Cerrar sesion");
 
     const resourceRequest = new WLResourceRequest(
@@ -44,10 +50,14 @@ export class BreadcrumbsComponent implements OnInit {
           function(response) {
             
             console.log(response);
+
+            THIS.router.navigate(['/login']);
   
           },
           function(error) {
             
+            console.log(error);
+            THIS.router.navigate(['/login']);
   
           });
 

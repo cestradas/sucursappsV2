@@ -13,7 +13,11 @@ declare var $: $;
 })
 export class MenutddComponent implements OnInit {
 
-  constructor( private _http: Http, private router: Router  ) { }
+  loadingM: boolean;
+
+  constructor( private _http: Http, private router: Router  ) {
+
+   }
 
   ngOnInit() {
     $('div').removeClass('modal-backdrop');
