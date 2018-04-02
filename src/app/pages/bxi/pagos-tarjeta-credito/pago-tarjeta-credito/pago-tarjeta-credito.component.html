@@ -119,7 +119,8 @@
          <label>Importe: </label>
        </div>
         <div class="col-lg-10">
-          <input  id="txtImporte" type="text"class="form-control input-lg" #rImporte formControlName="fcImporte" [matKeyboard]="'num'" />
+          <input  id="txtImporte" type="text"class="form-control input-lg" #rImporte formControlName="fcImporte"
+           [matKeyboard]="'num'"  (blur)="transformAmount(rImporte.value)" />
               <div *ngIf="myForm.get('fcImporte').errors  && myForm.get('fcImporte').touched" 
                       class="alert alert-danger">
                       <p color="danger" *ngIf="myForm.get('fcImporte').hasError('required')">importe requerido. </p >

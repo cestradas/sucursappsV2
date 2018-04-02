@@ -1,6 +1,6 @@
 import { ModalBxiErrorComponentComponent } from './modales/modal-bxi-error-component/modal-bxi-error-component.component';
 import { SesionBxiService } from './sesion-bxi.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TransferenciaFinishSpeiComponent } from './transferencia-spei/transferencia-finish-spei/transferencia-finish-spei.component';
 import { NgModule } from "@angular/core"; 
@@ -81,7 +81,7 @@ const customLayouts: IKeyboardLayouts = {
 
         
     ],
-    providers: [ SesionBxiService,  { provide: MAT_KEYBOARD_LAYOUTS, useValue: customLayouts}],
+    providers: [ SesionBxiService,  { provide: MAT_KEYBOARD_LAYOUTS, useValue: customLayouts}, CurrencyPipe],
 })
 
 export class PagesBxiModule {} 

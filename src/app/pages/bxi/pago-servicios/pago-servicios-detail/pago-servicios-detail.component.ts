@@ -3,7 +3,8 @@ import { SesionBxiService } from './../../sesion-bxi.service';
 import { OperacionesBXI } from './../../operacionesBXI';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { Component, OnInit, ViewChild, ElementRef, Renderer2  } from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, NgControl, FormControl } from '@angular/forms';
+import {CurrencyPipe} from '@angular/common';
 
 declare var jquery: any; // jquery
 declare var $: any;
@@ -15,7 +16,7 @@ declare var $: any;
 })
 export class PagoServiciosDetailComponent implements OnInit {
 
- // @ViewChild('rNombreEmpresa', { read: ElementRef}) rNombreEmpresa: ElementRef ;
+ @ViewChild('rImporte', { read: ElementRef}) rImporte: ElementRef ;
  // @ViewChild('rCuentaCargo', { read: ElementRef}) rCuentaCargo: ElementRef ;
 
   myForm: FormGroup;
@@ -25,11 +26,14 @@ export class PagoServiciosDetailComponent implements OnInit {
   importe: string;
   referenciaPago: string;
   fechaVencimiento: string;
+
+  importeAux: string;
+  
   
   
 
 
-  constructor( private service: SesionBxiService, private fb: FormBuilder, private router: Router ) {
+  constructor( private service: SesionBxiService, private fb: FormBuilder, private router: Router, private currencyPipe: CurrencyPipe) {
     this.myForm = this.fb.group({
       fcTelefono: ['', [Validators.required, Validators.minLength(10)]],
        fcReferencia: ['', [Validators.required]],
@@ -63,8 +67,8 @@ export class PagoServiciosDetailComponent implements OnInit {
 
   showDetallePago( myForm) {
     const this_aux = this; 
-    console.log(myForm);
-      this_aux.importe = myForm.fcImporte.toString();
+      this_aux.importe = this_aux.importeAux;
+      console.log(this_aux.importe);
       this_aux.fechaVencimiento = myForm.fcFechaVencimiento.toString();
       if (this_aux.service.idFacturador === '1310') {
         this_aux.referenciaPago = myForm.fcTelefono.toString() + myForm.fcDigitoVerificador.toString();
@@ -111,7 +115,7 @@ export class PagoServiciosDetailComponent implements OnInit {
               if (infoUsuarioJSON.Id === 'SEG0001') {
                   console.log('Pago validado');
 
-                  operacionesbxi.pagaServicio(this_aux.service.idFacturador, this_aux.importe, this_aux.referenciaPago
+                  operacionesbxi.pagaServicio(this_aux.service.idFacturador, this_aux.importeAux, this_aux.referenciaPago
                   , this_aux.service.numCuentaSeleccionado, this_aux.fechaVencimiento).then(
                     function(respPago) {
                       this_aux.service.detalleConfirmacionPS = respPago.responseText;
@@ -127,6 +131,28 @@ export class PagoServiciosDetailComponent implements OnInit {
 
   }
 
+  transformAmount(importe) {
+    const this_aux = this;
+    alert(importe);
+    if (importe !== '') {
+      const control: FormControl = new FormControl('');
+      this_aux.myForm.setControl('fcImporte', control);
+      this_aux.importeAux = this_aux.replaceSimbolo(importe);
+      this_aux.rImporte.nativeElement.value = this_aux.currencyPipe.transform(this_aux.importeAux, 'USD');
+      this_aux.importeAux = this_aux.replaceSimbolo( this_aux.rImporte.nativeElement.value) ;
+
+    } else {
+        if (this_aux.myForm.get('fcImporte').errors === null) {
+          const control: FormControl = new FormControl('', Validators.required);
+          this_aux.myForm.setControl('fcImporte', control );
+        }
+    }
+  }
+    
+  replaceSimbolo(importe) {
+    const importeAux = importe.replace('$', '');
+    return importeAux;
+  }
 
 }
-
+  

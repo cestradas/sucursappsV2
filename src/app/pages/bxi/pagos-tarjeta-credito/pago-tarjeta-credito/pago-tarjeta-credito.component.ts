@@ -2,9 +2,9 @@ import { Autenticacion } from './../../autenticacion';
 import { SesionBxiService } from './../../sesion-bxi.service';
 import { OperacionesBXI } from './../../operacionesBXI';
 import { Component, OnInit, ViewChild, ElementRef, Renderer2} from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, NgControl, FormControl } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-import { element } from 'protractor';
+import {CurrencyPipe} from '@angular/common';
 
 declare var jquery: any; // jquery
 declare var $: any;
@@ -17,6 +17,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   @ViewChild('listaCuentas', { read: ElementRef}) listaCuentas: ElementRef ;
   @ViewChild('listaCuentasBeneficiario', { read: ElementRef}) listaCuentasBeneficiario: ElementRef ;
   @ViewChild('rcbFiltro', { read: ElementRef}) rcbFiltro: ElementRef ;
+  @ViewChild('rImporte', { read: ElementRef}) rImporte: ElementRef ;
 
   myForm: FormGroup;
   listaCuentasBen: Array<any> = [];
@@ -29,8 +30,10 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   Importe: string;
   labelTipoAutentica: string;
   tipoTarjeta: string;
+  importeAux: string;
 
-  constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2,  private fb: FormBuilder) { 
+  // tslint:disable-next-line:max-line-length
+  constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2,  private fb: FormBuilder, private currencyPipe: CurrencyPipe) { 
     this.myForm = this.fb.group({
       fcImporte: ['', [Validators.required /*Validators.pattern(/^[0-9]+[0-9]*$/ )*/]]
     });
@@ -232,7 +235,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   confirmaOperacion(montoAPagar) {
     const this_aux = this;
     this_aux.CuentaOrigen = this_aux.service.numCuentaSeleccionado;
-    this_aux.Importe = montoAPagar;
+    this_aux.Importe = this_aux.replaceSimbolo( montoAPagar);
     this_aux.setTipoAutenticacionOnModal();
 
   }
@@ -318,6 +321,29 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     while (node.firstChild) {
       node.removeChild(node.firstChild);
      }
+  }
+
+  transformAmount(importe) {
+    const this_aux = this;
+    alert(importe);
+    if (importe !== '') {
+      const control: FormControl = new FormControl('');
+      this_aux.myForm.setControl('fcImporte', control);
+      this_aux.importeAux = this_aux.replaceSimbolo(importe);
+      this_aux.rImporte.nativeElement.value = this_aux.currencyPipe.transform(this_aux.importeAux, 'USD');
+      this_aux.importeAux = this_aux.replaceSimbolo( this_aux.rImporte.nativeElement.value) ;
+
+    } else {
+        if (this_aux.myForm.get('fcImporte').errors === null) {
+          const control: FormControl = new FormControl('', Validators.required);
+          this_aux.myForm.setControl('fcImporte', control );
+        }
+    }
+  }
+    
+  replaceSimbolo(importe) {
+    const importeAux = importe.replace('$', '');
+    return importeAux;
   }
 
 }

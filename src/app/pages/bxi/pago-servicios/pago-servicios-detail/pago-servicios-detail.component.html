@@ -73,7 +73,7 @@
                             <label>Fecha de vencimiento: </label>
                         </div>
                         <div class="col-lg-10">
-                            <input type="text" id="txtFechaVencimiento" class="form-control input-lg " formControlName="fcFechaVencimiento" #rFechaVencimiento [matKeyboard]="" placeholder="AAAA-MM-DD" />
+                            <input type="text" id="txtFechaVencimiento" class="form-control input-lg " formControlName="fcFechaVencimiento" #rFechaVencimiento [matKeyboard]="'num'" placeholder="AAAA-MM-DD" />
                             <div *ngIf="myForm.get('fcFechaVencimiento').errors  && myForm.get('fcFechaVencimiento').touched " class="alert alert-danger">
 
                                 <p color="danger" *ngIf="myForm.get('fcFechaVencimiento').hasError('required')"> Dato obligatorio, favor de capturar.</p>
@@ -86,11 +86,13 @@
                             <label>Importe: </label>
                         </div>
                         <div class="col-lg-10">
-                            <input type="text" id="idImporte" class="form-control input-lg" formControlName="fcImporte" #rImporte [matKeyboard]="" />
+                            <input type="text" id="idImporte" class="form-control input-lg" formControlName="fcImporte" #rImporte [matKeyboard]="'num'" 
+                            (blur)="transformAmount(rImporte.value)" /> 
                             <div *ngIf="myForm.get('fcImporte').errors  && myForm.get('fcImporte').touched" class="alert alert-danger">
                                 <p color="danger" *ngIf="myForm.get('fcImporte').hasError('required')">Dato obligatorio, favor de capturar. </p>
                                 <p color="danger" *ngIf="myForm.get('fcImporte').hasError('pattern')">No es formato solicitado</p>
                             </div>
+                        
                         </div>
                     </div>
                 </div>
@@ -133,7 +135,7 @@
                         <label>Importe neto:</label>
                     </div>
                     <div class="col-lg 6">
-                        <label>$${{importe}}</label>
+                        <label>${{importe}}</label>
                     </div>
                 </div>
                 <div class="row">
@@ -157,7 +159,7 @@
                         <label>Importe total:</label>
                     </div>
                     <div class="col-lg 6">
-                        <label>$${{importe}}</label>
+                        <label>${{importe}}</label>
                     </div>
                 </div>
                 <div class="row">
