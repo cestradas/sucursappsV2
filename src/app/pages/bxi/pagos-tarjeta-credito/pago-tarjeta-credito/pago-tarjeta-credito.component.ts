@@ -267,7 +267,6 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
   confirmarPago(token) {
     const this_aux = this;
-    alert(this_aux.tipoTarjeta + this_aux.Importe + this_aux.CuentaDestino + this_aux.CuentaOrigen);
     $('#_modal_please_wait').modal('show');
       const autenticacion: Autenticacion = new Autenticacion();
       const operacionesbxi: OperacionesBXI = new OperacionesBXI();
@@ -325,7 +324,6 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
   transformAmount(importe) {
     const this_aux = this;
-    alert(importe);
     if (importe !== '') {
       const control: FormControl = new FormControl('');
       this_aux.myForm.setControl('fcImporte', control);

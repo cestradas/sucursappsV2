@@ -103,7 +103,7 @@
                     </div>
                     <div class="form-group">
                         <label>Token</label>
-                        <input type="password" #token class="form-control input-lg" id="token" autocomplete="off" [matKeyboard]="'num'" />
+                        <input type="password" #token class="form-control input-lg" id="token" autocomplete="off" [matKeyboard]="" />
                     </div>
 
 
@@ -142,7 +142,7 @@
 
                     <div class="form-group">
                         <label>Captura tu contrase&ntilde;a</label>
-                        <input type="password"  class="form-control input-lg" #claveAcceso formControlName="fcPass"  autocomplete="off" [matKeyboard]="'num'" />
+                        <input type="password"  class="form-control input-lg" #claveAcceso formControlName="fcPass"  autocomplete="off" [matKeyboard]="'es'" />
                         <div *ngIf="myForm.get('fcPass').errors  && myForm.get('fcPass').touched" class="alert alert-danger">
                                 <p *ngIf="myForm.get('fcPass').hasError('required')">
                                         Dato obligatorio, favor de capturar.

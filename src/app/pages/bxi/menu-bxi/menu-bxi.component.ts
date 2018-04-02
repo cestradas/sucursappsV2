@@ -62,6 +62,8 @@ export class MenuBxiComponent implements OnInit {
             break;
       case 'pagotar': this.router.navigate(['/pagoTarjetaCredito_ini']);
             break;
+      case 'activaAlertas': this.router.navigate(['/pagoTarjetaCredito_ini']);
+      break;
 
     }
   }

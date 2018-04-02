@@ -1,3 +1,4 @@
+import { ActivarAlertasIniComponent } from './activa-alertas/activar-alertas-ini/activar-alertas-ini.component';
 import { ModalBxiErrorComponentComponent } from './modales/modal-bxi-error-component/modal-bxi-error-component.component';
 import { SesionBxiService } from './sesion-bxi.service';
 import { CommonModule, CurrencyPipe } from '@angular/common';
@@ -20,6 +21,7 @@ import { PagoTarjetaCreditoComponent } from './pagos-tarjeta-credito/pago-tarjet
 
 // tslint:disable-next-line:max-line-length
 import { PagoTarjetaCreditoVerifyComponent } from './pagos-tarjeta-credito/pago-tarjeta-credito-verify/pago-tarjeta-credito-verify.component';
+
 const customLayouts: IKeyboardLayouts = {
   ...keyboardLayouts,
   'Numerico': {
@@ -66,7 +68,8 @@ const customLayouts: IKeyboardLayouts = {
         PagoServiciosVerifyComponent,
         PagoTarjetaCreditoComponent,
         PagoTarjetaCreditoVerifyComponent,
-        ModalBxiErrorComponentComponent
+        ModalBxiErrorComponentComponent,
+        ActivarAlertasIniComponent
     ],
     exports: [],
     imports: [
