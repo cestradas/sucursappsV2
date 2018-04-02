@@ -10,23 +10,25 @@ import { Autenticacion } from '../autenticacion';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 
+
+
 import $ from 'jquery';
 declare var $: $;
 
 let sic = "";
 let ctaO = "";
+let ctaDest = "";
 
 let bancoRecep = "";
 let clabe = "";
 let nombreBene = "";
-let rfcBenef = "";
 let ref = "";
 
 let importe = "";
 let descripcion = "";
 let correo = "";
 let rfcEmi = "";
-
+let aliasCta = "";
 
 
 
@@ -37,10 +39,16 @@ let rfcEmi = "";
 export class TransferenciaSpeiComponent implements OnInit {
 
   @ViewChild('listaCuentas', { read: ElementRef}) listaCuentas: ElementRef ;
+  @ViewChild('listaCuentasBeneficiario', { read: ElementRef}) listaCuentasBeneficiario: ElementRef ;
+  @ViewChild('selectTipo', { read: ElementRef}) selectTipo: ElementRef;
+
+ 
+  listaCuentasBen: Array<any> = [];
   datosCuenta: any[] = [];
   transferSPEI: any[] = [];
 
   labelTipoAutentica: string;
+  CuentaDestino: string;
  
   
   constructor(private _http: Http, private router: Router, public service: SesionBxiService, private renderer: Renderer2) { }
@@ -49,8 +57,49 @@ export class TransferenciaSpeiComponent implements OnInit {
 
     this.fillSelectCuentas();
     // this.consultaCuentas();
-    
+    this.fillCuentasBeneficiario();
 
+  }
+
+  selecionaTransfer() {
+    const this_aux = this;
+    const operacionSelect = this_aux.selectTipo.nativeElement.value.toString();
+    console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
+
+    switch (operacionSelect) {
+		
+
+      case '1':  // SPEI
+
+            
+            document.getElementById('tranTEF').style.display = 'none';
+            document.getElementById('tranQuick').style.display = 'none';
+          
+            document.getElementById('tranSPEI').style.display = 'block';
+            
+
+            break;
+      case '2':  // TEF
+            
+            document.getElementById('tranSPEI').style.display = 'none';
+            document.getElementById('tranQuick').style.display = 'none';
+         
+            document.getElementById('tranTEF').style.display = 'block';
+
+            break;
+      case '3':  // QUICK
+
+            
+            document.getElementById('tranTEF').style.display = 'none';
+            document.getElementById('tranSPEI').style.display = 'none';
+        
+            document.getElementById('tranQuick').style.display = 'block';
+           
+
+            break;
+          
+  
+          }
   }
 
   showDetallePago(forma: NgForm) {
@@ -66,7 +115,7 @@ export class TransferenciaSpeiComponent implements OnInit {
     bancoRecep =  forma.value.sel1;
     clabe = forma.value.clabe;
     nombreBene = forma.value.beneficiario;
-    rfcBenef = forma.value.rfc;
+    
     ref = forma.value.referencia;
    
     importe = forma.value.importe;
@@ -158,8 +207,248 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
 }
 
 
+fillCuentasBeneficiario () {
+  
+  const this_aux = this;
+  let cuenta;
+  const cuentasUsuario = this_aux.service.infoCuentas;
+  const jsoncuentasUsuario = JSON.parse(cuentasUsuario); // JSON CON CUENTAS PROPIAS
+  const arrayCuentasXBeneficiario = JSON.parse(this_aux.service.infoCuentasBeneficiarios); // JSON CON CUENTAS DE BENEFICIARIOS
+  const cuentasArray = jsoncuentasUsuario.ArrayCuentas;
+
+  /*cuentasArray.forEach(cuentaUsuario => {
+
+       if (cuentaUsuario.TipoCuenta.toString() === '5') {
+        this_aux.listaCuentasBen.push(cuentaUsuario);
+        this_aux.crearListaBeneficiarios(cuentaUsuario);
+       }
+
+    });*/
+  arrayCuentasXBeneficiario.forEach(element1 => {
+    cuenta = element1.Cuenta;
+        cuenta.forEach(data => {
+
+          this_aux.listaCuentasBen.push(data);
+
+          
+
+        });
+  });
+  
+  console.log(this_aux.listaCuentasBen);
+  this_aux.defineFiltros();
+}
+
+crearListaBeneficiarios(data) {
+
+  const this_aux = this;
+  const li =  this.renderer.createElement('li');
+  const a = this.renderer.createElement('a');
+  const textoCuenta = this.renderer.createText( data.Alias);
+  this.renderer.setProperty(a, 'value', data.NoCuenta);
+  this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaBeneficiario(event.target); });
+  this.renderer.appendChild(a, textoCuenta),
+  this.renderer.appendChild(li, a);
+  this.renderer.appendChild(this_aux.listaCuentasBeneficiario.nativeElement, li);
+
+}
+
+setDatosCuentaBeneficiario(elementHTML) {
+ 
+  const this_aux = this;
+  console.log(elementHTML);
+  const tableBeneficiarios = document.getElementById('tableBeneficiarios');
+  const tableDefaultBeneficiarios = document.getElementById('tableDefaultBeneficiarios');
+  const lblCuentaDestino = document.getElementById('lblCuentaDestino');
+  const lbDescripcionCtaBen = document.getElementById('lbDescripcionCtaBen');
+  const valueElement = elementHTML.value;
+
+  tableBeneficiarios.setAttribute('style', 'display: block');
+  tableDefaultBeneficiarios.setAttribute('style', 'display: none');
+  lbDescripcionCtaBen.innerHTML = elementHTML.textContent;
+  lblCuentaDestino.innerHTML = this_aux.getNumeroCuentaDestino(valueElement);
+  this_aux.CuentaDestino = this_aux.getNumeroCuentaDestino(valueElement);
+  this_aux.service.numCuentaDestinario = this_aux.CuentaDestino;
+  this_aux.service.claveBancoDestino = this_aux.getNameInstitucion(valueElement);
+  this_aux.service.claveAliasCuenta = this_aux.getNameAliasCuenta(valueElement);
 
 
+  this_aux.consultaClabeSaldos(this_aux.service.numCuentaDestinario);
+  
+}
+
+getNumeroCuentaDestino(text) {
+  const  separador = ',';
+  const  arregloDeSubCadenas = text.split(separador);
+  const numCuentaDestino = arregloDeSubCadenas[0];
+  console.log(arregloDeSubCadenas);
+  console.log(numCuentaDestino);
+
+  return numCuentaDestino; 
+}
+
+getNameInstitucion(text) {
+  const  separador = ',';
+  const  arregloDeSubCadenas = text.split(separador);
+  const nameInstitucion = arregloDeSubCadenas[1];
+  console.log(arregloDeSubCadenas);
+  console.log(nameInstitucion);
+
+  return nameInstitucion; 
+}
+
+getNameAliasCuenta(text) {
+  const  separador = ',';
+  const  arregloDeSubCadenas = text.split(separador);
+  const nameAliasCuenta = arregloDeSubCadenas[2];
+  console.log(arregloDeSubCadenas);
+  console.log(nameAliasCuenta);
+
+  return nameAliasCuenta; 
+}
+
+defineFiltros() {
+
+  const this_aux = this;
+  this_aux.listaCuentasBen.forEach(cuenta => {
+/*
+    if (cuenta.TipoCuenta.toString() === '9') {
+      this_aux.existenTerceros = true;
+    }
+    if (cuenta.TipoCuenta.toString() === '5') {
+      this_aux.existenPropias = true;
+    }
+    if (cuenta.TipoCuenta.toString() === '2' && cuenta.ClaveBanco.toString() === '40103' ) {
+      this.existenAMEX = true;
+    }
+    if (cuenta.TipoCuenta.toString() === '2' && cuenta.ClaveBanco.toString() !== '40103') {
+      this.existenExternas = true;
+    } 
+
+    if ( data.AplicaTEF === 'true' ) {
+            this_aux.listaCuentasBenTEF.push(data);
+            this_aux.crearListaBeneficiarios(data);
+          }
+
+          if ( data.AplicaSPEI === 'true' ) {
+            this_aux.listaCuentasBenSPEI.push(data);
+            this_aux.crearListaBeneficiarios(data);
+          }
+*/
+  });
+
+}
+
+setCuentasBenficiarioXTipo() {
+  const this_aux = this;
+  console.log('setCuentasBenficiarioXTipo');
+  console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
+  const node = document.getElementById("ul_CuentasBen");
+  console.log(node);
+  while (node.firstChild) {
+    node.removeChild(node.firstChild);
+   }
+
+  this_aux.listaCuentasBen.forEach(auxcuenta => {
+
+  
+    if (this_aux.selectTipo.nativeElement.value.toString() === "1") {  // SPEI
+
+      document.getElementById('tranTEF').style.display = 'none';
+      document.getElementById('tranQuick').style.display = 'none';
+      document.getElementById('beneficiarios').style.display = 'block';
+    
+      document.getElementById('tranSPEI').style.display = 'block';
+
+      if (auxcuenta.AplicaSPEI.toString() === "true") {
+
+        const li =  this.renderer.createElement('li');
+        const a = this.renderer.createElement('a');
+        const textoCuenta = this.renderer.createText( auxcuenta.DescripcionTipoCuenta);
+        this.renderer.setProperty(a, 'value', auxcuenta.NoCuenta + ',' + auxcuenta.ClaveBanco + ',' + auxcuenta.DescripcionTipoCuenta);
+        this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaBeneficiario(event.target); });
+        this.renderer.appendChild(a, textoCuenta),
+        this.renderer.appendChild(li, a);
+        this.renderer.appendChild(this_aux.listaCuentasBeneficiario.nativeElement, li);
+       }
+
+    }
+
+    if (this_aux.selectTipo.nativeElement.value.toString() === "2") { // TEF
+
+      document.getElementById('tranSPEI').style.display = 'none';
+      document.getElementById('tranQuick').style.display = 'none';
+      document.getElementById('beneficiarios').style.display = 'block';
+   
+      document.getElementById('tranTEF').style.display = 'block';
+
+      if (auxcuenta.AplicaTEF.toString() === "true") {
+
+        const li =  this.renderer.createElement('li');
+        const a = this.renderer.createElement('a');
+        const textoCuenta = this.renderer.createText( auxcuenta.DescripcionTipoCuenta);
+        this.renderer.setProperty(a, 'value', auxcuenta.NoCuenta);
+        this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaBeneficiario(event.target); });
+        this.renderer.appendChild(a, textoCuenta),
+        this.renderer.appendChild(li, a);
+        this.renderer.appendChild(this_aux.listaCuentasBeneficiario.nativeElement, li);
+       }
+
+    }
+
+    
+
+    if (this_aux.selectTipo.nativeElement.value.toString() === "3") {  // Quick
+
+      
+      document.getElementById('tranTEF').style.display = 'none';
+      document.getElementById('tranSPEI').style.display = 'none';
+      document.getElementById('beneficiarios').style.display = 'none';
+  
+      document.getElementById('tranQuick').style.display = 'block';
+     
+
+    }
+
+   
+ });
+
+}
+
+
+consultaClabeSaldos(numCuentaDestinario_seleccionada) {
+  const this_aux =  this;
+  const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+  operacionesbxi.getSaldo(numCuentaDestinario_seleccionada).then(
+      function(response1) {
+        console.log(response1.responseText);
+        const detalleSaldos = response1.responseJSON;
+        if ( detalleSaldos.Id === '1') {
+          
+          this_aux.service.clabeDestinatario = detalleSaldos.ClabeCuenta;
+
+          $('#amountSPEI').prop("disabled", false);
+          $('#descriptionSPEI').prop("disabled", false);
+          $('#referenceSPEI').prop("disabled", false);
+        
+        } else {
+          console.log(detalleSaldos.MensajeAUsuario);
+
+          this_aux.service.clabeDestinatario = null;
+          // Mostrar modal de error
+
+          // Bloquear campos
+                    
+          $('#amountSPEI').prop("disabled", true);
+          $('#descriptionSPEI').prop("disabled", true);
+          $('#referenceSPEI').prop("disabled", true);
+
+        }
+      }, function(error) {
+  });
+}
+
+/*
   onConfirmacion( forma: NgForm ) {
 
     console.log("ngForm", forma);
@@ -188,7 +477,7 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
   
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     
-    operacionesbxi.confirmaTransferSPEI( ctaO, sic, bancoRecep, clabe, nombreBene, rfcBenef, ref, importe, descripcion, correo, rfcEmi).then(
+    operacionesbxi.confirmaTransferSPEI( ctaO, ctaO, sic, bancoRecep, clabe, nombreBene, rfcBenef, ref, importe, descripcion, correo, rfcEmi).then(
       function(response) {
 
         console.log(response.responseJSON);
@@ -212,54 +501,7 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
 
       });
   
-  
-  
-  }
-
-
-  confirmarSPEI(token) {
-    const this_aux = this;
-
-    sic = this_aux.service.infoUsuarioSIC;
-    ctaO = this_aux.service.numCuentaSeleccionado;
-
-    const autenticacion: Autenticacion = new Autenticacion();
-    const operacionesbxi: OperacionesBXI = new OperacionesBXI();
-    autenticacion.autenticaUsuario(token, this_aux.service.metodoAutenticaMayor).then(
-      function(detalleAutentica) {
-            // console.log(detalleAutentica.responseJSON);
-            const infoUsuarioJSON = detalleAutentica.responseJSON;
-            if (infoUsuarioJSON.Id === 'SEG0001') {
-                console.log('Nivel de autenticacion alcanzado');
-
-                operacionesbxi.confirmaTransferSPEI(ctaO, sic, bancoRecep, clabe, nombreBene, rfcBenef, ref, importe, descripcion, correo, rfcEmi)
-                .then(
-                  function(response) {
-                    console.log(response.responseJSON);
-            
-                    this.transferSPEI = response.responseJSON;
-                     
-                    
-                     if ( this.transferSPEI.Id === '1') {
-         
-                       console.log(this.transferSPEI);
-                       this.router.navigate(['/TransferFinishSpei']);
-                              
-                     } else {
-                       console.log(this.transferSPEI.MensajeAUsuario);
-                     }
-
-                  }, function(error) { }
-                );
-            } else {
-              console.log(infoUsuarioJSON.MensajeAUsuario);
-            }
-      }, function(error) {
-      });
-
-}
-  
-  consultaCuentas() {
+   consultaCuentas() {
        
       const operacionesbxi: OperacionesBXI = new OperacionesBXI();
       operacionesbxi.consultaClabeSaldo().then(
@@ -282,5 +524,104 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
   
   
   }
+  
+  }*/
+
+
+  confirmarPago(token, forma: NgForm) {
+
+    
+    console.log("ngForm", forma);
+    console.log("Valor forma", forma.value) ;
+
+
+    const this_aux = this;
+
+    
+    ctaO = this_aux.service.numCuentaSeleccionado;
+    ctaDest = this_aux.service.numCuentaDestinario;
+    sic = this_aux.service.infoUsuarioSIC;
+    bancoRecep = this_aux.service.claveBancoDestino;
+    aliasCta = this_aux.service.claveAliasCuenta;
+
+    clabe = this_aux.service.clabeDestinatario; 
+    
+    // nombreBene  // de donde?   
+    nombreBene = "BENEFICIARIO";
+    // correo // DE DONDE?
+    correo = "miguel.garcia_softtek@banorte.com";
+    // rfcEmi // menu bxi?
+    rfcEmi = "no capturado";
+
+    ref = forma.value.referencia;
+    importe = forma.value.importe;
+    descripcion = forma.value.descripcion;
+
+    const autenticacion: Autenticacion = new Autenticacion();
+    const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+
+
+    const operacionSelect = this_aux.selectTipo.nativeElement.value.toString();
+    console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
+
+    switch (operacionSelect) {
+
+      case '1':  // SPEI
+
+      autenticacion.autenticaUsuario(token, this_aux.service.metodoAutenticaMayor).then(
+        function(detalleAutentica) {
+              // console.log(detalleAutentica.responseJSON);
+              const infoUsuarioJSON = detalleAutentica.responseJSON;
+              if (infoUsuarioJSON.Id === 'SEG0001') {
+                  console.log('Nivel de autenticacion alcanzado');
+  
+                  operacionesbxi.confirmaTransferSPEI(ctaO, ctaDest, sic, bancoRecep, clabe, nombreBene, ref, importe, descripcion, correo, rfcEmi, aliasCta)
+                  .then(
+                
+                    function(response) {
+                      console.log(response.responseJSON);
+              
+                      this.transferSPEI = response.responseJSON;
+                       
+                      
+                       if ( this.transferSPEI.Id === '1') {
+           
+                         console.log(this.transferSPEI);
+                         this.router.navigate(['/TransferFinishSpei']);
+                                
+                       } else {
+                         console.log(this.transferSPEI.MensajeAUsuario);
+                       }
+  
+                    }, function(error) { }
+                  );
+              } else {
+                console.log(infoUsuarioJSON.MensajeAUsuario);
+              }
+        }, function(error) {
+        });
+        
+
+            break;
+      case '2':  // TEF
+            
+
+            break;
+      case '3':  // QUICK
+
+            
+ 
+
+            break;
+          
+  
+          }
+
+
+    
+
+}
+  
+ 
 
 }

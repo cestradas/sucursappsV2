@@ -1,5 +1,5 @@
 <div ng-cloak class="padding-barToTittle">
-    <h2 class="text-center color-letra">Transferencia SPEI</h2>
+    <h2 class="text-center color-letra">Transferencias a otros bancos</h2>
 </div>
 
 <fieldset class="padding-TittleToFieldset padding-fieldset-general">
@@ -51,35 +51,266 @@
         </div>
     </div>
 
+    <div id="beneficiarios" style="display: block;" class="row sumando-form-group padding-InFieldset">
+        <div class="col-sm-1 sumando-bg-orange group-name">
+            Para
+        </div>
+        <div class="col-sm-11 group-controls padding-left-0 padding-right-0">
+            <div class="form-group">
+                <div class="sumando-bg-white">
+                    <input type="hidden">
+                    <div class="dropdown sumando-dropdown-account">
+                        <button class="btn btn-default btn-block dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="padding-right: 0px;padding-top: 0px;padding-bottom: 0px">
+                 <table id="tableBeneficiarios" style="display: none" width="100%">
+                   <tr> 
+                     <td align="left" width="45%">
+                       <strong><label  id="lbDescripcionCtaBen" #lbDescripcionCtaBen></label></strong>
+                     </td>
+                    <!-- <td align="left" width="45%">
+                       <strong>$<label id ="lblSaldoOrigen"></label>
+                       </strong>
+                     </td>-->
+                     <td width="5%" rowspan="2" class="dropdown-caret">
+                       <img src="./assets/img/bg_selectN.png" style="width: 90%;    height: 150%;">
+                     </td> 
+                   </tr>
+                   <tr>
+                     <td align="left">Cuenta <label id="lblCuentaDestino" #lblCuentaDestino></label></td>
+                     <!--<td align="left">Saldo Disponible</td-->
+                   </tr>
+                 </table> 
+                 <table  id="tableDefaultBeneficiarios" width="100%">
+                   <tr>
+                     <td align="left" rowspan="2">Seleccione una cuenta destino...</td>
+                     <td width="5%" rowspan="2" class="dropdown-caret">
+                       <img src="./assets/img/bg_selectN.png" style="width: 90%;    height: 150%;">
+                     </td> 
+                   </tr>  
+                 </table>
+               </button>
+                        <div>
+                            <ul id="ul_CuentasBen" #listaCuentasBeneficiario class="dropdown-menu btn-block" aria-labelledby="dropdownMenu1" style="width: 100%; height: 200px; overflow: auto">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <div class="row sumando-form-group letranegrita padding-InFieldset">
+        <div class="col-sm-1 sumando-bg-red group-name">
+            Tipo
+        </div>
+        <div class="dropdown sumando-dropdown-account col-sm-11" style="padding-left: 0px; padding-right: 0px;">
+
+            <select class="input-whidth selectModificado" #selectTipo id="tipoTransfer" (change)="setCuentasBenficiarioXTipo();" style=" width: 100%; height: 60px; border:0px solid red;">
+                   <!-- <img src="./assets/img/bg_selectN.png" align="right" style="width: 3.8%; float: right; position: absolute;     margin-left: 1549px;"> -->
+
+                <option value="0" disabled selected>Seleccione transferencia</option>
+                <option value="1">SPEI</option>
+                <option value="2">TEF</option>
+                <option value="3">Rapida</option>
+            </select>
+        </div>
+
+    </div>
+
 
     <form (ngSubmit)="showDetallePago(forma)" #forma="ngForm">
         <div id="divisionInputs"></div>
         <div class="row sumando-form-group letranegrita">
             <div class="col-sm-1 sumando-bg-red group-name">Para</div>
+            <div class="col-sm-11 sumando-well-white">
 
-
-
-
-
-            <!-- 
-
-            <div class="col-sm-11">
-                <div class="input-group">
-                    <input class="form-control" id="facturador" type="text" placeholder="Facturadores" #facturador [matKeyboard]="" (click)="muestraFacturadores()" />
-                    <div *ngIf="showOptions" class="sumando-bg-white">
-                        <ul style="width: 1550px; height: 100px; overflow: auto">
-                            <li *ngFor="let empresa of listaEmpresas" style="list-style:none;"><a (click)="setValue(empresa)">{{empresa}}</a></li>
-                        </ul>
-
+                <div id="tranSPEI" style="display: block;">
+                    <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
+                        <div class="row">
+                            <div class="col-lg-1 padding-labelToInput">
+                                <label>Importe: </label>
+                            </div>
+                            <div class="col-lg-10">
+                                <input name="amountSPEI" id="amountSPEI" type="text" step="0.01" currency required class="form-control amount input-lg" ng-model="command.amount" ng-min="1" ng-max="7000" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
+                        <div class="row">
+                            <div class="col-lg-1 padding-labelToInput">
+                                <label>Descripci&oacute;n: </label>
+                            </div>
+                            <div class="col-sm-10">
+                                <input id="descriptionSPEI" name="descriptionSPEI" type="text" class="form-control amount input-lg" maxlength="60" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
+                        <div class="row">
+                            <div class="col-lg-1 padding-labelToInput">
+                                <label>Referencia: </label>
+                            </div>
+                            <div class="col-sm-10">
+                                <input id="referenceSPEI" name="referenceSPEI" type="text" maxlength="7" class="form-control amount input-lg" required />
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <div id="tranTEF" style="display: none;">
+                    <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
+                        <div class="row">
+                            <div class="col-lg-1 padding-labelToInput">
+                                <label>RFC Ordenante: </label>
+                            </div>
+                            <div class="col-lg-10">
+                                <input name="rfcTEF" id="rfcTEF" type="text" step="0.01" currency required class="form-control amount input-lg" ng-model="command.amount" ng-min="1" ng-max="7000" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
+                        <div class="row">
+                            <div class="col-lg-1 padding-labelToInput">
+                                <label>Importe: </label>
+                            </div>
+                            <div class="col-sm-10">
+                                <input id="amountTEF" name="amountTEF" type="text" class="form-control amount input-lg" maxlength="60" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
+                        <div class="row">
+                            <div class="col-lg-1 padding-labelToInput">
+                                <label>Descripci&oacute;n: </label>
+                            </div>
+                            <div class="col-sm-10">
+                                <input id="descriptionTEF" name="descriptionTEF" type="text" maxlength="7" class="form-control amount input-lg" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
+                        <div class="row">
+                            <div class="col-lg-1 padding-labelToInput">
+                                <label>Referencia: </label>
+                            </div>
+                            <div class="col-sm-10">
+                                <input id="referenceTEF" name="referenceTEF" type="text" maxlength="7" class="form-control amount input-lg" required />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tranQuick" style="display: none;">
+                    <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
+                        <div class="row">
+                            <div class="col-lg-1 padding-labelToInput">
+                                <label>Tipo de cuenta: </label>
+                            </div>
+                            <div class="col-lg-10">
+                                <input name="cuenta" id="cuenta" type="text" step="0.01" currency required class="form-control amount input-lg" ng-model="command.amount" ng-min="1" ng-max="7000" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
+                        <div class="row">
+                            <div class="col-lg-1 padding-labelToInput">
+                                <label for="amount" class="col-sm-2 control-label">Banco Destino</label>
+                            </div>
+                            <div class="dropdown sumando-dropdown-account col-sm-9">
+                                <select class="input-whidth form-control input-lg" name="sel1" [(ngModel)]="sel1" id="sel1" #rSel1 value="{{sel1}}" style="border:0px solid red;">
+                                    <option value="0">Seleccione un banco</option>
+                                      <option value="40002">Banamex - Citibank</option>
+                                      <option value="40012">BBVA Bancomer</option>
+                                      <option value="40014">Santander</option>
+                                      <option value="40021">HSBC</option>
+                                      <option value="40044">Scotiabank - Inverlat</option>
+                                      <option value="40062">Afirme</option>
+                                      <option value="40133">Actinver</option>
+                                      <option value="90638">Akala</option>
+                                      <option value="40103">American Express</option>
+                                      <option value="40128">Autofin</option>
+                                      <option value="40127">Azteca</option>
+                                      <option value="40138">ABC Capital</option>
+                                      <option value="40130">Banco Compartamos</option>
+                                      <option value="02001">Banco de Mexico</option>
+                                      <option value="37006">Bancomext</option>
+                                      <option value="40137">Bancoppel</option>
+                                      <option value="37019">Banjercito</option>
+                                      <option value="37009">Banobras</option>
+                                      <option value="40058">Banregio</option>
+                                      <option value="37166">Bansefi</option>
+                                      <option value="40129">Barclays</option>
+                                      <option value="40145">Base</option>
+                                      <option value="90614">Casa Bolsa Accival</option>
+                                      <option value="90626">Casa Bolsa Deustche Securities</option>
+                                      <option value="90601">Casa Bolsa GBM</option>
+                                      <option value="90630">Casa Bolsa Intercam</option>
+                                      <option value="90640">Casa Bolsa JPMorgan</option>
+                                      <option value="90602">Casa Bolsa Masari</option>
+                                      <option value="90615">Casa Bolsa Merrill Lynch</option>
+                                      <option value="40112">Casa Bolsa Monex</option>
+                                      <option value="90605">Casa Bolsa Value</option>
+                                      <option value="90631">Casa Bolsa CI</option>
+                                      <option value="90608">Casa Bolsa Vector</option>
+                                      <option value="90637">Casa Cambio Order Express</option>
+                                      <option value="40143">CIBANCO,S.A</option>
+                                      <option value="40126">Credit Suisse</option>
+                                      <option value="40030">Del Bajio</option>
+                                      <option value="40124">Deutsche</option>
+                                      <option value="90634">Fincomun</option>
+                                      <option value="40131">FAMSA</option>
+                                      <option value="40036">Inbursa</option>
+                                      <option value="90902">Indeval</option>
+                                      <option value="40037">Interacciones</option>
+                                      <option value="40059">Invex</option>
+                                      <option value="40110">JP Morgan</option>
+                                      <option value="90619">Mapfre Tepeyac</option>
+                                      <option value="40042">Mifel</option>
+                                      <option value="40112">Monex</option>
+                                      <option value="40132">Multiva</option>
+                                      <option value="37135">Nafin</option>
+                                      <option value="90642">Operadora Recursos Reforma</option>
+                                      <option value="90620">Profuturo GNP</option>
+                                      <option value="90646">STP</option>
+                                      <option value="90607">Tiber Capital y Soluciones</option>
+                                      <option value="40108">Tokyo</option>
+                                      <option value="40139">UBS</option>
+                                      <option value="40113">Ve por Mas</option>
+                                      <option value="40141">Volkswagen</option>
+                                      <option value="40135">Wal-Mart</option>
+                                   </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
+                        <div class="row">
+                            <div class="col-lg-1 padding-labelToInput">
+                                <label>CLABE: </label>
+                            </div>
+                            <div class="col-sm-10">
+                                <input id="clabe" name="clabe" type="text" maxlength="7" class="form-control amount input-lg" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
+                        <div class="row">
+                            <div class="col-lg-1 padding-labelToInput">
+                                <label>Importe: </label>
+                            </div>
+                            <div class="col-sm-10">
+                                <input id="ammountQUICK" name="ammountQUICK" type="text" maxlength="7" class="form-control amount input-lg" required />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
--->
-
-
-
-            <div class="col-sm-11 sumando-well-white">
-                <div class="row">
+        </div>
+        <!--<div class="row">
                     <div class="form-group col-sm-2">
                         <label for="amount" class="col-sm-2 control-label">Banco Destino</label>
                     </div>
@@ -225,14 +456,7 @@
                 <div id="someDiv" name="someDiv"></div>
 
             </div>
-
-
-
-
-
-
-
-        </div>
+        </div> -->
 
 
 
@@ -324,7 +548,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                    <button class="color-botones btn btn-lg " (click)="confirmarSPEI(token.value)">
+                    <button class="color-botones btn btn-lg " (click)="confirmarPago(token.value)">
                                 Confirmar
                               </button>
                 </div>

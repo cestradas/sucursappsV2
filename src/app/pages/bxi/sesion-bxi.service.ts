@@ -29,11 +29,15 @@ export class SesionBxiService {
     // Respuesta Servicios
       detalleConfirmacionPS: string;
 
-  // Transferencia SPEI
-   // Datos especificos
-
-   // Respuesta del servicio
-   detalleConfirmacionSPEI: string;
+      // Transferencia SPEI
+      // Datos especificos
+       numCuentaSel: string;
+       numCuentaDestinario: string;
+       clabeDestinatario: string;
+       claveBancoDestino: string;
+       claveAliasCuenta: string;
+      // Respuesta del servicio
+      detalleConfirmacionSPEI: string;
 
 
    // PagoTarjetas

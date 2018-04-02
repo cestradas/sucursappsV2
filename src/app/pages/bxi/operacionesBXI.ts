@@ -83,35 +83,65 @@ export class OperacionesBXI {
           return resourceRequest.sendFormParameters(formParameters);
     }
 
-    confirmaTransferSPEI(ctaO, sic, bancoRecep, clabe, nombreBene, rfcBenef, ref, importe, descripcion, correo, rfcEmi): any {
+    confirmaTransferSPEI(ctaO, ctaDest, sic, bancoRecep, clabe, nombreBene, ref, importe, descripcion, correo, rfcEmi, aliasCta): any {
 
 
-      let formParameters = {
-        ctaO: ctaO,
-        sic: sic,
-        bancoRecep:  bancoRecep,
-        clabe: clabe,
-        nombreBene: nombreBene,
-        rfcBenef: rfcBenef,
-        ref: ref,
-        importe: importe,
-        descripcion: descripcion,
-        correo: correo,
-        rfcEmi: rfcEmi
-      };
+        let formParameters = {
+          ctaO: ctaO,
+          ctaDest: ctaDest,
+          sic: sic,
+          bancoRecep:  bancoRecep,
+          clabe: clabe,
+          nombreBene: nombreBene,
+          ref: ref,
+          importe: importe,
+          descripcion: descripcion,
+          correo: correo,
+          rfcEmi: rfcEmi
+        };
 
 
-        const resourceRequest = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursAppsBEL/resource/transferInterSPEI',
-            WLResourceRequest.POST);
-        resourceRequest.setTimeout(30000);
-        resourceRequest
-            .sendFormParameters(formParameters);
+          const resourceRequest = new WLResourceRequest(
+              'adapters/AdapterBanorteSucursAppsBEL/resource/transferInterSPEI',
+              WLResourceRequest.POST);
+          resourceRequest.setTimeout(30000);
+          resourceRequest
+              .sendFormParameters(formParameters);
 
 
-         return resourceRequest.sendFormParameters(formParameters);
+           return resourceRequest.sendFormParameters(formParameters);
 
-    }
+      }
+
+      confirmaTransferTEF(sic, aliasCtaOrigen, cuentaCargo , rfcOrdenante, bancReceptor, aliasCuentaDestino, clabe, nombreUsuario, importe, descripcion, referencia): any {
+
+
+          let formParameters = {
+              sic: sic,
+              aliasCtaOrigen: aliasCtaOrigen,
+              cuentaCargo: cuentaCargo,
+              rfcOrdenante:  rfcOrdenante,
+              bancReceptor: bancReceptor,
+              aliasCuentaDestino: aliasCuentaDestino,
+              clabe: clabe,
+              nombreUsuario: nombreUsuario,
+              importe: importe,
+              descripcion: descripcion,
+              referencia: referencia
+          };
+
+
+            const resourceRequest = new WLResourceRequest(
+                'adapters/AdapterBanorteSucursAppsBEL/resource/transferInterTEF',
+                WLResourceRequest.POST);
+            resourceRequest.setTimeout(30000);
+            resourceRequest
+                .sendFormParameters(formParameters);
+
+
+             return resourceRequest.sendFormParameters(formParameters);
+
+        }
 
     consultaCuentasBeneficiarios(usuarioBXI) {
 
@@ -137,7 +167,7 @@ export class OperacionesBXI {
             cuentaAbono: cuentaAbono,
             cuentaCargo: cuentaCargo,
           };
-         
+
          const    resourceRequest = new WLResourceRequest(
                 'adapters/AdapterBanorteSucursAppsBEL/resource/pagoTarjetaCredito', WLResourceRequest.POST);
           resourceRequest.setTimeout(30000);
