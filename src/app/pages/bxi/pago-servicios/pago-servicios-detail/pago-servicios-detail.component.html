@@ -1,6 +1,7 @@
 <form [formGroup]="myForm" novalidate>
     <h2 class="text-center padding-barToTittle deleteMargin-h2">{{nombreServicio}}</h2>
     <fieldset class="padding-TittleToFieldset padding-fieldset-general">
+      <div class="sumando-well-white" style="padding-right: 15px; padding-left: 15px;">
         <div class="sumando-form-group padding-InFieldset ">
             <div class=" group-controls sumando-bg-white padding-bgWhite">
                 <div class="form-group">
@@ -86,33 +87,35 @@
                             <label>Importe: </label>
                         </div>
                         <div class="col-lg-10">
-                            <input type="text" id="idImporte" class="form-control input-lg" formControlName="fcImporte" #rImporte [matKeyboard]="'num'" 
-                            (blur)="transformAmount(rImporte.value)" /> 
+                            <input type="text" id="idImporte" class="form-control input-lg" formControlName="fcImporte" #rImporte [matKeyboard]="'num'"
+                            (blur)="transformAmount(rImporte.value)" />
                             <div *ngIf="myForm.get('fcImporte').errors  && myForm.get('fcImporte').touched" class="alert alert-danger">
                                 <p color="danger" *ngIf="myForm.get('fcImporte').hasError('required')">Dato obligatorio, favor de capturar. </p>
                                 <p color="danger" *ngIf="myForm.get('fcImporte').hasError('pattern')">No es formato solicitado</p>
                             </div>
-                        
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        </div>
         <div class="modal-footer deletePaddingRigth-buttom">
             <button class="btn btn-lg">Cancelar</button>
-            <button type="button" class="btn btn-primary  btn-lg" [disabled]="myForm.invalid" (click)="showDetallePago(myForm.value)">
+            <button type="button" class="color-botones btn btn-lg " [disabled]="myForm.invalid" (click)="showDetallePago(myForm.value)">
                                 Continuar
                         </button>
-        </div>     
+        </div>
+
      </fieldset>
-  
+
     <!-- Modal -->
     <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content shadowModal ">
-    
+
                 <div class="modal-body" style="padding: 2rem;">
-    
+
                     <h4 style="color: #eb012a; font-weight: 700;">Confirmar pago</h4>
                     <div class="row">
                         <div class="col-lg 6">

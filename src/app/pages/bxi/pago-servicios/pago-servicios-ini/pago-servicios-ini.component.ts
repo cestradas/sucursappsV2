@@ -187,7 +187,7 @@ getEmpresas() {
      muestraFacturadores() {
 
        // ESTILO TECLADO (QUITAR ESTILO AL SALIR DE PAGINA PARA EVITAR QUE BAJE MAS EN OTRAS PANTALLAS)
-       $( ".cdk-overlay-container" ).css( "margin-top", "20 %" );
+       $( ".cdk-overlay-container" ).css( "margin-top", "19 %" );
 
        const this_aux = this;
        this_aux.showOptions = true;
@@ -207,11 +207,11 @@ getEmpresas() {
        const body = $('body');
 
      body.on('click', function() {
-       
+
       if (this_aux.listaEmpresas.length === 0) {
             this_aux.listaEmpresas = this_aux.listaEmpresasAux; // rellenar cuando regrese y no haya coincidencia
         }
-      
+
          console.log( this_aux.facturador.nativeElement.value);
          const auxOption = [];
          const valueInput = this_aux.facturador.nativeElement.value;
