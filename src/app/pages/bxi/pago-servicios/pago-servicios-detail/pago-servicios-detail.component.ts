@@ -134,7 +134,6 @@ export class PagoServiciosDetailComponent implements OnInit {
 
   transformAmount(importe) {
     const this_aux = this;
-    alert(importe);
     if (importe !== '') {
       const control: FormControl = new FormControl('');
       this_aux.myForm.setControl('fcImporte', control);
