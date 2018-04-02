@@ -28,12 +28,13 @@ export class PagoServiciosDetailComponent implements OnInit {
   fechaVencimiento: string;
 
   importeAux: string;
-  
-  
-  
+
+
+
 
 
   constructor( private service: SesionBxiService, private fb: FormBuilder, private router: Router, private currencyPipe: CurrencyPipe) {
+
     this.myForm = this.fb.group({
       fcTelefono: ['', [Validators.required, Validators.minLength(10)]],
        fcReferencia: ['', [Validators.required]],
@@ -52,21 +53,21 @@ export class PagoServiciosDetailComponent implements OnInit {
     this_aux.nombreServicio =  detalleEmpresa.empresa;
     this_aux.service.nombreServicio = this_aux.nombreServicio;
     this_aux.cuentaCargo = this_aux.service.numCuentaSeleccionado;
-    
+
     if (this_aux.service.idFacturador === '1310') {
 
         this_aux.myForm.removeControl('fcReferencia');
     } else {
-       
+
         this_aux.myForm.removeControl('fcTelefono');
-        this_aux.myForm.removeControl('fcDigitoVerificador');       
+        this_aux.myForm.removeControl('fcDigitoVerificador');
     }
     $('#_modal_please_wait').modal('hide');
 
   }
 
   showDetallePago( myForm) {
-    const this_aux = this; 
+    const this_aux = this;
       this_aux.importe = this_aux.importeAux;
       console.log(this_aux.importe);
       this_aux.fechaVencimiento = myForm.fcFechaVencimiento.toString();
@@ -148,11 +149,17 @@ export class PagoServiciosDetailComponent implements OnInit {
         }
     }
   }
-    
+
   replaceSimbolo(importe) {
     const importeAux = importe.replace('$', '');
     return importeAux;
   }
 
+  espacioTeclado() {
+    // ESTILO TECLADO (QUITAR ESTILO AL SALIR DE PAGINA PARA EVITAR QUE BAJE MAS EN OTRAS PANTALLAS)
+console.log("aquiiiiiiiiiiiii");
+    $( ".cdk-overlay-container" ).css( "margin-top", "8%" );
+    $( ".cdk-visually-hidden" ).css( "margin-bottom", "0%" );
+  }
+
 }
-  

@@ -83,6 +83,34 @@ export class OperacionesBXI {
           return resourceRequest.sendFormParameters(formParameters);
     }
 
+    getCatEmpresas(): any {
+        
+
+        const resourceRequest = new WLResourceRequest(
+            'adapters/AdapterBanorteSucursApps/resource/consultaCatalogoEmpresaTel',
+            WLResourceRequest.POST);
+        resourceRequest.setTimeout(30000);
+    
+           return resourceRequest.send();
+    }
+
+    getSaldoCompany(id): any {
+
+
+        const formParameters = {
+      
+            paramIdCatEmpresa: id.id,
+            
+          };
+
+          const resourceRequest = new WLResourceRequest(
+            'adapters/AdapterBanorteSucursAppsBEL/resource/getEmpresas', WLResourceRequest.POST);
+           resourceRequest.setTimeout(30000);
+    
+           return resourceRequest.sendFormParameters(formParameters);
+
+      }
+
     confirmaTransferSPEI(ctaO, ctaDest, sic, bancoRecep, clabe, nombreBene, ref, importe, descripcion, correo, rfcEmi, aliasCta): any {
 
 
