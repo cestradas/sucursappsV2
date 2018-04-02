@@ -31,11 +31,12 @@ export class PagoServiciosDetailComponent implements OnInit {
 
   constructor( private service: SesionBxiService, private fb: FormBuilder, private router: Router ) {
     this.myForm = this.fb.group({
-      fcTelefono: ['', Validators.required],
+      fcTelefono: ['', [Validators.required, Validators.minLength(10)]],
        fcReferencia: ['', [Validators.required]],
        fcDigitoVerificador: ['', [Validators.required]],
       fcFechaVencimiento: ['', [Validators.required /*Validators.pattern(/^[0-9]+[0-9]*$/ )*/  ]],
-      fcImporte: ['', [Validators.required /*Validators.pattern(/^[0-9]+[0-9]*$/ )*/]]
+     fcImporte: ['', [Validators.required /*Validators.pattern(/^[0-9]+[0-9]*$/ )*/]],
+
     });
    }
 

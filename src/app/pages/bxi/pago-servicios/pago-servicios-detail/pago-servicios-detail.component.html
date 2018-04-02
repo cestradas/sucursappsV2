@@ -24,18 +24,21 @@
                                             <input type="text" id="idTelefono" class="form-control input-lg" formControlName="fcTelefono" #rTelefono [matKeyboard]="'num'" />
                                             <div *ngIf="myForm.get('fcTelefono').errors  && myForm.get('fcTelefono').touched" class="alert alert-danger">
                                                 <p *ngIf="myForm.get('fcTelefono').hasError('required')">
-                                                    fcTelefono requerida.
+                                                        Dato obligatorio, favor de capturar.
+                                                </p>
+                                                <p *ngIf="myForm.get('fcTelefono').hasError('minlength')">
+                                                        Los datos proporcionados son incorrectos, favor de verificar.
                                                 </p>
                                             </div>
                                         </div>
                                         <div class="col-lg-1">
                                             <label>DV: </label>
                                         </div>
-                                        <div class="col-lg-1">
+                                        <div class="col-lg-2">
                                             <input type="text" id="idDigitoV" class="form-control input-lg" #rDigitoVerificador formControlName="fcDigitoVerificador" [matKeyboard]="'num'" />
                                             <div *ngIf="myForm.get('fcDigitoVerificador').errors  && myForm.get('fcDigitoVerificador').touched" class="alert alert-danger">
                                                 <p *ngIf="myForm.get('fcDigitoVerificador').hasError('required')">
-                                                    fcDigitoVerificador requerida.
+                                                        Dato obligatorio, favor de capturar.
                                                 </p>
                                             </div>
                                         </div>
@@ -56,7 +59,7 @@
                                             <input type="text" id="idReferencia" class="form-control input-lg" formControlName="fcReferencia" #rReferencia [matKeyboard]="'num'" />
                                             <div *ngIf="myForm.get('fcReferencia').errors  && myForm.get('fcReferencia').touched" class="alert alert-danger">
                                                 <p *ngIf="myForm.get('fcReferencia').hasError('required')">
-                                                    fcReferencia requerida.
+                                                        Dato obligatorio, favor de capturar.
                                                 </p>
                                             </div>
                                         </div>
@@ -73,7 +76,7 @@
                             <input type="text" id="txtFechaVencimiento" class="form-control input-lg " formControlName="fcFechaVencimiento" #rFechaVencimiento [matKeyboard]="" placeholder="AAAA-MM-DD" />
                             <div *ngIf="myForm.get('fcFechaVencimiento').errors  && myForm.get('fcFechaVencimiento').touched " class="alert alert-danger">
 
-                                <p color="danger" *ngIf="myForm.get('fcFechaVencimiento').hasError('required')"> fechaVencimiento requerida. </p>
+                                <p color="danger" *ngIf="myForm.get('fcFechaVencimiento').hasError('required')"> Dato obligatorio, favor de capturar.</p>
                                 <p color="danger" *ngIf="myForm.get('fcFechaVencimiento').hasError('pattern')">No es formato solicitado</p>
                             </div>
                         </div>
@@ -85,7 +88,7 @@
                         <div class="col-lg-10">
                             <input type="text" id="idImporte" class="form-control input-lg" formControlName="fcImporte" #rImporte [matKeyboard]="" />
                             <div *ngIf="myForm.get('fcImporte').errors  && myForm.get('fcImporte').touched" class="alert alert-danger">
-                                <p color="danger" *ngIf="myForm.get('fcImporte').hasError('required')">importe requerido. </p>
+                                <p color="danger" *ngIf="myForm.get('fcImporte').hasError('required')">Dato obligatorio, favor de capturar. </p>
                                 <p color="danger" *ngIf="myForm.get('fcImporte').hasError('pattern')">No es formato solicitado</p>
                             </div>
                         </div>
@@ -95,19 +98,12 @@
         </div>
         <div class="modal-footer deletePaddingRigth-buttom">
             <button class="btn btn-lg">Cancelar</button>
-            <!-- <div *ngIf="myForm.get('fcTelefono') !== null && myForm.get('fcDigitoVerificador') !== null">-->
             <button type="button" class="btn btn-primary  btn-lg" [disabled]="myForm.invalid" (click)="showDetallePago(myForm.value)">
                                 Continuar
                         </button>
-            <!-- </div>
-                <div *ngIf="myForm.get('fcReferencia') !== null">
-                        <button  type="button" class="btn btn-primary  btn-lg" [disabled]="myForm.invalid" (click)="showDetallePago(myForm )">
-                                Continuar
-                        </button>
-                </div>-->
         </div>     
      </fieldset>
-    </form>
+  
     <!-- Modal -->
     <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -173,14 +169,16 @@
                         </div>
                         <div id="divPass" class="form-group">
                             <label>TipoAutentica</label>
-
-                            <input type="password" class="form-control input-lg" #token [matKeyboard]="">
+                            <input type="password" class="form-control input-lg" #token [matKeyboard]="'num'" >
+                            <div *ngIf="(token.value == '')  && token.touched" class="alert alert-danger">
+                                    <p color="danger" *ngIf="(token.value == '')">Dato obligatorio, favor de capturar. </p>
+                                </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                    <button class="color-botones btn btn-lg " (click)="confirmarPago(token.value)">
+                    <button class="color-botones btn btn-lg " (click)="confirmarPago(token.value)" [disabled]="(token.value == '')">
                                 Confirmar
                               </button>
                 </div>
@@ -189,3 +187,4 @@
         </div>
     </div>
 </div>
+</form>
