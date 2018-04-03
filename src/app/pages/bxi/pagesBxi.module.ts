@@ -22,6 +22,7 @@ import { PagoTarjetaCreditoComponent } from './pagos-tarjeta-credito/pago-tarjet
 // tslint:disable-next-line:max-line-length
 import { PagoTarjetaCreditoVerifyComponent } from './pagos-tarjeta-credito/pago-tarjeta-credito-verify/pago-tarjeta-credito-verify.component';
 
+
 const customLayouts: IKeyboardLayouts = {
   ...keyboardLayouts,
   'Numerico': {
@@ -69,7 +70,8 @@ const customLayouts: IKeyboardLayouts = {
         PagoTarjetaCreditoComponent,
         PagoTarjetaCreditoVerifyComponent,
         ModalBxiErrorComponentComponent,
-        ActivarAlertasIniComponent
+        ActivarAlertasIniComponent,
+        
     ],
     exports: [],
     imports: [

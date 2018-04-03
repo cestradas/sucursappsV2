@@ -129,9 +129,12 @@ export class LoginBxiComponent implements OnInit {
                     $('div').removeClass('modal-backdrop');
 
                 } else {
-
+                  
+                  // tslint:disable-next-line:max-line-length
+                  document.getElementById('mnsModalError').innerHTML =  infoUsuarioJSON.MensajeAUsuario;
                   console.log(infoUsuarioJSON.MensajeAUsuario);
                   $('#_modal_please_wait').modal('hide');
+                  $('#myModal').modal('show');
                 }
 
           }, function(error) {
