@@ -39,6 +39,7 @@ export class LoginBxiComponent implements OnInit {
     const this_aux = this;
     this_aux.service.usuarioLogin = usuarioBxi;
     const autenticacion: Autenticacion = new Autenticacion();
+    let mensajeError;
     autenticacion.identificaUsuriao(usuarioBxi).then(
       function(identificacion) {
         console.log(identificacion.responseJSON);
@@ -61,12 +62,22 @@ export class LoginBxiComponent implements OnInit {
                             this_aux.getNumeroMetodo(arrayMetodos);
 
                         } else {
-                            console.log(respConsultaMetodos.MensajeAUsuario);
+                            console.log(respConsultaMetodos.Id + respConsultaMetodos.MensajeAUsuario);
+                            mensajeError = this_aux.controlarError(respConsultaMetodos.Id);
+                            document.getElementById('mnsError').innerHTML =  mensajeError;
+                            $('#_modal_please_wait').modal('hide');
+                            $('#errorModal').modal('show');
                         }
                      }, function(error) {  }
               );
           } else {
-              console.log(detalleIdentifacionUsurario.MensajeAUsuario);
+
+            console.log(detalleIdentifacionUsurario.Id + detalleIdentifacionUsurario.MensajeAUsuario);  
+            mensajeError = this_aux.controlarError(detalleIdentifacionUsurario.Id);
+            document.getElementById('mnsError').innerHTML =  mensajeError;
+            $('#_modal_please_wait').modal('hide');
+            $('#errorModal').modal('show');
+             
           }
       }, function(error) {});
   }
@@ -113,6 +124,7 @@ export class LoginBxiComponent implements OnInit {
     autenticaUsuario(claveAcceso) {
       $('#_modal_please_wait').modal('show');
       const this_aux = this;
+      let mensajeError;
       const autenticacion: Autenticacion = new Autenticacion();
       console.log('entro autenticaUsuario ' );
       autenticacion.autenticaUsuario( claveAcceso, "0").then(
@@ -128,13 +140,13 @@ export class LoginBxiComponent implements OnInit {
                     this_aux.router.navigate(['/menuBXI']);
                     $('div').removeClass('modal-backdrop');
 
-                } else {
+                } else { 
                   
-                  // tslint:disable-next-line:max-line-length
-                  document.getElementById('mnsModalError').innerHTML =  infoUsuarioJSON.MensajeAUsuario;
-                  console.log(infoUsuarioJSON.MensajeAUsuario);
+                  console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);  
+                  mensajeError = this_aux.controlarError(infoUsuarioJSON.Id);
+                  document.getElementById('mnsError').innerHTML =  mensajeError;
                   $('#_modal_please_wait').modal('hide');
-                  $('#myModal').modal('show');
+                  $('#errorModal').modal('show');
                 }
 
           }, function(error) {
@@ -148,6 +160,48 @@ export class LoginBxiComponent implements OnInit {
       document.getElementById('NosoyYo').style.display = 'none';
       
 
+    }
+
+    controlarError(id) {
+
+      let mensajeError; 
+
+      switch (id) {
+            
+        case 'SEG0003': mensajeError = "Usuario bloqueado, favor de esperar 15 minutos e intentar nuevamente.";
+                      break; 
+        case 'SEG0004': mensajeError =  "Usuario bloqueado, favor de marcar a Banortel.";
+                      break; 
+        case 'SEG0005': mensajeError =  "Los datos proporcionados son incorrectos, favor de verificar.";
+                      break; 
+        case 'SEG0007': mensajeError = "Los datos proporcionados son incorrectos, favor de verificar.";
+                      break; 
+        case 'SEG0008':  mensajeError = "La sesión ha caducado.";
+                      break; 
+        case 'SEG0009':  mensajeError = "Límite de sesiones superado, favor de cerrar las sesiones de banca en línea activas.";
+                      break; 
+        // tslint:disable-next-line:max-line-length
+        case 'SEGOTP1': mensajeError = "Token desincronizado. Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
+                      break;
+        case 'SEGOTP2': mensajeError = "Token bloqueado, favor de marcar a Banortel.";
+                      break;
+        case 'SEGOTP3': mensajeError = "Token deshabilitado, favor de marcar a Banortel.";
+                      break;
+        case 'SEGOTP4': mensajeError = "Token no activado, favor de marcar a Banortel.";
+                      break;
+        // tslint:disable-next-line:max-line-length
+        case 'SEGAM81': mensajeError = "Token desincronizado. Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
+                      break; 
+        case 'SEGAM82': mensajeError = "Token bloqueado, favor de marcar a Banortel."; 
+                      break;   
+        case 'SEGAM83': mensajeError = "Token deshabilitado, favor de marcar a Banortel.";
+                      break;   
+        case 'SEGAM84': mensajeError = "Token no activado, favor de marcar a Banortel.";
+                      break;  
+        case '2'      : mensajeError = "Error Desconocido";            
+      }
+
+      return mensajeError;
     }
 
   }
