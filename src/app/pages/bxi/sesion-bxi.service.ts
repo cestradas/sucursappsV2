@@ -18,6 +18,7 @@ export class SesionBxiService {
       // Respuesta Servicios
      infoCuentas: string;
      infoCuentasBeneficiarios: string;
+     infoDatosDeBeneficiarios: string;
      infoUsuarioSIC: string;
 
   // PagoServcios
@@ -33,9 +34,12 @@ export class SesionBxiService {
       // Datos especificos
        numCuentaSel: string;
        numCuentaDestinario: string;
+       correoBeneficiario: string;
+       nombreBeneficiario: string;
        clabeDestinatario: string;
        claveBancoDestino: string;
        claveAliasCuenta: string;
+       claveNumBenefi: string;
       // Respuesta del servicio
       detalleConfirmacionSPEI: string;
 

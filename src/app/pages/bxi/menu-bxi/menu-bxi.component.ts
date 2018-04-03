@@ -15,7 +15,7 @@ declare var $: $;
 })
 export class MenuBxiComponent implements OnInit {
 
- 
+
   constructor(private service: SesionBxiService, private renderer: Renderer2,  private router: Router ) { }
 
   ngOnInit() {
@@ -39,8 +39,10 @@ export class MenuBxiComponent implements OnInit {
                   console.log(cuentasBeneficiario.responseJSON);
                   const resCuentasXBeneficiario = cuentasBeneficiario.responseJSON;
                   this_aux.service.infoCuentasBeneficiarios = JSON.stringify(resCuentasXBeneficiario.arrayCuentasXBeneficiario);
+                  this_aux.service.infoDatosDeBeneficiarios = JSON.stringify(resCuentasXBeneficiario.Beneficiarios);
                   console.log(this_aux.service.infoCuentasBeneficiarios);
-                  $('#_modal_please_wait').modal('hide'); 
+                  console.log(this_aux.service.infoDatosDeBeneficiarios);
+                  $('#_modal_please_wait').modal('hide');
                   $('div').removeClass('modal-backdrop');
                 });
             } else {
@@ -70,7 +72,7 @@ export class MenuBxiComponent implements OnInit {
 
   moreOptions() {
 
-  
+
     setTimeout(() => {
 
       document.getElementById('operacionesFrecuentes').style.display = 'none';
@@ -79,7 +81,7 @@ export class MenuBxiComponent implements OnInit {
       document.getElementById('regresar').style.display = 'block';
       $('#operacionesFrecuentes').removeClass('animated fadeOutUp slow');
       $('#opciones').removeClass('flipOutY fast');
-      
+
     }, 2000);
 
     $('#operacionesFrecuentes').addClass('animated fadeOutUp slow');
@@ -87,9 +89,9 @@ export class MenuBxiComponent implements OnInit {
 
     $('#opciones').addClass('flipOutY fast');
     $('#regresar').addClass('flipInY slow');
-   
-      
-    
+
+
+
   }
 
   regresar() {
@@ -111,9 +113,9 @@ export class MenuBxiComponent implements OnInit {
 
     $('#regresar').addClass('flipOutY fast');
     $('#opciones').addClass('flipInY slow');
-   
-   
-   
+
+
+
   }
 
 }
