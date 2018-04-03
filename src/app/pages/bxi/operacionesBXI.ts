@@ -111,7 +111,9 @@ export class OperacionesBXI {
 
       }
 
-    confirmaTransferSPEI(ctaO, ctaDest, sic, bancoRecep, clabe, nombreBene, ref, importe, descripcion, correo, rfcEmi, aliasCta): any {
+    confirmaTransferSPEI(ctaO, ctaDest, sic, bancoRecep, clabe, 
+                         nombreBene, ref, importe, descripcion, correo, 
+                         rfcEmi, aliasCta): any {
 
 
         let formParameters = {
@@ -125,19 +127,16 @@ export class OperacionesBXI {
           importe: importe,
           descripcion: descripcion,
           correo: correo,
-          rfcEmi: rfcEmi
+          rfcEmi: rfcEmi,
+          aliasCta: aliasCta
         };
 
-
-          const resourceRequest = new WLResourceRequest(
-              'adapters/AdapterBanorteSucursAppsBEL/resource/transferInterSPEI',
-              WLResourceRequest.POST);
-          resourceRequest.setTimeout(30000);
-          resourceRequest
-              .sendFormParameters(formParameters);
-
+              const resourceRequest = new WLResourceRequest(
+                'adapters/AdapterBanorteSucursAppsBEL/resource/transferInterSPEI', WLResourceRequest.POST);
+               resourceRequest.setTimeout(30000);
 
            return resourceRequest.sendFormParameters(formParameters);
+           
 
       }
 
@@ -159,12 +158,9 @@ export class OperacionesBXI {
           };
 
 
-            const resourceRequest = new WLResourceRequest(
-                'adapters/AdapterBanorteSucursAppsBEL/resource/transferInterTEF',
-                WLResourceRequest.POST);
-            resourceRequest.setTimeout(30000);
-            resourceRequest
-                .sendFormParameters(formParameters);
+                const resourceRequest = new WLResourceRequest(
+                    'adapters/AdapterBanorteSucursAppsBEL/resource/transferInterTEF', WLResourceRequest.POST);
+                   resourceRequest.setTimeout(30000);
 
 
              return resourceRequest.sendFormParameters(formParameters);
