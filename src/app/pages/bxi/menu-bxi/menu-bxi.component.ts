@@ -38,22 +38,34 @@ export class MenuBxiComponent implements OnInit {
                   function(cuentasBeneficiario) {
                   console.log(cuentasBeneficiario.responseJSON);
                   const resCuentasXBeneficiario = cuentasBeneficiario.responseJSON;
-                  this_aux.service.infoCuentasBeneficiarios = JSON.stringify(resCuentasXBeneficiario.arrayCuentasXBeneficiario);
-                  this_aux.service.infoDatosDeBeneficiarios = JSON.stringify(resCuentasXBeneficiario.Beneficiarios);
-                  console.log(this_aux.service.infoCuentasBeneficiarios);
-                  console.log(this_aux.service.infoDatosDeBeneficiarios);
-                  $('#_modal_please_wait').modal('hide');
-                  $('div').removeClass('modal-backdrop');
+                  if (resCuentasXBeneficiario.Id === '1') {
+
+                      this_aux.service.infoCuentasBeneficiarios = JSON.stringify(resCuentasXBeneficiario.arrayCuentasXBeneficiario);
+                      this_aux.service.infoDatosDeBeneficiarios = JSON.stringify(resCuentasXBeneficiario.Beneficiarios);
+                      console.log(this_aux.service.infoCuentasBeneficiarios);
+                      console.log(this_aux.service.infoDatosDeBeneficiarios);
+                      $('#_modal_please_wait').modal('hide');
+                      $('div').removeClass('modal-backdrop');
+
+                  } else {
+                    this_aux.showErrorSucces(resCuentasXBeneficiario);
+                  }
+                }, function(error) {
+                  this_aux.showErrorPromise(error);
                 });
             } else {
-              console.log(getCuentasJSON.MensajeAUsuario);
+              this_aux.showErrorSucces(getCuentasJSON);
             }
-      }, function(error) {}
+      }, function(error) {
+        this_aux.showErrorPromise(error);
+      }
     );
   }
 
   comenzarOperacion(idOperacion) {
-    $('div').removeClass('modal-backdrop');
+    // $('div').removeClass('modal-backdrop');
+    $('#_modal_please_wait').modal('show');
+
     switch (idOperacion) {
 
       case 'pagoserv': this.router.navigate(['/pagoservicios_ini']);
@@ -116,6 +128,21 @@ export class MenuBxiComponent implements OnInit {
 
 
 
+  }
+
+  showErrorPromise(error) {
+    console.log(error);
+    // tslint:disable-next-line:max-line-length
+    document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde."; 
+    $('#_modal_please_wait').modal('hide');
+    $('#errorModal').modal('show');
+  }
+
+  showErrorSucces(json) {
+    console.log(json.Id + json.MensajeAUsuario);
+    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+    $('#_modal_please_wait').modal('hide');
+    $('#errorModal').modal('show');
   }
 
 }
