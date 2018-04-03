@@ -89,7 +89,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   }
 
   getSaldoDeCuenta(numCuenta_seleccionada) {
- 
+    const this_aux = this;
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     operacionesbxi.getSaldo(numCuenta_seleccionada).then(
         function(response1) {
@@ -99,9 +99,11 @@ export class PagoTarjetaCreditoComponent implements OnInit {
                 const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
                 lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
               } else {
-                console.log(detalleSaldos.MensajeAUsuario);
+
+                  this_aux.showErrorSucces(detalleSaldos);
               }
         }, function(error) {
+            this_aux.showErrorPromise(error);
     });
   }
 
@@ -268,6 +270,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   confirmarPago(token) {
     const this_aux = this;
     $('#_modal_please_wait').modal('show');
+    let mensajeError;
       const autenticacion: Autenticacion = new Autenticacion();
       const operacionesbxi: OperacionesBXI = new OperacionesBXI();
       autenticacion.autenticaUsuario(token, this_aux.service.metodoAutenticaMayor).then(
@@ -280,16 +283,26 @@ export class PagoTarjetaCreditoComponent implements OnInit {
                   operacionesbxi.pagoTarjetaCredito(this_aux.tipoTarjeta, this_aux.Importe, this_aux.CuentaDestino, this_aux.CuentaOrigen).then(
                       function(detallePago) {
                           console.log('Pago Validado');
-                          console.log(detallePago.responseJSON);
-                          this_aux.service.detallePagoTarjeta = detallePago.responseText;
-                          $('div').removeClass('modal-backdrop');
-                           this_aux.router.navigate(['/pagoTarjetaCredito_verify']);
+                          const jsonDetallePago = detallePago.responseJSON;
+                          if (jsonDetallePago.Id === '1') {
+                              this_aux.service.detallePagoTarjeta = detallePago.responseText;
+                              $('div').removeClass('modal-backdrop');
+                              this_aux.router.navigate(['/pagoTarjetaCredito_verify']);
+                          } else {
+                              this_aux.showErrorSuccesMoney(jsonDetallePago);
+                          }
                       }
                   ); 
               } else {
-                console.log(infoUsuarioJSON.MensajeAUsuario);
+                  
+                  console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);  
+                  mensajeError = this_aux.controlarError(infoUsuarioJSON.Id);
+                  document.getElementById('mnsError').innerHTML =  mensajeError;
+                  $('#_modal_please_wait').modal('hide');
+                  $('#errorModal').modal('show');
               }
         }, function(error) {
+           this_aux.showErrorPromise(error);
         });
   }
 
@@ -344,4 +357,67 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     return importeAux;
   }
 
+  controlarError(id) {
+
+    let mensajeError; 
+
+    switch (id) {
+          
+      case 'SEG0003': mensajeError = "Usuario bloqueado, favor de esperar 15 minutos e intentar nuevamente.";
+                    break; 
+      case 'SEG0004': mensajeError =  "Usuario bloqueado, favor de marcar a Banortel.";
+                    break; 
+      case 'SEG0005': mensajeError =  "Los datos proporcionados son incorrectos, favor de verificar.";
+                    break; 
+      case 'SEG0007': mensajeError = "Los datos proporcionados son incorrectos, favor de verificar.";
+                    break; 
+      case 'SEG0008':  mensajeError = "La sesión ha caducado.";
+                    break; 
+      case 'SEG0009':  mensajeError = "Límite de sesiones superado, favor de cerrar las sesiones de banca en línea activas.";
+                    break; 
+      // tslint:disable-next-line:max-line-length
+      case 'SEGOTP1': mensajeError = "Token desincronizado. Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
+                    break;
+      case 'SEGOTP2': mensajeError = "Token bloqueado, favor de marcar a Banortel.";
+                    break;
+      case 'SEGOTP3': mensajeError = "Token deshabilitado, favor de marcar a Banortel.";
+                    break;
+      case 'SEGOTP4': mensajeError = "Token no activado, favor de marcar a Banortel.";
+                    break;
+      // tslint:disable-next-line:max-line-length
+      case 'SEGAM81': mensajeError = "Token desincronizado. Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
+                    break; 
+      case 'SEGAM82': mensajeError = "Token bloqueado, favor de marcar a Banortel."; 
+                    break;   
+      case 'SEGAM83': mensajeError = "Token deshabilitado, favor de marcar a Banortel.";
+                    break;   
+      case 'SEGAM84': mensajeError = "Token no activado, favor de marcar a Banortel.";
+                    break;  
+      case '2'      : mensajeError = "Error Desconocido";            
+    }
+
+    return mensajeError;
+  }
+
+  showErrorPromise(error) {
+    console.log(error);
+    // tslint:disable-next-line:max-line-length
+    document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde."; 
+    $('#_modal_please_wait').modal('hide');
+    $('#errorModal').modal('show');
+  }
+
+  showErrorSucces(json) {
+    console.log(json.Id + json.MensajeAUsuario);
+    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+    $('#_modal_please_wait').modal('hide');
+    $('#errorModal').modal('show');
+  }
+
+  showErrorSuccesMoney(json) {
+    console.log(json.Id + json.MensajeAUsuario);
+    document.getElementById('msgError').innerHTML =   json.MensajeAUsuario; 
+    $('#_modal_please_wait').modal('hide');
+    $('#ModalErrorTransaccion').modal('show');
+  }
 }
