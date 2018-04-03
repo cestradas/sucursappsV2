@@ -19,7 +19,8 @@ let sic = "";
 let ctaO = "";
 let ctaDest = "";
 
-let bancoRecep = "";
+let tipoCuenta = "";
+let bancoRecept = "";
 let clabe = "";
 let nombreBene = "";
 let ref = "";
@@ -30,6 +31,10 @@ let correo = "";
 let rfcEmi = "";
 let aliasCta = "";
 
+let bancoRecep = "";
+let refFront = "";
+let importeFront = "";
+let descripcionFront = "";
 
 
 @Component({
@@ -44,6 +49,7 @@ export class TransferenciaSpeiComponent implements OnInit {
 
  
   listaCuentasBen: Array<any> = [];
+  listaDatosBen: Array<any> = [];
   datosCuenta: any[] = [];
   transferSPEI: any[] = [];
 
@@ -110,18 +116,44 @@ export class TransferenciaSpeiComponent implements OnInit {
     
     console.log("adentro Trnsferencias Internacionales SPEI ");
 
+    const operacionSelect = this_aux.selectTipo.nativeElement.value.toString();
+    console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
 
+    switch (operacionSelect) {
+
+      case '1':  // SPEI
+
+      importe = forma.value.amountSPEI;
+      descripcion = forma.value.descriptionSPEI;
+      ref = forma.value.referenceSPEI;           
+
+            break;
+
+      case '2':  // TEF
+
+      
+      rfcEmi = forma.value.rfcTEF;
+      importe = forma.value.amountTEF;
+      descripcion = forma.value.descriptionTEF;
+      ref = forma.value.referenceTEF;   
+
+       
+            break;
+      case '3':  // QUICK
+
+      tipoCuenta = forma.value.cuenta;
+      bancoRecept =  forma.value.sel1;
+      clabe = forma.value.clabe;
+      importe = forma.value.ammountQUICK;
+     
+      
+         
+            break;
+          
   
-    bancoRecep =  forma.value.sel1;
-    clabe = forma.value.clabe;
-    nombreBene = forma.value.beneficiario;
+          }
+  
     
-    ref = forma.value.referencia;
-   
-    importe = forma.value.importe;
-    descripcion = forma.value.descripcion;
-    correo = forma.value.email;
-    rfcEmi = forma.value.rfcEmisor;
   
       this_aux.setTipoAutenticacionOnModal();
   }
@@ -187,6 +219,8 @@ setDatosCuentaSeleccionada(elementHTML) {
   lblCuentaOrigen.innerHTML = numCuenta_seleccionada.toString();
   this_aux.service.numCuentaSeleccionado = numCuenta_seleccionada;
   this_aux.getSaldoDeCuenta(numCuenta_seleccionada);
+
+  
 }
 
 getSaldoDeCuenta(numCuenta_seleccionada) {
@@ -211,9 +245,12 @@ fillCuentasBeneficiario () {
   
   const this_aux = this;
   let cuenta;
+  let datosB;
+  let beneficiario;
   const cuentasUsuario = this_aux.service.infoCuentas;
   const jsoncuentasUsuario = JSON.parse(cuentasUsuario); // JSON CON CUENTAS PROPIAS
   const arrayCuentasXBeneficiario = JSON.parse(this_aux.service.infoCuentasBeneficiarios); // JSON CON CUENTAS DE BENEFICIARIOS
+  const datosBeneficiarios = JSON.parse(this_aux.service.infoDatosDeBeneficiarios); // Json con datos de usuario Correo, nombre y num
   const cuentasArray = jsoncuentasUsuario.ArrayCuentas;
 
   /*cuentasArray.forEach(cuentaUsuario => {
@@ -234,8 +271,23 @@ fillCuentasBeneficiario () {
 
         });
   });
+
+  datosBeneficiarios.forEach(element1 => {
+    datosB = element1;
+   // datosB.forEach(data => {
+
+          this_aux.listaDatosBen.push(element1);
+
+          
+
+    //    });
+  });
   
+  
+ 
+
   console.log(this_aux.listaCuentasBen);
+  console.log(this_aux.listaDatosBen);
   this_aux.defineFiltros();
 }
 
@@ -271,9 +323,11 @@ setDatosCuentaBeneficiario(elementHTML) {
   this_aux.service.numCuentaDestinario = this_aux.CuentaDestino;
   this_aux.service.claveBancoDestino = this_aux.getNameInstitucion(valueElement);
   this_aux.service.claveAliasCuenta = this_aux.getNameAliasCuenta(valueElement);
-
+  this_aux.service.claveNumBenefi = this_aux.getNumBeneficiario(valueElement);
 
   this_aux.consultaClabeSaldos(this_aux.service.numCuentaDestinario);
+
+  console.log(this_aux.service.claveBancoDestino+this_aux.service.claveAliasCuenta+this_aux.service.claveNumBenefi);
   
 }
 
@@ -305,6 +359,16 @@ getNameAliasCuenta(text) {
   console.log(nameAliasCuenta);
 
   return nameAliasCuenta; 
+}
+
+getNumBeneficiario(text) {
+  const  separador = ',';
+  const  arregloDeSubCadenas = text.split(separador);
+  const numBeneCta = arregloDeSubCadenas[3];
+  console.log(arregloDeSubCadenas);
+  console.log(numBeneCta);
+
+  return numBeneCta; 
 }
 
 defineFiltros() {
@@ -365,7 +429,10 @@ setCuentasBenficiarioXTipo() {
         const li =  this.renderer.createElement('li');
         const a = this.renderer.createElement('a');
         const textoCuenta = this.renderer.createText( auxcuenta.DescripcionTipoCuenta);
-        this.renderer.setProperty(a, 'value', auxcuenta.NoCuenta + ',' + auxcuenta.ClaveBanco + ',' + auxcuenta.DescripcionTipoCuenta);
+        this.renderer.setProperty(a, 'value', auxcuenta.NoCuenta + ','
+                                            + auxcuenta.ClaveBanco + ',' 
+                                            + auxcuenta.DescripcionTipoCuenta + ',' 
+                                            + auxcuenta.NumBenef );
         this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaBeneficiario(event.target); });
         this.renderer.appendChild(a, textoCuenta),
         this.renderer.appendChild(li, a);
@@ -434,109 +501,56 @@ consultaClabeSaldos(numCuentaDestinario_seleccionada) {
         } else {
           console.log(detalleSaldos.MensajeAUsuario);
 
+          document.getElementById('mnsError').innerHTML = detalleSaldos.MensajeAUsuario;
+          $('#errorModal').modal('show');
+
           this_aux.service.clabeDestinatario = null;
           // Mostrar modal de error
 
           // Bloquear campos
-                    
+          
+          /*
           $('#amountSPEI').prop("disabled", true);
           $('#descriptionSPEI').prop("disabled", true);
           $('#referenceSPEI').prop("disabled", true);
+          */
 
         }
       }, function(error) {
   });
 }
 
-/*
-  onConfirmacion( forma: NgForm ) {
+validaDatosBen() {
 
-    console.log("ngForm", forma);
-    console.log("Valor forma", forma.value) ;
-    console.log("Valor forma", forma.value.accountNumber) ; 
-    console.log("adentro Trnsferencias Internacionales SPEI ");
+  const this_aux =  this;
 
-    const this_aux =  this;
-
-    sic = this_aux.service.infoUsuarioSIC;
-    ctaO = this_aux.service.numCuentaSeleccionado;
-  
-    bancoRecep =  forma.value.sel1;
-    clabe = forma.value.clabe;
-    nombreBene = forma.value.beneficiario;
-    rfcBenef = forma.value.rfc;
-    ref = forma.value.referencia;
    
-    importe = forma.value.importe;
-    descripcion = forma.value.descripcion;
-    correo = forma.value.email;
-    rfcEmi = forma.value.rfcEmisor;
-  
+
+  this_aux.listaCuentasBen.forEach(cuenta => {
     
-    // numCuenta = document.getElementById("accountNumber").value;
-  
-    const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+    this_aux.listaDatosBen.forEach(Beneficiarios => {
+
+      if (cuenta.NumBenef === Beneficiarios.NumBenef) {
+
+        this_aux.service.correoBeneficiario = Beneficiarios.CorreoElecBenef;
+        this_aux.service.nombreBeneficiario = Beneficiarios.NombreSinFormato;
+      }
+    });
+        
+        
     
-    operacionesbxi.confirmaTransferSPEI( ctaO, ctaO, sic, bancoRecep, clabe, nombreBene, rfcBenef, ref, importe, descripcion, correo, rfcEmi).then(
-      function(response) {
-
-        console.log(response.responseJSON);
-            
-           // this.transferSPEI = response.responseJSON;
-            
-           
-            // if ( this.transferSPEI.Id === '1') {
-
-              console.log(this.transferSPEI);
-              this_aux.service.detalleConfirmacionSPEI = response.responseText;
-              this.router.navigate(['/TransferFinishSpei']);
-                     
-            // } else {
-            //  console.log(this.transferSPEI.MensajeAUsuario);
-            // }
-
-
-
-      }, function(error) {
-
       });
-  
-   consultaCuentas() {
-       
-      const operacionesbxi: OperacionesBXI = new OperacionesBXI();
-      operacionesbxi.consultaClabeSaldo().then(
-        function(response) {
-
-          console.log(response.responseJSON);
-                    
-                    this.datosCuenta = response.responseJSON;
-                    console.log(this.datosCuenta);
-
-                  //  if ( this.datosCuenta.Id === '1') {
-                     
-                  //  } else {
-                  //    console.log(this.datosCuenta.MensajeAUsuario);
-                  //  }
-
-        }, function(error) {
-
-        });
-  
-  
-  }
-  
-  }*/
+}
 
 
-  confirmarPago(token, forma: NgForm) {
+
+  confirmarPago(token) {
 
     
-    console.log("ngForm", forma);
-    console.log("Valor forma", forma.value) ;
-
 
     const this_aux = this;
 
+    this.validaDatosBen();
     
     ctaO = this_aux.service.numCuentaSeleccionado;
     ctaDest = this_aux.service.numCuentaDestinario;
@@ -544,18 +558,26 @@ consultaClabeSaldos(numCuentaDestinario_seleccionada) {
     bancoRecep = this_aux.service.claveBancoDestino;
     aliasCta = this_aux.service.claveAliasCuenta;
 
-    clabe = this_aux.service.clabeDestinatario; 
+    if (clabe === null || clabe === "") {
+      clabe = "014180570107939481";
+    } else {
+      clabe = this_aux.service.clabeDestinatario; 
+    }
+    
     
     // nombreBene  // de donde?   
-    nombreBene = "BENEFICIARIO";
+    nombreBene = this_aux.service.nombreBeneficiario;
     // correo // DE DONDE?
-    correo = "miguel.garcia_softtek@banorte.com";
+    // correo = "miguel.garcia_softtek@banorte.com";
+    correo = this_aux.service.correoBeneficiario;
     // rfcEmi // menu bxi?
     rfcEmi = "no capturado";
 
-    ref = forma.value.referencia;
-    importe = forma.value.importe;
-    descripcion = forma.value.descripcion;
+
+      
+    refFront = ref;
+    importeFront = importe;
+    descripcionFront = descripcion;
 
     const autenticacion: Autenticacion = new Autenticacion();
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
@@ -575,7 +597,9 @@ consultaClabeSaldos(numCuentaDestinario_seleccionada) {
               if (infoUsuarioJSON.Id === 'SEG0001') {
                   console.log('Nivel de autenticacion alcanzado');
   
-                  operacionesbxi.confirmaTransferSPEI(ctaO, ctaDest, sic, bancoRecep, clabe, nombreBene, ref, importe, descripcion, correo, rfcEmi, aliasCta)
+                  operacionesbxi.confirmaTransferSPEI(ctaO, ctaDest, sic, bancoRecep, clabe, 
+                                                      nombreBene, refFront, importeFront, 
+                                                      descripcionFront, correo, rfcEmi, aliasCta)
                   .then(
                 
                     function(response) {
@@ -587,6 +611,8 @@ consultaClabeSaldos(numCuentaDestinario_seleccionada) {
                        if ( this.transferSPEI.Id === '1') {
            
                          console.log(this.transferSPEI);
+                         this_aux.service.detalleConfirmacionSPEI = this.transferSPEI;
+                         console.log(this_aux.service.detalleConfirmacionSPEI);
                          this.router.navigate(['/TransferFinishSpei']);
                                 
                        } else {
