@@ -1,15 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-.sumando-loading-modal-dialog .modal-content {
-    height: 110px;
-    width: 110px;
-    background-color: transparent;
-    border: 1px;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    margin: 230px auto;
-}
-
 body {
     height: 100%;
     width: 100%;
@@ -23,18 +13,6 @@ body {
 html {
     width: 100%;
     height: 100%;
-}
-
-/* Modal plase Wait */
-
-.center_Modal {
-
-    position: absolute !important;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    margin-top: 478px !important;
 }
 
 
@@ -590,6 +568,39 @@ html {
 
 select.selectModificado::-ms-expand {
     display: none;
+}
+
+
+/*  checkbox */
+
+input[type=checkbox] {
+    display: none;
+}
+
+input[type=checkbox]+label {
+    background: url("./assets/img/banorte_option.png") no-repeat;
+    height: 25px;
+    width: 25px;
+    display: inline-block;
+    padding: 0 0 0 0px;
+}
+
+input[type=checkbox]:checked+label {
+    background: url("./assets/img/banorte_option_selected.png") no-repeat;
+    height: 25px;
+    width: 25px;
+    display: inline-block;
+    padding: 0 0 0 0px;
+}
+
+
+/*  button Cuentas Usr y ben */
+
+.btn-color-cuentas {
+    color: #3330 !important;
+    background-color: #f714d100 !important;
+    border-color: #adadad00 !important;
+    height: 62px !important;
 }
 
 
