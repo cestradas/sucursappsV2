@@ -293,7 +293,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
                           } else {
                               this_aux.showErrorSuccesMoney(jsonDetallePago);
                           }
-                      }
+                      }, function(error) {  this_aux.showErrorPromise(error); }
                   ); 
               } else {
                   
@@ -339,6 +339,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
   transformAmount(importe) {
     const this_aux = this;
+    alert(importe);
     if (importe !== '') {
       const control: FormControl = new FormControl('');
       this_aux.myForm.setControl('fcImporte', control);

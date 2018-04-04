@@ -109,23 +109,35 @@ export class PagoServiciosDetailComponent implements OnInit {
       const this_aux = this;
       const autenticacion: Autenticacion = new Autenticacion();
       const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+      let mensajeError;
       autenticacion.autenticaUsuario(token, this_aux.service.metodoAutenticaMayor).then(
         function(detalleAutentica) {
               // console.log(detalleAutentica.responseJSON);
               const infoUsuarioJSON = detalleAutentica.responseJSON;
               if (infoUsuarioJSON.Id === 'SEG0001') {
-                  console.log('Pago validado');
+                
+                console.log('Pago validado');
 
                   operacionesbxi.pagaServicio(this_aux.service.idFacturador, this_aux.importeAux, this_aux.referenciaPago
                   , this_aux.service.numCuentaSeleccionado, this_aux.fechaVencimiento).then(
                     function(respPago) {
-                      this_aux.service.detalleConfirmacionPS = respPago.responseText;
-                      $('div').removeClass('modal-backdrop');
-                      this_aux.router.navigate(['/pagoservicios_verify']);
-                    }, function(error) { }
+
+                      const jsonDetallePago = respPago.responseJSON;
+                      if (jsonDetallePago.Id === '1') {
+                        this_aux.service.detalleConfirmacionPS = respPago.responseText;
+                        $('div').removeClass('modal-backdrop');
+                        this_aux.router.navigate(['/pagoservicios_verify']);
+                      } else {
+                        this_aux.showErrorSuccesMoney(jsonDetallePago);
+                      }
+                    }, function(error) { this_aux.showErrorPromise(error); }
                   );
               } else {
-                console.log(infoUsuarioJSON.MensajeAUsuario);
+                  console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);  
+                  mensajeError = this_aux.controlarError(infoUsuarioJSON.Id);
+                  document.getElementById('mnsError').innerHTML =  mensajeError;
+                  $('#_modal_please_wait').modal('hide');
+                  $('#errorModal').modal('show');;
               }
         }, function(error) {
         });
@@ -158,7 +170,70 @@ export class PagoServiciosDetailComponent implements OnInit {
   espacioTeclado() {
     // ESTILO TECLADO (QUITAR ESTILO AL SALIR DE PAGINA PARA EVITAR QUE BAJE MAS EN OTRAS PANTALLAS)
     $( ".cdk-overlay-container" ).css( "margin-top", "8%" );
-    //$( ".cdk-visually-hidden" ).css( "margin-bottom", "0%" );
+    // $( ".cdk-visually-hidden" ).css( "margin-bottom", "0%" );
   }
 
+  controlarError(id) {
+
+    let mensajeError; 
+
+    switch (id) {
+          
+      case 'SEG0003': mensajeError = "Usuario bloqueado, favor de esperar 15 minutos e intentar nuevamente.";
+                    break; 
+      case 'SEG0004': mensajeError =  "Usuario bloqueado, favor de marcar a Banortel.";
+                    break; 
+      case 'SEG0005': mensajeError =  "Los datos proporcionados son incorrectos, favor de verificar.";
+                    break; 
+      case 'SEG0007': mensajeError = "Los datos proporcionados son incorrectos, favor de verificar.";
+                    break; 
+      case 'SEG0008':  mensajeError = "La sesión ha caducado.";
+                    break; 
+      case 'SEG0009':  mensajeError = "Límite de sesiones superado, favor de cerrar las sesiones de banca en línea activas.";
+                    break; 
+      // tslint:disable-next-line:max-line-length
+      case 'SEGOTP1': mensajeError = "Token desincronizado. Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
+                    break;
+      case 'SEGOTP2': mensajeError = "Token bloqueado, favor de marcar a Banortel.";
+                    break;
+      case 'SEGOTP3': mensajeError = "Token deshabilitado, favor de marcar a Banortel.";
+                    break;
+      case 'SEGOTP4': mensajeError = "Token no activado, favor de marcar a Banortel.";
+                    break;
+      // tslint:disable-next-line:max-line-length
+      case 'SEGAM81': mensajeError = "Token desincronizado. Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
+                    break; 
+      case 'SEGAM82': mensajeError = "Token bloqueado, favor de marcar a Banortel."; 
+                    break;   
+      case 'SEGAM83': mensajeError = "Token deshabilitado, favor de marcar a Banortel.";
+                    break;   
+      case 'SEGAM84': mensajeError = "Token no activado, favor de marcar a Banortel.";
+                    break;  
+      case '2'      : mensajeError = "Error Desconocido";            
+    }
+
+    return mensajeError;
+  }
+
+  showErrorPromise(error) {
+    console.log(error);
+    // tslint:disable-next-line:max-line-length
+    document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde."; 
+    $('#_modal_please_wait').modal('hide');
+    $('#errorModal').modal('show');
+  }
+
+  showErrorSucces(json) {
+    console.log(json.Id + json.MensajeAUsuario);
+    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+    $('#_modal_please_wait').modal('hide');
+    $('#errorModal').modal('show');
+  }
+
+  showErrorSuccesMoney(json) {
+    console.log(json.Id + json.MensajeAUsuario);
+    document.getElementById('msgError').innerHTML =   json.MensajeAUsuario; 
+    $('#_modal_please_wait').modal('hide');
+    $('#ModalErrorTransaccion').modal('show');
+  }
 }
