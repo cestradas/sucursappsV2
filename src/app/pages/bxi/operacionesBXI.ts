@@ -140,6 +140,7 @@ export class OperacionesBXI {
 
       }
 
+      // tslint:disable-next-line:max-line-length
       confirmaTransferTEF(sic, aliasCtaOrigen, cuentaCargo , rfcOrdenante, bancReceptor, aliasCuentaDestino, clabe, nombreUsuario, importe, descripcion, referencia): any {
 
 
