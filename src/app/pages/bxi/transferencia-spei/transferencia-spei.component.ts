@@ -605,13 +605,13 @@ validaDatosBen() {
                     function(response) {
                       console.log(response.responseJSON);
               
-                      this.transferSPEI = response.responseJSON;
+                      
                        
                       
                        if ( this.transferSPEI.Id === '1') {
            
                          console.log(this.transferSPEI);
-                         this_aux.service.detalleConfirmacionSPEI = this.transferSPEI;
+                         this_aux.service.detalleConfirmacionSPEI = response.responseText;
                          console.log(this_aux.service.detalleConfirmacionSPEI);
                          this.router.navigate(['/TransferFinishSpei']);
                                 
