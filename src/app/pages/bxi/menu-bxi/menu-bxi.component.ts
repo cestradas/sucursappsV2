@@ -145,4 +145,7 @@ export class MenuBxiComponent implements OnInit {
     $('#errorModal').modal('show');
   }
 
+  consultaAlertas() {
+
+  }
 }
