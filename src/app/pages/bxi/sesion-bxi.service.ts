@@ -20,6 +20,8 @@ export class SesionBxiService {
      infoCuentasBeneficiarios: string;
      infoDatosDeBeneficiarios: string;
      infoUsuarioSIC: string;
+     alertasActivas: boolean;
+
 
   // PagoServcios
     // Datos Especificos

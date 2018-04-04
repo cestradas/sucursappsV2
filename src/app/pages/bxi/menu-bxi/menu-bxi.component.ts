@@ -44,6 +44,9 @@ export class MenuBxiComponent implements OnInit {
                       this_aux.service.infoDatosDeBeneficiarios = JSON.stringify(resCuentasXBeneficiario.Beneficiarios);
                       console.log(this_aux.service.infoCuentasBeneficiarios);
                       console.log(this_aux.service.infoDatosDeBeneficiarios);
+                      if (this_aux.service.alertasActivas === undefined) {
+                          this_aux.consultaAlertas();
+                      }
                       $('#_modal_please_wait').modal('hide');
                       $('div').removeClass('modal-backdrop');
 
@@ -76,7 +79,7 @@ export class MenuBxiComponent implements OnInit {
             break;
       case 'pagotar': this.router.navigate(['/pagoTarjetaCredito_ini']);
             break;
-      case 'activaAlertas': this.router.navigate(['/pagoTarjetaCredito_ini']);
+      case 'activaAlertas': this.router.navigate(['/activaAlertas']);
       break;
 
     }
@@ -146,6 +149,32 @@ export class MenuBxiComponent implements OnInit {
   }
 
   consultaAlertas() {
+
+    const this_aux = this;
+    const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+    let alertasActivas;
+    operacionesbxi.mantieneAlertas('C', this_aux.service.infoUsuarioSIC).then(
+      function(detalleAlertas) {
+            const detalle = detalleAlertas.responseJSON;
+            console.log(detalle);
+            if (detalle .Id === '1') {
+
+              const alertas = detalle.AlertasXCliente;
+              alertas.forEach(element => {
+                   if (element.IndicadorServicio === "N") {
+                      alertasActivas = false;
+                   } else {
+                      alertasActivas = true;
+                   }
+              });
+              this_aux.service.alertasActivas = alertasActivas;
+            } else {
+                  this_aux.showErrorSucces(detalle);
+            }
+      }, function(error) {
+        this_aux.showErrorPromise(error);
+      }
+    );
 
   }
 }

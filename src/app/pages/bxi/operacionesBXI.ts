@@ -200,4 +200,16 @@ export class OperacionesBXI {
           return resourceRequest.sendFormParameters(formParameters);
     }
 
+    mantieneAlertas(opc , sic) {
+        const formParameters = {
+            opc: opc,
+            sic: sic,
+          };
+
+          const    resourceRequest = new WLResourceRequest(
+            'adapters/AdapterBanorteSucursAppsBEL/resource/mantieneServicioAlertas', WLResourceRequest.POST);
+      resourceRequest.setTimeout(30000);
+
+      return resourceRequest.sendFormParameters(formParameters);
+    }
 }
