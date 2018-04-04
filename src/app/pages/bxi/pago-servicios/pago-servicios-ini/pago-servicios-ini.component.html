@@ -1,7 +1,7 @@
-<div ng-cloak class="padding-barToTittle">
-    <h2 class="text-center color-letra">Pago de Servicios</h2>
-</div>
 <form novalidate>
+    <div ng-cloak class="padding-barToTittle">
+        <h2 class="text-center color-letra">Pago de Servicios</h2>
+    </div>
     <fieldset class="padding-TittleToFieldset padding-fieldset-general">
         <div class="row sumando-form-group letranegrita">
             <div class="col-sm-1 sumando-bg-red group-name">
@@ -50,11 +50,8 @@
                 </div>
             </div>
         </div>
-
-
-
         <div id="divisionInputs"></div>
-        <div class="row sumando-form-group letranegrita">
+        <div class="row sumando-form-group letranegrita padding-InFieldset">
             <div class="col-sm-1 sumando-bg-red group-name">Para</div>
 
             <div class="col-sm-11 ">
@@ -80,13 +77,13 @@
 
         </div>
 
-        <div style="margin:30px 20px 0px 0px;" class="row actions-form-group text-right">
-            <div class="col-sm-9"></div>
-            <div class="col-sm-2">
+        <div class="row actions-form-group text-right">
+            <div class="col-lg-9"></div>
+            <div class="col-lg-2">
                 <button class="btn btn-lg" type="button" onclick="">Cancelar</button>
             </div>
             <!-- <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
-            <div class="col-sm-1">
+            <div class="col-lg-1" style="padding-right: 0px;">
                 <button type="button" class="btn btn-danger btn-lg" [disabled]="(facturador.value == '') || (lblCuentaOrigen.textContent == '') || (lblAliasOrigen.textContent == '') || (lblSaldoOrigen.textContent == '')" (click)="saveData()">
                 Continuar
               </button>

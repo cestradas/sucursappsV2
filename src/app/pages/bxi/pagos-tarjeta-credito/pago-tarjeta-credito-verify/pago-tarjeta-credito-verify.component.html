@@ -1,8 +1,10 @@
 
-  <h2 class="text-center deleteMargin-h2 padding-barToTittle">Operaci&oacute;n exitosa</h2>
-  <div class="row padding-TittleToFieldset padding-InFieldset">
-    <div class="col-md-6 col-sm-6 col-md-offset-3 background-Confirmacion padding-bgWhite">
-      <div class="row padding-labelToInput">
+  <div ng-cloak class="padding-barToTittle">
+      <h2 class="text-center  color-letra">Operaci&oacute;n exitosa</h2>
+  </div>
+  <fieldset align="center" class="padding-TittleToFieldset padding-fieldset-general">
+      <div class="well sumando-well-white">
+      <div class="row ">
         <div class="col-lg-6" align="right">
         <strong>Instituci&oacute;n:</strong>
       </div>
@@ -10,7 +12,7 @@
    	    	<label >{{detallePago.institucion}}</label>
         </div>
       </div>
-      <div class="row padding-labelToInput">
+      <div class="row ">
           <div class="col-lg-6" align="right">
               <strong>Operaci&oacute;n: </strong>  
         </div>
@@ -18,7 +20,7 @@
              <label >{{detallePago.operacion}}</label>
           </div>
         </div>
-      <div class="row padding-labelToInput">
+      <div class="row ">
         <div class="col-lg-6" align="right">
         <strong>Fecha de operaci&oacute;n:</strong>
         </div>
@@ -26,7 +28,7 @@
        	<label >{{detallePago.fechaOperacion}}</label>
        </div>
       </div>
-        <div class="row padding-labelToInput">
+        <div class="row ">
         <div class="col-lg-6" align="right">
         <strong>Clave de rastreo:</strong>
         </div>
@@ -34,7 +36,7 @@
         <label> {{detallePago.claveRastreo}}</label>
      </div>
       </div> 
-        <div class="row padding-labelToInput">
+        <div class="row ">
           <div class="col-lg-6" align="right">
         <strong>Comisi&oacute;n e IVA:</strong>
         </div>
@@ -42,7 +44,7 @@
        <label>{{detallePago.comisioneiva}}</label>
      </div>
       </div>
-        <div class="row padding-labelToInput">
+        <div class="row ">
         <div class="col-lg-6" align="right">
         <strong>Cuenta origen:</strong>
          </div>
@@ -50,7 +52,7 @@
         <label>{{detallePago.cuentaOrigen}}</label>
       </div>
       </div>
-      <div class="row padding-labelToInput">
+      <div class="row ">
           <div class="col-lg-6" align="right">
           <strong>Cuenta destino:</strong>
            </div>
@@ -58,7 +60,7 @@
           <label>{{detallePago.cuentaDestino}}</label>
         </div>
         </div>
-       <div class="row padding-labelToInput">
+       <div class="row ">
         <div class="col-lg-6" align="right">
         <strong>Hora de Operaci&oacute;n:</strong>
         </div>
@@ -66,7 +68,7 @@
        <label>{{detallePago.horaOperacion}}</label>
       </div>
       </div>
-        <div class="row padding-labelToInput">
+        <div class="row ">
           <div class="col-lg-6" align="right">
         <strong>Importe:</strong>
         </div>
@@ -75,11 +77,12 @@
        </div>
       </div>
   </div>
-</div>
-<div class="row">
- <div class="col-md-6 col-sm-6 col-md-offset-3" style="padding-right: 0px;">
-    <button class="btn btn-primary pull-right btn-lg"  (click)="irMenuBXI()">
-      Terminar
-    </button>
-  </div>
-</div>
+    <div style="margin:30px 0px 0px 0px;" class="row">
+        <div style=" padding: 0px;" class="col-sm-12">
+            <button class="color-botones btn btn-lg pull-right "(click)="irMenuBXI()">
+        Terminar
+      </button>
+        </div>
+    </div>
+
+</fieldset>
