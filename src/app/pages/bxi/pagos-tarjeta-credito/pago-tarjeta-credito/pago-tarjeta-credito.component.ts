@@ -31,6 +31,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   labelTipoAutentica: string;
   tipoTarjeta: string;
   importeAux: string;
+  nombreBanco: string;
 
   // tslint:disable-next-line:max-line-length
   constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2,  private fb: FormBuilder, private currencyPipe: CurrencyPipe) { 
@@ -237,6 +238,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   confirmaOperacion(montoAPagar) {
     const this_aux = this;
     this_aux.CuentaOrigen = this_aux.service.numCuentaSeleccionado;
+    this_aux.nombreBanco = this_aux.service.nameBancoDestino;
     this_aux.Importe = this_aux.replaceSimbolo( montoAPagar);
     this_aux.setTipoAutenticacionOnModal();
 

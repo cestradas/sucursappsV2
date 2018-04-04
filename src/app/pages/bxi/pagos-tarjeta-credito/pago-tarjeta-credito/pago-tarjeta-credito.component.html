@@ -10,7 +10,7 @@
      <div class="dropdown sumando-dropdown-account col-sm-11" style="padding-left: 0px; padding-right: 0px;">
         
       <select class="input-whidth selectModificado" #selectTipo id="tipoTransfer" (change)="setCuentasBenficiarioXTipo();" style=" width: 100%; height: 60px; border:0px solid red;">
-                <option value="0" disabled selected></option>
+                <option value="0" disabled selected> Seleccione el tipo de tarjeta ...</option>
                 <option *ngIf='existenPropias' value="5">Propias Banorte</option>
                 <option *ngIf='existenTerceros' value="9"> Terceros Banorte</option>
                 <option *ngIf='existenExternas' value="2"> Otros Bancos</option>
@@ -159,6 +159,14 @@
                     </div>
                     <div class="col-lg 6">
                         <label>{{CuentaOrigen}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg 6">
+                        <label>Banco destino:</label>
+                    </div>
+                    <div class="col-lg 6">
+                        <label>{{nombreBanco}}</label>
                     </div>
                 </div>
                 <div class="row">
