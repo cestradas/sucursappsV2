@@ -571,36 +571,16 @@ select.selectModificado::-ms-expand {
 }
 
 
-/*  checkbox */
-
-input[type=checkbox] {
-    display: none;
-}
-
-input[type=checkbox]+label {
-    background: url("./assets/img/banorte_option.png") no-repeat;
-    height: 25px;
-    width: 25px;
-    display: inline-block;
-    padding: 0 0 0 0px;
-}
-
-input[type=checkbox]:checked+label {
-    background: url("./assets/img/banorte_option_selected.png") no-repeat;
-    height: 25px;
-    width: 25px;
-    display: inline-block;
-    padding: 0 0 0 0px;
-}
-
-
 /*  button Cuentas Usr y ben */
 
 .btn-color-cuentas {
-    color: #3330 !important;
     background-color: #f714d100 !important;
     border-color: #adadad00 !important;
     height: 62px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
 }
 
 
@@ -973,26 +953,3 @@ table {
     border: 0;
     /*background-color: #f5f5f5;*/
 }
-
-
- /* style para checkbox */
- input[type=checkbox] {
-    display:none;
-  }
-  input[type=checkbox] + label
-   {
-       background: url("./assets/img/banorte_option.png") no-repeat ;
-       height: 25px;
-       width: 25px;
-       display:inline-block;
-       padding: 0 0 0 0px;
-   }
-   
-   input[type=checkbox]:checked + label
-    {
-        background:  url("./assets/img/banorte_option_selected.png") no-repeat ;
-        height: 25px;
-        width: 25px;
-        display:inline-block;
-        padding: 0 0 0 0px;
-    }
