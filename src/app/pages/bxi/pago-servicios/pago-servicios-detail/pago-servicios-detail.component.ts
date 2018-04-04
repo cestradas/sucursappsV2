@@ -137,7 +137,7 @@ export class PagoServiciosDetailComponent implements OnInit {
                   mensajeError = this_aux.controlarError(infoUsuarioJSON.Id);
                   document.getElementById('mnsError').innerHTML =  mensajeError;
                   $('#_modal_please_wait').modal('hide');
-                  $('#errorModal').modal('show');;
+                  $('#errorModal').modal('show');
               }
         }, function(error) {
         });
