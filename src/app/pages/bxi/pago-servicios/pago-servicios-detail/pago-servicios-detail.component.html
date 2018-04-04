@@ -1,8 +1,10 @@
 <form [formGroup]="myForm" novalidate>
-    <h2 class="text-center padding-barToTittle deleteMargin-h2">{{nombreServicio}}</h2>
+    <div ng-cloak class="padding-barToTittle">
+        <h2 class="text-center color-letra">{{nombreServicio}}</h2>
+    </div>
     <fieldset class="padding-TittleToFieldset padding-fieldset-general">
-      <div class="sumando-well-white" style="padding-right: 15px; padding-left: 15px;">
-        <div class="sumando-form-group padding-InFieldset ">
+      <div class="sumando-well-white" style="padding-right: 15px; padding-left: 15px;padding: 2%;">
+        <div class="sumando-form-group  ">
             <div class=" group-controls sumando-bg-white padding-bgWhite">
                 <div class="form-group">
                     <div class="row padding-InFieldset">
@@ -78,20 +80,20 @@
                             <div *ngIf="myForm.get('fcFechaVencimiento').errors  && myForm.get('fcFechaVencimiento').touched " class="alert alert-danger">
 
                                 <p color="danger" *ngIf="myForm.get('fcFechaVencimiento').hasError('required')"> Dato obligatorio, favor de capturar.</p>
-                                <p color="danger" *ngIf="myForm.get('fcFechaVencimiento').hasError('pattern')">No es formato solicitado</p>
+                                <p color="danger" *ngIf="myForm.get('fcFechaVencimiento').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="row padding-InFieldset">
+                    <div class="row ">
                         <div class="col-lg-2">
                             <label>Importe: </label>
                         </div>
                         <div class="col-lg-10">
                             <input type="text" id="idImporte" (click)="espacioTeclado();" class="form-control input-lg" formControlName="fcImporte" #rImporte [matKeyboard]="'num'"
                             (blur)="transformAmount(rImporte.value)" />
-                            <div *ngIf="myForm.get('fcImporte').errors  && myForm.get('fcImporte').touched" class="alert alert-danger">
-                                <p color="danger" *ngIf="myForm.get('fcImporte').hasError('required')">Dato obligatorio, favor de capturar. </p>
-                                <p color="danger" *ngIf="myForm.get('fcImporte').hasError('pattern')">No es formato solicitado</p>
+                            <div *ngIf="(myForm.get('fcImporte').errors  && myForm.get('fcImporte').touched)||( rImporte.value === '' && myForm.get('fcImporte').errors === null)" class="alert alert-danger">
+                                <p color="danger" *ngIf="myForm.get('fcImporte').hasError('required') ">Dato obligatorio, favor de capturar. </p>
+                                <p color="danger" *ngIf=" ( rImporte.value === '' && myForm.get('fcImporte').errors === null)">Dato obligatorio, favor de capturar. </p>
                             </div>
 
                         </div>
@@ -100,13 +102,17 @@
             </div>
         </div>
         </div>
-        <div class="modal-footer deletePaddingRigth-buttom">
-            <button class="btn btn-lg">Cancelar</button>
-            <button type="button" class="color-botones btn btn-lg " [disabled]="myForm.invalid" (click)="showDetallePago(myForm.value)">
-                                Continuar
-                        </button>
+        <div class="row actions-form-group text-right">
+                <div class="col-lg-9"></div>
+                <div class="col-lg-2">
+                    <button type="button" class="btn btn-lg">Cancelar</button>
+                </div>
+                <div class="col-lg-1" style="padding-right: 2%;">
+                    <button type="button" class="btn btn-danger btn-lg" [disabled]="myForm.invalid" (click)="showDetallePago(myForm.value)">
+                                        Continuar
+                    </button>
+                </div>
         </div>
-
      </fieldset>
 
     <!-- Modal -->

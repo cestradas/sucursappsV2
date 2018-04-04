@@ -34,7 +34,7 @@ export class PagoServiciosDetailComponent implements OnInit {
       fcTelefono: ['', [Validators.required, Validators.minLength(10)]],
        fcReferencia: ['', [Validators.required]],
        fcDigitoVerificador: ['', [Validators.required]],
-      fcFechaVencimiento: ['', [Validators.required /*Validators.pattern(/^[0-9]+[0-9]*$/ )*/  ]],
+      fcFechaVencimiento: ['', [Validators.required , Validators.pattern(/^\d{2,4}\-\d{1,2}\-\d{1,2}$/)]],
      fcImporte: ['', [Validators.required /*Validators.pattern(/^[0-9]+[0-9]*$/ )*/]],
 
     });
