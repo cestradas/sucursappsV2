@@ -202,7 +202,10 @@ getEmpresas() {
      }
 
      setValue(value) {
+     
        const aux_this = this;
+       const body = $('body');
+       body.off('click');
        aux_this.facturador.nativeElement.value = value ;
        aux_this.showOptions = false;
       }
