@@ -20,12 +20,16 @@ export class PagoServiciosIniComponent implements OnInit {
   arrayEmpresas: Array<any> = [];
   listaEmpresas:  Array<any> = [];
   listaEmpresasAux: Array<any> = [];
-
   showOptions: Boolean = false;
   empresaInLocal: string ;
+  myForm: FormGroup;
 
-   constructor(  private router: Router, private service: SesionBxiService, private renderer: Renderer2) {
-    }
+
+   constructor( private fb: FormBuilder, private router: Router, private service: SesionBxiService, private renderer: Renderer2) {
+    this.myForm = this.fb.group({
+      fcFacturador: ['', [Validators.required]],
+    });
+  }
    ngOnInit() {
 
        this.fillSelectCuentas();

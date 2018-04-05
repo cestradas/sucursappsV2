@@ -972,3 +972,9 @@ table {
     z-index: 1;
     background: white;
 }
+
+.img-select-seleccion{
+    width: 83%;
+    height: 176%;
+    margin-left: 43px;
+}

@@ -26,12 +26,7 @@ export class PagoServiciosDetailComponent implements OnInit {
   importe: string;
   referenciaPago: string;
   fechaVencimiento: string;
-
   importeAux: string;
-
-
-
-
 
   constructor( private service: SesionBxiService, private fb: FormBuilder, private router: Router, private currencyPipe: CurrencyPipe) {
 
