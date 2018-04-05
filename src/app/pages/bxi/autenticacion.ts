@@ -49,4 +49,16 @@ export class Autenticacion {
 
            return resourceRequest.sendFormParameters(formParameters);
     }
+
+    consultaPreferencia (usuarioBXI): any {
+        const formParameters = {
+            usuario: usuarioBXI
+          };
+          const resourceRequest = new WLResourceRequest(
+            'adapters/AdapterBanorteSucursAppsBEL/resource/consultaPreferencia', WLResourceRequest.POST);
+           resourceRequest.setTimeout(30000);
+
+           return resourceRequest.sendFormParameters(formParameters);
+    }
+    
 }

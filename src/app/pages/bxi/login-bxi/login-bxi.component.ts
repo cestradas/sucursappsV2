@@ -68,7 +68,7 @@ export class LoginBxiComponent implements OnInit {
                             $('#_modal_please_wait').modal('hide');
                             $('#errorModal').modal('show');
                         }
-                     }, function(error) {  }
+                     }, function(error) {  this_aux.showErrorPromise(error); }
               );
           } else {
 
@@ -79,7 +79,7 @@ export class LoginBxiComponent implements OnInit {
             $('#errorModal').modal('show');
              
           }
-      }, function(error) {});
+      }, function(error) {  this_aux.showErrorPromise(error); });
   }
 
 
@@ -133,12 +133,11 @@ export class LoginBxiComponent implements OnInit {
                 const infoUsuario = response.responseText;
                 const infoUsuarioJSON = response.responseJSON;
                 if (infoUsuarioJSON.Id === 'SEG0001') {
-                  this_aux.service.NombreUsuario = infoUsuarioJSON.NombreUsuario; 
+                  
+                    this_aux.service.NombreUsuario = infoUsuarioJSON.NombreUsuario; 
                     this_aux.service.infoUsuario = infoUsuario;
                     this_aux.service.infoUsuarioSIC = infoUsuarioJSON.Sic;
-
-                    this_aux.router.navigate(['/menuBXI']);
-                    $('div').removeClass('modal-backdrop');
+                    this_aux.verificaPreferencia();
 
                 } else { 
                   
@@ -149,7 +148,7 @@ export class LoginBxiComponent implements OnInit {
                   $('#errorModal').modal('show');
                 }
 
-          }, function(error) {
+          }, function(error) { this_aux.showErrorPromise(error);
           });
     }
 
@@ -160,6 +159,28 @@ export class LoginBxiComponent implements OnInit {
       document.getElementById('NosoyYo').style.display = 'none';
       
 
+    }
+
+  verificaPreferencia() {
+      const this_aux = this;
+      const autenticacion: Autenticacion = new Autenticacion();
+      autenticacion.consultaPreferencia(this_aux.service.usuarioLogin).then(
+        function(datosUsuario) {
+           const jsonDatosUsuario = datosUsuario.responseJSON;
+            if (jsonDatosUsuario.Id === '1') {
+              
+              console.log(jsonDatosUsuario);
+              this_aux.service.isPreferente = jsonDatosUsuario.Preferente;
+              this_aux.router.navigate(['/menuBXI']);
+              $('div').removeClass('modal-backdrop');
+
+            } else {
+              this_aux.showErrorSucces(jsonDatosUsuario);
+            }
+        }, function(error) {
+            this_aux.showErrorPromise(error);
+        }
+      );
     }
 
     controlarError(id) {
@@ -202,6 +223,21 @@ export class LoginBxiComponent implements OnInit {
       }
 
       return mensajeError;
+    }
+
+    showErrorPromise(error) {
+      console.log(error);
+      // tslint:disable-next-line:max-line-length
+      document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde."; 
+      $('#_modal_please_wait').modal('hide');
+      $('#errorModal').modal('show');
+    }
+  
+    showErrorSucces(json) {
+      console.log(json.Id + json.MensajeAUsuario);
+      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+      $('#_modal_please_wait').modal('hide');
+      $('#errorModal').modal('show');
     }
 
   }

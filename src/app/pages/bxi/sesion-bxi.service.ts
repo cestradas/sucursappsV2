@@ -9,6 +9,7 @@ export class SesionBxiService {
     metodoAutenticaMayor: string;
     metodoAutenticaEtiqueta: string;
     NombreUsuario: string;
+    isPreferente: true;
     // Respuesta Servicios
     detalleIdentificacion: string;
     metodosAutenticacionUsario: string;
