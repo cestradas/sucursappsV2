@@ -20,6 +20,7 @@ export class PagoServiciosIniComponent implements OnInit {
   arrayEmpresas: Array<any> = [];
   listaEmpresas:  Array<any> = [];
   listaEmpresasAux: Array<any> = [];
+
   showOptions: Boolean = false;
   empresaInLocal: string ;
 
@@ -192,16 +193,15 @@ getEmpresas() {
        $( ".cdk-overlay-container" ).css( "margin-top", "19 %" );
 
        const this_aux = this;
-       this_aux.showOptions = true;
        console.log('muestraFacturadores');
        this_aux.setClickOnBody();
      }
 
      setValue(value) {
        const aux_this = this;
-       aux_this.showOptions = false;
        aux_this.facturador.nativeElement.value = value ;
-     }
+       aux_this.showOptions = false;
+      }
 
      setClickOnBody() {
        console.log('click');
@@ -210,31 +210,25 @@ getEmpresas() {
 
      body.on('click', function() {
 
-      if (this_aux.listaEmpresas.length === 0) {
-            this_aux.listaEmpresas = this_aux.listaEmpresasAux; // rellenar cuando regrese y no haya coincidencia
-        }
+      console.log( this_aux.facturador.nativeElement.value);
+      const auxOption = [];
+      const valueInput = this_aux.facturador.nativeElement.value;
 
-         console.log( this_aux.facturador.nativeElement.value);
-         const auxOption = [];
-         const valueInput = this_aux.facturador.nativeElement.value;
-         if (valueInput.toUpperCase() === '') {
-           this_aux.listaEmpresas = this_aux.listaEmpresasAux;
-         } else {
+              if (valueInput.toUpperCase() === '') {
+                this_aux.showOptions = false;
 
-           this_aux.listaEmpresas.forEach(element => {
-             if (element.includes(valueInput.toUpperCase())) {
-               auxOption.push(element);
-             }
+              } else {
 
-         });
-
-         if (valueInput.toUpperCase() === '') {
-          this_aux.listaEmpresas = this_aux.listaEmpresasAux;
-         } else {
-          this_aux.listaEmpresas = auxOption;
-         }
-       }
-       console.log('lista llena');
+                this_aux.showOptions = true;
+                this_aux.listaEmpresas = this_aux.listaEmpresasAux;
+                this_aux.listaEmpresas.forEach(element => {
+                  if (element.includes(valueInput.toUpperCase())) {
+                    auxOption.push(element);
+                  } });
+                  
+                    this_aux.listaEmpresas = auxOption;
+                    }
+            
      });
    }
 
