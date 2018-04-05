@@ -298,7 +298,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
               } else {
                   
                   console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);  
-                  mensajeError = this_aux.controlarError(infoUsuarioJSON.Id);
+                  mensajeError = this_aux.controlarError(infoUsuarioJSON);
                   document.getElementById('mnsError').innerHTML =  mensajeError;
                   $('#_modal_please_wait').modal('hide');
                   $('#errorModal').modal('show');
@@ -359,8 +359,10 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     return importeAux;
   }
 
-  controlarError(id) {
+  controlarError(json) {
 
+    const id = json.Id ;
+    const mensajeUsuario = json.MensajeAUsuario;
     let mensajeError; 
 
     switch (id) {
@@ -395,7 +397,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
                     break;   
       case 'SEGAM84': mensajeError = "Token no activado, favor de marcar a Banortel.";
                     break;  
-      case '2'      : mensajeError = "Error Desconocido";            
+      case '2'      : mensajeError = mensajeUsuario;            
     }
 
     return mensajeError;
