@@ -966,12 +966,12 @@ table {
 /* estilo para ul*/
 .ul-facturadores{
     width: 1500px;
-    height: auto;
+    height: 150px;
     overflow: auto;
     position: absolute;
     z-index: 1;
     background: white;
-    display: inline-block;
+    
 }
 
 .img-select-seleccion{
