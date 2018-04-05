@@ -3,6 +3,7 @@ import { Http, Response, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 
 import { SesionBxiService } from '../sesion-bxi.service';
 import { OperacionesBXI } from '../operacionesBXI';
@@ -25,7 +26,28 @@ export class CompraTaComponent implements OnInit {
   
   datosCuenta: any[] = [];
 
-  constructor( private _http: Http, private router: Router, public service: SesionBxiService, private renderer: Renderer2 ) { }
+  forma: FormGroup;
+
+  constructor( private _http: Http, private router: Router, public service: SesionBxiService, private renderer: Renderer2 ) { 
+
+    this.forma = new FormGroup({
+
+      'telefono': new FormControl('', [Validators.required, Validators.maxLength(10), Validators.pattern('/^([0-9])*$/')]),
+      
+  
+    });
+
+    console.log(this.forma);
+
+    this.forma.controls['telefono'].valueChanges.subscribe(
+      data => {
+        console.log('telefono', data);
+        console.log('forma', this.forma);
+      });
+
+  }
+
+  
 
   ngOnInit() {
      this.consultaCatEmpresas();

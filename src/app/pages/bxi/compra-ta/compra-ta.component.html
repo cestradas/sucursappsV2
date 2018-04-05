@@ -53,7 +53,7 @@
     </div>
 
 
-    <form (ngSubmit)="showDetallePago(forma)" #forma="ngForm">
+    <form [formGroup]="forma" (ngSubmit)="showDetallePago()">
         <div id="divisionInputs"></div>
         <div class="row sumando-form-group letranegrita">
             <div class="col-sm-1 sumando-bg-red group-name">Para</div>
@@ -97,7 +97,7 @@
                             <label class="col-sm-2 control-label">Tel&eacute;fono</label>
 
                             <div class="col-sm-10">
-                                <input [matKeyboard]="'num'" id="telefono" name="telefono" type="text" class="input-whidth form-control amount input-lg" />
+                                <input [matKeyboard]="'num'" formControlName="telefono" id="telefono" name="telefono" type="text" class="input-whidth form-control amount input-lg" />
                                 <div *ngIf="forma.hasError('maxlength', 'telefono')" class="alert alert-danger">
                                     El numero telefonico no puede ser mayor a 10 digitos.
                                 </div>
@@ -126,7 +126,7 @@
             </div>
             <!-- <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
             <div class="col-sm-1">
-                <button id="continuarspei" name="continuarspei" class="color-botones btn btn-lg " type="submit">
+                <button id="continuarspei" [disabled]="!forma.valid" name="continuarspei" class="color-botones btn btn-lg " type="submit">
                   Continuar</button>
             </div>
         </div>

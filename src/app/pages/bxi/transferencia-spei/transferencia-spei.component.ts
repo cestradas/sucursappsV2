@@ -2,13 +2,13 @@ import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/co
 import { Http, Response, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
-import { FormsModule, NgForm, FormGroup } from '@angular/forms';
 import { SesionBxiService } from '../sesion-bxi.service';
 import { OperacionesBXI } from '../operacionesBXI';
 import { Autenticacion } from '../autenticacion';
 
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 
 
 
@@ -55,9 +55,139 @@ export class TransferenciaSpeiComponent implements OnInit {
 
   labelTipoAutentica: string;
   CuentaDestino: string;
- 
   
-  constructor(private _http: Http, private router: Router, public service: SesionBxiService, private renderer: Renderer2) { }
+
+  forma: FormGroup;
+
+  importeF = "";
+  descripcionF = "";
+  refF = "";
+
+  rfcEmiF = "";
+
+  tipoCuentaF = "";
+  bancoReceptF =  "";
+  clabeF = "";
+  
+  
+  constructor(private _http: Http, private router: Router, public service: SesionBxiService, private renderer: Renderer2) { 
+
+    const this_aux = this;
+
+    this.forma = new FormGroup({
+
+      // SPEI
+      'amountSPEI': new FormControl('', [Validators.required, Validators.min(0), Validators.max(7000)]),
+      'descriptionSPEI': new FormControl('', [Validators.required, Validators.maxLength(60)]),
+      'referenceSPEI': new FormControl('', [Validators.required, Validators.maxLength(7)]),
+      
+      // TEF
+
+      'rfcTEF': new FormControl('', [Validators.required, Validators.maxLength(13)]),
+      'amountTEF': new FormControl('', [Validators.required, Validators.min(0), Validators.max(7000)]),
+      'descriptionTEF': new FormControl('', [Validators.required, Validators.maxLength(60)]),
+      'referenceTEF': new FormControl('', [Validators.required, Validators.maxLength(7)]),
+
+      // Quick
+
+      
+      'cuenta': new FormControl('', [Validators.required, Validators.maxLength(20)]),
+      'sel1': new FormControl('', [Validators.required]),
+      'clabe': new FormControl('', [Validators.required, Validators.maxLength(15)]),
+      'ammountQUICK': new FormControl('', [Validators.required, Validators.min(0), Validators.max(7000)]),
+  
+    });
+
+    console.log(this.forma);
+
+    this.forma.controls['amountSPEI'].valueChanges.subscribe(
+      data => {
+        console.log('amountSPEI', data);
+        console.log('forma', this.forma);
+        
+        this_aux.importeF = data;
+      });
+
+      this.forma.controls['descriptionSPEI'].valueChanges.subscribe(
+        data => {
+          console.log('descriptionSPEI', data);
+          console.log('forma', this.forma);
+
+          this_aux.descripcionF = data;
+        });
+    
+        this.forma.controls['referenceSPEI'].valueChanges.subscribe(
+          data => {
+            console.log('referenceSPEI', data);
+            console.log('forma', this.forma);
+
+            this_aux.refF = data;
+          });
+
+          this.forma.controls['rfcTEF'].valueChanges.subscribe(
+            data => {
+              console.log('rfcTEF', data);
+              console.log('forma', this.forma);
+
+              this_aux.rfcEmiF = data;
+            });
+
+            this.forma.controls['amountTEF'].valueChanges.subscribe(
+              data => {
+                console.log('amountTEF', data);
+                console.log('forma', this.forma);
+
+                this_aux.importeF = data;
+              });
+
+              this.forma.controls['descriptionTEF'].valueChanges.subscribe(
+                data => {
+                  console.log('descriptionTEF', data);
+                  console.log('forma', this.forma);
+
+                  this_aux.descripcionF = data;
+                });
+
+                this.forma.controls['referenceTEF'].valueChanges.subscribe(
+                  data => {
+                    console.log('referenceTEF', data);
+                    console.log('forma', this.forma);
+
+                    this_aux.refF = data;
+                  });
+
+                  this.forma.controls['cuenta'].valueChanges.subscribe(
+                    data => {
+                      console.log('cuenta', data);
+                      console.log('forma', this.forma);
+
+                      this_aux.tipoCuentaF = data;
+                    });
+
+                    this.forma.controls['sel1'].valueChanges.subscribe(
+                      data => {
+                        console.log('sel1', data);
+                        console.log('forma', this.forma);
+
+                        this_aux.bancoReceptF = data;
+                      });
+
+                      this.forma.controls['clabe'].valueChanges.subscribe(
+                        data => {
+                          console.log('clabe', data);
+                          console.log('forma', this.forma);
+
+                          this_aux.clabeF = data;
+                        });
+
+                        this.forma.controls['ammountQUICK'].valueChanges.subscribe(
+                          data => {
+                            console.log('ammountQUICK', data);
+                            console.log('forma', this.forma);
+
+                            this_aux.importeF = data;
+                          });
+  }
 
   ngOnInit() {
 
@@ -82,6 +212,8 @@ export class TransferenciaSpeiComponent implements OnInit {
             document.getElementById('tranQuick').style.display = 'none';
           
             document.getElementById('tranSPEI').style.display = 'block';
+
+            document.getElementById('tranSPEI').style.display = '';
             
 
             break;
@@ -92,6 +224,8 @@ export class TransferenciaSpeiComponent implements OnInit {
          
             document.getElementById('tranTEF').style.display = 'block';
 
+            document.getElementById('tranTEF').style.display = '';
+
             break;
       case '3':  // QUICK
 
@@ -101,18 +235,17 @@ export class TransferenciaSpeiComponent implements OnInit {
         
             document.getElementById('tranQuick').style.display = 'block';
            
-
+            document.getElementById('tranQuick').style.display = '';
             break;
           
   
           }
   }
 
-  showDetallePago(forma: NgForm) {
+  showDetallePago() {
     const this_aux = this;  
       
-    console.log("ngForm", forma);
-    console.log("Valor forma", forma.value) ;
+    
     
     console.log("adentro Trnsferencias Internacionales SPEI ");
 
@@ -123,28 +256,28 @@ export class TransferenciaSpeiComponent implements OnInit {
 
       case '1':  // SPEI
 
-      importe = forma.value.amountSPEI;
-      descripcion = forma.value.descriptionSPEI;
-      ref = forma.value.referenceSPEI;           
+      importe = this_aux.importeF;
+      descripcion = this_aux.descripcionF;
+      ref = this_aux.refF;           
 
             break;
 
       case '2':  // TEF
 
       
-      rfcEmi = forma.value.rfcTEF;
-      importe = forma.value.amountTEF;
-      descripcion = forma.value.descriptionTEF;
-      ref = forma.value.referenceTEF;   
+      rfcEmi = this_aux.rfcEmiF;
+      importe = this_aux.importeF;
+      descripcion = this_aux.descripcionF;
+      ref = this_aux.refF;   
 
        
             break;
       case '3':  // QUICK
 
-      tipoCuenta = forma.value.cuenta;
-      bancoRecept =  forma.value.sel1;
-      clabe = forma.value.clabe;
-      importe = forma.value.ammountQUICK;
+      tipoCuenta = this_aux.tipoCuentaF;
+      bancoRecept =  this_aux.bancoReceptF;
+      clabe = this_aux.clabeF;
+      importe = this_aux.importeF;
      
       
          

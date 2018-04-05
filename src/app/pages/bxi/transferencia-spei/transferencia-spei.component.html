@@ -22,8 +22,8 @@
                         <strong>$<label id ="lblSaldoOrigen"></label>
                         </strong>
                       </td>
-                      <td width="5%" rowspan="2" class="dropdown-caret">
-                        <img  class="select-img" src="./assets/img/bg_selectN.png">
+                      <td width="5%" rowspan="2" class="dropdown-caret" style="padding-left: 21px;">
+                        <img  class="select-img" src="./assets/img/bg_selectN.png" style="width: 91%; height: 181%;" >
                       </td>
                     </tr>
                     <tr>
@@ -63,15 +63,15 @@
                         <button class="btn btn-default btn-block dropdown-toggle btn-color-cuentas" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                   <table id="tableBeneficiarios" style="display: none" width="100%">
                     <tr>
-                      <td align="left" width="45%">
+                      <td align="left" width="45%" style="width: 0px; margin-right: 64px;">
                         <strong><label  id="lbDescripcionCtaBen" #lbDescripcionCtaBen></label></strong>
                       </td>
                       <!-- <td align="left" width="45%">
                        <strong>$<label id ="lblSaldoOrigen"></label>
                        </strong>
                      </td>-->
-                      <td width="5%" rowspan="2" class="dropdown-caret">
-                        <img  class="select-img" src="./assets/img/bg_selectN.png">
+                      <td width="5%" rowspan="2" class="dropdown-caret" style="padding-left: 2px;">
+                        <img  class="select-img" src="./assets/img/bg_selectN.png" style="width: 80%; height: 184%; margin-left: 42px;">
                       </td>
                     </tr>
                     <tr>
@@ -119,7 +119,7 @@
     </div>
 
 
-    <form (ngSubmit)="showDetallePago(forma)" #forma="ngForm">
+    <form [formGroup]="forma" (ngSubmit)="showDetallePago()">
         <div id="divisionInputs"></div>
         <div class="row sumando-form-group letranegrita">
             <div class="col-sm-1 sumando-bg-red group-name">Para</div>
@@ -132,8 +132,16 @@
                                 <label>Importe: </label>
                             </div>
                             <div class="col-lg-10">
-                                <input name="amountSPEI" [(ngModel)]="amountSPEI" id="amountSPEI" type="text" step="0.01" currency required class="form-control amount input-lg" ng-model="command.amount" ng-min="1" ng-max="7000" />
+                                <input formControlName="amountSPEI" name="amountSPEI" id="amountSPEI" type="text" step="0.01" currency required class="form-control amount input-lg" />
+
+                                <div *ngIf="forma.hasError('min', 'amountSPEI') || forma.hasError('max', 'amountSPEI') " class="alert alert-danger">
+                                    El importe debe ser menor a....
+                                </div>
+                                <div *ngIf="forma.hasError('required', 'amountSPEI') && forma.get('amountSPEI').touched" class="alert alert-danger">
+                                    Este dato es obligatorio.
+                                </div>
                             </div>
+
                         </div>
                     </div>
                     <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
@@ -142,7 +150,13 @@
                                 <label>Descripci&oacute;n: </label>
                             </div>
                             <div class="col-sm-10">
-                                <input name="descriptionSPEI" [(ngModel)]="descriptionSPEI" id="descriptionSPEI" type="text" class="form-control amount input-lg" maxlength="60" required />
+                                <input name="descriptionSPEI" formControlName="descriptionSPEI" id="descriptionSPEI" type="text" class="form-control amount input-lg" maxlength="60" required />
+                                <div *ngIf="forma.hasError('maxlength', 'descriptionSPEI')" class="alert alert-danger">
+                                    Limite de descripcion....
+                                </div>
+                                <div *ngIf="forma.hasError('required', 'descriptionSPEI') && forma.get('descriptionSPEI').touched" class="alert alert-danger">
+                                    Este dato es obligatorio.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -152,7 +166,13 @@
                                 <label>Referencia: </label>
                             </div>
                             <div class="col-sm-10">
-                                <input id="referenceSPEI" name="referenceSPEI" [(ngModel)]="referenceSPEI" type="text" maxlength="7" class="form-control amount input-lg" required />
+                                <input id="referenceSPEI" name="referenceSPEI" formControlName="referenceSPEI" type="text" maxlength="7" class="form-control amount input-lg" required />
+                                <div *ngIf="forma.hasError('maxlength', 'referenceSPEI')" class="alert alert-danger">
+                                    Limite de descripcion....
+                                </div>
+                                <div *ngIf="forma.hasError('required', 'referenceSPEI') && forma.get('referenceSPEI').touched" class="alert alert-danger">
+                                    Este dato es obligatorio.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -165,7 +185,13 @@
                                 <label>RFC Ordenante: </label>
                             </div>
                             <div class="col-lg-10">
-                                <input name="rfcTEF" id="rfcTEF" [(ngModel)]="rfcTEF" type="text" step="0.01" currency required class="form-control amount input-lg" ng-model="command.amount" ng-min="1" ng-max="7000" />
+                                <input name="rfcTEF" id="rfcTEF" formControlName="rfcTEF" type="text" step="0.01" currency required class="form-control amount input-lg" ng-model="command.amount" ng-min="1" ng-max="7000" />
+                                <div *ngIf="forma.hasError('maxlength', 'rfcTEF')" class="alert alert-danger">
+                                    RFC debe ser de....
+                                </div>
+                                <div *ngIf="forma.hasError('required', 'rfcTEF') && forma.get('rfcTEF').touched" class="alert alert-danger">
+                                    Este dato es obligatorio.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -175,7 +201,13 @@
                                 <label>Importe: </label>
                             </div>
                             <div class="col-sm-10">
-                                <input id="amountTEF" name="amountTEF" [(ngModel)]="amountTEF" type="text" class="form-control amount input-lg" maxlength="60" required />
+                                <input id="amountTEF" name="amountTEF" formControlName="amountTEF" type="text" class="form-control amount input-lg" maxlength="60" required />
+                                <div *ngIf="forma.hasError('min', 'amountTEF') || forma.hasError('max', 'amountTEF') " class="alert alert-danger">
+                                    Limite de....
+                                </div>
+                                <div *ngIf="forma.hasError('required', 'amountTEF') && forma.get('amountTEF').touched" class="alert alert-danger">
+                                    Este dato es obligatorio.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -185,7 +217,13 @@
                                 <label>Descripci&oacute;n: </label>
                             </div>
                             <div class="col-sm-10">
-                                <input id="descriptionTEF" name="descriptionTEF" [(ngModel)]="descriptionTEF" type="text" maxlength="7" class="form-control amount input-lg" required />
+                                <input id="descriptionTEF" name="descriptionTEF" formControlName="descriptionTEF" type="text" maxlength="7" class="form-control amount input-lg" required />
+                                <div *ngIf="forma.hasError('maxlength', 'descriptionTEF')" class="alert alert-danger">
+                                    Limite de descripcion debe ser de....
+                                </div>
+                                <div *ngIf="forma.hasError('required', 'descriptionTEF') && forma.get('descriptionTEF').touched" class="alert alert-danger">
+                                    Este dato es obligatorio.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -195,7 +233,13 @@
                                 <label>Referencia: </label>
                             </div>
                             <div class="col-sm-10">
-                                <input id="referenceTEF" name="referenceTEF" [(ngModel)]="referenceTEF" type="text" maxlength="7" class="form-control amount input-lg" required />
+                                <input id="referenceTEF" name="referenceTEF" formControlName="referenceTEF" type="text" maxlength="7" class="form-control amount input-lg" required />
+                                <div *ngIf="forma.hasError('maxlength', 'referenceTEF')" class="alert alert-danger">
+                                    La referencia debe ser de....
+                                </div>
+                                <div *ngIf="forma.hasError('required', 'referenceTEF') && forma.get('referenceTEF').touched" class="alert alert-danger">
+                                    Este dato es obligatorio.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -208,7 +252,13 @@
                                 <label>Tipo de cuenta: </label>
                             </div>
                             <div class="col-lg-10">
-                                <input name="cuenta" id="cuenta" [(ngModel)]="cuenta" type="text" step="0.01" currency required class="form-control amount input-lg" ng-model="command.amount" ng-min="1" ng-max="7000" />
+                                <input name="cuenta" id="cuenta" formControlName="cuenta" type="text" step="0.01" currency required class="form-control amount input-lg" ng-model="command.amount" ng-min="1" ng-max="7000" />
+                                <div *ngIf="forma.hasError('maxlength', 'cuenta')" class="alert alert-danger">
+                                    La referencia debe ser de....
+                                </div>
+                                <div *ngIf="forma.hasError('required', 'cuenta') && forma.get('cuenta').touched" class="alert alert-danger">
+                                    Este dato es obligatorio.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -218,7 +268,7 @@
                                 <label for="amount" class="col-sm-2 control-label">Banco Destino</label>
                             </div>
                             <div class="dropdown sumando-dropdown-account col-sm-9">
-                                <select class="input-whidth form-control input-lg" name="sel1" [(ngModel)]="sel1" id="sel1" #rSel1 value="{{sel1}}" style="border:0px solid red;">
+                                <select class="input-whidth form-control input-lg" name="sel1" formControlName="sel1" id="sel1" value="{{sel1}}" style="border:0px solid red;">
                                     <option value="0">Seleccione un banco</option>
                                       <option value="40002">Banamex - Citibank</option>
                                       <option value="40012">BBVA Bancomer</option>
@@ -280,6 +330,10 @@
                                       <option value="40141">Volkswagen</option>
                                       <option value="40135">Wal-Mart</option>
                                    </select>
+
+                                <div *ngIf="forma.hasError('required', 'sel1') && forma.get('sel1').touched" class="alert alert-danger">
+                                    Este dato es obligatorio.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -289,7 +343,13 @@
                                 <label>CLABE: </label>
                             </div>
                             <div class="col-sm-10">
-                                <input id="clabe" name="clabe" [(ngModel)]="clabe" type="text" maxlength="7" class="form-control amount input-lg" required />
+                                <input id="clabe" name="clabe" formControlName="clabe" type="text" maxlength="7" class="form-control amount input-lg" required />
+                                <div *ngIf="forma.hasError('maxlength', 'clabe')" class="alert alert-danger">
+                                    La clabe debe ser de....
+                                </div>
+                                <div *ngIf="forma.hasError('required', 'clabe') && forma.get('clabe').touched" class="alert alert-danger">
+                                    Este dato es obligatorio.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -299,7 +359,13 @@
                                 <label>Importe: </label>
                             </div>
                             <div class="col-sm-10">
-                                <input id="ammountQUICK" name="ammountQUICK" [(ngModel)]="ammountQUICK" type="text" maxlength="7" class="form-control amount input-lg" required />
+                                <input id="ammountQUICK" name="ammountQUICK" formControlName="ammountQUICK" type="text" maxlength="7" class="form-control amount input-lg" required />
+                                <div *ngIf="forma.hasError('min', 'ammountQUICK') || forma.hasError('max', 'ammountQUICK') " class="alert alert-danger">
+                                    El importe debe ser de....
+                                </div>
+                                <div *ngIf="forma.hasError('required', 'ammountQUICK') && forma.get('ammountQUICK').touched" class="alert alert-danger">
+                                    Este dato es obligatorio.
+                                </div>
                             </div>
                         </div>
                     </div>
