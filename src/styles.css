@@ -459,6 +459,7 @@ html {
     position: relative !important;
     margin-right: 10%;
     margin-left: 10%;
+    margin-top: 18%;
 }
 
 .cdk-visually-hidden {
@@ -965,12 +966,12 @@ table {
 
 /* estilo para ul*/
 .ul-facturadores{
-    width: 1500px;
-    height: 150px;
+    width: 1280px;
+    height: auto;
     overflow: auto;
     position: absolute;
     z-index: 1;
-    background: white;
+    display: inline-block;
     
 }
 

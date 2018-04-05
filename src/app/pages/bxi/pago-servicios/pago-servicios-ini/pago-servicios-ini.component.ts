@@ -194,7 +194,7 @@ getEmpresas() {
      muestraFacturadores() {
 
        // ESTILO TECLADO (QUITAR ESTILO AL SALIR DE PAGINA PARA EVITAR QUE BAJE MAS EN OTRAS PANTALLAS)
-       $( ".cdk-overlay-container" ).css( "margin-top", "19 %" );
+       // $( ".cdk-overlay-container" ).css( "margin-top", "19 %" );
 
        const this_aux = this;
        console.log('muestraFacturadores');
