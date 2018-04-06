@@ -12,21 +12,21 @@
                     <table width="100%" class="letranegrita">
                         <tr>
                             <td align="left" width="40%">Nombre <strong>
-                              <label id="nombreCliente">
+                              <label>
                                   {{ nombreUsuarioTdd }} 
                               </label>
                             </strong>
                             </td>
                             <td align="left" width="40%">
                                 <strong>
-                              <label id="saldoDisponible">{{ saldoClienteTdd | currency }}</label> 
+                              <label>{{ saldoClienteTdd | currency }}</label> 
                             </strong>
                             </td>
                         </tr>
                         <tr>
                             <td align="left">Cuenta
                                 <strong>
-                                <label name="numeroCuenta" id="numeroCuenta">
+                                <label>
                                     {{ cuentaClienteTdd }}
                                 </label>
                             </strong>
@@ -55,11 +55,19 @@
                     <!-- <div id="atributo" class="col-lg-2 "> -->
                     <div id="carriersDiv" class="row col-sm-8" style="height:60px; width:1200px;">
                         <input type="hidden" id="carrier" name="carrier" />
-                        <div class="Telcel col-sm-2"><img src="./assets/img/7000.png" style="display: inline-block;float: left;" class="imagenTelcel compTelefonica" #importeTelcel id="imagenTelcel" name='importeTelcel' ngDefaultControl (click)="cargaSaldo(importeTelcel)" /></div>
-                        <div class="Movistar col-sm-2"><img src="./assets/img/11000.png" style="display: inline-block;float: left;" class="imagenMovistar compTelefonica" #importeMovi id="importeMovi" name='importeMovi' ngDefaultControl (click)="cargaSaldo(importeMovi)" /></div>
-                        <div class="Unefon col-sm-2"><img src="./assets/img/5000.png" style="display: inline-block;float: left;" class="imagenUnefon compTelefonica" #importeUnefon id="importeUnefon" name='importeUnefon' ngDefaultControl (click)="cargaSaldo(importeUnefon)" /></div>
-                        <div class="Iusacell col-sm-2"><img src="./assets/img/6000.png" style="display: inline-block;float: left;" class="imagenIusacell compTelefonica" #importeIusa id="importeIusa" name='importeIusa' ngDefaultControl (click)="cargaSaldo(importeIusa)" /></div>
-                        <!-- <div class="Nextel"><img src="./images/carriers/nextel.png"  style="display: inline-block;float: left; height:50px; width:100px;"/></div> -->
+                        <div [ngClass]="{'Telcel col-sm-2': true , 'border border-danger': blClassT}">
+                            <img src="./assets/img/7000.png" style="display: inline-block; float: center !important;" class="imagenTelcel compTelefonica" #importeTelcel id="imagenTelcel" name='importeTelcel' ngDefaultControl formControlName="operador" (click)="cargaSaldo(importeTelcel)"
+                            />
+                        </div>
+                        <div [ngClass]="{'Movistar col-sm-2': true , 'border border-danger': blClassM}">
+                            <img src="./assets/img/11000.png" style="display: inline-block;float: left;" class="imagenMovistar compTelefonica" #importeMovi id="importeMovi" name='importeMovi' ngDefaultControl (click)="cargaSaldo(importeMovi)" />
+                        </div>
+                        <div [ngClass]="{'Unefon col-sm-2': true , 'border border-danger': blClassU}">
+                            <img src="./assets/img/5000.png" style="display: inline-block;float: left;" class="imagenUnefon compTelefonica" #importeUnefon id="importeUnefon" name='importeUnefon' ngDefaultControl (click)="cargaSaldo(importeUnefon)" />
+                        </div>
+                        <div [ngClass]="{'Iusacell col-sm-2': true , 'border border-danger': blClassI}">
+                            <img src="./assets/img/6000.png" style="display: inline-block;float: left;" class="imagenIusacell compTelefonica" #importeIusa id="importeIusa" name='importeIusa' ngDefaultControl (click)="cargaSaldo(importeIusa)" />
+                        </div>
                     </div>
 
                     <style>
@@ -70,24 +78,12 @@
                     </style>
 
                 </div>
-                <!-- <div class="row padding-InFieldset">
-                    <label style="width: 8.3%;" class="col-sm-2 control-label">Monto</label>
-                    <div class="col-sm-10 amount-list">
-                        <div class="col-lg-1" *ngFor="let recarga of recargas">
-                            <label>{{recarga.ImporteTiempoAire}}</label>
-                        </div>
-                        <div id="botonMontos" style="display:none; ">
-                            <div id="muestraMontos" name="muestraMontos" class="btn-group" role="group">
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
 
                 <div class="row padding-InFieldset">
                     <label style="width: 8.3%;" class="col-sm-2 control-label">Monto</label>
-                    <div class="col-sm-1 amount-list" *ngFor="let recarga of recargas">
+                    <div class="col-sm-1 amount-list" *ngFor="let recarga of recargas; let i = index">
 
-                        <label>{{recarga.ImporteTiempoAire | currency}}</label>
+                        <label formControlName="importe" ngDefaultControl #importe id="{{recarga.ImporteTiempoAire}}" (click)="cargaImporte(importe)">{{recarga.ImporteTiempoAire | currency}}</label>
 
                         <div id="botonMontos" style="display:none; ">
                             <div id="muestraMontos" name="muestraMontos" class="btn-group" role="group">
@@ -96,18 +92,13 @@
                     </div>
                 </div>
 
-
-                <!-- fin hola mundo -->
-
-
-
                 <div class="row padding-InFieldset amount-list">
                     <label class="col-sm-2 control-label">Tel&eacute;fono</label>
 
                     <div class="col-sm-10">
-                        <input [matKeyboard]="'num'" formControlName="telefono" id="telefono" name="telefono" type="text" class="input-whidth form-control amount input-lg" />
-                        <div *ngIf="forma.hasError('maxlength', 'telefono')" class="alert alert-danger">
-                            El numero telefonico no puede ser mayor a 10 digitos.
+                        <input formControlName="telefono" id="telefono" name="telefono" type="text" class="input-whidth form-control amount input-lg" />
+                        <div *ngIf="forma.hasError('maxlength', 'telefono') || forma.hasError('minlength', 'telefono')" class="alert alert-danger">
+                            El numero telefonico debe ser a 10 digitos.
                         </div>
                         <div *ngIf="forma.hasError('required', 'telefono') && forma.get('telefono').touched" class="alert alert-danger">
                             Este dato es obligatorio.
@@ -118,7 +109,13 @@
                     <label class="col-sm-2 control-label">Correo a notificar</label>
 
                     <div class="col-sm-10">
-                        <input [matKeyboard]="" formControlName="email" id="email" name="email" type="text" class="input-whidth form-control input-lg" placeholder="" maxlength="60" />
+                        <input formControlName="email" id="email" name="email" type="text" class="input-whidth form-control input-lg" placeholder="" maxlength="60" />
+                        <div *ngIf="forma.hasError('pattern', 'email') && !forma.get('email').untouched" class="alert alert-danger">
+                            El correo electronico es incorrecto.
+                        </div>
+                        <div *ngIf="forma.hasError('required', 'email') && forma.get('email').touched" class="alert alert-danger">
+                            Este dato es obligatorio.
+                        </div>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -130,7 +127,7 @@
                 <button class="btn btn-lg pull-right" [routerLink]="['/menuTdd']">Regresar</button>
             </div>
             <div class="col-sm-1">
-                <button class="btn btn-danger btn-lg pull-left" type="submit">Continuar</button>
+                <button [disabled]="!forma.valid" class="btn btn-danger btn-lg pull-left" type="submit" data-toggle="modal" data-target="#confirmModal">Continuar</button>
             </div>
         </div>
 
@@ -150,22 +147,22 @@
 
                 <ul class="list-group">
                     <li class="list-group-item"><strong><label>Operador:</label></strong>
-                        <label id="carrierConfirmar"></label>
+                        <label>{{ operador }}</label>
                     </li>
                     <li class="list-group-item"><strong><label>Importe:</label></strong>
-                        <label id="montoConfirmar"></label>
+                        <label>{{ importe | currency }}</label>
                     </li>
                     <li class="list-group-item"><strong><label>N&uacute;mero de celular:</label></strong>
-                        <label id="telefonoConfirmar"></label>
+                        <label>{{ forma.get('telefono').value }}</label>
                     </li>
                     <li class="list-group-item"><strong><label>Correo:</label></strong>
-                        <label id="confirMail"></label>
+                        <label>{{ forma.get('email').value }}</label>
                     </li>
                 </ul>
             </div>
             <div class="modal-footer ">
                 <button type="button" class="btn btn-lg letranegrita" data-dismiss="modal">Cancelar</button>
-                <button type="button" onClick="onTransfer()" class="btn btn-primary btn-lg letranegrita" style="margin:0px 20px 0px 0px;">Confirmar</button>
+                <button type="button" onClick="onTransfer()" class="btn btn-danger btn-lg letranegrita" style="margin:0px 20px 0px 0px;">Confirmar</button>
             </div>
         </div>
     </div>

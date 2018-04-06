@@ -1,0 +1,179 @@
+<div>
+    <script type="text/javascript">
+        $.getScript(path + "Keyboard-master/docs/js/demo.js");
+    </script>
+    <!-- 	<!-- Modal Start here-->
+
+    <div ng-cloak class="padding-barToTittle">
+        <h2 class="text-center deleteMargin-h2 color-letra letramegrita">Pago de tarjeta de cr&eacute;dito</h2>
+    </div><br>
+
+    <fieldset class="padding-TittleToFieldset padding-fieldset-general">
+
+        <div class="row sumando-form-group letranegrita">
+            <div class="col-sm-1 sumando-bg-orange group-name">Desde</div>
+            <div class="col-sm-11 group-controls padding-left-0 padding-right-0 sumando-well-white">
+                <div class="form-group ">
+
+                    <div class="sumando-dropdown-account">
+                        <table width="100%" class="letranegrita">
+                            <tr>
+                                <td align="left" width="40%">Nombre <strong>
+                                    <label>
+                                        {{ nombreUsuarioTdd }} 
+                                    </label>
+                            </strong>
+                                </td>
+                                <td align="left" width="40%">
+                                    <strong>
+                                        <label>{{ saldoClienteTdd | currency }}</label> 
+                            </strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">Cuenta
+                                    <strong>
+                                    <label>
+                                        {{ cuentaClienteTdd }}
+                                    </label>
+                                </strong>
+                                </td>
+                                <td align="left">Saldo Disponible
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form [formGroup]="forma">
+
+            <div class="row sumando-form-group letranegrita">
+                <div class="col-sm-1 sumando-bg-red group-name">Para</div>
+                <div class="col-lg-11 sumando-well-white">
+                    <div class="row form-group">
+                        <div class="col-lg-2">
+                            <label class=" control-label">Tipo de tarjeta</label>
+                        </div>
+                        <div class="dropdown sumando-dropdown-account col-lg-10">
+                            <select formControlName="selectBanco" class="input-whidth selectModificado" id="tipoBanco" style=" width: 100%; height: 60px;">
+                            <option disabled="" selected value="0" ng-reflect-value="0">Seleccione transferencia</option>
+                            <option *ngFor="let banco of bancos; let i = index" [value]="banco.IdBanco">{{ banco.NombreBanco }}</option>
+                            
+
+                        </select>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="margin-InFieldset row">
+                        <div class="col-lg-2">
+                            <label for="amount" class="control-label ">N&uacute;mero de tarjeta</label>
+                        </div>
+                        <div class="col-lg-10">
+                            <input type="text" class="input-whidth form-control amount input-lg" formControlName="numTarjeta" />
+                            <div *ngIf="forma.hasError('required', 'numTarjeta') && forma.get('numTarjeta').touched" class="alert alert-danger">
+                                Este dato es obligatorio.
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <br>
+
+                    <div class="margin-InFieldset row">
+                        <label class="col-sm-2 control-label">Importe</label>
+
+                        <div class="col-sm-10">
+                            <input formControlName="importe" name="importe" id="importe" type="text" class="input-whidth form-control amount input-lg" />
+                            <div *ngIf="forma.hasError('required', 'importe') && forma.get('importe').touched" class="alert alert-danger">
+                                Este dato es obligatorio.
+                            </div>
+                        </div>
+                        <div class="clearfix "></div>
+                    </div>
+                    <br>
+
+                    <div class="margin-InFieldset row">
+                        <label class="col-sm-2 control-label ">Correo a notificar</label>
+
+                        <div class="col-sm-10 ">
+                            <input class="input-whidth form-control amount input-lg" formControlName="email" type="email " name="email " id="email " />
+                            <div *ngIf="forma.hasError('required', 'email') && forma.get('email').touched" class="alert alert-danger">
+                                Este dato es obligatorio.
+                            </div>
+                            <div *ngIf="forma.hasError('pattern', 'email') && !forma.get('email').untouched" class="alert alert-danger">
+                                El correo electronico es incorrecto.
+                            </div>
+                        </div>
+                        <div class="clearfix "></div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row actions-form-group text-right " style="margin:30px 20px 0px 0px; ">
+                <div class="col-lg-7"></div>
+                <div class="col-lg-4">
+                    <button class="btn btn-lg" [routerLink]="['/menuTdd']">Regresar</button>
+                </div>
+                <div class="col-lg-1">
+                    <button [disabled]="!forma.valid" class="btn btn-danger btn-lg pull-left" type="submit" data-toggle="modal" data-target="#confirmModal">Continuar</button>
+                </div>
+            </div>
+
+        </form>
+
+    </fieldset>
+
+
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Confirmar pago</h4>
+                </div>
+                <div class="modal-body">
+
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong> <label>Cuenta Origen:</label></strong>
+                            <label>{{ cuentaClienteTdd }}</label>
+                        </li>
+                        <li class="list-group-item"><strong><label>Cuenta Destino:</label></strong>
+                            <label>{{ noTarjeta }}</label>
+                        </li>
+                        <li class="list-group-item"><strong><label>Importe:</label></strong>
+                            <label>{{ importe | currency }}</label>
+                        </li>
+                        <li class="list-group-item"><strong><label>Correo:</label></strong>
+                            <label>{{ correo }}</label></li>
+                    </ul>
+                </div>
+                <div class="modal-footer ">
+                    <button type="button" class="btn btn-lg letranegrita" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger btn-lg" (click)="pagarTarjetaCredito()" data-dismiss="modal">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="uiv-animate" ui-view></div>
+
+    <div id="modalErrorMessage" class="modal fade" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-error">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <p>
+                        <label id="errorMensaje"></label>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+
+</div>

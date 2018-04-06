@@ -1,0 +1,66 @@
+<div ng-cloak class="padding-barToTittle">
+    <h2 class="text-center deleteMargin-h2 color-letra">Tu pago ha sido enviado</h2>
+</div>
+
+<fieldset class="padding-TittleToFieldset padding-fieldset-general">
+    <div class="well sumando-well-white">
+        <div class="row">
+            <div class="col-lg-6" align="right">
+                <strong>Folio de Operaci&oacute;n:</strong>
+            </div>
+            <div class="col-lg-6">
+                <label>{{ res.FolioDP }}</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6" align="right">
+                <strong>Fecha de Operaci&oacute;n:</strong>
+            </div>
+            <div class="col-lg-6">
+                <label>{{ res.FechaOperacion | date: 'dd-MM-yyyy' }}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6" align="right">
+                <strong>Cuenta Origen:</strong>
+            </div>
+            <div class="col-lg-6">
+                <label>{{ res.CuentaCargo | slice:4 }}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6" align="right">
+                <strong>N&uacute;mero de tarjeta:</strong>
+            </div>
+            <div class="col-lg-6">
+                <label>{{ res.DescRefeUnoContrato }}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6" align="right">
+                <strong>Comisi&oacute;n e IVA:</strong>
+            </div>
+            <div class="col-lg-6">
+                <label>{{ res.ImporteIva | currency }}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6" align="right">
+                <strong>Importe:</strong>
+            </div>
+            <div class="col-lg-6">
+                <label>{{ res.ImporteCert | currency }}</label>
+            </div>
+        </div>
+
+    </div>
+    <div style="margin:30px 0px 0px 0px;" class="row">
+        <div style=" padding: 0px;" class="col-sm-12">
+            <button class="btn btn-danger pull-right btn-lg" [routerLink]="['/menuTdd']">
+      Terminar
+    </button>
+        </div>
+    </div>
+
+</fieldset>

@@ -20,17 +20,19 @@ export class BreadcrumbsComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log("TDD ", this._service.datosBreadCroms.nombreUsuarioTDD);
-    console.log("BEL ", this.service.NombreUsuario); 
+    
+    
     
     if ( this._service.datosBreadCroms.nombreUsuarioTDD !== '' ) {
 
       this.NombreUsuario =  this._service.datosBreadCroms.nombreUsuarioTDD;
+      console.log("TDD ", this._service.datosBreadCroms.nombreUsuarioTDD);
 
-    } 
+    } else
      if ( this.service.NombreUsuario !== '' || this.service.NombreUsuario !== undefined ) {
 
       this.NombreUsuario = this.service.NombreUsuario;
+      console.log("BEL ", this.service.NombreUsuario); 
 
     }
      

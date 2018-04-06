@@ -28,19 +28,12 @@ export class ConsultaSaldosTddService {
 
         const THIS: any = this;
 
-        const formParameters = {
-        
-            txtTipoMov: '1',
-            txtNumCuenta: '0202379371'
-
-          };
-
         const resourceRequest = new WLResourceRequest(
             'adapters/AdapterBanorteSucursApps/resource/consultaClabesSaldos',
             WLResourceRequest.POST);
         resourceRequest.setTimeout(30000);
         resourceRequest
-            .sendFormParameters(formParameters)
+            .send()
             .then(
                 function(response) {
                   

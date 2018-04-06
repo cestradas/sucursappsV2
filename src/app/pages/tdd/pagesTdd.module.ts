@@ -16,6 +16,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatKeyboardModule, KeyboardClassKey, MAT_KEYBOARD_LAYOUTS, IKeyboardLayouts, keyboardLayouts } from '@ngx-material-keyboard/core';
+import { PagoTarjetaCreditoComponent } from './pago-tarjeta-credito/pago-tarjeta-credito.component';
+import { CompraTiempoAireFinalComponent } from './compra-tiempo-aire/compra-tiempo-aire-final.component';
+import { PagoTarjetaCreditoFinalComponent } from './pago-tarjeta-credito/pago-tarjeta-credito-final.component';
+import { ActualizarDatosDeContactoComponent } from './actualizar-datos-de-contacto/actualizar-datos-de-contacto.component';
+
+
+
 
 
 const customLayouts: IKeyboardLayouts = {
@@ -59,7 +66,12 @@ const customLayouts: IKeyboardLayouts = {
         TransferenciaTercerosComponent,
         PagoDeServiciosComponent,
         MantenimientoBenefComponent,
-        MenutddComponent
+        MenutddComponent,
+        PagoTarjetaCreditoComponent,
+        CompraTiempoAireFinalComponent,
+        PagoTarjetaCreditoFinalComponent,
+        ActualizarDatosDeContactoComponent
+        
     ],
     exports: [],
     imports: [

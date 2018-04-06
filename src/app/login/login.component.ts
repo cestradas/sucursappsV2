@@ -25,19 +25,18 @@ export class LoginComponent {
 
   onPlasticLogin() {
 
-    console.log("adentro");
      $('#ModalTDDLogin').modal('show');
-    //  this.getPosts().subscribe( result => {this.postResp = result; });
+     this.getPosts().subscribe( result => {this.postResp = result; });
 
-    //  console.log(this.postResp);
+     console.log(this.postResp);
 
       const THIS: any = this;
 
   const formParameters = {
-    // tarjeta: this.postResp.tr2,
-    tarjeta: '4334540109018154=151022110000865',
-    // nip: this.postResp.np
-    nip: 'D4D60267FBB0BB28'
+    tarjeta: this.postResp.tr2,
+    // tarjeta: '4334540109018154=151022110000865',
+    nip: this.postResp.np
+    // nip: 'D4D60267FBB0BB28'
   };
 
   const resourceRequest = new WLResourceRequest(
@@ -52,13 +51,19 @@ resourceRequest
           let res = response.responseJSON;
 
           THIS._service.datosBreadCroms.nombreUsuarioTDD = res.Tran_NombrePersona;
+          // setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
+          $('#ModalTDDLogin').modal('hide'); 
           THIS.router.navigate(['/menuTdd']);
 
         },
         function(error) {
 
 
-          // $('#ModalTDDLogin').modal('hide');
+          setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
+
+          
+            document.getElementById('mnsError').innerHTML = "Por el momento este servicio no est&aacute; disponible, favor de intentar de nuevo m&aacute;s tarde."; 
+            $('#errorModal').modal('show');
 
         });
 

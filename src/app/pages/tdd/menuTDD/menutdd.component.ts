@@ -20,7 +20,7 @@ export class MenutddComponent implements OnInit {
    }
 
   ngOnInit() {
-    $('div').removeClass('modal-backdrop');
+    // $('div').removeClass('modal-backdrop');
   }
 
   mandarPage(id) {
@@ -48,6 +48,12 @@ export class MenutddComponent implements OnInit {
           break;
       case 'mantoBeneficiarios':
           this.router.navigate(['/mantoBeneficiarios']);
+          break;
+      case 'pagoCredito':
+          this.router.navigate(['/pagoCredito']);
+          break;
+      case 'actDatosContacto':
+          this.router.navigate(['/actualizarDatosContacto']);
           break;
           
       default:

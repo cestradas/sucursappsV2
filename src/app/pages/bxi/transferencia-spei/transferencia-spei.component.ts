@@ -1,6 +1,7 @@
 import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
+// tslint:disable-next-line:import-blacklist
 import 'rxjs/Rx';
 import { FormsModule, NgForm, FormGroup } from '@angular/forms';
 import { SesionBxiService } from '../sesion-bxi.service';

@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { IKeyboardLayouts, keyboardLayouts, MAT_KEYBOARD_LAYOUTS, MatKeyboardModule, KeyboardClassKey } from '@ngx-material-keyboard/core';
 import { ServiceModule } from './services/service.module';
+import { CommonModule } from '@angular/common';
 
 const customLayouts: IKeyboardLayouts = {
   ...keyboardLayouts,
@@ -56,6 +57,7 @@ const customLayouts: IKeyboardLayouts = {
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     APP_ROUTES,
     FormsModule,
     PagesModule,

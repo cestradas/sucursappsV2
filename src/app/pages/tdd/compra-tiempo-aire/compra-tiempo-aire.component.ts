@@ -4,8 +4,8 @@ import { SesionTDDService } from '../../../services/breadcrums/breadcroms.servic
 import { Subscription } from 'rxjs/Subscription'; 
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 
-import $ from 'jquery';
 import { SaldosDiaMesService } from '../../../services/SaldosDiaMes/saldoDiaMes.service';
+import $ from 'jquery';
 declare var $: $;
 
 @Component({  
@@ -23,7 +23,13 @@ export class CompraTiempoAireComponent implements OnInit {
   forma: FormGroup;
 
   recargas: any[] = [];
-  loading = false;
+  operador: string;
+  importe: number;
+  blClassT = false;
+  blClassM = false;
+  blClassU = false;
+  blClassI = false;
+  blnStyle: false;
 
   constructor( 
                private _service: ConsultaSaldosTddService,
@@ -35,19 +41,13 @@ export class CompraTiempoAireComponent implements OnInit {
 
                 this.forma = new FormGroup({
 
-                  'telefono': new FormControl('', [Validators.required, Validators.maxLength(10), Validators.pattern('/^([0-9])*$/')]),
+                  'telefono': new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]),
                   'email': new FormControl('', [Validators.required,
                     Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
+                  'operador': new FormControl(),
+                  'importe': new FormControl()
 
                 });
-
-                console.log(this.forma);
-
-                this.forma.controls['telefono'].valueChanges.subscribe(
-                  data => {
-                    console.log('telefono', data);
-                    console.log('forma', this.forma);
-                  });
 
                 this._service.validarDatosSaldoTdd().then(
                   mensaje => {
@@ -132,8 +132,48 @@ export class CompraTiempoAireComponent implements OnInit {
     $('#_modal_please_wait').modal('show');
 
     const THIS: any = this;
+
+    switch (id.name) { 
+      case 'importeTelcel': { 
+        this.operador = 'Telcel';
+        this.blClassT = true;
+        this.blClassM = false;
+        this.blClassU = false;
+        this.blClassI = false;
+        console.log('Telcel');
+         break; 
+      } 
+      case 'importeMovi': { 
+        this.operador = 'Movistar';
+        this.blClassM = true;
+        this.blClassT = false;
+        this.blClassU = false;
+        this.blClassI = false;
+         break; 
+      }
+      case 'importeUnefon': { 
+        this.operador = 'Unefon';
+        this.blClassT = false;
+        this.blClassM = false;
+        this.blClassU = true;
+        this.blClassI = false;
+         break; 
+      }
+      case 'importeIusa': { 
+        this.operador = 'Iusacell';
+        this.blClassT = false;
+        this.blClassM = false;
+        this.blClassU = false;
+        this.blClassI = true;
+         break; 
+      }
+      default: { 
+        console.log("No existe ese operador: " + id.id);
+         break; 
+      } 
+   } 
     
-    console.log(id.id);
+    console.log("Params img telefonos: " , id.name);
 
     const formParameters = {
       
@@ -165,6 +205,14 @@ export class CompraTiempoAireComponent implements OnInit {
           });
 
           setTimeout( () => $('#_modal_please_wait').modal('hide'), 500 );
+
+  }
+
+  cargaImporte(param) {
+
+    $('label').removeClass('border border-danger');
+    $('#' + param.id).addClass('border border-danger');    
+    this.importe = param.id;
 
   }
 

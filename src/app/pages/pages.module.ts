@@ -13,6 +13,8 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { IKeyboardLayouts, keyboardLayouts, MAT_KEYBOARD_LAYOUTS, MatKeyboardModule, KeyboardClassKey } from '@ngx-material-keyboard/core';
+import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
 
 const customLayouts: IKeyboardLayouts = {
   ...keyboardLayouts,
@@ -60,6 +62,8 @@ const customLayouts: IKeyboardLayouts = {
     exports: [],
     imports: [
         SharedModule,
+        CommonModule,
+        BrowserModule,
         PAGES_ROUTES,
         PagesTddModule,
         PagesBxiModule,
