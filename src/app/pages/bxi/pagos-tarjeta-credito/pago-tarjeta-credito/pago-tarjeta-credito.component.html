@@ -1,13 +1,16 @@
 <form  [formGroup]="myForm" novalidate>
-<h2 class="text-center deleteMargin-h2 padding-barToTittle">Pago tarjeta de cr&eacute;dito </h2>
+  <div ng-cloak class="padding-barToTittle">
+    <h2 class="text-center color-letra">Pago tarjeta de cr&eacute;dito</h2>
+</div>
 <fieldset class="padding-fieldset-general padding-TittleToFieldset">
- <div class="row sumando-form-group"> 
-     <div class="col-sm-1 sumando-bg-orange group-name">
+  <div class="row sumando-form-group letranegrita padding-InFieldset">
+    <div class="col-sm-1 sumando-bg-red group-name">
        Tipo 
      </div>
-     <div class="col-sm-11 group-controls padding-left-0 padding-right-0 padding-InFieldset">
+     <div class="dropdown sumando-dropdown-account col-sm-11" style="padding-left: 0px; padding-right: 0px;">
         
-          <select class="selectModificado" #rcbFiltro (change)="setCuentasBenficiarioXTipo()">
+      <select class="input-whidth selectModificado" #rcbFiltro (change)="setCuentasBenficiarioXTipo();" style=" width: 100%; height: 60px; border:0px solid red;">
+                <option value="0" disabled selected> Seleccione el tipo de tarjeta ...</option>
                 <option *ngIf='existenPropias' value="5">Propias Banorte</option>
                 <option *ngIf='existenTerceros' value="9"> Terceros Banorte</option>
                 <option *ngIf='existenExternas' value="2"> Otros Bancos</option>
@@ -16,63 +19,63 @@
         
      </div>
  </div>
- <div class="row sumando-form-group padding-InFieldset"> 
-     <div class="col-sm-1 sumando-bg-orange group-name">
-       Desde 
-     </div>
-     <div class="col-sm-11 group-controls padding-left-0 padding-right-0" >
-        <div class="form-group" >
+ <div class="row sumando-form-group letranegrita">
+  <div class="col-sm-1 sumando-bg-red group-name">
+      Desde
+  </div>
+  <div class="col-sm-11 group-controls  padding-InFieldset" style="padding-left: 0px; padding-right:  0px;">
+      <div class="form-group">
           <div class="sumando-bg-white">
-            <input type="hidden" >
-            <div class="dropdown sumando-dropdown-account">
-              <button class="btn btn-default btn-block dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="padding-right: 0px;padding-top: 0px;padding-bottom: 0px">
-              <table id="tableOrigen" style="display: none" width="100%">
-                <tr> 
-                  <td align="left" width="45%">
-                    <strong><label  id="lblAliasOrigen" #lblAliasOrigen></label></strong>
-                  </td>
-                  <td align="left" width="45%">
-                    <strong>$<label id ="lblSaldoOrigen"></label>
-                    </strong>
-                  </td>
-                  <td width="5%" rowspan="2" class="dropdown-caret">
-                    <img src="./assets/img/bg_selectN.png" style="width: 90%;    height: 150%;">
-                  </td> 
-                </tr>
-                <tr>
-                  <td align="left">Cuenta <label id="lblCuentaOrigen" #lblCuentaOrigen></label></td>
-                  <td align="left">Saldo Disponible</td>
-                </tr>
-              </table> 
-              <table  id="tableDefaultOrigen" width="100%">
-                <tr>
-                  <td align="left" rowspan="2">Seleccione una cuenta de origen...</td>
-                  <td width="5%" rowspan="2" class="dropdown-caret">
-                    <img src="./assets/img/bg_selectN.png" style="width: 90%;    height: 150%;">
-                  </td> 
-                </tr>  
-              </table>
-            </button>  
-          <div>
-            <ul id="ul_Cuentas" #listaCuentas class="dropdown-menu btn-block" aria-labelledby="dropdownMenu1" style="width: 100%; height: 200px; overflow: auto" >
-               
-            </ul>
+              <input type="hidden">
+              <div class="dropdown sumando-dropdown-account">
+                  <button class="btn btn-default btn-block dropdown-toggle btn-color-cuentas " type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="padding-right: 0px;padding-top: 0px;padding-bottom: 0px">
+      <table id="tableOrigen" style="display: none" width="100%">
+        <tr>
+          <td align="left" width="45%">
+            <strong><label  id="lblAliasOrigen" #lblAliasOrigen></label></strong>
+          </td>
+          <td align="left" width="45%">
+            <strong>$<label id ="lblSaldoOrigen" #lblSaldoOrigen></label>
+            </strong>
+          </td>
+          <td width="5%" rowspan="2" class="dropdown-caret">
+            <img  class="img-select-seleccion" src="./assets/img/bg_selectN.png">
+          </td>
+        </tr>
+        <tr>
+          <td align="left">Cuenta <label id="lblCuentaOrigen" #lblCuentaOrigen></label></td>
+          <td align="left">Saldo Disponible</td>
+        </tr>
+      </table>
+      <table  id="tableDefaultOrigen" width="100%">
+        <tr>
+          <td align="left" rowspan="2">Seleccione una cuenta de origen...</td>
+          <td width="5%" rowspan="2" class="dropdown-caret">
+            <img src="./assets/img/bg_selectN.png" class="select-img">
+          </td>
+        </tr>
+      </table>
+    </button>
+                  <div>
+                      <ul id="ul_Cuentas" #listaCuentas class="dropdown-menu btn-block" aria-labelledby="dropdownMenu1" style="width : 100%; height : 200px; overflow: auto;">
+
+                      </ul>
+                  </div>
+              </div>
           </div>
-          </div>
-        </div> 
       </div>
-    </div>
-   </div>
-   <div class="row sumando-form-group padding-InFieldset"> 
-      <div class="col-sm-1 sumando-bg-orange group-name">
+  </div>
+</div>
+<div class="row sumando-form-group letranegrita">
+      <div class="col-sm-1 sumando-bg-red group-name">
         Para 
       </div>
-      <div class="col-sm-11 group-controls padding-left-0 padding-right-0" >
-         <div class="form-group" >
-           <div class="sumando-bg-white">
-             <input type="hidden" >
-             <div class="dropdown sumando-dropdown-account">
-               <button class="btn btn-default btn-block dropdown-toggle" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="padding-right: 0px;padding-top: 0px;padding-bottom: 0px">
+      <div class="col-sm-11 group-controls  padding-InFieldset" style="padding-left: 0px; padding-right:  0px;">
+      <div class="form-group">
+          <div class="sumando-bg-white">
+              <input type="hidden">
+              <div class="dropdown sumando-dropdown-account">
+               <button class="btn btn-default btn-block dropdown-toggle btn-color-cuentas " type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="padding-right: 0px;padding-top: 0px;padding-bottom: 0px">
                <table id="tableBeneficiarios" style="display: none" width="100%">
                  <tr> 
                    <td align="left" width="45%">
@@ -83,7 +86,7 @@
                      </strong>
                    </td>-->
                    <td width="5%" rowspan="2" class="dropdown-caret">
-                     <img src="./assets/img/bg_selectN.png" style="width: 90%;    height: 150%;">
+                    <img  class="img-select-seleccion" src="./assets/img/bg_selectN.png">
                    </td> 
                  </tr>
                  <tr>
@@ -95,7 +98,7 @@
                  <tr>
                    <td align="left" rowspan="2">Seleccione una cuenta destino...</td>
                    <td width="5%" rowspan="2" class="dropdown-caret">
-                     <img src="./assets/img/bg_selectN.png" style="width: 90%;    height: 150%;">
+                    <img  class="select-img" src="./assets/img/bg_selectN.png">
                    </td> 
                  </tr>  
                </table>
@@ -110,31 +113,37 @@
        </div>
      </div>
     </div>
-   <div class="row">
-     <div class="col-lg-11 col-lg-offset-1 sumando-well-white" style="padding-right: 0px;width: 92.0%;padding-bottom: 0px;margin-bottom: 25px;padding-top: 25px">
+    <div id="divisionInputs"></div>
+    <div class="row sumando-form-group letranegrita" style="padding-left: 8.5%;">
+     <div class="col-lg-11  sumando-well-white" style="max-width: 100% !important;flex: 0 0 100.666667% !important;padding-right: 0px;width: 100%;padding-bottom: 0px;margin-bottom: 25px;padding-top: 25px">
         <div class="form-group padding-InFieldset" style="margin-bottom: 0px" >
-     <div class="row">
-       <div class="col-lg-1 padding-labelToInput">
-         <label>Importe: </label>
-       </div>
-        <div class="col-lg-10">
-          <input  id="txtImporte" type="text"class="form-control input-lg" #rImporte formControlName="fcImporte" [matKeyboard]="'num'" />
-              <div *ngIf="myForm.get('fcImporte').errors  && myForm.get('fcImporte').touched" 
-                      class="alert alert-danger">
-                      <p color="danger" *ngIf="myForm.get('fcImporte').hasError('required')">importe requerido. </p >
-                      <p color="danger"  *ngIf="myForm.get('fcImporte').hasError('pattern')">No es formato solicitado</p>
+          <div class="row">
+            <div class="col-lg-1 padding-labelToInput">
+              <label>Importe: </label>
+            </div>
+              <div class="col-lg-10">
+                <input  id="txtImporte" type="text"class="form-control input-lg" #rImporte formControlName="fcImporte"
+                [matKeyboard]="'num'"  (blur)="transformAmount(rImporte.value)" />
+                <div *ngIf="(myForm.get('fcImporte').errors  && myForm.get('fcImporte').touched)||( rImporte.value === '' && myForm.get('fcImporte').errors === null)" class="alert alert-danger">
+                  <p color="danger" *ngIf="myForm.get('fcImporte').hasError('required') ">Dato obligatorio, favor de capturar. </p>
+                  <p color="danger" *ngIf="( rImporte.value === '' && myForm.get('fcImporte').errors === null)">Dato obligatorio, favor de capturar. </p>
               </div>
-        </div>
-     </div>
+              </div>
+          </div>
    </div>
      </div>
    </div>
    <div class="row actions-form-group text-right">
-     <button class="btn btn-lg" >Regresar</button>
-     <button class="btn btn-primary btn-lg" (click)="confirmaOperacion(rImporte.value)"
-     [disabled]="(myForm.get('fcImporte').invalid || (lblAliasOrigen.value == '') || (lblCuentaOrigen.value == '') || (lblCuentaDestino.value == ''))" >
-       Continuar
-     </button>
+      <div class="col-lg-9"></div> 
+      <div class="col-lg-2">
+        <button class="btn btn-lg"  type="button">Regresar</button>
+      </div>
+      <div class="col-lg-1" style="padding-right: 0px;">
+            <button type="button" class="btn btn-danger btn-lg" (click)="confirmaOperacion(rImporte.value)"
+        [disabled]="(myForm.get('fcImporte').invalid || (lblAliasOrigen.value == '') || (lblCuentaOrigen.value == '') || (lblCuentaDestino.value == ''))" >
+          Continuar
+        </button>
+    </div>
    </div>
  </fieldset>
  <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
@@ -154,6 +163,14 @@
                 </div>
                 <div class="row">
                     <div class="col-lg 6">
+                        <label>Banco destino:</label>
+                    </div>
+                    <div class="col-lg 6">
+                        <label>{{nombreBanco}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg 6">
                         <label>Cuenta Destino:</label>
                     </div>
                     <div class="col-lg 6">
@@ -165,7 +182,7 @@
                         <label>Importe:</label>
                     </div>
                     <div class="col-lg 6">
-                        <label>$${{Importe}}</label>
+                        <label>${{Importe}}</label>
                     </div>
                 </div>
                 <div class="row">

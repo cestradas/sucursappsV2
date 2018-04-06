@@ -22,12 +22,16 @@ export class PagoServiciosIniComponent implements OnInit {
   listaEmpresasAux: Array<any> = [];
   showOptions: Boolean = false;
   empresaInLocal: string ;
+  myForm: FormGroup;
 
-   constructor(  private router: Router, private service: SesionBxiService, private renderer: Renderer2) {
-    }
+
+   constructor( private fb: FormBuilder, private router: Router, private service: SesionBxiService, private renderer: Renderer2) {
+    this.myForm = this.fb.group({
+      fcFacturador: ['', [Validators.required]],
+    });
+  }
    ngOnInit() {
 
-     $('#_modal_please_wait').modal('show');
        this.fillSelectCuentas();
        this.getEmpresas();
 
@@ -59,7 +63,8 @@ export class PagoServiciosIniComponent implements OnInit {
         }
 
      setDatosCuentaSeleccionada(elementHTML) {
-
+      
+       $('#_modal_please_wait').modal('show');
        const this_aux = this;
        console.log(elementHTML);
        const tableOrigen = document.getElementById('tableOrigen');
@@ -78,7 +83,7 @@ export class PagoServiciosIniComponent implements OnInit {
      }
 
      getSaldoDeCuenta(numCuenta_seleccionada) {
-
+       const this_aux = this;
        const operacionesbxi: OperacionesBXI = new OperacionesBXI();
        operacionesbxi.getSaldo(numCuenta_seleccionada).then(
            function(response1) {
@@ -87,10 +92,13 @@ export class PagoServiciosIniComponent implements OnInit {
              if ( detalleSaldos.Id === '1') {
                const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
                lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
+               $('#_modal_please_wait').modal('hide');
+
              } else {
-               console.log(detalleSaldos.MensajeAUsuario);
+                this_aux.showErrorSucces(detalleSaldos);
              }
            }, function(error) {
+              this_aux.showErrorPromise(error);
        });
      }
 
@@ -112,6 +120,7 @@ getEmpresas() {
             console.log(this_aux.listaEmpresas);
             this_aux.listaEmpresasAux = this_aux.listaEmpresas;
             $('#_modal_please_wait').modal('hide');
+            
 
       } else {
 
@@ -134,13 +143,11 @@ getEmpresas() {
                   $('#_modal_please_wait').modal('hide');
 
                   } else {
-
-                console.log(consultaEmpresas.MensajeAUsuario);
-                $('#_modal_please_wait').modal('hide');
+                    this_aux.showErrorSucces(consultaEmpresas);
                 }
 
               }, function(error) {
-
+                    this_aux.showErrorPromise(error);
               });
       }
 }
@@ -177,29 +184,31 @@ getEmpresas() {
                this_aux.router.navigate(['/pagoservicios_detail']);
 
              } else {
-               console.log(detalleEmpresa.MensajeAUsuario);
+                  this_aux.showErrorSucces(detalleEmpresa);
              }
            }, function(error) {
-
+                this_aux.showErrorPromise(error);
            });
      }
 
      muestraFacturadores() {
 
        // ESTILO TECLADO (QUITAR ESTILO AL SALIR DE PAGINA PARA EVITAR QUE BAJE MAS EN OTRAS PANTALLAS)
-       $( ".cdk-overlay-container" ).css( "margin-top", "20 %" );
+       // $( ".cdk-overlay-container" ).css( "margin-top", "19 %" );
 
        const this_aux = this;
-       this_aux.showOptions = true;
        console.log('muestraFacturadores');
        this_aux.setClickOnBody();
      }
 
      setValue(value) {
+     
        const aux_this = this;
-       aux_this.showOptions = false;
+       const body = $('body');
+       body.off('click');
        aux_this.facturador.nativeElement.value = value ;
-     }
+       aux_this.showOptions = false;
+      }
 
      setClickOnBody() {
        console.log('click');
@@ -207,36 +216,42 @@ getEmpresas() {
        const body = $('body');
 
      body.on('click', function() {
-       
-      if (this_aux.listaEmpresas.length === 0) {
-            this_aux.listaEmpresas = this_aux.listaEmpresasAux; // rellenar cuando regrese y no haya coincidencia
-        }
-      
-         console.log( this_aux.facturador.nativeElement.value);
-         const auxOption = [];
-         const valueInput = this_aux.facturador.nativeElement.value;
-         if (valueInput.toUpperCase() === '') {
-           this_aux.listaEmpresas = this_aux.listaEmpresasAux;
-         } else {
 
-           this_aux.listaEmpresas.forEach(element => {
-             if (element.includes(valueInput.toUpperCase())) {
-               auxOption.push(element);
-             }
+      console.log( this_aux.facturador.nativeElement.value);
+      const auxOption = [];
+      const valueInput = this_aux.facturador.nativeElement.value;
 
-         });
+              if (valueInput.toUpperCase() === '') {
+                this_aux.showOptions = false;
 
-         if (valueInput.toUpperCase() === '') {
+              } else {
 
-          this_aux.listaEmpresas = this_aux.listaEmpresasAux;
-
-         } else {
-
-          this_aux.listaEmpresas = auxOption;
-         }
-       }
-       console.log('lista llena');
+                this_aux.showOptions = true;
+                this_aux.listaEmpresas = this_aux.listaEmpresasAux;
+                this_aux.listaEmpresas.forEach(element => {
+                  if (element.includes(valueInput.toUpperCase())) {
+                    auxOption.push(element);
+                  } });
+                  
+                    this_aux.listaEmpresas = auxOption;
+                    }
+            
      });
    }
+
+   showErrorPromise(error) {
+    console.log(error);
+    // tslint:disable-next-line:max-line-length
+    document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde."; 
+    $('#_modal_please_wait').modal('hide');
+    $('#errorModal').modal('show');
+  }
+
+  showErrorSucces(json) {
+    console.log(json.Id + json.MensajeAUsuario);
+    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+    $('#_modal_please_wait').modal('hide');
+    $('#errorModal').modal('show');
+  }
 
  }

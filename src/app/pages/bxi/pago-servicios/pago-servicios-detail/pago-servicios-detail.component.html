@@ -1,7 +1,10 @@
 <form [formGroup]="myForm" novalidate>
-    <h2 class="text-center padding-barToTittle deleteMargin-h2">{{nombreServicio}}</h2>
+    <div ng-cloak class="padding-barToTittle">
+        <h2 class="text-center color-letra">{{nombreServicio}}</h2>
+    </div>
     <fieldset class="padding-TittleToFieldset padding-fieldset-general">
-        <div class="sumando-form-group padding-InFieldset ">
+      <div class="sumando-well-white" style="padding-right: 15px; padding-left: 15px;padding: 2%;">
+        <div class="sumando-form-group  ">
             <div class=" group-controls sumando-bg-white padding-bgWhite">
                 <div class="form-group">
                     <div class="row padding-InFieldset">
@@ -21,21 +24,24 @@
                                             <label> Telefono:</label>
                                         </div>
                                         <div class="col-lg-4">
-                                            <input type="text" id="idTelefono" class="form-control input-lg" formControlName="fcTelefono" #rTelefono [matKeyboard]="'num'" />
+                                            <input type="text" id="idTelefono" (click)="espacioTeclado();" class="form-control input-lg" formControlName="fcTelefono" #rTelefono [matKeyboard]="'num'" />
                                             <div *ngIf="myForm.get('fcTelefono').errors  && myForm.get('fcTelefono').touched" class="alert alert-danger">
                                                 <p *ngIf="myForm.get('fcTelefono').hasError('required')">
-                                                    fcTelefono requerida.
+                                                        Dato obligatorio, favor de capturar.
+                                                </p>
+                                                <p *ngIf="myForm.get('fcTelefono').hasError('minlength')">
+                                                        Los datos proporcionados son incorrectos, favor de verificar.
                                                 </p>
                                             </div>
                                         </div>
                                         <div class="col-lg-1">
                                             <label>DV: </label>
                                         </div>
-                                        <div class="col-lg-1">
-                                            <input type="text" id="idDigitoV" class="form-control input-lg" #rDigitoVerificador formControlName="fcDigitoVerificador" [matKeyboard]="'num'" />
+                                        <div class="col-lg-4">
+                                            <input type="text" id="idDigitoV" (click)="espacioTeclado();" class="form-control input-lg" #rDigitoVerificador formControlName="fcDigitoVerificador" [matKeyboard]="'num'" />
                                             <div *ngIf="myForm.get('fcDigitoVerificador').errors  && myForm.get('fcDigitoVerificador').touched" class="alert alert-danger">
                                                 <p *ngIf="myForm.get('fcDigitoVerificador').hasError('required')">
-                                                    fcDigitoVerificador requerida.
+                                                        Dato obligatorio, favor de capturar.
                                                 </p>
                                             </div>
                                         </div>
@@ -53,10 +59,10 @@
                                             <label> Referencia:</label>
                                         </div>
                                         <div class="col-lg-10">
-                                            <input type="text" id="idReferencia" class="form-control input-lg" formControlName="fcReferencia" #rReferencia [matKeyboard]="'num'" />
+                                            <input type="text" id="idReferencia" (click)="espacioTeclado();" class="form-control input-lg" formControlName="fcReferencia" #rReferencia [matKeyboard]="'num'" />
                                             <div *ngIf="myForm.get('fcReferencia').errors  && myForm.get('fcReferencia').touched" class="alert alert-danger">
                                                 <p *ngIf="myForm.get('fcReferencia').hasError('required')">
-                                                    fcReferencia requerida.
+                                                        Dato obligatorio, favor de capturar.
                                                 </p>
                                             </div>
                                         </div>
@@ -70,60 +76,61 @@
                             <label>Fecha de vencimiento: </label>
                         </div>
                         <div class="col-lg-10">
-                            <input type="text" id="txtFechaVencimiento" class="form-control input-lg " formControlName="fcFechaVencimiento" #rFechaVencimiento [matKeyboard]="" placeholder="AAAA-MM-DD" />
+                            <input type="text" id="txtFechaVencimiento" (click)="espacioTeclado();" class="form-control input-lg " formControlName="fcFechaVencimiento" #rFechaVencimiento [matKeyboard]="'num'" placeholder="AAAA-MM-DD" />
                             <div *ngIf="myForm.get('fcFechaVencimiento').errors  && myForm.get('fcFechaVencimiento').touched " class="alert alert-danger">
 
-                                <p color="danger" *ngIf="myForm.get('fcFechaVencimiento').hasError('required')"> fechaVencimiento requerida. </p>
-                                <p color="danger" *ngIf="myForm.get('fcFechaVencimiento').hasError('pattern')">No es formato solicitado</p>
+                                <p color="danger" *ngIf="myForm.get('fcFechaVencimiento').hasError('required')"> Dato obligatorio, favor de capturar.</p>
+                                <p color="danger" *ngIf="myForm.get('fcFechaVencimiento').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="row padding-InFieldset">
+                    <div class="row ">
                         <div class="col-lg-2">
                             <label>Importe: </label>
                         </div>
                         <div class="col-lg-10">
-                            <input type="text" id="idImporte" class="form-control input-lg" formControlName="fcImporte" #rImporte [matKeyboard]="" />
-                            <div *ngIf="myForm.get('fcImporte').errors  && myForm.get('fcImporte').touched" class="alert alert-danger">
-                                <p color="danger" *ngIf="myForm.get('fcImporte').hasError('required')">importe requerido. </p>
-                                <p color="danger" *ngIf="myForm.get('fcImporte').hasError('pattern')">No es formato solicitado</p>
+                            <input type="text" id="idImporte" (click)="espacioTeclado();" class="form-control input-lg" formControlName="fcImporte" #rImporte [matKeyboard]="'num'"
+                            (blur)="transformAmount(rImporte.value)" />
+                            <div *ngIf="(myForm.get('fcImporte').errors  && myForm.get('fcImporte').touched)||( rImporte.value === '' && myForm.get('fcImporte').errors === null)" class="alert alert-danger">
+                                <p color="danger" *ngIf="myForm.get('fcImporte').hasError('required') ">Dato obligatorio, favor de capturar. </p>
+                                <p color="danger" *ngIf=" ( rImporte.value === '' && myForm.get('fcImporte').errors === null)">Dato obligatorio, favor de capturar. </p>
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="modal-footer deletePaddingRigth-buttom">
-            <button class="btn btn-lg">Cancelar</button>
-            <!-- <div *ngIf="myForm.get('fcTelefono') !== null && myForm.get('fcDigitoVerificador') !== null">-->
-            <button type="button" class="btn btn-primary  btn-lg" [disabled]="myForm.invalid" (click)="showDetallePago(myForm.value)">
-                                Continuar
-                        </button>
-            <!-- </div>
-                <div *ngIf="myForm.get('fcReferencia') !== null">
-                        <button  type="button" class="btn btn-primary  btn-lg" [disabled]="myForm.invalid" (click)="showDetallePago(myForm )">
-                                Continuar
-                        </button>
-                </div>-->
         </div>
-    </fieldset>
-</form>
-<!-- Modal -->
-<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content shadowModal ">
-
-            <div class="modal-body" style="padding: 2rem;">
-
-                <h4 style="color: #eb012a; font-weight: 700;">Confirmar pago</h4>
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>Cuenta origen:</label>
-                    </div>
-                    <div class="col-lg 6">
-                        <!-- <label>{{cuentaOrigen}}</label> -->
-                    </div>
+        <div class="row actions-form-group text-right">
+                <div class="col-lg-9"></div>
+                <div class="col-lg-2">
+                    <button type="button" class="btn btn-lg">Cancelar</button>
                 </div>
+                <div class="col-lg-1" style="padding-right: 2%;">
+                    <button type="button" class="btn btn-danger btn-lg" [disabled]="myForm.invalid" (click)="showDetallePago(myForm.value)">
+                                        Continuar
+                    </button>
+                </div>
+        </div>
+     </fieldset>
+
+    <!-- Modal -->
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content shadowModal ">
+
+                <div class="modal-body" style="padding: 2rem;">
+
+                    <h4 style="color: #eb012a; font-weight: 700;">Confirmar pago</h4>
+                    <div class="row">
+                        <div class="col-lg 6">
+                            <label>Cuenta origen:</label>
+                        </div>
+                        <div class="col-lg 6">
+                            <label>{{cuentaCargo}}</label>
+                        </div>
+                    </div>
                 <div class="row">
                     <div class="col-lg 6">
                         <label>Servicio:</label>
@@ -137,7 +144,7 @@
                         <label>Importe neto:</label>
                     </div>
                     <div class="col-lg 6">
-                        <label>$${{importe}}</label>
+                        <label>${{importe}}</label>
                     </div>
                 </div>
                 <div class="row">
@@ -161,7 +168,7 @@
                         <label>Importe total:</label>
                     </div>
                     <div class="col-lg 6">
-                        <label>$${{importe}}</label>
+                        <label>${{importe}}</label>
                     </div>
                 </div>
                 <div class="row">
@@ -173,14 +180,16 @@
                         </div>
                         <div id="divPass" class="form-group">
                             <label>TipoAutentica</label>
-
-                            <input type="password" class="form-control input-lg" #token [matKeyboard]="">
+                            <input type="password" class="form-control input-lg" #token [matKeyboard]="'num'" >
+                            <div *ngIf="(token.value == '')  && token.touched" class="alert alert-danger">
+                                    <p color="danger" *ngIf="(token.value == '')">Dato obligatorio, favor de capturar. </p>
+                                </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                    <button class="color-botones btn btn-lg " (click)="confirmarPago(token.value)">
+                    <button class="color-botones btn btn-lg " (click)="confirmarPago(token.value)" [disabled]="(token.value == '')">
                                 Confirmar
                               </button>
                 </div>
@@ -189,3 +198,4 @@
         </div>
     </div>
 </div>
+</form>

@@ -9,6 +9,7 @@ export class SesionBxiService {
     metodoAutenticaMayor: string;
     metodoAutenticaEtiqueta: string;
     NombreUsuario: string;
+    isPreferente: true;
     // Respuesta Servicios
     detalleIdentificacion: string;
     metodosAutenticacionUsario: string;
@@ -18,7 +19,10 @@ export class SesionBxiService {
       // Respuesta Servicios
      infoCuentas: string;
      infoCuentasBeneficiarios: string;
+     infoDatosDeBeneficiarios: string;
      infoUsuarioSIC: string;
+     alertasActivas: boolean;
+
 
   // PagoServcios
     // Datos Especificos
@@ -29,11 +33,18 @@ export class SesionBxiService {
     // Respuesta Servicios
       detalleConfirmacionPS: string;
 
-  // Transferencia SPEI
-   // Datos especificos
-
-   // Respuesta del servicio
-   detalleConfirmacionSPEI: string;
+      // Transferencia SPEI
+      // Datos especificos
+       numCuentaSel: string;
+       numCuentaDestinario: string;
+       correoBeneficiario: string;
+       nombreBeneficiario: string;
+       clabeDestinatario: string;
+       claveBancoDestino: string;
+       claveAliasCuenta: string;
+       claveNumBenefi: string;
+      // Respuesta del servicio
+      detalleConfirmacionSPEI: string;
 
 
    // PagoTarjetas

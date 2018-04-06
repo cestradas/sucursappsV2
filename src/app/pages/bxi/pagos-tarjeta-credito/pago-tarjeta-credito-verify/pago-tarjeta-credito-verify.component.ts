@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SesionBxiService } from './../../sesion-bxi.service';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 
 @Component({
   selector: 'app-pago-tarjeta-credito-verify',
@@ -8,7 +9,7 @@ import { SesionBxiService } from './../../sesion-bxi.service';
 })
 export class PagoTarjetaCreditoVerifyComponent implements OnInit {
 
-  constructor(private service: SesionBxiService) { }
+  constructor(private service: SesionBxiService, private router: Router) { }
 
   detallePago: any = {
     institucion: '',
@@ -57,5 +58,10 @@ export class PagoTarjetaCreditoVerifyComponent implements OnInit {
     this_aux.detallePago.operacion = this_aux.service.nameOperacion;
     this_aux.detallePago.cuentaOrigen = this_aux.service.numCuentaSeleccionado;
     this_aux.detallePago.cuentaDestino = this_aux.service.numCtaBenSeleccionada;
+  }
+
+  irMenuBXI() {
+    const this_aux = this;
+    this_aux.router.navigate(['/menuBXI']);
   }
 }

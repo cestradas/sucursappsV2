@@ -1,5 +1,6 @@
 import { SesionBxiService } from './../../sesion-bxi.service';
 import { Component, OnInit } from '@angular/core';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 
 declare var jquery: any; // jquery
 declare var $: any;
@@ -21,7 +22,7 @@ export class PagoServiciosVerifyComponent implements OnInit {
       importe: ''
 
   };
-  constructor(private service: SesionBxiService) { }
+  constructor(private service: SesionBxiService, private router: Router) { }
 
   ngOnInit() {
 
@@ -75,7 +76,8 @@ export class PagoServiciosVerifyComponent implements OnInit {
   }
 
   irMenuBXI() {
-
+    const this_aux = this;
+    this_aux.router.navigate(['/menuBXI']);
   }
 
 }

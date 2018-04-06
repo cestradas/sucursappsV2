@@ -32,9 +32,9 @@
 
     <!-- Modal Start here-->
     <div class="modal fade" id="_modal_please_wait" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" loading-indicator>
-        <div class="modal-dialog sumando-loading-modal-dialog">
-            <div class="modal-content">
-                <img src="assets/img/loader-banorte.gif" width="100%" id="imgGif" />
+        <div class="modal-dialog sumando-loading-modal-dialog" style="height:  1920px;">
+            <div class="modal-content center_Modal" style="height: 100%;">
+                <img src="assets/img/loader-banorte.gif" style="margin-top: 240px;" width="100%" id="imgGif" />
             </div>
         </div>
     </div>
@@ -108,6 +108,72 @@
                 border-color: #eb012a;">Continuar</button>
             </div>
           -->
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalErrorTransaccion" tabindex="-1" role="dialog" aria-labelledby="ModalBXIError" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content shadowModal ">
+            <!--<div class="modal-header">
+
+            </div>
+        -->
+
+            <div class="modal-body" style="padding: 2rem;">
+
+                <h4 class="modal-title" style="color: #eb012a; font-weight: 700;">
+                    Aviso
+                </h4>
+
+                <div>
+                    <p>
+                        No fue posible confirmar la operación.
+                        <p id="msgError" class="letranegrita"> Por favor veridica tu saldo. </p>
+                    </p>
+                </div>
+                <h4 class="modal-title" style="color: #eb012a; font-weight: 700;">
+                    ¿Necesitas ayuda?
+                </h4>
+                <div>
+                    <p>
+                        Estamos a tus órdenes en los siguientes medios de contacto:
+                    </p>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-lg-3">
+
+                    </div>
+                    <div class="col-lg-7">
+                        <p>
+                            Banortel:
+
+                        </p>
+                        <p>
+                            CDMX: (55) 5140-5600
+                        </p>
+                        <p>
+                            Monterrey: (81) 8156-9600
+                        </p>
+                        <p>
+                            Guadalajara: (33) 3669-9000
+                        </p>
+                        <p>
+                            Resto del país: 01-800-BANORTE
+                        </p>
+                        <p>
+                            (01-800-226-6783)
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="color-botonesbtn btn-primary">Aceptar</button>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>

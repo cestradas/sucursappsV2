@@ -1,3 +1,4 @@
+import { ActivarAlertasIniComponent } from './activa-alertas/activar-alertas-ini/activar-alertas-ini.component';
 // tslint:disable-next-line:max-line-length
 import { PagoTarjetaCreditoVerifyComponent } from './pagos-tarjeta-credito/pago-tarjeta-credito-verify/pago-tarjeta-credito-verify.component';
 import { PagoTarjetaCreditoComponent } from './pagos-tarjeta-credito/pago-tarjeta-credito/pago-tarjeta-credito.component';
@@ -24,7 +25,8 @@ const pageRoutesBXI: Routes = [
             { path: 'pagoservicios_verify', component: PagoServiciosVerifyComponent},
             { path: 'TransferFinishSpei', component: TransferenciaFinishSpeiComponent},
             { path: 'pagoTarjetaCredito_ini', component: PagoTarjetaCreditoComponent},
-            { path: 'pagoTarjetaCredito_verify', component: PagoTarjetaCreditoVerifyComponent}
+            { path: 'pagoTarjetaCredito_verify', component: PagoTarjetaCreditoVerifyComponent},
+            { path: 'activaAlertas', component: ActivarAlertasIniComponent}
             
         ]
     }

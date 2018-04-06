@@ -2,9 +2,9 @@ import { Autenticacion } from './../../autenticacion';
 import { SesionBxiService } from './../../sesion-bxi.service';
 import { OperacionesBXI } from './../../operacionesBXI';
 import { Component, OnInit, ViewChild, ElementRef, Renderer2} from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, NgControl, FormControl } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-import { element } from 'protractor';
+import {CurrencyPipe} from '@angular/common';
 
 declare var jquery: any; // jquery
 declare var $: any;
@@ -17,6 +17,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   @ViewChild('listaCuentas', { read: ElementRef}) listaCuentas: ElementRef ;
   @ViewChild('listaCuentasBeneficiario', { read: ElementRef}) listaCuentasBeneficiario: ElementRef ;
   @ViewChild('rcbFiltro', { read: ElementRef}) rcbFiltro: ElementRef ;
+  @ViewChild('rImporte', { read: ElementRef}) rImporte: ElementRef ;
 
   myForm: FormGroup;
   listaCuentasBen: Array<any> = [];
@@ -29,8 +30,11 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   Importe: string;
   labelTipoAutentica: string;
   tipoTarjeta: string;
+  importeAux: string;
+  nombreBanco: string;
 
-  constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2,  private fb: FormBuilder) { 
+  // tslint:disable-next-line:max-line-length
+  constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2,  private fb: FormBuilder, private currencyPipe: CurrencyPipe) { 
     this.myForm = this.fb.group({
       fcImporte: ['', [Validators.required /*Validators.pattern(/^[0-9]+[0-9]*$/ )*/]]
     });
@@ -86,7 +90,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   }
 
   getSaldoDeCuenta(numCuenta_seleccionada) {
- 
+    const this_aux = this;
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     operacionesbxi.getSaldo(numCuenta_seleccionada).then(
         function(response1) {
@@ -96,9 +100,11 @@ export class PagoTarjetaCreditoComponent implements OnInit {
                 const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
                 lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
               } else {
-                console.log(detalleSaldos.MensajeAUsuario);
+
+                  this_aux.showErrorSucces(detalleSaldos);
               }
         }, function(error) {
+            this_aux.showErrorPromise(error);
     });
   }
 
@@ -232,7 +238,8 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   confirmaOperacion(montoAPagar) {
     const this_aux = this;
     this_aux.CuentaOrigen = this_aux.service.numCuentaSeleccionado;
-    this_aux.Importe = montoAPagar;
+    this_aux.nombreBanco = this_aux.service.nameBancoDestino;
+    this_aux.Importe = this_aux.replaceSimbolo( montoAPagar);
     this_aux.setTipoAutenticacionOnModal();
 
   }
@@ -264,8 +271,8 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
   confirmarPago(token) {
     const this_aux = this;
-    alert(this_aux.tipoTarjeta + this_aux.Importe + this_aux.CuentaDestino + this_aux.CuentaOrigen);
     $('#_modal_please_wait').modal('show');
+    let mensajeError;
       const autenticacion: Autenticacion = new Autenticacion();
       const operacionesbxi: OperacionesBXI = new OperacionesBXI();
       autenticacion.autenticaUsuario(token, this_aux.service.metodoAutenticaMayor).then(
@@ -278,16 +285,26 @@ export class PagoTarjetaCreditoComponent implements OnInit {
                   operacionesbxi.pagoTarjetaCredito(this_aux.tipoTarjeta, this_aux.Importe, this_aux.CuentaDestino, this_aux.CuentaOrigen).then(
                       function(detallePago) {
                           console.log('Pago Validado');
-                          console.log(detallePago.responseJSON);
-                          this_aux.service.detallePagoTarjeta = detallePago.responseText;
-                          $('div').removeClass('modal-backdrop');
-                           this_aux.router.navigate(['/pagoTarjetaCredito_verify']);
-                      }
+                          const jsonDetallePago = detallePago.responseJSON;
+                          if (jsonDetallePago.Id === '1') {
+                              this_aux.service.detallePagoTarjeta = detallePago.responseText;
+                              $('div').removeClass('modal-backdrop');
+                              this_aux.router.navigate(['/pagoTarjetaCredito_verify']);
+                          } else {
+                              this_aux.showErrorSuccesMoney(jsonDetallePago);
+                          }
+                      }, function(error) {  this_aux.showErrorPromise(error); }
                   ); 
               } else {
-                console.log(infoUsuarioJSON.MensajeAUsuario);
+                  
+                  console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);  
+                  mensajeError = this_aux.controlarError(infoUsuarioJSON);
+                  document.getElementById('mnsError').innerHTML =  mensajeError;
+                  $('#_modal_please_wait').modal('hide');
+                  $('#errorModal').modal('show');
               }
         }, function(error) {
+           this_aux.showErrorPromise(error);
         });
   }
 
@@ -320,4 +337,91 @@ export class PagoTarjetaCreditoComponent implements OnInit {
      }
   }
 
+  transformAmount(importe) {
+    const this_aux = this;
+    if (importe !== '') {
+      const control: FormControl = new FormControl('');
+      this_aux.myForm.setControl('fcImporte', control);
+      this_aux.importeAux = this_aux.replaceSimbolo(importe);
+      this_aux.rImporte.nativeElement.value = this_aux.currencyPipe.transform(this_aux.importeAux, 'USD');
+      this_aux.importeAux = this_aux.replaceSimbolo( this_aux.rImporte.nativeElement.value) ;
+
+    } else {
+        if (this_aux.myForm.get('fcImporte').errors === null) {
+          const control: FormControl = new FormControl('', Validators.required);
+          this_aux.myForm.setControl('fcImporte', control );
+        }
+    }
+  }
+    
+  replaceSimbolo(importe) {
+    const importeAux = importe.replace('$', '');
+    return importeAux;
+  }
+
+  controlarError(json) {
+
+    const id = json.Id ;
+    const mensajeUsuario = json.MensajeAUsuario;
+    let mensajeError; 
+
+    switch (id) {
+          
+      case 'SEG0003': mensajeError = "Usuario bloqueado, favor de esperar 15 minutos e intentar nuevamente.";
+                    break; 
+      case 'SEG0004': mensajeError =  "Usuario bloqueado, favor de marcar a Banortel.";
+                    break; 
+      case 'SEG0005': mensajeError =  "Los datos proporcionados son incorrectos, favor de verificar.";
+                    break; 
+      case 'SEG0007': mensajeError = "Los datos proporcionados son incorrectos, favor de verificar.";
+                    break; 
+      case 'SEG0008':  mensajeError = "La sesión ha caducado.";
+                    break; 
+      case 'SEG0009':  mensajeError = "Límite de sesiones superado, favor de cerrar las sesiones de banca en línea activas.";
+                    break; 
+      // tslint:disable-next-line:max-line-length
+      case 'SEGOTP1': mensajeError = "Token desincronizado. Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
+                    break;
+      case 'SEGOTP2': mensajeError = "Token bloqueado, favor de marcar a Banortel.";
+                    break;
+      case 'SEGOTP3': mensajeError = "Token deshabilitado, favor de marcar a Banortel.";
+                    break;
+      case 'SEGOTP4': mensajeError = "Token no activado, favor de marcar a Banortel.";
+                    break;
+      // tslint:disable-next-line:max-line-length
+      case 'SEGAM81': mensajeError = "Token desincronizado. Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
+                    break; 
+      case 'SEGAM82': mensajeError = "Token bloqueado, favor de marcar a Banortel."; 
+                    break;   
+      case 'SEGAM83': mensajeError = "Token deshabilitado, favor de marcar a Banortel.";
+                    break;   
+      case 'SEGAM84': mensajeError = "Token no activado, favor de marcar a Banortel.";
+                    break;  
+      case '2'      : mensajeError = mensajeUsuario;            
+    }
+
+    return mensajeError;
+  }
+
+  showErrorPromise(error) {
+    console.log(error);
+    // tslint:disable-next-line:max-line-length
+    document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde."; 
+    $('#_modal_please_wait').modal('hide');
+    $('#errorModal').modal('show');
+  }
+
+  showErrorSucces(json) {
+    console.log(json.Id + json.MensajeAUsuario);
+    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+    $('#_modal_please_wait').modal('hide');
+    $('#errorModal').modal('show');
+  }
+
+  showErrorSuccesMoney(json) {
+    console.log(json.Id + json.MensajeAUsuario);
+    document.getElementById('msgError').innerHTML =   json.MensajeAUsuario; 
+    $('#_modal_please_wait').modal('hide');
+    $('#ModalErrorTransaccion').modal('show');
+  }
 }

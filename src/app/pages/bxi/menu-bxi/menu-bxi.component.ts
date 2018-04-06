@@ -15,7 +15,7 @@ declare var $: $;
 })
 export class MenuBxiComponent implements OnInit {
 
- 
+
   constructor(private service: SesionBxiService, private renderer: Renderer2,  private router: Router ) { }
 
   ngOnInit() {
@@ -38,20 +38,37 @@ export class MenuBxiComponent implements OnInit {
                   function(cuentasBeneficiario) {
                   console.log(cuentasBeneficiario.responseJSON);
                   const resCuentasXBeneficiario = cuentasBeneficiario.responseJSON;
-                  this_aux.service.infoCuentasBeneficiarios = JSON.stringify(resCuentasXBeneficiario.arrayCuentasXBeneficiario);
-                  console.log(this_aux.service.infoCuentasBeneficiarios);
-                  $('#_modal_please_wait').modal('hide'); 
-                  $('div').removeClass('modal-backdrop');
+                  if (resCuentasXBeneficiario.Id === '1') {
+
+                      this_aux.service.infoCuentasBeneficiarios = JSON.stringify(resCuentasXBeneficiario.arrayCuentasXBeneficiario);
+                      this_aux.service.infoDatosDeBeneficiarios = JSON.stringify(resCuentasXBeneficiario.Beneficiarios);
+                      console.log(this_aux.service.infoCuentasBeneficiarios);
+                      console.log(this_aux.service.infoDatosDeBeneficiarios);
+                      if (this_aux.service.alertasActivas === undefined) {
+                          this_aux.consultaAlertas();
+                      }
+                      $('#_modal_please_wait').modal('hide');
+                      $('div').removeClass('modal-backdrop');
+
+                  } else {
+                    this_aux.showErrorSucces(resCuentasXBeneficiario);
+                  }
+                }, function(error) {
+                  this_aux.showErrorPromise(error);
                 });
             } else {
-              console.log(getCuentasJSON.MensajeAUsuario);
+              this_aux.showErrorSucces(getCuentasJSON);
             }
-      }, function(error) {}
+      }, function(error) {
+        this_aux.showErrorPromise(error);
+      }
     );
   }
 
   comenzarOperacion(idOperacion) {
-    $('div').removeClass('modal-backdrop');
+    // $('div').removeClass('modal-backdrop');
+    $('#_modal_please_wait').modal('show');
+
     switch (idOperacion) {
 
       case 'pagoserv': this.router.navigate(['/pagoservicios_ini']);
@@ -62,13 +79,15 @@ export class MenuBxiComponent implements OnInit {
             break;
       case 'pagotar': this.router.navigate(['/pagoTarjetaCredito_ini']);
             break;
+      case 'activaAlertas': this.router.navigate(['/activaAlertas']);
+      break;
 
     }
   }
 
   moreOptions() {
 
-  
+
     setTimeout(() => {
 
       document.getElementById('operacionesFrecuentes').style.display = 'none';
@@ -77,7 +96,7 @@ export class MenuBxiComponent implements OnInit {
       document.getElementById('regresar').style.display = 'block';
       $('#operacionesFrecuentes').removeClass('animated fadeOutUp slow');
       $('#opciones').removeClass('flipOutY fast');
-      
+
     }, 2000);
 
     $('#operacionesFrecuentes').addClass('animated fadeOutUp slow');
@@ -85,9 +104,9 @@ export class MenuBxiComponent implements OnInit {
 
     $('#opciones').addClass('flipOutY fast');
     $('#regresar').addClass('flipInY slow');
-   
-      
-    
+
+
+
   }
 
   regresar() {
@@ -109,9 +128,53 @@ export class MenuBxiComponent implements OnInit {
 
     $('#regresar').addClass('flipOutY fast');
     $('#opciones').addClass('flipInY slow');
-   
-   
-   
+
+
+
   }
 
+  showErrorPromise(error) {
+    console.log(error);
+    // tslint:disable-next-line:max-line-length
+    document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde."; 
+    $('#_modal_please_wait').modal('hide');
+    $('#errorModal').modal('show');
+  }
+
+  showErrorSucces(json) {
+    console.log(json.Id + json.MensajeAUsuario);
+    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+    $('#_modal_please_wait').modal('hide');
+    $('#errorModal').modal('show');
+  }
+
+  consultaAlertas() {
+
+    const this_aux = this;
+    const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+    let alertasActivas;
+    operacionesbxi.mantieneAlertas('C', this_aux.service.infoUsuarioSIC).then(
+      function(detalleAlertas) {
+            const detalle = detalleAlertas.responseJSON;
+            console.log(detalle);
+            if (detalle .Id === '1') {
+
+              const alertas = detalle.AlertasXCliente;
+              alertas.forEach(element => {
+                   if (element.IndicadorServicio === "N") {
+                      alertasActivas = false;
+                   } else {
+                      alertasActivas = true;
+                   }
+              });
+              this_aux.service.alertasActivas = alertasActivas;
+            } else {
+                  this_aux.showErrorSucces(detalle);
+            }
+      }, function(error) {
+        this_aux.showErrorPromise(error);
+      }
+    );
+
+  }
 }
