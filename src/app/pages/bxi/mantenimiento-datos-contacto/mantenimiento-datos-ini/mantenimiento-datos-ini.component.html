@@ -1,0 +1,64 @@
+<div class="padding-barToTittle">
+  <h2 class="text-center deleteMargin-h2 color-letra">Actualizar datos de contacto</h2>
+</div>
+<fieldset class="padding-TittleToFieldset padding-fieldset-general">
+  <div align="center" class="well sumando-well-white col-sm-12">
+      <div class="row">
+          <div class="col-sm-5 col-md-5" align="right">
+              <strong>Correo electr&oacute;nico</strong>
+          </div>
+          <div class="col-sm-4 col-md-4">
+              <input   #correoElectronico  type="text"   class="tamimput form-control amount input-lg" #selecionado1 [matKeyboard]="" placeholder="Correo electr&oacute;nico" />
+          </div>
+
+          <div class="col-sm-1 col-md-1" align="left">
+              <a>  <img src="./assets/img/edit.png" type="image/png" width="30" height="30" > </a>
+          </div>
+      </div>
+      <br>
+      <br>
+      <div class="row">
+          <div class="col-sm-5 col-md-5" align="right">
+              <strong>N&uacute;mero de celular</strong>
+          </div>
+          <div class="col-sm-4 col-md-4">
+              <input  #numeroCelular  type="text" class="tamimput form-control amount input-lg" [matKeyboard]="'num'" placeholder="Número de celular" />
+          </div>
+          <div class="col-sm-1 col-md-1" align="left">
+              <a> <img src="./assets/img/edit.png" type="image/png" width="30" height="30" onclick=''> </a>
+          </div>
+      </div>
+
+  </div>
+</fieldset>
+
+
+<div style="margin:30px 0px 0px 0px;" class="row">
+  <div class="col-sm-10">
+      <button class="btn pull-right btn-lg letranegrita" onClick="currentPage.loadMenu();">
+                  Cancelar
+              </button>
+  </div>
+  <div style=" padding: 0px;" class="col-sm-1">
+      <button class="btn btn-danger btn-lg letranegrita" (click)="guardarDatos(correoElectronico,numeroCelular)">
+              Guardar
+          </button>
+  </div>
+</div>
+
+
+<div id="correoActualizado" class="modal fade">
+  <div class="modal-dialog modal-dialog-error">
+      <div class="modal-content">
+          <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
+              <h4 class="color-letra">Aviso</h4>
+              <p id="mnsErrorModal">El correo se actualizo correctamente.</p>
+          </div>
+          <div class="modal-footer text-center">
+              <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="currentPage.loadMenu()">Salir</button>
+          </div>
+      </div>
+      <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>

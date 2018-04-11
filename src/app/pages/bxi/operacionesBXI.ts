@@ -71,7 +71,7 @@ export class OperacionesBXI {
             fechaVencimiento: fechaVencimiento
           };
           let resourceRequest;
-          if (idFacturador === '1310') {
+          if (idFacturador === '1310' || idFacturador === '88924') {
              resourceRequest = new WLResourceRequest(
                 'adapters/AdapterBanorteSucursAppsBEL/resource/pagoDisposicionCredito', WLResourceRequest.POST);
           } else {
@@ -208,6 +208,34 @@ export class OperacionesBXI {
 
           const    resourceRequest = new WLResourceRequest(
             'adapters/AdapterBanorteSucursAppsBEL/resource/mantieneServicioAlertas', WLResourceRequest.POST);
+      resourceRequest.setTimeout(30000);
+
+      return resourceRequest.sendFormParameters(formParameters);
+    }
+
+    consultaDatosContacto(sic) {
+
+        const formParameters = {
+            sic: sic,
+          };
+
+          const    resourceRequest = new WLResourceRequest(
+            'adapters/AdapterBanorteSucursAppsBEL/resource/consultaDatosContacto', WLResourceRequest.POST);
+      resourceRequest.setTimeout(30000);
+
+      return resourceRequest.sendFormParameters(formParameters);
+    }
+
+    actualizaDatosContacto(sic, correo, celular) {
+
+        const formParameters = {
+            sic: sic,
+            correo: correo,
+            celular: celular
+          };
+
+          const    resourceRequest = new WLResourceRequest(
+            'adapters/AdapterBanorteSucursAppsBEL/resource/actualizaDatosContacto', WLResourceRequest.POST);
       resourceRequest.setTimeout(30000);
 
       return resourceRequest.sendFormParameters(formParameters);
