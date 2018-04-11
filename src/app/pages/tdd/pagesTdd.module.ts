@@ -20,7 +20,7 @@ import { PagoTarjetaCreditoComponent } from './pago-tarjeta-credito/pago-tarjeta
 import { CompraTiempoAireFinalComponent } from './compra-tiempo-aire/compra-tiempo-aire-final.component';
 import { PagoTarjetaCreditoFinalComponent } from './pago-tarjeta-credito/pago-tarjeta-credito-final.component';
 import { ActualizarDatosDeContactoComponent } from './actualizar-datos-de-contacto/actualizar-datos-de-contacto.component';
-
+import { MantenimientoBenefDetailComponent } from './mantenimiento-benef/mantenimiento-benef-detail/mantenimiento-benef-detail.component';
 
 
 
@@ -66,6 +66,7 @@ const customLayouts: IKeyboardLayouts = {
         TransferenciaTercerosComponent,
         PagoDeServiciosComponent,
         MantenimientoBenefComponent,
+        MantenimientoBenefDetailComponent,
         MenutddComponent,
         PagoTarjetaCreditoComponent,
         CompraTiempoAireFinalComponent,
