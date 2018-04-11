@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ResponseWS } from '../../../../services/response/response.service';
+import { ConsultaSaldosTddService } from '../../../../services/saldosTDD/consultaSaldos.service';
 declare var $: any;
 
 @Component({
@@ -10,16 +11,29 @@ declare var $: any;
 export class MantenimientoBenefDetailComponent implements OnInit {
 
   BEN: any;
-  numeroCuentaTitular: any = "0665815045";
+  numeroCuentaTitular: string;
+  datosBeneficiarios: any;
 
-  constructor(private serviceMantenimiento: ResponseWS) { }
-
-    detalleBeneficiarios: any = {
+  detalleBeneficiarios: any = {
     fechaOperacion: '',
-    horaOperacion: ''
+    horaOperacion: '' 
 };
 
-datosBeneficiarios: any;
+  constructor(private serviceMantenimiento: ResponseWS, private _service: ConsultaSaldosTddService) { 
+    $('#_modal_please_wait').modal('show');
+    this._service.validarDatosSaldoTdd().then(
+      mensaje => {
+
+        console.log('Saldos cargados correctamente TDD');
+        this.numeroCuentaTitular = mensaje.NumeroCuenta;
+        this.consultaBeneficiarios();
+      }
+    ); 
+  }
+
+  
+
+
   ngOnInit() {
    
     const this_aux = this;
@@ -75,6 +89,7 @@ datosBeneficiarios: any;
       }
     );
     console.log("Salió de Response Consultar Beneficiarios");
+    setTimeout(() => $('#_modal_please_wait').modal('hide'), 2000);
   }
 
 

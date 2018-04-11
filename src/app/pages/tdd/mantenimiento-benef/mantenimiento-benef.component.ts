@@ -10,6 +10,7 @@ import { DatePipe } from "@angular/common";
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { ResponseWS } from '../../../services/response/response.service';
 import { ValidaNipTransaccion } from '../../../services/validaNipTrans/validaNipTrans.service';
+import { ConsultaSaldosTddService } from '../../../services/saldosTDD/consultaSaldos.service';
 
 declare var $: any;
 declare var angular: any;
@@ -56,7 +57,8 @@ export class MantenimientoBenefComponent implements OnInit {
   codigoPvacio: any = 0;
   opcion: any = 0;
   bloquearAlta: any = false;
-  numeroCuentaTitular: any = "0665815045";
+  numeroCuentaTitular: string;
+  saldoDisponibleClienteTdd: string;
 
   registroFederal: any = "";
   fisicaMoralSeleccionada: any = "";
@@ -87,8 +89,7 @@ export class MantenimientoBenefComponent implements OnInit {
  C = false;
 
   constructor(public fb: FormBuilder, private router: Router, private serviceMantenimiento: ResponseWS,
-     private _validaNipService: ValidaNipTransaccion
-  ) {
+     private _validaNipService: ValidaNipTransaccion, private _service: ConsultaSaldosTddService) {
     this.myform = this.fb.group({
       nombreBenef: [''],
       apPatBenef: [''],
@@ -108,11 +109,19 @@ export class MantenimientoBenefComponent implements OnInit {
       CodPBenefMod: ['']
     });
 
+    $('#_modal_please_wait').modal('show');
+    this._service.validarDatosSaldoTdd().then(
+      mensaje => {
+
+        console.log('Saldos cargados correctamente TDD');
+        this.saldoDisponibleClienteTdd = mensaje.SaldoDisponible;
+        this.numeroCuentaTitular = mensaje.NumeroCuenta;
+        this.consultaBeneficiarios();
+      }
+    ); 
   }
 
-  ngOnInit() {
-    $('#_modal_please_wait').modal('show');
-    this.consultaBeneficiarios();
+  ngOnInit() {   
   }
 
   altaBeneficiario() {
@@ -264,6 +273,7 @@ export class MantenimientoBenefComponent implements OnInit {
     let dia: any = "";
     this_aux.tamRegistrosBenef = 0;
     this_aux.porcentajeGuardado = 0;
+
     const formParameters = {
       numeroCuenta: this_aux.numeroCuentaTitular
     };
@@ -963,6 +973,7 @@ export class MantenimientoBenefComponent implements OnInit {
           console.log(res);
   
           if (res === true) {  
+            $('#ModalTDDLogin').modal('hide');
             this.verificaServicios();
           } else {
             console.error("Mostrar modal las tarjetas no son iguales");
@@ -1012,8 +1023,7 @@ export class MantenimientoBenefComponent implements OnInit {
 
   verificaTransacciones() {
     const this_aux = this;
-    if ( this_aux.B === false && this_aux.C === false && this_aux.A === false ) {
-      
+    if ( this_aux.B === false && this_aux.C === false && this_aux.A === false ) {      
       $('#_modal_please_wait').modal('show');
       this_aux.router.navigate(['/detalleBeneficiarios']);
 
