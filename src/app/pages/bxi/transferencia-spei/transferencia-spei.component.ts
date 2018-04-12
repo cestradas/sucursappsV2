@@ -1,7 +1,6 @@
 import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
-// tslint:disable-next-line:import-blacklist
 import 'rxjs/Rx';
 import { SesionBxiService } from '../sesion-bxi.service';
 import { OperacionesBXI } from '../operacionesBXI';
@@ -48,7 +47,7 @@ export class TransferenciaSpeiComponent implements OnInit {
   @ViewChild('listaCuentasBeneficiario', { read: ElementRef}) listaCuentasBeneficiario: ElementRef ;
   @ViewChild('selectTipo', { read: ElementRef}) selectTipo: ElementRef;
 
- 
+  listaCuentasUsr: Array<any> = [];
   listaCuentasBen: Array<any> = [];
   listaDatosBen: Array<any> = [];
   datosCuenta: any[] = [];
@@ -57,6 +56,10 @@ export class TransferenciaSpeiComponent implements OnInit {
   labelTipoAutentica: string;
   CuentaDestino: string;
   
+ 
+  cuentaOrigenModal = "";
+  correoBeneModal = "";
+  nombreBeneModal = "";
 
   forma: FormGroup;
 
@@ -84,7 +87,6 @@ export class TransferenciaSpeiComponent implements OnInit {
       
       // TEF
 
-      'rfcTEF': new FormControl('', [Validators.required, Validators.maxLength(13)]),
       'amountTEF': new FormControl('', [Validators.required, Validators.min(0), Validators.max(7000)]),
       'descriptionTEF': new FormControl('', [Validators.required, Validators.maxLength(60)]),
       'referenceTEF': new FormControl('', [Validators.required, Validators.maxLength(7)]),
@@ -94,9 +96,9 @@ export class TransferenciaSpeiComponent implements OnInit {
       
       'cuenta': new FormControl('', [Validators.required, Validators.maxLength(20)]),
       'sel1': new FormControl('', [Validators.required]),
-      'clabe': new FormControl('', [Validators.required, Validators.maxLength(15)]),
+      'clabe': new FormControl('', [Validators.required, Validators.maxLength(16)]),
       'ammountQUICK': new FormControl('', [Validators.required, Validators.min(0), Validators.max(7000)]),
-  
+      'referenceQuick': new FormControl('', [Validators.required, Validators.maxLength(7)])
     });
 
     console.log(this.forma);
@@ -124,14 +126,6 @@ export class TransferenciaSpeiComponent implements OnInit {
 
             this_aux.refF = data;
           });
-
-          this.forma.controls['rfcTEF'].valueChanges.subscribe(
-            data => {
-              console.log('rfcTEF', data);
-              console.log('forma', this.forma);
-
-              this_aux.rfcEmiF = data;
-            });
 
             this.forma.controls['amountTEF'].valueChanges.subscribe(
               data => {
@@ -188,6 +182,16 @@ export class TransferenciaSpeiComponent implements OnInit {
 
                             this_aux.importeF = data;
                           });
+
+                          this.forma.controls['referenceQuick'].valueChanges.subscribe(
+                            data => {
+                              console.log('referenceQuick', data);
+                              console.log('forma', this.forma);
+  
+                              this_aux.refF = data;
+                            });
+
+                          
   }
 
   ngOnInit() {
@@ -214,7 +218,7 @@ export class TransferenciaSpeiComponent implements OnInit {
           
             document.getElementById('tranSPEI').style.display = 'block';
 
-            document.getElementById('tranSPEI').style.display = '';
+            document.getElementById('beneficiarios').style.display = '';
             
 
             break;
@@ -225,7 +229,7 @@ export class TransferenciaSpeiComponent implements OnInit {
          
             document.getElementById('tranTEF').style.display = 'block';
 
-            document.getElementById('tranTEF').style.display = '';
+            document.getElementById('beneficiarios').style.display = '';
 
             break;
       case '3':  // QUICK
@@ -236,7 +240,7 @@ export class TransferenciaSpeiComponent implements OnInit {
         
             document.getElementById('tranQuick').style.display = 'block';
            
-            document.getElementById('tranQuick').style.display = '';
+            document.getElementById('beneficiarios').style.display = '';
             break;
           
   
@@ -248,7 +252,7 @@ export class TransferenciaSpeiComponent implements OnInit {
       
     
     
-    console.log("adentro Trnsferencias Internacionales SPEI ");
+    console.log("adentro Trnsferencias Internacionales");
 
     const operacionSelect = this_aux.selectTipo.nativeElement.value.toString();
     console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
@@ -279,6 +283,7 @@ export class TransferenciaSpeiComponent implements OnInit {
       bancoRecept =  this_aux.bancoReceptF;
       clabe = this_aux.clabeF;
       importe = this_aux.importeF;
+      ref = this_aux.refF;  
      
       
          
@@ -314,7 +319,35 @@ export class TransferenciaSpeiComponent implements OnInit {
       this_aux.labelTipoAutentica = 'Token Fisico';
     }
 
-  $('#confirmModal').modal('show');
+
+    this.validaDatosBen();
+
+
+    const operacionSelect = this_aux.selectTipo.nativeElement.value.toString();
+    console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
+
+
+    switch (operacionSelect) {
+
+      case '1':  // SPEI
+
+      $('#confirmModalSPEI').modal('show');         
+
+            break;
+
+      case '2':  // TEF
+
+      
+      $('#confirmModalTEF').modal('show');     
+
+            break;
+      case '3':  // QUICK
+
+      $('#confirmModalQUICK').modal('show');      
+     
+            break;
+          }
+  
 }
 
   fillSelectCuentas() {
@@ -345,14 +378,19 @@ setDatosCuentaSeleccionada(elementHTML) {
   const lblCuentaOrigen = document.getElementById('lblCuentaOrigen');
   const lblAliasOrigen = document.getElementById('lblAliasOrigen');
   const numCuenta_seleccionada = elementHTML.value;
+  const AliasCuenta_seleccionada = elementHTML.text;
 
   tableOrigen.setAttribute('style', 'display: block');
   tableDefaultOrigen.setAttribute('style', 'display: none');
 
   lblAliasOrigen.innerHTML = elementHTML.textContent;
+  lblAliasOrigen.innerHTML = AliasCuenta_seleccionada.toString();
   lblCuentaOrigen.innerHTML = numCuenta_seleccionada.toString();
-  this_aux.service.numCuentaSeleccionado = numCuenta_seleccionada;
+  this_aux.service.numCuentaSPEISel = numCuenta_seleccionada;
+  this_aux.service.AliasCuentaSPEISel = AliasCuenta_seleccionada;
+  this_aux.cuentaOrigenModal = this_aux.service.numCuentaSPEISel;
   this_aux.getSaldoDeCuenta(numCuenta_seleccionada);
+  
 
   
 }
@@ -387,14 +425,14 @@ fillCuentasBeneficiario () {
   const datosBeneficiarios = JSON.parse(this_aux.service.infoDatosDeBeneficiarios); // Json con datos de usuario Correo, nombre y num
   const cuentasArray = jsoncuentasUsuario.ArrayCuentas;
 
-  /*cuentasArray.forEach(cuentaUsuario => {
+  cuentasArray.forEach(ArrayCuentas => {
 
-       if (cuentaUsuario.TipoCuenta.toString() === '5') {
-        this_aux.listaCuentasBen.push(cuentaUsuario);
-        this_aux.crearListaBeneficiarios(cuentaUsuario);
-       }
+      // if (ArrayCuentas.TipoCuenta.toString() === '5') {
+        this_aux.listaCuentasUsr.push(ArrayCuentas);
+      //  this_aux.crearListaBeneficiarios(cuentaUsuario);
+      // }
 
-    });*/
+    });
   arrayCuentasXBeneficiario.forEach(element1 => {
     cuenta = element1.Cuenta;
         cuenta.forEach(data => {
@@ -422,6 +460,7 @@ fillCuentasBeneficiario () {
 
   console.log(this_aux.listaCuentasBen);
   console.log(this_aux.listaDatosBen);
+  console.log(this_aux.listaCuentasUsr);
   this_aux.defineFiltros();
 }
 
@@ -558,6 +597,8 @@ setCuentasBenficiarioXTipo() {
     
       document.getElementById('tranSPEI').style.display = 'block';
 
+      document.getElementById('beneficiarios').style.display = '';
+
       if (auxcuenta.AplicaSPEI.toString() === "true") {
 
         const li =  this.renderer.createElement('li');
@@ -583,12 +624,18 @@ setCuentasBenficiarioXTipo() {
    
       document.getElementById('tranTEF').style.display = 'block';
 
+      document.getElementById('beneficiarios').style.display = '';
+
       if (auxcuenta.AplicaTEF.toString() === "true") {
 
         const li =  this.renderer.createElement('li');
         const a = this.renderer.createElement('a');
         const textoCuenta = this.renderer.createText( auxcuenta.DescripcionTipoCuenta);
-        this.renderer.setProperty(a, 'value', auxcuenta.NoCuenta);
+        this.renderer.setProperty(a, 'value', auxcuenta.Alias + ','
+                                            + auxcuenta.NoCuenta + ','
+                                            + auxcuenta.ClaveBanco + ',' 
+                                            + auxcuenta.DescripcionTipoCuenta + ',' 
+                                            + auxcuenta.NumBenef );
         this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaBeneficiario(event.target); });
         this.renderer.appendChild(a, textoCuenta),
         this.renderer.appendChild(li, a);
@@ -607,6 +654,8 @@ setCuentasBenficiarioXTipo() {
       document.getElementById('beneficiarios').style.display = 'none';
   
       document.getElementById('tranQuick').style.display = 'block';
+
+      // document.getElementById('beneficiarios').style.display = '';
      
 
     }
@@ -667,7 +716,10 @@ validaDatosBen() {
       if (cuenta.NumBenef === Beneficiarios.NumBenef) {
 
         this_aux.service.correoBeneficiario = Beneficiarios.CorreoElecBenef;
+        this_aux.correoBeneModal = this_aux.service.correoBeneficiario ;
         this_aux.service.nombreBeneficiario = Beneficiarios.NombreSinFormato;
+        this_aux.nombreBeneModal = this_aux.service.nombreBeneficiario;
+        
       }
     });
         
@@ -684,9 +736,9 @@ validaDatosBen() {
 
     const this_aux = this;
 
-    this.validaDatosBen();
+    // this.validaDatosBen();
     
-    ctaO = this_aux.service.numCuentaSeleccionado;
+    ctaO = this_aux.service.numCuentaSPEISel;
     ctaDest = this_aux.service.numCuentaDestinario;
     sic = this_aux.service.infoUsuarioSIC;
     bancoRecep = this_aux.service.claveBancoDestino;
@@ -739,24 +791,29 @@ validaDatosBen() {
                     function(response) {
                       console.log(response.responseJSON);
               
-                      
+                      const transferSPEI = response.responseJSON;
                        
                       
-                       if ( this.transferSPEI.Id === '1') {
+                       if ( transferSPEI.Id === '1') {
            
-                         console.log(this.transferSPEI);
+                         console.log(transferSPEI);
+                         this_aux.service.validaFinishTipoTransfer = "1";
                          this_aux.service.detalleConfirmacionSPEI = response.responseText;
                          console.log(this_aux.service.detalleConfirmacionSPEI);
                          this.router.navigate(['/TransferFinishSpei']);
                                 
                        } else {
-                         console.log(this.transferSPEI.MensajeAUsuario);
+                         console.log(transferSPEI.ErrorMsg);
+                         document.getElementById('mnsError').innerHTML = transferSPEI.ErrorMsg;
+                        $('#errorModal').modal('show');
                        }
   
                     }, function(error) { }
                   );
               } else {
                 console.log(infoUsuarioJSON.MensajeAUsuario);
+                document.getElementById('mnsError').innerHTML = infoUsuarioJSON.MensajeAUsuario;
+                $('#errorModal').modal('show');
               }
         }, function(error) {
         });
@@ -764,10 +821,98 @@ validaDatosBen() {
 
             break;
       case '2':  // TEF
+
+
+      autenticacion.autenticaUsuario(token, this_aux.service.metodoAutenticaMayor).then(
+        function(detalleAutentica) {
+              // console.log(detalleAutentica.responseJSON);
+              const infoUsuarioJSON = detalleAutentica.responseJSON;
+              if (infoUsuarioJSON.Id === 'SEG0001') {
+                  console.log('Nivel de autenticacion alcanzado');
+  
+                  operacionesbxi.confirmaTransferTEF(this_aux.service.AliasCuentaSPEISel, ctaO, sic, rfcEmi, 
+                                                     this_aux.service.claveAliasCuenta , this_aux.service.claveNumBenefi, clabe,
+                                                     this_aux.service.NombreUsuario, importeFront, descripcionFront, refFront)
+                                                     
+                  .then(
+                
+                    function(response) {
+                      console.log(response.responseJSON);
+              
+                      const transferTEF = response.responseJSON;
+                       
+                      
+                       if ( transferTEF.Id === '1') {
+           
+                         console.log(transferTEF);
+                         this_aux.service.validaFinishTipoTransfer = "2";
+                         this_aux.service.detalleConfirmacionTEF = response.responseText;
+                         console.log(this_aux.service.detalleConfirmacionTEF);
+                         this.router.navigate(['/TransferFinishSpei']);
+                                
+                       } else {
+                         console.log(transferTEF.ErrorMsg);
+                         document.getElementById('mnsError').innerHTML = transferTEF.ErrorMsg;
+                        $('#errorModal').modal('show');
+                       }
+  
+                    }, function(error) { }
+                  );
+              } else {
+                console.log(infoUsuarioJSON.MensajeAUsuario);
+                document.getElementById('mnsError').innerHTML = infoUsuarioJSON.MensajeAUsuario;
+                $('#errorModal').modal('show');
+              }
+        }, function(error) {
+        });
             
 
             break;
       case '3':  // QUICK
+
+
+      autenticacion.autenticaUsuario(token, this_aux.service.metodoAutenticaMayor).then(
+        function(detalleAutentica) {
+              // console.log(detalleAutentica.responseJSON);
+              const infoUsuarioJSON = detalleAutentica.responseJSON;
+              if (infoUsuarioJSON.Id === 'SEG0001') {
+                  console.log('Nivel de autenticacion alcanzado');
+  
+                  operacionesbxi.confirmaTransferQUICK(ctaO, this_aux.tipoCuentaF, sic, this_aux.bancoReceptF, 
+                                                      this_aux.clabeF, nombreBene, this_aux.refF , importeFront, 
+                                                      descripcionFront, correo, rfcEmi)
+                  .then(
+                
+                    function(response) {
+                      console.log(response.responseJSON);
+              
+                      const transferQUICK = response.responseJSON;
+                       
+                      
+                       if ( transferQUICK.Id === '1') {
+           
+                         console.log(transferQUICK);
+                         this_aux.service.validaFinishTipoTransfer = "3";
+                         this_aux.service.detalleConfirmacionQUICK = response.responseText;
+                         console.log(this_aux.service.detalleConfirmacionQUICK);
+                         this.router.navigate(['/TransferFinishSpei']);
+                                
+                       } else {
+                         console.log(transferQUICK.ErrorMsg);
+                         document.getElementById('mnsError').innerHTML = transferQUICK.ErrorMsg;
+                         $('#errorModal').modal('show');
+                         
+                       }
+  
+                    }, function(error) { }
+                  );
+              } else {
+                console.log(infoUsuarioJSON.MensajeAUsuario);
+                document.getElementById('mnsError').innerHTML = infoUsuarioJSON.MensajeAUsuario;
+                $('#errorModal').modal('show');
+              }
+        }, function(error) {
+        });
 
             
  

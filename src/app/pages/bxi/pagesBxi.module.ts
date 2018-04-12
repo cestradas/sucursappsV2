@@ -21,6 +21,8 @@ import { PagoTarjetaCreditoComponent } from './pagos-tarjeta-credito/pago-tarjet
 
 // tslint:disable-next-line:max-line-length
 import { PagoTarjetaCreditoVerifyComponent } from './pagos-tarjeta-credito/pago-tarjeta-credito-verify/pago-tarjeta-credito-verify.component';
+import { MantenimientoDatosIniComponent } from './mantenimiento-datos-contacto/mantenimiento-datos-ini/mantenimiento-datos-ini.component';
+import { MantenimientoDatosVerifyComponent } from './mantenimiento-datos-contacto/mantenimiento-datos-verify/mantenimiento-datos-verify.component';
 
 
 const customLayouts: IKeyboardLayouts = {
@@ -71,6 +73,8 @@ const customLayouts: IKeyboardLayouts = {
         PagoTarjetaCreditoVerifyComponent,
         ModalBxiErrorComponentComponent,
         ActivarAlertasIniComponent,
+        MantenimientoDatosIniComponent,
+        MantenimientoDatosVerifyComponent,
         
     ],
     exports: [],

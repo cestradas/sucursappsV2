@@ -1,212 +1,226 @@
-<form [formGroup]="myForm1" (ngSubmit)="saveData()" novalidate>
-    <h2 class="text-center padding-barToTittle deleteMargin-h2">Mantenimiento de Beneficiarios</h2>
-    <fieldset class="padding-fieldset-general padding-TittleToFieldset">
-        <div class="sumando-form-group">
-            <div class="col-sm-1 sumando-bg-orange group-name">
+<form [formGroup]="myform" novalidate>
+    <h2 class="text-center padding-barToTittle deleteMargin-h2  color-letra">Mantenimiento de Beneficiarios</h2>
+    <fieldset class="padding-TittleToFieldset padding-fieldset-general">
+        <div class="row sumando-form-group">
+
+            <div class="col-sm-1 sumando-bg-orange group-name letranegrita">
                 Cuenta
             </div>
-            <div class="col-sm-11 group-controls padding-left-0 padding-right-0 padding-InFieldset">
+            <div class="col-sm-11 group-controls padding-left-0 padding-right-0 sumando-well-white" style="padding-bottom: 0px !important; padding-top: 0px">
                 <div class="form-group">
-                    <div class="sumando-bg-white">
-                        <input type="hidden" name="originAccount">
-
-                        <div class="dropdown sumando-dropdown-account">
-                            <button class="btn btn-default btn-block dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="padding-right: 0px;padding-top: 0px;padding-bottom: 0px">
-                <table id="tableOrigen" style="display: none" width="100%">
-                  <tr> 
-                    <td align="left" width="45%">
-                      <strong><label  id="lblAliasOrigen" #lblAliasOrigen></label></strong>
-                    </td>
-                    <td align="left" width="45%">
-                      <strong>$<label id ="lblSaldoOrigen"></label>
-                      </strong>
-                    </td>
-                    <td width="5%" rowspan="2" class="dropdown-caret">
-                      <img src="./assets/img/bg_selectN.png" style="width: 90%;    height: 150%;">
-                    </td> 
-                  </tr>
-                  <tr>
-                    <td align="left">Cuenta <label id="lblCuentaOrigen" #lblCuentaOrigen></label></td>
-                    <td align="left">Saldo Disponible</td>
-                  </tr>
-                </table> 
-                <table  id="tableDefaultOrigen" width="100%">
-                  <tr>
-                    <td align="left" rowspan="2">Cuenta Enlace Personal</td>
-                    <td width="5%" rowspan="2" class="dropdown-caret">
-                      <img style="width: 90%;    height: 150%;">
-                    </td> 
-                  </tr>  
-                </table>
-              </button>
-                            <div>
-                                <ul id="ul_Cuentas" #listaCuentas class="dropdown-menu btn-block" aria-labelledby="dropdownMenu1" style="width: 100%; height: 200px; overflow: auto">
-
-                                </ul>
-                            </div>
-                        </div>
+                    <div class="sumando-dropdown-account">
+                        <table width="100%" class="letranegrita">
+                            <tr>
+                                <td align="left" width="40%" style="border: 0px">CUENTA ENLACE PERSONAL <strong>
+                                                                </strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="border: 0px">Cuenta
+                                    <strong>
+                                        <label> {{numeroCuentaTitular}}
+                                         </label>
+                                    </strong>
+                                </td>
+                                <td align="left" style="border: 0px">Saldo Disponible
+                                    <strong>
+                                        <label>$ {{saldoDisponibleClienteTdd}}
+                                        </label>
+                                    </strong>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
-            </div>
-
-            <div>
-                <h3>Beneficiarios de la Cuenta</h3>
-                <table id="tableBeneficiary" width="100%">
-                    <tr>
-                        <th>No. Cliente</th>
-                        <th>Nombre o Razón Social</th>
-                        <th>Parentesco</th>
-                        <th>RFC</th>
-                        <th>Fecha de Nacimiento</th>
-                        <th>(%)</th>
-                        <th>Modificar</th>
-                        <th>Eliminar</th>
-                    </tr>
-                    <tr *ngFor="let beneficiario of BEN, let i = index">
-                        <td *ngIf="(i>=NumeroDatoInicial) && (i < NumeroDatoFinal)" style="text-align: center">{{beneficiario.NumeroCliente}}</td>
-                        <td *ngIf="(i>=NumeroDatoInicial) && (i < NumeroDatoFinal)" style="text-align: center">{{beneficiario.RazonSocial}}{{beneficiario.NombreBeneficia}} {{beneficiario.ApPaternoBenef}} {{beneficiario.ApMaternoBenef}}</td>
-                        <td *ngIf="(i>=NumeroDatoInicial) && (i < NumeroDatoFinal)" style="text-align: center">{{beneficiario.Parentesco}}</td>
-                        <td *ngIf="(i>=NumeroDatoInicial) && (i < NumeroDatoFinal)" style="text-align: center">{{beneficiario.RegistroFederal}}</td>
-                        <td *ngIf="(i>=NumeroDatoInicial) && (i < NumeroDatoFinal)" style="text-align: center">{{beneficiario.FechaNacimiento}}</td>
-                        <td *ngIf="(i>=NumeroDatoInicial) && (i < NumeroDatoFinal)" style="text-align: center">{{beneficiario.PorcentajeBenef}}</td>
-                        <td align=center>
-                            <button id="buttonImage" type="button"><img src="./assets/img/edit.png" 
-                                alt= "Modificar Beneficiario" (click)="modificaBeneficiario()" width="50px" height="50px" /></button>
-                        </td>
-                        <td align=center>
-                            <button id="buttonImage" type="button"><img src="./assets/img//trash.png" 
-                                (click)="bajaBeneficiarioModal(beneficiario)" alt="Eliminar Beneficiario" width="50px" height="50px" /></button>
-                        </td>
-                    </tr>
-                </table>
-                <br>
-                <br>
-                <div class="row">
-                    <div class="col-lg-10">
-                        <button type="button" (click)="altaBeneficiario()" class="btn btn-primary btn-lg">Alta</button>
-                    </div>
-                    <div class="col-lg-2">
-                        <button type="button" class="btn btn-primary btn-lg">Guardar Cambios</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal-footer deletePaddingRigth-buttom">
-                <button class="btn btn-lg" onclick="">Cancelar</button>
             </div>
         </div>
+        <div style="background-color: white; padding-left: 20px; padding-right: 20px; padding-top: 20px">
+            <h3>Beneficiarios de la Cuenta</h3>
+            <table width="100%">
+                <tr>
+                    <th>No. Cliente</th>
+                    <th>Nombre o Razón Social</th>
+                    <th>Parentesco</th>
+                    <th>RFC</th>
+                    <th>Fecha de Nacimiento</th>
+                    <th>(%)</th>
+                    <th>Modificar</th>
+                    <th>Eliminar</th>
+                </tr>
+                <tr *ngFor="let beneficiario of BEN, let i = index" id="rRegistrosTabla">
+                    <td *ngIf="(beneficiario.Opcion != 'B')" style="text-align: center">{{beneficiario.NumeroCliente}}</td>
+                    <td *ngIf="(beneficiario.Opcion != 'B')" style="text-align: center">{{beneficiario.RazonSocial | uppercase}}{{beneficiario.NombreBeneficia | uppercase}} {{beneficiario.ApPaternoBenef | uppercase}} {{beneficiario.ApMaternoBenef | uppercase}}</td>
+                    <td *ngIf="(beneficiario.Opcion != 'B')" style="text-align: center">{{beneficiario.Parentesco | uppercase}}</td>
+                    <td *ngIf="(beneficiario.Opcion != 'B')" style="text-align: center">{{beneficiario.RegistroFederal | uppercase}}</td>
+                    <td *ngIf="(beneficiario.Opcion != 'B')" style="text-align: center">{{beneficiario.NuevaFecha}}</td>
+                    <td *ngIf="(beneficiario.Opcion != 'B')" style="text-align: center">{{beneficiario.PorcentajeBenef}}</td>
+                    <td *ngIf="(beneficiario.Opcion != 'B')" align=center>
+                        <button id="buttonImage" type="button"><img src="./assets/img/edit.png" 
+                                                alt="Modificar Beneficiario" (click)="modificacionBeneficiarioModal(beneficiario)" width="50px" height="50px" /></button>
+                    </td>
+                    <td *ngIf="(beneficiario.Opcion != 'B')" align=center>
+                        <button id="buttonImage" type="button"><img src="./assets/img/trash.png" 
+                                                (click)="bajaBeneficiarioModal(beneficiario)" alt="Eliminar Beneficiario" width="50px" height="50px" /></button>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-lg-10">
+                    <button type="button" class="color-botones btn btn-lg pull-right" [disabled]="tamRegistrosBenef == 10 || bloquearAlta" (click)="altaBeneficiario()" style="margin-bottom: 20px; float: inherit">Alta</button>
+                </div>
+                <div class="col-lg-2">
+                    <button type="button" class="color-botones btn btn-lg pull-right" [disabled]="contadorModificaciones.length == 0 && contadorAltas == 0  && arrayBajas.length == 0" (click)="finalizaProcesoGuardarDatos()" style="margin-left: 40px">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer deletePaddingRigth-buttom">
+            <button type="button" class="color-botones btn btn-lg pull-right" routerLink="/menuTdd">Cancelar</button>
+        </div>
+
     </fieldset>
 
-    <!-- Modal Alta de Beneficiarios-->
-
-    <div class="modal benef" id="altaBenefModal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content modal-content-aux">
-                <h2 class="text-center padding-barToTittle deleteMargin-h2">Alta de Beneficiario</h2>
+    <!--MODAL ALTA-->
+    <div class="modal fade" id="altaBenefModal" tabindex="-1" role="dialog" aria-labelledby="ModalTDDLogin" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 78%; position: initial !important;">
+            <div class="modal-content shadowModal">
+                <h2 class="text-center padding-barToTittle deleteMargin-h2  color-letra">Alta de Beneficiario</h2>
                 <br>
                 <div class="modal-body modal-body-aux">
 
                     <div class="row">
-                        <div class="col-lg-2" style="left: 11%">Nombre(s) </div>
+                        <div class="col-lg-2" style="margin-left: 100px">Nombre(s) </div>
                         <div class="col-lg-2">
-                            <input type=text id=inputText formControlName="nombres" type="text" style="margin-top: -4px; text-align: center" placeholder="Ingrese Nombre(s)">
+                            <input class="text-uppercase" type="text" id=NombreinputText formControlName="nombreBenef" #RNombreBeneficiarioAlta [matKeyboard]="" style="margin-top: -225px; text-align: center; width: 304px; margin-left: -180px; text-transform: uppercase" placeholder="Ingrese Nombre(s)">
                         </div>
-                        <div class=" col-lg-2 " style="left: -1% ">Apellido Paterno </div>
-                        <div class="col-lg-2 ">
-                            <input type=text id=inputText style=" width: 90% !important; margin-left: -60%; margin-top: -4px; text-align: center" placeholder="Ingrese Apellido Paterno">
+                        <div class=" col-lg-2" style="margin-left: -106px">Apellido Paterno </div>
+                        <div class="col-lg-2">
+                            <input class="text-uppercase" type="text" id=AppPinputText formControlName="apPatBenef" #RApellidoPatAlta [matKeyboard]="" style=" width: 90% !important; margin-left: -131px; margin-top: -4px; text-align: center; width: 304px !important" placeholder="Ingrese Apellido Paterno">
                         </div>
-                        <div class="col-lg-2 " style="left: -8% ">Apellido Materno </div>
-                        <div class="col-lg-2 ">
-                            <input type=text id=inputText style=" width: 90% !important; margin-left: -304px; margin-top: -4px; text-align: center" placeholder="Ingrese Apellido Materno">
+                        <div class="col-lg-2" style="left: -60px">Apellido Materno </div>
+                        <div class="col-lg-2">
+                            <input class="text-uppercase" type="text" id=AppMinputText #RApellidoMatAlta [matKeyboard]="" style=" width: 90% !important; margin-left: -193px; margin-top: -4px; text-align: center; width: 304px !important" placeholder="Ingrese Apellido Materno">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <p style="color: red; margin-left: 255px" *ngIf="myform.get('nombreBenef').errors && myform.get('nombreBenef').touched">Nombre es Requerido</p>
+                        </div>
+                        <div class="col-lg-6">
+                            <p style="color: red; margin-left: -97px" *ngIf="myform.get('apPatBenef').errors && myform.get('apPatBenef').touched">Apellido Paterno es Requerido</p>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-2" style="left: 80px">F.Nacimiento </div>
+                        <div class="col-lg-2">
+                            <input type=text formControlName="fechaNacBenef" id=FechaNacInputText #RFechaNacimientoAlta [matKeyboard]="'num'" style="margin-top: -4px; text-align: center; margin-left: -80px; width: 304px" placeholder="AAAA-MM-DD">
+                        </div>
+                        <div class="col-lg-2" style="left: 36px">Parentesco </div>
+                        <div class="col-lg-2">
+                            <input class="text-uppercase" type="text" id=ParentescoInputText formControlName="parentescoBenef" #RParentescoAlta [matKeyboard]="" style="margin-left: -136px; margin-top: -4px; text-align: center; width: 304px !important" placeholder="Ingrese Parentesco">
+                        </div>
+                        <div class="col-lg-2" style="left: -58px">Tipo de Persona </div>
+                        <div class="col-lg-2">
+                            <select class="input-whidth selectModificado" id="selTypePersonAlta" (change)="fMSelect($event.target.value)" #RFisicaMoralSelecAlta style=" width: 304px !important; margin-left: -199px; text-align: center; height: 35px; margin-top:
+                                -3px; background-size: auto">                            
+                        <option disabled="true" selected="true">Seleccione Opción</option>
+                        <option [value]="1">Persona Física</option>
+                        <option [value]="2">Persona Moral</option>
+                      </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <p style="color: red; margin-left: 225px" *ngIf="myform.get('fechaNacBenef').errors && myform.get('fechaNacBenef').touched">Formato de Fecha es Incorrecto</p>
+                        </div>
+                        <div class="col-lg-6">
+                            <p style="color: red; margin-left: -67px" *ngIf="myform.get('parentescoBenef').errors && myform.get('parentescoBenef').touched">Parentesco es Requerido</p>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-2" style="left: 143px">RFC </div>
+                        <div class="col-lg-2">
+                            <input class="text-uppercase" type="text" id=RFCInputText formControlName="registroFC" #RRegistroFederalAlta [matKeyboard]="" style="margin-top: -4px; text-align: center; margin-left: -80px; width: 304px" placeholder="Ingrese RFC">
                         </div>
                     </div>
                     <div>
-                        <p style="color: red; margin-left: 324px" *ngIf="myForm1.get( 'nombres').errors && myForm1.get( 'nombres').dirty">Nombre es Requerido</p>
+                        <p style="color: red; margin-left: 242px" *ngIf="myform.get('registroFC').errors && myform.get('registroFC').touched">Formato de RFC Incorrecto</p>
                     </div>
                     <br>
                     <br>
-                    <div class="row ">
-                        <div class="col-lg-2 " style="left: 10% ">F.Nacimiento </div>
-                        <div class="col-lg-2 ">
-                            <input type=text id=inputText style="margin-top: -4px; text-align: center" placeholder="DD-MM-AAAA ">
+                    <div class="row">
+                        <div class="col-lg-2" style="left: 190px">% Asignado al Beneficiario </div>
+                        <div class="col-lg-2">
+                            <input type="text" id=PorcentajeInputText #RPorcentajeAlta [matKeyboard]="'num'" style="margin-left: 138px; width: 36% !important; text-align: center; margin-top: -4px" placeholder="%">
                         </div>
-                        <div class="col-lg-2 " style="left: 30px ">Parentesco </div>
-                        <div class="col-lg-2 ">
-                            <input type=text id=inputText style=" width: 90% !important; margin-left: -60%; margin-top: -4px; text-align: center" placeholder="Ingrese Parentesco ">
-                        </div>
-                        <div class="col-lg-2 " style="left: -142px">Tipo de Persona </div>
-                        <div class="col-lg-2 ">
-                            <select id="selTypePerson " style=" width: 90% !important; margin-left: -304px; text-align: center">                            
-                            <option>Seleccione Opción</option>
-                            <option value = "F">Persona Física</option>
-                            <option value = "M">Persona Moral</option>
-                          </select>
-                        </div>
+                        <div class="col-lg-5" style="margin-left: -3px">(La suma de los porcentajes asignados a sus beneficiarios, debe ser igual a 100%)</div>
                     </div>
                     <br>
                     <br>
-                    <div class="row ">
-                        <div class="col-lg-2 " style="left: 9% ">% Asignado al Beneficiario </div>
-                        <div class="col-lg-2 ">
-                            <input type=text id=inputText style="margin-left: 111px; width: 36% !important; text-align: center; margin-top: -4px" placeholder="%">
+                    <div [formGroup]="myformCP" class="row">
+                        <div class="col-lg-2" style="left: 151px">CP </div>
+                        <div class="col-lg-1">
+                            <input type="text" id=CPInputText formControlName="CodPBenef" #RAltaCodigoPostal [matKeyboard]="'num'" style="width: 150% !important; margin-top: -4px; text-align: center; margin-left: -80px" placeholder="CP">
                         </div>
-                        <div class="col-lg-5 " style="left: -17px ">(La suma de los porcentajes asignados a sus beneficiarios, debe ser igual a 100%)</div>
+                        <div class="col-lg-1">
+                            <button type="button" class="color-botones btn btn-lg pull-right" [disabled]="myformCP.invalid" (click)="consultaCodigoPostalSoap(RAltaCodigoPostal.value)" style="margin-left: -32px; font-size: 16px !important; margin-top: -8px; float: inherit">Consulta CP</button>
+                        </div>
+                        <div class="col-lg-2" style="left: -3px">Estado </div>
+                        <div class="col-lg-2">
+                            <input type=text id=EdoInputText #RDescripcionEstadoAlta style="margin-left: -204px; width: 304px !important; text-align: center; margin-top: -4px" [value]="descripcionEstado" placeholder="Ingrese Estado" disabled="true">
+                        </div>
+                        <div class="col-lg-2" style="left: -105px">Delegación/Municipio </div>
+                        <div class="col-lg-2">
+                            <input type=text id=DelMunIputText #RDescripcionDelegacionAlta style=" width: 304px !important; margin-left: -199px; margin-top: -4px; text-align: center" placeholder="Delegación/Municipio" [value]="descripcionDelegacion" disabled="true">
+                        </div>
+                    </div>
+                    <div>
+                        <p style="color: red; margin-left: 198px" *ngIf="myformCP.get('CodPBenef').errors && myformCP.get('CodPBenef').touched">Ingrese CP válido</p>
+                        <p style="color: red; margin-left: 125px" *ngIf="codigoPvacio === 1">No se encontraron resultados, por favor ingrese otro CP</p>
                     </div>
                     <br>
                     <br>
-                    <div class="row ">
-                        <div class="col-lg-2 " style="left: 15% ">CP </div>
-                        <div class="col-lg-1 ">
-                            <input type=text id=inputText style="width: 60% !important; margin-top: -4px; text-align: center" placeholder="CP ">
+                    <div class="row">
+                        <div class="col-lg-2" style="left: 118px">Colonia </div>
+                        <div class="col-lg-2">
+                            <select class="input-whidth selectModificado" id="selColonia" (change)="seleccionColonia()" #rColonias style="width: 304px; text-align: center; margin-left: -80px; margin-top: -6px; height: 35px; background-size: auto">
+                                <option [disabled]="true" selected="true">Seleccione Colonia</option>
+                                <option *ngFor="let colonias of CP"  [value]="colonias.Colonia">{{colonias.Colonia}}</option>                      
+                        </select>
                         </div>
-                        <div class="col-lg-1 ">
-                            <button type="button " class="btn btn-primary btn-lg " style="margin-left: -74px; font-size: 16px !important; margin-top: -9px ">Consulta CP</button>
-                        </div>
-                        <div class="col-lg-2 " style="left: -16px ">Estado </div>
-                        <div class="col-lg-2 ">
-                            <input type=text id=inputText style="margin-left: -263px; width: 70% !important; text-align: center" placeholder="Ingrese Estado ">
-                        </div>
-                        <div class="col-lg-2 " style="left: -193px ">Delegación/Municipio </div>
-                        <div class="col-lg-2 ">
-                            <input type=text id=inputText style=" width: 90% !important; margin-left: -304px; margin-top: -4px; text-align: center " placeholder="Delegación/Municipio ">
+                        <div class="col-lg-2" style="left: 8px">Calle </div>
+                        <div class="col-lg-3">
+                            <input class="text-uppercase" type="text" id=CalleInputText formControlName="nomCalleBenef" #RNombreCalleAlta [matKeyboard]="" style="margin-left: -204px; width: 145% !important; margin-top: -4px; text-align: center" placeholder="Ingrese Calle">
                         </div>
                     </div>
-                    <br>
-                    <br>
-                    <div class="row ">
-                        <div class="col-lg-2 " style="left: 12% ">Colonia </div>
-                        <div class="col-lg-2 ">
-                            <select id="selColonia " style="width: 214px; text-align: center">
-                            <option>Seleccione Colonia</option>
-                          </select>
-                        </div>
-                        <div class="col-lg-2 " style="left: -1px ">Calle </div>
-                        <div class="col-lg-3 ">
-                            <input type=text id=inputText style="margin-left: -263px; width: 90% !important; margin-top: -4px; text-align: center" placeholder="Ingrese Calle">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p style="color: red; margin-left: 746px" *ngIf="myform.get('nomCalleBenef').errors && myform.get('nomCalleBenef').touched">Nombre de la Calle es requerido</p>
                         </div>
                     </div>
                     <br>
                     <br>
-                    <div class="row ">
-                        <div class="col-lg-2 " style="left: 14% ">País </div>
-                        <div class="col-lg-2 ">
-                            <select id="selPais " style="width: 214px; text-align: center ">
-                            <option>Seleccione País</option>
-                          </select>
+                    <div class="row">
+                        <div class="col-lg-2" style="left: 121px">No. Ext </div>
+                        <div class="col-lg-2">
+                            <input type="number" id=NumExtInputText #RNumeroCalleAlta [matKeyboard]="'num'" style="margin-left: -80px; width: 37% !important; margin-top: -4px; text-align: center" placeholder="No. Ext">
                         </div>
-                        <div class="col-lg-2 " style="left: -21px ">No. Ext </div>
-                        <div class="col-lg-2 ">
-                            <input type=text id=inputText style="margin-left: -263px; width: 30% !important; margin-top: -4px; text-align: center" placeholder="No. Ext ">
-                        </div>
-                        <div class="col-lg-2 " style="left: -25% ">Departamento </div>
-                        <div class="col-lg-2 ">
-                            <input type=text id=inputText style="margin-left: -651px; width: 30% !important; margin-top: -4px; text-align: center " placeholder="Dpto ">
+                        <div class="col-lg-2" style="left: -245px">Departamento </div>
+                        <div class="col-lg-2">
+                            <input type="number" id=DepaInputText #RNumeroDepartamentoAlta [matKeyboard]="'num'" style="margin-left: -397px; width: 37% !important; margin-top: -4px; text-align: center" placeholder="Dpto">
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer ">
-                    <button type="button " class="btn btn-lg ">Cancelar</button>
-                    <button type="button " class="btn btn-primary btn-lg ">Confirmar</button>
+                <div class="modal-footer">
+                    <button type="button" class="color-botones btn btn-lg pull-right" (click)="cerrarModalAltaBeneficiario()">Cancelar</button>
+                    <button type="button" class="color-botones btn btn-lg pull-right" [disabled]="myform.invalid  || rColonias.value === 'Seleccione Colonia' || rColonias.value === '' || RFisicaMoralSelecAlta.value  === 'Seleccione Opción' || RFisicaMoralSelecAlta.value === ''"
+                        ng-click="location.reload()" (click)="altaBeneficiarioView(myform.value, myformCP.value)">Confirmar</button>
                 </div>
 
             </div>
@@ -215,111 +229,134 @@
 
 
     <!-- Modal Modificación de Beneficiarios-->
-
-    <div class="modal benef" id="ModificacionBenefModal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content modal-content-aux">
-                <h2 class="text-center padding-barToTittle deleteMargin-h2">Modificación de Beneficiario</h2>
+    <div class="modal fade" id="modalModificacionBeneficiarios" tabindex="-1" role="dialog" aria-labelledby="ModalTDDLogin" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 78%; position: initial !important;">
+            <div class="modal-content shadowModal">
+                <h2 class="text-center padding-barToTittle deleteMargin-h2  color-letra">Modificacion de Beneficiario</h2>
                 <br>
                 <div class="modal-body modal-body-aux">
 
                     <div class="row">
-                        <div class="col-lg-2" style="left: 11%">Nombre(s) </div>
+                        <div class="col-lg-2" style="margin-left: 100px">Nombre(s) </div>
                         <div class="col-lg-2">
-                            <input type=text id=inputText formControlName="nombres" type="text" style="margin-top: -4px; text-align: center" placeholder="Ingrese Nombre(s)">
+                            <input class="text-uppercase" type="text" id=NombreinputText [matKeyboard]="" #RNombreBeneficiario formControlName="nombreBenef" style="margin-top: -225px; text-align: center; width: 304px; margin-left: -180px; text-transform: uppercase" placeholder="Ingrese Nombre(s)">
                         </div>
-                        <div class=" col-lg-2 " style="left: -1% ">Apellido Paterno </div>
-                        <div class="col-lg-2 ">
-                            <input type=text id=inputText style=" width: 90% !important; margin-left: -60%; margin-top: -4px; text-align: center" placeholder="Ingrese Apellido Paterno">
+                        <div class=" col-lg-2" style="margin-left: -106px">Apellido Paterno </div>
+                        <div class="col-lg-2">
+                            <input class="text-uppercase" type="text" id=AppPinputText formControlName="apPatBenef" #RApellidoPat [matKeyboard]="" style=" width: 90% !important; margin-left: -131px; margin-top: -4px; text-align: center; width: 304px !important" placeholder="Ingrese Apellido Paterno">
                         </div>
-                        <div class="col-lg-2 " style="left: -8% ">Apellido Materno </div>
-                        <div class="col-lg-2 ">
-                            <input type=text id=inputText style=" width: 90% !important; margin-left: -304px; margin-top: -4px; text-align: center" placeholder="Ingrese Apellido Materno">
+                        <div class="col-lg-2" style="left: -60px">Apellido Materno </div>
+                        <div class="col-lg-2">
+                            <input type="text" class="text-uppercase" id=AppMinputText #RApellidoMat [matKeyboard]="" style=" width: 90% !important; margin-left: -193px; margin-top: -4px; text-align: center; width: 304px !important" placeholder="Ingrese Apellido Materno">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <p style="color: red; margin-left: 255px" *ngIf="myform.get('nombreBenef').errors && myform.get('nombreBenef').touched">Nombre es Requerido</p>
+                        </div>
+                        <div class="col-lg-6">
+                            <p style="color: red; margin-left: -97px" *ngIf="myform.get('apPatBenef').errors && myform.get('apPatBenef').touched">Apellido Paterno es Requerido</p>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-2" style="left: 80px">F.Nacimiento </div>
+                        <div class="col-lg-2">
+                            <input type="text" id=FechaNacInputText formControlName="fechaNacBenef" #RFechaNacimiento [matKeyboard]="'num'" style="margin-top: -4px; text-align: center; margin-left: -80px; width: 304px" placeholder="AAAA-MM-DD">
+                        </div>
+                        <div class="col-lg-2" style="left: 36px">Parentesco </div>
+                        <div class="col-lg-2">
+                            <input type="text" class="text-uppercase" id=ParentescoInputText formControlName="parentescoBenef" [matKeyboard]="" #RParentesco style=" width: 304px !important; margin-left: -136px; margin-top: -4px; text-align: center; width: 304px !important" placeholder="Ingrese Parentesco">
+                        </div>
+                        <div class="col-lg-2" style="left: -58px">Tipo de Persona </div>
+                        <div class="col-lg-2">
+                            <input id="selTypePersonAlta" [value]="fisicaMoralSeleccionada" #RFisicaMoralSelec required style=" width: 304px !important; margin-left: -199px; text-align: center; height: 35px; margin-top:
+                                            -3px" disabled="true">
                         </div>
                     </div>
                     <div>
-                        <p style="color: red; margin-left: 324px" *ngIf="myForm1.get( 'nombres').errors && myForm1.get( 'nombres').dirty">Nombre es Requerido</p>
+                        <p style="color: red; margin-left: 225px" *ngIf="myform.get('fechaNacBenef').errors && myform.get('fechaNacBenef').touched">Formato de Fecha es Incorrecto</p>
+                        <p style="color: red; margin-left: -67px" *ngIf="myform.get('parentescoBenef').errors && myform.get('parentescoBenef').touched">Parentesco es Requerido</p>
                     </div>
                     <br>
                     <br>
-                    <div class="row ">
-                        <div class="col-lg-2 " style="left: 10% ">F.Nacimiento </div>
-                        <div class="col-lg-2 ">
-                            <input type=text id=inputText style="margin-top: -4px; text-align: center" placeholder="DD-MM-AAAA ">
+                    <div class="row">
+                        <div class="col-lg-2" style="left: 143px">RFC </div>
+                        <div class="col-lg-2">
+                            <input type="text" class="text-uppercase" id=RFCInputText [matKeyboard]="" formControlName="registroFC" #RRegistroFederal style="margin-top: -4px; text-align: center; margin-left: -80px; width: 304px" placeholder="Ingrese RFC">
                         </div>
-                        <div class="col-lg-2 " style="left: 30px ">Parentesco </div>
-                        <div class="col-lg-2 ">
-                            <input type=text id=inputText style=" width: 90% !important; margin-left: -60%; margin-top: -4px; text-align: center " placeholder="Ingrese Parentesco ">
-                        </div>
-                        <div class="col-lg-2 " style="left: -142px ">Tipo de Persona </div>
-                        <div class="col-lg-2 ">
-                            <input id="TypePerson " style=" width: 90% !important; margin-left: -304px; margin-top: -4px; text-align: center">
-                        </div>
+                    </div>
+                    <div>
+                        <p style="color: red; margin-left: 242px" *ngIf="myform.get('registroFC').errors && myform.get('registroFC').touched">Formato deRFC Incorrecto</p>
                     </div>
                     <br>
                     <br>
-                    <div class="row ">
-                        <div class="col-lg-2 " style="left: 9% ">% Asignado al Beneficiario </div>
-                        <div class="col-lg-2 ">
-                            <input type=text id=inputText style="margin-left: 111px; width: 36% !important; text-align: center; margin-top: -4px; text-align: center" placeholder="%">
+                    <div class="row">
+                        <div class="col-lg-2" style="left: 190px">% Asignado al Beneficiario </div>
+                        <div class="col-lg-2">
+                            <input type="text" id=PorcentajeInputText [matKeyboard]="'num'" #RPorcentaje style="margin-left: 138px; width: 36% !important; text-align: center; margin-top: -4px" placeholder="%">
                         </div>
-                        <div class="col-lg-5 " style="left: -17px ">(La suma de los porcentajes asignados a sus beneficiarios, debe ser igual a 100%)</div>
+                        <div class="col-lg-5" style="margin-left: -3px">(La suma de los porcentajes asignados a sus beneficiarios, debe ser igual a 100%)</div>
                     </div>
                     <br>
                     <br>
-                    <div class="row ">
-                        <div class="col-lg-2 " style="left: 15% ">CP </div>
-                        <div class="col-lg-1 ">
-                            <input type=text id=inputText style="width: 60% !important; margin-top: -4px; text-align: center" placeholder="CP ">
+                    <div [formGroup]="myformCPMod" class="row">
+                        <div class="col-lg-2" style="left: 151px">CP </div>
+                        <div class="col-lg-1">
+                            <input type="text" id=CPInputText [matKeyboard]="'num'" formControlName="CodPBenefMod" #RCodigoPostal style="width: 150% !important; margin-top: -4px; text-align: center; margin-left: -80px" placeholder="CP">
                         </div>
-                        <div class="col-lg-1 ">
-                            <button type="button " class="btn btn-primary btn-lg " style="margin-left: -74px; font-size: 16px !important; margin-top: -9px ">Consulta CP</button>
+                        <div class="col-lg-1">
+                            <button type="button" [disabled]="myformCPMod.invalid" class="color-botones btn btn-lg pull-right" (click)="consultaCodigoPostalSoap(RCodigoPostal.value)" style="margin-left: -32px; font-size: 16px !important; margin-top: -8px; float: inherit">Consulta CP</button>
                         </div>
-                        <div class="col-lg-2 " style="left: -16px ">Estado </div>
-                        <div class="col-lg-2 ">
-                            <input type=text id=inputText style="margin-left: -263px; width: 70% !important; margin-top: -4px; text-align: center" placeholder="Ingrese Estado ">
+                        <div class="col-lg-2" style="left: -3px">Estado </div>
+                        <div class="col-lg-2">
+                            <input type="text" class="text-uppercase" id=EdoInputText #RDescripcionEstado [value]="descripcionEstado" style="margin-left: -204px; width: 304px !important; text-align: center; margin-top: -4px" placeholder="Ingrese Estado" disabled="true">
                         </div>
-                        <div class="col-lg-2 " style="left: -193px ">Delegación/Municipio </div>
-                        <div class="col-lg-2 ">
-                            <input type=text id=inputText style=" width: 90% !important; margin-left: -304px; margin-top: -4px; text-align: center" placeholder="Delegación/Municipio ">
+                        <div class="col-lg-2" style="left: -105px">Delegación/Municipio </div>
+                        <div class="col-lg-2">
+                            <input type="text" class="text-uppercase" id=DelMunIputText #RDescripcionDelegacion [value]="descripcionDelegacion" style=" width: 304px !important; margin-left: -199px; margin-top: -4px; text-align: center" placeholder="Delegación/Municipio" disabled="true">
                         </div>
+                    </div>
+                    <div>
+                        <p style="color: red; margin-left: 245px" *ngIf="myformCPMod.get('CodPBenefMod').errors && myformCPMod.get('CodPBenefMod').touched">Ingrese CP válido</p>
+                        <p style="color: red; margin-left: 172px" *ngIf="codigoPvacio === 1">No se encontraron resultados, por favor ingrese otro CP</p>
                     </div>
                     <br>
                     <br>
-                    <div class="row ">
-                        <div class="col-lg-2 " style="left: 12% ">Colonia </div>
-                        <div class="col-lg-2 ">
-                            <select id="selColonia " style="width: 214px; text-align: center">
-                                <option>Seleccione Colonia</option>
-                              </select>
+                    <div class="row">
+                        <div class="col-lg-2" style="left: 118px">Colonia </div>
+                        <div class="col-lg-2">
+                            <select class="input-whidth selectModificado" id="selColonia" (change)="seleccionColonia()" #RColoniasM style="width: 304px; text-align: center; margin-left: -80px; margin-top: -6px; height: 35px; background-size: auto">
+                                            <option *ngIf="descripcionColonia !== ''">{{descripcionColonia}}</option>
+                                            <option disabled="true">Seleccione Colonia</option>
+                                            <option  *ngFor="let colonias of CP" [value]="colonias.Colonia">{{colonias.Colonia}}</option>
+                                  </select>
                         </div>
-                        <div class="col-lg-2 " style="left: -1px ">Calle </div>
-                        <div class="col-lg-3 ">
-                            <input type=text id=inputText style="margin-left: -263px; width: 90% !important; margin-top: -4px; text-align: center" placeholder="Ingrese Calle">
+                        <div class="col-lg-2" style="left: 8px">Calle </div>
+                        <div class="col-lg-3">
+                            <input type="text" class="text-uppercase" id=CalleInputText [matKeyboard]="" formControlName="nomCalleBenef" #RNombreCalle style="margin-left: -204px; width: 145% !important; margin-top: -4px; text-align: center" placeholder="Ingrese Calle">
                         </div>
+                    </div>
+                    <div>
+                        <p style="color: red; margin-left: 746px" *ngIf="myform.get('nomCalleBenef').errors && myform.get('nomCalleBenef').touched">Nombre de la Calle es requerido</p>
                     </div>
                     <br>
                     <br>
-                    <div class="row ">
-                        <div class="col-lg-2 " style="left: 14% ">País </div>
-                        <div class="col-lg-2 ">
-                            <select id="selPais " style="width: 214px">
-                                <option style="text-align: center">Seleccione País</option>
-                              </select>
+                    <div class="row">
+                        <div class="col-lg-2" style="left: 121px">No. Ext </div>
+                        <div class="col-lg-2">
+                            <input type="text" id=NumExtInputText [matKeyboard]="'num'" #RNumeroCalle style="margin-left: -80px; width: 37% !important; margin-top: -4px; text-align: center" placeholder="No. Ext">
                         </div>
-                        <div class="col-lg-2 " style="left: -21px ">No. Ext </div>
-                        <div class="col-lg-2 ">
-                            <input type=text id=inputText style="margin-left: -263px; width: 30% !important; margin-top: -4px; text-align: center " placeholder="No. Ext ">
-                        </div>
-                        <div class="col-lg-2 " style="left: -25% ">Departamento </div>
-                        <div class="col-lg-2 ">
-                            <input type=text id=inputText style="margin-left: -651px; width: 30% !important; margin-top: -4px; text-align: center " placeholder="Dpto ">
+                        <div class="col-lg-2" style="left: -245px">Departamento </div>
+                        <div class="col-lg-2">
+                            <input type="text" id=DepaInputText [matKeyboard]="'num'" #RNumeroDepartamento style="margin-left: -397px; width: 37% !important; margin-top: -4px; text-align: center" placeholder="Dpto">
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer ">
-                    <button type="button " class="btn btn-lg ">Cancelar</button>
-                    <button type="button " class="btn btn-primary btn-lg ">Actualizar</button>
+                <div class="modal-footer">
+                    <button type="button" class="color-botones btn btn-lg pull-right" (click)="cerrarModalModificacionBeneficiario()">Cancelar</button>
+                    <button type="button" class="color-botones btn btn-lg pull-right" [disabled]="myform.invalid  || RColoniasM.value === 'Seleccione Colonia' || RColoniasM.value === ''" (click)="guardarModificacionesView(myform.value, myformCPMod.value)" ng-click="location.reload()">Guardar</button>
                 </div>
 
             </div>
@@ -328,23 +365,41 @@
 
     <!-- Modal Baja de Beneficiario -->
 
-    <div id="modalBajaBeneficiarios" class="modal eliminar">
-        <div class="modal-dialog modal-dialog-error">
-            <div class="modal-content modal-aux-eliminar">
-                <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
-                    <h4>Aviso</h4>
-
-                    <p>Confirmar la eliminación del beneficiario: </p>
-
+    <div class="modal fade" id="modalBajaBeneficiarios" tabindex="-1" role="dialog" aria-labelledby="ModalTDDLogin" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 21%; position: initial !important;">
+            <div class="modal-content shadowModal">
+                <h2 class="text-center padding-barToTittle deleteMargin-h2  color-letra">Aviso</h2>
+                <br>
+                <div class="modal-body modal-body-aux">
+                    <p style="text-align: center; font-weight: bold">Confirmar la eliminación del beneficiario: </p>
+                    <br>
+                    <p style="text-align: center; font-weight: bold">{{razonSocial}} {{nombreBeneficiario}} {{apellidoPat}} {{apellidoMat}}</p>
                 </div>
-                <div class="modal-footer text-center">
-                    <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)="bajaBeneficiarios()" ng-click="location.reload()" style="margin-right: 44px">Aceptar</button>
-                    <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Cerrar</button>
+                <div class="modal-footer">
+                    <button type="button" class="color-botones btn btn-lg pull-right" data-dismiss="modal" (click)="bajaBeneficiariosView()" ng-click="location.reload()" style="margin-right: 44px">Aceptar</button>
+                    <button type="button" class="color-botones btn btn-lg pull-right" data-dismiss="modal" (click)="cerrarModalBajaBeneficiario()">Cancelar</button>
                 </div>
+
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
+    </div>
+
+    <!-- Modal Aviso de Porcentajes -->
+
+    <div class="modal fade" id="porcentajeModal" tabindex="-1" role="dialog" aria-labelledby="ModalTDDLogin" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 21%; position: initial !important;">
+            <div class="modal-content shadowModal">
+                <h2 class="text-center padding-barToTittle deleteMargin-h2  color-letra">Aviso</h2>
+                <br>
+                <div class="modal-body modal-body-aux">
+                    <p style="text-align: left; font-weight: bold">Para poder continuar, es necesario que la suma de los porcentajes asignados a sus beneficiarios sea igual a 100%, por favor modifique, elimine o realice alta de beneficiarios hasta sumar el 100%.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="color-botones btn btn-lg pull-right" data-dismiss="modal" (click)="cerrarModalPorcentaje()">Cancelar</button>
+                </div>
+
+            </div>
+        </div>
     </div>
 
 </form>

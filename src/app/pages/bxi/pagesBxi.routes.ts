@@ -12,7 +12,7 @@ import { TransferenciaFinishSpeiComponent } from "./transferencia-spei/transfere
 import { PagoServiciosVerifyComponent } from './pago-servicios/pago-servicios-verify/pago-servicios-verify.component';
 import { PagoServiciosIniComponent } from './pago-servicios/pago-servicios-ini/pago-servicios-ini.component';
 import { PagoServiciosDetailComponent } from './pago-servicios/pago-servicios-detail/pago-servicios-detail.component';
-
+import { MantenimientoDatosIniComponent } from './mantenimiento-datos-contacto/mantenimiento-datos-ini/mantenimiento-datos-ini.component';
 
 const pageRoutesBXI: Routes = [
     {
@@ -26,7 +26,8 @@ const pageRoutesBXI: Routes = [
             { path: 'TransferFinishSpei', component: TransferenciaFinishSpeiComponent},
             { path: 'pagoTarjetaCredito_ini', component: PagoTarjetaCreditoComponent},
             { path: 'pagoTarjetaCredito_verify', component: PagoTarjetaCreditoVerifyComponent},
-            { path: 'activaAlertas', component: ActivarAlertasIniComponent}
+            { path: 'activaAlertas', component: ActivarAlertasIniComponent},
+            { path: 'mantiene-datos-ini', component: MantenimientoDatosIniComponent}
             
         ]
     }

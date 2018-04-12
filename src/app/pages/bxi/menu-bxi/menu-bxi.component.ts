@@ -81,6 +81,9 @@ export class MenuBxiComponent implements OnInit {
             break;
       case 'activaAlertas': this.router.navigate(['/activaAlertas']);
       break;
+      case 'actualizaDatos': this.router.navigate(['/mantiene-datos-ini']);
+      break;
+      
 
     }
   }
