@@ -43,6 +43,7 @@ export class PagoServiciosDetailComponent implements OnInit {
   ngOnInit() {
 
     const this_aux = this;
+    $( ".cdk-visually-hidden" ).css( "margin-top", "19%" );
     const detalleEmpresa = JSON.parse(this_aux.service.detalleEmpresa_PS);
 
     this_aux.nombreServicio =  detalleEmpresa.empresa;
@@ -159,12 +160,6 @@ export class PagoServiciosDetailComponent implements OnInit {
   replaceSimbolo(importe) {
     const importeAux = importe.replace('$', '');
     return importeAux;
-  }
-
-  espacioTeclado() {
-    // ESTILO TECLADO (QUITAR ESTILO AL SALIR DE PAGINA PARA EVITAR QUE BAJE MAS EN OTRAS PANTALLAS)
-    $( ".cdk-overlay-container" ).css( "margin-top", "8%" );
-    // $( ".cdk-visually-hidden" ).css( "margin-bottom", "0%" );
   }
 
   controlarError(json) {
