@@ -8,11 +8,11 @@
               <strong>Correo electr&oacute;nico</strong>
           </div>
           <div class="col-sm-4 col-md-4">
-              <input   #correoElectronico  type="text"   class="tamimput form-control amount input-lg" #selecionado1 [matKeyboard]="" placeholder="Correo electr&oacute;nico" />
+              <input   #correoElectronico  type="text"   class="tamimput form-control amount input-lg" #selecionado1 [matKeyboard]="" placeholder="Correo electr&oacute;nico" readonly/>
           </div>
 
           <div class="col-sm-1 col-md-1" align="left">
-              <a>  <img src="./assets/img/edit.png" type="image/png" width="30" height="30" > </a>
+              <a>  <img src="./assets/img/edit.png" type="image/png" width="30" height="30" (click)="editarCorreo(correoElectronico)"> </a>
           </div>
       </div>
       <br>
@@ -22,10 +22,10 @@
               <strong>N&uacute;mero de celular</strong>
           </div>
           <div class="col-sm-4 col-md-4">
-              <input  #numeroCelular  type="text" class="tamimput form-control amount input-lg" [matKeyboard]="'num'" placeholder="Número de celular" />
+              <input  #numeroCelular  type="text" class="tamimput form-control amount input-lg" [matKeyboard]="'num'" placeholder="Número de celular" readonly/>
           </div>
           <div class="col-sm-1 col-md-1" align="left">
-              <a> <img src="./assets/img/edit.png" type="image/png" width="30" height="30" onclick=''> </a>
+              <a> <img src="./assets/img/edit.png" type="image/png" width="30" height="30" (click)='editarNumCel(numeroCelular)'> </a>
           </div>
       </div>
 
