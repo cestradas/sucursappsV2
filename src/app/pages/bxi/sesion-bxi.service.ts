@@ -33,9 +33,13 @@ export class SesionBxiService {
     // Respuesta Servicios
       detalleConfirmacionPS: string;
 
+      // Transferencia SPEI , TEF, QUICK
+      validaFinishTipoTransfer: string;
+      numCuentaSPEISel: string;
+      AliasCuentaSPEISel: string;
+
       // Transferencia SPEI
       // Datos especificos
-       numCuentaSel: string;
        numCuentaDestinario: string;
        correoBeneficiario: string;
        nombreBeneficiario: string;
@@ -46,6 +50,18 @@ export class SesionBxiService {
       // Respuesta del servicio
       detalleConfirmacionSPEI: string;
 
+      // Transferencia QUICK
+      // Datos especificos
+
+      // Respuesta del servicio
+      detalleConfirmacionTEF: string;
+
+      // Transferencia QUICK
+      // Datos especificos
+
+      // Respuesta del servicio
+      detalleConfirmacionQUICK: string;
+
 
    // PagoTarjetas
     // Datos Especificos
@@ -54,6 +70,12 @@ export class SesionBxiService {
     nameOperacion: string;
    // Respuesta Servicios
      detallePagoTarjeta: string;
+
+     // Compra TA
+     Importerecargas: string;
+     numCuentaCTASel: string;
+     // Respuesta Servicios
+     detalleConfirmacionCTA: string;
 
 
 

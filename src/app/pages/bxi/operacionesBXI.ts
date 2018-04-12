@@ -84,13 +84,13 @@ export class OperacionesBXI {
     }
 
     getCatEmpresas(): any {
-        
+
 
         const resourceRequest = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursApps/resource/consultaCatalogoEmpresaTel',
+            'adapters/AdapterBanorteSucursAppsBEL/resource/consultaCatalogoEmpresaTel',
             WLResourceRequest.POST);
         resourceRequest.setTimeout(30000);
-    
+
            return resourceRequest.send();
     }
 
@@ -98,21 +98,43 @@ export class OperacionesBXI {
 
 
         const formParameters = {
-      
-            paramIdCatEmpresa: id.id,
-            
+
+            IdCatEmpresa: id
+
           };
 
           const resourceRequest = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursAppsBEL/resource/getEmpresas', WLResourceRequest.POST);
+            'adapters/AdapterBanorteSucursAppsBEL/resource/consultaImporteTiempoAire', WLResourceRequest.POST);
            resourceRequest.setTimeout(30000);
-    
+
            return resourceRequest.sendFormParameters(formParameters);
 
       }
 
-    confirmaTransferSPEI(ctaO, ctaDest, sic, bancoRecep, clabe, 
-                         nombreBene, ref, importe, descripcion, correo, 
+      compraTA(ctaO, cveTelefonica, numTel, importeTel): any {
+
+        let formParameters = {
+            ctaO: ctaO,
+            cveTelefonica: cveTelefonica,
+            numTel: numTel,
+            importeTel:  importeTel
+          };
+
+
+          const resourceRequest = new WLResourceRequest(
+            'adapters/AdapterBanorteSucursAppsBEL/resource/compraTiempoAire', WLResourceRequest.POST);
+           resourceRequest.setTimeout(30000);
+
+       return resourceRequest.sendFormParameters(formParameters);
+
+
+
+
+
+      }
+
+    confirmaTransferSPEI(ctaO, ctaDest, sic, bancoRecep, clabe,
+                         nombreBene, ref, importe, descripcion, correo,
                          rfcEmi, aliasCta): any {
 
 
@@ -136,12 +158,13 @@ export class OperacionesBXI {
                resourceRequest.setTimeout(30000);
 
            return resourceRequest.sendFormParameters(formParameters);
-           
+
 
       }
 
-      // tslint:disable-next-line:max-line-length
-      confirmaTransferTEF(sic, aliasCtaOrigen, cuentaCargo , rfcOrdenante, bancReceptor, aliasCuentaDestino, clabe, nombreUsuario, importe, descripcion, referencia): any {
+      confirmaTransferTEF(sic, aliasCtaOrigen, cuentaCargo ,
+                          rfcOrdenante, bancReceptor, aliasCuentaDestino,
+                          clabe, nombreUsuario, importe, descripcion, referencia): any {
 
 
           let formParameters = {
@@ -165,6 +188,34 @@ export class OperacionesBXI {
 
 
              return resourceRequest.sendFormParameters(formParameters);
+
+        }
+
+        confirmaTransferQUICK(ctaO, ctaDest, sic, bancoRecep, clabe,
+            nombreBene, ref, importe, descripcion, correo,
+            rfcEmi): any {
+
+
+            let formParameters = {
+            ctaO: ctaO,
+            ctaDest: ctaDest,
+            sic: sic,
+            bancoRecep:  bancoRecep,
+            clabe: clabe,
+            nombreBene: nombreBene,
+            ref: ref,
+            importe: importe,
+            descripcion: descripcion,
+            correo: correo,
+            rfcEmi: rfcEmi
+            };
+
+            const resourceRequest = new WLResourceRequest(
+            'adapters/AdapterBanorteSucursAppsBEL/resource/transferInterQUICK', WLResourceRequest.POST);
+            resourceRequest.setTimeout(30000);
+
+            return resourceRequest.sendFormParameters(formParameters);
+
 
         }
 
