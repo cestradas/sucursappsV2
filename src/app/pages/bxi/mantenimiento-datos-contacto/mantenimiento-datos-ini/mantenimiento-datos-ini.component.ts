@@ -4,6 +4,7 @@ import { SesionBxiService } from './../../sesion-bxi.service';
 import { OperacionesBXI } from './../../operacionesBXI';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 declare var $: any;
 
 @Component({
@@ -21,7 +22,7 @@ export class MantenimientoDatosIniComponent implements OnInit {
   showCorreoError = false;
   showCelularError = false;
 
-  constructor(private service: SesionBxiService, private fb: FormBuilder) { 
+  constructor(private service: SesionBxiService, private fb: FormBuilder, private router: Router) { 
     this.myForm = this.fb.group({ 
       fcCorreo: [],
       fcCelular: []
@@ -83,9 +84,10 @@ export class MantenimientoDatosIniComponent implements OnInit {
       function(respActualiza) {
         const jsonRespuesta = respActualiza.responseJSON;
           if (jsonRespuesta.Id === '1') {
-
               console.log(jsonRespuesta);
-
+              this_aux.service.Email = correo;
+              this_aux.service.Celular = celular;
+              this.router.navigate(['/mantiene-datos-fin']);
         } else { this_aux.showErrorSucces(jsonRespuesta); }
       }, function(error) {   this_aux.showErrorPromise(error);   }
     );
@@ -118,5 +120,9 @@ export class MantenimientoDatosIniComponent implements OnInit {
     document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
     $('#_modal_please_wait').modal('hide');
     $('#errorModal').modal('show');
+  }
+
+  irMenuBXI() {
+    this.router.navigate(['/menuBXI']);
   }
 }

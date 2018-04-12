@@ -1,3 +1,4 @@
+import { MantenimientoDatosVerifyComponent } from './mantenimiento-datos-contacto/mantenimiento-datos-verify/mantenimiento-datos-verify.component';
 import { ActivarAlertasIniComponent } from './activa-alertas/activar-alertas-ini/activar-alertas-ini.component';
 // tslint:disable-next-line:max-line-length
 import { PagoTarjetaCreditoVerifyComponent } from './pagos-tarjeta-credito/pago-tarjeta-credito-verify/pago-tarjeta-credito-verify.component';
@@ -27,7 +28,8 @@ const pageRoutesBXI: Routes = [
             { path: 'pagoTarjetaCredito_ini', component: PagoTarjetaCreditoComponent},
             { path: 'pagoTarjetaCredito_verify', component: PagoTarjetaCreditoVerifyComponent},
             { path: 'activaAlertas', component: ActivarAlertasIniComponent},
-            { path: 'mantiene-datos-ini', component: MantenimientoDatosIniComponent}
+            { path: 'mantiene-datos-ini', component: MantenimientoDatosIniComponent},
+            { path: 'mantiene-datos-fin', component: MantenimientoDatosVerifyComponent}
             
         ]
     }

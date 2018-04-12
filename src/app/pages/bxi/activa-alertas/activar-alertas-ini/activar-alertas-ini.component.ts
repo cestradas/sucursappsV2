@@ -29,4 +29,9 @@ export class ActivarAlertasIniComponent implements OnInit {
     
   }
 
+  irMenuBXI() {
+    this.router.navigate(['/menuBXI']);
+  }
+
+
 }

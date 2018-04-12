@@ -227,4 +227,9 @@ export class PagoServiciosDetailComponent implements OnInit {
     $('#_modal_please_wait').modal('hide');
     $('#ModalErrorTransaccion').modal('show');
   }
+
+  irMenuBXI() {
+    this.router.navigate(['/menuBXI']);
+  }
+
 }

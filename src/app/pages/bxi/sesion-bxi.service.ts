@@ -78,6 +78,9 @@ export class SesionBxiService {
      detalleConfirmacionCTA: string;
 
 
+     // MantenimientoDatosContacto
+     Celular: string;
+     Email: string;
 
   constructor() {  }
 

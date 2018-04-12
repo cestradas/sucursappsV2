@@ -250,5 +250,9 @@ getEmpresas() {
     $('#_modal_please_wait').modal('hide');
     $('#errorModal').modal('show');
   }
+  
+  irMenuBXI() {
+    this.router.navigate(['/menuBXI']);
+  }
 
  }
