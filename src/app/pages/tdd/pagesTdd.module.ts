@@ -20,14 +20,11 @@ import { PagoTarjetaCreditoComponent } from './pago-tarjeta-credito/pago-tarjeta
 import { CompraTiempoAireFinalComponent } from './compra-tiempo-aire/compra-tiempo-aire-final.component';
 import { PagoTarjetaCreditoFinalComponent } from './pago-tarjeta-credito/pago-tarjeta-credito-final.component';
 import { ActualizarDatosDeContactoComponent } from './actualizar-datos-de-contacto/actualizar-datos-de-contacto.component';
-<<<<<<< HEAD
 import { ActivarAlertasComponent } from './activar-alertas/activar-alertas.component';
 import { CurrencyMaskModule } from "ng2-currency-mask";
 import { TransferenciaTercerosFinalComponent } from './transferencia-terceros/transferencia-terceros-final.component';
 
-=======
 import { MantenimientoBenefDetailComponent } from './mantenimiento-benef/mantenimiento-benef-detail/mantenimiento-benef-detail.component';
->>>>>>> 757b7aae54807ef4aefab5dc2bf6bf736fb3dedb
 
 
 
