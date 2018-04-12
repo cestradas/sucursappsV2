@@ -6,7 +6,8 @@ export class ResponseWS {
 
     respuesta: Respuesta = {
 
-        respuestaWS: ''
+        respuestaWS: '',
+        paramsExt: ''
 
     };
 
@@ -15,6 +16,7 @@ export class ResponseWS {
 interface Respuesta {
 
     respuestaWS: string;
+    paramsExt: string;
     
 
 }

@@ -11,6 +11,8 @@ import { MantenimientoBenefComponent } from './mantenimiento-benef/mantenimiento
 import { PagoTarjetaCreditoComponent } from './pago-tarjeta-credito/pago-tarjeta-credito.component';
 import { PagoTarjetaCreditoFinalComponent } from './pago-tarjeta-credito/pago-tarjeta-credito-final.component';
 import { ActualizarDatosDeContactoComponent } from './actualizar-datos-de-contacto/actualizar-datos-de-contacto.component';
+import { ActivarAlertasComponent } from './activar-alertas/activar-alertas.component';
+import { TransferenciaTercerosFinalComponent } from './transferencia-terceros/transferencia-terceros-final.component';
 
 
 
@@ -25,9 +27,11 @@ const pageRoutesTDD: Routes = [
             { path: 'pagoServicios', component: PagoDeServiciosComponent},
             { path: 'pagoCredito', component: PagoTarjetaCreditoComponent},
             { path: 'pagoCreditoFinal', component: PagoTarjetaCreditoFinalComponent},
-            { path: '', pathMatch: 'full', redirectTo: '/menuTdd' },
             { path: 'mantoBeneficiarios', component: MantenimientoBenefComponent},
             { path: 'actualizarDatosContacto', component: ActualizarDatosDeContactoComponent},
+            { path: 'activarAlertas', component: ActivarAlertasComponent},
+            { path: 'transTercerosFinal', component: TransferenciaTercerosFinalComponent},
+            { path: '', pathMatch: 'full', redirectTo: '/menuTdd' },
             
         ]
     }

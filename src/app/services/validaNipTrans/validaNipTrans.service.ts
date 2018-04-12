@@ -13,11 +13,7 @@ export class ValidaNipTransaccion {
 
     };
 
-    constructor(private _http: Http) {
-
-        this.validaNipTrans();
-
-    }
+    constructor(private _http: Http) {}
 
     validaNipTrans() {
 

@@ -40,6 +40,8 @@ export class PagoTarjetaCreditoComponent implements OnInit {
                private router: Router
               ) {
 
+                this._service.cargarSaldosTDD();
+
                 $('#_modal_please_wait').modal('show');
 
     this.forma = new FormGroup({

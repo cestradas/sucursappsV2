@@ -37,6 +37,8 @@ export class CompraTiempoAireComponent implements OnInit {
                private _saldosDiaMes: SaldosDiaMesService
               ) {
 
+                this._service.cargarSaldosTDD();
+
                 $('#_modal_please_wait').modal('show');
 
                 this.forma = new FormGroup({

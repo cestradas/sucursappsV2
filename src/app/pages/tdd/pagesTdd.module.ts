@@ -20,6 +20,9 @@ import { PagoTarjetaCreditoComponent } from './pago-tarjeta-credito/pago-tarjeta
 import { CompraTiempoAireFinalComponent } from './compra-tiempo-aire/compra-tiempo-aire-final.component';
 import { PagoTarjetaCreditoFinalComponent } from './pago-tarjeta-credito/pago-tarjeta-credito-final.component';
 import { ActualizarDatosDeContactoComponent } from './actualizar-datos-de-contacto/actualizar-datos-de-contacto.component';
+import { ActivarAlertasComponent } from './activar-alertas/activar-alertas.component';
+import { CurrencyMaskModule } from "ng2-currency-mask";
+import { TransferenciaTercerosFinalComponent } from './transferencia-terceros/transferencia-terceros-final.component';
 
 
 
@@ -70,7 +73,9 @@ const customLayouts: IKeyboardLayouts = {
         PagoTarjetaCreditoComponent,
         CompraTiempoAireFinalComponent,
         PagoTarjetaCreditoFinalComponent,
-        ActualizarDatosDeContactoComponent
+        ActualizarDatosDeContactoComponent,
+        ActivarAlertasComponent,
+        TransferenciaTercerosFinalComponent
         
     ],
     exports: [],
@@ -84,6 +89,7 @@ const customLayouts: IKeyboardLayouts = {
         BrowserAnimationsModule,
         MatButtonModule,
         MatKeyboardModule,
+        CurrencyMaskModule
     ],
     providers: [{ provide: MAT_KEYBOARD_LAYOUTS, useValue: customLayouts}],
   bootstrap: [AppComponent]

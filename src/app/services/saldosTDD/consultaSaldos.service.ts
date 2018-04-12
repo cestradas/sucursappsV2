@@ -18,11 +18,7 @@ export class ConsultaSaldosTddService {
 
     };
 
-    constructor(@Inject(DOCUMENT) private _document) {
-
-        this.cargarSaldosTDD();
-
-    }
+    constructor() {}
 
     cargarSaldosTDD() {
 
