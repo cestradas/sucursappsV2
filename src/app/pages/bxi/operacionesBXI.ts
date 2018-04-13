@@ -251,10 +251,14 @@ export class OperacionesBXI {
           return resourceRequest.sendFormParameters(formParameters);
     }
 
-    mantieneAlertas(opc , sic) {
+    mantieneAlertas(opc , sic, I , TDD , TDC, numeroCuenta) {
         const formParameters = {
             opc: opc,
             sic: sic,
+            I: I,
+            TDD: TDD,
+            TDC: TDC,
+            numeroCuenta: numeroCuenta
           };
 
           const    resourceRequest = new WLResourceRequest(

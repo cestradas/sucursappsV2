@@ -43,7 +43,7 @@ export class MantenimientoDatosIniComponent implements OnInit {
       function(data) {
         const jsonData = data.responseJSON;
         if (jsonData.Id === '1') {
-
+            console.log(jsonData);
               if (jsonData.Email !== undefined) {
                 this_aux.correoElectronico.nativeElement.value  = jsonData.Email;
                 const controlCorreo: FormControl = new FormControl(this_aux.correoElectronico.nativeElement.value);
@@ -87,7 +87,7 @@ export class MantenimientoDatosIniComponent implements OnInit {
               console.log(jsonRespuesta);
               this_aux.service.Email = correo;
               this_aux.service.Celular = celular;
-              this.router.navigate(['/mantiene-datos-fin']);
+              this_aux.router.navigate(['/mantiene-datos-fin']);
         } else { this_aux.showErrorSucces(jsonRespuesta); }
       }, function(error) {   this_aux.showErrorPromise(error);   }
     );
@@ -123,6 +123,7 @@ export class MantenimientoDatosIniComponent implements OnInit {
   }
 
   irMenuBXI() {
-    this.router.navigate(['/menuBXI']);
+    const this_aux = this;
+    this_aux.router.navigate(['/menuBXI']);
   }
 }

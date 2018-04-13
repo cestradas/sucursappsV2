@@ -979,3 +979,25 @@ table {
     height: 176%;
     margin-left: 43px;
 }
+
+input[type=checkbox] {
+    display:none;
+  }
+  input[type=checkbox] + label
+   {
+       background: url(./assets/img/banorte_option.png) no-repeat ;
+       height: 25px;
+       width: 25px;
+       display:inline-block;
+       padding: 0 0 0 0px;
+   }
+   
+   input[type=checkbox]:checked + label
+    {
+        background:  url(./assets/img/banorte_option_selected.png) no-repeat ;
+        height: 25px;
+        width: 25px;
+        display:inline-block;
+        padding: 0 0 0 0px;
+    }
+    
