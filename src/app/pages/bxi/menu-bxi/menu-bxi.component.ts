@@ -76,9 +76,9 @@ export class MenuBxiComponent implements OnInit {
             break;
       case 'pagotar': this.router.navigate(['/pagoTarjetaCredito_ini']);
             break;
-      case 'activaAlertas': this.router.navigate(['/activaAlertas']);
+      case 'activaAlertas': this.getDatosContacto(idOperacion);
       break;
-      case 'actualizaDatos': this.router.navigate(['/mantiene-datos-ini']);
+      case 'actualizaDatos': this.getDatosContacto(idOperacion);
       break;
       
 
@@ -147,5 +147,36 @@ export class MenuBxiComponent implements OnInit {
     $('#_modal_please_wait').modal('hide');
     $('#errorModal').modal('show');
   }
+
+  getDatosContacto(opc) {
+
+    console.log('getDatosContacto');
+    const this_aux = this;
+    const operaciones: OperacionesBXI = new OperacionesBXI();
+      if ( this_aux.service.CelCliente === null || this_aux.service.CelCliente === '' || this_aux.service.EmailCliente === null ||  this_aux.service.EmailCliente === '' || this_aux.service.EmailCliente === undefined || this_aux.service.CelCliente === undefined) {
+        operaciones.consultaDatosContacto(this_aux.service.infoUsuarioSIC).then(
+          function(data) {
+            const jsonData = data.responseJSON;
+            if (jsonData.Id === '1') {
+                console.log('Datos contacto' + jsonData);
+                  this_aux.service.EmailCliente = jsonData.Email;
+                  this_aux.service.CelCliente = jsonData.Telefono;
+                  if (jsonData.Email === undefined || jsonData.Email === '' || jsonData.Telefono === undefined || jsonData.Telefono === '') {
+                      if (opc === 'activaAlertas') {
+                          document.getElementById('mnsError').innerHTML =   "Estimado cliente, es necesario que registres tu correo electrónico y número móvil poder continuar. ";
+                          $('#_modal_please_wait').modal('hide');
+                          $('#errorModal').modal('show');
+                      }
+                    } else { if (opc === 'activaAlertas') {  this_aux.router.navigate(['/activaAlertas_ini']); }
+                      }
+                  if (opc === 'actualizaDatos') {  this_aux.router.navigate(['/mantiene-datos-ini']); }
+            } else {  this_aux.showErrorSucces(jsonData);       }
+          }, function (error) { this_aux.showErrorPromise(error);   }
+        );
+    } else {
+      if (opc === 'activaAlertas') {  this_aux.router.navigate(['/activaAlertas_ini']); }
+      if (opc === 'actualizaDatos') {  this_aux.router.navigate(['/mantiene-datos-ini']); }
+    }
+}
 
 }

@@ -9,8 +9,7 @@ declare var $: any;
 
 @Component({
   selector: 'app-mantenimiento-datos-ini',
-  templateUrl: './mantenimiento-datos-ini.component.html',
-  styleUrls: ['./mantenimiento-datos-ini.component.css']
+  templateUrl: './mantenimiento-datos-ini.component.html'
 })
 export class MantenimientoDatosIniComponent implements OnInit {
 
@@ -31,33 +30,17 @@ export class MantenimientoDatosIniComponent implements OnInit {
 
   ngOnInit() {
     const this_aux = this;
-    $( ".cdk-visually-hidden" ).css( "margin-top", "19%" );
+    $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
     this.getDatosContacto();
   }
 
   getDatosContacto() {
-    console.log('getDatosContacto');
+   
     const this_aux = this;
-    const operaciones: OperacionesBXI = new OperacionesBXI();
-    operaciones.consultaDatosContacto(this_aux.service.infoUsuarioSIC).then(
-      function(data) {
-        const jsonData = data.responseJSON;
-        if (jsonData.Id === '1') {
-            console.log(jsonData);
-              if (jsonData.Email !== undefined) {
-                this_aux.correoElectronico.nativeElement.value  = jsonData.Email;
-                const controlCorreo: FormControl = new FormControl(this_aux.correoElectronico.nativeElement.value);
-                this_aux.myForm.setControl('fcCorreo', controlCorreo );
-              } else   if (jsonData.Telefono !== undefined ) {
-                this_aux.numeroCelular.nativeElement.value = jsonData.Telefono;
-                const controlCelular: FormControl = new FormControl(  this_aux.numeroCelular.nativeElement.value);
-                this_aux.myForm.setControl('fcCelular', controlCelular );
-              } 
-        } else {
-                  this_aux.showErrorSucces(jsonData);
-        }
-      }, function (error) { this_aux.showErrorPromise(error);   }
-    );
+    const controlCorreo: FormControl = new FormControl(this_aux.service.EmailCliente);
+    this_aux.myForm.setControl('fcCorreo', controlCorreo );
+    const controlCelular: FormControl = new FormControl(  this_aux.service.CelCliente);
+    this_aux.myForm.setControl('fcCelular', controlCelular );
   }
 
 
@@ -85,8 +68,8 @@ export class MantenimientoDatosIniComponent implements OnInit {
         const jsonRespuesta = respActualiza.responseJSON;
           if (jsonRespuesta.Id === '1') {
               console.log(jsonRespuesta);
-              this_aux.service.Email = correo;
-              this_aux.service.Celular = celular;
+              this_aux.service.EmailCliente = correo;
+              this_aux.service.CelCliente = celular;
               this_aux.router.navigate(['/mantiene-datos-fin']);
         } else { this_aux.showErrorSucces(jsonRespuesta); }
       }, function(error) {   this_aux.showErrorPromise(error);   }

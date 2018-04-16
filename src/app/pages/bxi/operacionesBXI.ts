@@ -262,7 +262,7 @@ export class OperacionesBXI {
           };
 
           const    resourceRequest = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursAppsBEL/resource/mantieneServicioAlertas', WLResourceRequest.POST);
+            'adapters/AdapterBanorteSucursAppsBEL/resource/consultaServicioAlertas', WLResourceRequest.POST);
       resourceRequest.setTimeout(30000);
 
       return resourceRequest.sendFormParameters(formParameters);
@@ -291,6 +291,24 @@ export class OperacionesBXI {
 
           const    resourceRequest = new WLResourceRequest(
             'adapters/AdapterBanorteSucursAppsBEL/resource/actualizaDatosContacto', WLResourceRequest.POST);
+      resourceRequest.setTimeout(30000);
+
+      return resourceRequest.sendFormParameters(formParameters);
+    }
+
+    altaServicioAlertas(opc , sic, I , TDD , TDC, numeroCuenta, servicio) {
+        const formParameters = {
+            opc: opc,
+            sic: sic,
+            I: I,
+            TDD: TDD,
+            TDC: TDC,
+            numeroCuenta: numeroCuenta,
+            servicio: servicio
+          };
+
+          const    resourceRequest = new WLResourceRequest(
+            'adapters/AdapterBanorteSucursAppsBEL/resource/altaServicioAlertas', WLResourceRequest.POST);
       resourceRequest.setTimeout(30000);
 
       return resourceRequest.sendFormParameters(formParameters);

@@ -17,6 +17,9 @@ export class ActivarAlertasIniComponent implements OnInit {
 
   AlertasActivas = false;
   isChecked = false ;
+  ArrayAlertasCliente: Array<any> = [];
+  tipoTarjetaAlertas: string;
+  Evento: string;
   @ViewChild('listaCuentas', { read: ElementRef}) listaCuentas: ElementRef ;
   @ViewChild('rcheck', { read: ElementRef}) rcheck: ElementRef ;
   
@@ -80,6 +83,7 @@ searchAlertasByTipoCuenta(tipoTarjeta) {
     TDD = false;
     TDC = true;
   }
+  this_aux.tipoTarjetaAlertas = tipoTarjeta;
   this_aux.consultaAlertas(I, TDD, TDC, this_aux.service.numCuentaSeleccionado);
 }
 
@@ -95,6 +99,7 @@ consultaAlertas(I, TDD , TDC , numeroCuenta) {
           console.log(detalle);
           if (detalle .Id === '1') {
               const alertas = detalle.AlertasXCliente;
+              this_aux.ArrayAlertasCliente = alertas;
               alertas.forEach(alerta => {
                   if (alerta.IndicadorServicio === 'S' ) {   AlertasActivas_true = true; 
                   }
@@ -125,7 +130,7 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
             } else {   this_aux.showErrorSucces(detalleSaldos);  
               lblSaldoOrigen.innerHTML = '';
             }
-      }, function(error) {          this_aux.showErrorPromise(error);  }
+      }, function(error) {    this_aux.showErrorPromise(error);  }
     );
 }
 irMenuBXI() {
@@ -178,6 +183,42 @@ getNumeroCuentaOrigen(text) {
   estaSeleccionado() {
     const checkBox = this.rcheck.nativeElement;
     this.isChecked = checkBox.checked;
+  }
+
+  setAltaServicioAlertas() {
+
+    const this_aux = this;
+    let TDD  = false;
+    let TDC = false;
+    let I = false;
+    if (this_aux.tipoTarjetaAlertas === 'TDD') {TDD = true; }
+    if (this_aux.tipoTarjetaAlertas === 'TDC') {TDC = true; }
+    if (this_aux.ArrayAlertasCliente.length !== 0) {
+       const elemento = this_aux.ArrayAlertasCliente[0];
+       const servicioEvento = elemento.ServicioEvento;
+       this_aux.Evento = servicioEvento.substring(2, 5);
+       const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+       operacionesbxi.altaServicioAlertas('A', this_aux.service.infoUsuarioSIC, I, TDD, TDC, this_aux.service.numCuentaSeleccionado, this_aux.Evento ).then(
+          function(res) {
+              const respuestaActivacion = res.responseJSON;
+                if (respuestaActivacion.Id === '1') {
+                    console.log('Servicio activado');
+                    this_aux.ArrayAlertasCliente.shift();
+                    if (this_aux.ArrayAlertasCliente.length !== 0) {
+                      const elementoAux = this_aux.ArrayAlertasCliente[0];
+                      const servicioEventoAux = elementoAux.ServicioEvento;
+                      this_aux.Evento = servicioEventoAux.substring(2, 5);
+                      this_aux.setAltaServicioAlertas();
+                    } else {
+                        this.router.navigate(['/activaAlertas_verify']);
+                    }
+                } else { this_aux.showErrorSucces(res); }
+          }, function(error) {  this_aux.showErrorPromise(error);   }
+          
+       );
+
+    }
+  
   }
   
 }

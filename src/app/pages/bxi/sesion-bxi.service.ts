@@ -21,6 +21,8 @@ export class SesionBxiService {
      infoCuentasBeneficiarios: string;
      infoDatosDeBeneficiarios: string;
      infoUsuarioSIC: string;
+     EmailCliente: string;
+     CelCliente: string;
 
 
   // PagoServcios
@@ -77,9 +79,6 @@ export class SesionBxiService {
      detalleConfirmacionCTA: string;
 
 
-     // MantenimientoDatosContacto
-     Celular: string;
-     Email: string;
 
   constructor() {  }
 

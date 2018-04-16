@@ -17,6 +17,7 @@ import { IKeyboardLayouts, keyboardLayouts, MAT_KEYBOARD_LAYOUTS, MatKeyboardMod
 import { ServiceModule } from './services/service.module';
 import { CommonModule } from '@angular/common';
 
+
 const customLayouts: IKeyboardLayouts = {
   ...keyboardLayouts,
   'Numerico': {
@@ -53,7 +54,8 @@ const customLayouts: IKeyboardLayouts = {
   declarations: [
     AppComponent,
     LoginComponent,
-    LoginBxiComponent
+    LoginBxiComponent,
+
   ],
   imports: [
     BrowserModule,

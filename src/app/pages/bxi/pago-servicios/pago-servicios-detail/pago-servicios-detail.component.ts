@@ -43,7 +43,7 @@ export class PagoServiciosDetailComponent implements OnInit {
   ngOnInit() {
 
     const this_aux = this;
-    $( ".cdk-visually-hidden" ).css( "margin-top", "19%" );
+    $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
     const detalleEmpresa = JSON.parse(this_aux.service.detalleEmpresa_PS);
 
     this_aux.nombreServicio =  detalleEmpresa.empresa;

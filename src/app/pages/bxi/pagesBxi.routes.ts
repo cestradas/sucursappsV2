@@ -1,3 +1,4 @@
+import { ActivarAlertasVerifyComponent } from './activa-alertas/activar-alertas-verify/activar-alertas-verify.component';
 import { MantenimientoDatosVerifyComponent } from './mantenimiento-datos-contacto/mantenimiento-datos-verify/mantenimiento-datos-verify.component';
 import { ActivarAlertasIniComponent } from './activa-alertas/activar-alertas-ini/activar-alertas-ini.component';
 // tslint:disable-next-line:max-line-length
@@ -27,7 +28,8 @@ const pageRoutesBXI: Routes = [
             { path: 'TransferFinishSpei', component: TransferenciaFinishSpeiComponent},
             { path: 'pagoTarjetaCredito_ini', component: PagoTarjetaCreditoComponent},
             { path: 'pagoTarjetaCredito_verify', component: PagoTarjetaCreditoVerifyComponent},
-            { path: 'activaAlertas', component: ActivarAlertasIniComponent},
+            { path: 'activaAlertas_ini', component: ActivarAlertasIniComponent},
+            { path: 'activaAlertas_verify', component: ActivarAlertasVerifyComponent},
             { path: 'mantiene-datos-ini', component: MantenimientoDatosIniComponent},
             { path: 'mantiene-datos-fin', component: MantenimientoDatosVerifyComponent}
             

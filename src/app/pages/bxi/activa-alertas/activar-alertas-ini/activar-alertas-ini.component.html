@@ -82,7 +82,8 @@
                 <button type="button" class="btn btn-lg" (click)="irMenuBXI()">Cancelar</button>
             </div>
             <div class="col-lg-1" style="padding-right: 2%;">
-                <button type="button" class="btn btn-danger btn-lg" [disabled]="(lblAliasOrigen.textContent === '' || lblCuentaOrigen.textContent === '') || (!isChecked && !AlertasActivas)||AlertasActivas" >
+                <button type="button" class="btn btn-danger btn-lg" [disabled]="(lblAliasOrigen.textContent === '' || lblCuentaOrigen.textContent === '') || (!isChecked && !AlertasActivas)||AlertasActivas" 
+                        (click)="setAltaServicioAlertas()">
                                     Continuar
                 </button>
             </div>

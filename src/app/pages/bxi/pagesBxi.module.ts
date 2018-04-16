@@ -23,6 +23,7 @@ import { PagoTarjetaCreditoComponent } from './pagos-tarjeta-credito/pago-tarjet
 import { PagoTarjetaCreditoVerifyComponent } from './pagos-tarjeta-credito/pago-tarjeta-credito-verify/pago-tarjeta-credito-verify.component';
 import { MantenimientoDatosIniComponent } from './mantenimiento-datos-contacto/mantenimiento-datos-ini/mantenimiento-datos-ini.component';
 import { MantenimientoDatosVerifyComponent } from './mantenimiento-datos-contacto/mantenimiento-datos-verify/mantenimiento-datos-verify.component';
+import { ActivarAlertasVerifyComponent } from './activa-alertas/activar-alertas-verify/activar-alertas-verify.component';
 
 
 const customLayouts: IKeyboardLayouts = {
@@ -75,6 +76,7 @@ const customLayouts: IKeyboardLayouts = {
         ActivarAlertasIniComponent,
         MantenimientoDatosIniComponent,
         MantenimientoDatosVerifyComponent,
+        ActivarAlertasVerifyComponent,
         
     ],
     exports: [],

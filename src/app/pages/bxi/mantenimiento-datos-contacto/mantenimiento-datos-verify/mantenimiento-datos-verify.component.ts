@@ -4,8 +4,7 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Route
 
 @Component({
   selector: 'app-mantenimiento-datos-verify',
-  templateUrl: './mantenimiento-datos-verify.component.html',
-  styleUrls: ['./mantenimiento-datos-verify.component.css']
+  templateUrl: './mantenimiento-datos-verify.component.html'
 })
 export class MantenimientoDatosVerifyComponent implements OnInit {
   
@@ -20,8 +19,8 @@ export class MantenimientoDatosVerifyComponent implements OnInit {
 
    this.NombreUser = this.service.NombreUsuario;
     this.Sic = this.service.infoUsuarioSIC;
-    this.Celular = this.service.Celular;
-    this.CorreoElectronico = this.service.Email;
+    this.Celular = this.service.CelCliente;
+    this.CorreoElectronico = this.service.EmailCliente;
 
   }
 
