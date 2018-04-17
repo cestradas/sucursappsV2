@@ -17,7 +17,6 @@ declare var $: any;
 export class PagoServiciosDetailComponent implements OnInit {
 
  @ViewChild('rImporte', { read: ElementRef}) rImporte: ElementRef ;
- // @ViewChild('rCuentaCargo', { read: ElementRef}) rCuentaCargo: ElementRef ;
 
   myForm: FormGroup;
   labelTipoAutentica: string;
@@ -27,6 +26,7 @@ export class PagoServiciosDetailComponent implements OnInit {
   referenciaPago: string;
   fechaVencimiento: string;
   importeAux: string;
+  showFocus = true;
 
   constructor( private service: SesionBxiService, private fb: FormBuilder, private router: Router, private currencyPipe: CurrencyPipe) {
 
@@ -35,7 +35,7 @@ export class PagoServiciosDetailComponent implements OnInit {
        fcReferencia: ['', [Validators.required]],
        fcDigitoVerificador: ['', [Validators.required]],
       fcFechaVencimiento: ['', [Validators.required , Validators.pattern(/^\d{2,4}\-\d{1,2}\-\d{1,2}$/)]],
-     fcImporte: ['', [Validators.required /*Validators.pattern(/^[0-9]+[0-9]*$/ )*/]],
+     fcImporte: ['', [Validators.required ]],
 
     });
    }
@@ -43,23 +43,31 @@ export class PagoServiciosDetailComponent implements OnInit {
   ngOnInit() {
 
     const this_aux = this;
-    $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
-    const detalleEmpresa = JSON.parse(this_aux.service.detalleEmpresa_PS);
-
+    $( ".cdk-visually-hidden" ).css( "margin-top", "7%" );
+    $('#ModalLectordeRecibo').modal('show');
+   const detalleEmpresa = JSON.parse(this_aux.service.detalleEmpresa_PS);
     this_aux.nombreServicio =  detalleEmpresa.empresa;
     this_aux.service.nombreServicio = this_aux.nombreServicio;
     this_aux.cuentaCargo = this_aux.service.numCuentaSeleccionado;
 
     if (this_aux.service.idFacturador === '1310') {
-
+      $('#ModalLectordeRecibo').modal('show');
+      $('#ModalLectordeRecibo').on('shown.bs.modal', function() {
+        $(this).find('input:first').focus();
+      });
         this_aux.myForm.removeControl('fcReferencia');
     } else {
 
+        if (this_aux.service.idFacturador === '88924') {
+          $('#ModalLectordeRecibo').modal('show');
+          $('#ModalLectordeRecibo').on('shown.bs.modal', function() {
+            $(this).find('input:first').focus();
+          });
+        }
         this_aux.myForm.removeControl('fcTelefono');
         this_aux.myForm.removeControl('fcDigitoVerificador');
     }
     $('#_modal_please_wait').modal('hide');
-
   }
 
   showDetallePago( myForm) {
@@ -229,7 +237,51 @@ export class PagoServiciosDetailComponent implements OnInit {
   }
 
   irMenuBXI() {
-    this.router.navigate(['/menuBXI']);
+     this.router.navigate(['/menuBXI']);
   }
 
+  
+  
+  leeCodeBar(value) {
+      const this_aux = this;
+      console.log(value);
+      console.log(value.length);
+
+      if (this_aux.service.idFacturador === '1310') {
+
+        if (value.length === 20) {
+          const telefono = value.substring(0, 10);
+          const centavos = '.' + value.substring(17, 19);
+          const unidades = '$' + parseInt(value.substring(10, 17), 10) ;
+          const importe = unidades + centavos;
+          const digito = value.substring(19, 20);
+          const controlTelefono: FormControl = new FormControl(telefono, [Validators.required, Validators.minLength(10)]);
+          const controlDigito: FormControl = new FormControl(digito, Validators.required);
+          const controlImporte: FormControl = new FormControl(importe, Validators.required);
+          this_aux.myForm.setControl('fcImporte', controlImporte );
+          this_aux.myForm.setControl('fcTelefono', controlTelefono );
+          this_aux.myForm.setControl('fcDigitoVerificador', controlDigito );
+  
+          $('#ModalLectordeRecibo').modal('hide');
+          
+        }
+      } else {
+        if (value.length === 30) {
+
+          const referencia = value.substring(2, 14);
+          const importe = '$' + parseInt(value.substring(20, 29), 10) + '.00';
+          const anio = '20' + value.substring(14, 16);
+          const mes = value.substring(16, 18);
+          const dia = value.substring(18, 20);
+          const fecha = anio + '-' + mes + '-' + dia;
+          const controlReferencia: FormControl = new FormControl(referencia, Validators.required);
+          const controlFecha: FormControl = new FormControl(fecha, [Validators.required,  Validators.pattern(/^\d{2,4}\-\d{1,2}\-\d{1,2}$/)]);
+          const controlImporte: FormControl = new FormControl(importe, Validators.required);
+          this_aux.myForm.setControl('fcImporte', controlImporte );
+          this_aux.myForm.setControl('fcReferencia', controlReferencia );
+          this_aux.myForm.setControl('fcFechaVencimiento', controlFecha );
+          $('#ModalLectordeRecibo').modal('hide');
+        }  
+     }
+  }
 }
