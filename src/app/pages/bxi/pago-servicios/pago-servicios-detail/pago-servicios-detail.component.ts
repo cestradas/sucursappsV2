@@ -114,6 +114,7 @@ export class PagoServiciosDetailComponent implements OnInit {
       const autenticacion: Autenticacion = new Autenticacion();
       const operacionesbxi: OperacionesBXI = new OperacionesBXI();
       let mensajeError;
+      if (this_aux.importeAux === undefined) { this_aux.importeAux = this_aux.replaceSimbolo( this_aux.myForm.get('fcImporte').value); }
       autenticacion.autenticaUsuario(token, this_aux.service.metodoAutenticaMayor).then(
         function(detalleAutentica) {
               // console.log(detalleAutentica.responseJSON);

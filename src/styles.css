@@ -1005,5 +1005,6 @@ input[type=checkbox] {
         position: absolute;
         color: white;
         border-width: 0px;
+        height: 0px !important;
     
     }
