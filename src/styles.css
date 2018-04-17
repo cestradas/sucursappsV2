@@ -971,7 +971,7 @@ table {
     position: absolute;
     z-index: 1;
     display: inline-block;
-    
+
 }
 
 .img-select-seleccion{
@@ -991,7 +991,7 @@ input[type=checkbox] {
        display:inline-block;
        padding: 0 0 0 0px;
    }
-   
+
    input[type=checkbox]:checked + label
     {
         background:  url(./assets/img/banorte_option_selected.png) no-repeat ;
@@ -1000,11 +1000,104 @@ input[type=checkbox] {
         display:inline-block;
         padding: 0 0 0 0px;
     }
-    
+
     .txt-codeBar{
         position: absolute;
         color: white;
         border-width: 0px;
         height: 0px !important;
-    
+
     }
+
+    /* Estilos EDC INI*/
+
+.kiosk-cec-carousel {
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.carousel,
+.carousel-inner {
+    position: relative;
+}
+
+.kiosk-cec-carousel {
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.carousel-inner {
+    overflow: hidden;
+    width: 100%;
+}
+
+.carousel-control.left,
+.carousel-control.right {
+    background-image: none;
+    color: #4e4044;
+}
+
+.kiosk-cec-carousel-item {
+    padding: 20px 56px 30px;
+    margin-top: 15px;
+    margin-bottom: 7px;
+    float: left;
+    margin-left: 134px;
+    height: 99px;
+    width: 313px;
+    position: relative;
+}
+
+.btn-kiosk,
+.kiosk-cec-carousel-item {
+    background-color: #FFF;
+    text-align: center;
+}
+
+.kiosk-cec-carousel-item {
+    padding: 20px 20px 30px;
+    margin-top: 57px;
+    margin-bottom: 15px;
+}
+
+.icon-calendar {
+    background-image: url("./assets/img/calendar.png");
+    background-repeat: no-repeat;
+    width: 50px;
+    height: 52px;
+    background-size: 48px 44px;
+    padding-top: 15px;
+    display: inline-block;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.estilo-item-calendar {
+    box-shadow: 10px 6px 33px -6px rgba(0, 0, 0, 0.75);
+    padding: 0px 0px 0px 0px;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+}
+
+.item-red-middle {
+    padding: 36px 0px 0px;
+    background-color: #eb0029;
+    height: 99px;
+    width: 190px;
+    margin-left: 43px;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.contenedor-calendar {
+    max-width: 100% !important;
+    height: 100% !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    padding-left: 150px !important;
+    padding-right: 150px !important;
+}
+
+/* Estilos EDC END*/

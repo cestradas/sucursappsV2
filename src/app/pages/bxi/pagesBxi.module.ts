@@ -4,11 +4,12 @@ import { SesionBxiService } from './sesion-bxi.service';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TransferenciaFinishSpeiComponent } from './transferencia-spei/transferencia-finish-spei/transferencia-finish-spei.component';
-import { NgModule } from "@angular/core"; 
+import { NgModule } from "@angular/core";
 import { PagesBxiComponent } from './PagesBxi.component';
 import { PAGES_ROUTES_BXI } from './pagesBxi.routes';
 import { SharedModule } from '../../shared/shared.module';
 import { CompraTaComponent } from "./compra-ta/compra-ta.component";
+import { CompraFinishTaComponent } from './compra-ta/compra-finish-ta/compra-finish-ta.component';
 import { TransferenciaSpeiComponent } from './transferencia-spei/transferencia-spei.component';
 import { MenuBxiComponent } from './menu-bxi/menu-bxi.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,6 +25,10 @@ import { PagoTarjetaCreditoVerifyComponent } from './pagos-tarjeta-credito/pago-
 import { MantenimientoDatosIniComponent } from './mantenimiento-datos-contacto/mantenimiento-datos-ini/mantenimiento-datos-ini.component';
 import { MantenimientoDatosVerifyComponent } from './mantenimiento-datos-contacto/mantenimiento-datos-verify/mantenimiento-datos-verify.component';
 import { ActivarAlertasVerifyComponent } from './activa-alertas/activar-alertas-verify/activar-alertas-verify.component';
+import { TransferenciasBanorteComponent } from './transferencias-banorte/transferencias-banorte.component';
+import { TransferenciaFinishBanorteComponent } from './transferencias-banorte/transferencia-finish-banorte/transferencia-finish-banorte.component';
+import { ImpresionEdcComponent } from './impresion-edc/impresion-edc.component';
+import { ImpresionEdcFinishComponent } from './impresion-edc/impresion-edc-finish/impresion-edc-finish.component';
 
 
 const customLayouts: IKeyboardLayouts = {
@@ -61,9 +66,10 @@ const customLayouts: IKeyboardLayouts = {
 
 @NgModule ({
     declarations: [
-        
+
         PagesBxiComponent,
         CompraTaComponent,
+        CompraFinishTaComponent,
         TransferenciaSpeiComponent,
         TransferenciaFinishSpeiComponent,
         MenuBxiComponent,
@@ -77,7 +83,11 @@ const customLayouts: IKeyboardLayouts = {
         MantenimientoDatosIniComponent,
         MantenimientoDatosVerifyComponent,
         ActivarAlertasVerifyComponent,
-        
+        TransferenciasBanorteComponent,
+        TransferenciaFinishBanorteComponent,
+        ImpresionEdcComponent,
+        ImpresionEdcFinishComponent
+
     ],
     exports: [],
     imports: [
@@ -90,9 +100,9 @@ const customLayouts: IKeyboardLayouts = {
         MatKeyboardModule,
         ReactiveFormsModule
 
-        
+
     ],
     providers: [ SesionBxiService,  { provide: MAT_KEYBOARD_LAYOUTS, useValue: customLayouts}, CurrencyPipe],
 })
 
-export class PagesBxiModule {} 
+export class PagesBxiModule {}

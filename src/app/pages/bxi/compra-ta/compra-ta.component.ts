@@ -12,6 +12,11 @@ import { Autenticacion } from '../autenticacion';
 import $ from 'jquery';
 declare var $: $;
 
+let ctaO = "";
+let importeTel = "";
+let numeroTelefono = "";
+let CveTelefonica = "";
+
 @Component({
   selector: 'app-compra-ta',
   templateUrl: './compra-ta.component.html',
@@ -22,18 +27,34 @@ export class CompraTaComponent implements OnInit {
   @ViewChild('listaCuentas', { read: ElementRef}) listaCuentas: ElementRef ;
  
 
-  listaCuentasBen: Array<any> = [];
+  labelTipoAutentica: string;
   
-  datosCuenta: any[] = [];
 
   forma: FormGroup;
 
+  cuentaSeleccionada = "";
+  importeF = "";
+  telefonoF = "";
+  cveTelefonicaF = "";
+
+  recargas: any[] = [];
+  operador: string;
+  importe: number;
+  blClassT = false;
+  blClassM = false;
+  blClassU = false;
+  blClassI = false;
+  blnStyle: false;
+
   constructor( private _http: Http, private router: Router, public service: SesionBxiService, private renderer: Renderer2 ) { 
+
+    const this_aux = this;
 
     this.forma = new FormGroup({
 
       'telefono': new FormControl('', [Validators.required, Validators.maxLength(10), Validators.pattern('/^([0-9])*$/')]),
-      
+      'operador': new FormControl(),
+      'importe': new FormControl()
   
     });
 
@@ -43,15 +64,22 @@ export class CompraTaComponent implements OnInit {
       data => {
         console.log('telefono', data);
         console.log('forma', this.forma);
+
+        this_aux.telefonoF = data;
+
       });
+
+      
 
   }
 
   
 
   ngOnInit() {
-     this.consultaCatEmpresas();
+    
      this.fillSelectCuentas();
+
+     this.consultaCatEmpresas();
   }
 
   
@@ -104,8 +132,8 @@ export class CompraTaComponent implements OnInit {
         },
         function(error) {
 
-          console.error("El WS respondio incorrectamente1");
-          // document.getElementById('mnsError').innerHTML = "El Ws no respondio";
+          console.error("Error");
+     
           $('#errorModal').modal('show');
           
 
@@ -146,7 +174,8 @@ setDatosCuentaSeleccionada(elementHTML) {
 
   lblAliasOrigen.innerHTML = elementHTML.textContent;
   lblCuentaOrigen.innerHTML = numCuenta_seleccionada.toString();
-  this_aux.service.numCuentaSeleccionado = numCuenta_seleccionada;
+  this_aux.service.numCuentaCTASel = numCuenta_seleccionada;
+  this_aux.cuentaSeleccionada = numCuenta_seleccionada;
   this_aux.getSaldoDeCuenta(numCuenta_seleccionada);
 
   
@@ -179,28 +208,231 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
     
     console.log(id.id);
 
+    this_aux.cveTelefonicaF = id.id;
+
+    switch (id.name) { 
+      case 'importeTelcel': { 
+        this_aux.operador = 'Telcel';
+        this_aux.blClassT = true;
+        this_aux.blClassM = false;
+        this_aux.blClassU = false;
+        this_aux.blClassI = false;
+        console.log('Telcel');
+         break; 
+      } 
+      case 'importeMovi': { 
+        this_aux.operador = 'Movistar';
+        this_aux.blClassM = true;
+        this_aux.blClassT = false;
+        this_aux.blClassU = false;
+        this_aux.blClassI = false;
+         break; 
+      }
+      case 'importeUnefon': { 
+        this_aux.operador = 'Unefon';
+        this_aux.blClassT = false;
+        this_aux.blClassM = false;
+        this_aux.blClassU = true;
+        this_aux.blClassI = false;
+         break; 
+      }
+      case 'importeIusa': { 
+        this_aux.operador = 'Iusacell';
+        this_aux.blClassT = false;
+        this_aux.blClassM = false;
+        this_aux.blClassU = false;
+        this_aux.blClassI = true;
+         break; 
+      }
+      default: { 
+        console.log("No existe ese operador: " + id.id);
+         break; 
+      } 
+   } 
+
     operacionesbxi.getSaldoCompany(id.id).then(
       function(response1) {
         console.log(response1.responseText);
-        const detalleSaldos = response1.responseJSON;
-        if ( detalleSaldos.Id === '1') {
+        let detalleSaldos = response1.responseJSON;
+        // if ( detalleSaldos[0].Id === '1') {
           
-          this_aux.service.clabeDestinatario = detalleSaldos.ClabeCuenta;
+          this_aux.recargas = detalleSaldos;
 
         
-        } else {
-          console.log(detalleSaldos.MensajeAUsuario);
-
-          this_aux.service.clabeDestinatario = null;
-          
-
-        }
+        // } 
+        
       }, function(error) {
   });
 
     
 
   }
+
+
+  cargaImporte(param) {
+
+    
+    const this_aux = this;
+
+    $('label').removeClass('border border-danger');
+    $('#' + param.id).addClass('border border-danger');    
+    this_aux.importe = param.id;
+
+  }
+
+
+
+  setTipoAutenticacionOnModal() {
+    const this_aux = this;
+    const divChallenge = document.getElementById('challenger');
+    const divTokenPass = document.getElementById('divPass');
+    if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
+
+      this_aux.labelTipoAutentica = 'Token Celular';
+      divChallenge.setAttribute('style', 'display: block');
+      divTokenPass.setAttribute('style', 'display: block');
+
+    } else if (this_aux.service.metodoAutenticaMayor.toString()  === '0') {
+
+      divChallenge.setAttribute('style', 'display: none');
+      divTokenPass.setAttribute('style', 'display: block');
+      this_aux.labelTipoAutentica = 'Contrase&atilde;a';
+    } else if (this_aux.service.metodoAutenticaMayor.toString()  === '1') {
+
+      divChallenge.setAttribute('style', 'display: none');
+      divTokenPass.setAttribute('style', 'display: block');
+      this_aux.labelTipoAutentica = 'Token Fisico';
+    }
+
+  $('#confirmModal').modal('show');
+}
+
+
+  confirmarPago(token) {
+
+    const this_aux = this;
+    let mensajeError;
+
+    ctaO = this_aux.service.numCuentaCTASel;
+    importeTel = parseFloat(this_aux.importe.toString()).toFixed(2);
+    numeroTelefono = this_aux.telefonoF;
+    CveTelefonica = this_aux.cveTelefonicaF;
+
+    console.log(importeTel);
+
+    const autenticacion: Autenticacion = new Autenticacion();
+    const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+
+    autenticacion.autenticaUsuario(token, this_aux.service.metodoAutenticaMayor).then(
+      function(detalleAutentica) {
+            // console.log(detalleAutentica.responseJSON);
+            const infoUsuarioJSON = detalleAutentica.responseJSON;
+            if (infoUsuarioJSON.Id === 'SEG0001') {
+                console.log('Nivel de autenticacion alcanzado');
+
+                operacionesbxi.compraTA(ctaO, CveTelefonica, numeroTelefono, importeTel)
+                .then(
+              
+                  function(response) {
+                    console.log(response.responseJSON);
+            
+                    const compraTAResp = response.responseJSON;
+                     
+                    
+                     if ( compraTAResp.Id === '1') {
+         
+                       console.log(compraTAResp);
+                       this_aux.service.detalleConfirmacionCTA = response.responseText;
+                       console.log(this_aux.service.detalleConfirmacionCTA);
+                       this.router.navigate(['/CompraTaFinish']);
+                              
+                     } else {
+                      this_aux.showErrorSuccesMoney(compraTAResp);
+                       
+                     }
+
+                  }, function(error) { this_aux.showErrorPromise(error); }
+                );
+            } else {
+              console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);  
+                mensajeError = this_aux.controlarError(infoUsuarioJSON);
+                document.getElementById('mnsError').innerHTML =  mensajeError;
+                $('#_modal_please_wait').modal('hide');
+                $('#errorModal').modal('show');
+            }
+      }, function(error) {
+        this_aux.showErrorPromise(error);
+      });
+
+
+}
+
+
+controlarError(json) {
+
+  const id = json.Id ;
+  const mensajeUsuario = json.MensajeAUsuario;
+  let mensajeError; 
+
+  switch (id) {
+        
+    case 'SEG0003': mensajeError = "Usuario bloqueado, favor de esperar 15 minutos e intentar nuevamente.";
+                  break; 
+    case 'SEG0004': mensajeError =  "Usuario bloqueado, favor de marcar a Banortel.";
+                  break; 
+    case 'SEG0005': mensajeError =  "Los datos proporcionados son incorrectos, favor de verificar.";
+                  break; 
+    case 'SEG0007': mensajeError = "Los datos proporcionados son incorrectos, favor de verificar.";
+                  break; 
+    case 'SEG0008':  mensajeError = "La sesión ha caducado.";
+                  break; 
+    case 'SEG0009':  mensajeError = "Límite de sesiones superado, favor de cerrar las sesiones de banca en línea activas.";
+                  break; 
+    // tslint:disable-next-line:max-line-length
+    case 'SEGOTP1': mensajeError = "Token desincronizado. Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
+                  break;
+    case 'SEGOTP2': mensajeError = "Token bloqueado, favor de marcar a Banortel.";
+                  break;
+    case 'SEGOTP3': mensajeError = "Token deshabilitado, favor de marcar a Banortel.";
+                  break;
+    case 'SEGOTP4': mensajeError = "Token no activado, favor de marcar a Banortel.";
+                  break;
+    // tslint:disable-next-line:max-line-length
+    case 'SEGAM81': mensajeError = "Token desincronizado. Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
+                  break; 
+    case 'SEGAM82': mensajeError = "Token bloqueado, favor de marcar a Banortel."; 
+                  break;   
+    case 'SEGAM83': mensajeError = "Token deshabilitado, favor de marcar a Banortel.";
+                  break;   
+    case 'SEGAM84': mensajeError = "Token no activado, favor de marcar a Banortel.";
+                  break;  
+    case '2'      : mensajeError = mensajeUsuario;            
+  }
+
+  return mensajeError;
+}
+
+showErrorPromise(error) {
+  console.log(error);
+  // tslint:disable-next-line:max-line-length
+  document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde."; 
+  $('#_modal_please_wait').modal('hide');
+  $('#errorModal').modal('show');
+}
+
+showErrorSucces(json) {
+  console.log(json.Id + json.MensajeAUsuario);
+  document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+  $('#_modal_please_wait').modal('hide');
+  $('#errorModal').modal('show');
+}
+
+showErrorSuccesMoney(json) {
+  console.log(json.Id + json.MensajeAUsuario);
+  document.getElementById('msgError').innerHTML =   json.MensajeAUsuario; 
+  $('#_modal_please_wait').modal('hide');
+  $('#ModalErrorTransaccion').modal('show');
+}
   
   
 }

@@ -23,8 +23,8 @@
                         <strong>$<label id ="lblSaldoOrigen"></label>
                         </strong>
                       </td>
-                      <td width="5%" rowspan="2" class="dropdown-caret">
-                        <img  class="select-img" src="./assets/img/bg_selectN.png">
+                      <td width="5%" rowspan="2" class="dropdown-caret" style="padding-left: 21px;">
+                        <img  class="select-img" src="./assets/img/bg_selectN.png" style="width: 91%; height: 181%;" >
                       </td>
                     </tr>
                     <tr>
@@ -53,7 +53,7 @@
     </div>
 
 
-    <form [formGroup]="forma" (ngSubmit)="showDetallePago()">
+    <form [formGroup]="forma" (ngSubmit)="setTipoAutenticacionOnModal()">
         <div id="divisionInputs"></div>
         <div class="row sumando-form-group letranegrita">
             <div class="col-sm-1 sumando-bg-red group-name">Para</div>
@@ -66,28 +66,33 @@
                                 <label class="control-label">Selecciona un operador de telefon&iacute;a celular</label>
                             </div>
                             <!-- <div id="atributo" class="col-lg-2 "> -->
+
                             <div id="carriersDiv" class="row col-sm-8" style="height:60px; width:1200px;">
                                 <input type="hidden" id="carrier" name="carrier" />
-                                <div class="Telcel col-sm-2"><img src="./assets/img/7000.png" style="display: inline-block;float: left;" class="imagenTelcel compTelefonica" #importeTelcel id="imagenTelcel" name='importeTelcel' ngDefaultControl (click)="insertaSaldo(importeTelcel)"
-                                    /></div>
-                                <div class="Movistar col-sm-2"><img src="./assets/img/11000.png" style="display: inline-block;float: left;" class="imagenMovistar compTelefonica" #importeMovi id="importeMovi" name='importeMovi' ngDefaultControl (click)="insertaSaldo(importeMovi)" /></div>
-                                <div class="Unefon col-sm-2"><img src="./assets/img/5000.png" style="display: inline-block;float: left;" class="imagenUnefon compTelefonica" #importeUnefon id="importeUnefon" name='importeUnefon' ngDefaultControl (click)="insertaSaldo(importeUnefon)"
-                                    /></div>
-                                <div class="Iusacell col-sm-2"><img src="./assets/img/6000.png" style="display: inline-block;float: left;" class="imagenIusacell compTelefonica" #importeIusa id="importeIusa" name='importeIusa' ngDefaultControl (click)="insertaSaldo(importeIusa)" /></div>
-                                <!-- <div class="Nextel"><img src="./images/carriers/nextel.png"  style="display: inline-block;float: left; height:50px; width:100px;"/></div> -->
+                                <div [ngClass]="{'Telcel col-sm-2': true , 'border border-danger': blClassT}">
+                                    <img src="./assets/img/7000.png" style="display: inline-block; float: center !important;" class="imagenTelcel compTelefonica" #importeTelcel id="imagenTelcel" name='importeTelcel' ngDefaultControl formControlName="operador" (click)="insertaSaldo(importeTelcel)"
+                                    />
+                                </div>
+                                <div [ngClass]="{'Movistar col-sm-2': true , 'border border-danger': blClassM}">
+                                    <img src="./assets/img/11000.png" style="display: inline-block;float: left;" class="imagenMovistar compTelefonica" #importeMovi id="importeMovi" name='importeMovi' ngDefaultControl (click)="insertaSaldo(importeMovi)" />
+                                </div>
+                                <div [ngClass]="{'Unefon col-sm-2': true , 'border border-danger': blClassU}">
+                                    <img src="./assets/img/5000.png" style="display: inline-block;float: left;" class="imagenUnefon compTelefonica" #importeUnefon id="importeUnefon" name='importeUnefon' ngDefaultControl (click)="insertaSaldo(importeUnefon)" />
+                                </div>
+                                <div [ngClass]="{'Iusacell col-sm-2': true , 'border border-danger': blClassI}">
+                                    <img src="./assets/img/6000.png" style="display: inline-block;float: left;" class="imagenIusacell compTelefonica" #importeIusa id="importeIusa" name='importeIusa' ngDefaultControl (click)="insertaSaldo(importeIusa)" />
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
-                        <div class="row">
-                            <label style="width: 8.3%;" class="col-sm-2 control-label">Monto</label>
-                            <div class="col-sm-1 amount-list" *ngFor="let recarga of recargas">
+                    <div class="row padding-InFieldset">
+                        <label style="width: 8.3%;" class="col-sm-2 control-label">Monto</label>
+                        <div class="col-sm-1 amount-list" *ngFor="let recarga of recargas; let i = index">
 
-                                <label>{{recarga.ImporteTiempoAire | currency}}</label>
+                            <label formControlName="importe" ngDefaultControl #importe id="{{recarga.ImporteTiempoAire}}" (click)="cargaImporte(importe)">{{recarga.ImporteTiempoAire | currency}}</label>
 
-                                <div id="botonMontos" style="display:none; ">
-                                    <div id="muestraMontos" name="muestraMontos" class="btn-group" role="group">
-                                    </div>
+                            <div id="botonMontos" style="display:none; ">
+                                <div id="muestraMontos" name="muestraMontos" class="btn-group" role="group">
                                 </div>
                             </div>
                         </div>
@@ -108,16 +113,8 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
-
             </div>
         </div>
-
-
-
 
         <div style="margin:30px 20px 0px 0px;" class="row actions-form-group text-right">
             <div class="col-sm-9"></div>
@@ -134,57 +131,69 @@
 
 </fieldset>
 <!-- </form> -->
-<!-- Modal -->
-<div class="modal fade " id="confirmModal " tabindex="-1 " role="dialog " aria-labelledby="myModalLabel " data-backdrop="static " data-keyboard="false ">
-    <div class="modal-dialog ">
-        <div class="modal-content ">
-            <div class="modal-header ">
-                <h4 class="modal-title " id="myModalLabel ">Confirma tu compra de tiempo aire</h4>
-            </div>
-            <div class="modal-body ">
-                <ul class="list-group ">
-                    <li class="list-group-item ">
-                        <label>Cuenta origen:</label>
-                        <label id="cuentaOrigenTA "></label>
-                    </li>
-                    <li class="list-group-item ">
-                        <label>Operador:</label>
-                        <label id="operadorTA "></label>
-                    </li>
-                    <li class="list-group-item ">
-                        <label>N&uacute;mero de celular:</label>
-                        <label id="numeroCelularTA "></label>
-                    </li>
-                    <li class="list-group-item ">
-                        <label>Importe:</label>
-                        <label id="importeTA "></label>
-                    </li>
-                </ul>
-                <div class="form-group ">
-                    <div class="form-group " id="divNumeroSeguridad " style="display: none ">
-                        <label>N&uacute;mero de seguridad</label>
-                        <input type="text " class="form-control input-lg " id="numeroSeguridad " readonly>
-                    </div>
-                    <div class="form-group " id="divTokenCelular " style="display: none ">
-                        <label>Captura tu contrase&ntilde;a y c&oacute;digo din&aacute;mico Token</label>
-                    </div>
-                    <div class="form-group " id="divTokenFisico " style="display: none ">
-                        <label>Captura tu contrase&ntilde;a y token</label>
-                    </div>
-                    <div class="form-group " id="divPassword " style="display: none ">
-                        <label>Captura tu contrase&ntilde;a</label>
-                    </div>
-                    <input id="passwordTokenTOPUP " name="passwordTokenTOPUP " type="password " class="form-control input-lg ">
-                </div>
-            </div>
-            <div class="modal-footer ">
-                <button type="button " class="btn btn-lg " data-dismiss="modal ">Cancelar</button>
-                <button type="button " class="btn btn-primary btn-lg " onClick="onTransfer() ">Confirmar</button>
-            </div>
 
+
+<!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content shadowModal ">
+
+            <div class="modal-body" style="padding: 2rem;">
+
+                <h4 style="color: #eb012a; font-weight: 700;">Confirmar pago</h4>
+                <div class="row">
+                    <div class="col-lg 6">
+                        <label>Cuenta origen:</label>
+                    </div>
+                    <div class="col-lg 6">
+                        <label>{{cuentaSeleccionada}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg 6">
+                        <label>telefon:</label>
+                    </div>
+                    <div class="col-lg 6">
+                        <label>{{telefonoF}}</label>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-lg 6">
+                        <label>Importe total:</label>
+                    </div>
+                    <div class="col-lg 6">
+                        <label>${{importe}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg 12">
+                        <div id="challenger" class="form-group">
+                            <label>N&uacute;mero de seguridad</label>
+                            <input type='text' id='numeroSeguridad' class='form-control input-lg' ng-model='challenge.rcg' readonly>
+
+                        </div>
+                        <div id="divPass" class="form-group">
+                            <label>TipoAutentica</label>
+
+                            <input type="password" class="form-control input-lg" #token [matKeyboard]="">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
+                    <button class="color-botones btn btn-lg " (click)="confirmarPago(token.value)">
+                                Confirmar
+                              </button>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>
+
 
 <div class="uiv-animate " ui-view></div>
 

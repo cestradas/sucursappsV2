@@ -1,0 +1,63 @@
+<div ng-cloak class="padding-barToTittle">
+    <h2 class="text-center">Recarga exitosa</h2>
+</div>
+
+<fieldset align="center" class="padding-TittleToFieldset padding-fieldset-general">
+    <div class="well sumando-well-white">
+        <div class="row">
+            <div class="col-lg-6" align="right">
+                <strong>Referencia:</strong>
+            </div>
+            <div class="col-lg-6">
+                <label>{{detallePago.referenciaNumerica}}</label>
+            </div>
+        </div>
+
+        <!-- ------------------------------------------------ -->
+        <div class="row">
+            <div class="col-lg-6" align="right">
+                <strong>Fecha de operaci&oacute;n:</strong>
+            </div>
+            <div class="col-lg-6">
+                <label>{{detallePago.fechaOperacion}}</label>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-6" align="right">
+                <strong>Cuenta origen:</strong>
+            </div>
+            <div class="col-lg-6">
+                <label>{{detallePago.cuentaOrdenante}}</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6" align="right">
+                <strong>Telefono:</strong>
+            </div>
+            <div class="col-lg-6">
+                <label>{{detallePago.telefono}}</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6" align="right">
+                <strong>Importe:</strong>
+            </div>
+            <div class="col-lg-6">
+                <label>{{detallePago.importe}}</label>
+            </div>
+        </div>
+
+    </div>
+    <div style="margin:30px 0px 0px 0px;" class="row">
+        <div style=" padding: 0px;" class="col-sm-12">
+            <button class="btn btn-primary pull-right btn-lg" onClick="currentPage.loadMenu();">
+      Terminar
+    </button>
+        </div>
+    </div>
+
+</fieldset>

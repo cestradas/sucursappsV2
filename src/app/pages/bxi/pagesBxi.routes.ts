@@ -15,6 +15,10 @@ import { PagoServiciosVerifyComponent } from './pago-servicios/pago-servicios-ve
 import { PagoServiciosIniComponent } from './pago-servicios/pago-servicios-ini/pago-servicios-ini.component';
 import { PagoServiciosDetailComponent } from './pago-servicios/pago-servicios-detail/pago-servicios-detail.component';
 import { MantenimientoDatosIniComponent } from './mantenimiento-datos-contacto/mantenimiento-datos-ini/mantenimiento-datos-ini.component';
+import { ImpresionEdcComponent } from './impresion-edc/impresion-edc.component';
+import { ImpresionEdcFinishComponent } from './impresion-edc/impresion-edc-finish/impresion-edc-finish.component';
+import { TransferenciasBanorteComponent } from "./transferencias-banorte/transferencias-banorte.component";
+import { TransferenciaFinishBanorteComponent } from "./transferencias-banorte/transferencia-finish-banorte/transferencia-finish-banorte.component";
 
 const pageRoutesBXI: Routes = [
     {
@@ -32,7 +36,11 @@ const pageRoutesBXI: Routes = [
             { path: 'activaAlertas_verify', component: ActivarAlertasVerifyComponent},
             { path: 'mantiene-datos-ini', component: MantenimientoDatosIniComponent},
             { path: 'mantiene-datos-fin', component: MantenimientoDatosVerifyComponent}
-            
+            { path: 'TransferBanorte', component: TransferenciasBanorteComponent},
+            { path: 'TransferFinishBanorte', component: TransferenciaFinishBanorteComponent},
+            { path: 'impresion_EDC', component: ImpresionEdcComponent},
+            { path: 'impresion_EDC_Finish', component: ImpresionEdcFinishComponent}
+
         ]
     }
 ];

@@ -63,6 +63,14 @@ export class SesionBxiService {
       // Respuesta del servicio
       detalleConfirmacionQUICK: string;
 
+      // Transferencia propias/terceros BANORTE
+      // Datos especificos
+      numCuentaTranPropBanorte: string;
+      AliasCuentaTranPropBanorte: string;
+     // Respuesta del servicio
+     detalleConfirmacionTranPropBanorte: string;
+
+
 
    // PagoTarjetas
     // Datos Especificos
@@ -71,6 +79,7 @@ export class SesionBxiService {
     nameOperacion: string;
    // Respuesta Servicios
      detallePagoTarjeta: string;
+
 
      // Compra TA
      Importerecargas: string;

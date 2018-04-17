@@ -735,7 +735,7 @@ validaDatosBen() {
     
 
     const this_aux = this;
-
+    let mensajeError;
     // this.validaDatosBen();
     
     ctaO = this_aux.service.numCuentaSPEISel;
@@ -751,12 +751,12 @@ validaDatosBen() {
     }
     
     
-    // nombreBene  // de donde?   
+    // nombreBene   
     nombreBene = this_aux.service.nombreBeneficiario;
-    // correo // DE DONDE?
+    // correo 
     // correo = "miguel.garcia_softtek@banorte.com";
     correo = this_aux.service.correoBeneficiario;
-    // rfcEmi // menu bxi?
+    // rfcEmi 
     rfcEmi = "no capturado";
 
 
@@ -800,22 +800,23 @@ validaDatosBen() {
                          this_aux.service.validaFinishTipoTransfer = "1";
                          this_aux.service.detalleConfirmacionSPEI = response.responseText;
                          console.log(this_aux.service.detalleConfirmacionSPEI);
-                         this.router.navigate(['/TransferFinishSpei']);
+                         this_aux.router.navigate(['/TransferFinishSpei']);
                                 
                        } else {
-                         console.log(transferSPEI.ErrorMsg);
-                         document.getElementById('mnsError').innerHTML = transferSPEI.ErrorMsg;
-                        $('#errorModal').modal('show');
+                        this_aux.showErrorSuccesMoney(transferSPEI);
                        }
   
-                    }, function(error) { }
+                    }, function(error) { this_aux.showErrorPromise(error); }
                   );
               } else {
-                console.log(infoUsuarioJSON.MensajeAUsuario);
-                document.getElementById('mnsError').innerHTML = infoUsuarioJSON.MensajeAUsuario;
+                console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);  
+                mensajeError = this_aux.controlarError(infoUsuarioJSON);
+                document.getElementById('mnsError').innerHTML =  mensajeError;
+                $('#_modal_please_wait').modal('hide');
                 $('#errorModal').modal('show');
               }
         }, function(error) {
+          this_aux.showErrorPromise(error);
         });
         
 
@@ -848,22 +849,23 @@ validaDatosBen() {
                          this_aux.service.validaFinishTipoTransfer = "2";
                          this_aux.service.detalleConfirmacionTEF = response.responseText;
                          console.log(this_aux.service.detalleConfirmacionTEF);
-                         this.router.navigate(['/TransferFinishSpei']);
+                         this_aux.router.navigate(['/TransferFinishSpei']);
                                 
                        } else {
-                         console.log(transferTEF.ErrorMsg);
-                         document.getElementById('mnsError').innerHTML = transferTEF.ErrorMsg;
-                        $('#errorModal').modal('show');
+                        this_aux.showErrorSuccesMoney(transferTEF);
                        }
   
-                    }, function(error) { }
+                    }, function(error) { this_aux.showErrorPromise(error); }
                   );
               } else {
-                console.log(infoUsuarioJSON.MensajeAUsuario);
-                document.getElementById('mnsError').innerHTML = infoUsuarioJSON.MensajeAUsuario;
+                console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);  
+                mensajeError = this_aux.controlarError(infoUsuarioJSON);
+                document.getElementById('mnsError').innerHTML =  mensajeError;
+                $('#_modal_please_wait').modal('hide');
                 $('#errorModal').modal('show');
               }
         }, function(error) {
+          this_aux.showErrorPromise(error);
         });
             
 
@@ -895,38 +897,95 @@ validaDatosBen() {
                          this_aux.service.validaFinishTipoTransfer = "3";
                          this_aux.service.detalleConfirmacionQUICK = response.responseText;
                          console.log(this_aux.service.detalleConfirmacionQUICK);
-                         this.router.navigate(['/TransferFinishSpei']);
+                         this_aux.router.navigate(['/TransferFinishSpei']);
                                 
                        } else {
-                         console.log(transferQUICK.ErrorMsg);
-                         document.getElementById('mnsError').innerHTML = transferQUICK.ErrorMsg;
-                         $('#errorModal').modal('show');
-                         
+                        this_aux.showErrorSuccesMoney(transferQUICK);
                        }
   
-                    }, function(error) { }
+                    }, function(error) { this_aux.showErrorPromise(error); }
                   );
               } else {
-                console.log(infoUsuarioJSON.MensajeAUsuario);
-                document.getElementById('mnsError').innerHTML = infoUsuarioJSON.MensajeAUsuario;
+                console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);  
+                mensajeError = this_aux.controlarError(infoUsuarioJSON);
+                document.getElementById('mnsError').innerHTML =  mensajeError;
+                $('#_modal_please_wait').modal('hide');
                 $('#errorModal').modal('show');
               }
         }, function(error) {
+          this_aux.showErrorPromise(error);
         });
-
-            
- 
 
             break;
           
-  
           }
-
-
-    
-
 }
   
- 
+
+controlarError(json) {
+
+  const id = json.Id ;
+  const mensajeUsuario = json.MensajeAUsuario;
+  let mensajeError; 
+
+  switch (id) {
+        
+    case 'SEG0003': mensajeError = "Usuario bloqueado, favor de esperar 15 minutos e intentar nuevamente.";
+                  break; 
+    case 'SEG0004': mensajeError =  "Usuario bloqueado, favor de marcar a Banortel.";
+                  break; 
+    case 'SEG0005': mensajeError =  "Los datos proporcionados son incorrectos, favor de verificar.";
+                  break; 
+    case 'SEG0007': mensajeError = "Los datos proporcionados son incorrectos, favor de verificar.";
+                  break; 
+    case 'SEG0008':  mensajeError = "La sesión ha caducado.";
+                  break; 
+    case 'SEG0009':  mensajeError = "Límite de sesiones superado, favor de cerrar las sesiones de banca en línea activas.";
+                  break; 
+    // tslint:disable-next-line:max-line-length
+    case 'SEGOTP1': mensajeError = "Token desincronizado. Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
+                  break;
+    case 'SEGOTP2': mensajeError = "Token bloqueado, favor de marcar a Banortel.";
+                  break;
+    case 'SEGOTP3': mensajeError = "Token deshabilitado, favor de marcar a Banortel.";
+                  break;
+    case 'SEGOTP4': mensajeError = "Token no activado, favor de marcar a Banortel.";
+                  break;
+    // tslint:disable-next-line:max-line-length
+    case 'SEGAM81': mensajeError = "Token desincronizado. Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
+                  break; 
+    case 'SEGAM82': mensajeError = "Token bloqueado, favor de marcar a Banortel."; 
+                  break;   
+    case 'SEGAM83': mensajeError = "Token deshabilitado, favor de marcar a Banortel.";
+                  break;   
+    case 'SEGAM84': mensajeError = "Token no activado, favor de marcar a Banortel.";
+                  break;  
+    case '2'      : mensajeError = mensajeUsuario;            
+  }
+
+  return mensajeError;
+}
+
+showErrorPromise(error) {
+  console.log(error);
+  // tslint:disable-next-line:max-line-length
+  document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde."; 
+  $('#_modal_please_wait').modal('hide');
+  $('#errorModal').modal('show');
+}
+
+showErrorSucces(json) {
+  console.log(json.Id + json.MensajeAUsuario);
+  document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+  $('#_modal_please_wait').modal('hide');
+  $('#errorModal').modal('show');
+}
+
+showErrorSuccesMoney(json) {
+  console.log(json.Id + json.MensajeAUsuario);
+  document.getElementById('msgError').innerHTML =   json.MensajeAUsuario; 
+  $('#_modal_please_wait').modal('hide');
+  $('#ModalErrorTransaccion').modal('show');
+}
 
 }

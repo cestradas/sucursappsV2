@@ -77,10 +77,14 @@ export class MenuBxiComponent implements OnInit {
       case 'pagotar': this.router.navigate(['/pagoTarjetaCredito_ini']);
             break;
       case 'activaAlertas': this.getDatosContacto(idOperacion);
-      break;
+            break;
       case 'actualizaDatos': this.getDatosContacto(idOperacion);
-      break;
-      
+            break;
+      case 'transferBanorte': this.router.navigate(['/TransferBanorte']);
+            break;
+      case 'impresionEDC': this.router.navigate(['/impresion_EDC']);
+            break;
+
 
     }
   }
@@ -136,14 +140,14 @@ export class MenuBxiComponent implements OnInit {
   showErrorPromise(error) {
     console.log(error);
     // tslint:disable-next-line:max-line-length
-    document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde."; 
+    document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
     $('#_modal_please_wait').modal('hide');
     $('#errorModal').modal('show');
   }
 
   showErrorSucces(json) {
     console.log(json.Id + json.MensajeAUsuario);
-    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
     $('#_modal_please_wait').modal('hide');
     $('#errorModal').modal('show');
   }
