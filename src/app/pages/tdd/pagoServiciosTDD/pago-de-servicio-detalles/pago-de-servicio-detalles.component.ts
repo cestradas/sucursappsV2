@@ -107,6 +107,7 @@ console.log("aquiiiiiiiiiiiii");
 
   showDetallePago( myForm) {
     const this_aux = this;
+    if (this_aux.importeAux === undefined) { this_aux.importeAux = this_aux.replaceSimbolo( this_aux.myForm.get('fcImporte').value); }
       this_aux.importe = this_aux.importeAux;
       console.log(this_aux.importe);
       this_aux.fechaVencimiento = myForm.fcFechaVencimiento.toString();
@@ -155,6 +156,7 @@ replaceSimbolo(importe) {
 confirmarPago() {
     const this_aux = this; 
 
+    if (this_aux.importeAux === undefined) { this_aux.importeAux = this_aux.replaceSimbolo( this_aux.myForm.get('fcImporte').value); }
 
     $('#ModalTDDLogin').modal('show');
     // this.getPosts().subscribe( result => {this.postResp = result; });
