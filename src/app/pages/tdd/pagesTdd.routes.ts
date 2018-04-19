@@ -11,10 +11,10 @@ import { MantenimientoBenefComponent } from './mantenimiento-benef/mantenimiento
 import { PagoTarjetaCreditoComponent } from './pago-tarjeta-credito/pago-tarjeta-credito.component';
 import { PagoTarjetaCreditoFinalComponent } from './pago-tarjeta-credito/pago-tarjeta-credito-final.component';
 import { ActualizarDatosDeContactoComponent } from './actualizar-datos-de-contacto/actualizar-datos-de-contacto.component';
+import { MantenimientoBenefDetailComponent } from './mantenimiento-benef/mantenimiento-benef-detail/mantenimiento-benef-detail.component';
+import { TransferenciasSpeiDetailComponent } from './transferencia-spei/transferencias-spei-detail/transferencias-spei-detail.component';
 import { ActivarAlertasComponent } from './activar-alertas/activar-alertas.component';
 import { TransferenciaTercerosFinalComponent } from './transferencia-terceros/transferencia-terceros-final.component';
-
-import { MantenimientoBenefDetailComponent } from './mantenimiento-benef/mantenimiento-benef-detail/mantenimiento-benef-detail.component';
 
 
 const pageRoutesTDD: Routes = [
@@ -28,13 +28,13 @@ const pageRoutesTDD: Routes = [
             { path: 'pagoServicios', component: PagoDeServiciosComponent},
             { path: 'pagoCredito', component: PagoTarjetaCreditoComponent},
             { path: 'pagoCreditoFinal', component: PagoTarjetaCreditoFinalComponent},
+            { path: '', pathMatch: 'full', redirectTo: '/menuTdd' },
             { path: 'mantoBeneficiarios', component: MantenimientoBenefComponent},
             { path: 'detalleBeneficiarios', component: MantenimientoBenefDetailComponent},
+            { path: 'detalleTransferenciaSpei', component: TransferenciasSpeiDetailComponent},            
             { path: 'actualizarDatosContacto', component: ActualizarDatosDeContactoComponent},
             { path: 'activarAlertas', component: ActivarAlertasComponent},
             { path: 'transTercerosFinal', component: TransferenciaTercerosFinalComponent},
-            { path: '', pathMatch: 'full', redirectTo: '/menuTdd' },
-            
         ]
     }
 ];

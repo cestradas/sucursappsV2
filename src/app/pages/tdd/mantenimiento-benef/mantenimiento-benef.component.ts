@@ -26,7 +26,8 @@ export class MantenimientoBenefComponent implements OnInit {
   DatosJSONCP: any;
   CP: any;
 
-  @ViewChild("rColonias", { read: ElementRef }) rColonias: ElementRef;
+  @ViewChild("rColonias", { read: ElementRef }) rColonias: ElementRef; 
+  @ViewChild("RApellidoPatAlta", { read: ElementRef }) RApellidoPatAlta: ElementRef;
   @ViewChild("RApellidoMatAlta", { read: ElementRef }) RApellidoMatAlta: ElementRef;
   @ViewChild("RPorcentajeAlta", { read: ElementRef }) RPorcentajeAlta: ElementRef;
   @ViewChild("RDescripcionEstadoAlta", { read: ElementRef }) RDescripcionEstadoAlta: ElementRef;
@@ -34,6 +35,8 @@ export class MantenimientoBenefComponent implements OnInit {
   @ViewChild("RNumeroCalleAlta", { read: ElementRef }) RNumeroCalleAlta: ElementRef;
   @ViewChild("RNumeroDepartamentoAlta", { read: ElementRef }) RNumeroDepartamentoAlta: ElementRef;
   @ViewChild("RFisicaMoralSelecAlta", { read: ElementRef }) RFisicaMoralSelecAlta: ElementRef;
+  @ViewChild("RFechaNacimientoAlta", { read: ElementRef }) RFechaNacimientoAlta: ElementRef;
+  @ViewChild("RParentescoAlta", { read: ElementRef }) RParentescoAlta: ElementRef;
 
   @ViewChild("RColoniasM", { read: ElementRef }) RColoniasM: ElementRef;
   @ViewChild("RApellidoMat", { read: ElementRef }) RApellidoMat: ElementRef;
@@ -90,6 +93,7 @@ export class MantenimientoBenefComponent implements OnInit {
 
   constructor(public fb: FormBuilder, private router: Router, private serviceMantenimiento: ResponseWS,
      private _validaNipService: ValidaNipTransaccion, private _service: ConsultaSaldosTddService) {
+      this._service.cargarSaldosTDD();
     this.myform = this.fb.group({
       nombreBenef: [''],
       apPatBenef: [''],
@@ -119,9 +123,11 @@ export class MantenimientoBenefComponent implements OnInit {
         this.consultaBeneficiarios();
       }
     ); 
+    setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
   }
 
   ngOnInit() {   
+    $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
   }
 
   altaBeneficiario() {
@@ -130,11 +136,6 @@ export class MantenimientoBenefComponent implements OnInit {
     $("#altaBenefModal").modal("show");
   }
 
-  cerrarModalAltaBeneficiario() {
-    this.reiniciarInput();
-    this.reiniciarValidaciones();
-    $("#altaBenefModal").modal("toggle");
-  }
 
   bajaBeneficiarioModal(datosBeneficiario) {
     this.consecutivoSeleccionado = datosBeneficiario.NumeroConsecutiv;
@@ -152,12 +153,6 @@ export class MantenimientoBenefComponent implements OnInit {
       this.razonSocial = datosBeneficiario.RazonSocial;
     }    
     $("#modalBajaBeneficiarios").modal("show");
-  }
-
-  cerrarModalBajaBeneficiario() {
-    this.reiniciarInput();
-    this.reiniciarValidaciones();
-    $("#modalBajaBeneficiarios").modal("toggle");
   }
 
   modificacionBeneficiarioModal(datosBeneficiario) {
@@ -191,18 +186,8 @@ export class MantenimientoBenefComponent implements OnInit {
     $("#modalModificacionBeneficiarios").modal("show");
   }
 
-  cerrarModalModificacionBeneficiario() {
-    this.reiniciarInput();
-    this.reiniciarValidaciones();
-    $("#modalModificacionBeneficiarios").modal("toggle");
-  }
-
   abrirModalPorcentaje() {
     $("#porcentajeModal").modal("show");
-  }
-
-  cerrarModalPorcentaje() {
-    $("#porcentajeModal").modal("toggle");
   }
 
   reiniciarValidaciones() {
@@ -395,6 +380,8 @@ export class MantenimientoBenefComponent implements OnInit {
 
   altaBeneficiarioView( myform1, myform2) {
 
+    $('#altaBenefModal').modal('toggle');
+
     const this_aux = this;
       let patron = /-/g;
       let fechaFormato: any = "";
@@ -451,8 +438,7 @@ export class MantenimientoBenefComponent implements OnInit {
       this_aux.tamRegistrosBenef = this_aux.tamRegistrosBenef + this_aux.contadorAltas;
       console.log('ULTIMOS REGISTROS' + this_aux.ultimoRegistroGuardado);
       this.reiniciarInput();
-      this.reiniciarValidaciones();
-      this.cerrarModalAltaBeneficiario();   
+      this.reiniciarValidaciones(); 
   }
 
   altaBeneficiariosSoap() {
@@ -600,10 +586,10 @@ export class MantenimientoBenefComponent implements OnInit {
         ) );
       this_aux.myform.setControl('registroFC', controlrFcMF);
 
-      const controlFisicoAp: FormControl = new FormControl('', Validators.required);
-      const controlFisicoFecha: FormControl = new FormControl('',  [Validators.required, 
+      const controlFisicoAp: FormControl = new FormControl(this_aux.RApellidoPatAlta.nativeElement.value, Validators.required);
+      const controlFisicoFecha: FormControl = new FormControl(this_aux.RFechaNacimientoAlta.nativeElement.value,  [Validators.required, 
         Validators.pattern(/^\d{4}\-\d{2}\-\d{2}$/)]);
-      const controlFisicoPar: FormControl = new FormControl('', Validators.required);
+      const controlFisicoPar: FormControl = new FormControl(this_aux.RParentescoAlta.nativeElement.value, Validators.required);
       this_aux.myform.setControl('apPatBenef', controlFisicoAp);
       this_aux.myform.setControl('fechaNacBenef', controlFisicoFecha);
       this_aux.myform.setControl('parentescoBenef', controlFisicoPar);
@@ -616,7 +602,7 @@ export class MantenimientoBenefComponent implements OnInit {
 
       const controlApM: FormControl = new FormControl('');
       const controlFechaM: FormControl = new FormControl('', Validators.pattern(/^\d{4}\-\d{2}\-\d{2}$/));
-      const controlParM: FormControl = new FormControl('');      
+      const controlParM: FormControl = new FormControl(this_aux.RParentescoAlta.nativeElement.value);      
       this_aux.myform.setControl('apPatBenef', controlApM);
       this_aux.myform.setControl('fechaNacBenef', controlFechaM);
       this_aux.myform.setControl('parentescoBenef', controlParM);   
@@ -758,7 +744,7 @@ export class MantenimientoBenefComponent implements OnInit {
   guardarModificacionesView( myform, myformCPM) {
     const this_aux = this;
     const THIS: any = this;
-
+    $('#modalModificacionBeneficiarios').modal('toggle');
     let patron = /-/g;
     let fechaFormato: any = "";
     if ( myform.fechaNacBenef !== null ) {
@@ -804,7 +790,9 @@ export class MantenimientoBenefComponent implements OnInit {
         }
       }
     });
-    this_aux.cerrarModalModificacionBeneficiario();
+    
+    this.reiniciarInput();
+    this.reiniciarValidaciones();
   }
 
   guardarCambios() {

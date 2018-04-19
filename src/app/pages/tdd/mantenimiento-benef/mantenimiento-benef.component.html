@@ -1,32 +1,31 @@
 <form [formGroup]="myform" novalidate>
     <h2 class="text-center padding-barToTittle deleteMargin-h2  color-letra">Mantenimiento de Beneficiarios</h2>
     <fieldset class="padding-TittleToFieldset padding-fieldset-general">
-        <div class="row sumando-form-group">
-
-            <div class="col-sm-1 sumando-bg-orange group-name letranegrita">
-                Cuenta
+        <div class="row sumando-form-group letranegrita">
+            <div class="col-sm-1 sumando-bg-red group-name">
+                Desde
             </div>
-            <div class="col-sm-11 group-controls padding-left-0 padding-right-0 sumando-well-white" style="padding-bottom: 0px !important; padding-top: 0px">
-                <div class="form-group">
+            <div class="col-sm-11 group-controls padding-left-0 padding-right-0 sumando-well-white" style="padding-bottom: 0px !important; padding-top: 8px; line-height: 14px">
+                <div class="form-group" style="margin-bottom: -1px; line-height: 23px">
                     <div class="sumando-dropdown-account">
                         <table width="100%" class="letranegrita">
                             <tr>
                                 <td align="left" width="40%" style="border: 0px">CUENTA ENLACE PERSONAL <strong>
-                                                                </strong>
+                                                                            </strong>
                                 </td>
                             </tr>
                             <tr>
                                 <td align="left" style="border: 0px">Cuenta
                                     <strong>
-                                        <label> {{numeroCuentaTitular}}
-                                         </label>
-                                    </strong>
+                                                    <label> {{numeroCuentaTitular}}
+                                                     </label>
+                                                </strong>
                                 </td>
                                 <td align="left" style="border: 0px">Saldo Disponible
                                     <strong>
-                                        <label>$ {{saldoDisponibleClienteTdd}}
-                                        </label>
-                                    </strong>
+                                                    <label>$ {{saldoDisponibleClienteTdd}}
+                                                    </label>
+                                                </strong>
                                 </td>
                             </tr>
                         </table>
@@ -84,143 +83,162 @@
 
     <!--MODAL ALTA-->
     <div class="modal fade" id="altaBenefModal" tabindex="-1" role="dialog" aria-labelledby="ModalTDDLogin" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 78%; position: initial !important;">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 85%; position: initial !important; margin-top: -41px;">
             <div class="modal-content shadowModal">
                 <h2 class="text-center padding-barToTittle deleteMargin-h2  color-letra">Alta de Beneficiario</h2>
                 <br>
                 <div class="modal-body modal-body-aux">
 
                     <div class="row">
-                        <div class="col-lg-2" style="margin-left: 100px">Nombre(s) </div>
-                        <div class="col-lg-2">
-                            <input class="text-uppercase" type="text" id=NombreinputText formControlName="nombreBenef" #RNombreBeneficiarioAlta [matKeyboard]="" style="margin-top: -225px; text-align: center; width: 304px; margin-left: -180px; text-transform: uppercase" placeholder="Ingrese Nombre(s)">
+                        <div class="form-group col-sm-1">
+                            <label for="amount" class="col-sm-1 control-label">Nombre(s)</label>
                         </div>
-                        <div class=" col-lg-2" style="margin-left: -106px">Apellido Paterno </div>
-                        <div class="col-lg-2">
-                            <input class="text-uppercase" type="text" id=AppPinputText formControlName="apPatBenef" #RApellidoPatAlta [matKeyboard]="" style=" width: 90% !important; margin-left: -131px; margin-top: -4px; text-align: center; width: 304px !important" placeholder="Ingrese Apellido Paterno">
+                        <div class="col-sm-3">
+                            <input class="input-whidth form-control amount input-lg text-uppercase" type="text" id=NombreinputText formControlName="nombreBenef" #RNombreBeneficiarioAlta [matKeyboard]="" style="text-align: center" maxlength="20" placeholder="Ingrese Nombre(s)">
+                            <div class="alert-danger" *ngIf="myform.get('nombreBenef').errors && myform.get('nombreBenef').touched">
+                                <p color="danger">Nombre es Requerido</p>
+                            </div>
                         </div>
-                        <div class="col-lg-2" style="left: -60px">Apellido Materno </div>
-                        <div class="col-lg-2">
-                            <input class="text-uppercase" type="text" id=AppMinputText #RApellidoMatAlta [matKeyboard]="" style=" width: 90% !important; margin-left: -193px; margin-top: -4px; text-align: center; width: 304px !important" placeholder="Ingrese Apellido Materno">
+                        <div class="form-group col-sm-1">
+                            <label for="amount" class="col-sm control-label" style="text-align: right; top: -11px;">Apellido Paterno</label>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <p style="color: red; margin-left: 255px" *ngIf="myform.get('nombreBenef').errors && myform.get('nombreBenef').touched">Nombre es Requerido</p>
+                        <div class="col-sm-3">
+                            <input class="input-whidth form-control amount input-lg text-uppercase" type="text" id=AppPinputText formControlName="apPatBenef" #RApellidoPatAlta [matKeyboard]="" style="text-align: center" maxlength="20" placeholder="Ingrese Apellido Paterno">
+                            <div class="alert-danger" *ngIf="myform.get('apPatBenef').errors && myform.get('apPatBenef').touched">
+                                <p color="danger">Apellido Paterno es Requerido</p>
+                            </div>
                         </div>
-                        <div class="col-lg-6">
-                            <p style="color: red; margin-left: -97px" *ngIf="myform.get('apPatBenef').errors && myform.get('apPatBenef').touched">Apellido Paterno es Requerido</p>
+                        <div class="form-group col-sm-1">
+                            <label for="amount" class="col-sm control-label" style="text-align: right; top: -11px;">Apellido Materno</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input class="input-whidth form-control amount input-lg text-uppercase" type="text" id=AppMinputText #RApellidoMatAlta [matKeyboard]="" style="text-align: center" maxlength="20" placeholder="Ingrese Apellido Materno">
                         </div>
                     </div>
                     <br>
-                    <br>
                     <div class="row">
-                        <div class="col-lg-2" style="left: 80px">F.Nacimiento </div>
-                        <div class="col-lg-2">
-                            <input type=text formControlName="fechaNacBenef" id=FechaNacInputText #RFechaNacimientoAlta [matKeyboard]="'num'" style="margin-top: -4px; text-align: center; margin-left: -80px; width: 304px" placeholder="AAAA-MM-DD">
+                        <div class="form-group col-sm-1">
+                            <label for="amount" class="col-sm-1 control-label">F.Nacimiento</label>
                         </div>
-                        <div class="col-lg-2" style="left: 36px">Parentesco </div>
-                        <div class="col-lg-2">
-                            <input class="text-uppercase" type="text" id=ParentescoInputText formControlName="parentescoBenef" #RParentescoAlta [matKeyboard]="" style="margin-left: -136px; margin-top: -4px; text-align: center; width: 304px !important" placeholder="Ingrese Parentesco">
+                        <div class="col-sm-3">
+                            <input class="input-whidth form-control amount input-lg" type=text formControlName="fechaNacBenef" id=FechaNacInputText #RFechaNacimientoAlta [matKeyboard]="'num'" style="text-align: center" placeholder="AAAA-MM-DD">
+                            <div class="alert-danger" *ngIf="myform.get('fechaNacBenef').errors && myform.get('fechaNacBenef').touched">
+                                <p color="danger">Formato de Fecha es Incorrecto</p>
+                            </div>
                         </div>
-                        <div class="col-lg-2" style="left: -58px">Tipo de Persona </div>
-                        <div class="col-lg-2">
-                            <select class="input-whidth selectModificado" id="selTypePersonAlta" (change)="fMSelect($event.target.value)" #RFisicaMoralSelecAlta style=" width: 304px !important; margin-left: -199px; text-align: center; height: 35px; margin-top:
-                                -3px; background-size: auto">                            
+                        <div class="form-group col-sm-1">
+                            <label for="amount" class="col-sm control-label" style="text-align: right">Parentesco</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input class="input-whidth form-control amount input-lg text-uppercase" type="text" id=ParentescoInputText formControlName="parentescoBenef" #RParentescoAlta [matKeyboard]="" style="text-align: center" maxlength="20" placeholder="Ingrese Parentesco">
+                            <div class="alert-danger" *ngIf="myform.get('parentescoBenef').errors && myform.get('parentescoBenef').touched">
+                                <p>Parentesco es Requerido</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-1">
+                            <label for="amount" class="col-sm control-label" style="text-align: right; top: -11px;">Tipo de Persona</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <select class="input-whidth form-control amount input-lg selectModificado" id="selTypePersonAlta" (change)="fMSelect($event.target.value)" #RFisicaMoralSelecAlta>                            
                         <option disabled="true" selected="true">Seleccione Opción</option>
                         <option [value]="1">Persona Física</option>
                         <option [value]="2">Persona Moral</option>
                       </select>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <p style="color: red; margin-left: 225px" *ngIf="myform.get('fechaNacBenef').errors && myform.get('fechaNacBenef').touched">Formato de Fecha es Incorrecto</p>
-                        </div>
-                        <div class="col-lg-6">
-                            <p style="color: red; margin-left: -67px" *ngIf="myform.get('parentescoBenef').errors && myform.get('parentescoBenef').touched">Parentesco es Requerido</p>
-                        </div>
-                    </div>
-                    <br>
                     <br>
                     <div class="row">
-                        <div class="col-lg-2" style="left: 143px">RFC </div>
-                        <div class="col-lg-2">
-                            <input class="text-uppercase" type="text" id=RFCInputText formControlName="registroFC" #RRegistroFederalAlta [matKeyboard]="" style="margin-top: -4px; text-align: center; margin-left: -80px; width: 304px" placeholder="Ingrese RFC">
+                        <div class="form-group col-sm-1">
+                            <label for="amount" class="col-sm-1 control-label">RFC</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input class="input-whidth form-control amount input-lg text-uppercase" type="text" id=RFCInputText formControlName="registroFC" #RRegistroFederalAlta [matKeyboard]="" style="text-align: center" placeholder="Ingrese RFC">
+                            <div class="alert-danger">
+                                <p color="danger" *ngIf="myform.get('registroFC').errors && myform.get('registroFC').touched">Formato de RFC Incorrecto</p>
+                            </div>
                         </div>
                     </div>
-                    <div>
-                        <p style="color: red; margin-left: 242px" *ngIf="myform.get('registroFC').errors && myform.get('registroFC').touched">Formato de RFC Incorrecto</p>
-                    </div>
-                    <br>
                     <br>
                     <div class="row">
-                        <div class="col-lg-2" style="left: 190px">% Asignado al Beneficiario </div>
-                        <div class="col-lg-2">
-                            <input type="text" id=PorcentajeInputText #RPorcentajeAlta [matKeyboard]="'num'" style="margin-left: 138px; width: 36% !important; text-align: center; margin-top: -4px" placeholder="%">
+                        <div class="form-group col-sm-3">
+                            <label for="amount" class="col-sm control-label" style="left:116px">% Asignado al Beneficiario</label>
                         </div>
-                        <div class="col-lg-5" style="margin-left: -3px">(La suma de los porcentajes asignados a sus beneficiarios, debe ser igual a 100%)</div>
+                        <div class="col-sm-1">
+                            <input class="input-whidth form-control amount input-lg" type="text" id=PorcentajeInputText #RPorcentajeAlta [matKeyboard]="'num'" style="text-align: center" placeholder="%">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="amount" class="col-sm control-label">(La suma de los porcentajes asignados a sus beneficiarios, debe ser igual a 100%)</label>
+                        </div>
                     </div>
-                    <br>
                     <br>
                     <div [formGroup]="myformCP" class="row">
-                        <div class="col-lg-2" style="left: 151px">CP </div>
-                        <div class="col-lg-1">
-                            <input type="text" id=CPInputText formControlName="CodPBenef" #RAltaCodigoPostal [matKeyboard]="'num'" style="width: 150% !important; margin-top: -4px; text-align: center; margin-left: -80px" placeholder="CP">
+                        <div class="form-group col-sm-1">
+                            <label for="amount" class="col-sm-2 control-label">CP</label>
                         </div>
-                        <div class="col-lg-1">
-                            <button type="button" class="color-botones btn btn-lg pull-right" [disabled]="myformCP.invalid" (click)="consultaCodigoPostalSoap(RAltaCodigoPostal.value)" style="margin-left: -32px; font-size: 16px !important; margin-top: -8px; float: inherit">Consulta CP</button>
+                        <div class="col-sm-2">
+                            <input class="input-whidth form-control amount input-lg" type="text" id=CPInputText formControlName="CodPBenef" #RAltaCodigoPostal [matKeyboard]="'num'" style="text-align: center" placeholder="CP">
+                            <div class="alert-danger">
+                                <p color="danger" *ngIf="myformCP.get('CodPBenef').errors && myformCP.get('CodPBenef').touched">Ingrese CP válido</p>
+                                <p color="danger" *ngIf="codigoPvacio === 1">No se encontraron resultados, por favor ingrese otro CP</p>
+                            </div>
                         </div>
-                        <div class="col-lg-2" style="left: -3px">Estado </div>
-                        <div class="col-lg-2">
-                            <input type=text id=EdoInputText #RDescripcionEstadoAlta style="margin-left: -204px; width: 304px !important; text-align: center; margin-top: -4px" [value]="descripcionEstado" placeholder="Ingrese Estado" disabled="true">
+                        <div class="col-sm-1">
+                            <button type="button" class="color-botones btn btn-lg pull-right" [disabled]="myformCP.invalid" (click)="consultaCodigoPostalSoap(RAltaCodigoPostal.value)" style="font-size: 16px !important; margin-top: -2px">Consulta CP</button>
                         </div>
-                        <div class="col-lg-2" style="left: -105px">Delegación/Municipio </div>
-                        <div class="col-lg-2">
-                            <input type=text id=DelMunIputText #RDescripcionDelegacionAlta style=" width: 304px !important; margin-left: -199px; margin-top: -4px; text-align: center" placeholder="Delegación/Municipio" [value]="descripcionDelegacion" disabled="true">
+                        <div class="form-group col-sm-1">
+                            <label for="amount" class="col-sm control-label">Estado</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input class="input-whidth form-control amount input-lg text-uppercase" type=text id=EdoInputText #RDescripcionEstadoAlta style="text-align: center" [value]="descripcionEstado" placeholder="Ingrese Estado" disabled="true">
+                        </div>
+                        <div class="form-group col-sm-1">
+                            <label for="amount" class="col-sm control-label" style="top: -11px;">Delegacion/ Municipio</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input class="input-whidth form-control amount input-lg text-uppercase" type=text id=DelMunIputText #RDescripcionDelegacionAlta style="text-align: center" placeholder="Delegación/Municipio" [value]="descripcionDelegacion" disabled="true">
                         </div>
                     </div>
-                    <div>
-                        <p style="color: red; margin-left: 198px" *ngIf="myformCP.get('CodPBenef').errors && myformCP.get('CodPBenef').touched">Ingrese CP válido</p>
-                        <p style="color: red; margin-left: 125px" *ngIf="codigoPvacio === 1">No se encontraron resultados, por favor ingrese otro CP</p>
-                    </div>
-                    <br>
                     <br>
                     <div class="row">
-                        <div class="col-lg-2" style="left: 118px">Colonia </div>
-                        <div class="col-lg-2">
-                            <select class="input-whidth selectModificado" id="selColonia" (change)="seleccionColonia()" #rColonias style="width: 304px; text-align: center; margin-left: -80px; margin-top: -6px; height: 35px; background-size: auto">
+                        <div class="form-group col-sm-1">
+                            <label for="amount" class="col-sm control-label">Colonia</label>
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="input-whidth form-control amount input-lg selectModificado" id="selColonia" (change)="seleccionColonia()" #rColonias style=" background-size: auto">
                                 <option [disabled]="true" selected="true">Seleccione Colonia</option>
                                 <option *ngFor="let colonias of CP"  [value]="colonias.Colonia">{{colonias.Colonia}}</option>                      
                         </select>
                         </div>
-                        <div class="col-lg-2" style="left: 8px">Calle </div>
-                        <div class="col-lg-3">
-                            <input class="text-uppercase" type="text" id=CalleInputText formControlName="nomCalleBenef" #RNombreCalleAlta [matKeyboard]="" style="margin-left: -204px; width: 145% !important; margin-top: -4px; text-align: center" placeholder="Ingrese Calle">
+                        <div class="form-group col-sm-1">
+                            <label for="amount" class="col-sm control-label">Calle</label>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <p style="color: red; margin-left: 746px" *ngIf="myform.get('nomCalleBenef').errors && myform.get('nomCalleBenef').touched">Nombre de la Calle es requerido</p>
+                        <div class="col-sm-5">
+                            <input class="input-whidth form-control amount input-lg text-uppercase" type="text" id=CalleInputText formControlName="nomCalleBenef" #RNombreCalleAlta [matKeyboard]="" style="text-align: center" maxlength="23" placeholder="Ingrese Calle">
+                            <div class="alert-danger">
+                                <p color="danger" *ngIf="myform.get('nomCalleBenef').errors && myform.get('nomCalleBenef').touched">Nombre de la Calle es requerido</p>
+                            </div>
                         </div>
                     </div>
                     <br>
-                    <br>
                     <div class="row">
-                        <div class="col-lg-2" style="left: 121px">No. Ext </div>
-                        <div class="col-lg-2">
-                            <input type="number" id=NumExtInputText #RNumeroCalleAlta [matKeyboard]="'num'" style="margin-left: -80px; width: 37% !important; margin-top: -4px; text-align: center" placeholder="No. Ext">
+                        <div class="form-group col-sm-1">
+                            <label for="amount" class="col-sm control-label">No. Ext</label>
                         </div>
-                        <div class="col-lg-2" style="left: -245px">Departamento </div>
-                        <div class="col-lg-2">
-                            <input type="number" id=DepaInputText #RNumeroDepartamentoAlta [matKeyboard]="'num'" style="margin-left: -397px; width: 37% !important; margin-top: -4px; text-align: center" placeholder="Dpto">
+                        <div class="col-sm-1">
+                            <input class="input-whidth form-control amount input-lg" type="number" id=NumExtInputText #RNumeroCalleAlta [matKeyboard]="'num'" style=" text-align: center" maxlength="6" placeholder="No. Ext">
+                        </div>
+                        <div class="form-group col-sm-1">
+                            <label for="amount" class="col-sm control-label">Departamento</label>
+                        </div>
+                        <div class="col-sm-1">
+                            <input class="input-whidth form-control amount input-lg" type="number" id=DepaInputText #RNumeroDepartamentoAlta [matKeyboard]="'num'" style="text-align: center" maxlength="4" placeholder="Dpto">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="color-botones btn btn-lg pull-right" (click)="cerrarModalAltaBeneficiario()">Cancelar</button>
+                    <button type="button" class="color-botones btn btn-lg pull-right" data-dismiss="modal">Cancelar</button>
                     <button type="button" class="color-botones btn btn-lg pull-right" [disabled]="myform.invalid  || rColonias.value === 'Seleccione Colonia' || rColonias.value === '' || RFisicaMoralSelecAlta.value  === 'Seleccione Opción' || RFisicaMoralSelecAlta.value === ''"
-                        ng-click="location.reload()" (click)="altaBeneficiarioView(myform.value, myformCP.value)">Confirmar</button>
+                        ng-click="location.reload()" data-dismiss="modal" (click)="altaBeneficiarioView(myform.value, myformCP.value)">Confirmar</button>
                 </div>
 
             </div>
@@ -230,133 +248,159 @@
 
     <!-- Modal Modificación de Beneficiarios-->
     <div class="modal fade" id="modalModificacionBeneficiarios" tabindex="-1" role="dialog" aria-labelledby="ModalTDDLogin" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 78%; position: initial !important;">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 85%; position: initial !important; margin-top: -41px;">
             <div class="modal-content shadowModal">
                 <h2 class="text-center padding-barToTittle deleteMargin-h2  color-letra">Modificacion de Beneficiario</h2>
                 <br>
                 <div class="modal-body modal-body-aux">
 
                     <div class="row">
-                        <div class="col-lg-2" style="margin-left: 100px">Nombre(s) </div>
-                        <div class="col-lg-2">
-                            <input class="text-uppercase" type="text" id=NombreinputText [matKeyboard]="" #RNombreBeneficiario formControlName="nombreBenef" style="margin-top: -225px; text-align: center; width: 304px; margin-left: -180px; text-transform: uppercase" placeholder="Ingrese Nombre(s)">
+                        <div class="form-group col-sm-1">
+                            <label for="amount" class="col-sm-1 control-label">Nombre(s)</label>
                         </div>
-                        <div class=" col-lg-2" style="margin-left: -106px">Apellido Paterno </div>
-                        <div class="col-lg-2">
-                            <input class="text-uppercase" type="text" id=AppPinputText formControlName="apPatBenef" #RApellidoPat [matKeyboard]="" style=" width: 90% !important; margin-left: -131px; margin-top: -4px; text-align: center; width: 304px !important" placeholder="Ingrese Apellido Paterno">
+                        <div class="col-sm-3">
+                            <input class=" input-whidth form-control amount input-lgtext-uppercase" type="text" id=NombreinputText [matKeyboard]="" #RNombreBeneficiario formControlName="nombreBenef" style="text-align: center; text-transform: uppercase" maxlength="20" placeholder="Ingrese Nombre(s)">
+                            <div class="alert-danger" *ngIf="myform.get('nombreBenef').errors && myform.get('nombreBenef').touched">
+                                <p color="danger">Nombre es Requerido</p>
+                            </div>
                         </div>
-                        <div class="col-lg-2" style="left: -60px">Apellido Materno </div>
-                        <div class="col-lg-2">
-                            <input type="text" class="text-uppercase" id=AppMinputText #RApellidoMat [matKeyboard]="" style=" width: 90% !important; margin-left: -193px; margin-top: -4px; text-align: center; width: 304px !important" placeholder="Ingrese Apellido Materno">
+                        <div class="form-group col-sm-1">
+                            <label for="amount" class="col-sm control-label" style="text-align: right; top: -11px;">Apellido Paterno</label>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <p style="color: red; margin-left: 255px" *ngIf="myform.get('nombreBenef').errors && myform.get('nombreBenef').touched">Nombre es Requerido</p>
+                        <div class="col-sm-3">
+                            <input class="input-whidth form-control amount input-lg text-uppercase" type="text" id=AppPinputText formControlName="apPatBenef" #RApellidoPat [matKeyboard]="" style="text-align: center" maxlength="20" placeholder="Ingrese Apellido Paterno">
+                            <div class="alert-danger" *ngIf="myform.get('apPatBenef').errors && myform.get('apPatBenef').touched">
+                                <p color="danger">Apellido Paterno es Requerido</p>
+                            </div>
                         </div>
-                        <div class="col-lg-6">
-                            <p style="color: red; margin-left: -97px" *ngIf="myform.get('apPatBenef').errors && myform.get('apPatBenef').touched">Apellido Paterno es Requerido</p>
+                        <div class="form-group col-sm-1">
+                            <label for="amount" class="col-sm control-label" style="text-align: right; top: -11px;">Apellido Materno</label>
                         </div>
-                    </div>
-                    <br>
-                    <br>
-                    <div class="row">
-                        <div class="col-lg-2" style="left: 80px">F.Nacimiento </div>
-                        <div class="col-lg-2">
-                            <input type="text" id=FechaNacInputText formControlName="fechaNacBenef" #RFechaNacimiento [matKeyboard]="'num'" style="margin-top: -4px; text-align: center; margin-left: -80px; width: 304px" placeholder="AAAA-MM-DD">
-                        </div>
-                        <div class="col-lg-2" style="left: 36px">Parentesco </div>
-                        <div class="col-lg-2">
-                            <input type="text" class="text-uppercase" id=ParentescoInputText formControlName="parentescoBenef" [matKeyboard]="" #RParentesco style=" width: 304px !important; margin-left: -136px; margin-top: -4px; text-align: center; width: 304px !important" placeholder="Ingrese Parentesco">
-                        </div>
-                        <div class="col-lg-2" style="left: -58px">Tipo de Persona </div>
-                        <div class="col-lg-2">
-                            <input id="selTypePersonAlta" [value]="fisicaMoralSeleccionada" #RFisicaMoralSelec required style=" width: 304px !important; margin-left: -199px; text-align: center; height: 35px; margin-top:
-                                            -3px" disabled="true">
+                        <div class="col-sm-3">
+                            <input type="text" class="input-whidth form-control amount input-lg text-uppercase" id=AppMinputText #RApellidoMat [matKeyboard]="" style="text-align: center" maxlength="20" placeholder="Ingrese Apellido Materno">
                         </div>
                     </div>
-                    <div>
-                        <p style="color: red; margin-left: 225px" *ngIf="myform.get('fechaNacBenef').errors && myform.get('fechaNacBenef').touched">Formato de Fecha es Incorrecto</p>
-                        <p style="color: red; margin-left: -67px" *ngIf="myform.get('parentescoBenef').errors && myform.get('parentescoBenef').touched">Parentesco es Requerido</p>
-                    </div>
-                    <br>
                     <br>
                     <div class="row">
-                        <div class="col-lg-2" style="left: 143px">RFC </div>
-                        <div class="col-lg-2">
-                            <input type="text" class="text-uppercase" id=RFCInputText [matKeyboard]="" formControlName="registroFC" #RRegistroFederal style="margin-top: -4px; text-align: center; margin-left: -80px; width: 304px" placeholder="Ingrese RFC">
+                        <div class="form-group col-sm-1">
+                            <label for="amount" class="col-sm-1 control-label">F.Nacimiento</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input class="input-whidth form-control amount input-lg" type="text" id=FechaNacInputText formControlName="fechaNacBenef" #RFechaNacimiento [matKeyboard]="'num'" style="text-align: center" placeholder="AAAA-MM-DD">
+                            <div class="alert-danger" *ngIf="myform.get('fechaNacBenef').errors && myform.get('fechaNacBenef').touched">
+                                <p color="danger">Formato de Fecha es Incorrecto</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-1">
+                            <label for="amount" class="col-sm control-label" style="text-align: right">Parentesco</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input class="input-whidth form-control amount input-lg text-uppercase" type="text" id=ParentescoInputText formControlName="parentescoBenef" [matKeyboard]="" #RParentesco style=" text-align: center" maxlength="20" placeholder="Ingrese Parentesco">
+                            <div class="alert-danger" *ngIf="myform.get('parentescoBenef').errors && myform.get('parentescoBenef').touched">
+                                <p>Parentesco es Requerido</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-1">
+                            <label for="amount" class="col-sm control-label" style="text-align: right; top: -11px;">Tipo de Persona</label>
+                        </div>
+                        <div class="col-lg-3">
+                            <input class="input-whidth form-control amount input-lg text-uppercase" id="selTypePersonAlta" [value]="fisicaMoralSeleccionada" #RFisicaMoralSelec required style="text-align: center; background-image: none" disabled="true">
                         </div>
                     </div>
-                    <div>
-                        <p style="color: red; margin-left: 242px" *ngIf="myform.get('registroFC').errors && myform.get('registroFC').touched">Formato deRFC Incorrecto</p>
-                    </div>
-                    <br>
                     <br>
                     <div class="row">
-                        <div class="col-lg-2" style="left: 190px">% Asignado al Beneficiario </div>
-                        <div class="col-lg-2">
-                            <input type="text" id=PorcentajeInputText [matKeyboard]="'num'" #RPorcentaje style="margin-left: 138px; width: 36% !important; text-align: center; margin-top: -4px" placeholder="%">
+                        <div class="form-group col-sm-1">
+                            <label for="amount" class="col-sm-1 control-label">RFC</label>
                         </div>
-                        <div class="col-lg-5" style="margin-left: -3px">(La suma de los porcentajes asignados a sus beneficiarios, debe ser igual a 100%)</div>
+                        <div class="col-sm-3">
+                            <input type="text" class="input-whidth form-control amount input-lg text-uppercase" id=RFCInputText [matKeyboard]="" formControlName="registroFC" #RRegistroFederal style="text-align: center" placeholder="Ingrese RFC">
+                            <div class="alert-danger">
+                                <p color="danger" *ngIf="myform.get('registroFC').errors && myform.get('registroFC').touched">Formato de RFC Incorrecto</p>
+                            </div>
+                        </div>
                     </div>
                     <br>
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            <label for="amount" class="col-sm control-label" style="left:116px">% Asignado al Beneficiario</label>
+                        </div>
+                        <div class="col-sm-1">
+                            <input class="input-whidth form-control amount input-lg" type="text" id=PorcentajeInputText [matKeyboard]="'num'" #RPorcentaje style="text-align: center" placeholder="%">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="amount" class="col-sm control-label">(La suma de los porcentajes asignados a sus beneficiarios, debe ser igual a 100%)</label>
+                        </div>
+                    </div>
                     <br>
                     <div [formGroup]="myformCPMod" class="row">
-                        <div class="col-lg-2" style="left: 151px">CP </div>
-                        <div class="col-lg-1">
-                            <input type="text" id=CPInputText [matKeyboard]="'num'" formControlName="CodPBenefMod" #RCodigoPostal style="width: 150% !important; margin-top: -4px; text-align: center; margin-left: -80px" placeholder="CP">
+                        <div class="form-group col-sm-1">
+                            <label for="amount" class="col-sm-2 control-label">CP</label>
                         </div>
-                        <div class="col-lg-1">
-                            <button type="button" [disabled]="myformCPMod.invalid" class="color-botones btn btn-lg pull-right" (click)="consultaCodigoPostalSoap(RCodigoPostal.value)" style="margin-left: -32px; font-size: 16px !important; margin-top: -8px; float: inherit">Consulta CP</button>
+                        <div class="col-sm-2">
+                            <input class="input-whidth form-control amount input-lg" type="text" id=CPInputText [matKeyboard]="'num'" formControlName="CodPBenefMod" #RCodigoPostal style=" text-align: center" placeholder="CP">
+                            <div class="alert-danger">
+                                <p color="danger" *ngIf="myformCPMod.get('CodPBenefMod').errors && myformCPMod.get('CodPBenefMod').touched">Ingrese CP válido</p>
+                                <p color="danger" *ngIf="codigoPvacio === 1">No se encontraron resultados, por favor ingrese otro CP</p>
+                            </div>
                         </div>
-                        <div class="col-lg-2" style="left: -3px">Estado </div>
-                        <div class="col-lg-2">
-                            <input type="text" class="text-uppercase" id=EdoInputText #RDescripcionEstado [value]="descripcionEstado" style="margin-left: -204px; width: 304px !important; text-align: center; margin-top: -4px" placeholder="Ingrese Estado" disabled="true">
+                        <div class="col-sm-1">
+                            <button type="button" [disabled]="myformCPMod.invalid" class="color-botones btn btn-lg pull-right" (click)="consultaCodigoPostalSoap(RCodigoPostal.value)" style="font-size: 16px !important; margin-top: -2px">Consulta CP</button>
                         </div>
-                        <div class="col-lg-2" style="left: -105px">Delegación/Municipio </div>
-                        <div class="col-lg-2">
-                            <input type="text" class="text-uppercase" id=DelMunIputText #RDescripcionDelegacion [value]="descripcionDelegacion" style=" width: 304px !important; margin-left: -199px; margin-top: -4px; text-align: center" placeholder="Delegación/Municipio" disabled="true">
+                        <div class="form-group col-sm-1">
+                            <label for="amount" class="col-sm control-label">Estado</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" class="input-whidth form-control amount input-lg text-uppercase" id=EdoInputText #RDescripcionEstado [value]="descripcionEstado" style="text-align: center" placeholder="Ingrese Estado" disabled="true">
+                        </div>
+                        <div class="form-group col-sm-1">
+                            <label for="amount" class="col-sm control-label" style="top: -11px;">Delegacion/ Municipio</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" class="input-whidth form-control amount input-lg text-uppercase" id=DelMunIputText #RDescripcionDelegacion [value]="descripcionDelegacion" style="text-align: center" placeholder="Delegación/Municipio" disabled="true">
                         </div>
                     </div>
-                    <div>
-                        <p style="color: red; margin-left: 245px" *ngIf="myformCPMod.get('CodPBenefMod').errors && myformCPMod.get('CodPBenefMod').touched">Ingrese CP válido</p>
-                        <p style="color: red; margin-left: 172px" *ngIf="codigoPvacio === 1">No se encontraron resultados, por favor ingrese otro CP</p>
-                    </div>
-                    <br>
                     <br>
                     <div class="row">
-                        <div class="col-lg-2" style="left: 118px">Colonia </div>
-                        <div class="col-lg-2">
-                            <select class="input-whidth selectModificado" id="selColonia" (change)="seleccionColonia()" #RColoniasM style="width: 304px; text-align: center; margin-left: -80px; margin-top: -6px; height: 35px; background-size: auto">
+                        <div class="form-group col-sm-1">
+                            <label for="amount" class="col-sm control-label">Colonia</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <select class="input-whidth form-control amount input-lg selectModificado" id="selColonia" (change)="seleccionColonia()" #RColoniasM style="text-align: center; background-size: auto">
                                             <option *ngIf="descripcionColonia !== ''">{{descripcionColonia}}</option>
                                             <option disabled="true">Seleccione Colonia</option>
                                             <option  *ngFor="let colonias of CP" [value]="colonias.Colonia">{{colonias.Colonia}}</option>
                                   </select>
                         </div>
-                        <div class="col-lg-2" style="left: 8px">Calle </div>
-                        <div class="col-lg-3">
-                            <input type="text" class="text-uppercase" id=CalleInputText [matKeyboard]="" formControlName="nomCalleBenef" #RNombreCalle style="margin-left: -204px; width: 145% !important; margin-top: -4px; text-align: center" placeholder="Ingrese Calle">
+                        <div class="form-group col-sm-1">
+                            <label for="amount" class="col-sm control-label">Calle</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <input type="text" class="input-whidth form-control amount input-lg text-uppercase" id=CalleInputText [matKeyboard]="" formControlName="nomCalleBenef" #RNombreCalle style="text-align: center" maxlength="23" placeholder="Ingrese Calle">
+                            <div class="alert-danger">
+                                <p color="danger" *ngIf="myform.get('nomCalleBenef').errors && myform.get('nomCalleBenef').touched">Nombre de la Calle es requerido</p>
+                            </div>
                         </div>
                     </div>
-                    <div>
-                        <p style="color: red; margin-left: 746px" *ngIf="myform.get('nomCalleBenef').errors && myform.get('nomCalleBenef').touched">Nombre de la Calle es requerido</p>
-                    </div>
-                    <br>
                     <br>
                     <div class="row">
-                        <div class="col-lg-2" style="left: 121px">No. Ext </div>
-                        <div class="col-lg-2">
-                            <input type="text" id=NumExtInputText [matKeyboard]="'num'" #RNumeroCalle style="margin-left: -80px; width: 37% !important; margin-top: -4px; text-align: center" placeholder="No. Ext">
+                        <div class="form-group col-sm-1">
+                            <label for="amount" class="col-sm control-label">No. Ext</label>
                         </div>
-                        <div class="col-lg-2" style="left: -245px">Departamento </div>
-                        <div class="col-lg-2">
-                            <input type="text" id=DepaInputText [matKeyboard]="'num'" #RNumeroDepartamento style="margin-left: -397px; width: 37% !important; margin-top: -4px; text-align: center" placeholder="Dpto">
+                        <div class="col-sm-1">
+                            <input class="input-whidth form-control amount input-lg" type="text" id=NumExtInputText [matKeyboard]="'num'" #RNumeroCalle style="text-align: center" maxlength="6" placeholder="No. Ext">
+                        </div>
+                        <div class="form-group col-sm-1">
+                            <label for="amount" class="col-sm control-label">Departamento</label>
+                        </div>
+                        <div class="col-sm-1">
+                            <input class="input-whidth form-control amount input-lg" type="text" id=DepaInputText [matKeyboard]="'num'" #RNumeroDepartamento style="text-align: center" maxlength="4" placeholder="Dpto">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="color-botones btn btn-lg pull-right" (click)="cerrarModalModificacionBeneficiario()">Cancelar</button>
-                    <button type="button" class="color-botones btn btn-lg pull-right" [disabled]="myform.invalid  || RColoniasM.value === 'Seleccione Colonia' || RColoniasM.value === ''" (click)="guardarModificacionesView(myform.value, myformCPMod.value)" ng-click="location.reload()">Guardar</button>
+                    <button type="button" class="color-botones btn btn-lg pull-right" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="color-botones btn btn-lg pull-right" [disabled]="myform.invalid  || RColoniasM.value === 'Seleccione Colonia' || RColoniasM.value === ''" (click)="guardarModificacionesView(myform.value, myformCPMod.value)" ng-click="location.reload()"
+                        data-dismiss="modal">Guardar</button>
                 </div>
 
             </div>
@@ -376,8 +420,8 @@
                     <p style="text-align: center; font-weight: bold">{{razonSocial}} {{nombreBeneficiario}} {{apellidoPat}} {{apellidoMat}}</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="color-botones btn btn-lg pull-right" data-dismiss="modal" (click)="bajaBeneficiariosView()" ng-click="location.reload()" style="margin-right: 44px">Aceptar</button>
-                    <button type="button" class="color-botones btn btn-lg pull-right" data-dismiss="modal" (click)="cerrarModalBajaBeneficiario()">Cancelar</button>
+                    <button type="button" class="color-botones btn btn-lg pull-right" data-dismiss="modal" (click)="bajaBeneficiariosView()" ng-click="location.reload()" style="margin-right: 44px" data-dismiss="modal">Aceptar</button>
+                    <button type="button" class="color-botones btn btn-lg pull-right" data-dismiss="modal" data-dismiss="modal">Cancelar</button>
                 </div>
 
             </div>
@@ -395,7 +439,7 @@
                     <p style="text-align: left; font-weight: bold">Para poder continuar, es necesario que la suma de los porcentajes asignados a sus beneficiarios sea igual a 100%, por favor modifique, elimine o realice alta de beneficiarios hasta sumar el 100%.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="color-botones btn btn-lg pull-right" data-dismiss="modal" (click)="cerrarModalPorcentaje()">Cancelar</button>
+                    <button type="button" class="color-botones btn btn-lg pull-right" data-dismiss="modal" data-dismiss="modal">Aceptar</button>
                 </div>
 
             </div>

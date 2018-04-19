@@ -6,6 +6,8 @@ export class ResponseWS {
 
     detalleMantenimiento: string;
     datosBeneficiarios: string;
+    datosTransferenciaSPEI: string;
+    nombreOperacion: string;
     respuesta: Respuesta = {
 
         respuestaWS: '',

@@ -12,14 +12,13 @@ export class MantenimientoBenefDetailComponent implements OnInit {
 
   BEN: any;
   numeroCuentaTitular: string;
-  datosBeneficiarios: any;
 
   detalleBeneficiarios: any = {
     fechaOperacion: '',
     horaOperacion: '' 
 };
 
-  constructor(private serviceMantenimiento: ResponseWS, private _service: ConsultaSaldosTddService) { 
+  constructor(private _service: ConsultaSaldosTddService) { 
     $('#_modal_please_wait').modal('show');
     this._service.validarDatosSaldoTdd().then(
       mensaje => {

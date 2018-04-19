@@ -22,8 +22,8 @@ import { PagoTarjetaCreditoFinalComponent } from './pago-tarjeta-credito/pago-ta
 import { ActualizarDatosDeContactoComponent } from './actualizar-datos-de-contacto/actualizar-datos-de-contacto.component';
 import { ActivarAlertasComponent } from './activar-alertas/activar-alertas.component';
 import { TransferenciaTercerosFinalComponent } from './transferencia-terceros/transferencia-terceros-final.component';
-
 import { MantenimientoBenefDetailComponent } from './mantenimiento-benef/mantenimiento-benef-detail/mantenimiento-benef-detail.component';
+import { TransferenciasSpeiDetailComponent } from './transferencia-spei/transferencias-spei-detail/transferencias-spei-detail.component';
 
 
 
@@ -76,7 +76,8 @@ const customLayouts: IKeyboardLayouts = {
         PagoTarjetaCreditoFinalComponent,
         ActualizarDatosDeContactoComponent,
         ActivarAlertasComponent,
-        TransferenciaTercerosFinalComponent
+        TransferenciaTercerosFinalComponent,
+        TransferenciasSpeiDetailComponent
         
     ],
     exports: [],
@@ -90,7 +91,6 @@ const customLayouts: IKeyboardLayouts = {
         BrowserAnimationsModule,
         MatButtonModule,
         MatKeyboardModule,
-
     ],
     providers: [{ provide: MAT_KEYBOARD_LAYOUTS, useValue: customLayouts}],
   bootstrap: [AppComponent]
