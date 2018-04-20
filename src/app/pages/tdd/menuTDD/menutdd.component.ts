@@ -44,7 +44,7 @@ export class MenutddComponent implements OnInit {
           this.router.navigate(['/transBanorte']);
           break;
       case 'pagoServ':
-          this.router.navigate(['/pagoServicios']);
+          this.router.navigate(['/pagoServiciosTDD']);
           break;
       case 'mantoBeneficiarios':
           this.router.navigate(['/mantoBeneficiarios']);
