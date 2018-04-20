@@ -19,11 +19,15 @@ import { ImpresionEdcComponent } from './impresion-edc/impresion-edc.component';
 import { ImpresionEdcFinishComponent } from './impresion-edc/impresion-edc-finish/impresion-edc-finish.component';
 import { TransferenciasBanorteComponent } from "./transferencias-banorte/transferencias-banorte.component";
 import { TransferenciaFinishBanorteComponent } from "./transferencias-banorte/transferencia-finish-banorte/transferencia-finish-banorte.component";
+import { ConsultaMovimientosComponent } from './consulta-movimientos/consulta-movimientos.component';
+import { ConsultaMovimientosDetailComponent } from './consulta-movimientos/consulta-movimientos-detail/consulta-movimientos-detail.component';
 
 const pageRoutesBXI: Routes = [
     {
         path: '', component: PagesBxiComponent,
         children: [
+            { path: 'saldosDetailBXI', component: ConsultaMovimientosDetailComponent},
+            { path: 'saldosBXI', component: ConsultaMovimientosComponent},
             { path: 'CompraTaComponent', component: CompraTaComponent},
             { path: 'speiBXI', component: TransferenciaSpeiComponent},
             { path: 'pagoservicios_ini', component: PagoServiciosIniComponent},
