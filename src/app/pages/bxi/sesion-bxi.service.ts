@@ -89,6 +89,16 @@ export class SesionBxiService {
 
 
 
+     // cuenta consulta movimientos
+     tipoCuenta: String;
+     aliasCuentaSeleccionada: String;
+     noTarjetaSeleccionada: String;
+     divisa: String;
+     saldoSeleccionado: String;
+     
+
+
+
   constructor() {  }
 
 }
