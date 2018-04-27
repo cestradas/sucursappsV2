@@ -4,14 +4,19 @@ import { Router } from '@angular/router';
 import { SesionBxiService } from '../sesion-bxi.service';
 import { OperacionesBXI } from '../operacionesBXI';
 
+declare var jquery: any; // jquery
+declare var $: any;
+
+
 @Component({
   selector: 'app-consulta-movimientos',
   templateUrl: './consulta-movimientos.component.html'
 })
 export class ConsultaMovimientosComponent implements OnInit {
-  nombreUsuarioTdd: String;
-  saldoClienteTdd: String;
-  cuentaClienteTdd: string;
+  
+
+  cuentasArray: Array<any>;
+  
   
   @ViewChild('listaCuentas', { read: ElementRef}) listaCuentas: ElementRef ;
   
@@ -23,33 +28,89 @@ export class ConsultaMovimientosComponent implements OnInit {
                }
 
   ngOnInit() {
-
-    this.fillSelectCuentas();
+    $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
+  this.fillSelectCuentasTDD();
   }
 
 
-  fillSelectCuentas() {
+  fillSelectCuentasTDD() {
+
+    console.log("Entre a fiillSelectCuentasTDD");
     const this_aux = this;
+    this_aux.resetLista();
+    this_aux.service.tipoCuenta = "1";
     const cuentasString = this_aux.service.infoCuentas;
     console.log(this_aux.service.infoCuentas);
     const consultaCuentas = JSON.parse(cuentasString);
-    const cuentasArray = consultaCuentas.ArrayCuentas;
-      cuentasArray.forEach(cuenta => {
-          const li =  this.renderer.createElement('li');
-          const a = this.renderer.createElement('a');
-          const textoCuenta = this.renderer.createText( cuenta.Alias);
-          this.renderer.setProperty(a, 'value', cuenta.NoCuenta);
-          this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target); });
-          this.renderer.appendChild(a, textoCuenta),
-          this.renderer.appendChild(li, a);
-          this.renderer.appendChild(this.listaCuentas.nativeElement, li);
-    });
+    this_aux.cuentasArray = consultaCuentas.ArrayCuentas;
+    console.log(this_aux.cuentasArray.length);
+    
+    
+    console.log(this_aux.cuentasArray);
+      for (let i = 0; i < this_aux.cuentasArray.length; i++) {
+      if (this_aux.cuentasArray[i].TipoCuenta === 1) {
+        const li =  this.renderer.createElement('li');
+        const a = this.renderer.createElement('a');
 
+        this_aux.service.aliasCuentaSeleccionada = this_aux.cuentasArray[i].Alias;
+        this_aux.service.noTarjetaSeleccionada = this_aux.cuentasArray[i].Plastico;
+        this_aux.service.divisa = this_aux.cuentasArray[i].Divisa;
+
+        const textoCuenta = this.renderer.createText( this_aux.cuentasArray[i].Alias);
+        this.renderer.setProperty(a, 'value', this_aux.cuentasArray[i].NoCuenta);
+        this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target, this_aux.service.tipoCuenta); });
+        this.renderer.appendChild(a, textoCuenta),
+        this.renderer.appendChild(li, a);
+        this.renderer.appendChild(this.listaCuentas.nativeElement, li);
+      }
+    } 
 }
 
+fillSelectCuentasTDC() {
+  console.log("Entre a fiillSelectCuentasTDC");
+  const this_aux = this;
+    this_aux.resetLista();
+    const cuentasString = this_aux.service.infoCuentas;
+    console.log(this_aux.service.infoCuentas);
+    const consultaCuentas = JSON.parse(cuentasString);
+    this_aux.cuentasArray = consultaCuentas.ArrayCuentas;
+    console.log(this_aux.cuentasArray.length);
 
-setDatosCuentaSeleccionada(elementHTML) {
-      
+  this_aux.service.tipoCuenta = "5";
+  console.log(this_aux.cuentasArray);
+
+ 
+    for (let i = 0; i < this_aux.cuentasArray.length; i++) {
+    if (this_aux.cuentasArray[i].TipoCuenta === 5) {
+      const li =  this.renderer.createElement('li');
+      const a = this.renderer.createElement('a');
+
+      this_aux.service.aliasCuentaSeleccionada = this_aux.cuentasArray[i].Alias;
+      this_aux.service.noTarjetaSeleccionada = this_aux.cuentasArray[i].Plastico;
+      this_aux.service.divisa = this_aux.cuentasArray[i].Divisa;
+
+      const textoCuenta = this.renderer.createText( this_aux.cuentasArray[i].Alias);
+      this.renderer.setProperty(a, 'value', this_aux.cuentasArray[i].NoCuenta);
+      this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target, this_aux.service.tipoCuenta); });
+      this.renderer.appendChild(a, textoCuenta),
+      this.renderer.appendChild(li, a);
+      this.renderer.appendChild(this.listaCuentas.nativeElement, li);
+    }
+  } 
+}
+
+resetLista() {
+    const node = document.getElementById("ul_Cuentas");
+    console.log(node);
+    while (node.firstChild) {
+      node.removeChild(node.firstChild);
+     }
+  }
+
+
+
+  setDatosCuentaSeleccionada(elementHTML, tipoCuenta) {
+      console.log("setDatosCuentaSeleccionada inicial  " + tipoCuenta);
   $('#_modal_please_wait').modal('show');
   const this_aux = this;
   console.log(elementHTML);
@@ -65,10 +126,23 @@ setDatosCuentaSeleccionada(elementHTML) {
   lblAliasOrigen.innerHTML = elementHTML.textContent;
   lblCuentaOrigen.innerHTML = numCuenta_seleccionada.toString();
   this_aux.service.numCuentaSeleccionado = numCuenta_seleccionada;
-  this_aux.getSaldoDeCuenta(numCuenta_seleccionada);
+  console.log("setDatosCuentaSeleccionada final  " + tipoCuenta);
+
+  if (tipoCuenta === "1") {
+
+    console.log("setDatosCuentaSeleccionada if cuando 1  " + tipoCuenta);
+    this_aux.getSaldoDeCuentaTDD(numCuenta_seleccionada);
+    console.log("llego el saldo tdd");
+  } else {
+
+    console.log("setDatosCuentaSeleccionada if cuando 2  " + tipoCuenta);
+    this_aux.getSaldoDeCuentaTDC(numCuenta_seleccionada);
+    console.log("llego el saldo tdc");
+  }
+  
 }
 
-getSaldoDeCuenta(numCuenta_seleccionada) {
+getSaldoDeCuentaTDD(numCuenta_seleccionada) {
   const this_aux = this;
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
   operacionesbxi.getSaldo(numCuenta_seleccionada).then(
@@ -78,6 +152,7 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
         if ( detalleSaldos.Id === '1') {
           const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
           lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
+          this_aux.service.saldoSeleccionado = detalleSaldos.SaldoDisponible;
           $('#_modal_please_wait').modal('hide');
 
         } else {
@@ -87,6 +162,42 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
          this_aux.showErrorPromise(error);
   });
 }
+
+getSaldoDeCuentaTDC(numeroCue) {
+  const this_aux = this;
+  const formParameters = {
+    cuenta: numeroCue
+  }; 
+  console.log(formParameters);
+         
+  const resourceRequest = new WLResourceRequest(
+    
+    'adapters/AdapterBanorteSucursAppsBEL/resource/consultaMovimientosTarjetas', WLResourceRequest.POST);
+    resourceRequest.setTimeout(30000);
+    
+    resourceRequest.sendFormParameters(formParameters).then(
+      function(response) {
+        console.log(response.responseText);
+       let saldo = response.responseJSON;
+       let saldoCuenta = saldo.SaldoDisponible;
+       console.log(saldoCuenta);
+
+       if ( saldo.Id === '1') {
+        const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
+        lblSaldoOrigen.innerHTML = saldoCuenta;
+        this_aux.service.saldoSeleccionado = saldoCuenta;
+        $('#_modal_please_wait').modal('hide');
+
+      } else {
+         this_aux.showErrorSucces(saldo);
+      }
+
+      }, function(error) {
+  });
+
+}
+
+
 
 showErrorSucces(json) {
   console.log(json.Id + json.MensajeAUsuario);
@@ -108,19 +219,26 @@ showErrorPromise(error) {
     console.log(peticion);
     const div = document.getElementById('flecha1');
     const div2 = document.getElementById('flecha2');
- 
+    const divcuentas = document.getElementById("cuentas1");
+    const divcuentas2 = document.getElementById("cuentas2");
         switch (peticion) {
     
           case 'cuentas1':
             div.style.display  = 'block'; 
             div2.style.display = "none";
-      
+            divcuentas.style.backgroundColor = '#a51029';
+            divcuentas2.style.backgroundColor = '#c41330';
+
+            this.fillSelectCuentasTDD();
             // disparar accion para consultar los datos
           break;
           case 'cuentas2': 
             div.style.display = "none";
             div2.style.display = "block";
-      
+            divcuentas.style.backgroundColor = '#c41330';
+            divcuentas2.style.backgroundColor = '#a51029';
+
+            this.fillSelectCuentasTDC();
             // disparar accion para consultar los datos
           break;
             }

@@ -10,13 +10,13 @@
 
         <div class="row">
             <div class="col-md-6 col-sm-6 col-xl-6 ">
-                <div class="tConsultaSaldos" id="cuentas1" #deposito (click)="cambiarMenu(deposito.id)">
+                <div class="tConsultaSaldos" style="background-color:#a51029" id="cuentas1" #deposito (click)="cambiarMenu(deposito.id)">
                     Cuentas de dep&oacute;sito
                 </div>
                 <div class="flecha_abajo" id="flecha1"></div>
             </div>
             <div class="col-md-6 col-sm-6 col-xl-6 ">
-                <div class="tConsultaSaldos" id="cuentas2" #deposito2 (click)="cambiarMenu(deposito2.id)">
+                <div class="tConsultaSaldos" style="background-color:#c41330" id="cuentas2" #deposito2 (click)="cambiarMenu(deposito2.id)">
                     Cuentas de cr&eacute;dito
                 </div>
                 <div class="flecha_abajo" id="flecha2" style='display:none'></div>
@@ -28,13 +28,13 @@
         <fieldset class="padding-TittleToFieldset padding-fieldset-general">
             <div class="row sumando-form-group">
 
-                <div class="col-sm-10 group-controls  padding-InFieldset" style="padding-left: 0px; padding-right:  0px;">
+                <div class="col-sm-10 group-controls  padding-InFieldset" height="92px" style="padding-left: 0px; padding-right:  0px;">
                     <div class="form-group">
                         <div class="sumando-bg-white">
                             <input type="hidden">
                             <div class="dropdown sumando-dropdown-account">
                                 <button class="btn btn-default btn-block dropdown-toggle btn-color-cuentas " type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="padding-right: 0px;padding-top: 0px;padding-bottom: 0px">
-                    <table id="tableOrigen" style="display: none" width="100%">
+                    <table id="tableOrigen" style="display: none" width="100%" height="92px">
                       <tr>
                         <td align="left" width="45%">
                           <strong><label  id="lblAliasOrigen" #lblAliasOrigen></label></strong>
@@ -42,9 +42,6 @@
                         <td align="left" width="45%">
                           <strong>$<label id ="lblSaldoOrigen" #lblSaldoOrigen></label>
                           </strong>
-                        </td>
-                        <td width="5%" rowspan="2" class="dropdown-caret">
-                          <img  class="img-select-seleccion" src="./assets/img/bg_selectN.png">
                         </td>
                       </tr>
                       <tr>
@@ -62,7 +59,7 @@
                   </button>
                                 <div>
                                     <ul id="ul_Cuentas" #listaCuentas class="dropdown-menu btn-block" aria-labelledby="dropdownMenu1" style="width : 100%; height : 200px; overflow: auto;">
-
+                                        <li></li>
                                     </ul>
                                 </div>
                             </div>
@@ -81,8 +78,13 @@
 
         </fieldset>
 
-        <div class="row actions-form-group text-right padding-right-5">
-            <button class="btn btn-default btn-lg" style="margin-right: 15px;" onClick="currentPage.loadMenu();">Regresar</button>
+        <div style="margin:30px 0px 0px 0px;" class="row">
+            <div class="col-sm-11"></div>
+            <div style=" padding: 0px;" class="col-sm-1">
+                <button class="btn btn-danger  btn-lg letranegrita " routerLink="/menuBXI">
+          Regresar
+        </button>
+            </div>
         </div>
     </div>
 </div>
