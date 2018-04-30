@@ -335,4 +335,23 @@ export class OperacionesBXI {
 
       return resourceRequest.sendFormParameters(formParameters);
     }
+
+
+    consultaMovimientos (cuenta, fechaDesde, fechaHasta, Comision, Pagina, numeroRegistros) {
+
+        const formParameters = {
+            cuenta: cuenta,
+            fechaDesde: fechaDesde,
+            fechaHasta: fechaHasta,
+            Comision: Comision,
+            Pagina: Pagina,
+            numeroRegistros: numeroRegistros,
+          };
+
+         const    resourceRequest = new WLResourceRequest(
+                'adapters/AdapterBanorteSucursAppsBEL/resource/consultaMovimientos', WLResourceRequest.POST);
+          resourceRequest.setTimeout(30000);
+
+          return resourceRequest.sendFormParameters(formParameters);
+    }
 }

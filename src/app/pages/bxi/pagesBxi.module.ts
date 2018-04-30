@@ -29,6 +29,8 @@ import { TransferenciasBanorteComponent } from './transferencias-banorte/transfe
 import { TransferenciaFinishBanorteComponent } from './transferencias-banorte/transferencia-finish-banorte/transferencia-finish-banorte.component';
 import { ImpresionEdcComponent } from './impresion-edc/impresion-edc.component';
 import { ImpresionEdcFinishComponent } from './impresion-edc/impresion-edc-finish/impresion-edc-finish.component';
+import { ConsultaMovimientosComponent } from './consulta-movimientos/consulta-movimientos.component';
+import { ConsultaMovimientosDetailComponent } from './consulta-movimientos/consulta-movimientos-detail/consulta-movimientos-detail.component';
 
 
 const customLayouts: IKeyboardLayouts = {
@@ -66,7 +68,8 @@ const customLayouts: IKeyboardLayouts = {
 
 @NgModule ({
     declarations: [
-
+        ConsultaMovimientosComponent,
+        ConsultaMovimientosDetailComponent,
         PagesBxiComponent,
         CompraTaComponent,
         CompraFinishTaComponent,

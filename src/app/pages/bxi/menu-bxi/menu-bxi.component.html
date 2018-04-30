@@ -16,7 +16,7 @@
                 <div class="row ">
                     <div class="col-md-2 col-sm-2 col-xl-2 " style="margin-left: 120px;">
                         <a>
-                            <img src="./assets/img/4_Saldos-y-movimientos.png " width="200px " class="styleMenuButton" draggable="false " />
+                            <img (click)="comenzarOperacion('saldoBXI')" src="./assets/img/4_Saldos-y-movimientos.png " width="200px " class="styleMenuButton" draggable="false " />
                         </a>
                     </div>
                     <div class="col-md-2 col-sm-2 col-xl-2 ">
@@ -92,7 +92,7 @@
                     </div>
                     <div class="col-md-2 col-sm-2 col-xl-2 ">
                         <a id="loadPage2Button ">
-                            <img src="./assets/img/11_Pago-de-tarjetas-de-crédito.png " class="sizeMenuButtons styleMenuButton"   (click)="comenzarOperacion('pagotar')" width="200px " draggable="false " />
+                            <img src="./assets/img/11_Pago-de-tarjetas-de-crédito.png " class="sizeMenuButtons styleMenuButton" (click)="comenzarOperacion('pagotar')" width="200px " draggable="false " />
                         </a>
                     </div>
                     <div class="col-md-2 col-sm-2 col-xl-2 ">
@@ -105,7 +105,7 @@
                     </div>
                     <div class="col-md-2 col-sm-2 col-xl-2 ">
                         <a>
-                            <img src="./assets/img/14_Activar-alertas-Banorte.png " class="sizeMenuButtons styleMenuButton"  (click)="comenzarOperacion('activaAlertas')" width="200px " draggable="false " />
+                            <img src="./assets/img/14_Activar-alertas-Banorte.png " class="sizeMenuButtons styleMenuButton" (click)="comenzarOperacion('activaAlertas')" width="200px " draggable="false " />
                         </a>
                     </div>
 

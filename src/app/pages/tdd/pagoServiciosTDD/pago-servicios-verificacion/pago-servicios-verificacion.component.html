@@ -1,0 +1,74 @@
+<div ng-cloak class="padding-barToTittle">
+    <h2 class="text-center  color-letra">Operaci&oacute;n exitosa</h2>
+</div>
+
+<fieldset align="center" class="padding-TittleToFieldset padding-fieldset-general">
+    <div class="well sumando-well-white">
+        <div class="row">
+            <div class="col-lg-6" align="right">
+                <strong>Servicio:</strong>
+            </div>
+            <div class="col-lg-6" align="left">
+                <label>{{detallePago.nombreServicio}}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6" align="right">
+                <strong>Fecha de operaci&oacute;n:</strong>
+            </div>
+            <div class="col-lg-6" align="left">
+                <label>{{detallePago.fechaOperacion}}</label>
+            </div>
+        </div>
+        <!-- ------------------------------------------------ -->
+        <div class="row">
+            <div class="col-lg-6" align="right">
+                <strong>Clave de rastreo:</strong>
+            </div>
+            <div class="col-lg-6" align="left">
+                <label> {{detallePago.claveRastreo}}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6" align="right">
+                <strong>Comisi&oacute;n e IVA:</strong>
+            </div>
+            <div class="col-lg-6" align="left">
+                <label>{{detallePago.comisioneiva}}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6" align="right">
+                <strong>Cuenta origen:</strong>
+            </div>
+            <div class="col-lg-6" align="left">
+                <label>{{cuentaClienteTdd}}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6" align="right">
+                <strong>Hora de Operaci&oacute;n:</strong>
+            </div>
+            <div class="col-lg-6" align="left">
+                <label>{{detallePago.horaOperacion}}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6" align="right">
+                <strong>Importe:</strong>
+            </div>
+            <div class="col-lg-6" align="left">
+                <label>{{detallePago.importe}}</label>
+            </div>
+        </div>
+
+    </div>
+    <div style="margin:30px 0px 0px 0px;" class="row">
+        <div style=" padding: 0px;" class="col-sm-12">
+            <button class="color-botones btn btn-lg pull-right " (click)="irMenu()">
+      Terminar
+    </button>
+        </div>
+    </div>
+
+</fieldset>

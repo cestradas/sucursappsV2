@@ -67,7 +67,9 @@ export class MenuBxiComponent implements OnInit {
     $('#_modal_please_wait').modal('show');
 
     switch (idOperacion) {
-
+      
+      case 'saldoBXI': this.router.navigate(['/saldosBXI']);
+            break;
       case 'pagoserv': this.router.navigate(['/pagoservicios_ini']);
             break;
       case 'trnasfSPEI': this.router.navigate(['/speiBXI']);

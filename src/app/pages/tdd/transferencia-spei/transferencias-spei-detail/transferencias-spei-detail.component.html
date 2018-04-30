@@ -1,0 +1,237 @@
+<div ng-cloak class="padding-barToTittle">
+    <h2 class="text-center  color-letra">Operaci&oacute;n exitosa</h2>
+</div>
+
+<fieldset align="center" class="padding-TittleToFieldset padding-fieldset-general">
+    <div class="well sumando-well-white">
+        <div id="divSpei" *ngIf="(operacionType == 'SPEI')">
+            <div class="row">
+                <div class="col-lg-6" align="right">
+                    <strong>Referencia:</strong>
+                </div>
+                <div class="col-lg-6" align="left">
+                    <label>{{detalleTransferencia.referenciaNumerica}}</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6" align="right">
+                    <strong>Clave Rastreo:</strong>
+                </div>
+                <div class="col-lg-6" align="left">
+                    <label>{{detalleTransferencia.claveRastreo}}</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6" align="right">
+                    <strong>Fecha de operaci&oacute;n:</strong>
+                </div>
+                <div class="col-lg-6" align="left">
+                    <label>{{formatoFecha | date:'dd/MM/yyyy' }}</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6" align="right">
+                    <strong>Hora de operaci&oacute;n:</strong>
+                </div>
+                <div class="col-lg-6" align="left">
+                    <label>{{detalleTransferencia.horaOperacion}}</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6" align="right">
+                    <strong>Comisi&oacute;n:</strong>
+                </div>
+                <div class="col-lg-6" align="left">
+                    <label>${{detalleTransferencia.comision}}</label>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-6" align="right">
+                    <strong>IVA:</strong>
+                </div>
+                <div class="col-lg-6" align="left">
+                    <label>${{detalleTransferencia.importeIva}}</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6" align="right">
+                    <strong>Cuenta origen:</strong>
+                </div>
+                <div class="col-lg-6" align="left">
+                    <label>{{detalleTransferencia.cuentaTitular}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6" align="right">
+                    <strong>Clabe Ordenante:</strong>
+                </div>
+                <div class="col-lg-6" align="left">
+                    <label>{{detalleTransferencia.clabeOrdenante}}</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6" align="right">
+                    <strong>Titular cuenta origen:</strong>
+                </div>
+                <div class="col-lg-6" align="left">
+                    <label>{{detalleTransferencia.nombreTitular}}</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6" align="right">
+                    <strong>Cuenta abono:</strong>
+                </div>
+                <div class="col-lg-6" align="left">
+                    <label>{{detalleTransferencia.cuentaBeneficiario}}</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6" align="right">
+                    <strong>Titular cuenta abono:</strong>
+                </div>
+                <div class="col-lg-6" align="left">
+                    <label>{{detalleTransferencia.nombreBeneficiario}}</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6" align="right">
+                    <strong>Banco:</strong>
+                </div>
+                <div class="col-lg-6" align="left">
+                    <label>{{detalleTransferencia.nombreBanco}}</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6" align="right">
+                    <strong>RFC Emisor:</strong>
+                </div>
+                <div class="col-lg-6" align="left">
+                    <label>{{detalleTransferencia.rFcOrdenante}}</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6" align="right">
+                    <strong>Número de Referencia:</strong>
+                </div>
+                <div class="col-lg-6" align="left">
+                    <label>{{detalleTransferencia.numeroReferencia}}</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6" align="right">
+                    <strong>Concepto:</strong>
+                </div>
+                <div class="col-lg-6" align="left">
+                    <label>{{detalleTransferencia.concepto}}</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6" align="right">
+                    <strong>Importe:</strong>
+                </div>
+                <div class="col-lg-6" align="left">
+                    <label>${{detalleTransferencia.totalCargo}}</label>
+                </div>
+            </div>
+        </div>
+
+        <!------------------------------------------>
+
+        <div id="divTef" *ngIf="(operacionType == 'TEF')">
+            <div class="row">
+                <div class="col-lg-6" align="right">
+                    <strong>Referencia:</strong>
+                </div>
+                <div class="col-lg-6" align="left">
+                    <label>{{detalleTransferencia.referenciaNumerica}}</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6" align="right">
+                    <strong>Comisi&oacute;n:</strong>
+                </div>
+                <div class="col-lg-6" align="left">
+                    <label>${{detalleTransferencia.comision}}</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6" align="right">
+                    <strong>IVA:</strong>
+                </div>
+                <div class="col-lg-6" align="left">
+                    <label>${{detalleTransferencia.importeIva}}</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6" align="right">
+                    <strong>Total:</strong>
+                </div>
+                <div class="col-lg-6" align="left">
+                    <label>${{detalleTransferencia.totales}}</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6" align="right">
+                    <strong>Importe:</strong>
+                </div>
+                <div class="col-lg-6" align="left">
+                    <label>${{detalleTransferencia.importe}}</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6" align="right">
+                    <strong>Cuenta origen:</strong>
+                </div>
+                <div class="col-lg-6" align="left">
+                    <label>{{detalleTransferencia.cuentaTitular}}</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6" align="right">
+                    <strong>Titular cuenta origen:</strong>
+                </div>
+                <div class="col-lg-6" align="left">
+                    <label>{{detalleTransferencia.nombreTitular}}</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6" align="right">
+                    <strong>Número de Referencia:</strong>
+                </div>
+                <div class="col-lg-6" align="left">
+                    <label>{{detalleTransferencia.numeroReferencia}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin:30px 0px 0px 0px;" class="row">
+        <div style=" padding: 0px;" class="col-sm-12">
+            <button class="color-botones btn btn-lg pull-right " routerLink="/menuTdd">
+        Terminar
+      </button>
+        </div>
+    </div>
+
+</fieldset>
