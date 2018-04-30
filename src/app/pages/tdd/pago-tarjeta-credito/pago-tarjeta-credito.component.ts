@@ -1,5 +1,4 @@
 import { Component, OnInit, Output } from '@angular/core';
-import $ from 'jquery';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { ConsultaSaldosTddService } from '../../../services/saldosTDD/consultaSaldos.service';
 import { SesionTDDService } from '../../../services/breadcrums/breadcroms.service';
@@ -8,6 +7,8 @@ import { EventEmitter } from 'events';
 import { ResponseWS } from '../../../services/response/response.service';
 import { Router } from '@angular/router';
 import { ValidaNipTransaccion } from '../../../services/validaNipTrans/validaNipTrans.service';
+
+import $ from 'jquery';
 declare var $: $;
 
 @Component({  

@@ -15,6 +15,9 @@ import { ActivarAlertasComponent } from './activar-alertas/activar-alertas.compo
 import { TransferenciaTercerosFinalComponent } from './transferencia-terceros/transferencia-terceros-final.component';
 
 import { MantenimientoBenefDetailComponent } from './mantenimiento-benef/mantenimiento-benef-detail/mantenimiento-benef-detail.component';
+import { ImpresionEdcTddComponent } from './impresion-edc-tdd/impresion-edc-tdd.component';
+import { ImpresionEdcFinalTddComponent } from './impresion-edc-tdd/impresion-edc-final-tdd.component';
+
 
 
 const pageRoutesTDD: Routes = [
@@ -33,6 +36,8 @@ const pageRoutesTDD: Routes = [
             { path: 'actualizarDatosContacto', component: ActualizarDatosDeContactoComponent},
             { path: 'activarAlertas', component: ActivarAlertasComponent},
             { path: 'transTercerosFinal', component: TransferenciaTercerosFinalComponent},
+            { path: 'impresion-edc', component: ImpresionEdcTddComponent},
+            { path: 'impresion-edc-final', component: ImpresionEdcFinalTddComponent},
             { path: '', pathMatch: 'full', redirectTo: '/menuTdd' },
             
         ]

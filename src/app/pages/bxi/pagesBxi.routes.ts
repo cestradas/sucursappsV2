@@ -35,7 +35,7 @@ const pageRoutesBXI: Routes = [
             { path: 'activaAlertas_ini', component: ActivarAlertasIniComponent},
             { path: 'activaAlertas_verify', component: ActivarAlertasVerifyComponent},
             { path: 'mantiene-datos-ini', component: MantenimientoDatosIniComponent},
-            { path: 'mantiene-datos-fin', component: MantenimientoDatosVerifyComponent}
+            { path: 'mantiene-datos-fin', component: MantenimientoDatosVerifyComponent},
             { path: 'TransferBanorte', component: TransferenciasBanorteComponent},
             { path: 'TransferFinishBanorte', component: TransferenciaFinishBanorteComponent},
             { path: 'impresion_EDC', component: ImpresionEdcComponent},
