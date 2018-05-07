@@ -189,31 +189,29 @@ consultaMovimientosTDC(numeroCue) {
 
           console.log(this_aux.movimientosCue);
           this_aux.movimentosMesActual(this_aux.movimientosCue);
-
-
-          this_aux.TamArray = this_aux.movimientosCue.length;
-          this_aux.numPaginas = this_aux.TamArray / this_aux.tamPaginas;
-        
-          
-
-     let i = 0;
-    
-   for (i; i < this_aux.numPaginas; i ++) {
-     this_aux.arrayNumPag.push(i);
-   }
-
-          const textTitular = detalleCuenta;
-          console.log(detalleCuenta.MensajeAUsuario);
-          this_aux.mostrarTabla();
-          if (this_aux.numPaginas <= 1 ) { 
-            const div2 = document.getElementById('Navegador');
-            div2.style.display = "none";
-           }
-        } else {
+         if ( this_aux.movimientosCue.length === 0 ) {
           console.log(detalleCuenta.MensajeAUsuario);
           this_aux.sinMovimientos(this_aux.par);
+         } else {
+          this_aux.TamArray = this_aux.movimientosCue.length;
+          this_aux.numPaginas = this_aux.TamArray / this_aux.tamPaginas;         
+
+           let i = 0;
+    
+             for (i; i < this_aux.numPaginas; i ++) {
+                 this_aux.arrayNumPag.push(i);
+             }
+
+              const textTitular = detalleCuenta;
+              console.log(detalleCuenta.MensajeAUsuario);
+              this_aux.mostrarTabla();
+              if (this_aux.numPaginas <= 1 ) { 
+                const div2 = document.getElementById('Navegador');
+                div2.style.display = "none";
+               }
+         }
           
-        }
+        } 
       }, function(error) {
   });
   console.log("Movimientos cargados correctamente");
@@ -242,10 +240,11 @@ movimentosMesActual (movimentos) {
 
   console.log(this.moviMesActual);
   console.log(this.moviMesAnterior);
+
   if (  this.par === 0 ) {
-    this.movimientosCue = this.moviMesActual;
+            this.movimientosCue = this.moviMesActual;
   } else {
-    this.movimientosCue = this.moviMesAnterior;
+            this.movimientosCue = this.moviMesAnterior;
   }
   
 console.log( this.movimientosCue);
