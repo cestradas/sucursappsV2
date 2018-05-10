@@ -1,5 +1,6 @@
 ﻿var banderaServidor = 0;
-
+var datosLegacy = "";
+var datosSesion = "";
 var UserLoginChallengeHandler = function(usr, key) {
 
     var isChallenged = false;
@@ -28,6 +29,11 @@ var UserLoginChallengeHandler = function(usr, key) {
     userLoginChallengeHandler.handleSuccess = function(data) {
         WL.Logger.debug("handleSuccess");
         isChallenged = false;
+
+        usuarioAgent = navigator.userAgent;
+        // getidSesion();
+        getUsrPassLegacy(usuarioAgent);
+
         //		document.getElementById("helloUser").innerHTML = "Hello, "
         //				+ data.user.displayName;
     };
@@ -66,6 +72,8 @@ var UserLoginChallengeHandler = function(usr, key) {
                 function() {
 
                     console.info('login onSuccess');
+
+
 
                 },
 
@@ -129,3 +137,47 @@ var UserLoginChallengeHandler = function(usr, key) {
     }
     return userLoginChallengeHandler;
 };
+
+function getUsrPassLegacy(usrAgent) {
+
+    if (datosLegacy == "") {
+
+        var patron = /@/g;
+        usrAgent = usrAgent.replace(patron, "");
+
+        const formParameters = {
+            //terminal: usrAgent
+            terminal: 'T002'
+        };
+        const resourceRequest = new WLResourceRequest(
+            'adapters/AdapterBanorteSucursApps/resource/consultaUsrLegacy',
+            WLResourceRequest.POST);
+        resourceRequest.setTimeout(30000);
+        resourceRequest.sendFormParameters(formParameters).then(
+            function(response) {
+                datosLegacy = response.responseJSON;
+                console.log(datosLegacy);
+                console.log("El servcio de informacion Legacy respondio correctamente");
+            },
+            function(error) {
+                console.error("Ocurrio un error con el servcio de informacion Legacy");
+                $('#errorModal').modal('show');
+            });
+    }
+}
+
+function getidSesion() {
+    const resourceRequest = new WLResourceRequest(
+        'adapters/AdapterBanorteSucursApps/resource/getSessionId',
+        WLResourceRequest.POST);
+    resourceRequest.setTimeout(30000);
+    resourceRequest.send().then(
+        function(response) {
+            datosSesion = response.responseText;
+            console.log(datosSesion);
+            console.log("El servcio de id sesion respondio correctamente");
+        },
+        function(error) {
+            console.error("Ocurrio un error con el servcio de id sesion");
+        });
+}

@@ -303,6 +303,60 @@ let Spei = document.getElementById("divSpei");
      );
     }
 
+    validarSaldoDiaSoap(): any {
+        
+        const this_aux = this;
+        console.log("Inicia validacion de saldo dia");
+              
+        let formParameters = {
+          numeroCuenta: this_aux.numeroCuentaTitular,
+          importe: this_aux.importe,
+        };
+        
+        let respuestaTef;
+    
+        const resourceRequest = new WLResourceRequest(
+          'adapters/AdapterBanorteSucursApps/resource/validaSaldoDia',
+         WLResourceRequest.POST
+       );
+       resourceRequest.setTimeout(30000);
+       resourceRequest.sendFormParameters(formParameters).then(
+         function(response) {
+           console.log("VALIDACION DE SALDO AL DIA: " + response.responseJSON);
+         },
+         function(error) {
+           console.log("Error al realizar validacion de saldo dia");
+         }
+       );
+      }
+
+      validarSaldoMensualSoap(): any {
+        
+        const this_aux = this;
+        console.log("Inicia validacion de saldo mensual");
+              
+        let formParameters = {
+          numeroCuenta: this_aux.numeroCuentaTitular,
+          importe: this_aux.importe,
+        };
+        
+        let respuestaTef;
+    
+        const resourceRequest = new WLResourceRequest(
+          'adapters/AdapterBanorteSucursApps/resource/validaSaldoMes',
+         WLResourceRequest.POST
+       );
+       resourceRequest.setTimeout(30000);
+       resourceRequest.sendFormParameters(formParameters).then(
+         function(response) {
+           console.log("VALIDACION DE SALDO AL MES: " + response.responseJSON);
+         },
+         function(error) {
+           console.log("Error al realizar validacion de saldo mensual");
+         }
+       );
+      }
+
   confirmarTransaccion () {
     this._validaNipService.validaNipTrans();
     const this_aux = this;
@@ -320,6 +374,9 @@ let Spei = document.getElementById("divSpei");
         if (res === true) {  
           $('#ModalTDDLogin').modal('hide');
           $('#_modal_please_wait').modal('show');
+          this_aux.validarSaldoMensualSoap();
+          this_aux.validarSaldoDiaSoap();
+
           if (this_aux.nombreOperacion === "1") {
             this_aux.transferenciaSPEISoap(this_aux.clabe, this_aux.nombreBene, this_aux.referencia, this_aux.importe, this_aux.descripcion,
               this_aux.email, this_aux.rfcEmi);

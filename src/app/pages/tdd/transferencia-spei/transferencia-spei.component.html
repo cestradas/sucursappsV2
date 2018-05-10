@@ -13,21 +13,23 @@
                     <table width="100%" class="letranegrita">
                         <tr>
                             <td align="left" width="40%" style="border: 0px">CUENTA ENLACE PERSONAL <strong>
-                                                                </strong>
+                                                                        </strong>
+                            </td>
+                            <td align="left" style="border: 0px">
+                                <strong>
+                                    <label>$ {{saldoDisponibleClienteTdd}}
+                                    </label>
+                                </strong>
                             </td>
                         </tr>
                         <tr>
                             <td align="left" style="border: 0px">Cuenta
                                 <strong>
-                                        <label> {{numeroCuentaTitular}}
-                                         </label>
-                                    </strong>
+                                                <label> {{numeroCuentaTitular}}
+                                                 </label>
+                                            </strong>
                             </td>
                             <td align="left" style="border: 0px">Saldo Disponible
-                                <strong>
-                                        <label>$ {{saldoDisponibleClienteTdd}}
-                                        </label>
-                                    </strong>
                             </td>
                         </tr>
                     </table>
@@ -59,26 +61,6 @@
         <div id="divisionInputs"></div>
         <div class="row sumando-form-group letranegrita">
             <div class="col-sm-1 sumando-bg-red group-name">Para</div>
-
-
-
-
-
-            <!-- 
-    
-                <div class="col-sm-11">
-                    <div class="input-group">
-                        <input class="form-control" id="facturador" type="text" placeholder="Facturadores" #facturador [matKeyboard]="" (click)="muestraFacturadores()" />
-                        <div *ngIf="showOptions" class="sumando-bg-white">
-                            <ul style="width: 1550px; height: 100px; overflow: auto">
-                                <li *ngFor="let empresa of listaEmpresas" style="list-style:none;"><a (click)="setValue(empresa)">{{empresa}}</a></li>
-                            </ul>
-    
-                        </div>
-                    </div>
-                </div>
-    -->
-
 
 
             <div class="col-sm-11 sumando-well-white">
@@ -209,7 +191,7 @@
 <!-- Modal -->
 <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content shadowModal" style="height: 483px">
+        <div class="modal-content shadowModal" style="height: 500px">
 
             <div class="modal-body" style="padding: 2rem;">
 
