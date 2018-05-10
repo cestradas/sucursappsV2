@@ -354,4 +354,25 @@ export class OperacionesBXI {
 
           return resourceRequest.sendFormParameters(formParameters);
     }
+
+    mantEDC(ctaO): any {
+       const formParameters = {
+           ctaO: ctaO
+       };
+
+       const    resourceRequest = new WLResourceRequest(
+           'adapters/AdapterBanorteSucursAppsBEL/resource/mantenimientoEDC', WLResourceRequest.POST);
+     resourceRequest.setTimeout(30000);
+
+     return resourceRequest.sendFormParameters(formParameters);
+   }
+
+   getListaDocumentos(): any {
+       const resourceRequest = new WLResourceRequest(
+           'adapters/AdapterBanorteSucursAppsBEL/resource/listaDocs',
+           WLResourceRequest.POST);
+       resourceRequest.setTimeout(30000);
+
+          return resourceRequest.send();
+   }
 }

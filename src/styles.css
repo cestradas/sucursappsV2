@@ -1101,6 +1101,25 @@ input[type=checkbox]:checked+label {
     padding-right: 150px !important;
 }
 
+.fondo-calendar {
+    border-radius: 50%;
+    background-color: #ffffff;
+    height: 98px;
+}
+
+.size-icon-calendar {
+    align-self: center;
+    margin-left: 74%;
+    margin-top: 27px;
+}
+
+.size-fecha-calendar {
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+
 
 /* Estilos EDC END*/
 
