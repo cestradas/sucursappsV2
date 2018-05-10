@@ -4,7 +4,7 @@
 
 
 
-    <form [formGroup]="forma" class="needs-validation">
+    <form [formGroup]="forma" (ngSubmit)="showDetallePago()" class="needs-validation">
         <div id="divisionInputs"></div>
         <div class="row sumando-form-group letranegrita">
             <div class="col-sm-1 sumando-bg-red group-name">Envio</div>
@@ -87,7 +87,7 @@
 
 
 <!-- Modal -->
-<!-- <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content shadowModal ">
 
@@ -161,7 +161,7 @@
             </div>
         </div>
     </div>
-</div> -->
+</div>
 
 <div class="uiv-animate" ui-view></div>
 

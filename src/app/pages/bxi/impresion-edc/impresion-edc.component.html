@@ -13,33 +13,33 @@
                     <input type="hidden">
                     <div class="dropdown sumando-dropdown-account">
                         <button class="btn btn-default btn-block dropdown-toggle btn-color-cuentas" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                  <table id="tableOrigen" style="display: none" width="100%">
-                    <tr>
-                      <td align="left" width="45%">
-                        <strong><label  id="lblAliasOrigen" #lblAliasOrigen></label></strong>
-                      </td>
-                      <td align="left" width="45%">
-                        <strong>$<label id ="lblSaldoOrigen"></label>
-                        </strong>
-                      </td>
-                      <td width="5%" rowspan="2" class="dropdown-caret" style="padding-left: 21px;">
-                        <img  class="select-img" src="./assets/img/bg_selectN.png" style="width: 91%; height: 181%;" >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align="left">Cuenta <label id="lblCuentaOrigen" #lblCuentaOrigen></label></td>
-                      <td align="left">Saldo Disponible</td>
-                    </tr>
-                  </table>
-                  <table  id="tableDefaultOrigen" width="100%" style="height: 100%;">
-                    <tr>
-                      <td align="left" rowspan="2">Seleccione una cuenta de origen...</td>
-                      <td width="5%" style="height: 40px;" rowspan="2" class="dropdown-caret">
-                        <img src="./assets/img/bg_selectN.png" class="select-img">
-                      </td>
-                    </tr>
-                  </table>
-                </button>
+                <table id="tableOrigen" style="display: none" width="100%">
+                  <tr>
+                    <td align="left" width="45%">
+                      <strong><label  id="lblAliasOrigen" #lblAliasOrigen></label></strong>
+                    </td>
+                    <td align="left" width="45%">
+                      <strong>$<label id ="lblSaldoOrigen"></label>
+                      </strong>
+                    </td>
+                    <td width="5%" rowspan="2" class="dropdown-caret" style="padding-left: 21px;">
+                      <img  class="select-img" src="./assets/img/bg_selectN.png" style="width: 91%; height: 181%;" >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="left">Cuenta <label id="lblCuentaOrigen" #lblCuentaOrigen></label></td>
+                    <td align="left">Saldo Disponible</td>
+                  </tr>
+                </table>
+                <table  id="tableDefaultOrigen" width="100%" style="height: 100%;">
+                  <tr>
+                    <td align="left" rowspan="2">Seleccione una cuenta de origen...</td>
+                    <td width="5%" style="height: 40px;" rowspan="2" class="dropdown-caret">
+                      <img src="./assets/img/bg_selectN.png" class="select-img">
+                    </td>
+                  </tr>
+                </table>
+              </button>
                         <div>
                             <ul id="ul_Cuentas" #listaCuentas class="dropdown-menu btn-block" aria-labelledby="dropdownMenu1" style="width: 100%; height: 200px; overflow: auto">
 
@@ -63,89 +63,40 @@
         <div class="container contenedor-calendar">
             <!--<div id="carouselExampleIndicators" style="height: 100%;" class="carousel slide" data-ride="carousel">-->
             <div id="carouselExampleIndicators" style="height: 100%;" class="carousel slide" data-ride="">
-                <ol class="carousel-indicators">
+                <!--<ol class="carousel-indicators">
                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                     <li data-target="#carouselExampleIndicators" data-slide-to=""></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to=""></li>
-                </ol>
+
+                </ol> -->
                 <div class="carousel-inner" role="listbox" style="height: 100%">
                     <!-- Primer item del carousel -->
-                    <div class="carousel-item active" style="height: 100%">
+                    <div #calendario id="calendario" class="carousel-item active" style="height: 100%">
                         <!-- <h2 class="text-center" style="margin-top: 80px; margin-bottom: 80px;">1</h2> -->
 
 
-                        <div class="kiosk-cec-carousel-item" style="box-shadow: 10px 6px 33px -6px rgba(0, 0, 0, 0.75); padding: 12px 0px 0px 0px;">
-                            <div class=" bg-red-600 padding-30 white">
-                                <div class="font-size-40" style="width: 100%;">
-                                    <span class="icon-calendar">12</span>
-                                    <!-- <i class="fa fa-calendar-o"></i> -->
-                                </div>
-                            </div>
-                            <div class="red-600 font-size-14 padding-15" style="background-color: #eb0029; width: 100%; align-items: center; margin-top: 4px; height: 40px; padding-top: 6px;">
-                                <span class="font-size-30" style="color: #fff; font-weight: bold;
-                                font-size: 18px;">Mayo 2018</span>
-                            </div>
-                        </div>
-
-                        <div class="kiosk-cec-carousel-item estilo-item-calendar" ng-click="onPeriodoItemClick(item, $event)">
+                        <!-- calendario item
+                        <div class="kiosk-cec-carousel-item estilo-item-calendar" id="Itemcalendario0" (click)="clickCal0()">
                             <div class="row no-space">
                                 <div class="col-xs-6">
                                     <div class="bg-grey-600 white vertical-align height-200" style="border-radius: 50%;background-color: #ffffff;height: 98px;">
                                         <div class="vertical-align-middle">
                                             <span class="icon-calendar" align="center" style="align-self: center; margin-left: 74%;
-                                                  margin-top: 27px;">12</span>
+                                                                    margin-top: 27px;">12</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xs-6">
                                     <div class="height-200 item-red-middle">
                                         <span class="font-size-30" style="color: white;     font-weight: bold;
-                                        font-size: 20px;">Febrero 2018</span>
+                                                            font-size: 20px;">Febrero 2018</span>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
 
-                        <div class="kiosk-cec-carousel-item estilo-item-calendar" ng-click="onPeriodoItemClick(item, $event)">
-                            <div class="row no-space">
-                                <div class="col-xs-6">
-                                    <div class="bg-grey-600 white vertical-align height-200" style="border-radius: 50%;background-color: #ffffff;height: 98px;">
-                                        <div class="vertical-align-middle">
-                                            <span class="icon-calendar" align="center" style="align-self: center; margin-left: 74%;
-                                                  margin-top: 27px;">12</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6">
-                                    <div class="height-200 item-red-middle">
-                                        <span class="font-size-30" style="color: white;     font-weight: bold;
-                                        font-size: 20px;">Febrero 2018</span>
-                                    </div>
-                                </div>
-                            </div>
+calendario item -->
 
-                        </div>
-
-                        <div class="kiosk-cec-carousel-item estilo-item-calendar" ng-click="onPeriodoItemClick(item, $event)">
-                            <div class="row no-space">
-                                <div class="col-xs-6">
-                                    <div class="bg-grey-600 white vertical-align height-200" style="border-radius: 50%;background-color: #ffffff;height: 98px;">
-                                        <div class="vertical-align-middle">
-                                            <span class="icon-calendar" align="center" style="align-self: center; margin-left: 74%;
-                                                  margin-top: 27px;">12</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6">
-                                    <div class="height-200 item-red-middle">
-                                        <span class="font-size-30" style="color: white;     font-weight: bold;
-                                        font-size: 20px;">Febrero 2018</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
 
 
 
@@ -153,24 +104,15 @@
 
                     </div>
                     <!-- Segundo item del carousel -->
-                    <div class="carousel-item" style="height: 100%">
-                        <h2 class="text-center" style="margin-top: 80px; margin-bottom: 80px;">2</h2>
-
-
-
-                        <br/>
-
-
-                    </div>
-                    <!-- Tercer item del carousel -->
-                    <div class="carousel-item">
-                        <h2 class="text-center" style="margin-top: 80px; margin-bottom: 80px;">3</h2>
+                    <div id="calendario2" class="carousel-item" style="height: 100%">
+                        <!-- Calendario del carousel 2 -->
 
 
                         <br/>
 
 
                     </div>
+
 
                 </div>
             </div>
