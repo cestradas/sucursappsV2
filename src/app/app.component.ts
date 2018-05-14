@@ -9,11 +9,8 @@ declare var $: $;
 })
 export class AppComponent {
   title = 'app';
+  infoLegacy: any;
 
   constructor () {
-
-    
-    
   }
-
 }

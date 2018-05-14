@@ -558,7 +558,7 @@ export class MantenimientoBenefComponent implements OnInit {
         console.log(response.responseJSON);
         respuestaAltaF = response.responseJSON;
         console.log("RESPUESTA ALTA: " + respuestaAltaF);
-        if (respuestaAltaF.Id !== "1") {
+        if (respuestaAltaF.Id === "1") {
           const stringDetalleMantenimiento = JSON.stringify(this_aux.DatosJSON);
           this_aux.serviceMantenimiento.detalleMantenimiento = stringDetalleMantenimiento;
           this_aux.A = false;
@@ -857,7 +857,6 @@ export class MantenimientoBenefComponent implements OnInit {
               numeroDepartamentoModif, parentescoModif, porcentajeModif);
           }
         });
-        this_aux.consultaBeneficiarios();
     }
   }
 
@@ -949,6 +948,7 @@ export class MantenimientoBenefComponent implements OnInit {
     console.log("PORCENTAJE GUARDADO: " + this_aux.porcentajeGuardado);
     
     if (this_aux.sumaPorcentajes(this_aux.porcentajeGuardado) && porcentajeVacio) {
+      this._validaNipService.validaNipTrans();
 
       $('#ModalTDDLogin').modal('show');
 
@@ -962,7 +962,7 @@ export class MantenimientoBenefComponent implements OnInit {
   
           if (res === true) {  
             $('#ModalTDDLogin').modal('hide');
-            this.verificaServicios();
+            this_aux.verificaServicios();
           } else {
             console.error("Mostrar modal las tarjetas no son iguales");
           }
