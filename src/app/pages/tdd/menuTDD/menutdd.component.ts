@@ -31,9 +31,9 @@ export class MenutddComponent implements OnInit {
       case 'saldosMov':
           this.router.navigate(['/movimientoSaldo']);
           break;
-      // case 'edc':
-          // this.router.navigate(['/compraTiempoAire']);
-          // break;
+      case 'edc':
+          this.router.navigate(['/impresion-edc']);
+          break;
       case 'compraTA':
           this.router.navigate(['/compraTiempoAire']);
           break;

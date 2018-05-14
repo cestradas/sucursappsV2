@@ -54,7 +54,7 @@ resourceRequest
           // setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
           $('#ModalTDDLogin').modal('hide'); 
           THIS.router.navigate(['/menuTdd']);
-
+          
         },
         function(error) {
 
@@ -64,11 +64,32 @@ resourceRequest
           
             document.getElementById('mnsError').innerHTML = "Por el momento este servicio no est&aacute; disponible, favor de intentar de nuevo m&aacute;s tarde."; 
             $('#errorModal').modal('show');
-
+            
         });
+        this.idSession();
 
+        
         // $('div').removeClass('modal-backdrop');
 
+  }
+
+  idSession() {
+    const resourceRequest = new WLResourceRequest(
+      'adapters/AdapterBanorteSucursApps/resource/idSession',
+      WLResourceRequest.POST);
+  resourceRequest.setTimeout(30000);
+  resourceRequest
+      .send()
+      .then(
+          function(response) {
+              let resp = response.responseJSON;
+              console.log(response.responseText);
+          } ,
+
+          function(error) {
+              console.log(error.responseText);
+  
+          });
   }
 
   BxiLogin() {
@@ -80,7 +101,7 @@ resourceRequest
 
 
   getPosts() {
-    return this._http.get('http://localhost:8081/sucursappsdevices/pinpad/read')
+    return this._http.get('http://localhost:8082/sucursappsdevices/pinpad/read')
                             .map(res => res.json());
   }
 

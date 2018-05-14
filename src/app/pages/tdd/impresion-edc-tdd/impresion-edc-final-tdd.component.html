@@ -4,7 +4,7 @@
 
 
 
-    <form [formGroup]="forma" class="needs-validation">
+    <form [formGroup]="forma" (ngSubmit)="showDetallePago()" class="needs-validation">
         <div id="divisionInputs"></div>
         <div class="row sumando-form-group letranegrita">
             <div class="col-sm-1 sumando-bg-red group-name">Envio</div>
@@ -79,7 +79,7 @@
             <!-- <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
             <div class="col-sm-1">
                 <button [disabled]="!forma.valid" id="continuarspei" name="continuarspei" class="btn btn-danger btn-lg" type="submit">
-                    Continuar</button>
+                  Continuar</button>
             </div>
         </div>
     </form>
@@ -87,7 +87,7 @@
 
 
 <!-- Modal -->
-<!-- <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content shadowModal ">
 
@@ -154,14 +154,14 @@
                 <div class="modal-footer">
                     <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
                     <button class="color-botones btn btn-lg " (click)="confirmarPago(token.value)">
-                                Confirmar
-                              </button>
+                              Confirmar
+                            </button>
                 </div>
 
             </div>
         </div>
     </div>
-</div> -->
+</div>
 
 <div class="uiv-animate" ui-view></div>
 
