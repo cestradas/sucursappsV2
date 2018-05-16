@@ -90,10 +90,12 @@ export class PagoServiciosIniComponent implements OnInit {
              console.log(response1.responseText);
              const detalleSaldos = response1.responseJSON;
              if ( detalleSaldos.Id === '1') {
-               const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
-               lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
-               $('#_modal_please_wait').modal('hide');
 
+              setTimeout(function() { 
+                const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
+                lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
+                 $('#_modal_please_wait').modal('hide');
+               }, 500);
              } else {
                 this_aux.showErrorSucces(detalleSaldos);
              }
@@ -106,22 +108,22 @@ export class PagoServiciosIniComponent implements OnInit {
 
 getEmpresas() {
 
-       const this_aux = this;
+      const this_aux = this;
       if (localStorage.getItem('Facturadores') !== null) {
 
-            const facturadores =  localStorage.getItem('Facturadores').toString();
-            this_aux.arrayEmpresas = JSON.parse(facturadores);
+        setTimeout(function() { 
+           const facturadores =  localStorage.getItem('Facturadores').toString();
+           this_aux.arrayEmpresas = JSON.parse(facturadores);
 
-            this_aux.arrayEmpresas.forEach(empresa => {
-              const descripcion = empresa.Descripcion;
-              const idEmpresa = empresa.IdFacturador;
+           this_aux.arrayEmpresas.forEach(empresa => {
+             const descripcion = empresa.Descripcion;
+             const idEmpresa = empresa.IdFacturador;
               this_aux.listaEmpresas.push(descripcion);
-              });
-            console.log(this_aux.listaEmpresas);
-            this_aux.listaEmpresasAux = this_aux.listaEmpresas;
-            $('#_modal_please_wait').modal('hide');
-            
-
+           });
+           console.log(this_aux.listaEmpresas);
+           this_aux.listaEmpresasAux = this_aux.listaEmpresas;
+           $('#_modal_please_wait').modal('hide');
+        }, 500);    
       } else {
 
           const operacionesbxi: OperacionesBXI = new OperacionesBXI();
@@ -131,17 +133,19 @@ getEmpresas() {
                 const consultaEmpresas = response.responseJSON;
                 if (consultaEmpresas.Id === '1') {
 
-                  this_aux.arrayEmpresas = consultaEmpresas.Facturadores;
-                  localStorage.setItem('Facturadores', JSON.stringify(this_aux.arrayEmpresas ));
-                  this_aux.arrayEmpresas.forEach(empresa => {
-                        const descripcion = empresa.Descripcion;
-                        const idEmpresa = empresa.IdFacturador;
-                        this_aux.listaEmpresas.push(descripcion);
-                    });
-                  console.log(this_aux.listaEmpresas);
-                  this_aux.listaEmpresasAux = this_aux.listaEmpresas;
-                  $('#_modal_please_wait').modal('hide');
-
+                    setTimeout(function() { 
+                      this_aux.arrayEmpresas = consultaEmpresas.Facturadores;
+                      localStorage.setItem('Facturadores', JSON.stringify(this_aux.arrayEmpresas ));
+                      this_aux.arrayEmpresas.forEach(empresa => {
+                            const descripcion = empresa.Descripcion;
+                            const idEmpresa = empresa.IdFacturador;
+                            this_aux.listaEmpresas.push(descripcion);
+                        });
+                      console.log(this_aux.listaEmpresas);
+                      this_aux.listaEmpresasAux = this_aux.listaEmpresas;
+                      $('#_modal_please_wait').modal('hide');
+    
+                    }, 500);
                   } else {
                     this_aux.showErrorSucces(consultaEmpresas);
                 }
@@ -178,11 +182,12 @@ getEmpresas() {
              const detalleEmpresa = response.responseJSON;
              const body = $('body');
              if (detalleEmpresa.Id === '1') {
-
-               body.off('click');
-               this_aux.service.detalleEmpresa_PS = response.responseText;
-               this_aux.router.navigate(['/pagoservicios_detail']);
-
+                setTimeout(function() { 
+                  body.off('click');
+                  this_aux.service.detalleEmpresa_PS = response.responseText;
+                  this_aux.router.navigate(['/pagoservicios_detail']);
+  
+                }, 500);
              } else {
                   this_aux.showErrorSucces(detalleEmpresa);
              }
@@ -237,18 +242,26 @@ getEmpresas() {
    }
 
    showErrorPromise(error) {
-    console.log(error);
-    // tslint:disable-next-line:max-line-length
-    document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde."; 
-    $('#_modal_please_wait').modal('hide');
-    $('#errorModal').modal('show');
+
+    setTimeout(function() {
+      $('#modal_please_wait').modal('hide');
+      $('#errorModal').modal('show');
+      if (error.errorCode === 'API_INVOCATION_FAILURE') {
+          document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+      } else {
+        document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
+      }
+    }, 500);
   }
 
   showErrorSucces(json) {
-    console.log(json.Id + json.MensajeAUsuario);
-    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
-    $('#_modal_please_wait').modal('hide');
-    $('#errorModal').modal('show');
+
+    setTimeout(function() { 
+      console.log(json.Id + json.MensajeAUsuario);
+      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+      $('#_modal_please_wait').modal('hide');
+      $('#errorModal').modal('show');
+    }, 500);
   }
   
   irMenuBXI() {

@@ -71,8 +71,10 @@ export class PagoServiciosVerifyComponent implements OnInit {
       
      
       }
-      
-      $('#_modal_please_wait').modal('hide');
+      setTimeout(function() { 
+        $('#_modal_please_wait').modal('hide');
+      }, 500); 
+     
   }
 
   irMenuBXI() {

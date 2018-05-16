@@ -42,32 +42,35 @@ export class PagoServiciosDetailComponent implements OnInit {
 
   ngOnInit() {
 
-    const this_aux = this;
-    $( ".cdk-visually-hidden" ).css( "margin-top", "7%" );
-    $('#ModalLectordeRecibo').modal('show');
-   const detalleEmpresa = JSON.parse(this_aux.service.detalleEmpresa_PS);
-    this_aux.nombreServicio =  detalleEmpresa.empresa;
-    this_aux.service.nombreServicio = this_aux.nombreServicio;
-    this_aux.cuentaCargo = this_aux.service.numCuentaSeleccionado;
-
-    if (this_aux.service.idFacturador === '1310') {
-      $('#ModalLectordeRecibo').modal('show');
-      $('#ModalLectordeRecibo').on('shown.bs.modal', function() {
-        $(this).find('input:first').focus();
-      });
-        this_aux.myForm.removeControl('fcReferencia');
-    } else {
-
-        if (this_aux.service.idFacturador === '88924') {
-          $('#ModalLectordeRecibo').modal('show');
-          $('#ModalLectordeRecibo').on('shown.bs.modal', function() {
-            $(this).find('input:first').focus();
-          });
-        }
-        this_aux.myForm.removeControl('fcTelefono');
-        this_aux.myForm.removeControl('fcDigitoVerificador');
-    }
-    $('#_modal_please_wait').modal('hide');
+    setTimeout(function() { 
+        const this_aux = this;
+        $( ".cdk-visually-hidden" ).css( "margin-top", "7%" );
+        $('#ModalLectordeRecibo').modal('show');
+        const detalleEmpresa = JSON.parse(this_aux.service.detalleEmpresa_PS);
+          this_aux.nombreServicio =  detalleEmpresa.empresa;
+          this_aux.service.nombreServicio = this_aux.nombreServicio;
+          this_aux.cuentaCargo = this_aux.service.numCuentaSeleccionado;
+      
+          if (this_aux.service.idFacturador === '1310') {
+            $('#ModalLectordeRecibo').modal('show');
+            $('#ModalLectordeRecibo').on('shown.bs.modal', function() {
+              $(this).find('input:first').focus();
+            });
+              this_aux.myForm.removeControl('fcReferencia');
+          } else {
+      
+              if (this_aux.service.idFacturador === '88924') {
+                $('#ModalLectordeRecibo').modal('show');
+                $('#ModalLectordeRecibo').on('shown.bs.modal', function() {
+                  $(this).find('input:first').focus();
+                });
+              }
+              this_aux.myForm.removeControl('fcTelefono');
+              this_aux.myForm.removeControl('fcDigitoVerificador');
+          }
+          $('#_modal_please_wait').modal('hide');
+    }, 500);
+    
   }
 
   showDetallePago( myForm) {
@@ -140,13 +143,15 @@ export class PagoServiciosDetailComponent implements OnInit {
                     }, function(error) { this_aux.showErrorPromise(error); }
                   );
               } else {
-                  console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);  
-                  mensajeError = this_aux.controlarError(infoUsuarioJSON);
-                  document.getElementById('mnsError').innerHTML =  mensajeError;
-                  $('#_modal_please_wait').modal('hide');
-                  $('#errorModal').modal('show');
+                    setTimeout(function() { 
+                      console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);  
+                      mensajeError = this_aux.controlarError(infoUsuarioJSON);
+                      document.getElementById('mnsError').innerHTML =  mensajeError;
+                      $('#_modal_please_wait').modal('hide');
+                      $('#errorModal').modal('show');
+                    }, 500);
               }
-        }, function(error) {
+        }, function(error) { this_aux.showErrorPromise(error);
         });
 
   }
@@ -218,25 +223,34 @@ export class PagoServiciosDetailComponent implements OnInit {
   }
 
   showErrorPromise(error) {
-    console.log(error);
-    // tslint:disable-next-line:max-line-length
-    document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde."; 
-    $('#_modal_please_wait').modal('hide');
-    $('#errorModal').modal('show');
+    setTimeout(function() {
+      $('#modal_please_wait').modal('hide');
+      $('#errorModal').modal('show');
+      if (error.errorCode === 'API_INVOCATION_FAILURE') {
+          document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+      } else {
+        document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
+      }
+    }, 500);
   }
 
   showErrorSucces(json) {
-    console.log(json.Id + json.MensajeAUsuario);
-    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
-    $('#_modal_please_wait').modal('hide');
-    $('#errorModal').modal('show');
+
+    setTimeout(function() { 
+      console.log(json.Id + json.MensajeAUsuario);
+      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+      $('#_modal_please_wait').modal('hide');
+      $('#errorModal').modal('show');
+    }, 500);
   }
 
   showErrorSuccesMoney(json) {
-    console.log(json.Id + json.MensajeAUsuario);
-    document.getElementById('msgError').innerHTML =   json.MensajeAUsuario; 
-    $('#_modal_please_wait').modal('hide');
-    $('#ModalErrorTransaccion').modal('show');
+    setTimeout(function() { 
+      console.log(json.Id + json.MensajeAUsuario);
+      document.getElementById('msgError').innerHTML =   json.MensajeAUsuario; 
+      $('#_modal_please_wait').modal('hide');
+      $('#ModalErrorTransaccion').modal('show');
+    }, 500);
   }
 
   irMenuBXI() {
