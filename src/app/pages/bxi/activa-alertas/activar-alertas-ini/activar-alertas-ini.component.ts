@@ -91,26 +91,29 @@ consultaAlertas(I, TDD , TDC , numeroCuenta) {
 
   const this_aux = this;
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
- 
+  $('#_modal_please_wait').modal('show');
   operacionesbxi.mantieneAlertas('C', this_aux.service.infoUsuarioSIC, I, TDD, TDC, numeroCuenta).then(
     function(detalleAlertas) {
           const detalle = detalleAlertas.responseJSON;
           let AlertasActivas_true = false;
           console.log(detalle);
           if (detalle .Id === '1') {
-              const alertas = detalle.AlertasXCliente;
-              this_aux.ArrayAlertasCliente = alertas;
-              alertas.forEach(alerta => {
-                  if (alerta.IndicadorServicio === 'S' ) {   AlertasActivas_true = true; 
-                  }
-              });
-              this_aux.AlertasActivas = AlertasActivas_true;
-              console.log('this_aux.AlertasActivas' + this_aux.AlertasActivas);
-              if (this_aux.AlertasActivas) {
-                  document.getElementById('mnsError').innerHTML =  "Ya tienes alertas activas para esta cuenta"; 
-                  $('#errorModal').modal('show');
-              }
-              this_aux.getSaldoDeCuenta(numeroCuenta);
+
+              setTimeout(function() { 
+                const alertas = detalle.AlertasXCliente;
+                this_aux.ArrayAlertasCliente = alertas;
+                alertas.forEach(alerta => {
+                    if (alerta.IndicadorServicio === 'S' ) {   AlertasActivas_true = true; 
+                    }
+                });
+                this_aux.AlertasActivas = AlertasActivas_true;
+                console.log('this_aux.AlertasActivas' + this_aux.AlertasActivas);
+                if (this_aux.AlertasActivas) {
+                    document.getElementById('mnsError').innerHTML =  "Ya tienes alertas activas para esta cuenta"; 
+                    $('#errorModal').modal('show');
+                }
+                this_aux.getSaldoDeCuenta(numeroCuenta);
+              }, 500);
           } else {   this_aux.showErrorSucces(detalle);      }
     }, function(error) { this_aux.showErrorPromise(error);    }
   );
@@ -125,8 +128,8 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
           console.log(response1.responseText);
           const detalleSaldos = response1.responseJSON;
             if ( detalleSaldos.Id === '1') {
-              lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
-
+                lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
+                $('#_modal_please_wait').modal('hide');
             } else {   this_aux.showErrorSucces(detalleSaldos);  
               lblSaldoOrigen.innerHTML = '';
             }
@@ -166,18 +169,24 @@ getNumeroCuentaOrigen(text) {
   }
 
   showErrorPromise(error) {
-    console.log(error);
-    // tslint:disable-next-line:max-line-length
-    document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde."; 
-    $('#_modal_please_wait').modal('hide');
-    $('#errorModal').modal('show');
+    setTimeout(function() {
+      $('#modal_please_wait').modal('hide');
+      $('#errorModal').modal('show');
+      if (error.errorCode === 'API_INVOCATION_FAILURE') {
+          document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+      } else {
+        document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
+      }
+    }, 500);
   }
   
   showErrorSucces(json) {
-    console.log(json.Id + json.MensajeAUsuario);
-    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
-    $('#_modal_please_wait').modal('hide');
-    $('#errorModal').modal('show');
+    setTimeout(function() { 
+      console.log(json.Id + json.MensajeAUsuario);
+      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+      $('#_modal_please_wait').modal('hide');
+      $('#errorModal').modal('show');
+    }, 500);
   }
   
   estaSeleccionado() {
@@ -186,7 +195,7 @@ getNumeroCuentaOrigen(text) {
   }
 
   setAltaServicioAlertas() {
-
+    $('#_modal_please_wait').modal('show');
     const this_aux = this;
     let TDD  = false;
     let TDC = false;

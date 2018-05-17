@@ -72,7 +72,8 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   }
   
   setDatosCuentaSeleccionada(elementHTML) {
- 
+
+    $('#_modal_please_wait').modal('show');
     const this_aux = this;
     console.log(elementHTML);
     const tableOrigen = document.getElementById('tableOrigen');
@@ -90,6 +91,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   }
 
   getSaldoDeCuenta(numCuenta_seleccionada) {
+
     const this_aux = this;
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     operacionesbxi.getSaldo(numCuenta_seleccionada).then(
@@ -97,8 +99,10 @@ export class PagoTarjetaCreditoComponent implements OnInit {
             console.log(response1.responseText);
             const detalleSaldos = response1.responseJSON;
               if ( detalleSaldos.Id === '1') {
-                const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
-                lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
+                setTimeout(function() { 
+                  const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
+                  lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
+                }, 500);
               } else {
 
                   this_aux.showErrorSucces(detalleSaldos);
@@ -297,11 +301,13 @@ export class PagoTarjetaCreditoComponent implements OnInit {
                   ); 
               } else {
                   
+                setTimeout(function() { 
                   console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);  
                   mensajeError = this_aux.controlarError(infoUsuarioJSON);
                   document.getElementById('mnsError').innerHTML =  mensajeError;
                   $('#_modal_please_wait').modal('hide');
                   $('#errorModal').modal('show');
+                }, 500);
               }
         }, function(error) {
            this_aux.showErrorPromise(error);
@@ -404,25 +410,34 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   }
 
   showErrorPromise(error) {
-    console.log(error);
-    // tslint:disable-next-line:max-line-length
-    document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde."; 
-    $('#_modal_please_wait').modal('hide');
-    $('#errorModal').modal('show');
+    setTimeout(function() {
+      $('#modal_please_wait').modal('hide');
+      $('#errorModal').modal('show');
+      if (error.errorCode === 'API_INVOCATION_FAILURE') {
+          document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+      } else {
+        document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
+      }
+    }, 500);
   }
 
   showErrorSucces(json) {
-    console.log(json.Id + json.MensajeAUsuario);
-    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
-    $('#_modal_please_wait').modal('hide');
-    $('#errorModal').modal('show');
+
+    setTimeout(function() { 
+      console.log(json.Id + json.MensajeAUsuario);
+      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+      $('#_modal_please_wait').modal('hide');
+      $('#errorModal').modal('show');
+    }, 500);
   }
 
   showErrorSuccesMoney(json) {
-    console.log(json.Id + json.MensajeAUsuario);
-    document.getElementById('msgError').innerHTML =   json.MensajeAUsuario; 
-    $('#_modal_please_wait').modal('hide');
-    $('#ModalErrorTransaccion').modal('show');
+    setTimeout(function() { 
+      console.log(json.Id + json.MensajeAUsuario);
+      document.getElementById('msgError').innerHTML =   json.MensajeAUsuario; 
+      $('#_modal_please_wait').modal('hide');
+      $('#ModalErrorTransaccion').modal('show');
+    }, 500);
   }
 
   irMenuBXI() {

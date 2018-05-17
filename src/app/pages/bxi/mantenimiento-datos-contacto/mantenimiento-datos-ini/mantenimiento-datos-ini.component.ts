@@ -36,11 +36,14 @@ export class MantenimientoDatosIniComponent implements OnInit {
 
   getDatosContacto() {
    
-    const this_aux = this;
-    const controlCorreo: FormControl = new FormControl(this_aux.service.EmailCliente);
-    this_aux.myForm.setControl('fcCorreo', controlCorreo );
-    const controlCelular: FormControl = new FormControl(  this_aux.service.CelCliente);
-    this_aux.myForm.setControl('fcCelular', controlCelular );
+    setTimeout(function() { 
+      const this_aux = this;
+      const controlCorreo: FormControl = new FormControl(this_aux.service.EmailCliente);
+      this_aux.myForm.setControl('fcCorreo', controlCorreo );
+      const controlCelular: FormControl = new FormControl(  this_aux.service.CelCliente);
+      this_aux.myForm.setControl('fcCelular', controlCelular );
+    }, 500);
+    
   }
 
 
@@ -61,6 +64,8 @@ export class MantenimientoDatosIniComponent implements OnInit {
   }
 
   modificarDatos(correo , celular) {
+
+    $('#_modal_please_wait').modal('show');
     const this_aux = this;
     const operaciones: OperacionesBXI = new OperacionesBXI();
     operaciones.actualizaDatosContacto(this_aux.service.infoUsuarioSIC, correo, celular).then(
@@ -91,18 +96,25 @@ export class MantenimientoDatosIniComponent implements OnInit {
   }
 
   showErrorPromise(error) {
-    console.log(error);
-    // tslint:disable-next-line:max-line-length
-    document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde."; 
-    $('#_modal_please_wait').modal('hide');
-    $('#errorModal').modal('show');
+
+    setTimeout(function() {
+      $('#modal_please_wait').modal('hide');
+      $('#errorModal').modal('show');
+      if (error.errorCode === 'API_INVOCATION_FAILURE') {
+          document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+      } else {
+        document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
+      }
+    }, 500);
   }
 
   showErrorSucces(json) {
-    console.log(json.Id + json.MensajeAUsuario);
-    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
-    $('#_modal_please_wait').modal('hide');
-    $('#errorModal').modal('show');
+    setTimeout(function() { 
+      console.log(json.Id + json.MensajeAUsuario);
+      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+      $('#_modal_please_wait').modal('hide');
+      $('#errorModal').modal('show');
+    }, 500);
   }
 
   irMenuBXI() {

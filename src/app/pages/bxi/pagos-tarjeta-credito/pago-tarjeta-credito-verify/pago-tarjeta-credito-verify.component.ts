@@ -2,11 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { SesionBxiService } from './../../sesion-bxi.service';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 
+
+declare var jquery: any; // jquery
+declare var $: any;
+
 @Component({
   selector: 'app-pago-tarjeta-credito-verify',
   templateUrl: './pago-tarjeta-credito-verify.component.html',
   styleUrls: []
 })
+
+
 export class PagoTarjetaCreditoVerifyComponent implements OnInit {
 
   constructor(private service: SesionBxiService, private router: Router) { }
@@ -25,11 +31,15 @@ export class PagoTarjetaCreditoVerifyComponent implements OnInit {
 };
 
   ngOnInit() {
-    this.showData();
+    const this_aux = this;
+    setTimeout(function() { 
+      this_aux.showData();
+    }, 500); 
   }
 
   showData() {
 
+    
     const this_aux = this;
     const resPagoString = this_aux.service.detallePagoTarjeta; 
     const respPagoJson  = JSON.parse(resPagoString);
@@ -58,6 +68,7 @@ export class PagoTarjetaCreditoVerifyComponent implements OnInit {
     this_aux.detallePago.operacion = this_aux.service.nameOperacion;
     this_aux.detallePago.cuentaOrigen = this_aux.service.numCuentaSeleccionado;
     this_aux.detallePago.cuentaDestino = this_aux.service.numCtaBenSeleccionada;
+    $('#_modal_please_wait').modal('hide');
   }
 
   irMenuBXI() {
