@@ -41,7 +41,7 @@ export class BreadcrumbsComponent implements OnInit {
 
   cerrarSessionBEL() {
     if (this.service.Login === "1" ) {
-
+      this.service.Login = "0";
     const THIS: any = this;
 
     console.log("Cerrar sesion BEL");
@@ -54,7 +54,7 @@ export class BreadcrumbsComponent implements OnInit {
           function(response) {
             
             console.log(response);
-
+            console.log("BEL cerro sesion", this.service.Login); 
             THIS.router.navigate(['/login']);
   
           },
