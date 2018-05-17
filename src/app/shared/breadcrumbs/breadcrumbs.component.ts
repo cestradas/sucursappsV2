@@ -33,10 +33,45 @@ export class BreadcrumbsComponent implements OnInit {
 
       this.NombreUsuario = this.service.NombreUsuario;
       console.log("BEL ", this.service.NombreUsuario); 
-
+      this.service.Login = "1";
+      console.log("BEL ", this.service.Login); 
     }
      
   }
+
+  cerrarSessionBEL() {
+    if (this.service.Login === "1" ) {
+
+    const THIS: any = this;
+
+    console.log("Cerrar sesion BEL");
+    
+    const resourceRequest = new WLResourceRequest(
+      'adapters/AdapterBanorteSucursAppsBEL/resource/cerrarSession',
+      WLResourceRequest.POST);
+  resourceRequest.setTimeout(30000);
+  resourceRequest.send().then(
+          function(response) {
+            
+            console.log(response);
+
+            THIS.router.navigate(['/login']);
+  
+          },
+          function(error) {
+            
+            console.log(error);
+            THIS.router.navigate(['/login']);
+  
+          });
+
+
+    } else { 
+        this.cerrarSesion();
+    }
+
+  }
+
 
    cerrarSesion() {
 

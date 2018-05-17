@@ -96,7 +96,9 @@ export class SesionBxiService {
      divisa: String;
      saldoSeleccionado: String;
      
+    // Session
 
+    Login: String;
 
 
   constructor() {  }

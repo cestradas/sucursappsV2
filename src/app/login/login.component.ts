@@ -66,7 +66,7 @@ resourceRequest
             $('#errorModal').modal('show');
             
         });
-        this.idSession();
+        // this.idSession();
 
         
         // $('div').removeClass('modal-backdrop');
