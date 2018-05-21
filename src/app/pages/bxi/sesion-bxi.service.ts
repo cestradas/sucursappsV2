@@ -95,6 +95,11 @@ export class SesionBxiService {
      noTarjetaSeleccionada: String;
      divisa: String;
      saldoSeleccionado: String;
+
+     // Envio EDC Correo
+    fechaCorte: string;
+    numDoc: string;
+    idOpe: string;
      
     // Session
 

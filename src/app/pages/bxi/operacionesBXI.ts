@@ -392,5 +392,19 @@ export class OperacionesBXI {
            resourceRequest.setTimeout(30000);
 
             return resourceRequest.send();
-    }
+        }
+    
+        getDocumento(fechaCorte, idDocumento, id): any {
+            const formParameters = {
+                fechaCorte: fechaCorte,
+                idDocumento: idDocumento,
+                id: id
+            };
+    
+            const    resourceRequest = new WLResourceRequest(
+                'adapters/AdapterBanorteSucursAppsBEL/resource/obtenerDoc', WLResourceRequest.POST);
+          resourceRequest.setTimeout(30000);
+    
+          return resourceRequest.sendFormParameters(formParameters);
+        }
 }
