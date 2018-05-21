@@ -104,9 +104,12 @@ export class PagoServiciosDetailComponent implements OnInit {
               divChallenge.setAttribute('style', 'display: block');
               this_aux.NumeroSeguridad = detallePrepara.MensajeUsuarioUno;
             } else {
+              $('#_modal_please_wait').modal('hide');
               this_aux.showErrorSucces(detallePrepara);
             }
-          }, function(error) { this_aux.showErrorPromise(error);
+          }, function(error) { 
+            $('#_modal_please_wait').modal('hide');
+            this_aux.showErrorPromise(error);
 
           });
 
