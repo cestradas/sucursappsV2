@@ -171,6 +171,8 @@ export class LoginBxiComponent implements OnInit {
               
               console.log(jsonDatosUsuario);
               this_aux.service.isPreferente = jsonDatosUsuario.Preferente;
+              $( ".cdk-visually-hidden" ).css( "margin-top", "0%" );
+              $( ".nav-img-banorte" ).css( "background-image", "" );
               this_aux.router.navigate(['/menuBXI']);
               $('div').removeClass('modal-backdrop');
 

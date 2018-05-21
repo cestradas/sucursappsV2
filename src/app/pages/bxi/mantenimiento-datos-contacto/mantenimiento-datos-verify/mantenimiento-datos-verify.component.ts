@@ -18,11 +18,12 @@ export class MantenimientoDatosVerifyComponent implements OnInit {
 
   ngOnInit() {
 
-    setTimeout(function() { 
+
       this.NombreUser = this.service.NombreUsuario;
       this.Sic = this.service.infoUsuarioSIC;
       this.Celular = this.service.CelCliente;
       this.CorreoElectronico = this.service.EmailCliente;
+  setTimeout(function() { 
       $('#_modal_please_wait').modal('hide');
     }, 500);
 

@@ -51,6 +51,7 @@ export class BreadcrumbsComponent implements OnInit {
             const responseJson = response.responseJSON;
             if (responseJson.Id === "SEG0001") {
               console.log("BEL cerro sesion",  this_aux.service.Login); 
+              location.reload(true);
               this_aux.router.navigate(['/login']);
             } else {
               console.log("BEL error cerrar sesion", responseJson.Id  + responseJson.MensajeAUsuario);

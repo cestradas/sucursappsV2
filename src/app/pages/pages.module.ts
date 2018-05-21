@@ -3,9 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { NgModule} from '@angular/core';
 import { PagesComponent } from './pages.component';
 import { PAGES_ROUTES } from './pages.routes';
-
-import { SharedModule } from '../shared/shared.module';
-
 import { PagesTddModule } from './tdd/pagesTdd.module';
 import { PagesBxiModule } from "./bxi/pagesBxi.module";
 import { BreadcrumbsComponent } from '../shared/breadcrumbs/breadcrumbs.component';
@@ -61,7 +58,6 @@ const customLayouts: IKeyboardLayouts = {
     ],
     exports: [],
     imports: [
-        SharedModule,
         CommonModule,
         BrowserModule,
         PAGES_ROUTES,

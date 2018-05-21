@@ -143,14 +143,12 @@ export class MenuBxiComponent implements OnInit {
     console.log(error);
     // tslint:disable-next-line:max-line-length
     document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
-    $('#_modal_please_wait').modal('hide');
     $('#errorModal').modal('show');
   }
 
   showErrorSucces(json) {
     console.log(json.Id + json.MensajeAUsuario);
     document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
-    $('#_modal_please_wait').modal('hide');
     $('#errorModal').modal('show');
   }
 
@@ -168,16 +166,20 @@ export class MenuBxiComponent implements OnInit {
                   this_aux.service.EmailCliente = jsonData.Email;
                   this_aux.service.CelCliente = jsonData.Telefono;
                   if (jsonData.Email === undefined || jsonData.Email === '' || jsonData.Telefono === undefined || jsonData.Telefono === '') {
-                      if (opc === 'activaAlertas') {
+                      if (opc === 'activaAlertas') {  
+                           $('#_modal_please_wait').modal('hide');
                           document.getElementById('mnsError').innerHTML =   "Estimado cliente, es necesario que registres tu correo electrónico y número móvil poder continuar. ";
-                          $('#_modal_please_wait').modal('hide');
                           $('#errorModal').modal('show');
                       }
                     } else { if (opc === 'activaAlertas') {  this_aux.router.navigate(['/activaAlertas_ini']); }
                       }
                   if (opc === 'actualizaDatos') {  this_aux.router.navigate(['/mantiene-datos-ini']); }
-            } else {  this_aux.showErrorSucces(jsonData);       }
-          }, function (error) { this_aux.showErrorPromise(error);   }
+            } else {  
+              $('#_modal_please_wait').modal('hide');
+              this_aux.showErrorSucces(jsonData);       }
+          }, function (error) { 
+            $('#_modal_please_wait').modal('hide');
+            this_aux.showErrorPromise(error);   }
         );
     } else {
       if (opc === 'activaAlertas') {  this_aux.router.navigate(['/activaAlertas_ini']); }

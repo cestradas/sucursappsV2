@@ -3,7 +3,6 @@ import { MenutddComponent } from './menuTDD/menutdd.component';
 import { NgModule } from "@angular/core"; 
 import { PagesTddComponent } from './pagesTdd.component';
 import { PAGES_ROUTES_TDD } from './pagesTdd.routes';
-import { SharedModule } from '../../shared/shared.module';
 import { MovimientosaldoComponent } from "./movimientosaldo/movimientosaldo.component";
 import { TransferenciaSpeiComponent } from './transferencia-spei/transferencia-spei.component';
 import { TransferenciaTercerosComponent } from './transferencia-terceros/transferencia-terceros.component';
@@ -90,7 +89,7 @@ const customLayouts: IKeyboardLayouts = {
     ],
     exports: [],
     imports: [
-        SharedModule,
+        
         PAGES_ROUTES_TDD,
         FormsModule,
         CommonModule,
