@@ -1,7 +1,6 @@
 import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
-import 'rxjs/Rx';
 import { SesionBxiService } from '../sesion-bxi.service';
 import { OperacionesBXI } from '../operacionesBXI';
 import { Autenticacion } from '../autenticacion';
@@ -245,6 +244,7 @@ setCuentasBenficiarioXTipo() {
   if (this_aux.selectTipo.nativeElement.value.toString() === "1") {
     console.log('setCuentasUsuario');
     console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
+    // tslint:disable-next-line:no-shadowed-variable
     const node = document.getElementById("ul_CuentasBen");
     console.log(node);
     while (node.firstChild) {
@@ -255,6 +255,7 @@ setCuentasBenficiarioXTipo() {
   if (this_aux.selectTipo.nativeElement.value.toString() === "2") {
     console.log('setCuentasBenficiarioXTipo');
     console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
+    // tslint:disable-next-line:no-shadowed-variable
     const node = document.getElementById("ul_CuentasBen");
     console.log(node);
     while (node.firstChild) {

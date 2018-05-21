@@ -35,15 +35,15 @@ export class MantenimientoDatosIniComponent implements OnInit {
   }
 
   getDatosContacto() {
-   
-    setTimeout(function() { 
+    
       const this_aux = this;
       const controlCorreo: FormControl = new FormControl(this_aux.service.EmailCliente);
       this_aux.myForm.setControl('fcCorreo', controlCorreo );
       const controlCelular: FormControl = new FormControl(  this_aux.service.CelCliente);
       this_aux.myForm.setControl('fcCelular', controlCelular );
-    }, 500);
-    
+      setTimeout(function() { 
+        $('#_modal_please_wait').modal('hide');
+      }, 500); 
   }
 
 
@@ -76,8 +76,12 @@ export class MantenimientoDatosIniComponent implements OnInit {
               this_aux.service.EmailCliente = correo;
               this_aux.service.CelCliente = celular;
               this_aux.router.navigate(['/mantiene-datos-fin']);
-        } else { this_aux.showErrorSucces(jsonRespuesta); }
-      }, function(error) {   this_aux.showErrorPromise(error);   }
+        } else { 
+          $('#_modal_please_wait').modal('hide');
+          this_aux.showErrorSucces(jsonRespuesta); }
+      }, function(error) {  
+        $('#_modal_please_wait').modal('hide');
+        this_aux.showErrorPromise(error);   }
     );
 
     
@@ -97,24 +101,19 @@ export class MantenimientoDatosIniComponent implements OnInit {
 
   showErrorPromise(error) {
 
-    setTimeout(function() {
-      $('#modal_please_wait').modal('hide');
       $('#errorModal').modal('show');
       if (error.errorCode === 'API_INVOCATION_FAILURE') {
           document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
       } else {
         document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
       }
-    }, 500);
   }
 
   showErrorSucces(json) {
-    setTimeout(function() { 
       console.log(json.Id + json.MensajeAUsuario);
-      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
-      $('#_modal_please_wait').modal('hide');
+      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
       $('#errorModal').modal('show');
-    }, 500);
+
   }
 
   irMenuBXI() {

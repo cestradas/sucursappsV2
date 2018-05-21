@@ -38,6 +38,9 @@ export class ActivarAlertasIniComponent implements OnInit {
       cuentasArray.forEach(cuenta => {
         this_aux.crearListaCuentas(cuenta); 
     });
+    setTimeout(function() { 
+      $('#_modal_please_wait').modal('hide');
+    }, 500);
 }
 crearListaCuentas(cuenta) {
   const this_aux = this;
@@ -99,7 +102,7 @@ consultaAlertas(I, TDD , TDC , numeroCuenta) {
           console.log(detalle);
           if (detalle .Id === '1') {
 
-              setTimeout(function() { 
+               
                 const alertas = detalle.AlertasXCliente;
                 this_aux.ArrayAlertasCliente = alertas;
                 alertas.forEach(alerta => {
@@ -109,13 +112,18 @@ consultaAlertas(I, TDD , TDC , numeroCuenta) {
                 this_aux.AlertasActivas = AlertasActivas_true;
                 console.log('this_aux.AlertasActivas' + this_aux.AlertasActivas);
                 if (this_aux.AlertasActivas) {
+                  $('#_modal_please_wait').modal('hide');
                     document.getElementById('mnsError').innerHTML =  "Ya tienes alertas activas para esta cuenta"; 
                     $('#errorModal').modal('show');
                 }
                 this_aux.getSaldoDeCuenta(numeroCuenta);
-              }, 500);
-          } else {   this_aux.showErrorSucces(detalle);      }
-    }, function(error) { this_aux.showErrorPromise(error);    }
+              
+          } else {  
+            $('#_modal_please_wait').modal('hide');
+            this_aux.showErrorSucces(detalle);      }
+    }, function(error) { 
+      $('#_modal_please_wait').modal('hide');
+      this_aux.showErrorPromise(error);    }
   );
 }
 
@@ -130,10 +138,14 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
             if ( detalleSaldos.Id === '1') {
                 lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
                 $('#_modal_please_wait').modal('hide');
-            } else {   this_aux.showErrorSucces(detalleSaldos);  
+            } else {
+              $('#_modal_please_wait').modal('hide');   
+              this_aux.showErrorSucces(detalleSaldos);  
               lblSaldoOrigen.innerHTML = '';
             }
-      }, function(error) {    this_aux.showErrorPromise(error);  }
+      }, function(error) {
+        $('#_modal_please_wait').modal('hide');    
+        this_aux.showErrorPromise(error);  }
     );
 }
 irMenuBXI() {
@@ -169,24 +181,22 @@ getNumeroCuentaOrigen(text) {
   }
 
   showErrorPromise(error) {
-    setTimeout(function() {
-      $('#modal_please_wait').modal('hide');
+    
       $('#errorModal').modal('show');
       if (error.errorCode === 'API_INVOCATION_FAILURE') {
           document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
       } else {
         document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
       }
-    }, 500);
+    
   }
   
   showErrorSucces(json) {
-    setTimeout(function() { 
+    
       console.log(json.Id + json.MensajeAUsuario);
       document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
-      $('#_modal_please_wait').modal('hide');
       $('#errorModal').modal('show');
-    }, 500);
+    
   }
   
   estaSeleccionado() {

@@ -375,4 +375,22 @@ export class OperacionesBXI {
 
           return resourceRequest.send();
    }
+
+   preparaAutenticacion () {
+
+     const    resourceRequest = new WLResourceRequest(
+            'adapters/AdapterBanorteSucursAppsBEL/resource/preparaAutenticacion', WLResourceRequest.POST);
+      resourceRequest.setTimeout(30000);
+
+      return resourceRequest.send();
+    }
+
+    cerrarSesionBEL() {
+        const resourceRequest = new WLResourceRequest(
+            'adapters/AdapterBanorteSucursAppsBEL/resource/cerrarSession',
+            WLResourceRequest.POST);
+           resourceRequest.setTimeout(30000);
+
+            return resourceRequest.send();
+    }
 }
