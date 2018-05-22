@@ -40,6 +40,7 @@ export class ActivarAlertasIniComponent implements OnInit {
     });
     setTimeout(function() { 
       $('#_modal_please_wait').modal('hide');
+      $('div').removeClass('modal-backdrop');
     }, 500);
 }
 crearListaCuentas(cuenta) {
@@ -229,10 +230,15 @@ getNumeroCuentaOrigen(text) {
                       this_aux.Evento = servicioEventoAux.substring(2, 5);
                       this_aux.setAltaServicioAlertas();
                     } else {
-                        this.router.navigate(['/activaAlertas_verify']);
+                      this_aux.router.navigate(['/activaAlertas_verify']);
                     }
-                } else { this_aux.showErrorSucces(res); }
-          }, function(error) {  this_aux.showErrorPromise(error);   }
+                } else { 
+                  $('#_modal_please_wait').modal('hide');
+                  this_aux.showErrorSucces(res); }
+          }, function(error) {  
+            
+            $('#_modal_please_wait').modal('hide');
+            this_aux.showErrorPromise(error);   }
           
        );
 

@@ -1,3 +1,4 @@
+
 import { ActivarAlertasIniComponent } from './activa-alertas/activar-alertas-ini/activar-alertas-ini.component';
 import { ModalBxiErrorComponentComponent } from './modales/modal-bxi-error-component/modal-bxi-error-component.component';
 import { SesionBxiService } from './sesion-bxi.service';
@@ -88,7 +89,8 @@ const customLayouts: IKeyboardLayouts = {
         TransferenciasBanorteComponent,
         TransferenciaFinishBanorteComponent,
         ImpresionEdcComponent,
-        ImpresionEdcFinishComponent
+        ImpresionEdcFinishComponent,
+        
 
     ],
     exports: [],

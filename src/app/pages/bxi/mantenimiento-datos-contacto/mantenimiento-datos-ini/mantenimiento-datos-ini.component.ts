@@ -36,6 +36,7 @@ export class MantenimientoDatosIniComponent implements OnInit {
 
   getDatosContacto() {
     
+    console.log('Manteniento Datos Contacto');
       const this_aux = this;
       const controlCorreo: FormControl = new FormControl(this_aux.service.EmailCliente);
       this_aux.myForm.setControl('fcCorreo', controlCorreo );
@@ -43,6 +44,7 @@ export class MantenimientoDatosIniComponent implements OnInit {
       this_aux.myForm.setControl('fcCelular', controlCelular );
       setTimeout(function() { 
         $('#_modal_please_wait').modal('hide');
+        $('div').removeClass('modal-backdrop');
       }, 500); 
   }
 

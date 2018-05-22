@@ -140,11 +140,11 @@ export class LoginBxiComponent implements OnInit {
                     this_aux.verificaPreferencia();
 
                 } else { 
-                  
+
+                  $('#_modal_please_wait').modal('hide');
                   console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);  
                   mensajeError = this_aux.controlarError(infoUsuarioJSON);
                   document.getElementById('mnsError').innerHTML =  mensajeError;
-                  $('#_modal_please_wait').modal('hide');
                   $('#errorModal').modal('show');
                 }
 
@@ -171,10 +171,9 @@ export class LoginBxiComponent implements OnInit {
               
               console.log(jsonDatosUsuario);
               this_aux.service.isPreferente = jsonDatosUsuario.Preferente;
-              $( ".cdk-visually-hidden" ).css( "margin-top", "0%" );
-              $( ".nav-img-banorte" ).css( "background-image", "" );
-              this_aux.router.navigate(['/menuBXI']);
-              $('div').removeClass('modal-backdrop');
+              // $( ".nav-img-banorte" ).css( "background-image", "");
+               this_aux.router.navigate(['/menuBXI']);
+              // $('div').removeClass('modal-backdrop');
 
             } else {
               this_aux.showErrorSucces(jsonDatosUsuario);

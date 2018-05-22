@@ -92,7 +92,7 @@ export class PagoServiciosDetailComponent implements OnInit {
       const divChallenge = document.getElementById('challenger');
       const divTokenPass = document.getElementById('divPass');
       if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
-
+        $('#_modal_please_wait').modal('show');
         this_aux.labelTipoAutentica = 'Token Celular';
         divTokenPass.setAttribute('style', 'display: block');
         const operacionesbxi: OperacionesBXI = new OperacionesBXI();
@@ -103,6 +103,7 @@ export class PagoServiciosDetailComponent implements OnInit {
             if (detallePrepara.Id === 'SEG0001') {
               divChallenge.setAttribute('style', 'display: block');
               this_aux.NumeroSeguridad = detallePrepara.MensajeUsuarioUno;
+              $('#_modal_please_wait').modal('hide');
             } else {
               $('#_modal_please_wait').modal('hide');
               this_aux.showErrorSucces(detallePrepara);
