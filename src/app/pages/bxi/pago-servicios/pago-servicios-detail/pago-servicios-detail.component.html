@@ -175,11 +175,11 @@
                     <div class="col-lg 12">
                         <div id="challenger" class="form-group">
                             <label>N&uacute;mero de seguridad</label>
-                            <input type='text' id='numeroSeguridad' class='form-control input-lg' ng-model='challenge.rcg' readonly>
+                            <label  class='form-control input-lg'  >{{NumeroSeguridad}}</label>
 
                         </div>
                         <div id="divPass" class="form-group">
-                            <label>TipoAutentica</label>
+                            <label>{{labelTipoAutentica}}</label>
                             <input type="password" class="form-control input-lg" #token [matKeyboard]="'num'" >
                             <div *ngIf="(token.value == '')  && token.touched" class="alert alert-danger">
                                     <p color="danger" *ngIf="(token.value == '')">Dato obligatorio, favor de capturar. </p>

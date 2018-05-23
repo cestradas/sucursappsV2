@@ -64,27 +64,34 @@ export class MenuBxiComponent implements OnInit {
 
   comenzarOperacion(idOperacion) {
     // $('div').removeClass('modal-backdrop');
+    const this_aux = this;
     $('#_modal_please_wait').modal('show');
 
     switch (idOperacion) {
       
-      case 'saldoBXI': this.router.navigate(['/saldosBXI']);
+      case 'saldoBXI': this_aux.router.navigate(['/saldosBXI']);
             break;
-      case 'pagoserv': this.router.navigate(['/pagoservicios_ini']);
+      case 'pagoserv': this_aux.router.navigate(['/pagoservicios_ini']);
             break;
-      case 'trnasfSPEI': this.router.navigate(['/speiBXI']);
+      case 'trnasfSPEI': this_aux.router.navigate(['/speiBXI']);
             break;
-      case 'compraTA': this.router.navigate(['/CompraTaComponent']);
+      case 'compraTA': this_aux.router.navigate(['/CompraTaComponent']);
             break;
-      case 'pagotar': this.router.navigate(['/pagoTarjetaCredito_ini']);
+      case 'pagotar': this_aux.router.navigate(['/pagoTarjetaCredito_ini']);
             break;
-      case 'activaAlertas': this.getDatosContacto(idOperacion);
+      case 'activaAlertas': setTimeout(function() { 
+                              $('#_modal_please_wait').modal('hide');
+                              this_aux.getDatosContacto(idOperacion);
+                            }, 1000);
             break;
-      case 'actualizaDatos': this.getDatosContacto(idOperacion);
+      case 'actualizaDatos': setTimeout(function() { 
+                              $('#_modal_please_wait').modal('hide');
+                              this_aux.getDatosContacto(idOperacion);
+                              }, 1000);
             break;
-      case 'transferBanorte': this.router.navigate(['/TransferBanorte']);
+      case 'transferBanorte': this_aux.router.navigate(['/TransferBanorte']);
             break;
-      case 'impresionEDC': this.router.navigate(['/impresion_EDC']);
+      case 'impresionEDC': this_aux.router.navigate(['/impresion_EDC']);
             break;
 
 
@@ -155,7 +162,6 @@ export class MenuBxiComponent implements OnInit {
   }
 
   getDatosContacto(opc) {
-
     console.log('getDatosContacto');
     const this_aux = this;
     const operaciones: OperacionesBXI = new OperacionesBXI();
@@ -168,20 +174,33 @@ export class MenuBxiComponent implements OnInit {
                   this_aux.service.EmailCliente = jsonData.Email;
                   this_aux.service.CelCliente = jsonData.Telefono;
                   if (jsonData.Email === undefined || jsonData.Email === '' || jsonData.Telefono === undefined || jsonData.Telefono === '') {
-                      if (opc === 'activaAlertas') {
+                    if (opc === 'activaAlertas') {  
+                      setTimeout(function() { 
                           document.getElementById('mnsError').innerHTML =   "Estimado cliente, es necesario que registres tu correo electrónico y número móvil poder continuar. ";
-                          $('#_modal_please_wait').modal('hide');
                           $('#errorModal').modal('show');
+                        }, 1000);
                       }
-                    } else { if (opc === 'activaAlertas') {  this_aux.router.navigate(['/activaAlertas_ini']); }
+                    } else { if (opc === 'activaAlertas') {
+                      $('#_modal_please_wait').modal('show');  
+                          this_aux.router.navigate(['/activaAlertas_ini']); }
                       }
-                  if (opc === 'actualizaDatos') {  this_aux.router.navigate(['/mantiene-datos-ini']); }
-            } else {  this_aux.showErrorSucces(jsonData);       }
-          }, function (error) { this_aux.showErrorPromise(error);   }
+                  if (opc === 'actualizaDatos') {  
+                    $('#_modal_please_wait').modal('show');
+                    this_aux.router.navigate(['/mantiene-datos-ini']); }
+            } else {  
+              
+              this_aux.showErrorSucces(jsonData);       }
+          }, function (error) { 
+           
+            this_aux.showErrorPromise(error);   }
         );
     } else {
-      if (opc === 'activaAlertas') {  this_aux.router.navigate(['/activaAlertas_ini']); }
-      if (opc === 'actualizaDatos') {  this_aux.router.navigate(['/mantiene-datos-ini']); }
+      if (opc === 'activaAlertas') {  
+        $('#_modal_please_wait').modal('show');
+        this_aux.router.navigate(['/activaAlertas_ini']); }
+      if (opc === 'actualizaDatos') {  
+        $('#_modal_please_wait').modal('show');
+        this_aux.router.navigate(['/mantiene-datos-ini']); }
     }
 }
 

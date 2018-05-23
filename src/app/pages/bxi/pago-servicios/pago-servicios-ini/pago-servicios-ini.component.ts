@@ -147,10 +147,12 @@ getEmpresas() {
     
                     }, 500);
                   } else {
+                    $('#_modal_please_wait').modal('hide');
                     this_aux.showErrorSucces(consultaEmpresas);
                 }
 
               }, function(error) {
+                $('#_modal_please_wait').modal('hide');
                     this_aux.showErrorPromise(error);
               });
       }
@@ -168,8 +170,15 @@ getEmpresas() {
                  valueFacturador = empresa.IdFacturador;
            }
          });
-         this_aux.service.idFacturador = valueFacturador;
-         this_aux.getDetalleEmpresa(valueFacturador);
+         if (valueFacturador === undefined) {
+
+          document.getElementById('mnsError').innerHTML = "Servicio invalidado, verifica tu elección;"; 
+          $('#errorModal').modal('show');
+
+         } else {
+          this_aux.service.idFacturador = valueFacturador;
+          this_aux.getDetalleEmpresa(valueFacturador);
+         }
      }
 
      getDetalleEmpresa(idFacturador) {
@@ -182,16 +191,17 @@ getEmpresas() {
              const detalleEmpresa = response.responseJSON;
              const body = $('body');
              if (detalleEmpresa.Id === '1') {
-                setTimeout(function() { 
+              this_aux.service.detalleEmpresa_PS = response.responseText;
+                
                   body.off('click');
-                  this_aux.service.detalleEmpresa_PS = response.responseText;
                   this_aux.router.navigate(['/pagoservicios_detail']);
   
-                }, 500);
              } else {
+              $('#_modal_please_wait').modal('hide');
                   this_aux.showErrorSucces(detalleEmpresa);
              }
            }, function(error) {
+            $('#_modal_please_wait').modal('hide');
                 this_aux.showErrorPromise(error);
            });
      }
@@ -243,25 +253,21 @@ getEmpresas() {
 
    showErrorPromise(error) {
 
-    setTimeout(function() {
-      $('#modal_please_wait').modal('hide');
       $('#errorModal').modal('show');
       if (error.errorCode === 'API_INVOCATION_FAILURE') {
           document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
       } else {
         document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
       }
-    }, 500);
   }
 
   showErrorSucces(json) {
 
-    setTimeout(function() { 
+
       console.log(json.Id + json.MensajeAUsuario);
       document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
-      $('#_modal_please_wait').modal('hide');
       $('#errorModal').modal('show');
-    }, 500);
+
   }
   
   irMenuBXI() {

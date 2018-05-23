@@ -1,4 +1,3 @@
-
 /// <reference path="../../node_modules/cordova-plugin-mfp/typings/worklight.d.ts" />
 import { SesionBxiService } from './pages/bxi/sesion-bxi.service';
 import { LoginBxiComponent } from './pages/bxi/login-bxi/login-bxi.component';
@@ -16,6 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { IKeyboardLayouts, keyboardLayouts, MAT_KEYBOARD_LAYOUTS, MatKeyboardModule, KeyboardClassKey } from '@ngx-material-keyboard/core';
 import { ServiceModule } from './services/service.module';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from './shared/shared.module';
 
 
 const customLayouts: IKeyboardLayouts = {
@@ -69,7 +69,8 @@ const customLayouts: IKeyboardLayouts = {
     BrowserAnimationsModule,
     MatButtonModule,
     MatKeyboardModule,
-    ServiceModule
+    ServiceModule,
+    SharedModule
   ],
   providers: [SesionBxiService, { provide: MAT_KEYBOARD_LAYOUTS, useValue: customLayouts}],
   bootstrap: [AppComponent]

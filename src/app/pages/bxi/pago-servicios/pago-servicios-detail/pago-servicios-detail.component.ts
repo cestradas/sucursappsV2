@@ -27,6 +27,7 @@ export class PagoServiciosDetailComponent implements OnInit {
   fechaVencimiento: string;
   importeAux: string;
   showFocus = true;
+  NumeroSeguridad: string;
 
   constructor( private service: SesionBxiService, private fb: FormBuilder, private router: Router, private currencyPipe: CurrencyPipe) {
 
@@ -41,11 +42,8 @@ export class PagoServiciosDetailComponent implements OnInit {
    }
 
   ngOnInit() {
-
-    setTimeout(function() { 
-        const this_aux = this;
-        $( ".cdk-visually-hidden" ).css( "margin-top", "7%" );
-        $('#ModalLectordeRecibo').modal('show');
+    const this_aux = this;
+    $( ".cdk-visually-hidden" ).css( "margin-top", "7%" );
         const detalleEmpresa = JSON.parse(this_aux.service.detalleEmpresa_PS);
           this_aux.nombreServicio =  detalleEmpresa.empresa;
           this_aux.service.nombreServicio = this_aux.nombreServicio;
@@ -68,6 +66,8 @@ export class PagoServiciosDetailComponent implements OnInit {
               this_aux.myForm.removeControl('fcTelefono');
               this_aux.myForm.removeControl('fcDigitoVerificador');
           }
+    setTimeout(function() { 
+       
           $('#_modal_please_wait').modal('hide');
     }, 500);
     
@@ -92,10 +92,27 @@ export class PagoServiciosDetailComponent implements OnInit {
       const divChallenge = document.getElementById('challenger');
       const divTokenPass = document.getElementById('divPass');
       if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
-
+        $('#_modal_please_wait').modal('show');
         this_aux.labelTipoAutentica = 'Token Celular';
-        divChallenge.setAttribute('style', 'display: block');
         divTokenPass.setAttribute('style', 'display: block');
+        const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+        operacionesbxi.preparaAutenticacion().then(
+          function(response) {
+            const detallePrepara = response.responseJSON;
+            console.log(detallePrepara);
+            if (detallePrepara.Id === 'SEG0001') {
+              divChallenge.setAttribute('style', 'display: block');
+              this_aux.NumeroSeguridad = detallePrepara.MensajeUsuarioUno;
+              $('#_modal_please_wait').modal('hide');
+            } else {
+              $('#_modal_please_wait').modal('hide');
+              this_aux.showErrorSucces(detallePrepara);
+            }
+          }, function(error) { 
+            $('#_modal_please_wait').modal('hide');
+            this_aux.showErrorPromise(error);
+
+          });
 
       } else if (this_aux.service.metodoAutenticaMayor.toString()  === '0') {
 
@@ -138,20 +155,25 @@ export class PagoServiciosDetailComponent implements OnInit {
                         $('div').removeClass('modal-backdrop');
                         this_aux.router.navigate(['/pagoservicios_verify']);
                       } else {
+                        $('#_modal_please_wait').modal('hide');
                         this_aux.showErrorSuccesMoney(jsonDetallePago);
                       }
-                    }, function(error) { this_aux.showErrorPromise(error); }
+                    }, function(error) { 
+                      $('#_modal_please_wait').modal('hide');
+                      this_aux.showErrorPromise(error); }
                   );
               } else {
-                    setTimeout(function() { 
+
+                    $('#_modal_please_wait').modal('hide');
                       console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);  
                       mensajeError = this_aux.controlarError(infoUsuarioJSON);
                       document.getElementById('mnsError').innerHTML =  mensajeError;
-                      $('#_modal_please_wait').modal('hide');
                       $('#errorModal').modal('show');
-                    }, 500);
+                      
               }
-        }, function(error) { this_aux.showErrorPromise(error);
+        }, function(error) { 
+          $('#_modal_please_wait').modal('hide');
+          this_aux.showErrorPromise(error);
         });
 
   }
@@ -197,7 +219,9 @@ export class PagoServiciosDetailComponent implements OnInit {
       case 'SEG0008':  mensajeError = "La sesión ha caducado.";
                     break; 
       case 'SEG0009':  mensajeError = "Límite de sesiones superado, favor de cerrar las sesiones de banca en línea activas.";
-                    break; 
+                    break;
+      case 'SEGTK03': mensajeError = "Token desincronizado."; // Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
+                     break;
       // tslint:disable-next-line:max-line-length
       case 'SEGOTP1': mensajeError = "Token desincronizado. Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
                     break;
@@ -223,34 +247,27 @@ export class PagoServiciosDetailComponent implements OnInit {
   }
 
   showErrorPromise(error) {
-    setTimeout(function() {
-      $('#modal_please_wait').modal('hide');
+    
       $('#errorModal').modal('show');
       if (error.errorCode === 'API_INVOCATION_FAILURE') {
           document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
       } else {
         document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
       }
-    }, 500);
   }
 
   showErrorSucces(json) {
-
-    setTimeout(function() { 
       console.log(json.Id + json.MensajeAUsuario);
       document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
-      $('#_modal_please_wait').modal('hide');
       $('#errorModal').modal('show');
-    }, 500);
   }
 
   showErrorSuccesMoney(json) {
-    setTimeout(function() { 
+    
       console.log(json.Id + json.MensajeAUsuario);
       document.getElementById('msgError').innerHTML =   json.MensajeAUsuario; 
-      $('#_modal_please_wait').modal('hide');
       $('#ModalErrorTransaccion').modal('show');
-    }, 500);
+   
   }
 
   irMenuBXI() {

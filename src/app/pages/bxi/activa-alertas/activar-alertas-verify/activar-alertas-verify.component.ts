@@ -16,11 +16,12 @@ export class ActivarAlertasVerifyComponent implements OnInit {
 
   ngOnInit() {
 
-    setTimeout(function() { 
+   
       const tamNumCuenta = this.service.numCuentaSeleccionado.length;
       this.NumCuenta = this.service.numCuentaSeleccionado.substring(tamNumCuenta, tamNumCuenta - 4);
       this.Email = this.service.EmailCliente;
       this.Celular = this.service.CelCliente;
+    setTimeout(function() { 
       $('#_modal_please_wait').modal('hide');
     }, 500);
   }

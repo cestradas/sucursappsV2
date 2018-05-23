@@ -32,9 +32,8 @@ export class PagoTarjetaCreditoVerifyComponent implements OnInit {
 
   ngOnInit() {
     const this_aux = this;
-    setTimeout(function() { 
-      this_aux.showData();
-    }, 500); 
+   
+      this_aux.showData(); 
   }
 
   showData() {
@@ -68,7 +67,9 @@ export class PagoTarjetaCreditoVerifyComponent implements OnInit {
     this_aux.detallePago.operacion = this_aux.service.nameOperacion;
     this_aux.detallePago.cuentaOrigen = this_aux.service.numCuentaSeleccionado;
     this_aux.detallePago.cuentaDestino = this_aux.service.numCtaBenSeleccionada;
-    $('#_modal_please_wait').modal('hide');
+    setTimeout(function() { 
+      $('#_modal_please_wait').modal('hide');
+    }, 500); 
   }
 
   irMenuBXI() {

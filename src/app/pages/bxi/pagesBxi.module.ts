@@ -1,3 +1,4 @@
+
 import { ActivarAlertasIniComponent } from './activa-alertas/activar-alertas-ini/activar-alertas-ini.component';
 import { ModalBxiErrorComponentComponent } from './modales/modal-bxi-error-component/modal-bxi-error-component.component';
 import { SesionBxiService } from './sesion-bxi.service';
@@ -7,7 +8,6 @@ import { TransferenciaFinishSpeiComponent } from './transferencia-spei/transfere
 import { NgModule } from "@angular/core";
 import { PagesBxiComponent } from './PagesBxi.component';
 import { PAGES_ROUTES_BXI } from './pagesBxi.routes';
-import { SharedModule } from '../../shared/shared.module';
 import { CompraTaComponent } from "./compra-ta/compra-ta.component";
 import { CompraFinishTaComponent } from './compra-ta/compra-finish-ta/compra-finish-ta.component';
 import { TransferenciaSpeiComponent } from './transferencia-spei/transferencia-spei.component';
@@ -89,12 +89,12 @@ const customLayouts: IKeyboardLayouts = {
         TransferenciasBanorteComponent,
         TransferenciaFinishBanorteComponent,
         ImpresionEdcComponent,
-        ImpresionEdcFinishComponent
+        ImpresionEdcFinishComponent,
+        
 
     ],
     exports: [],
     imports: [
-        SharedModule,
         PAGES_ROUTES_BXI,
         CommonModule,
         FormsModule,
