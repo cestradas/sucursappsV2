@@ -81,7 +81,7 @@ export class ValidaNipTransaccion {
     }
 
     getPosts() {
-        return this._http.get('http://localhost:8081/sucursappsdevices/pinpad/read')
+        return this._http.get('http://localhost:8082/sucursappsdevices/pinpad/read')
                                 .map(res => res.json());
       }
 

@@ -229,4 +229,12 @@ showErrorPromise(error) {
   $('#errorModal').modal('show');
 }
 
+
+irMenuTDD() {
+  const this_aux = this;
+  this_aux.router.navigate(['/menuTdd']);
+}
+
+
+
 }

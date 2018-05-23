@@ -50,6 +50,33 @@ export class consultaCatalogos {
               return resourceRequest.sendFormParameters(formParameters);
         }
 
+
+        actualizaDatosContacto(correo, celular) {
+
+            const formParameters = {
+                correo: correo,
+                celular: celular
+              };
+    
+              const    resourceRequest = new WLResourceRequest(
+                'adapters/AdapterBanorteSucursApps/resource/actualizaDatosContacto', WLResourceRequest.POST);
+          resourceRequest.setTimeout(30000);
+    
+          return resourceRequest.sendFormParameters(formParameters);
+        }
+
+        consultarDatosContacto() {
+
+            const formParameters = {
+              };
+    
+              const    resourceRequest = new WLResourceRequest(
+                'adapters/AdapterBanorteSucursApps/resource/consultaDatosContacto', WLResourceRequest.POST);
+          resourceRequest.setTimeout(30000);
+    
+          return resourceRequest.sendFormParameters(formParameters);
+        }
+
        constructor() {  }
         
 }

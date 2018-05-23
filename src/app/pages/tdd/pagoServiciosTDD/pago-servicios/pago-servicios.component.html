@@ -74,11 +74,12 @@
 
     <div class="row actions-form-group text-right">
         <div class="col-lg-9"></div>
-        <div class="col-lg-2">
-            <button class="btn btn-lg" type="button" onclick="">Cancelar</button>
+        <div class="col-lg-1 pull-right">
+
         </div>
         <!-- <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
-        <div class="col-lg-1" style="padding-right: 0px;">
+        <div class="col-lg-2" style="padding-right: 0px;">
+            <button class="btn btn-lg" type="button" (click)="irMenuTDD()">Cancelar</button>
             <button type="button" class="btn btn-danger btn-lg" [disabled]="(facturador.value == '') || (lblCuentaOrigen.textContent == '') || (lblAliasOrigen.textContent == '') || (lblSaldoOrigen.textContent == '')" (click)="saveData()">
             Continuar
           </button>

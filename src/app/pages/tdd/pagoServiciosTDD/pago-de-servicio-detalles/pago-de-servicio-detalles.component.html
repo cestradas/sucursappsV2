@@ -99,11 +99,14 @@
                 </div>
             </div>
         </div>
-        <div class="modal-footer deletePaddingRigth-buttom">
-            <button class="btn btn-lg">Cancelar</button>
-            <button type="button" class="color-botones btn btn-lg " [disabled]="myForm.invalid" (click)="showDetallePago(myForm.value)">
+        <div class="modal-footer deletePaddingRigth-buttom row">
+
+            <div class="col-lg-1 pull-right">
+                <button class="btn btn-lg" (click)="irMenuTDD()">Cancelar</button>
+                <button type="button" class="color-botones btn btn-lg " [disabled]="myForm.invalid" (click)="showDetallePago(myForm.value)">
                                 Continuar
                         </button>
+            </div>
         </div>
 
     </fieldset>
@@ -190,61 +193,54 @@
 
 
 <div class="modal fade" id="ModalLectordeRecibo" tabindex="-1" role="dialog" aria-labelledby="ModalBXIError" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content shadowModal ">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content shadowModal ">
             <div class="modal-header">
-                    <div class="row">
-                            <div class="col-md-9">
-                                    <h4 class="modal-title" style="color: #eb012a; font-weight: 700;">Coloca tu recibo para continuar</h4>
-                            </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                                <div style=" padding-left: 90%;"><img style="width: 58px;" data-dismiss="modal" src="./assets/img/fail_icon.png"></div>
-                        </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <h4 class="modal-title" style="color: #eb012a; font-weight: 700;">Coloca tu recibo para continuar</h4>
                     </div>
                 </div>
-                <div class="modal-body" style="padding: 2rem;">
-                    <div>
-                        <p style="color: #eb012a; font-weight: 700;">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div style=" padding-left: 90%;"><img style="width: 58px;" data-dismiss="modal" src="./assets/img/fail_icon.png"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body" style="padding: 2rem;">
+                <div>
+                    <p style="color: #eb012a; font-weight: 700;">
                         Instrucciones:
+                    </p>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-lg-5">
+                        <p>
+                            1. Coloca tu recibo con el código de barras visible en el Scanner
                         </p>
                     </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-lg-5">
-                                <p>  
-                                        1.  Coloca tu recibo con el
-                                          código de barras visible
-                                          en el Scanner
-                                  </p>
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5">
+                        <p>
+                            2. Espera a que el dispositivo valide la información
+                        </p>
                     </div>
-                    <div class="row">
-                            <div class="col-lg-5">
-                                    <p>  
-                                            2. Espera a que el
-                                            dispositivo valide la
-                                            información
-                                      </p>
-                            </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5">
+                        <p>
+                            3. Tiene 5 intentos para que el scanner valide información, si no, capture manualmente
+                        </p>
                     </div>
-                    <div class="row">
-                            <div class="col-lg-5">
-                                    <p>  
-                                            3.  Tiene 5 intentos para
-                                            que el scanner valide
-                                            información, si no,
-                                            capture manualmente   
-                                      </p>
-                            </div>
-                    </div>
-                    <div class="row">
-                            <div class="col-lg-5">
-                                    <input type="text"  #rCodeBar autofocus (input)="leeCodeBar(rCodeBar.value)" class="txt-codeBar">
-                            </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5">
+                        <input type="text" #rCodeBar autofocus (input)="leeCodeBar(rCodeBar.value)" class="txt-codeBar">
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>

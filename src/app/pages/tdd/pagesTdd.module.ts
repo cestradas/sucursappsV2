@@ -18,7 +18,6 @@ import { MatKeyboardModule, KeyboardClassKey, MAT_KEYBOARD_LAYOUTS, IKeyboardLay
 import { PagoTarjetaCreditoComponent } from './pago-tarjeta-credito/pago-tarjeta-credito.component';
 import { CompraTiempoAireFinalComponent } from './compra-tiempo-aire/compra-tiempo-aire-final.component';
 import { PagoTarjetaCreditoFinalComponent } from './pago-tarjeta-credito/pago-tarjeta-credito-final.component';
-import { ActualizarDatosDeContactoComponent } from './actualizar-datos-de-contacto/actualizar-datos-de-contacto.component';
 import { ActivarAlertasComponent } from './activar-alertas/activar-alertas.component';
 import { TransferenciaTercerosFinalComponent } from './transferencia-terceros/transferencia-terceros-final.component';
 import { MantenimientoBenefDetailComponent } from './mantenimiento-benef/mantenimiento-benef-detail/mantenimiento-benef-detail.component';
@@ -28,6 +27,9 @@ import { TransferenciasSpeiDetailComponent } from './transferencia-spei/transfer
 import { PagoDeServicioDetallesComponent } from './pagoServiciosTDD/pago-de-servicio-detalles/pago-de-servicio-detalles.component';
 import { PagoServiciosComponent } from './pagoServiciosTDD/pago-servicios/pago-servicios.component';
 import { PagoServiciosVerificacionComponent } from './pagoServiciosTDD/pago-servicios-verificacion/pago-servicios-verificacion.component';
+import { MantenimientosDatosContactoComponent } from './mantenimientos-datos-contacto/mantenimientos-datos-contacto.component';
+// tslint:disable-next-line:max-line-length
+import { MantenimientoDatosContactoFinalComponent } from './mantenimientos-datos-contacto/mantenimiento-datos-contacto-final/mantenimiento-datos-contacto-final.component';
 
 
 
@@ -80,12 +82,13 @@ const customLayouts: IKeyboardLayouts = {
         PagoTarjetaCreditoComponent,
         CompraTiempoAireFinalComponent,
         PagoTarjetaCreditoFinalComponent,
-        ActualizarDatosDeContactoComponent,
         ActivarAlertasComponent,
         TransferenciaTercerosFinalComponent,
         ImpresionEdcTddComponent,
         ImpresionEdcFinalTddComponent,
-        TransferenciasSpeiDetailComponent
+        TransferenciasSpeiDetailComponent,
+        MantenimientosDatosContactoComponent,
+        MantenimientoDatosContactoFinalComponent
         
     ],
     exports: [],

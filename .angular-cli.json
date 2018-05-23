@@ -5,11 +5,7 @@
     },
     "apps": [{
         "root": "src",
-<<<<<<< HEAD
-        "outDir": "C:/Users/David/Desktop/SucursApps V2/SucursAppsWeb/WebContent",
-=======
-        "outDir": "C:/Users/Juan/Documents/Sucursapps 2.0/SucursApps V2/SucursAppsWeb/WebContent",
->>>>>>> 7988582de5fc0ca3559982f1ad77a2d98b59c604
+        "outDir": "C:/Users/David/Desktop/SucursApps TDD/SucursAppsWeb/WebContent",
         "assets": [
             "assets",
             "favicon.ico"
@@ -24,7 +20,7 @@
         "styles": [
             "styles.css",
             "assets/b4/css/bootstrap.min.css",
-            "../node_modules/font-awesome/css/font-awesome.css"
+            "assets/font-awesome/css/font-awesome.min.css"
         ],
         "scripts": [
 

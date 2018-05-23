@@ -1120,7 +1120,6 @@ input[type=checkbox]:checked+label {
 }
 
 
-
 /* Estilos EDC END*/
 
 .tConsultaSaldos {
@@ -1161,4 +1160,8 @@ input[type=checkbox]:checked+label {
     border-top: 25px solid transparent;
     border-left: 25px solid #FFFFFF;
     margin-bottom: 0px;
+}
+
+.pull-right {
+    float: right !important;
 }

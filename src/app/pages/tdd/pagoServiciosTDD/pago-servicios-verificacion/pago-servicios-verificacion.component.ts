@@ -90,9 +90,8 @@ cuentaClienteTdd: string;
       setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
   }
   
-  irMenu() {
+  irMenuTDD() {
     const this_aux = this;
     this_aux.router.navigate(['/menuTdd']);
   }
-
 }

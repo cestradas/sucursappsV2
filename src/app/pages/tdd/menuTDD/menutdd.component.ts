@@ -31,7 +31,7 @@ export class MenutddComponent implements OnInit {
 
   ngOnInit() {
     // $('div').removeClass('modal-backdrop');
-      this.getidSesion(); 
+     // this.getidSesion(); 
       if (sessionStorage.getItem("campania") === null)      {
         sessionStorage.setItem("campania", "activa");
       }
@@ -66,7 +66,7 @@ export class MenutddComponent implements OnInit {
         this.router.navigate(["/pagoCredito"]);
         break;
       case "actDatosContacto":
-        this.router.navigate(["/actualizarDatosContacto"]);
+        this.router.navigate(["/actualizarDatosContactoTDD"]);
         break;
 
       default:

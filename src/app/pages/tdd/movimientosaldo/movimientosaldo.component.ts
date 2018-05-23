@@ -61,7 +61,7 @@ constructor( private _service: ConsultaSaldosTddService,
     this_aux.fechaMesActualFin = (this_aux.anio + "-" + this_aux.mes + "-" + this_aux.dia).toString();
     this_aux.fechaMesActualIni = (this_aux.anio + "-" + this_aux.mes + "-01").toString();
 
-    
+    this._service.cargarSaldosTDD();
     this._service.validarDatosSaldoTdd().then(
       mensaje => {
 
@@ -189,6 +189,8 @@ llamarMovimientos (numCuenta) {
               
             }
           }, function(error) {
+            this_aux.showErrorPromise(error);
+            
       });
       console.log("Movimientos cargados correctamente");
       setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
@@ -238,6 +240,14 @@ llamarMovimientos (numCuenta) {
 
       const div2 = document.getElementById('Navegador');
       div2.style.display = "block";
+    }
+    
+    showErrorPromise(error) {
+      console.log(error);
+      // tslint:disable-next-line:max-line-length
+      document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde."; 
+      $('#_modal_please_wait').modal('hide');
+      $('#errorModal').modal('show');
     }
 }
 

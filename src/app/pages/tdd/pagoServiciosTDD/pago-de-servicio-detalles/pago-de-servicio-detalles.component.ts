@@ -154,6 +154,7 @@ replaceSimbolo(importe) {
 }
 
 confirmarPago() {
+  this._validaNipService.validaNipTrans();
     const this_aux = this; 
 
     if (this_aux.importeAux === undefined) { this_aux.importeAux = this_aux.replaceSimbolo( this_aux.myForm.get('fcImporte').value); }
@@ -282,6 +283,11 @@ leeCodeBar(value) {
       $('#ModalLectordeRecibo').modal('hide');
     }  
  }
+}
+
+irMenuTDD() {
+  const this_aux = this;
+  this_aux.router.navigate(['/menuTdd']);
 }
 
 }

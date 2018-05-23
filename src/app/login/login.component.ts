@@ -26,6 +26,8 @@ export class LoginComponent {
   onPlasticLogin() {
 
      $('#ModalTDDLogin').modal('show');
+     this.idSession();
+
      this.getPosts().subscribe( result => {this.postResp = result; });
 
      console.log(this.postResp);
@@ -62,11 +64,12 @@ resourceRequest
           setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
 
           
+            // tslint:disable-next-line:max-line-length
             document.getElementById('mnsError').innerHTML = "Por el momento este servicio no est&aacute; disponible, favor de intentar de nuevo m&aacute;s tarde."; 
             $('#errorModal').modal('show');
             
         });
-        // this.idSession();
+         
 
         
         // $('div').removeClass('modal-backdrop');

@@ -5,7 +5,9 @@ import { DOCUMENT } from '@angular/platform-browser';
 export class SesionTDDService {
 
   datosBreadCroms: DatosBreadCroms = {
-    nombreUsuarioTDD: ''
+    nombreUsuarioTDD: '',
+    EmailCliente: '',
+    CelCliente: ''
   };
 
   constructor(@Inject(DOCUMENT) private _document) {}
@@ -15,5 +17,7 @@ export class SesionTDDService {
 interface DatosBreadCroms {
 
   nombreUsuarioTDD: string;
+  EmailCliente: string;
+  CelCliente: string;
 
 }
