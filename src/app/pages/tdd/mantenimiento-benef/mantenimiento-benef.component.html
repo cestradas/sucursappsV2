@@ -5,17 +5,17 @@
             <div class="col-sm-1 sumando-bg-red group-name">
                 Desde
             </div>
-            <div class="col-sm-11 group-controls padding-left-0 padding-right-0 sumando-well-white" style="padding-bottom: 0px !important; padding-top: 8px; line-height: 14px">
-                <div class="form-group" style="margin-bottom: -1px; line-height: 23px">
+            <div class="col-sm-11 group-controls padding-InFieldset" style="padding-left: 0px; padding-right:  0px;">
+                <div class="form-group">
                     <div class="sumando-dropdown-account">
-                        <table width="100%" class="letranegrita">
+                        <table id="tablaMantoBen" width="100%" class="letranegrita">
                             <tr>
                                 <td align="left" width="40%" style="border: 0px">CUENTA ENLACE PERSONAL <strong>
                                                                             </strong>
                                 </td>
                                 <td align="left" style="border: 0px">
                                     <strong>
-                                        <label>$ {{saldoDisponibleClienteTdd}}
+                                        <label>$ {{saldoDisponibleClienteTdd | currency}}
                                         </label>
                                     </strong>
                                 </td>
@@ -37,8 +37,8 @@
         </div>
         <div style="background-color: white; padding-left: 20px; padding-right: 20px; padding-top: 20px">
             <h3>Beneficiarios de la Cuenta</h3>
-            <table width="100%">
-                <tr>
+            <table width="100%" id="tablaMantoBen">
+                <tr id="trBeneficiary">
                     <th>No. Cliente</th>
                     <th>Nombre o Razón Social</th>
                     <th>Parentesco</th>
@@ -48,7 +48,7 @@
                     <th>Modificar</th>
                     <th>Eliminar</th>
                 </tr>
-                <tr *ngFor="let beneficiario of BEN, let i = index" id="rRegistrosTabla">
+                <tr *ngFor="let beneficiario of BEN, let i = index" id="rRegistrosTabla" id="trBeneficiary">
                     <td *ngIf="(beneficiario.Opcion != 'B')" style="text-align: center">{{beneficiario.NumeroCliente}}</td>
                     <td *ngIf="(beneficiario.Opcion != 'B')" style="text-align: center">{{beneficiario.RazonSocial | uppercase}}{{beneficiario.NombreBeneficia | uppercase}} {{beneficiario.ApPaternoBenef | uppercase}} {{beneficiario.ApMaternoBenef | uppercase}}</td>
                     <td *ngIf="(beneficiario.Opcion != 'B')" style="text-align: center">{{beneficiario.Parentesco | uppercase}}</td>
@@ -56,12 +56,12 @@
                     <td *ngIf="(beneficiario.Opcion != 'B')" style="text-align: center">{{beneficiario.NuevaFecha}}</td>
                     <td *ngIf="(beneficiario.Opcion != 'B')" style="text-align: center">{{beneficiario.PorcentajeBenef}}</td>
                     <td *ngIf="(beneficiario.Opcion != 'B')" align=center>
-                        <button id="buttonImage" type="button"><img src="./assets/img/edit.png" 
-                                                alt="Modificar Beneficiario" (click)="modificacionBeneficiarioModal(beneficiario)" width="50px" height="50px" /></button>
+                        <button id="buttonImageMantoBen" type="button"><img src="./assets/img/edit.png" 
+                                                alt="Modificar Beneficiario" (click)="modificacionBeneficiarioModal(beneficiario)" width="30px" height="30px" /></button>
                     </td>
                     <td *ngIf="(beneficiario.Opcion != 'B')" align=center>
-                        <button id="buttonImage" type="button"><img src="./assets/img/trash.png" 
-                                                (click)="bajaBeneficiarioModal(beneficiario)" alt="Eliminar Beneficiario" width="50px" height="50px" /></button>
+                        <button id="buttonImageMantoBen" type="button"><img src="./assets/img/trash.png" 
+                                                (click)="bajaBeneficiarioModal(beneficiario)" alt="Eliminar Beneficiario" width="30px" height="30px" /></button>
                     </td>
                 </tr>
             </table>
@@ -69,7 +69,7 @@
             <br>
             <div class="row">
                 <div class="col-lg-10">
-                    <button type="button" class="color-botones btn btn-lg pull-right" [disabled]="tamRegistrosBenef == 10 || bloquearAlta" (click)="altaBeneficiario()" style="margin-bottom: 20px; float: inherit">Alta</button>
+                    <button type="button" class="color-botones btn btn-lg" [disabled]="tamRegistrosBenef == 10 || bloquearAlta || ultimoRegistroGuardado == 10 || contadorAltas == 10" (click)="altaBeneficiario()" style="margin-bottom: 20px; float: inherit; width: 110px;">Alta</button>
                 </div>
                 <div class="col-lg-2">
                     <button type="button" class="color-botones btn btn-lg pull-right" [disabled]="contadorModificaciones.length == 0 && contadorAltas == 0  && arrayBajas.length == 0" (click)="finalizaProcesoGuardarDatos()" style="margin-left: 40px">Guardar Cambios</button>
@@ -77,15 +77,14 @@
             </div>
         </div>
 
-        <div class="modal-footer deletePaddingRigth-buttom">
-            <button type="button" class="color-botones btn btn-lg pull-right" routerLink="/menuTdd">Cancelar</button>
+        <div class="modal-footer deletePaddingRigth-buttom" style="margin-right: -17px">
+            <button type="button" class="btn btn-lg" routerLink="/menuTdd">Cancelar</button>
         </div>
-
     </fieldset>
 
     <!--MODAL ALTA-->
     <div class="modal fade" id="altaBenefModal" tabindex="-1" role="dialog" aria-labelledby="ModalTDDLogin" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 85%; position: initial !important; margin-top: -41px;">
+        <div class="modal-dialog modal-dialog-centered modal-benef" role="document" style="max-width: 85%; position: initial !important; margin-top: -41px;">
             <div class="modal-content shadowModal">
                 <h2 class="text-center padding-barToTittle deleteMargin-h2  color-letra">Alta de Beneficiario</h2>
                 <br>
@@ -238,7 +237,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="color-botones btn btn-lg pull-right" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-lg" data-dismiss="modal">Cancelar</button>
                     <button type="button" class="color-botones btn btn-lg pull-right" [disabled]="myform.invalid  || rColonias.value === 'Seleccione Colonia' || rColonias.value === '' || RFisicaMoralSelecAlta.value  === 'Seleccione Opción' || RFisicaMoralSelecAlta.value === ''"
                         ng-click="location.reload()" data-dismiss="modal" (click)="altaBeneficiarioView(myform.value, myformCP.value)">Confirmar</button>
                 </div>
@@ -400,7 +399,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="color-botones btn btn-lg pull-right" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-lg" data-dismiss="modal">Cancelar</button>
                     <button type="button" class="color-botones btn btn-lg pull-right" [disabled]="myform.invalid  || RColoniasM.value === 'Seleccione Colonia' || RColoniasM.value === ''" (click)="guardarModificacionesView(myform.value, myformCPMod.value)" ng-click="location.reload()"
                         data-dismiss="modal">Guardar</button>
                 </div>
@@ -423,7 +422,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="color-botones btn btn-lg pull-right" data-dismiss="modal" (click)="bajaBeneficiariosView()" ng-click="location.reload()" style="margin-right: 44px" data-dismiss="modal">Aceptar</button>
-                    <button type="button" class="color-botones btn btn-lg pull-right" data-dismiss="modal" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-lg" data-dismiss="modal" data-dismiss="modal">Cancelar</button>
                 </div>
 
             </div>

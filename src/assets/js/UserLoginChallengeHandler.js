@@ -33,8 +33,11 @@ var UserLoginChallengeHandler = function(usr, key) {
         usuarioAgent = navigator.userAgent;
         // getidSesion();
         getUsrPassLegacy(usuarioAgent);
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 264e350bca29cc2744c1895eb30c797bb1d1ccb0
 
         //		document.getElementById("helloUser").innerHTML = "Hello, "
         //				+ data.user.displayName;
@@ -140,8 +143,11 @@ var UserLoginChallengeHandler = function(usr, key) {
     return userLoginChallengeHandler;
 };
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 264e350bca29cc2744c1895eb30c797bb1d1ccb0
 function getUsrPassLegacy(usrAgent) {
 
     if (datosLegacy == "") {
@@ -150,8 +156,8 @@ function getUsrPassLegacy(usrAgent) {
         usrAgent = usrAgent.replace(patron, "");
 
         const formParameters = {
-            //terminal: usrAgent
-            terminal: 'T002'
+            terminal: usrAgent
+                //terminal: 'T002'
         };
         const resourceRequest = new WLResourceRequest(
             'adapters/AdapterBanorteSucursApps/resource/consultaUsrLegacy',
@@ -162,7 +168,10 @@ function getUsrPassLegacy(usrAgent) {
                 datosLegacy = response.responseJSON;
                 console.log(datosLegacy);
                 console.log("El servcio de informacion Legacy respondio correctamente");
+<<<<<<< HEAD
 
+=======
+>>>>>>> 264e350bca29cc2744c1895eb30c797bb1d1ccb0
             },
             function(error) {
                 console.error("Ocurrio un error con el servcio de informacion Legacy");
@@ -170,6 +179,7 @@ function getUsrPassLegacy(usrAgent) {
             });
     }
 }
+<<<<<<< HEAD
 
 
 function decrypLegacy() {
@@ -195,6 +205,8 @@ function decrypLegacy() {
 
 }
 
+=======
+>>>>>>> 264e350bca29cc2744c1895eb30c797bb1d1ccb0
 
 function getidSesion() {
     const resourceRequest = new WLResourceRequest(

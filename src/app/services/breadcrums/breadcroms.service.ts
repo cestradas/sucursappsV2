@@ -6,8 +6,10 @@ export class SesionTDDService {
 
   datosBreadCroms: DatosBreadCroms = {
     nombreUsuarioTDD: '',
+    sicUsuarioTDD: '',
     EmailCliente: '',
-    CelCliente: ''
+    CelCliente: '',
+    numeroCliente: ''
   };
 
   constructor(@Inject(DOCUMENT) private _document) {}
@@ -17,7 +19,9 @@ export class SesionTDDService {
 interface DatosBreadCroms {
 
   nombreUsuarioTDD: string;
+  sicUsuarioTDD: string;
   EmailCliente: string;
   CelCliente: string;
+  numeroCliente: string;
 
 }

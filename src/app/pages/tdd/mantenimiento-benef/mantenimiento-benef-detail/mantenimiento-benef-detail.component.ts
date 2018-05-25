@@ -5,8 +5,7 @@ declare var $: any;
 
 @Component({
   selector: 'app-mantenimiento-benef-detail',
-  templateUrl: './mantenimiento-benef-detail.component.html',
-  styleUrls: ['./mantenimiento-benef-detail.component.css']
+  templateUrl: './mantenimiento-benef-detail.component.html'
 })
 export class MantenimientoBenefDetailComponent implements OnInit {
 

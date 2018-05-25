@@ -42,8 +42,8 @@
     </div>
 
     <div style="background-color: white; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px">
-        <table width="100%">
-            <tr>
+        <table width="100%" id="tablaMantoBen">
+            <tr id="trBeneficiary">
                 <th>No. Cliente</th>
                 <th>Nombre o Razón Social</th>
                 <th>Parentesco</th>
@@ -51,7 +51,7 @@
                 <th>Fecha de Nacimiento</th>
                 <th>(%)</th>
             </tr>
-            <tr *ngFor="let beneficiario of BEN, let i = index" id="rRegistrosTabla">
+            <tr *ngFor="let beneficiario of BEN, let i = index" id="trBeneficiary">
                 <td style="text-align: center">{{beneficiario.NumeroCliente}}</td>
                 <td style="text-align: center">{{beneficiario.RazonSocial | uppercase}}{{beneficiario.NombreBeneficia | uppercase}} {{beneficiario.ApPaternoBenef | uppercase}} {{beneficiario.ApMaternoBenef | uppercase}}</td>
                 <td style="text-align: center">{{beneficiario.Parentesco | uppercase}}</td>

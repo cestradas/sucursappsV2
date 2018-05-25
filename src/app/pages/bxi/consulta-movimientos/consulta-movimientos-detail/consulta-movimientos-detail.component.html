@@ -11,7 +11,7 @@
                         <h4 class="color-letra">Selecciona una opci&oacute;n</h4>
                     </div>
                     <div style="width: 980px" class="col-lg-6 text-right">
-                        <select class="form-control input-lg" id="account-cicle" (change)="calcularFecha()">
+                        <select class="form-control input-lg selectModificado selColonia" id="account-cicle" (change)="calcularFecha()">
                               <option value="0" #mes >Mes Actual</option>
                               <option value="1" #mes>Mes Anterior</option> 
             </select>
@@ -73,8 +73,9 @@
                         <samp id="txtDivisa">{{divisa}}</samp>
                     </li>
                     <li class="list-group-item list-group-item1">
-                        <strong>Saldo disponible:</strong>
-                        <samp id="txtSaldoDisponible">{{saldoDispoinible}}</samp>
+                        <strong id="cuentaDebito" style="display: none">Saldo disponible:</strong>
+                        <strong id="cuentaCredito" style="display: none">Credito Diponible:</strong>
+                        <samp id="txtSaldoDisponible">{{saldoDispoinible | currency}}</samp>
                     </li>
                 </ul>
             </div>
@@ -84,11 +85,15 @@
 
 
 <div style="margin:30px 0px 0px 0px;" class="row">
-    <div class="col-sm-11"></div>
-    <div style=" padding: 0px;" class="col-sm-1">
-        <button class="btn btn-danger  btn-lg letranegrita " routerLink="/menuBXI">
-  Regresar
-</button>
+    <div class="col-lg-10"></div>
+    <div class="col-lg-2">
+        <div class="row">
+            <div style=" padding: 0px;" class="col-lg-9">
+                <button class="btn btn-danger  btn-lg letranegrita pull-right" routerLink="/menuBXI">
+                Regresar
+            </button>
+            </div>
+        </div>
     </div>
 </div>
 

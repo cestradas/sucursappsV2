@@ -54,7 +54,10 @@ export class ConsultaMovimientosDetailComponent implements OnInit {
     this.tipoCuenta = this.service.aliasCuentaSeleccionada;
     this.noTarjeta = this.service.noTarjetaSeleccionada;
     this.divisa = this.service.divisa;
+
     this.saldoDispoinible = this.service.saldoSeleccionado;
+
+    console.log(this.service.saldoSeleccionado);
 
     console.log(this.cuentaClienteBXI);
     const this_aux = this;
@@ -210,6 +213,7 @@ consultaMovimientosTDC(numeroCue) {
                 div2.style.display = "none";
                }
          }
+         this_aux.mostrarSaldoCredito();
           
         } 
       }, function(error) {
@@ -251,7 +255,23 @@ console.log( this.movimientosCue);
 
 }
 
+mostrarSaldoDebito() {
+  const cuentaDebito = document.getElementById('cuentaDebito');
+  const cuentaCredito = document.getElementById('cuentaCredito');
 
+  cuentaDebito.setAttribute('style', 'display: block');
+  cuentaCredito.setAttribute('style', 'display: none');
+  
+}
+
+mostrarSaldoCredito() {
+  const cuentaDebito = document.getElementById('cuentaDebito');
+  const cuentaCredito = document.getElementById('cuentaCredito');
+
+  cuentaDebito.setAttribute('style', 'display: none');
+  cuentaCredito.setAttribute('style', 'display: block');
+  
+}
   ConsultaMovimientosTDD(numeroCue, fDesde, fHasta, comi, pag, numreg) {
     const this_aux = this;
     const formParameters = {
@@ -304,6 +324,8 @@ console.log( this.movimientosCue);
           }
         }, function(error) {
     });
+
+    this_aux.mostrarSaldoDebito();
     console.log("Movimientos cargados correctamente");
     setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
   }

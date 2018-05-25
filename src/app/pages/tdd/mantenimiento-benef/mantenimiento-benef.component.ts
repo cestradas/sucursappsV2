@@ -17,8 +17,7 @@ declare var angular: any;
 
 @Component({
   selector: "app-mantenimiento-benef",
-  templateUrl: "./mantenimiento-benef.component.html",
-  styleUrls: ["./mantenimiento-benef.component.css"]
+  templateUrl: "./mantenimiento-benef.component.html"
 })
 export class MantenimientoBenefComponent implements OnInit {
   DatosJSON: any;
@@ -205,6 +204,8 @@ export class MantenimientoBenefComponent implements OnInit {
     this_aux.myform.setControl('parentescoBenef', controlFisicoPar);
     const controlrFc: FormControl = new FormControl('');
     this_aux.myform.setControl('registroFC', controlrFc);
+    const controlCP: FormControl = new FormControl('');
+    this_aux.myformCP.setControl('CodPBenef', controlCP);
 
       
   }

@@ -13,6 +13,19 @@ export class OperacionesBXI {
 
     }
 
+    getSaldoTDC(numCuenta_seleccionada): any {
+
+        const formParameters1 = {
+                cuenta: numCuenta_seleccionada
+          };
+          const resourceRequest1 = new WLResourceRequest(
+            'adapters/AdapterBanorteSucursAppsBEL/resource/consultaMovimientosTarjetas', WLResourceRequest.POST);
+            resourceRequest1.setTimeout(30000);
+
+            return resourceRequest1.sendFormParameters(formParameters1);
+
+    }
+
     consultaClabeSaldo(): any {
 
         console.log("adentro cnsultaCuentas");

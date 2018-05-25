@@ -29,6 +29,7 @@ import { PagoServiciosVerificacionComponent } from './pagoServiciosTDD/pago-serv
 import { MantenimientosDatosContactoComponent } from './mantenimientos-datos-contacto/mantenimientos-datos-contacto.component';
 // tslint:disable-next-line:max-line-length
 import { MantenimientoDatosContactoFinalComponent } from './mantenimientos-datos-contacto/mantenimiento-datos-contacto-final/mantenimiento-datos-contacto-final.component';
+import { ImpresionEdcFinishComponent } from './impresion-edc-tdd/impresion-edc-finish/impresion-edc-finish.component';
 
 
 
@@ -87,7 +88,8 @@ const customLayouts: IKeyboardLayouts = {
         ImpresionEdcFinalTddComponent,
         TransferenciasSpeiDetailComponent,
         MantenimientosDatosContactoComponent,
-        MantenimientoDatosContactoFinalComponent
+        MantenimientoDatosContactoFinalComponent,
+        ImpresionEdcFinishComponent
         
     ],
     exports: [],
