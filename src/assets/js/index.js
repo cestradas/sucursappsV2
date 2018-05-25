@@ -21,7 +21,7 @@ setTimeout(function() {
     };
 
     WL.Client.init(wlInitOptions).then(function() {
-        console.info("VERSION: 1, 22/01/2018")
+        console.info("VERSION: 1.1, 24/05/2018")
         setTimeout(function() {
             var userLoginChallengeHandler = UserLoginChallengeHandler(USR, KEY);
         }, 1000)

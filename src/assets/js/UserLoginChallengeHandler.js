@@ -30,9 +30,9 @@ var UserLoginChallengeHandler = function(usr, key) {
         WL.Logger.debug("handleSuccess");
         isChallenged = false;
 
-        // usuarioAgent = navigator.userAgent;
+        usuarioAgent = navigator.userAgent;
         // getidSesion();
-        // getUsrPassLegacy(usuarioAgent);
+        getUsrPassLegacy(usuarioAgent);
 
 
 
@@ -113,7 +113,7 @@ var UserLoginChallengeHandler = function(usr, key) {
             };
 
             WL.Client.init(wlInitOptions).then(function() {
-                console.info("VERSION: 1, 22/01/2018")
+                console.info("VERSION: 1, 24/05/2018")
                 setTimeout(function() {
                     var userLoginChallengeHandler = UserLoginChallengeHandler(USR, KEY);
                 }, 1000)
@@ -141,7 +141,7 @@ var UserLoginChallengeHandler = function(usr, key) {
 };
 
 
-/*
+
 function getUsrPassLegacy(usrAgent) {
 
     if (datosLegacy == "") {
@@ -162,7 +162,7 @@ function getUsrPassLegacy(usrAgent) {
                 datosLegacy = response.responseJSON;
                 console.log(datosLegacy);
                 console.log("El servcio de informacion Legacy respondio correctamente");
-                decrypLegacy();
+
             },
             function(error) {
                 console.error("Ocurrio un error con el servcio de informacion Legacy");
@@ -170,7 +170,7 @@ function getUsrPassLegacy(usrAgent) {
             });
     }
 }
-*/
+
 
 function decrypLegacy() {
     const resourceRequest = new WLResourceRequest(

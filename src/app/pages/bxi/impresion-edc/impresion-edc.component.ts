@@ -24,10 +24,10 @@ export class ImpresionEdcComponent implements OnInit {
   @ViewChild('listaCuentas', { read: ElementRef}) listaCuentas: ElementRef ;
    @ViewChild('calendario', { read: ElementRef}) calendario: ElementRef ;
   // @ViewChild('calendario') d1: ElementRef;
-  
+
   fechas = '{"fechas":[]}';
   obj: any;
- 
+
   bandera0 = 1;
   bandera1 = 1;
   bandera2 = 1;
@@ -91,7 +91,7 @@ export class ImpresionEdcComponent implements OnInit {
 
   constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2) {
 
-  
+
 
    }
 
@@ -101,14 +101,14 @@ export class ImpresionEdcComponent implements OnInit {
 
     this.fillSelectCuentas();
 
-    
-    
+
+
 
     // this.obtenerListaDocs();
 
     // this.mantenimientoEDC();
 
-    
+
   }
 
   fillSelectCuentas() {
@@ -130,7 +130,7 @@ export class ImpresionEdcComponent implements OnInit {
 
   }
 
-  
+
 setDatosCuentaSeleccionada(elementHTML) {
 
   const this_aux = this;
@@ -158,12 +158,12 @@ setDatosCuentaSeleccionada(elementHTML) {
 
   this.mantenimientoEDC();
 
-  
-  
+
+
   }
 
   getSaldoDeCuenta(numCuenta_seleccionada) {
- 
+
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     operacionesbxi.getSaldo(numCuenta_seleccionada).then(
         function(response1) {
@@ -184,24 +184,24 @@ setDatosCuentaSeleccionada(elementHTML) {
     const this_aux =  this;
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
 
-    operacionesbxi.mantEDC(this_aux.service.numCuentaTranPropBanorte).then(
-    //  operacionesbxi.mantEDC("0100000034").then(
+    // operacionesbxi.mantEDC(this_aux.service.numCuentaTranPropBanorte).then(
+      operacionesbxi.mantEDC("0100000034").then(
       function(response) {
         console.log(response.responseText);
         const detalleMant = response.responseJSON;
-        
+
         this_aux.obtenerListaDocs();
 
       },
         function(error) {
 
           console.error("Error");
-     
+
           $('#errorModal').modal('show');
-          
+
 
         });
-    
+
 
   }
 
@@ -209,8 +209,8 @@ setDatosCuentaSeleccionada(elementHTML) {
   obtenerListaDocs() {
     const this_aux =  this;
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
-    
-    
+
+
     operacionesbxi.getListaDocumentos().then(
       function(response) {
 
@@ -222,18 +222,18 @@ setDatosCuentaSeleccionada(elementHTML) {
         this_aux.obj = JSON.parse(this_aux.fechas);
 
         for (let i = 0 ; i < res.length; i++) {
-           
-          
+
+
           let temp = res[i].Fecha.split("-");
           let tempCtaDoc = res[i].Documento;
           let fechaDoc = res[i].FechaObtenerDoc;
 
           for (let k = 0; k < temp.length; k++) {
-  
+
             if ( k === 0 || k === 1 || k === 2 ) {
 
               let strA = temp[k];
-              
+
               let strM = temp[k + 1];
               if ( strM === "01") {strM = "Enero"; }
               if ( strM === "02") {strM = "Febrero"; }
@@ -247,9 +247,9 @@ setDatosCuentaSeleccionada(elementHTML) {
               if ( strM === "10") {strM = "Octubre"; }
               if ( strM === "11") {strM = "Noviembre"; }
               if ( strM === "12") {strM = "Diciembre"; }
-              
+
               let strD = temp[k + 2];
-              
+
 
               this_aux.obj['fechas'].push({
                 "Anio" : strA,
@@ -265,12 +265,12 @@ setDatosCuentaSeleccionada(elementHTML) {
 
           }
 
-          
+
        }
        // remover todos hijos del contenedor de los calendarios antes de insertar
        $("#calendario").empty();
        $("#calendario2").empty();
-       
+
 
        let cont = 0;
        let contFechas = this_aux.obj.fechas.length - 1;
@@ -278,24 +278,24 @@ setDatosCuentaSeleccionada(elementHTML) {
        let objCalendario1 = document.getElementById('calendario');
        let objCalendario2 = document.getElementById('calendario2');
        // let domString = '<div class="container"><span class="intro">Hello</span> <span id="name"> World!</span></div>';
-       
+
        // validar que existan **********
        //if (existe) {
        // let getItenCal = document.getElementById('Itemcalendario0');
        // objCalendario1.removeChild(getItenCal);
        //}
-      
+
 
        for (let i = res.length; i--;) {
 
         // if ( (res.length <= 12) && (res.length >= 7)) {
-         
+
           if ( cont <= 5) {
 
 
             // $("#calendario").append(
             //  this.calendario.nativeElement.insertAdjacentHTML(
-            //    this.renderer.invokeElementMethod(this.calendario.nativeElement.insertAdjacentHTML('beforeend', 
+            //    this.renderer.invokeElementMethod(this.calendario.nativeElement.insertAdjacentHTML('beforeend',
             // this.htmlToAdd =
             // this.calendario.insert(
               let domContent = '<div value ="'+this_aux.obj['fechas'][contFechas].Documento + '"' + 'id="'+'Itemcalendario' + cont + '"' + ' class="kiosk-cec-carousel-item estilo-item-calendar" >' +
@@ -321,13 +321,13 @@ setDatosCuentaSeleccionada(elementHTML) {
       //      console.log(event.target);
       //      console.log(this.id);
       //    });
-          objCalendario1.appendChild(creaElement.firstChild); 
-         //  document.body.appendChild(creaElement.firstChild); 
+          objCalendario1.appendChild(creaElement.firstChild);
+         //  document.body.appendChild(creaElement.firstChild);
          // objTo.appendChild(this_aux.calendario.nativeElement);
 
             contFechas --;
-          
-            
+
+
         }
 
         cont ++;
@@ -346,7 +346,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
       elementoCal0.addEventListener("click", function(event) {
         console.log(this.id);
-        if( ((this_aux.Valida_Seleccion_Calendario0 === 0) || (this_aux.Valida_Seleccion_Calendario0 === 1)) 
+        if( ((this_aux.Valida_Seleccion_Calendario0 === 0) || (this_aux.Valida_Seleccion_Calendario0 === 1))
             && (this_aux.Valida_Seleccion_Calendario1 === 0)
             && (this_aux.Valida_Seleccion_Calendario2 === 0)
             && (this_aux.Valida_Seleccion_Calendario3 === 0)
@@ -359,13 +359,13 @@ setDatosCuentaSeleccionada(elementHTML) {
             && (this_aux.Valida_Seleccion_Calendario10 === 0)
             && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
 
-              this_aux.clickCal0(); 
+              this_aux.clickCal0();
             }
-        
+
       });
       elementoCal1.addEventListener("click", function(event) {
         console.log(this.id);
-        if( ((this_aux.Valida_Seleccion_Calendario1 === 0) || (this_aux.Valida_Seleccion_Calendario1 === 1)) 
+        if( ((this_aux.Valida_Seleccion_Calendario1 === 0) || (this_aux.Valida_Seleccion_Calendario1 === 1))
             && (this_aux.Valida_Seleccion_Calendario0 === 0)
             && (this_aux.Valida_Seleccion_Calendario2 === 0)
             && (this_aux.Valida_Seleccion_Calendario3 === 0)
@@ -377,12 +377,12 @@ setDatosCuentaSeleccionada(elementHTML) {
             && (this_aux.Valida_Seleccion_Calendario9 === 0)
             && (this_aux.Valida_Seleccion_Calendario10 === 0)
             && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-              this_aux.clickCal1(); 
+              this_aux.clickCal1();
             }
       });
       elementoCal2.addEventListener("click", function(event) {
         console.log(this.id);
-        if( ((this_aux.Valida_Seleccion_Calendario2 === 0) || (this_aux.Valida_Seleccion_Calendario2 === 1)) 
+        if( ((this_aux.Valida_Seleccion_Calendario2 === 0) || (this_aux.Valida_Seleccion_Calendario2 === 1))
             && (this_aux.Valida_Seleccion_Calendario0 === 0)
             && (this_aux.Valida_Seleccion_Calendario1 === 0)
             && (this_aux.Valida_Seleccion_Calendario3 === 0)
@@ -394,12 +394,12 @@ setDatosCuentaSeleccionada(elementHTML) {
             && (this_aux.Valida_Seleccion_Calendario9 === 0)
             && (this_aux.Valida_Seleccion_Calendario10 === 0)
             && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-                this_aux.clickCal2(); 
+                this_aux.clickCal2();
             }
       });
       elementoCal3.addEventListener("click", function(event) {
         console.log(this.id);
-        if( ((this_aux.Valida_Seleccion_Calendario3 === 0) || (this_aux.Valida_Seleccion_Calendario3 === 1)) 
+        if( ((this_aux.Valida_Seleccion_Calendario3 === 0) || (this_aux.Valida_Seleccion_Calendario3 === 1))
         && (this_aux.Valida_Seleccion_Calendario0 === 0)
         && (this_aux.Valida_Seleccion_Calendario1 === 0)
         && (this_aux.Valida_Seleccion_Calendario2 === 0)
@@ -411,12 +411,12 @@ setDatosCuentaSeleccionada(elementHTML) {
         && (this_aux.Valida_Seleccion_Calendario9 === 0)
         && (this_aux.Valida_Seleccion_Calendario10 === 0)
         && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-          this_aux.clickCal3(); 
+          this_aux.clickCal3();
         }
       });
       elementoCal4.addEventListener("click", function(event) {
         console.log(this.id);
-        if( ((this_aux.Valida_Seleccion_Calendario4 === 0) || (this_aux.Valida_Seleccion_Calendario4 === 1)) 
+        if( ((this_aux.Valida_Seleccion_Calendario4 === 0) || (this_aux.Valida_Seleccion_Calendario4 === 1))
         && (this_aux.Valida_Seleccion_Calendario0 === 0)
         && (this_aux.Valida_Seleccion_Calendario1 === 0)
         && (this_aux.Valida_Seleccion_Calendario2 === 0)
@@ -428,12 +428,12 @@ setDatosCuentaSeleccionada(elementHTML) {
         && (this_aux.Valida_Seleccion_Calendario9 === 0)
         && (this_aux.Valida_Seleccion_Calendario10 === 0)
         && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-          this_aux.clickCal4(); 
+          this_aux.clickCal4();
         }
       });
       elementoCal5.addEventListener("click", function(event) {
         console.log(this.id);
-        if( ((this_aux.Valida_Seleccion_Calendario5 === 0) || (this_aux.Valida_Seleccion_Calendario5 === 1)) 
+        if( ((this_aux.Valida_Seleccion_Calendario5 === 0) || (this_aux.Valida_Seleccion_Calendario5 === 1))
         && (this_aux.Valida_Seleccion_Calendario0 === 0)
         && (this_aux.Valida_Seleccion_Calendario1 === 0)
         && (this_aux.Valida_Seleccion_Calendario2 === 0)
@@ -445,20 +445,20 @@ setDatosCuentaSeleccionada(elementHTML) {
         && (this_aux.Valida_Seleccion_Calendario9 === 0)
         && (this_aux.Valida_Seleccion_Calendario10 === 0)
         && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-          this_aux.clickCal5(); 
+          this_aux.clickCal5();
         }
       });
 
        for (let i = res.length; i--;) {
 
         // if ( (res.length <= 12) && (res.length >= 7)) {
-         
+
           if ( cont >= 6) {
 
 
             // $("#calendario").append(
             //  this.calendario.nativeElement.insertAdjacentHTML(
-            //    this.renderer.invokeElementMethod(this.calendario.nativeElement.insertAdjacentHTML('beforeend', 
+            //    this.renderer.invokeElementMethod(this.calendario.nativeElement.insertAdjacentHTML('beforeend',
             // this.htmlToAdd =
             // this.calendario.insert(
               let domContent2 = '<div value ="'+this_aux.obj['fechas'][contFechas].Documento + '"' + 'id="'+'Itemcalendario' + cont + '"' + ' class="kiosk-cec-carousel-item estilo-item-calendar" >' +
@@ -480,13 +480,13 @@ setDatosCuentaSeleccionada(elementHTML) {
           '</div>' ;
 
           creaElement.innerHTML = domContent2;
-          objCalendario2.appendChild(creaElement.firstChild); 
-         //  document.body.appendChild(creaElement.firstChild); 
+          objCalendario2.appendChild(creaElement.firstChild);
+         //  document.body.appendChild(creaElement.firstChild);
          // objTo.appendChild(this_aux.calendario.nativeElement);
 
             contFechas --;
-          
-            
+
+
         }
 
         cont ++;
@@ -506,8 +506,8 @@ setDatosCuentaSeleccionada(elementHTML) {
 
       elementoCal6.addEventListener("click", function(event) {
         console.log(this.id);
-        if( ((this_aux.Valida_Seleccion_Calendario6 === 0) || (this_aux.Valida_Seleccion_Calendario6 === 1)) 
-            && (this_aux.Valida_Seleccion_Calendario0 === 0)    
+        if( ((this_aux.Valida_Seleccion_Calendario6 === 0) || (this_aux.Valida_Seleccion_Calendario6 === 1))
+            && (this_aux.Valida_Seleccion_Calendario0 === 0)
             && (this_aux.Valida_Seleccion_Calendario1 === 0)
             && (this_aux.Valida_Seleccion_Calendario2 === 0)
             && (this_aux.Valida_Seleccion_Calendario3 === 0)
@@ -519,15 +519,15 @@ setDatosCuentaSeleccionada(elementHTML) {
             && (this_aux.Valida_Seleccion_Calendario10 === 0)
             && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
 
-              this_aux.clickCal6(); 
+              this_aux.clickCal6();
             }
-        
+
       });
 
       elementoCal7.addEventListener("click", function(event) {
         console.log(this.id);
-        if( ((this_aux.Valida_Seleccion_Calendario7 === 0) || (this_aux.Valida_Seleccion_Calendario7 === 1)) 
-            && (this_aux.Valida_Seleccion_Calendario0 === 0)    
+        if( ((this_aux.Valida_Seleccion_Calendario7 === 0) || (this_aux.Valida_Seleccion_Calendario7 === 1))
+            && (this_aux.Valida_Seleccion_Calendario0 === 0)
             && (this_aux.Valida_Seleccion_Calendario1 === 0)
             && (this_aux.Valida_Seleccion_Calendario2 === 0)
             && (this_aux.Valida_Seleccion_Calendario3 === 0)
@@ -539,15 +539,15 @@ setDatosCuentaSeleccionada(elementHTML) {
             && (this_aux.Valida_Seleccion_Calendario10 === 0)
             && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
 
-              this_aux.clickCal7(); 
+              this_aux.clickCal7();
             }
-        
+
       });
 
       elementoCal8.addEventListener("click", function(event) {
         console.log(this.id);
-        if( ((this_aux.Valida_Seleccion_Calendario8 === 0) || (this_aux.Valida_Seleccion_Calendario8 === 1)) 
-            && (this_aux.Valida_Seleccion_Calendario0 === 0)    
+        if( ((this_aux.Valida_Seleccion_Calendario8 === 0) || (this_aux.Valida_Seleccion_Calendario8 === 1))
+            && (this_aux.Valida_Seleccion_Calendario0 === 0)
             && (this_aux.Valida_Seleccion_Calendario1 === 0)
             && (this_aux.Valida_Seleccion_Calendario2 === 0)
             && (this_aux.Valida_Seleccion_Calendario3 === 0)
@@ -559,15 +559,15 @@ setDatosCuentaSeleccionada(elementHTML) {
             && (this_aux.Valida_Seleccion_Calendario10 === 0)
             && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
 
-              this_aux.clickCal8(); 
+              this_aux.clickCal8();
             }
-        
+
       });
 
       elementoCal9.addEventListener("click", function(event) {
         console.log(this.id);
-        if( ((this_aux.Valida_Seleccion_Calendario9 === 0) || (this_aux.Valida_Seleccion_Calendario9 === 1)) 
-            && (this_aux.Valida_Seleccion_Calendario0 === 0)    
+        if( ((this_aux.Valida_Seleccion_Calendario9 === 0) || (this_aux.Valida_Seleccion_Calendario9 === 1))
+            && (this_aux.Valida_Seleccion_Calendario0 === 0)
             && (this_aux.Valida_Seleccion_Calendario1 === 0)
             && (this_aux.Valida_Seleccion_Calendario2 === 0)
             && (this_aux.Valida_Seleccion_Calendario3 === 0)
@@ -579,15 +579,15 @@ setDatosCuentaSeleccionada(elementHTML) {
             && (this_aux.Valida_Seleccion_Calendario10 === 0)
             && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
 
-              this_aux.clickCal9(); 
+              this_aux.clickCal9();
             }
-        
+
       });
 
       elementoCal10.addEventListener("click", function(event) {
         console.log(this.id);
-        if( ((this_aux.Valida_Seleccion_Calendario10 === 0) || (this_aux.Valida_Seleccion_Calendario10 === 1)) 
-            && (this_aux.Valida_Seleccion_Calendario0 === 0)    
+        if( ((this_aux.Valida_Seleccion_Calendario10 === 0) || (this_aux.Valida_Seleccion_Calendario10 === 1))
+            && (this_aux.Valida_Seleccion_Calendario0 === 0)
             && (this_aux.Valida_Seleccion_Calendario1 === 0)
             && (this_aux.Valida_Seleccion_Calendario2 === 0)
             && (this_aux.Valida_Seleccion_Calendario3 === 0)
@@ -599,15 +599,15 @@ setDatosCuentaSeleccionada(elementHTML) {
             && (this_aux.Valida_Seleccion_Calendario9 === 0)
             && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
 
-              this_aux.clickCal10(); 
+              this_aux.clickCal10();
             }
-        
+
       });
 
       elementoCal11.addEventListener("click", function(event) {
         console.log(this.id);
-        if( ((this_aux.Valida_Seleccion_Calendario11 === 0) || (this_aux.Valida_Seleccion_Calendario11 === 1)) 
-            && (this_aux.Valida_Seleccion_Calendario0 === 0)    
+        if( ((this_aux.Valida_Seleccion_Calendario11 === 0) || (this_aux.Valida_Seleccion_Calendario11 === 1))
+            && (this_aux.Valida_Seleccion_Calendario0 === 0)
             && (this_aux.Valida_Seleccion_Calendario1 === 0)
             && (this_aux.Valida_Seleccion_Calendario2 === 0)
             && (this_aux.Valida_Seleccion_Calendario3 === 0)
@@ -619,11 +619,11 @@ setDatosCuentaSeleccionada(elementHTML) {
             && (this_aux.Valida_Seleccion_Calendario9 === 0)
             && (this_aux.Valida_Seleccion_Calendario10 === 0)) {
 
-              this_aux.clickCal11(); 
+              this_aux.clickCal11();
             }
-        
+
       });
-       
+
 
        console.log(this_aux.obj['fechas']);
 
@@ -631,9 +631,9 @@ setDatosCuentaSeleccionada(elementHTML) {
         function(error) {
 
           console.error("Error");
-     
+
           $('#errorModal').modal('show');
-          
+
 
         });
   }
@@ -653,10 +653,10 @@ setDatosCuentaSeleccionada(elementHTML) {
       this.cuadroCalendario = $("#Itemcalendario0");
       this.cuadroCalendario.css({
         'opacity':'.5'
-      });	
+      });
       this.palomita0 = $("#palomita0");
       this.palomita0.css({
-	    	
+
 			'visibility':'visible',
 			'opacity':'10',
 	    	'position':'absolute',
@@ -668,8 +668,8 @@ setDatosCuentaSeleccionada(elementHTML) {
 	    	'background-image': 'url(images/check2.png)',
 	    	'background-repeat': 'no-repeat',
 	    	'display': 'inline-block'
-		
-		});	
+
+		});
 
      console.log("b6: "+this.bandera0);
 	}else {
@@ -680,11 +680,11 @@ setDatosCuentaSeleccionada(elementHTML) {
 		this.Valida_Seleccion_Calendario0 --;
 		this.cuadroCalendario = $("#Itemcalendario0");
 		this.cuadroCalendario.css({
-	    	'opacity':'10'    
-		});	
+	    	'opacity':'10'
+		});
 		this.palomita0 = $("#palomita0");
 		this.palomita0.css({
-	    	
+
 	    	'visibility':'hidden'
 		});
 		// palomita.remove();
@@ -698,7 +698,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
     this.cal_Click_1 = 1;
     this.bandera1 ++;
- 
+
     if(this.bandera1 % 2 === 0  || this.bandera1 === 1 ) {
       // set docuemto
       this.numDocumento =  document.getElementById('Itemcalendario1').getAttribute('value');
@@ -707,10 +707,10 @@ setDatosCuentaSeleccionada(elementHTML) {
       this.cuadroCalendario = $("#Itemcalendario1");
       this.cuadroCalendario.css({
         'opacity':'.5'
-      });	
+      });
       this.palomita1 = $("#palomita1");
       this.palomita1.css({
-	    	
+
 			'visibility':'visible',
 			'opacity':'10',
 	    	'position':'absolute',
@@ -722,8 +722,8 @@ setDatosCuentaSeleccionada(elementHTML) {
 	    	'background-image': 'url(images/check2.png)',
 	    	'background-repeat': 'no-repeat',
 	    	'display': 'inline-block'
-		
-		});	
+
+		});
 
 	}else {
     this.numDocumento = "";
@@ -732,11 +732,11 @@ setDatosCuentaSeleccionada(elementHTML) {
 		this.Valida_Seleccion_Calendario1 --;
 		this.cuadroCalendario = $("#Itemcalendario1");
 		this.cuadroCalendario.css({
-	    	'opacity':'10'    
-		});	
+	    	'opacity':'10'
+		});
 		this.palomita1 = $("#palomita1");
 		this.palomita1.css({
-	    	
+
 	    	'visibility':'hidden'
 		});
 	}
@@ -747,7 +747,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
     this.cal_Click_2 = 1;
     this.bandera2 ++;
- 
+
     if(this.bandera2 % 2 === 0  || this.bandera2 === 1 ) {
       // set docuemto
       this.numDocumento =  document.getElementById('Itemcalendario2').getAttribute('value');
@@ -756,10 +756,10 @@ setDatosCuentaSeleccionada(elementHTML) {
       this.cuadroCalendario = $("#Itemcalendario2");
       this.cuadroCalendario.css({
         'opacity':'.5'
-      });	
+      });
       this.palomita2 = $("#palomita2");
       this.palomita2.css({
-	    	
+
 			'visibility':'visible',
 			'opacity':'10',
 	    	'position':'absolute',
@@ -771,8 +771,8 @@ setDatosCuentaSeleccionada(elementHTML) {
 	    	'background-image': 'url(images/check2.png)',
 	    	'background-repeat': 'no-repeat',
 	    	'display': 'inline-block'
-		
-		});	
+
+		});
 
 	}else {
     this.numDocumento = "";
@@ -781,11 +781,11 @@ setDatosCuentaSeleccionada(elementHTML) {
 		this.Valida_Seleccion_Calendario2 --;
 		this.cuadroCalendario = $("#Itemcalendario2");
 		this.cuadroCalendario.css({
-	    	'opacity':'10'    
-		});	
+	    	'opacity':'10'
+		});
 		this.palomita2 = $("#palomita2");
 		this.palomita2.css({
-	    	
+
 	    	'visibility':'hidden'
 		});
 	}
@@ -796,7 +796,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
     this.cal_Click_3 = 1;
     this.bandera3 ++;
- 
+
     if(this.bandera3 % 2 === 0  || this.bandera3 === 1 ) {
       // set docuemto
       this.numDocumento =  document.getElementById('Itemcalendario3').getAttribute('value');
@@ -805,10 +805,10 @@ setDatosCuentaSeleccionada(elementHTML) {
       this.cuadroCalendario = $("#Itemcalendario3");
       this.cuadroCalendario.css({
         'opacity':'.5'
-      });	
+      });
       this.palomita3 = $("#palomita3");
       this.palomita3.css({
-	    	
+
 			'visibility':'visible',
 			'opacity':'10',
 	    	'position':'absolute',
@@ -820,8 +820,8 @@ setDatosCuentaSeleccionada(elementHTML) {
 	    	'background-image': 'url(images/check2.png)',
 	    	'background-repeat': 'no-repeat',
 	    	'display': 'inline-block'
-		
-		});	
+
+		});
 
 	}else {
     this.numDocumento =  "";
@@ -830,11 +830,11 @@ setDatosCuentaSeleccionada(elementHTML) {
 		this.Valida_Seleccion_Calendario3 --;
 		this.cuadroCalendario = $("#Itemcalendario3");
 		this.cuadroCalendario.css({
-	    	'opacity':'10'    
-		});	
+	    	'opacity':'10'
+		});
 		this.palomita3 = $("#palomita3");
 		this.palomita3.css({
-	    	
+
 	    	'visibility':'hidden'
 		});
 	}
@@ -846,7 +846,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
     this.cal_Click_4 = 1;
     this.bandera4 ++;
- 
+
     if(this.bandera4 % 2 === 0  || this.bandera4 === 1 ) {
       // set docuemto
       this.numDocumento =  document.getElementById('Itemcalendario4').getAttribute('value');
@@ -855,10 +855,10 @@ setDatosCuentaSeleccionada(elementHTML) {
       this.cuadroCalendario = $("#Itemcalendario4");
       this.cuadroCalendario.css({
         'opacity':'.5'
-      });	
+      });
       this.palomita4 = $("#palomita4");
       this.palomita4.css({
-	    	
+
 			'visibility':'visible',
 			'opacity':'10',
 	    	'position':'absolute',
@@ -870,8 +870,8 @@ setDatosCuentaSeleccionada(elementHTML) {
 	    	'background-image': 'url(images/check2.png)',
 	    	'background-repeat': 'no-repeat',
 	    	'display': 'inline-block'
-		
-		});	
+
+		});
 
 	}else {
     this.numDocumento =  "";
@@ -880,11 +880,11 @@ setDatosCuentaSeleccionada(elementHTML) {
 		this.Valida_Seleccion_Calendario4 --;
 		this.cuadroCalendario = $("#Itemcalendario4");
 		this.cuadroCalendario.css({
-	    	'opacity':'10'    
-		});	
+	    	'opacity':'10'
+		});
 		this.palomita4 = $("#palomita4");
 		this.palomita4.css({
-	    	
+
 	    	'visibility':'hidden'
 		});
 	}
@@ -895,7 +895,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
     this.cal_Click_5 = 1;
     this.bandera5 ++;
- 
+
     if(this.bandera5 % 2 === 0  || this.bandera5 === 1 ) {
       // set docuemto
       this.numDocumento =  document.getElementById('Itemcalendario5').getAttribute('value');
@@ -904,10 +904,10 @@ setDatosCuentaSeleccionada(elementHTML) {
       this.cuadroCalendario = $("#Itemcalendario5");
       this.cuadroCalendario.css({
         'opacity':'.5'
-      });	
+      });
       this.palomita5 = $("#palomita5");
       this.palomita5.css({
-	    	
+
 			'visibility':'visible',
 			'opacity':'10',
 	    	'position':'absolute',
@@ -919,8 +919,8 @@ setDatosCuentaSeleccionada(elementHTML) {
 	    	'background-image': 'url(images/check2.png)',
 	    	'background-repeat': 'no-repeat',
 	    	'display': 'inline-block'
-		
-		});	
+
+		});
 
 	}else {
     this.numDocumento = "";
@@ -929,11 +929,11 @@ setDatosCuentaSeleccionada(elementHTML) {
 		this.Valida_Seleccion_Calendario5 --;
 		this.cuadroCalendario = $("#Itemcalendario5");
 		this.cuadroCalendario.css({
-	    	'opacity':'10'    
-		});	
+	    	'opacity':'10'
+		});
 		this.palomita5 = $("#palomita5");
 		this.palomita5.css({
-	    	
+
 	    	'visibility':'hidden'
 		});
 	}
@@ -944,7 +944,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
     this.cal_Click_6 = 1;
     this.bandera6 ++;
- 
+
     if(this.bandera6 % 2 === 0  || this.bandera6 === 1 ) {
       // set docuemto
       this.numDocumento =  document.getElementById('Itemcalendario6').getAttribute('value');
@@ -953,10 +953,10 @@ setDatosCuentaSeleccionada(elementHTML) {
       this.cuadroCalendario = $("#Itemcalendario6");
       this.cuadroCalendario.css({
         'opacity':'.5'
-      });	
+      });
       this.palomita6 = $("#palomita6");
       this.palomita6.css({
-	    	
+
 			'visibility':'visible',
 			'opacity':'10',
 	    	'position':'absolute',
@@ -968,8 +968,8 @@ setDatosCuentaSeleccionada(elementHTML) {
 	    	'background-image': 'url(images/check2.png)',
 	    	'background-repeat': 'no-repeat',
 	    	'display': 'inline-block'
-		
-		});	
+
+		});
 
 	}else {
     this.numDocumento = "";
@@ -978,11 +978,11 @@ setDatosCuentaSeleccionada(elementHTML) {
 		this.Valida_Seleccion_Calendario6 --;
 		this.cuadroCalendario = $("#Itemcalendario6");
 		this.cuadroCalendario.css({
-	    	'opacity':'10'    
-		});	
+	    	'opacity':'10'
+		});
 		this.palomita6 = $("#palomita6");
 		this.palomita6.css({
-	    	
+
 	    	'visibility':'hidden'
 		});
 	}
@@ -993,7 +993,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
     this.cal_Click_7 = 1;
     this.bandera7 ++;
- 
+
     if(this.bandera7 % 2 === 0  || this.bandera7 === 1 ) {
       // set docuemto
       this.numDocumento =  document.getElementById('Itemcalendario7').getAttribute('value');
@@ -1002,10 +1002,10 @@ setDatosCuentaSeleccionada(elementHTML) {
       this.cuadroCalendario = $("#Itemcalendario7");
       this.cuadroCalendario.css({
         'opacity':'.5'
-      });	
+      });
       this.palomita7 = $("#palomita7");
       this.palomita7.css({
-	    	
+
 			'visibility':'visible',
 			'opacity':'10',
 	    	'position':'absolute',
@@ -1017,8 +1017,8 @@ setDatosCuentaSeleccionada(elementHTML) {
 	    	'background-image': 'url(images/check2.png)',
 	    	'background-repeat': 'no-repeat',
 	    	'display': 'inline-block'
-		
-		});	
+
+		});
 
 	}else {
     this.numDocumento =  "";
@@ -1027,11 +1027,11 @@ setDatosCuentaSeleccionada(elementHTML) {
 		this.Valida_Seleccion_Calendario7 --;
 		this.cuadroCalendario = $("#Itemcalendario7");
 		this.cuadroCalendario.css({
-	    	'opacity':'10'    
-		});	
+	    	'opacity':'10'
+		});
 		this.palomita7 = $("#palomita7");
 		this.palomita7.css({
-	    	
+
 	    	'visibility':'hidden'
 		});
 	}
@@ -1042,7 +1042,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
     this.cal_Click_8 = 1;
     this.bandera8 ++;
- 
+
     if(this.bandera8 % 2 === 0  || this.bandera8 === 1 ) {
       // set docuemto
       this.numDocumento =  document.getElementById('Itemcalendario8').getAttribute('value');
@@ -1051,10 +1051,10 @@ setDatosCuentaSeleccionada(elementHTML) {
       this.cuadroCalendario = $("#Itemcalendario8");
       this.cuadroCalendario.css({
         'opacity':'.5'
-      });	
+      });
       this.palomita8 = $("#palomita8");
       this.palomita8.css({
-	    	
+
 			'visibility':'visible',
 			'opacity':'10',
 	    	'position':'absolute',
@@ -1066,8 +1066,8 @@ setDatosCuentaSeleccionada(elementHTML) {
 	    	'background-image': 'url(images/check2.png)',
 	    	'background-repeat': 'no-repeat',
 	    	'display': 'inline-block'
-		
-		});	
+
+		});
 
 	}else {
     this.numDocumento = "";
@@ -1076,11 +1076,11 @@ setDatosCuentaSeleccionada(elementHTML) {
 		this.Valida_Seleccion_Calendario8 --;
 		this.cuadroCalendario = $("#Itemcalendario8");
 		this.cuadroCalendario.css({
-	    	'opacity':'10'    
-		});	
+	    	'opacity':'10'
+		});
 		this.palomita8 = $("#palomita8");
 		this.palomita8.css({
-	    	
+
 	    	'visibility':'hidden'
 		});
 	}
@@ -1091,7 +1091,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
     this.cal_Click_9 = 1;
     this.bandera9 ++;
- 
+
     if(this.bandera9 % 2 === 0  || this.bandera9 === 1 ) {
       // set docuemto
       this.numDocumento =  document.getElementById('Itemcalendario9').getAttribute('value');
@@ -1100,10 +1100,10 @@ setDatosCuentaSeleccionada(elementHTML) {
       this.cuadroCalendario = $("#Itemcalendario9");
       this.cuadroCalendario.css({
         'opacity':'.5'
-      });	
+      });
       this.palomita9 = $("#palomita9");
       this.palomita9.css({
-	    	
+
 			'visibility':'visible',
 			'opacity':'10',
 	    	'position':'absolute',
@@ -1115,8 +1115,8 @@ setDatosCuentaSeleccionada(elementHTML) {
 	    	'background-image': 'url(images/check2.png)',
 	    	'background-repeat': 'no-repeat',
 	    	'display': 'inline-block'
-		
-		});	
+
+		});
 
 	}else {
     this.numDocumento = "";
@@ -1125,11 +1125,11 @@ setDatosCuentaSeleccionada(elementHTML) {
 		this.Valida_Seleccion_Calendario9 --;
 		this.cuadroCalendario = $("#Itemcalendario9");
 		this.cuadroCalendario.css({
-	    	'opacity':'10'    
-		});	
+	    	'opacity':'10'
+		});
 		this.palomita9 = $("#palomita9");
 		this.palomita9.css({
-	    	
+
 	    	'visibility':'hidden'
 		});
 	}
@@ -1140,7 +1140,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
     this.cal_Click_10 = 1;
     this.bandera10 ++;
- 
+
     if(this.bandera10 % 2 === 0  || this.bandera10 === 1 ) {
       // set docuemto
       this.numDocumento =  document.getElementById('Itemcalendario10').getAttribute('value');
@@ -1149,10 +1149,10 @@ setDatosCuentaSeleccionada(elementHTML) {
       this.cuadroCalendario = $("#Itemcalendario10");
       this.cuadroCalendario.css({
         'opacity':'.5'
-      });	
+      });
       this.palomita10 = $("#palomita10");
       this.palomita10.css({
-	    	
+
 			'visibility':'visible',
 			'opacity':'10',
 	    	'position':'absolute',
@@ -1164,8 +1164,8 @@ setDatosCuentaSeleccionada(elementHTML) {
 	    	'background-image': 'url(images/check2.png)',
 	    	'background-repeat': 'no-repeat',
 	    	'display': 'inline-block'
-		
-		});	
+
+		});
 
 	}else {
     this.numDocumento = "";
@@ -1174,11 +1174,11 @@ setDatosCuentaSeleccionada(elementHTML) {
 		this.Valida_Seleccion_Calendario10 --;
 		this.cuadroCalendario = $("#Itemcalendario10");
 		this.cuadroCalendario.css({
-	    	'opacity':'10'    
-		});	
+	    	'opacity':'10'
+		});
 		this.palomita10 = $("#palomita10");
 		this.palomita10.css({
-	    	
+
 	    	'visibility':'hidden'
 		});
 	}
@@ -1189,7 +1189,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
     this.cal_Click_11 = 1;
     this.bandera11 ++;
- 
+
     if(this.bandera11 % 2 === 0  || this.bandera11 === 1 ) {
       // set docuemto
       this.numDocumento =  document.getElementById('Itemcalendario11').getAttribute('value');
@@ -1198,10 +1198,10 @@ setDatosCuentaSeleccionada(elementHTML) {
       this.cuadroCalendario = $("#Itemcalendario11");
       this.cuadroCalendario.css({
         'opacity':'.5'
-      });	
+      });
       this.palomita11 = $("#palomita11");
       this.palomita11.css({
-	    	
+
 			'visibility':'visible',
 			'opacity':'10',
 	    	'position':'absolute',
@@ -1213,8 +1213,8 @@ setDatosCuentaSeleccionada(elementHTML) {
 	    	'background-image': 'url(images/check2.png)',
 	    	'background-repeat': 'no-repeat',
 	    	'display': 'inline-block'
-		
-		});	
+
+		});
 
 	}else {
     this.numDocumento = "";
@@ -1223,11 +1223,11 @@ setDatosCuentaSeleccionada(elementHTML) {
 		this.Valida_Seleccion_Calendario11 --;
 		this.cuadroCalendario = $("#Itemcalendario11");
 		this.cuadroCalendario.css({
-	    	'opacity':'10'    
-		});	
+	    	'opacity':'10'
+		});
 		this.palomita11 = $("#palomita11");
 		this.palomita11.css({
-	    	
+
 	    	'visibility':'hidden'
 		});
 	}
@@ -1241,7 +1241,7 @@ setDatosCuentaSeleccionada(elementHTML) {
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     const autenticacion: Autenticacion = new Autenticacion();
 
-    
+
 
 
     if (id ===  '1') {
@@ -1257,39 +1257,39 @@ setDatosCuentaSeleccionada(elementHTML) {
     } else {
       // Imprimir
 
-      
+
 
       if( this.cal_Click_0 === 1 || this.cal_Click_1 === 1 || this.cal_Click_2 === 1 ||
           this.cal_Click_3 === 1 || this.cal_Click_4 === 1 || this.cal_Click_5 === 1 ||
           this.cal_Click_6 === 1 || this.cal_Click_7 === 1 || this.cal_Click_8 === 1 ||
           this.cal_Click_9 === 1 || this.cal_Click_10 === 1 || this.cal_Click_11 === 1) {
-        
-        
-            
+
+
+
         operacionesbxi.getDocumento(this.fechaCorteDoc, this.numDocumento, id).then(
 
             function(response) {
               console.log(response.responseText);
               const documento = response.responseJSON;
-              
+
               if ( documento.PDF !== undefined) {
 
-                //trae PDF del respWL 
+                //trae PDF del respWL
                 // this.doc_1 = documento.PDF;
                 this.nombreDocumento = documento.NombreDoc;
                 this.enviaImprimir();
               }
-      
+
             },
               function(error) {
-      
+
                 console.error("Error");
-           
+
                 $('#errorModal').modal('show');
-                
-      
+
+
               });
-        
+
       }
 
     }
@@ -1300,15 +1300,15 @@ setDatosCuentaSeleccionada(elementHTML) {
 
 
   enviaImprimir(){
-	
-    
+
+
     let delay2 = 10000;
     setTimeout(function(){
-        
+
       console.log("enviaImprimir");
-      
+
       // 1
-      
+
       $.ajax({
        // url: 'http://localhost:8082/sucursappsdevices/printer/pdf?f='+'D_'+listObtenerDocumentos[0].docpdf+'_'+fechasEnvioMail[0]+'.pdf',
        url: 'http://localhost:8082/sucursappsdevices/printer/pdf?f='+'D_'+ this.numDocumento+'_' + '"fecha"' + '.pdf',
@@ -1322,12 +1322,12 @@ setDatosCuentaSeleccionada(elementHTML) {
         async: false,
         cache: false
       });
-      
+
       $('#_modal_please_wait').modal('hide');
-      
+
     }, delay2);
-    
-    
+
+
   }
 
 
