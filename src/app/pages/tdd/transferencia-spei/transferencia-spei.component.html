@@ -7,8 +7,8 @@
         <div class="col-sm-1 sumando-bg-red group-name">
             Desde
         </div>
-        <div class="col-sm-11 group-controls padding-left-0 padding-right-0 sumando-well-white" style="padding-bottom: 0px !important; padding-top: 8px; line-height: 14px">
-            <div class="form-group" style="margin-bottom: -1px; line-height: 23px">
+        <div class="col-sm-11 group-controls padding-InFieldset" style="padding-left: 0px; padding-right:  0px;">
+            <div class="form-group">
                 <div class="sumando-dropdown-account">
                     <table width="100%" class="letranegrita">
                         <tr>
@@ -17,7 +17,7 @@
                             </td>
                             <td align="left" style="border: 0px">
                                 <strong>
-                                    <label>$ {{saldoDisponibleClienteTdd}}
+                                    <label>$ {{saldoDisponibleClienteTdd | currency}}
                                     </label>
                                 </strong>
                             </td>
@@ -56,7 +56,7 @@
 
     </div>
 
-    <!-- (ngSubmit)="showDetallePago(forma)"-->
+    <!-- (ngSubmit)="showDetallePago(forma)" input-whidth form-control input-lg-->
     <form [formGroup]="myform" novalidate>
         <div id="divisionInputs"></div>
         <div class="row sumando-form-group letranegrita">
@@ -69,12 +69,13 @@
                         <label for="amount" class="col-sm-2 control-label" style="max-width: 165px;">Banco Destino</label>
                     </div>
                     <div class="dropdown sumando-dropdown-account col-sm-9">
-                        <select class="input-whidth form-control input-lg" name="sel1" id="selecBanco" #rSelecBanco (change)="selectBanco($event.target.value)" style="border:0px solid red;">
+                        <select class="input-whidth input-lg selectModificado" name="sel1" id="selecBanco" #rSelecBanco (change)="selectBanco($event.target.value)" style="border:0px solid red; background-size: auto; width: 100%">
                             <option disabled="true">Seleccione un banco</option>
                             <option *ngFor="let bancos of listaBancos"  [value]="bancos.IdSecoban">{{bancos.NombreBanco}}</option>                                     
                         </select>
                     </div>
                 </div>
+                <br/>
                 <div class="clearfix"></div>
 
                 <div class="row">
@@ -89,6 +90,7 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
+                <br/>
                 <div class="row">
                     <div class="form-group col-sm-2">
                         <label for="amount" class="col-sm-2 control-label">Beneficiario</label>
@@ -102,6 +104,7 @@
                     <div class="clearfix"></div>
 
                 </div>
+                <br/>
                 <div class="row">
                     <div class="form-group col-sm-2">
                         <label class="col-sm-2 control-label">Descripci&oacute;n</label>
@@ -115,7 +118,7 @@
                     <div class="clearfix"></div>
 
                 </div>
-
+                <br/>
                 <div class="row">
                     <div class="form-group col-sm-2">
                         <label for="amount" class="col-sm-2 control-label">Importe</label>
@@ -138,6 +141,7 @@
                     <div class="clearfix"></div>
 
                 </div>
+                <br/>
                 <div class="row">
                     <div class="form-group col-sm-2">
                         <label for="amount" class="col-sm-5 control-label" style="max-width: 165px;">Correo a Notificar</label>
@@ -150,7 +154,7 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
-
+                <!--
                 <div class="row">
                     <div class="form-group col-sm-2">
                         <label class="col-sm-12 control-label">RFC Emisor</label>
@@ -163,23 +167,23 @@
                     </div>
                     <div class="clearfix"></div>
 
-                </div>
+                </div> -->
                 <div id="someDiv" name="someDiv"></div>
             </div>
         </div>
 
 
 
-        <div style="margin:30px 20px 0px 0px;" class="row actions-form-group text-right">
+        <div style="margin:30px 20px 0px 0px; margin-top: 5px" class="row actions-form-group text-right">
             <div class="col-sm-9"></div>
             <div class="col-sm-2">
-                <button class="btn btn-lg" routerLink="/menuTdd">Regresar</button>
+                <button class="btn btn-lg" routerLink="/menuTdd" style="margin-right: -49px;">Regresar</button>
             </div>
             <!-- <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
             <div class="col-sm-1">
                 <button id="continuarspei" name="continuarspei" class="btn btn-danger btn-lg" [disabled]="myform.invalid || rSelecBanco.value === 'Seleccione un banco' || rSelecBanco.value === ''
                 || rTipoTransferencia.value === 'Seleccione transferencia' || rTipoTransferencia.value === ''" (click)="showDetallePago(rClabe.value, rBeneficiario.value, rReferencia.value, rImporte.value, rDescripcion.value,
-                    rEmail.value, rRfcEmisor.value)">
+                    rEmail.value)" style="margin-right: -49px;">
                         Continuar</button>
             </div>
         </div>
@@ -191,7 +195,7 @@
 <!-- Modal -->
 <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content shadowModal" style="height: 500px">
+        <div class="modal-content shadowModal" style="height: 410px">
 
             <div class="modal-body" style="padding: 2rem;">
 
@@ -228,6 +232,7 @@
                         <label>${{importe}}</label>
                     </div>
                 </div>
+                <!--
                 <div class="row">
                     <div class="col-lg 6">
                         <label>Comision:</label>
@@ -235,7 +240,7 @@
                     <div class="col-lg 6">
                         <label>$0.00</label>
                     </div>
-                </div>
+                </div> -->
                 <div class="row">
                     <div class="col-lg 6">
                         <label>Correo:</label>
@@ -244,6 +249,7 @@
                         <label>{{email}}</label>
                     </div>
                 </div>
+                <!--
                 <div class="row">
                     <div class="col-lg 6">
                         <label>Importe total:</label>
@@ -251,7 +257,7 @@
                     <div class="col-lg 6">
                         <label>${{importe}}</label>
                     </div>
-                </div>
+                </div> -->
                 <div class="row">
                     <div class="col-lg 6">
                         <label>Beneficiario:</label>
@@ -276,6 +282,7 @@
                         <label>{{referencia}}</label>
                     </div>
                 </div>
+                <!--
                 <div class="row">
                     <div class="col-lg 6">
                         <label>RFC Emisor:</label>
@@ -283,7 +290,7 @@
                     <div class="col-lg 6">
                         <label>{{rfcEmi | uppercase}}</label>
                     </div>
-                </div>
+                </div> -->
                 <div class="modal-footer">
                     <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
                     <button class="color-botones btn btn-lg " (click)="confirmarTransaccion()" data-dismiss="modal">

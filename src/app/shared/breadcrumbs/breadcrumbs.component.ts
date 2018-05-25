@@ -41,7 +41,8 @@ export class BreadcrumbsComponent implements OnInit {
   cerrarSessionBEL() {
     const this_aux = this;  
     if (this_aux.service.Login === "1" ) {
-      
+      sessionStorage.removeItem("campania");
+    const THIS: any = this;
       this_aux.service.Login = "0";
       const operacionesbxi: OperacionesBXI = new OperacionesBXI();
       console.log("Cerrar sesion BEL");
@@ -81,7 +82,7 @@ export class BreadcrumbsComponent implements OnInit {
     const THIS: any = this;
 
     console.log("Cerrar sesion");
-
+    sessionStorage.removeItem("campania");
     const resourceRequest = new WLResourceRequest(
       'adapters/AdapterBanorteSucursApps/resource/cerrarSesion',
       WLResourceRequest.POST);

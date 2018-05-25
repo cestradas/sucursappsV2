@@ -26,7 +26,7 @@ export class TransferenciaSpeiComponent implements OnInit {
   @ViewChild("rImporte", { read: ElementRef }) rImporte: ElementRef;
   @ViewChild("rReferencia", { read: ElementRef }) rReferencia: ElementRef;
   @ViewChild("rEmail", { read: ElementRef }) rEmail: ElementRef;
-  @ViewChild("rRfcEmisor", { read: ElementRef }) rRfcEmisor: ElementRef;
+  // @ViewChild("rRfcEmisor", { read: ElementRef }) rRfcEmisor: ElementRef;
   
   
 
@@ -74,8 +74,7 @@ export class TransferenciaSpeiComponent implements OnInit {
       descripcionF: [''],
       importeF: [''],
       referenciaF: [''],
-      correoF: [''],
-      rFcEmisorF: ['']
+      correoF: ['']
     });
 
 
@@ -120,8 +119,7 @@ let Spei = document.getElementById("divSpei");
       this_aux.myform.setControl('descripcionF', controlDescripcion);
       const controlImporte: FormControl = new FormControl(this_aux.rImporte.nativeElement.value, Validators.required);      
       this_aux.myform.setControl('importeF', controlImporte);
-      const controlReferencia: FormControl = new FormControl(this_aux.rReferencia.nativeElement.value, [Validators.required,
-        Validators.maxLength(7)]);      
+      const controlReferencia: FormControl = new FormControl(this_aux.rReferencia.nativeElement.value, [Validators.maxLength(7)]);      
       this_aux.myform.setControl('referenciaF', controlReferencia);
       const controlCorreo: FormControl = new FormControl(this_aux.rEmail.nativeElement.value, Validators.required);      
       this_aux.myform.setControl('correoF', controlCorreo);
@@ -130,10 +128,10 @@ let Spei = document.getElementById("divSpei");
       const controlClabe: FormControl = new FormControl(this_aux.rClabe.nativeElement.value, 
         [Validators.required, Validators.minLength(18), Validators.maxLength(18)]);      
         this_aux.myform.setControl('numeroClabeF', controlClabe);
-      const controlrFcEmisor: FormControl = new FormControl(this_aux.rRfcEmisor.nativeElement.value, 
+      /*const controlrFcEmisor: FormControl = new FormControl(this_aux.rRfcEmisor.nativeElement.value, 
       Validators.pattern( /^([A-ZÑ&, a-zñ&]{3,4})(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01]))([A-Z\d, a-z\d]{2})([A\d])$/
       ));      
-      this_aux.myform.setControl('rFcEmisorF', controlrFcEmisor);
+      this_aux.myform.setControl('rFcEmisorF', controlrFcEmisor); */
       /*
       Spei.style.display = "block";
       Tef.style.display = "none";
@@ -149,7 +147,7 @@ let Spei = document.getElementById("divSpei");
       const controlClabe: FormControl = new FormControl(this_aux.rClabe.nativeElement.value, 
         [Validators.required, Validators.minLength(16), Validators.maxLength(16)]);      
       this_aux.myform.setControl('numeroClabeF', controlClabe);
-      const controlrFcEmisor: FormControl = new FormControl(this_aux.rRfcEmisor.nativeElement.value, [Validators.required, 
+     /* const controlrFcEmisor: FormControl = new FormControl(this_aux.rRfcEmisor.nativeElement.value, [Validators.required, 
       Validators.pattern( /^([A-ZÑ&, a-zñ&]{3,4})(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01]))([A-Z\d, a-z\d]{2})([A\d])$/
       )]);      
       this_aux.myform.setControl('rFcEmisorF', controlrFcEmisor);
@@ -187,18 +185,16 @@ let Spei = document.getElementById("divSpei");
   }
 
   showDetallePago(clabeBenRec, nombreBeneRec, refRec, importeRec,
-    descripcionRec, correoRec, rfcOrdenanteRec) {
+    descripcionRec, correoRec) {
     
       const this_aux = this;
-      if (rfcOrdenanteRec === "") {
-          rfcOrdenanteRec = "ND";
-      }
+      
       this_aux.clabe = clabeBenRec;
       this_aux.importe = importeRec;
       this_aux.email = correoRec;
       this_aux.nombreBene = nombreBeneRec;
       this_aux.descripcion = descripcionRec;
-      this_aux.rfcEmi = rfcOrdenanteRec;
+      this_aux.rfcEmi = "ND";
       this_aux.referencia = refRec;
     $("#confirmModal").modal("show");
   }

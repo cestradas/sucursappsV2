@@ -3,6 +3,7 @@ import { Http, Response, Headers,  URLSearchParams, RequestOptions } from "@angu
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from "@angular/router";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { ConsultaSaldosTddService } from '../../../services/saldosTDD/consultaSaldos.service';
+import { SesionTDDService } from '../../../services/breadcrums/breadcroms.service';
 
 import $ from "jquery";
 import { DOCUMENT } from "@angular/platform-browser";
@@ -27,11 +28,12 @@ export class MenutddComponent implements OnInit {
   urlProperty: any;
   sesionBrowser: any;
 
-  constructor(private router: Router, private http: Http, private _service: ConsultaSaldosTddService) {}
+  constructor(private router: Router, private http: Http, private _service: ConsultaSaldosTddService, 
+    private _serviceSesion: SesionTDDService) {}
 
   ngOnInit() {
     // $('div').removeClass('modal-backdrop');
-     // this.getidSesion(); 
+      this.getidSesion(); 
       if (sessionStorage.getItem("campania") === null)      {
         sessionStorage.setItem("campania", "activa");
       }
@@ -44,9 +46,9 @@ export class MenutddComponent implements OnInit {
       case "saldosMov":
         this.router.navigate(["/movimientoSaldo"]);
         break;
-      // case 'edc':
-      // this.router.navigate(['/compraTiempoAire']);
-      // break;
+       case 'edc':
+       this.router.navigate(['/impresion-edc']);
+       break;
       case "compraTA":
         this.router.navigate(["/compraTiempoAire"]);
         break;
@@ -106,13 +108,14 @@ export class MenutddComponent implements OnInit {
   cargarcampanias() {
     const this_aux = this;
     let params: URLSearchParams = new URLSearchParams();
-  //  params.set("param1", decodeURIComponent(this_aux.sicCifrado));
+    params.set("param1", decodeURIComponent(this_aux.sicCifrado));
     params.set("param2", "SUCA");
     params.set("sesion", this_aux.sesionBrowser);
     params.set("param3", "1003");
 
     // Http request-
-    this_aux.stringUrl = "http://lnxsapl1d.dev.unix.banorte.com:9080/ade-front/existeEvento.json?param1=8qa3cntF01k4%2B7yNw1W1kg==";
+    // this_aux.stringUrl = this_aux.urlProperty + "/ade-front/existeEvento.json?param1=cGP7ZYTkSjuaCtabUn%2BA2Q%3D%3D";
+     this_aux.stringUrl = this_aux.urlProperty + "/ade-front/existeEvento.json";
     // this_aux.urlProperty + "/ade-front/existeEvento.json";
        
     this.http
@@ -120,7 +123,7 @@ export class MenutddComponent implements OnInit {
         search: params
       })
       .subscribe(response => (this_aux.responseCampania = response));
-    // if (this_aux.responseCampania._body !== "false") {
+     if (this_aux.responseCampania._body !== "false") {
         let cadena = this_aux.responseCampania._body;
         let val1 = cadena.indexOf(",");
         let val2 = cadena.indexOf(",", val1 + 1);
@@ -128,26 +131,24 @@ export class MenutddComponent implements OnInit {
         let alto = cadena.substring(val2 + 1);
 
        document.getElementById("frameCampania").setAttribute("src", 
-      // this_aux.urlProperty + "/ade-front/ade.htm?param1=" + this_aux.sicCifrado + 
-      "http://lnxsapl1d.dev.unix.banorte.com:9080/ade-front/ade.htm?param1=" + this_aux.sicCifrado + 
+      this_aux.urlProperty + "/ade-front/ade.htm?param1=" + this_aux.sicCifrado + 
       "&param2=SUCA&sesion=" + this_aux.sesionBrowser + "&param3=" + this_aux.idSucursal);
        document.getElementById("frameCampania").style.height = "100%";
        document.getElementById("divLargo").style.maxWidth = ancho.toString() + "px";
        document.getElementById("divAltura").style.maxHeight = alto.toString() + "px";
        $("#campaniaModal").modal("show");   
-  //  }
- // this_aux.listener();
+    }
   }
 
   encriptarSic() {
 
     const this_aux = this;
     const THIS: any = this;
-    console.log("adentro encriptar sic");
+    console.log("adentro encriptar sic: " + this_aux._serviceSesion.datosBreadCroms.sicUsuarioTDD);
     
     const formParameters = {
-       //  sic: this_aux.numeroCuentaTitular
-        sic: '12345'
+        sic: this_aux._serviceSesion.datosBreadCroms.sicUsuarioTDD
+      //  sic: '12345'
     };
 
     const resourceRequest = new WLResourceRequest(
@@ -186,17 +187,17 @@ export class MenutddComponent implements OnInit {
              this_aux.sesionBrowser = response.responseText;
             console.log(this_aux.sesionBrowser);
             console.log("El servcio de id sesion respondio correctamente");
-            this_aux._service.cargarSaldosTDD();
-            this_aux._service.validarDatosSaldoTdd().then(
-                mensaje => {
+         //   this_aux._service.cargarSaldosTDD();
+            // this_aux._service.validarDatosSaldoTdd().then(
+              //  mensaje => {
           
                   console.log('Saldos cargados correctamente TDD');
-                  this_aux.numeroCuentaTitular = mensaje.NumeroCuenta;
+               //   this_aux.numeroCuentaTitular = mensaje.NumeroCuenta;
                   if (sessionStorage.getItem("campania") === "activa") {
                     this_aux.encriptarSic();
                   }                  
-                }
-              );   
+             //   }
+            //  );   
         },
         function(error) {
             console.error("Ocurrio un error con el servcio de id sesion");
@@ -206,10 +207,9 @@ export class MenutddComponent implements OnInit {
   
  send(msg) {
     const this_aux = this;
-    console.log("URL: " + this_aux.urlProperty);
     let popupIframe = document.getElementsByTagName('iframe')[0];
    this_aux.contenido = (popupIframe.contentWindow ? popupIframe.contentWindow : popupIframe.contentDocument);
-    this_aux.contenido.postMessage(msg, 'http://lnxsapl1d.dev.unix.banorte.com:9080/ade-front/');
+    this_aux.contenido.postMessage(msg, this_aux.urlProperty + '/ade-front/');
     sessionStorage.setItem("campania", "inactivo");
     $('#campaniaModal').modal('toggle');
     return false;

@@ -53,6 +53,7 @@ resourceRequest
           let res = response.responseJSON;
           THIS._service.datosBreadCroms.numeroCliente = res.Tran_NumeroCliente;
           THIS._service.datosBreadCroms.nombreUsuarioTDD = res.Tran_NombrePersona;
+          THIS._service.datosBreadCroms.sicUsuarioTDD = res.Tran_NumeroCliente;
           // setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
           $('#ModalTDDLogin').modal('hide'); 
           THIS.router.navigate(['/menuTdd']);

@@ -6,6 +6,7 @@ export class SesionTDDService {
 
   datosBreadCroms: DatosBreadCroms = {
     nombreUsuarioTDD: '',
+    sicUsuarioTDD: '',
     EmailCliente: '',
     CelCliente: '',
     numeroCliente: ''
@@ -18,6 +19,7 @@ export class SesionTDDService {
 interface DatosBreadCroms {
 
   nombreUsuarioTDD: string;
+  sicUsuarioTDD: string;
   EmailCliente: string;
   CelCliente: string;
   numeroCliente: string;
