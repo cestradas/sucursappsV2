@@ -51,7 +51,7 @@ resourceRequest
         function(response) {
           
           let res = response.responseJSON;
-
+          THIS._service.datosBreadCroms.numeroCliente = res.Tran_NumeroCliente;
           THIS._service.datosBreadCroms.nombreUsuarioTDD = res.Tran_NombrePersona;
           // setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
           $('#ModalTDDLogin').modal('hide'); 

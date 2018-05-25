@@ -11,7 +11,7 @@
                         <h4 class="color-letra">Selecciona una opci&oacute;n</h4>
                     </div>
                     <div style="width: 980px" class="col-lg-6 text-right">
-                        <select class="form-control input-lg" id="account-cicle" (change)="calcularFecha()">
+                        <select class="form-control input-lg selectModificado selColonia" id="account-cicle" (change)="calcularFecha()">
                                 <option value="0" #mes >Mes Actual</option>
                                 <option value="1" #mes>Mes Anterior</option> 
               </select>
@@ -91,11 +91,11 @@
 </div>
 
 <div style="margin:30px 0px 0px 0px;" class="row">
-    <div class="col-lg-9"></div>
-    <div class="col-lg-3">
+    <div class="col-lg-10"></div>
+    <div class="col-lg-2">
         <div class="row">
-            <div style=" padding: 0px; margin-right:0" class="col-lg-10" align="right">
-                <button class="btn btn-danger  btn-lg letranegrita" routerLink="/menuTdd">
+            <div style=" padding: 0px; margin-right:0" class="col-lg-9">
+                <button class="btn btn-danger  btn-lg letranegrita pull-right" routerLink="/menuTdd">
                     Regresar
                 </button>
             </div>

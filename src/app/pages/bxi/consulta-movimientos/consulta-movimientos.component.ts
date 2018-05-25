@@ -16,7 +16,7 @@ export class ConsultaMovimientosComponent implements OnInit {
   
 
   cuentasArray: Array<any>;
-  
+  saldoSeleccionado: string;
   
   @ViewChild('listaCuentas', { read: ElementRef}) listaCuentas: ElementRef ;
   
@@ -150,9 +150,10 @@ getSaldoDeCuentaTDD(numCuenta_seleccionada) {
         console.log(response1.responseText);
         const detalleSaldos = response1.responseJSON;
         if ( detalleSaldos.Id === '1') {
-          const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
-          lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
-          this_aux.service.saldoSeleccionado = detalleSaldos.SaldoDisponible;
+          // const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
+          // lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
+          this_aux.saldoSeleccionado = detalleSaldos.SaldoDisponible;
+          this_aux.service.saldoSeleccionado = this_aux.saldoSeleccionado;
           $('#_modal_please_wait').modal('hide');
 
         } else {
@@ -163,37 +164,28 @@ getSaldoDeCuentaTDD(numCuenta_seleccionada) {
   });
 }
 
-getSaldoDeCuentaTDC(numeroCue) {
+getSaldoDeCuentaTDC(numCuenta_seleccionada) {
   const this_aux = this;
-  const formParameters = {
-    cuenta: numeroCue
-  }; 
-  console.log(formParameters);
-         
-  const resourceRequest = new WLResourceRequest(
-    
-    'adapters/AdapterBanorteSucursAppsBEL/resource/consultaMovimientosTarjetas', WLResourceRequest.POST);
-    resourceRequest.setTimeout(30000);
-    
-    resourceRequest.sendFormParameters(formParameters).then(
-      function(response) {
-        console.log(response.responseText);
-       let saldo = response.responseJSON;
-       let saldoCuenta = saldo.SaldoDisponible;
-       console.log(saldoCuenta);
+  const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+  operacionesbxi.getSaldoTDC(numCuenta_seleccionada).then(
+      function(response1) {
+        console.log(response1.responseText);
+        const detalleSaldos = response1.responseJSON;
+        if ( detalleSaldos.Id === '1') {
+          // const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
+          // lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
+          this_aux.saldoSeleccionado = detalleSaldos.SaldoDisponible;
+          this_aux.service.saldoSeleccionado = this_aux.saldoSeleccionado;
+          $('#_modal_please_wait').modal('hide');
 
-       if ( saldo.Id === '1') {
-        const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
-        lblSaldoOrigen.innerHTML = saldoCuenta;
-        this_aux.service.saldoSeleccionado = saldoCuenta;
-        $('#_modal_please_wait').modal('hide');
-
-      } else {
-         this_aux.showErrorSucces(saldo);
-      }
-
+        } else {
+           this_aux.showErrorSucces(detalleSaldos);
+        }
       }, function(error) {
+         this_aux.showErrorPromise(error);
   });
+
+
 
 }
 
