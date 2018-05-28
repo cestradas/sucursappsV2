@@ -20,6 +20,7 @@ export class ConsultaMovimientosDetailComponent implements OnInit {
 
 
   saldoDispoinible: String;
+  SaldoActual: string;
   
   alias: any = '';
   TamArray: any;
@@ -56,6 +57,7 @@ export class ConsultaMovimientosDetailComponent implements OnInit {
     this.divisa = this.service.divisa;
 
     this.saldoDispoinible = this.service.saldoSeleccionado;
+    this.SaldoActual = this.service.SaldoActual;
 
     console.log(this.service.saldoSeleccionado);
 
@@ -165,7 +167,10 @@ export class ConsultaMovimientosDetailComponent implements OnInit {
   }
 
 consultaMovimientosTDC(numeroCue) {
+
+
   const this_aux = this;
+  this_aux.mostrarSaldoCredito();
   const formParameters = {
     cuenta: numeroCue
   }; 
@@ -213,7 +218,7 @@ consultaMovimientosTDC(numeroCue) {
                 div2.style.display = "none";
                }
          }
-         this_aux.mostrarSaldoCredito();
+         
           
         } 
       }, function(error) {
@@ -256,19 +261,14 @@ console.log( this.movimientosCue);
 }
 
 mostrarSaldoDebito() {
-  const cuentaDebito = document.getElementById('cuentaDebito');
-  const cuentaCredito = document.getElementById('cuentaCredito');
 
-  cuentaDebito.setAttribute('style', 'display: block');
+  const cuentaCredito = document.getElementById('cuentaCredito');
   cuentaCredito.setAttribute('style', 'display: none');
   
 }
 
 mostrarSaldoCredito() {
-  const cuentaDebito = document.getElementById('cuentaDebito');
   const cuentaCredito = document.getElementById('cuentaCredito');
-
-  cuentaDebito.setAttribute('style', 'display: none');
   cuentaCredito.setAttribute('style', 'display: block');
   
 }

@@ -90,6 +90,7 @@ export class SesionBxiService {
 
 
      // cuenta consulta movimientos
+	 SaldoActual: string;
      tipoCuenta: String;
      aliasCuentaSeleccionada: String;
      noTarjetaSeleccionada: String;

@@ -176,6 +176,7 @@ getSaldoDeCuentaTDC(numCuenta_seleccionada) {
           // lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
           this_aux.saldoSeleccionado = detalleSaldos.SaldoDisponible;
           this_aux.service.saldoSeleccionado = this_aux.saldoSeleccionado;
+          this_aux.service.SaldoActual = detalleSaldos.SaldoActual;
           $('#_modal_please_wait').modal('hide');
 
         } else {
