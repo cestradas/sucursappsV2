@@ -33,11 +33,6 @@ var UserLoginChallengeHandler = function(usr, key) {
         usuarioAgent = navigator.userAgent;
         // getidSesion();
         getUsrPassLegacy(usuarioAgent);
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 264e350bca29cc2744c1895eb30c797bb1d1ccb0
 
         //		document.getElementById("helloUser").innerHTML = "Hello, "
         //				+ data.user.displayName;
@@ -116,7 +111,7 @@ var UserLoginChallengeHandler = function(usr, key) {
             };
 
             WL.Client.init(wlInitOptions).then(function() {
-                console.info("VERSION: 1, 24/05/2018")
+                console.info("VERSION: 1.2, 29/05/2018")
                 setTimeout(function() {
                     var userLoginChallengeHandler = UserLoginChallengeHandler(USR, KEY);
                 }, 1000)
@@ -143,11 +138,6 @@ var UserLoginChallengeHandler = function(usr, key) {
     return userLoginChallengeHandler;
 };
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 264e350bca29cc2744c1895eb30c797bb1d1ccb0
 function getUsrPassLegacy(usrAgent) {
 
     if (datosLegacy == "") {
@@ -168,10 +158,6 @@ function getUsrPassLegacy(usrAgent) {
                 datosLegacy = response.responseJSON;
                 console.log(datosLegacy);
                 console.log("El servcio de informacion Legacy respondio correctamente");
-<<<<<<< HEAD
-
-=======
->>>>>>> 264e350bca29cc2744c1895eb30c797bb1d1ccb0
             },
             function(error) {
                 console.error("Ocurrio un error con el servcio de informacion Legacy");
@@ -179,34 +165,6 @@ function getUsrPassLegacy(usrAgent) {
             });
     }
 }
-<<<<<<< HEAD
-
-
-function decrypLegacy() {
-    const resourceRequest = new WLResourceRequest(
-        'adapters/AdapterBanorteSucursApps/resource/decrypLegacy',
-        WLResourceRequest.POST);
-    resourceRequest.setTimeout(30000);
-    resourceRequest
-        .send()
-        .then(
-            function(response) {
-                let resp = response.responseJSON;
-
-                console.log(response.esponseText);
-
-
-            },
-
-            function(error) {
-                console.log(error.responseText);
-
-            });
-
-}
-
-=======
->>>>>>> 264e350bca29cc2744c1895eb30c797bb1d1ccb0
 
 function getidSesion() {
     const resourceRequest = new WLResourceRequest(

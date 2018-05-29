@@ -21,7 +21,6 @@ import { ActivarAlertasComponent } from './activar-alertas/activar-alertas.compo
 import { TransferenciaTercerosFinalComponent } from './transferencia-terceros/transferencia-terceros-final.component';
 import { MantenimientoBenefDetailComponent } from './mantenimiento-benef/mantenimiento-benef-detail/mantenimiento-benef-detail.component';
 import { ImpresionEdcTddComponent } from './impresion-edc-tdd/impresion-edc-tdd.component';
-import { ImpresionEdcFinalTddComponent } from './impresion-edc-tdd/impresion-edc-final-tdd.component';
 import { TransferenciasSpeiDetailComponent } from './transferencia-spei/transferencias-spei-detail/transferencias-spei-detail.component';
 import { PagoDeServicioDetallesComponent } from './pagoServiciosTDD/pago-de-servicio-detalles/pago-de-servicio-detalles.component';
 import { PagoServiciosComponent } from './pagoServiciosTDD/pago-servicios/pago-servicios.component';
@@ -85,7 +84,6 @@ const customLayouts: IKeyboardLayouts = {
         ActivarAlertasComponent,
         TransferenciaTercerosFinalComponent,
         ImpresionEdcTddComponent,
-        ImpresionEdcFinalTddComponent,
         TransferenciasSpeiDetailComponent,
         MantenimientosDatosContactoComponent,
         MantenimientoDatosContactoFinalComponent,

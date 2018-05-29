@@ -26,7 +26,6 @@ export class TransferenciaSpeiComponent implements OnInit {
   @ViewChild("rImporte", { read: ElementRef }) rImporte: ElementRef;
   @ViewChild("rReferencia", { read: ElementRef }) rReferencia: ElementRef;
   @ViewChild("rEmail", { read: ElementRef }) rEmail: ElementRef;
-  // @ViewChild("rRfcEmisor", { read: ElementRef }) rRfcEmisor: ElementRef;
   
   
 
@@ -42,7 +41,6 @@ export class TransferenciaSpeiComponent implements OnInit {
   importe: any = "";
   descripcion: any = "";
   email: any = "";
-  rfcEmi: any = "";
   
   myform: FormGroup;
 
@@ -103,14 +101,6 @@ export class TransferenciaSpeiComponent implements OnInit {
   seleccionOperacion(operacion) {
     const this_aux = this;
     this_aux.nombreOperacion = operacion;
-/*
-let Spei = document.getElementById("divSpei");
-    let Tef = document.getElementById("divTef");
-    let Quick = document.getElementById("divQuick");
-    let tituloSpei = document.getElementById("h2Spei");
-    let tituloTef = document.getElementById("h2Tef");
-    let tituloQuick = document.getElementById("h2Quick");
-*/
 
 
       const controlNombrenBenef: FormControl = new FormControl(this_aux.rBeneficiario.nativeElement.value, Validators.required);      
@@ -124,22 +114,10 @@ let Spei = document.getElementById("divSpei");
       const controlCorreo: FormControl = new FormControl(this_aux.rEmail.nativeElement.value, Validators.required);      
       this_aux.myform.setControl('correoF', controlCorreo);
     if (operacion === "1") {      
-      console.log("Seleccionaste SPEI");
+      console.log("Seleccionaste QUICK");
       const controlClabe: FormControl = new FormControl(this_aux.rClabe.nativeElement.value, 
         [Validators.required, Validators.minLength(18), Validators.maxLength(18)]);      
         this_aux.myform.setControl('numeroClabeF', controlClabe);
-      /*const controlrFcEmisor: FormControl = new FormControl(this_aux.rRfcEmisor.nativeElement.value, 
-      Validators.pattern( /^([A-ZÑ&, a-zñ&]{3,4})(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01]))([A-Z\d, a-z\d]{2})([A\d])$/
-      ));      
-      this_aux.myform.setControl('rFcEmisorF', controlrFcEmisor); */
-      /*
-      Spei.style.display = "block";
-      Tef.style.display = "none";
-      Quick.style.display = "none";
-      tituloSpei.style.display = "block";
-      tituloTef.style.display = "none";
-      tituloQuick.style.display = "none";
-      */
     }
 
     if (operacion === "2") {
@@ -147,30 +125,6 @@ let Spei = document.getElementById("divSpei");
       const controlClabe: FormControl = new FormControl(this_aux.rClabe.nativeElement.value, 
         [Validators.required, Validators.minLength(16), Validators.maxLength(16)]);      
       this_aux.myform.setControl('numeroClabeF', controlClabe);
-     /* const controlrFcEmisor: FormControl = new FormControl(this_aux.rRfcEmisor.nativeElement.value, [Validators.required, 
-      Validators.pattern( /^([A-ZÑ&, a-zñ&]{3,4})(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01]))([A-Z\d, a-z\d]{2})([A\d])$/
-      )]);      
-      this_aux.myform.setControl('rFcEmisorF', controlrFcEmisor);
-      /*
-      Spei.style.display = "none";
-      Tef.style.display = "block";
-      Quick.style.display = "none";
-      tituloSpei.style.display = "none";
-      tituloTef.style.display = "block";
-      tituloQuick.style.display = "none";
-      */
-    }
-
-    if (operacion === "3") {
-      console.log("Seleccionaste RAPIDA");
-      /*
-      Spei.style.display = "none";
-      Tef.style.display = "none";
-      Quick.style.display = "block";
-      tituloSpei.style.display = "none";
-      tituloTef.style.display = "none";
-      tituloQuick.style.display = "block";
-*/
     }
   }
 
@@ -194,7 +148,6 @@ let Spei = document.getElementById("divSpei");
       this_aux.email = correoRec;
       this_aux.nombreBene = nombreBeneRec;
       this_aux.descripcion = descripcionRec;
-      this_aux.rfcEmi = "ND";
       this_aux.referencia = refRec;
     $("#confirmModal").modal("show");
   }
@@ -204,7 +157,7 @@ let Spei = document.getElementById("divSpei");
   }
 
   transferenciaSPEISoap( clabeBenRec, nombreBeneRec, refRec, importeRec,
-  descripcionRec, correoRec, rfcOrdenanteRec): any {
+  descripcionRec, correoRec): any {
     
     const this_aux = this;
     console.log("Inicia Transacccion Spei");
@@ -212,7 +165,6 @@ let Spei = document.getElementById("divSpei");
     let formParameters = {
       idCuenta: this_aux.idCuentaTitular,
       numeroCuenta: this_aux.numeroCuentaTitular,
-      rFcOrdenante: rfcOrdenanteRec.toUpperCase(),
       importe: importeRec,
       correo: correoRec,
       descripcion: descripcionRec.toUpperCase(),
@@ -253,14 +205,13 @@ let Spei = document.getElementById("divSpei");
 
 
   transferenciaTEFSoap(clabeBenRec, nombreBeneRec, refRec, importeRec,
-    descripcionRec, correoRec, rfcOrdenanteRec): any {
+    descripcionRec, correoRec): any {
       
       const this_aux = this;
       console.log("Inicia Transacccion TEF");
             
       let formParameters = {
         numeroCuenta: this_aux.numeroCuentaTitular,
-        rFcOrdenante: rfcOrdenanteRec.toUpperCase(),
         bancoRecep: this_aux.bancoRecep.trim(),
         clabeBeneficiario: clabeBenRec,
         nombreBene: nombreBeneRec.toUpperCase(),
@@ -375,10 +326,10 @@ let Spei = document.getElementById("divSpei");
 
           if (this_aux.nombreOperacion === "1") {
             this_aux.transferenciaSPEISoap(this_aux.clabe, this_aux.nombreBene, this_aux.referencia, this_aux.importe, this_aux.descripcion,
-              this_aux.email, this_aux.rfcEmi);
+              this_aux.email);
           } else if (this_aux.nombreOperacion === "2") {
             this_aux.transferenciaTEFSoap(this_aux.clabe, this_aux.nombreBene, this_aux.referencia, this_aux.importe, this_aux.descripcion,
-            this_aux.email, this_aux.rfcEmi);
+            this_aux.email);
           }
         } else {
           console.error("Mostrar modal las tarjetas no son iguales");

@@ -1193,36 +1193,38 @@ operacion(id) {
     this_aux.serviceTdd.numDoc = this_aux .numDocumento;
     this_aux.serviceTdd.idOpe = id;
 
-    this_aux.router.navigate(['/impresion_EDC_Finish']);
+    this_aux.router.navigate(['/impresion-edc-final']);
 
   } else {
     // Imprimir
 
     
-
+    $('#_modal_please_wait').modal('show');
     if ( this_aux .cal_Click_0 === 1 || this_aux.cal_Click_1 === 1 || this_aux.cal_Click_2 === 1 ||
       this_aux.cal_Click_3 === 1 || this_aux.cal_Click_4 === 1 || this_aux.cal_Click_5 === 1 ||
       this_aux.cal_Click_6 === 1 || this_aux.cal_Click_7 === 1 || this_aux.cal_Click_8 === 1 ||
       this_aux.cal_Click_9 === 1 || this_aux.cal_Click_10 === 1 || this_aux.cal_Click_11 === 1) {
       
           const formParameters = {
-            fechaCorte: this_aux.fechaCorteDoc,
+           // fechaCorte: this_aux.fechaCorteDoc,
+           fechaCorte: 'Thu Feb 01 13:15:05 CDT 2018',
             idDocumento: this_aux.numDocumento,
             id: id
+
           };
       
           const resourceRequest = new WLResourceRequest(
             'adapters/AdapterBanorteSucursApps/resource/obtenerDoc',
             WLResourceRequest.POST
           );
-          resourceRequest.setTimeout(30000);
+          resourceRequest.setTimeout(100000);
           resourceRequest.sendFormParameters(formParameters).then(
             function(response) {
               console.log(response.responseText);
               const documento = response.responseJSON;
             
               if ( documento.PDF !== undefined) {
-
+                $('#_modal_please_wait').modal('hide');
                 // trae PDF del respWL 
                 // this.doc_1 = documento.PDF;
                 this_aux.nombreDocumento = documento.NombreDoc;
@@ -1232,6 +1234,7 @@ operacion(id) {
             function(error) {        
               console.log("Error al obtener documento EDC");
               $("#errorModal").modal("show");
+              $('#_modal_please_wait').modal('hide');
             }
           );
           console.log("Salió de Response obtener documento EDC");    
@@ -1243,6 +1246,8 @@ operacion(id) {
 
 enviaImprimir() {
   let delay2 = 10000;
+  $('#imprimiendo').modal('show');
+  $('#_modal_please_wait').modal('show');
   setTimeout(function() {
       
     console.log("enviaImprimir");
@@ -1255,9 +1260,11 @@ enviaImprimir() {
       type: "GET",
       success: function() {
         console.log("se ejecuto correctamente el proceso para llamar a impresora");
+        $('#okPrint').modal('show');
       },
       error: function() {
         console.log("error de procedimiento para llamar a impresora");
+        $('#ErrorPrint').modal('show');
       },
       async: false,
       cache: false

@@ -132,7 +132,57 @@ calendario item -->
       Imprimir
 	
     </button>
-
+        <button type="button" class="btn btn-lg" routerLink="/menuTdd">Regresar</button>
     </div>
 
 </fieldset>
+
+
+
+<div id="ErrorPrint" class="modal fade">
+    <div class="modal-dialog modal-dialog-error">
+        <div class="modal-content">
+            <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
+                <h4 class="color-letra">Aviso</h4>
+                <p id="mnsErrorModal">Estimado cliente, le informamos que ha ocurrido un erro al imprimir su estado de cuenta, favor de intentar más tarde</p>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="currentPage.loadMenu()">Salir</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div id="okPrint" class="modal fade">
+    <div class="modal-dialog modal-dialog-error">
+        <div class="modal-content">
+            <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
+                <h4 class="color-letra">Aviso</h4>
+                <p id="mnsErrorModal">Se ha impreso su estado de cuenta</p>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="currentPage.loadMenu()">Salir</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div id="imprimiendo" class="modal fade">
+    <div class="modal-dialog modal-dialog-error">
+        <div class="modal-content">
+            <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
+                <h4 class="color-letra">Aviso</h4>
+                <p id="mnsErrorModal">Se inicia proceso de impresión</p>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="currentPage.loadMenu()">Salir</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
