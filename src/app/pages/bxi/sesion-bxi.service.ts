@@ -97,11 +97,18 @@ export class SesionBxiService {
      divisa: String;
      saldoSeleccionado: String;
 
+
+     // EDC
+    stringDocumento: string;
+    numeroDocumento: string;
+    fechaDocumento: string;
+
+
      // Envio EDC Correo
     fechaCorte: string;
     numDoc: string;
     idOpe: string;
-     
+
     // Session
 
     Login: String;
