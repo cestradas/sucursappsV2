@@ -31,6 +31,7 @@ import { ImpresionEdcComponent } from './impresion-edc/impresion-edc.component';
 import { ImpresionEdcFinishComponent } from './impresion-edc/impresion-edc-finish/impresion-edc-finish.component';
 import { ConsultaMovimientosComponent } from './consulta-movimientos/consulta-movimientos.component';
 import { ConsultaMovimientosDetailComponent } from './consulta-movimientos/consulta-movimientos-detail/consulta-movimientos-detail.component';
+import { DocElectronComponent } from './impresion-edc/doc-electron/doc-electron.component';
 
 
 const customLayouts: IKeyboardLayouts = {
@@ -90,7 +91,8 @@ const customLayouts: IKeyboardLayouts = {
         TransferenciaFinishBanorteComponent,
         ImpresionEdcComponent,
         ImpresionEdcFinishComponent,
-        
+        DocElectronComponent,
+
 
     ],
     exports: [],
