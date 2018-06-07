@@ -277,13 +277,13 @@ export class PagoTarjetaCreditoComponent implements OnInit {
               $('#_modal_please_wait').modal('hide');
               setTimeout(function() {
                 this_aux.showErrorSucces(detallePrepara);
-              }, 300);
+              }, 1000);
             }
           }, function(error) { 
             $('#_modal_please_wait').modal('hide');
             setTimeout(() => {
               this_aux.showErrorPromise(error); 
-           }, 300);
+           }, 1000);
 
           });
 
@@ -298,8 +298,10 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       divTokenPass.setAttribute('style', 'display: block');
       this_aux.labelTipoAutentica = 'Token Fisico';
     }
-    $( ".cdk-visually-hidden" ).css( "margin-top", "16%" );
-    $('#confirmModal').modal('show');
+   setTimeout(function(){
+       $( ".cdk-visually-hidden" ).css( "margin-top", "16%" );
+      $('#confirmModal').modal('show');
+   }, 1000);
   }
 
   confirmarPago(token) {

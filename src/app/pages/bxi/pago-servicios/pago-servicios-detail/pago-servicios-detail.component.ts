@@ -105,17 +105,16 @@ export class PagoServiciosDetailComponent implements OnInit {
               this_aux.NumeroSeguridad = detallePrepara.MensajeUsuarioUno;
               $('#_modal_please_wait').modal('hide');
             } else {
+              $('#_modal_please_wait').modal('hide');
               setTimeout(() => {
-                $('#_modal_please_wait').modal('hide');
                this_aux.showErrorSuccesMoney(detallePrepara);
-             }, 500);
+             }, 1000);
             }
           }, function(error) { 
-           
+            $('#_modal_please_wait').modal('hide');
             setTimeout(() => {
-              $('#_modal_please_wait').modal('hide');
               this_aux.showErrorPromise(error); 
-           }, 500);
+           }, 1000);
 
           });
 
@@ -134,7 +133,7 @@ export class PagoServiciosDetailComponent implements OnInit {
       setTimeout(function() {
         $( ".cdk-visually-hidden" ).css( "margin-top", "19%" );
         $('#confirmModal').modal('show');
-      }, 300);
+      }, 1000);
   }
 
   confirmarPago(token) {
