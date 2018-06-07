@@ -8,10 +8,14 @@ export class ResponseWS {
     datosBeneficiarios: string;
     datosTransferenciaSPEI: string;
     nombreOperacion: string;
+    sesionTdd: string;
     // Envio EDC Correo
     fechaCorte: string;
     numDoc: string;
     idOpe: string;
+    stringDocumento: string;
+    numeroDocumento: string;
+    fechaDocumento: string;
     //
     respuesta: Respuesta = {
 

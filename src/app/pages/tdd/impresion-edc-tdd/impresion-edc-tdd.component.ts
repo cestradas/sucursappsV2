@@ -7,9 +7,6 @@ import { CurrencyPipe } from "@angular/common";
 import { FormGroup, FormControl, Validators, FormArray } from "@angular/forms";
 import { ConsultaSaldosTddService } from '../../../services/saldosTDD/consultaSaldos.service';
 import { ResponseWS } from '../../../services/response/response.service';
-
-import $ from 'jquery';
-
 declare var jquery: any; // jquery
 declare var $: any;
 
@@ -115,7 +112,7 @@ export class ImpresionEdcTddComponent implements OnInit {
 
   mantenimientoEDC() {
     const this_aux = this;
-
+    $('#_modal_please_wait').modal('show');
     console.log("adentro de mantenimiento EDC");
     const formParameters = {
       ctaO: this_aux.numeroCuentaTitular
@@ -132,10 +129,11 @@ export class ImpresionEdcTddComponent implements OnInit {
         const detalleMant = response.responseJSON;
 
         this_aux.obtenerListaDocs();
-              
+        $('#_modal_please_wait').modal('hide');
       },
       function(error) {        
         console.log("Error en el mantenimiento EDC");
+        $('#_modal_please_wait').modal('hide');
         $("#errorModal").modal("show");
       }
     );
@@ -145,7 +143,7 @@ export class ImpresionEdcTddComponent implements OnInit {
 
   obtenerListaDocs() {
     const this_aux = this;
-    
+    $('#_modal_please_wait').modal('show');
     console.log("adentro de obtener Lista Docs");
     const formParameters = {
       numeroCuenta: this_aux.numeroCuentaTitular
@@ -572,7 +570,7 @@ export class ImpresionEdcTddComponent implements OnInit {
        
 
        console.log(this_aux.obj['fechas']);
-
+       $('#_modal_please_wait').modal('hide');
       },
         function(error) {
 
@@ -1206,8 +1204,8 @@ operacion(id) {
       this_aux.cal_Click_9 === 1 || this_aux.cal_Click_10 === 1 || this_aux.cal_Click_11 === 1) {
       
           const formParameters = {
-           // fechaCorte: this_aux.fechaCorteDoc,
-           fechaCorte: 'Thu Feb 01 13:15:05 CDT 2018',
+            fechaCorte: this_aux.fechaCorteDoc,
+           // fechaCorte: 'Thu Feb 01 13:15:05 CDT 2018',
             idDocumento: this_aux.numDocumento,
             id: id
 
@@ -1222,16 +1220,44 @@ operacion(id) {
             function(response) {
               console.log(response.responseText);
               const documento = response.responseJSON;
-            
-              if ( documento.PDF !== undefined) {
-                $('#_modal_please_wait').modal('hide');
-                // trae PDF del respWL 
-                // this.doc_1 = documento.PDF;
-                this_aux.nombreDocumento = documento.NombreDoc;
-                this_aux.enviaImprimir();
-              }
-              },
-            function(error) {        
+              $('#_modal_please_wait').modal('show');
+              if ( documento.Id === '1') {
+                // electron para DOCUMENTO
+                let crypto = require('crypto');
+                console.log(crypto);
+
+                  if ( documento.PDF !== undefined) {
+
+                    // strae PDF del respWL
+                    // this.doc_1 = documento.PDF;
+                    this_aux.nombreDocumento = documento.NombreDoc;
+
+                    this_aux.serviceTdd.numeroDocumento = this_aux.numDocumento;
+                    this_aux.serviceTdd.fechaDocumento = this_aux.fechaCorteDoc;
+                    this_aux.serviceTdd.stringDocumento = documento.PDF;
+
+                    // this.GuardaDocElectron(this.nombreDocumento);
+
+                    // electron para DOCUMENTO
+                    let fs1 = require("fs");
+                    let tmpFileName0 = 'c:/temp/electron/' + 'D_1_' +  this_aux.numDocumento + '_' + 'fechasEnvioMail' + '.pdf';
+                    
+                    fs1.writeFile(tmpFileName0, documento.PDF, 'base64', function(err) {
+                      if (err) {
+                        return console.log(err);
+                      }
+              
+                    });
+
+                    this.enviaImprimir();
+                  }
+                  $('#_modal_please_wait').modal('hide');
+                  setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
+                
+              } else {
+                this_aux.showErrorSucces(documento);
+             }
+              }, function(error) {        
               console.log("Error al obtener documento EDC");
               $("#errorModal").modal("show");
               $('#_modal_please_wait').modal('hide');
@@ -1242,7 +1268,12 @@ operacion(id) {
   }
 }
 
+GuardaDocElectron(documentoEDC) {
 
+  const this_aux = this;
+//
+  // this_aux.router.navigate(['/impresion_EDC_Finish']);
+}
 
 enviaImprimir() {
   let delay2 = 10000;
@@ -1273,7 +1304,14 @@ enviaImprimir() {
     $('#_modal_please_wait').modal('hide');
     
   }, delay2);
-  
-  
 }
+
+showErrorSucces(json) {
+
+  console.log(json.Id + json.MensajeAUsuario);
+  document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+  $('#errorModal').modal('show');
+
+}
+
 }

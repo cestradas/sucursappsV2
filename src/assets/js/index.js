@@ -21,7 +21,7 @@ setTimeout(function() {
     };
 
     WL.Client.init(wlInitOptions).then(function() {
-        console.info("VERSION: 1.2, 29/05/2018")
+        console.info("VERSION: 1.3, 07/06/2018")
         setTimeout(function() {
             var userLoginChallengeHandler = UserLoginChallengeHandler(USR, KEY);
         }, 1000)
@@ -62,7 +62,7 @@ function valRoot(param) {
         applicationId: 'com.banorte.sucursapps',
 
     };
-    console.info("VERSION: 1, 22/01/2018")
+    console.info("VERSION: 1.3, 06/07/2018")
     var userLoginChallengeHandler = UserLoginChallengeHandler(USR, KEY);
 
 }

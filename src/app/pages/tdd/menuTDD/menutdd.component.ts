@@ -4,7 +4,7 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Route
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { ConsultaSaldosTddService } from '../../../services/saldosTDD/consultaSaldos.service';
 import { SesionTDDService } from '../../../services/breadcrums/breadcroms.service';
-
+import { ResponseWS } from '../../../services/response/response.service';
 import $ from "jquery";
 import { DOCUMENT } from "@angular/platform-browser";
 import { Session } from "protractor";
@@ -29,7 +29,7 @@ export class MenutddComponent implements OnInit {
   sesionBrowser: any;
 
   constructor(private router: Router, private http: Http, private _service: ConsultaSaldosTddService, 
-    private _serviceSesion: SesionTDDService) {}
+    private _serviceSesion: SesionTDDService, private serviceTdd: ResponseWS) {}
 
   ngOnInit() {
     // $('div').removeClass('modal-backdrop');
@@ -178,30 +178,12 @@ export class MenutddComponent implements OnInit {
   
   getidSesion() {
     const this_aux = this;
-    const resourceRequest = new WLResourceRequest(
-        'adapters/AdapterBanorteSucursApps/resource/getSessionId',
-        WLResourceRequest.POST);
-    resourceRequest.setTimeout(30000);
-    resourceRequest.send().then(
-        function(response) {
-             this_aux.sesionBrowser = response.responseText;
-            console.log(this_aux.sesionBrowser);
-            console.log("El servcio de id sesion respondio correctamente");
-         //   this_aux._service.cargarSaldosTDD();
-            // this_aux._service.validarDatosSaldoTdd().then(
-              //  mensaje => {
-          
-                  console.log('Saldos cargados correctamente TDD');
-               //   this_aux.numeroCuentaTitular = mensaje.NumeroCuenta;
-                  if (sessionStorage.getItem("campania") === "activa") {
-                    this_aux.encriptarSic();
-                  }                  
-             //   }
-            //  );   
-        },
-        function(error) {
-            console.error("Ocurrio un error con el servcio de id sesion");
-        });
+    this_aux.sesionBrowser = this_aux.serviceTdd.sesionTdd;
+    console.log(this_aux.sesionBrowser);
+
+    if (sessionStorage.getItem("campania") === "activa") {
+      this_aux.encriptarSic();
+    } 
 }
 
   

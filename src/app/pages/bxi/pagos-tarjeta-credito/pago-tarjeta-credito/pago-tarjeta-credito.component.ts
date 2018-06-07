@@ -134,17 +134,19 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
       });
     arrayCuentasXBeneficiario.forEach(element1 => {
-      cuenta = element1.Cuenta;
-          cuenta.forEach(data => {
-            if ( data.TipoCuenta === '9' ) {
-              this_aux.listaCuentasBen.push(data);
-              this_aux.crearListaBeneficiarios(data, true);
-            }
-            if (  data.TipoCuenta === '2'  ) {
-              this_aux.listaCuentasBen.push(data);
-              this_aux.crearListaBeneficiarios(data, false);
-            }
-          });
+      if (element1.Cuenta !== undefined ) { 
+        cuenta = element1.Cuenta;
+        cuenta.forEach(data => {
+          if ( data.TipoCuenta === '9' ) {
+            this_aux.listaCuentasBen.push(data);
+            this_aux.crearListaBeneficiarios(data, true);
+          }
+          if (  data.TipoCuenta === '2'  ) {
+            this_aux.listaCuentasBen.push(data);
+            this_aux.crearListaBeneficiarios(data, false);
+          }
+        });
+      }
     });
     console.log(this_aux.listaCuentasBen);
     this_aux.defineFiltros();
@@ -317,12 +319,18 @@ export class PagoTarjetaCreditoComponent implements OnInit {
                               $('div').removeClass('modal-backdrop');
                               this_aux.router.navigate(['/pagoTarjetaCredito_verify']);
                           } else {
-                            $('#_modal_please_wait').modal('hide');
+                            setTimeout(() => {
+                               $('#_modal_please_wait').modal('hide');
                               this_aux.showErrorSuccesMoney(jsonDetallePago);
+                            }, 500);
                           }
                       }, function(error) {  
-                        $('#_modal_please_wait').modal('hide');
-                       this_aux.showErrorPromise(error); }
+
+                        setTimeout(() => {
+                          $('#_modal_please_wait').modal('hide');
+                          this_aux.showErrorPromise(error); 
+                       }, 500);
+                       }
                   ); 
               } else {
                   
@@ -428,6 +436,8 @@ export class PagoTarjetaCreditoComponent implements OnInit {
                     break;   
       case 'SEGAM84': mensajeError = "Token no activado, favor de marcar a Banortel.";
                     break; 
+                  
+      // tslint:disable-next-line:max-line-length
       case 'SEGTK03': mensajeError = "Token desincronizado."; // Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
                     break;
       case '2'      : mensajeError = mensajeUsuario;            

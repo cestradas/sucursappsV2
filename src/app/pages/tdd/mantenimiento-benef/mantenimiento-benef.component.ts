@@ -297,20 +297,19 @@ export class MantenimientoBenefComponent implements OnInit {
           console.log("PORCENTAJE EN CONSULTA: " + this_aux.porcentajeGuardado);
           const stringDatosBen = JSON.stringify(this_aux.DatosJSON);
           this_aux.serviceMantenimiento.datosBeneficiarios = stringDatosBen;
+          $('#_modal_please_wait').modal('hide');
         }
         
       },
       function(error) {
         $('#errorModal').modal('show');
+        $('#_modal_please_wait').modal('hide');
         THIS.loading = false;
         this_aux.bloquearAlta = true;
         console.log("Error al consultar beneficiarios");
       }
     );
     console.log("Salió de Response Consultar Beneficiarios");
-    setTimeout(() => $('#_modal_please_wait').modal('hide'), 2000);
-    
-    
   }
 
   bajaBeneficiariosView () {
@@ -726,15 +725,15 @@ export class MantenimientoBenefComponent implements OnInit {
         } else {
           $('#errorModal').modal('show');
         }
-        
+        $('#_modal_please_wait').modal('hide');
       },
       function(error) {
         THIS.loading = false;
+        $('#_modal_please_wait').modal('hide')
         console.log("Error al consultar CP");
       }
     );
     console.log("Salió de Response Consultar CP");
-    setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
   }
 
   seleccionColonia() {

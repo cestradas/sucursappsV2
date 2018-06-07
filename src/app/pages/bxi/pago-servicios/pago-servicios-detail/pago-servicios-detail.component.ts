@@ -105,12 +105,17 @@ export class PagoServiciosDetailComponent implements OnInit {
               this_aux.NumeroSeguridad = detallePrepara.MensajeUsuarioUno;
               $('#_modal_please_wait').modal('hide');
             } else {
-              $('#_modal_please_wait').modal('hide');
-              this_aux.showErrorSucces(detallePrepara);
+              setTimeout(() => {
+                $('#_modal_please_wait').modal('hide');
+               this_aux.showErrorSuccesMoney(detallePrepara);
+             }, 500);
             }
           }, function(error) { 
-            $('#_modal_please_wait').modal('hide');
-            this_aux.showErrorPromise(error);
+           
+            setTimeout(() => {
+              $('#_modal_please_wait').modal('hide');
+              this_aux.showErrorPromise(error); 
+           }, 500);
 
           });
 
