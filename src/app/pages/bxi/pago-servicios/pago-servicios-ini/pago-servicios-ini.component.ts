@@ -97,9 +97,11 @@ export class PagoServiciosIniComponent implements OnInit {
                  $('#_modal_please_wait').modal('hide');
                }, 500);
              } else {
+              $('#_modal_please_wait').modal('hide');
                 this_aux.showErrorSucces(detalleSaldos);
              }
            }, function(error) {
+            $('#_modal_please_wait').modal('hide');
               this_aux.showErrorPromise(error);
        });
      }
@@ -252,7 +254,6 @@ getEmpresas() {
    }
 
    showErrorPromise(error) {
-
       $('#errorModal').modal('show');
       if (error.errorCode === 'API_INVOCATION_FAILURE') {
           document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';

@@ -109,10 +109,11 @@ export class PagoTarjetaCreditoComponent implements OnInit {
                   $('#_modal_please_wait').modal('hide');
                 }, 500);
               } else {
-
+                $('#_modal_please_wait').modal('hide');
                   this_aux.showErrorSucces(detalleSaldos);
               }
         }, function(error) {
+          $('#_modal_please_wait').modal('hide');
             this_aux.showErrorPromise(error);
     });
   }
@@ -274,11 +275,15 @@ export class PagoTarjetaCreditoComponent implements OnInit {
               $('#_modal_please_wait').modal('hide');
             } else {
               $('#_modal_please_wait').modal('hide');
-              this_aux.showErrorSucces(detallePrepara);
+              setTimeout(function() {
+                this_aux.showErrorSucces(detallePrepara);
+              }, 300);
             }
           }, function(error) { 
             $('#_modal_please_wait').modal('hide');
-            this_aux.showErrorPromise(error);
+            setTimeout(() => {
+              this_aux.showErrorPromise(error); 
+           }, 300);
 
           });
 
@@ -319,17 +324,16 @@ export class PagoTarjetaCreditoComponent implements OnInit {
                               $('div').removeClass('modal-backdrop');
                               this_aux.router.navigate(['/pagoTarjetaCredito_verify']);
                           } else {
+                            $('#_modal_please_wait').modal('hide');
                             setTimeout(() => {
-                               $('#_modal_please_wait').modal('hide');
                               this_aux.showErrorSuccesMoney(jsonDetallePago);
-                            }, 500);
+                            }, 300);
                           }
                       }, function(error) {  
-
+                        $('#_modal_please_wait').modal('hide');
                         setTimeout(() => {
-                          $('#_modal_please_wait').modal('hide');
                           this_aux.showErrorPromise(error); 
-                       }, 500);
+                       }, 300);
                        }
                   ); 
               } else {
