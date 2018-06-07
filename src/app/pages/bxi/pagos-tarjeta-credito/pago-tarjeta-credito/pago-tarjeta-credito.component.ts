@@ -298,8 +298,10 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       divTokenPass.setAttribute('style', 'display: block');
       this_aux.labelTipoAutentica = 'Token Fisico';
     }
-    $( ".cdk-visually-hidden" ).css( "margin-top", "16%" );
-    $('#confirmModal').modal('show');
+    setTimeout(function() {
+      $( ".cdk-visually-hidden" ).css( "margin-top", "16%" );
+      $('#confirmModal').modal('show');
+    }, 300);
   }
 
   confirmarPago(token) {

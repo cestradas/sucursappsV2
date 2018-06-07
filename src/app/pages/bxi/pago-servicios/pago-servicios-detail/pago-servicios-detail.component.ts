@@ -131,8 +131,10 @@ export class PagoServiciosDetailComponent implements OnInit {
         this_aux.labelTipoAutentica = 'Token Fisico';
       }
     
-    $( ".cdk-visually-hidden" ).css( "margin-top", "19%" );
-    $('#confirmModal').modal('show');
+      setTimeout(function() {
+        $( ".cdk-visually-hidden" ).css( "margin-top", "19%" );
+        $('#confirmModal').modal('show');
+      }, 300);
   }
 
   confirmarPago(token) {
