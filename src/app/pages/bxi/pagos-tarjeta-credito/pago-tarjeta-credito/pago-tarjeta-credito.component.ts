@@ -272,7 +272,9 @@ export class PagoTarjetaCreditoComponent implements OnInit {
             if (detallePrepara.Id === 'SEG0001') {
               divChallenge.setAttribute('style', 'display: block');
               this_aux.NumeroSeguridad = detallePrepara.MensajeUsuarioUno;
-              $('#_modal_please_wait').modal('hide');
+              setTimeout(() => {
+                $('#_modal_please_wait').modal('hide');
+             }, 500);
             } else {
               $('#_modal_please_wait').modal('hide');
               setTimeout(function() {
@@ -301,7 +303,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
    setTimeout(function(){
        $( ".cdk-visually-hidden" ).css( "margin-top", "16%" );
       $('#confirmModal').modal('show');
-   }, 1000);
+   }, 500);
   }
 
   confirmarPago(token) {

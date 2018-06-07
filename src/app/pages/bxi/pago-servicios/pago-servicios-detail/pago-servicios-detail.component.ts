@@ -103,16 +103,21 @@ export class PagoServiciosDetailComponent implements OnInit {
             if (detallePrepara.Id === 'SEG0001') {
               divChallenge.setAttribute('style', 'display: block');
               this_aux.NumeroSeguridad = detallePrepara.MensajeUsuarioUno;
-              $('#_modal_please_wait').modal('hide');
-            } else {
-              $('#_modal_please_wait').modal('hide');
               setTimeout(() => {
-               this_aux.showErrorSuccesMoney(detallePrepara);
+                $('#_modal_please_wait').modal('hide');
+             }, 500);
+
+            } else {
+              
+              setTimeout(() => {
+                $('#_modal_please_wait').modal('hide');
+                this_aux.showErrorSuccesMoney(detallePrepara);
              }, 1000);
             }
           }, function(error) { 
-            $('#_modal_please_wait').modal('hide');
+            
             setTimeout(() => {
+              $('#_modal_please_wait').modal('hide');
               this_aux.showErrorPromise(error); 
            }, 1000);
 
@@ -133,7 +138,7 @@ export class PagoServiciosDetailComponent implements OnInit {
       setTimeout(function() {
         $( ".cdk-visually-hidden" ).css( "margin-top", "19%" );
         $('#confirmModal').modal('show');
-      }, 1000);
+      }, 500);
   }
 
   confirmarPago(token) {
