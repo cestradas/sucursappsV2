@@ -89,6 +89,8 @@ export class ImpresionEdcComponent implements OnInit {
 
   cuentaOrigenModal = "";
 
+  cssUrl: string;
+
   constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2) {
 
  
@@ -103,7 +105,27 @@ export class ImpresionEdcComponent implements OnInit {
 
     this.fillSelectCuentas();
 
+    let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
+    let btnImprimir = document.getElementById("imprimirDOC");
+    let btnContinuar = document.getElementById("continuarImp");
+    let btnError = document.getElementById("errorImp");
+    let btnImpOK = document.getElementById("impOK");
+    
+
+    if (storageTipoClienteBEL === "true") {
+
+      btnImprimir.classList.remove("color-botones");
+      btnContinuar.classList.remove("color-botones");
+      btnError.classList.remove("color-botones");
+      btnImpOK.classList.remove("color-botones");
+      btnImprimir.classList.add("color-botones_Preferente");
+      btnContinuar.classList.add("color-botones_Preferente");
+      btnError.classList.add("color-botones_Preferente");
+      btnImpOK.classList.add("color-botones_Preferente");
+
+      //localStorage.removeItem("tipoClienteBEL");
    
+    }
 
     // this.obtenerListaDocs();
 
@@ -243,8 +265,10 @@ setDatosCuentaSeleccionada(elementHTML) {
   
   
             let temp = res[i].Fecha.split("-");
+            // Asigna numero de documento y fecha para escribir e imprimir el documento
             let tempCtaDoc = res[i].Documento;
             let fechaDoc = res[i].FechaObtenerDoc;
+            let fechaDocPDF = res[i].Fecha;
   
             for (let k = 0; k < temp.length; k++) {
   
@@ -274,7 +298,8 @@ setDatosCuentaSeleccionada(elementHTML) {
                   "Mes" : strM,
                   "Dia" : strD,
                   "Documento" :  tempCtaDoc,
-                  "FechaDoc": fechaDoc
+                  "FechaDoc": fechaDoc,
+                  "fechaDocPDF": fechaDocPDF
                 });
   
                 break;
@@ -316,6 +341,7 @@ setDatosCuentaSeleccionada(elementHTML) {
               //    this.renderer.invokeElementMethod(this.calendario.nativeElement.insertAdjacentHTML('beforeend',
               // this.htmlToAdd =
               // this.calendario.insert(
+                //inserta los datos del documento dentro del value para mandarlos al servicio 
                 let domContent = '<div value ="'+this_aux.obj['fechas'][contFechas].Documento + '"' + 'id="'+'Itemcalendario' + cont + '"' + ' class="kiosk-cec-carousel-item estilo-item-calendar" >' +
                 '<div value ="'+this_aux.obj['fechas'][contFechas].FechaDoc + '"' + 'id="'+'ItemcalendarioDoc' + cont + '"' + ' class="row no-space">' +
                     '<div class="col-xs-6">' +
@@ -1280,7 +1306,9 @@ setDatosCuentaSeleccionada(elementHTML) {
           this.cal_Click_6 === 1 || this.cal_Click_7 === 1 || this.cal_Click_8 === 1 ||
           this.cal_Click_9 === 1 || this.cal_Click_10 === 1 || this.cal_Click_11 === 1) {
 
-
+        
+         //   const nombreDoc = 'D_'+ this.numDocumento+'_' + this.fechaCorteDoc;
+         const nombreDoc = 'D_'+ this.numDocumento;
 
         operacionesbxi.getDocumento(this.fechaCorteDoc, this.numDocumento, id).then(
 
@@ -1290,40 +1318,34 @@ setDatosCuentaSeleccionada(elementHTML) {
               $('#_modal_please_wait').modal('show');
 
               if ( documento.Id === '1') {
-                //electron para DOCUMENTO
-                let crypto = require('crypto');
-                console.log(crypto);
+                
 
                   if ( documento.PDF !== undefined) {
 
+                    
+                    console.log("info doc", nombreDoc);
+                    localStorage.setItem("doc", documento.PDF);
+                    localStorage.setItem("nombreDoc", nombreDoc);
                     // strae PDF del respWL
                     // this.doc_1 = documento.PDF;
                     this.nombreDocumento = documento.NombreDoc;
 
-                    this_aux.service.numeroDocumento = this.numDocumento;
-                    this_aux.service.fechaDocumento = this.fechaCorteDoc;
-                    this_aux.service.stringDocumento = documento.PDF;
 
+                    $('#infoPrinter').modal('show');
                     // this.GuardaDocElectron(this.nombreDocumento);
 
                     // electron para DOCUMENTO
-                    let fs1 = require("fs");
-                    let tmpFileName0 = 'c:/temp/electron/'+'D_1_'+ this.numDocumento +'_'+ 'fechasEnvioMail' + '.pdf';
-                    
-                    fs1.writeFile(tmpFileName0, documento.PDF, 'base64', function(err) {
-                      if (err) {
-                        return console.log(err);
-                      }
-              
-                    });
 
-                    this.enviaImprimir();
+                    // this.saveDocElectron(documento.PDF, this.numDocumento, this.fechaCorteDoc);
+
+                   //  this.callPrinter('D_'+ this.numDocumento+'_' + this.fechaCorteDoc);
                   }
                   $('#_modal_please_wait').modal('hide');
                   setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
                 
               }else {
                 this_aux.showErrorSucces(documento);
+                setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
              }
            }, function(error) {
               //this_aux.showErrorPromise(error);

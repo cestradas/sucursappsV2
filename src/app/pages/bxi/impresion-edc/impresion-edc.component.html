@@ -138,17 +138,45 @@ calendario item -->
     <br/>
 
     <div class="modal-footer margin-button" style="padding-right: 200px;">
-        <!--<button type="button" class="color-botones btn btn-lg " (click)="operacion('1')" id="correo">
+        <!--    <button type="button" class="color-botones btn btn-lg " (click)="operacion('1')" id="correo">
       Enviar por correo
-    </button> -->
-        <button type="button" class="color-botones btn btn-lg " (click)="operacion('0')">
+    </button>-->
+        <button type="button" id="imprimirDOC" class="color-botones btn btn-lg " (click)="operacion('0')">
       Imprimir
 	
     </button>
 
+
+
+        <button type="button" class="btn btn-lg" routerLink="/menuBXI">Regresar</button>
+
+
     </div>
 
 </fieldset>
+
+
+<div id="infoPrinter" class="modal fade">
+    <div class="modal-dialog modal-dialog-error">
+        <div class="modal-content">
+            <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
+                <h4 class="color-letra">Aviso</h4>
+                <p id="mnsErrorModal">Se esta procesando su solicitud</p>
+            </div>
+            <div class="modal-footer text-center">
+                <!-- Aqui se hace manda a llamar a la funcion ubicada en script del index.html para guardado silencioso en la carpeta C:/temp-->
+                <button type="button" id="continuarImp" class="btn color-botones" data-dismiss="modal" onclick="handlerWriteDoc()">Continuar</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+
+
+
 
 
 <div id="ErrorPrint" class="modal fade">
@@ -159,7 +187,7 @@ calendario item -->
                 <p id="mnsErrorModal">Estimado cliente, le informamos que ha ocurrido un erro al imprimir su estado de cuenta, favor de intentar más tarde</p>
             </div>
             <div class="modal-footer text-center">
-                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="currentPage.loadMenu()">Salir</button>
+                <button type="button" id="errorImp" class="btn color-botones" data-dismiss="modal" onclick="currentPage.loadMenu()">Salir</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -175,7 +203,7 @@ calendario item -->
                 <p id="mnsErrorModal">Se ha impreso su estado de cuenta</p>
             </div>
             <div class="modal-footer text-center">
-                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="currentPage.loadMenu()">Salir</button>
+                <button type="button" id="impOK" class="btn color-botones" data-dismiss="modal" onclick="currentPage.loadMenu()">Salir</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -191,7 +219,7 @@ calendario item -->
                 <p id="mnsErrorModal">Se inicia proceso de impresión</p>
             </div>
             <div class="modal-footer text-center">
-                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="currentPage.loadMenu()">Salir</button>
+                <button type="button" class="btn color-botones" data-dismiss="modal" onclick="currentPage.loadMenu()">Salir</button>
             </div>
         </div>
         <!-- /.modal-content -->
