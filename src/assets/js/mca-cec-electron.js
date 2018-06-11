@@ -1,11 +1,3 @@
-//'use strict';
-
-//getPDFS(fechasEnvioMail, arrPDFS);
-
-//prueba2();
-
-
-
 // export funciona metodo con importacion en ts
 // function saveDocElectron(documentoB64, numDoc, fechaDoc) {
 function saveDocElectron(documentoB64, nombremDoc) {

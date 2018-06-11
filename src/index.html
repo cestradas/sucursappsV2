@@ -35,13 +35,22 @@
     <!-- scipt que sera llamdo desde el .ts para ejecutar las sentencias de node-->
     <script language="javascript">
         function handlerWriteDoc() {
-            alert("entra funcion para escribir PDF");
+            console.log("entra funcion para escribir PDF");
 
             var storagePDF = localStorage.getItem("doc");
             var storageNombrePDF = localStorage.getItem("nombreDoc");
             saveDocElectron(storagePDF, storageNombrePDF);
         }
     </script>
+    <script language="javascript">
+        function handlerCallPinpad() {
+            console.log("entra funcion para llamar pinpad");
+
+            callPinPad();
+
+        }
+    </script>
+
 </body>
 
 </html>
