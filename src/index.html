@@ -29,6 +29,19 @@
 
     <script type="text/javascript" src="assets/js/index.js"></script>
     <script type="text/javascript" src="assets/js/UserLoginChallengeHandler.js"></script>
+    <!--PRA USO DE NODE EN ELECTRON -->
+    <script type="text/javascript" src="assets/js/bundle.js"></script>
+    <script type="text/javascript" src="assets/js/mca-cec-electron.js"></script>
+    <!-- scipt que sera llamdo desde el .ts para ejecutar las sentencias de node-->
+    <script language="javascript">
+        function handlerWriteDoc() {
+            alert("entra funcion para escribir PDF");
+
+            var storagePDF = localStorage.getItem("doc");
+            var storageNombrePDF = localStorage.getItem("nombreDoc");
+            saveDocElectron(storagePDF, storageNombrePDF);
+        }
+    </script>
 </body>
 
 </html>
