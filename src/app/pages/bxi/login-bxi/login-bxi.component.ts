@@ -26,12 +26,12 @@ export class LoginBxiComponent implements OnInit {
     this.myForm = this.fb.group({
       fcUsuario: ['', Validators.required],
       fcPass: ['', Validators.required]
-      
+
     });
    }
 
   ngOnInit() {
-    
+
   }
 
   validaUsuario(usuarioBxi) {
@@ -72,12 +72,12 @@ export class LoginBxiComponent implements OnInit {
               );
           } else {
 
-            console.log(detalleIdentifacionUsurario.Id + detalleIdentifacionUsurario.MensajeAUsuario);  
+            console.log(detalleIdentifacionUsurario.Id + detalleIdentifacionUsurario.MensajeAUsuario);
             mensajeError = this_aux.controlarError(detalleIdentifacionUsurario);
             document.getElementById('mnsError').innerHTML =  mensajeError;
             $('#_modal_please_wait').modal('hide');
             $('#errorModal').modal('show');
-             
+
           }
       }, function(error) {  this_aux.showErrorPromise(error); });
   }
@@ -133,16 +133,16 @@ export class LoginBxiComponent implements OnInit {
                 const infoUsuario = response.responseText;
                 const infoUsuarioJSON = response.responseJSON;
                 if (infoUsuarioJSON.Id === 'SEG0001') {
-                  
-                    this_aux.service.NombreUsuario = infoUsuarioJSON.NombreUsuario; 
+
+                    this_aux.service.NombreUsuario = infoUsuarioJSON.NombreUsuario;
                     this_aux.service.infoUsuario = infoUsuario;
                     this_aux.service.infoUsuarioSIC = infoUsuarioJSON.Sic;
                     this_aux.verificaPreferencia();
 
-                } else { 
+                } else {
 
                   $('#_modal_please_wait').modal('hide');
-                  console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);  
+                  console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
                   mensajeError = this_aux.controlarError(infoUsuarioJSON);
                   document.getElementById('mnsError').innerHTML =  mensajeError;
                   $('#errorModal').modal('show');
@@ -157,7 +157,7 @@ export class LoginBxiComponent implements OnInit {
       document.getElementById('view_usr').style.display = 'block';
       document.getElementById('viewGeneralAutentica').style.display = 'none';
       document.getElementById('NosoyYo').style.display = 'none';
-      
+
 
     }
 
@@ -168,10 +168,18 @@ export class LoginBxiComponent implements OnInit {
         function(datosUsuario) {
            const jsonDatosUsuario = datosUsuario.responseJSON;
             if (jsonDatosUsuario.Id === '1') {
-              
+
               console.log(jsonDatosUsuario);
               this_aux.service.isPreferente = jsonDatosUsuario.Preferente;
               // $( ".nav-img-banorte" ).css( "background-image", "");
+              
+              if (this_aux.service.isPreferente  === true) {
+               // PREFERENTE
+               localStorage.setItem("tipoClienteBEL", jsonDatosUsuario.Preferente );
+              }
+                // NORMAL
+                localStorage.setItem("tipoClienteBEL", jsonDatosUsuario.Preferente );
+
                this_aux.router.navigate(['/menuBXI']);
               // $('div').removeClass('modal-backdrop');
 
@@ -188,22 +196,22 @@ export class LoginBxiComponent implements OnInit {
 
       const id = json.Id ;
       const mensajeUsuario = json.MensajeAUsuario;
-      let mensajeError; 
+      let mensajeError;
 
       switch (id) {
-            
+
         case 'SEG0003': mensajeError = "Usuario bloqueado, favor de esperar 15 minutos e intentar nuevamente.";
-                      break; 
+                      break;
         case 'SEG0004': mensajeError =  "Usuario bloqueado, favor de marcar a Banortel.";
-                      break; 
+                      break;
         case 'SEG0005': mensajeError =  "Los datos proporcionados son incorrectos, favor de verificar.";
-                      break; 
+                      break;
         case 'SEG0007': mensajeError = "Los datos proporcionados son incorrectos, favor de verificar.";
-                      break; 
+                      break;
         case 'SEG0008':  mensajeError = "La sesión ha caducado.";
-                      break; 
+                      break;
         case 'SEG0009':  mensajeError = "Límite de sesiones superado, favor de cerrar las sesiones de banca en línea activas.";
-                      break; 
+                      break;
         // tslint:disable-next-line:max-line-length
         case 'SEGOTP1': mensajeError = "Token desincronizado. Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
                       break;
@@ -215,14 +223,14 @@ export class LoginBxiComponent implements OnInit {
                       break;
         // tslint:disable-next-line:max-line-length
         case 'SEGAM81': mensajeError = "Token desincronizado. Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
-                      break; 
-        case 'SEGAM82': mensajeError = "Token bloqueado, favor de marcar a Banortel."; 
-                      break;   
+                      break;
+        case 'SEGAM82': mensajeError = "Token bloqueado, favor de marcar a Banortel.";
+                      break;
         case 'SEGAM83': mensajeError = "Token deshabilitado, favor de marcar a Banortel.";
-                      break;   
+                      break;
         case 'SEGAM84': mensajeError = "Token no activado, favor de marcar a Banortel.";
-                      break;  
-        case '2'      : mensajeError = mensajeUsuario;            
+                      break;
+        case '2'      : mensajeError = mensajeUsuario;
       }
 
       return mensajeError;
@@ -231,14 +239,14 @@ export class LoginBxiComponent implements OnInit {
     showErrorPromise(error) {
       console.log(error);
       // tslint:disable-next-line:max-line-length
-      document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde."; 
+      document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
       $('#_modal_please_wait').modal('hide');
       $('#errorModal').modal('show');
     }
-  
+
     showErrorSucces(json) {
       console.log(json.Id + json.MensajeAUsuario);
-      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
       $('#_modal_please_wait').modal('hide');
       $('#errorModal').modal('show');
     }
