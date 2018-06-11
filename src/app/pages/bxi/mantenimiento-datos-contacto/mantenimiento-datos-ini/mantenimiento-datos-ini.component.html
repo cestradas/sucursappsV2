@@ -66,7 +66,7 @@
               </button>
   </div>
   <div style=" padding: 0px;" class="col-sm-1">
-      <button class="btn btn-danger btn-lg letranegrita" type="button" [disabled]="((correoElectronico.readOnly === true) && (numeroCelular.readOnly === true)) || (numeroCelular.value === '' && numeroCelular.readOnly === false) || (correoElectronico.value === '' && correoElectronico.readOnly === false)" (click)="modificarDatos(correoElectronico.value,numeroCelular.value)">
+      <button id="guardar" class="btn color-botones btn-lg letranegrita" type="button" [disabled]="((correoElectronico.readOnly === true) && (numeroCelular.readOnly === true)) || (numeroCelular.value === '' && numeroCelular.readOnly === false) || (correoElectronico.value === '' && correoElectronico.readOnly === false)" (click)="modificarDatos(correoElectronico.value,numeroCelular.value)">
               Guardar
           </button>
   </div>

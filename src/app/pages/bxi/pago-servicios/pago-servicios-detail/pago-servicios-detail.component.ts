@@ -48,7 +48,7 @@ export class PagoServiciosDetailComponent implements OnInit {
           this_aux.nombreServicio =  detalleEmpresa.empresa;
           this_aux.service.nombreServicio = this_aux.nombreServicio;
           this_aux.cuentaCargo = this_aux.service.numCuentaSeleccionado;
-      
+
           if (this_aux.service.idFacturador === '1310') {
             $('#ModalLectordeRecibo').modal('show');
             $('#ModalLectordeRecibo').on('shown.bs.modal', function() {
@@ -56,7 +56,7 @@ export class PagoServiciosDetailComponent implements OnInit {
             });
               this_aux.myForm.removeControl('fcReferencia');
           } else {
-      
+
               if (this_aux.service.idFacturador === '88924') {
                 $('#ModalLectordeRecibo').modal('show');
                 $('#ModalLectordeRecibo').on('shown.bs.modal', function() {
@@ -66,11 +66,24 @@ export class PagoServiciosDetailComponent implements OnInit {
               this_aux.myForm.removeControl('fcTelefono');
               this_aux.myForm.removeControl('fcDigitoVerificador');
           }
-    setTimeout(function() { 
-       
+    setTimeout(function() {
+
           $('#_modal_please_wait').modal('hide');
     }, 500);
+
+    //ESTILOS Preferente
+    let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
+    let btnContinuar = document.getElementById("contiuar");
+
+    if (storageTipoClienteBEL === "true") {
+
+      btnContinuar.classList.remove("color-botones");
+      btnContinuar.classList.add("color-botones_Preferente");
+    }
+
+
     
+
   }
 
   showDetallePago( myForm) {
@@ -108,17 +121,17 @@ export class PagoServiciosDetailComponent implements OnInit {
              }, 500);
 
             } else {
-              
+
               setTimeout(() => {
                 $('#_modal_please_wait').modal('hide');
                 this_aux.showErrorSuccesMoney(detallePrepara);
              }, 1000);
             }
-          }, function(error) { 
-            
+          }, function(error) {
+
             setTimeout(() => {
               $('#_modal_please_wait').modal('hide');
-              this_aux.showErrorPromise(error); 
+              this_aux.showErrorPromise(error);
            }, 1000);
 
           });
@@ -134,7 +147,7 @@ export class PagoServiciosDetailComponent implements OnInit {
         divTokenPass.setAttribute('style', 'display: block');
         this_aux.labelTipoAutentica = 'Token Fisico';
       }
-    
+
       setTimeout(function() {
         $( ".cdk-visually-hidden" ).css( "margin-top", "19%" );
         $('#confirmModal').modal('show');
@@ -153,7 +166,7 @@ export class PagoServiciosDetailComponent implements OnInit {
               // console.log(detalleAutentica.responseJSON);
               const infoUsuarioJSON = detalleAutentica.responseJSON;
               if (infoUsuarioJSON.Id === 'SEG0001') {
-                
+
                 console.log('Pago validado');
 
                   operacionesbxi.pagaServicio(this_aux.service.idFacturador, this_aux.importeAux, this_aux.referenciaPago
@@ -169,20 +182,20 @@ export class PagoServiciosDetailComponent implements OnInit {
                         $('#_modal_please_wait').modal('hide');
                         this_aux.showErrorSuccesMoney(jsonDetallePago);
                       }
-                    }, function(error) { 
+                    }, function(error) {
                       $('#_modal_please_wait').modal('hide');
                       this_aux.showErrorPromise(error); }
                   );
               } else {
 
                     $('#_modal_please_wait').modal('hide');
-                      console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);  
+                      console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
                       mensajeError = this_aux.controlarError(infoUsuarioJSON);
                       document.getElementById('mnsError').innerHTML =  mensajeError;
                       $('#errorModal').modal('show');
-                      
+
               }
-        }, function(error) { 
+        }, function(error) {
           $('#_modal_please_wait').modal('hide');
           this_aux.showErrorPromise(error);
         });
@@ -215,20 +228,20 @@ export class PagoServiciosDetailComponent implements OnInit {
 
     const id = json.Id ;
     const mensajeUsuario = json.MensajeAUsuario;
-    let mensajeError; 
+    let mensajeError;
 
     switch (id) {
-          
+
       case 'SEG0003': mensajeError = "Usuario bloqueado, favor de esperar 15 minutos e intentar nuevamente.";
-                    break; 
+                    break;
       case 'SEG0004': mensajeError =  "Usuario bloqueado, favor de marcar a Banortel.";
-                    break; 
+                    break;
       case 'SEG0005': mensajeError =  "Los datos proporcionados son incorrectos, favor de verificar.";
-                    break; 
+                    break;
       case 'SEG0007': mensajeError = "Los datos proporcionados son incorrectos, favor de verificar.";
-                    break; 
+                    break;
       case 'SEG0008':  mensajeError = "La sesión ha caducado.";
-                    break; 
+                    break;
       case 'SEG0009':  mensajeError = "Límite de sesiones superado, favor de cerrar las sesiones de banca en línea activas.";
                     break;
       case 'SEGTK03': mensajeError = "Token desincronizado."; // Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
@@ -244,21 +257,21 @@ export class PagoServiciosDetailComponent implements OnInit {
                     break;
       // tslint:disable-next-line:max-line-length
       case 'SEGAM81': mensajeError = "Token desincronizado. Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
-                    break; 
-      case 'SEGAM82': mensajeError = "Token bloqueado, favor de marcar a Banortel."; 
-                    break;   
+                    break;
+      case 'SEGAM82': mensajeError = "Token bloqueado, favor de marcar a Banortel.";
+                    break;
       case 'SEGAM83': mensajeError = "Token deshabilitado, favor de marcar a Banortel.";
-                    break;   
+                    break;
       case 'SEGAM84': mensajeError = "Token no activado, favor de marcar a Banortel.";
-                    break;  
-      case '2'      : mensajeError = mensajeUsuario;            
+                    break;
+      case '2'      : mensajeError = mensajeUsuario;
     }
 
     return mensajeError;
   }
 
   showErrorPromise(error) {
-    
+
       $('#errorModal').modal('show');
       if (error.errorCode === 'API_INVOCATION_FAILURE') {
           document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
@@ -269,24 +282,24 @@ export class PagoServiciosDetailComponent implements OnInit {
 
   showErrorSucces(json) {
       console.log(json.Id + json.MensajeAUsuario);
-      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
       $('#errorModal').modal('show');
   }
 
   showErrorSuccesMoney(json) {
-    
+
       console.log(json.Id + json.MensajeAUsuario);
-      document.getElementById('msgError').innerHTML =   json.MensajeAUsuario; 
+      document.getElementById('msgError').innerHTML =   json.MensajeAUsuario;
       $('#ModalErrorTransaccion').modal('show');
-   
+
   }
 
   irMenuBXI() {
      this.router.navigate(['/menuBXI']);
   }
 
-  
-  
+
+
   leeCodeBar(value) {
       const this_aux = this;
       console.log(value);
@@ -306,9 +319,9 @@ export class PagoServiciosDetailComponent implements OnInit {
           this_aux.myForm.setControl('fcImporte', controlImporte );
           this_aux.myForm.setControl('fcTelefono', controlTelefono );
           this_aux.myForm.setControl('fcDigitoVerificador', controlDigito );
-  
+
           $('#ModalLectordeRecibo').modal('hide');
-          
+
         }
       } else {
         if (value.length === 30) {
@@ -326,7 +339,7 @@ export class PagoServiciosDetailComponent implements OnInit {
           this_aux.myForm.setControl('fcReferencia', controlReferencia );
           this_aux.myForm.setControl('fcFechaVencimiento', controlFecha );
           $('#ModalLectordeRecibo').modal('hide');
-        }  
+        }
      }
   }
 }

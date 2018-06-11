@@ -23,17 +23,33 @@ export class TransferInternacionalesComponent implements OnInit {
 
   datosCuenta: any[] = [];
   transferSPEI: any[] = [];
- 
+
 
   constructor(private _http: Http, private router: Router) { }
 
   ngOnInit() {
 
     this.consultaCuentas();
+    //ESTILOS Preferente
+    let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
+    let btnContinuar = document.getElementById("continuar");
+    let btnConfirmar = document.getElementById("confirmar");
+    let btnCerrar = document.getElementById("cerrar");
+
+    if (storageTipoClienteBEL === "true") {
+
+      btnContinuar.classList.remove("color-botones");
+      btnContinuar.classList.add("color-botones_Preferente");
+      btnConfirmar.classList.remove("color-botones");
+      btnConfirmar.classList.add("color-botones_Preferente");
+      btnCerrar.classList.remove("color-botones");
+      btnCerrar.classList.add("color-botones_Preferente");
+    }
+
   }
 
 
-  
+
 // getCurrency(amount: number) {
 //  return this.currencyPipe.transform(amount, 'EUR', true, '1.2-2');
 // }
@@ -64,12 +80,12 @@ resourceRequest
   .sendFormParameters(formParameters)
   .then(
       function(response) {
-        
+
         console.log(response.responseJSON);
-          
+
           THIS.transferSPEI = response.responseJSON;
           console.log(THIS.transferSPEI);
-        
+
       },
       function(error) {
         THIS.loading = false;
@@ -81,7 +97,7 @@ resourceRequest
 }
 
 consultaCuentas() {
-     
+
   console.log("adentro cnsultaCuentas");
 
   let tipoMovimiento = "1";
@@ -103,12 +119,12 @@ resourceRequest
   .sendFormParameters(formParameters)
   .then(
       function(response) {
-        
+
         console.log(response.responseJSON);
-          
+
           THIS.datosCuenta = response.responseJSON;
           console.log(THIS.datosCuenta);
-        
+
       },
       function(error) {
         THIS.loading = false;

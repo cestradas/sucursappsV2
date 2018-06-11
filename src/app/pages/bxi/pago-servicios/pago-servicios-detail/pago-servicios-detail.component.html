@@ -108,7 +108,7 @@
                     <button type="button" class="btn btn-lg" (click)="irMenuBXI()">Cancelar</button>
                 </div>
                 <div class="col-lg-1" style="padding-right: 2%;">
-                    <button type="button" class="btn btn-danger btn-lg" [disabled]="myForm.invalid" (click)="showDetallePago(myForm.value)">
+                    <button id="contiuar" type="button" class="btn color-botones btn-lg" [disabled]="myForm.invalid" (click)="showDetallePago(myForm.value)">
                                         Continuar
                     </button>
                 </div>
@@ -224,7 +224,7 @@
                     <br>
                     <div class="row">
                         <div class="col-lg-5">
-                                <p>  
+                                <p>
                                         1.  Coloca tu recibo con el
                                           código de barras visible
                                           en el Scanner
@@ -233,7 +233,7 @@
                     </div>
                     <div class="row">
                             <div class="col-lg-5">
-                                    <p>  
+                                    <p>
                                             2. Espera a que el
                                             dispositivo valide la
                                             información
@@ -242,11 +242,11 @@
                     </div>
                     <div class="row">
                             <div class="col-lg-5">
-                                    <p>  
+                                    <p>
                                             3.  Tiene 5 intentos para
                                             que el scanner valide
                                             información, si no,
-                                            capture manualmente   
+                                            capture manualmente
                                       </p>
                             </div>
                     </div>

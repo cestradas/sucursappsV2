@@ -32,15 +32,25 @@ export class PagoTarjetaCreditoVerifyComponent implements OnInit {
 
   ngOnInit() {
     const this_aux = this;
-   
-      this_aux.showData(); 
+
+      this_aux.showData();
+
+      //ESTILOS Preferente
+    let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
+    let btnContinuar = document.getElementById("terminar");
+
+    if (storageTipoClienteBEL === "true") {
+
+      btnContinuar.classList.remove("color-botones");
+      btnContinuar.classList.add("color-botones_Preferente");
+    }
   }
 
   showData() {
 
-    
+
     const this_aux = this;
-    const resPagoString = this_aux.service.detallePagoTarjeta; 
+    const resPagoString = this_aux.service.detallePagoTarjeta;
     const respPagoJson  = JSON.parse(resPagoString);
 
     const certificadoPago = respPagoJson.CertificadoPago;
@@ -67,9 +77,9 @@ export class PagoTarjetaCreditoVerifyComponent implements OnInit {
     this_aux.detallePago.operacion = this_aux.service.nameOperacion;
     this_aux.detallePago.cuentaOrigen = this_aux.service.numCuentaSeleccionado;
     this_aux.detallePago.cuentaDestino = this_aux.service.numCtaBenSeleccionada;
-    setTimeout(function() { 
+    setTimeout(function() {
       $('#_modal_please_wait').modal('hide');
-    }, 500); 
+    }, 500);
   }
 
   irMenuBXI() {

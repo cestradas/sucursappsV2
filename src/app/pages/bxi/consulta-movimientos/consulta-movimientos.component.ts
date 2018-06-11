@@ -13,13 +13,13 @@ declare var $: any;
   templateUrl: './consulta-movimientos.component.html'
 })
 export class ConsultaMovimientosComponent implements OnInit {
-  
+
 
   cuentasArray: Array<any>;
   saldoSeleccionado: string;
-  
+
   @ViewChild('listaCuentas', { read: ElementRef}) listaCuentas: ElementRef ;
-  
+
   constructor(private router: Router,
               private service: SesionBxiService,
               private renderer: Renderer2) {
@@ -30,6 +30,19 @@ export class ConsultaMovimientosComponent implements OnInit {
   ngOnInit() {
     $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
   this.fillSelectCuentasTDD();
+
+    //ESTILOS Preferente
+    let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
+    let btnContinuar = document.getElementById("regresarBXI");
+
+    if (storageTipoClienteBEL === "true") {
+
+      btnContinuar.classList.remove("color-botones");
+      btnContinuar.classList.add("color-botones_Preferente");
+    }
+
+
+
   }
 
 
@@ -44,8 +57,8 @@ export class ConsultaMovimientosComponent implements OnInit {
     const consultaCuentas = JSON.parse(cuentasString);
     this_aux.cuentasArray = consultaCuentas.ArrayCuentas;
     console.log(this_aux.cuentasArray.length);
-    
-    
+
+
     console.log(this_aux.cuentasArray);
       for (let i = 0; i < this_aux.cuentasArray.length; i++) {
       if (this_aux.cuentasArray[i].TipoCuenta === 1) {
@@ -63,7 +76,7 @@ export class ConsultaMovimientosComponent implements OnInit {
         this.renderer.appendChild(li, a);
         this.renderer.appendChild(this.listaCuentas.nativeElement, li);
       }
-    } 
+    }
 }
 
 fillSelectCuentasTDC() {
@@ -79,7 +92,7 @@ fillSelectCuentasTDC() {
   this_aux.service.tipoCuenta = "5";
   console.log(this_aux.cuentasArray);
 
- 
+
     for (let i = 0; i < this_aux.cuentasArray.length; i++) {
     if (this_aux.cuentasArray[i].TipoCuenta === 5) {
       const li =  this.renderer.createElement('li');
@@ -96,7 +109,7 @@ fillSelectCuentasTDC() {
       this.renderer.appendChild(li, a);
       this.renderer.appendChild(this.listaCuentas.nativeElement, li);
     }
-  } 
+  }
 }
 
 resetLista() {
@@ -139,7 +152,7 @@ resetLista() {
     this_aux.getSaldoDeCuentaTDC(numCuenta_seleccionada);
     console.log("llego el saldo tdc");
   }
-  
+
 }
 
 getSaldoDeCuentaTDD(numCuenta_seleccionada) {
@@ -194,7 +207,7 @@ getSaldoDeCuentaTDC(numCuenta_seleccionada) {
 
 showErrorSucces(json) {
   console.log(json.Id + json.MensajeAUsuario);
-  document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+  document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
   $('#_modal_please_wait').modal('hide');
   $('#errorModal').modal('show');
 }
@@ -202,7 +215,7 @@ showErrorSucces(json) {
 showErrorPromise(error) {
   console.log(error);
   // tslint:disable-next-line:max-line-length
-  document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde."; 
+  document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
   $('#_modal_please_wait').modal('hide');
   $('#errorModal').modal('show');
 }
@@ -215,9 +228,9 @@ showErrorPromise(error) {
     const divcuentas = document.getElementById("cuentas1");
     const divcuentas2 = document.getElementById("cuentas2");
         switch (peticion) {
-    
+
           case 'cuentas1':
-            div.style.display  = 'block'; 
+            div.style.display  = 'block';
             div2.style.display = "none";
             divcuentas.style.backgroundColor = '#a51029';
             divcuentas2.style.backgroundColor = '#c41330';
@@ -225,7 +238,7 @@ showErrorPromise(error) {
             this.fillSelectCuentasTDD();
             // disparar accion para consultar los datos
           break;
-          case 'cuentas2': 
+          case 'cuentas2':
             div.style.display = "none";
             div2.style.display = "block";
             divcuentas.style.backgroundColor = '#c41330';
@@ -235,10 +248,10 @@ showErrorPromise(error) {
             // disparar accion para consultar los datos
           break;
             }
-    
+
     }
-  
-  
+
+
     consultarSaldos() {
       const this_aux = this;
       this_aux.router.navigate(['/saldosDetailBXI']);

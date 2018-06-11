@@ -63,18 +63,30 @@ export class PagoServiciosVerifyComponent implements OnInit {
           this_aux.detallePago.comisioneiva = element.ImporteComisionRespCons;
           this_aux.detallePago.importe = element.ImporteTotal;
           });
-      
+
       const datosEmpresa = respPagoJson.DatosPagoEmpresa;
         datosEmpresa.forEach(element => {
           this_aux.detallePago.claveRastreo = element.ClaveConfirmacion;
         });
-      
-     
+
+
       }
-      setTimeout(function() { 
+      setTimeout(function() {
         $('#_modal_please_wait').modal('hide');
-      }, 500); 
-     
+      }, 500);
+
+      //ESTILOS Preferente
+    let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
+    let btnContinuar = document.getElementById("contiuar");
+
+    if (storageTipoClienteBEL === "true") {
+
+      btnContinuar.classList.remove("color-botones");
+      btnContinuar.classList.add("color-botones_Preferente");
+    }
+
+
+
   }
 
   irMenuBXI() {

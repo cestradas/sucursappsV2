@@ -35,7 +35,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   NumeroSeguridad: string;
 
   // tslint:disable-next-line:max-line-length
-  constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2,  private fb: FormBuilder, private currencyPipe: CurrencyPipe) { 
+  constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2,  private fb: FormBuilder, private currencyPipe: CurrencyPipe) {
     this.myForm = this.fb.group({
       fcImporte: ['', [Validators.required /*Validators.pattern(/^[0-9]+[0-9]*$/ )*/]]
     });
@@ -46,10 +46,23 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     this.resetLista();
     this.fillSelectCuentas();
     this.fillCuentasBeneficiario();
-    setTimeout(function() { 
+    setTimeout(function() {
       $('#_modal_please_wait').modal('hide');
     }, 500);
-    
+
+    //ESTILOS Preferente
+    let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
+    let btnContinuar = document.getElementById("contiuar");
+    let btnConfirmar = document.getElementById("confirmar");
+
+    if (storageTipoClienteBEL === "true") {
+
+      btnContinuar.classList.remove("color-botones");
+      btnContinuar.classList.add("color-botones_Preferente");
+      btnConfirmar.classList.remove("color-botones");
+      btnConfirmar.classList.add("color-botones_Preferente");
+    }
+
   }
 
     fillSelectCuentas() {
@@ -59,7 +72,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       const consultaCuentas = JSON.parse(cuentasString);
       const cuentasArray = consultaCuentas.ArrayCuentas;
         cuentasArray.forEach(cuenta => {
-          this_aux.crearListaCuentas(cuenta); 
+          this_aux.crearListaCuentas(cuenta);
       });
   }
 
@@ -74,7 +87,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     this.renderer.appendChild(li, a);
     this.renderer.appendChild(this_aux.listaCuentas.nativeElement, li);
   }
-  
+
   setDatosCuentaSeleccionada(elementHTML) {
 
     $('#_modal_please_wait').modal('show');
@@ -103,7 +116,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
             console.log(response1.responseText);
             const detalleSaldos = response1.responseJSON;
               if ( detalleSaldos.Id === '1') {
-                setTimeout(function() { 
+                setTimeout(function() {
                   const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
                   lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
                   $('#_modal_please_wait').modal('hide');
@@ -120,7 +133,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
 
   fillCuentasBeneficiario () {
-  
+
     const this_aux = this;
     let cuenta;
     const cuentasUsuario = this_aux.service.infoCuentas;
@@ -135,7 +148,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
       });
     arrayCuentasXBeneficiario.forEach(element1 => {
-      if (element1.Cuenta !== undefined ) { 
+      if (element1.Cuenta !== undefined ) {
         cuenta = element1.Cuenta;
         cuenta.forEach(data => {
           if ( data.TipoCuenta === '9' ) {
@@ -168,8 +181,8 @@ export class PagoTarjetaCreditoComponent implements OnInit {
             this.renderer.appendChild(a, textoCuenta),
             this.renderer.appendChild(li, a);
             this.renderer.appendChild(this_aux.listaCuentasBeneficiario.nativeElement, li);
-      
-  }   
+
+  }
 
   defineFiltros() {
 
@@ -186,13 +199,13 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       }
       if (cuenta.TipoCuenta.toString() === '2' && cuenta.ClaveBanco.toString() !== '40103') {
         this.existenExternas = true;
-      } 
+      }
     });
 
   }
 
   setDatosCuentaBeneficiario(elementHTML) {
- 
+
     const this_aux = this;
     console.log(elementHTML);
     const tableBeneficiarios = document.getElementById('tableBeneficiarios');
@@ -224,7 +237,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
         if ( auxcuenta.TipoCuenta.toString() === "2" && auxcuenta.ClaveBanco.toString() === "40103") {
           this_aux.crearListaBeneficiarios(auxcuenta, false);
         }
-      } 
+      }
       if (this_aux.rcbFiltro.nativeElement.value.toString() === "2") {
         this_aux.tipoTarjeta = '165';
         this_aux.service.nameOperacion = "Pago tarjeta de credito Otros Bancos";
@@ -233,7 +246,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
         }
       }
       if (this_aux.rcbFiltro.nativeElement.value.toString() === "5" || this_aux.rcbFiltro.nativeElement.value.toString() === "9"  ) {
-        this_aux.tipoTarjeta = '165';  
+        this_aux.tipoTarjeta = '165';
         if (this_aux.rcbFiltro.nativeElement.value.toString() === "5") {
           this_aux.service.nameOperacion = "Pago tarjeta de credito Propias Banorte";
         } else {
@@ -242,8 +255,8 @@ export class PagoTarjetaCreditoComponent implements OnInit {
         if (auxcuenta.TipoCuenta.toString() === this_aux.rcbFiltro.nativeElement.value.toString()) {
             this_aux.crearListaBeneficiarios(auxcuenta, true);
           }
-        }  
-      
+        }
+
    });
   }
 
@@ -281,10 +294,10 @@ export class PagoTarjetaCreditoComponent implements OnInit {
                 this_aux.showErrorSucces(detallePrepara);
               }, 1000);
             }
-          }, function(error) { 
+          }, function(error) {
             $('#_modal_please_wait').modal('hide');
             setTimeout(() => {
-              this_aux.showErrorPromise(error); 
+              this_aux.showErrorPromise(error);
            }, 1000);
 
           });
@@ -333,21 +346,21 @@ export class PagoTarjetaCreditoComponent implements OnInit {
                               this_aux.showErrorSuccesMoney(jsonDetallePago);
                             }, 300);
                           }
-                      }, function(error) {  
+                      }, function(error) {
                         $('#_modal_please_wait').modal('hide');
                         setTimeout(() => {
-                          this_aux.showErrorPromise(error); 
+                          this_aux.showErrorPromise(error);
                        }, 300);
                        }
-                  ); 
+                  );
               } else {
-                  
+
                 $('#_modal_please_wait').modal('hide');
-                  console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);  
+                  console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
                   mensajeError = this_aux.controlarError(infoUsuarioJSON);
                   document.getElementById('mnsError').innerHTML =  mensajeError;
                   $('#errorModal').modal('show');
-                
+
               }
         }, function(error) {
           $('#_modal_please_wait').modal('hide');
@@ -362,7 +375,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     console.log(arregloDeSubCadenas);
     console.log(numCuentaDestino);
 
-    return numCuentaDestino; 
+    return numCuentaDestino;
   }
 
   getNameInstitucion(text) {
@@ -372,7 +385,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     console.log(arregloDeSubCadenas);
     console.log(nameInstitucion);
 
-    return nameInstitucion; 
+    return nameInstitucion;
   }
 
 
@@ -400,7 +413,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
         }
     }
   }
-    
+
   replaceSimbolo(importe) {
     const importeAux = importe.replace('$', '');
     return importeAux;
@@ -410,22 +423,22 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
     const id = json.Id ;
     const mensajeUsuario = json.MensajeAUsuario;
-    let mensajeError; 
+    let mensajeError;
 
     switch (id) {
-          
+
       case 'SEG0003': mensajeError = "Usuario bloqueado, favor de esperar 15 minutos e intentar nuevamente.";
-                    break; 
+                    break;
       case 'SEG0004': mensajeError =  "Usuario bloqueado, favor de marcar a Banortel.";
-                    break; 
+                    break;
       case 'SEG0005': mensajeError =  "Los datos proporcionados son incorrectos, favor de verificar.";
-                    break; 
+                    break;
       case 'SEG0007': mensajeError = "Los datos proporcionados son incorrectos, favor de verificar.";
-                    break; 
+                    break;
       case 'SEG0008':  mensajeError = "La sesión ha caducado.";
-                    break; 
+                    break;
       case 'SEG0009':  mensajeError = "Límite de sesiones superado, favor de cerrar las sesiones de banca en línea activas.";
-                    break; 
+                    break;
       // tslint:disable-next-line:max-line-length
       case 'SEGOTP1': mensajeError = "Token desincronizado. Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
                     break;
@@ -437,27 +450,27 @@ export class PagoTarjetaCreditoComponent implements OnInit {
                     break;
       // tslint:disable-next-line:max-line-length
       case 'SEGAM81': mensajeError = "Token desincronizado. Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
-                    break; 
-      case 'SEGAM82': mensajeError = "Token bloqueado, favor de marcar a Banortel."; 
-                    break;   
+                    break;
+      case 'SEGAM82': mensajeError = "Token bloqueado, favor de marcar a Banortel.";
+                    break;
       case 'SEGAM83': mensajeError = "Token deshabilitado, favor de marcar a Banortel.";
-                    break;   
+                    break;
       case 'SEGAM84': mensajeError = "Token no activado, favor de marcar a Banortel.";
-                    break; 
-                  
+                    break;
+
       // tslint:disable-next-line:max-line-length
       case 'SEGTK03': mensajeError = "Token desincronizado."; // Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
                     break;
-      case '2'      : mensajeError = mensajeUsuario;            
+      case '2'      : mensajeError = mensajeUsuario;
     }
 
     return mensajeError;
   }
 
   showErrorPromise(error) {
-  
+
       $('#modal_please_wait').modal('hide');
-      
+
       if (error.errorCode === 'API_INVOCATION_FAILURE') {
           document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
       } else {
@@ -470,14 +483,14 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
     $('#_modal_please_wait').modal('hide');
       console.log(json.Id + json.MensajeAUsuario);
-      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
       $('#errorModal').modal('show');
   }
 
   showErrorSuccesMoney(json) {
     $('#_modal_please_wait').modal('hide');
       console.log(json.Id + json.MensajeAUsuario);
-      document.getElementById('msgError').innerHTML =   json.MensajeAUsuario; 
+      document.getElementById('msgError').innerHTML =   json.MensajeAUsuario;
       $('#ModalErrorTransaccion').modal('show');
   }
 

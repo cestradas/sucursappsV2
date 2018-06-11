@@ -21,8 +21,8 @@ export class MantenimientoDatosIniComponent implements OnInit {
   showCorreoError = false;
   showCelularError = false;
 
-  constructor(private service: SesionBxiService, private fb: FormBuilder, private router: Router) { 
-    this.myForm = this.fb.group({ 
+  constructor(private service: SesionBxiService, private fb: FormBuilder, private router: Router) {
+    this.myForm = this.fb.group({
       fcCorreo: [],
       fcCelular: []
     });
@@ -32,20 +32,32 @@ export class MantenimientoDatosIniComponent implements OnInit {
     const this_aux = this;
     $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
     this.getDatosContacto();
+
+    //ESTILOS Preferente
+    let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
+    let btnContinuar = document.getElementById("guardar");
+
+    if (storageTipoClienteBEL === "true") {
+
+      btnContinuar.classList.remove("color-botones");
+      btnContinuar.classList.add("color-botones_Preferente");
+    }
+
+
   }
 
   getDatosContacto() {
-    
+
     console.log('Manteniento Datos Contacto');
       const this_aux = this;
       const controlCorreo: FormControl = new FormControl(this_aux.service.EmailCliente);
       this_aux.myForm.setControl('fcCorreo', controlCorreo );
       const controlCelular: FormControl = new FormControl(  this_aux.service.CelCliente);
       this_aux.myForm.setControl('fcCelular', controlCelular );
-      setTimeout(function() { 
+      setTimeout(function() {
         $('#_modal_please_wait').modal('hide');
         $('div').removeClass('modal-backdrop');
-      }, 500); 
+      }, 500);
   }
 
 
@@ -79,26 +91,26 @@ export class MantenimientoDatosIniComponent implements OnInit {
               this_aux.service.EmailCliente = correo;
               this_aux.service.CelCliente = celular;
               this_aux.router.navigate(['/mantiene-datos-fin']);
-        } else { 
+        } else {
           $('#_modal_please_wait').modal('hide');
           this_aux.showErrorSucces(jsonRespuesta); }
-      }, function(error) {  
+      }, function(error) {
         $('#_modal_please_wait').modal('hide');
         this_aux.showErrorPromise(error);   }
     );
 
-    
+
   }
 
   ErrorPatternCorreo(status) {
     const this_aux = this;
-    if (status === 'show') {this_aux.showCorreoError = true; 
+    if (status === 'show') {this_aux.showCorreoError = true;
     } else { this_aux.showCorreoError = false;    }
   }
 
   ErrorPatternCelular(status) {
     const this_aux = this;
-    if (status === 'show') {this_aux.showCelularError = true; 
+    if (status === 'show') {this_aux.showCelularError = true;
     } else { this_aux.showCelularError = false;    }
   }
 

@@ -16,14 +16,28 @@ export class ActivarAlertasVerifyComponent implements OnInit {
 
   ngOnInit() {
 
-   
+
       const tamNumCuenta = this.service.numCuentaSeleccionado.length;
       this.NumCuenta = this.service.numCuentaSeleccionado.substring(tamNumCuenta, tamNumCuenta - 4);
       this.Email = this.service.EmailCliente;
       this.Celular = this.service.CelCliente;
-    setTimeout(function() { 
+    setTimeout(function() {
       $('#_modal_please_wait').modal('hide');
     }, 500);
+
+    //ESTILOS Preferente
+    let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
+    let btnContinuar = document.getElementById("terminarA");
+
+    if (storageTipoClienteBEL === "true") {
+
+      btnContinuar.classList.remove("color-botones");
+      btnContinuar.classList.add("color-botones_Preferente");
+    }
+
+
+    
+
   }
 
   irMenuBXI() {

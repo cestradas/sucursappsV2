@@ -22,11 +22,21 @@ export class ActivarAlertasIniComponent implements OnInit {
   Evento: string;
   @ViewChild('listaCuentas', { read: ElementRef}) listaCuentas: ElementRef ;
   @ViewChild('rcheck', { read: ElementRef}) rcheck: ElementRef ;
-  
+
   constructor( private router: Router, private service: SesionBxiService, private renderer: Renderer2) { }
 
   ngOnInit() {
     this.fillSelectCuentas();
+
+    //ESTILOS Preferente
+    let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
+    let btnContinuar = document.getElementById("continuarA");
+
+    if (storageTipoClienteBEL === "true") {
+
+      btnContinuar.classList.remove("color-botones");
+      btnContinuar.classList.add("color-botones_Preferente");
+    }
   }
 
   fillSelectCuentas() {
@@ -36,9 +46,9 @@ export class ActivarAlertasIniComponent implements OnInit {
     const consultaCuentas = JSON.parse(cuentasString);
     const cuentasArray = consultaCuentas.ArrayCuentas;
       cuentasArray.forEach(cuenta => {
-        this_aux.crearListaCuentas(cuenta); 
+        this_aux.crearListaCuentas(cuenta);
     });
-    setTimeout(function() { 
+    setTimeout(function() {
       $('#_modal_please_wait').modal('hide');
       $('div').removeClass('modal-backdrop');
     }, 500);
@@ -71,7 +81,7 @@ setDatosCuentaSeleccionada(elementHTML) {
   lblCuentaOrigen.innerHTML = this_aux.getNumeroCuentaOrigen(value);
   this_aux.service.numCuentaSeleccionado = this_aux.getNumeroCuentaOrigen(value);
 
-  const tipoCuenta = this_aux.getTipoCuenta(value); 
+  const tipoCuenta = this_aux.getTipoCuenta(value);
   const tipoTarjeta = this_aux.filtroTipoCuenta(tipoCuenta);
   this_aux.searchAlertasByTipoCuenta(tipoTarjeta);
 }
@@ -103,26 +113,26 @@ consultaAlertas(I, TDD , TDC , numeroCuenta) {
           console.log(detalle);
           if (detalle .Id === '1') {
 
-               
+
                 const alertas = detalle.AlertasXCliente;
                 this_aux.ArrayAlertasCliente = alertas;
                 alertas.forEach(alerta => {
-                    if (alerta.IndicadorServicio === 'S' ) {   AlertasActivas_true = true; 
+                    if (alerta.IndicadorServicio === 'S' ) {   AlertasActivas_true = true;
                     }
                 });
                 this_aux.AlertasActivas = AlertasActivas_true;
                 console.log('this_aux.AlertasActivas' + this_aux.AlertasActivas);
                 if (this_aux.AlertasActivas) {
                   $('#_modal_please_wait').modal('hide');
-                    document.getElementById('mnsError').innerHTML =  "Ya tienes alertas activas para esta cuenta"; 
+                    document.getElementById('mnsError').innerHTML =  "Ya tienes alertas activas para esta cuenta";
                     $('#errorModal').modal('show');
                 }
                 this_aux.getSaldoDeCuenta(numeroCuenta);
-              
-          } else {  
+
+          } else {
             $('#_modal_please_wait').modal('hide');
             this_aux.showErrorSucces(detalle);      }
-    }, function(error) { 
+    }, function(error) {
       $('#_modal_please_wait').modal('hide');
       this_aux.showErrorPromise(error);    }
   );
@@ -140,12 +150,12 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
                 lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
                 $('#_modal_please_wait').modal('hide');
             } else {
-              $('#_modal_please_wait').modal('hide');   
-              this_aux.showErrorSucces(detalleSaldos);  
+              $('#_modal_please_wait').modal('hide');
+              this_aux.showErrorSucces(detalleSaldos);
               lblSaldoOrigen.innerHTML = '';
             }
       }, function(error) {
-        $('#_modal_please_wait').modal('hide');    
+        $('#_modal_please_wait').modal('hide');
         this_aux.showErrorPromise(error);  }
     );
 }
@@ -160,7 +170,7 @@ getNumeroCuentaOrigen(text) {
   console.log(arregloDeSubCadenas);
   console.log(numCuentaOrigen);
 
-  return numCuentaOrigen; 
+  return numCuentaOrigen;
 }
 
   getTipoCuenta(text) {
@@ -170,7 +180,7 @@ getNumeroCuentaOrigen(text) {
     console.log(arregloDeSubCadenas);
     console.log(tipoCuenta);
 
-    return tipoCuenta; 
+    return tipoCuenta;
   }
 
   filtroTipoCuenta(tipoCuenta) {
@@ -182,24 +192,24 @@ getNumeroCuentaOrigen(text) {
   }
 
   showErrorPromise(error) {
-    
+
       $('#errorModal').modal('show');
       if (error.errorCode === 'API_INVOCATION_FAILURE') {
           document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
       } else {
         document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
       }
-    
+
   }
-  
+
   showErrorSucces(json) {
-    
+
       console.log(json.Id + json.MensajeAUsuario);
-      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
       $('#errorModal').modal('show');
-    
+
   }
-  
+
   estaSeleccionado() {
     const checkBox = this.rcheck.nativeElement;
     this.isChecked = checkBox.checked;
@@ -232,18 +242,18 @@ getNumeroCuentaOrigen(text) {
                     } else {
                       this_aux.router.navigate(['/activaAlertas_verify']);
                     }
-                } else { 
+                } else {
                   $('#_modal_please_wait').modal('hide');
                   this_aux.showErrorSucces(res); }
-          }, function(error) {  
-            
+          }, function(error) {
+
             $('#_modal_please_wait').modal('hide');
             this_aux.showErrorPromise(error);   }
-          
+
        );
 
     }
-  
+
   }
-  
+
 }

@@ -27,7 +27,7 @@ export class TransferenciaFinishSpeiComponent implements OnInit {
     importeOperacion: '',
     totalCargo: '',
     nombreUsuario: '',
-    
+
     fechaApli: ''
 
 };
@@ -36,11 +36,21 @@ export class TransferenciaFinishSpeiComponent implements OnInit {
 
   ngOnInit() {
 
+    //ESTILOS Preferente
+    let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
+    let btnContinuar = document.getElementById("terminar");
+
+    if (storageTipoClienteBEL === "true") {
+
+      btnContinuar.classList.remove("color-botones");
+      btnContinuar.classList.add("color-botones_Preferente");
+    }
+
     const this_aux = this;
-    
+
 
     const operacionSelect = this_aux.service.validaFinishTipoTransfer;
- 
+
     switch (operacionSelect) {
 
       case '1':  // SPEI
@@ -62,7 +72,7 @@ export class TransferenciaFinishSpeiComponent implements OnInit {
       this_aux.detallePago.cuentaClabeBeneficia = respPagoJsonSPEI.CuentaClabeBeneficia;
       this_aux.detallePago.nombreBeneficario = respPagoJsonSPEI.NombreBeneficario;
       this_aux.detallePago.importeOperacion = respPagoJsonSPEI.ImporteOperacion;
-      this_aux.detallePago.totalCargo = respPagoJsonSPEI.TotalCargo;       
+      this_aux.detallePago.totalCargo = respPagoJsonSPEI.TotalCargo;
 
             break;
 
@@ -106,13 +116,13 @@ export class TransferenciaFinishSpeiComponent implements OnInit {
       this_aux.detallePago.cuentaClabeBeneficia = respPagoJsonQUICK.CuentaClabeBeneficia;
       this_aux.detallePago.nombreBeneficario = respPagoJsonQUICK.NombreBeneficario;
       this_aux.detallePago.importeOperacion = respPagoJsonQUICK.ImporteOperacion;
-      this_aux.detallePago.totalCargo = respPagoJsonQUICK.TotalCargo;       
-     
+      this_aux.detallePago.totalCargo = respPagoJsonQUICK.TotalCargo;
+
             break;
           }
 
-    
-    
+
+
 
   }
 

@@ -43,7 +43,7 @@
                   </button>
                                 <div>
                                     <ul id="ul_Cuentas" #listaCuentas class="dropdown-menu btn-block" aria-labelledby="dropdownMenu1" style="width : 100%; height : 200px; overflow: auto;">
-              
+
                                     </ul>
                                 </div>
                             </div>
@@ -82,7 +82,7 @@
                 <button type="button" class="btn btn-lg" (click)="irMenuBXI()">Cancelar</button>
             </div>
             <div class="col-lg-1" style="padding-right: 2%;">
-                <button type="button" class="btn btn-danger btn-lg" [disabled]="(lblAliasOrigen.textContent === '' || lblCuentaOrigen.textContent === '') || (!isChecked && !AlertasActivas)||AlertasActivas" 
+                <button id="continuarA" type="button" class="btn color-botones btn-lg" [disabled]="(lblAliasOrigen.textContent === '' || lblCuentaOrigen.textContent === '') || (!isChecked && !AlertasActivas)||AlertasActivas"
                         (click)="setAltaServicioAlertas()">
                                     Continuar
                 </button>
@@ -90,4 +90,3 @@
     </div>
 </fieldset>
 </form>
-

@@ -8,7 +8,7 @@ declare var $: any;
   templateUrl: './mantenimiento-datos-verify.component.html'
 })
 export class MantenimientoDatosVerifyComponent implements OnInit {
-  
+
   NombreUser: string;
   Sic: string;
   Celular: string;
@@ -23,9 +23,22 @@ export class MantenimientoDatosVerifyComponent implements OnInit {
       this.Sic = this.service.infoUsuarioSIC;
       this.Celular = this.service.CelCliente;
       this.CorreoElectronico = this.service.EmailCliente;
-  setTimeout(function() { 
+  setTimeout(function() {
       $('#_modal_please_wait').modal('hide');
     }, 500);
+
+    //ESTILOS Preferente
+    let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
+    let btnContinuar = document.getElementById("terminar");
+
+    if (storageTipoClienteBEL === "true") {
+
+      btnContinuar.classList.remove("color-botones");
+      btnContinuar.classList.add("color-botones_Preferente");
+    }
+
+
+    
 
   }
 
