@@ -66,6 +66,15 @@ html {
     background-size: cover;
 }
 
+/*  NavBar PREFERENTE */
+
+.nav-img-banorte-preferente {
+    background-image: url("./assets/img/navbar_red_top_pleca_Preferente.png");
+    height: 80px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 
 /* Menu TDD */
 
@@ -354,7 +363,17 @@ html {
 
 .color-botones {
     border: 0;
-    border-color: #eb012a;
+    border-color: #e2062d;
+    background-color: #e2062d;
+    color: #fff;
+}
+
+
+/* Estilos BOTONES Preferente */
+
+.color-botones_Preferente {
+    border: 0;
+    border-color: #eb0029;
     background-color: #eb0029;
     color: #fff;
 }

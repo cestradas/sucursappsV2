@@ -14,14 +14,14 @@ declare var $: any;
 })
 export class BreadcrumbsComponent implements OnInit {
 
-  NombreUsuario: string; 
+  NombreUsuario: string;
   constructor(private service: SesionBxiService,
               private _service: SesionTDDService,
               private router: Router )  {}
 
 
   ngOnInit() {
-    const this_aux = this;  
+    const this_aux = this;
     if ( this_aux._service.datosBreadCroms.nombreUsuarioTDD !== '' ) {
 
       this_aux.NombreUsuario =  this_aux._service.datosBreadCroms.nombreUsuarioTDD;
@@ -31,15 +31,34 @@ export class BreadcrumbsComponent implements OnInit {
      if ( this_aux.service.NombreUsuario !== '' || this_aux.service.NombreUsuario !== undefined ) {
 
       this.NombreUsuario = this_aux.service.NombreUsuario;
-      console.log("BEL ", this_aux.service.NombreUsuario); 
+      console.log("BEL ", this_aux.service.NombreUsuario);
       this.service.Login = "1";
-      console.log("BEL ", this_aux.service.Login); 
+      console.log("BEL ", this_aux.service.Login);
+
+      let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
+      let navElement = document.getElementById("navBar");
+
+      if (storageTipoClienteBEL === "true") {
+
+        navElement.classList.remove("nav-img-banorte");
+        navElement.classList.add("nav-img-banorte-preferente");
+
+        //localStorage.removeItem("tipoClienteBEL");
+
+      } else {
+
+        navElement.classList.remove("nav-img-banorte-preferente");
+        navElement.classList.add("nav-img-banorte");
+
+        //localStorage.removeItem("tipoClienteBEL");
+
+      }
     }
-     
+
   }
 
   cerrarSessionBEL() {
-    const this_aux = this;  
+    const this_aux = this;
     if (this_aux.service.Login === "1" ) {
       sessionStorage.removeItem("campania");
     const THIS: any = this;
@@ -51,26 +70,26 @@ export class BreadcrumbsComponent implements OnInit {
             console.log(response);
             const responseJson = response.responseJSON;
             if (responseJson.Id === "SEG0001") {
-              console.log("BEL cerro sesion",  this_aux.service.Login); 
+              console.log("BEL cerro sesion",  this_aux.service.Login);
               location.reload(true);
               this_aux.router.navigate(['/login']);
             } else {
               console.log("BEL error cerrar sesion", responseJson.Id  + responseJson.MensajeAUsuario);
               document.getElementById('msgError').innerHTML =   "Error en cerrar sesión";
-              $('#ModalErrorTransaccion').modal('show'); 
+              $('#ModalErrorTransaccion').modal('show');
             }
           },
           function(error) {
-            
+
             console.log(error);
             document.getElementById('msgError').innerHTML =   "Error en cerrar sesión";
             console.log("BEL error cerrar sesion", error.errorCode  + error.errorMsg);
            // this_aux.router.navigate(['/login']);
-  
+
           });
 
 
-    } else { 
+    } else {
         this.cerrarSesion();
     }
 
@@ -89,17 +108,17 @@ export class BreadcrumbsComponent implements OnInit {
   resourceRequest.setTimeout(30000);
   resourceRequest.send().then(
           function(response) {
-            
+
             console.log(response);
 
             THIS.router.navigate(['/login']);
-  
+
           },
           function(error) {
-            
+
             console.log(error);
             THIS.router.navigate(['/login']);
-  
+
           });
 
   }
