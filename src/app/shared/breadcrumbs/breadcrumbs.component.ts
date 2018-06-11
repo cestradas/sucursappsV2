@@ -27,6 +27,27 @@ export class BreadcrumbsComponent implements OnInit {
       this_aux.NombreUsuario =  this_aux._service.datosBreadCroms.nombreUsuarioTDD;
       console.log("TDD ", this_aux._service.datosBreadCroms.nombreUsuarioTDD);
 
+      // Valida preferencia Tarjeta cliente
+
+      let storageTipoClienteTDD = localStorage.getItem("tipoClienteTar");
+      let navElement = document.getElementById("navBar");
+
+    if (storageTipoClienteTDD === "true") {
+
+      navElement.classList.remove("nav-img-banorte");
+      navElement.classList.add("nav-img-banorte-preferente");
+
+      //localStorage.removeItem("tipoClienteBEL");
+
+    } else {
+
+      navElement.classList.remove("nav-img-banorte-preferente");
+      navElement.classList.add("nav-img-banorte");
+
+      //localStorage.removeItem("tipoClienteBEL");
+
+    }
+
     } else
      if ( this_aux.service.NombreUsuario !== '' || this_aux.service.NombreUsuario !== undefined ) {
 

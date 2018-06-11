@@ -23,8 +23,8 @@ export class LoginComponent {
   postResp;
   contenido: any;
 
-  constructor( private _http: Http, 
-               private router: Router, 
+  constructor( private _http: Http,
+               private router: Router,
                private _service: SesionTDDService, private serviceTdd: ResponseWS  ) {}
 
   onPlasticLogin() {
@@ -51,28 +51,40 @@ resourceRequest
   .sendFormParameters(formParameters)
   .then(
       function(response) {
-        
+
         let res = response.responseJSON;
         THIS._service.datosBreadCroms.numeroCliente = res.Tran_NumeroCliente;
         THIS._service.datosBreadCroms.nombreUsuarioTDD = res.Tran_NombrePersona;
         THIS._service.datosBreadCroms.sicUsuarioTDD = res.Tran_NumeroCliente;
         // setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
-        $('#ModalTDDLogin').modal('hide'); 
+
+        let tipoPreferencia = res.DetalleClave;
+          let validaPreferencia = false;
+
+          if (this.includesL(validaPreferencia, "PREFERENTE")) {
+            // PREFERENTE
+            validaPreferencia = true;
+            localStorage.setItem("tipoClienteTar", this.validaPreferencia );
+          }
+            // NORMAL
+            localStorage.setItem("tipoClienteTar", this.validaPreferencia  );
+
+        $('#ModalTDDLogin').modal('hide');
         THIS.router.navigate(['/menuTdd']);
-        
+
       },
       function(error) {
 
 
         setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
 
-        
+
           // tslint:disable-next-line:max-line-length
-          document.getElementById('mnsError').innerHTML = "Por el momento este servicio no est&aacute; disponible, favor de intentar de nuevo m&aacute;s tarde."; 
+          document.getElementById('mnsError').innerHTML = "Por el momento este servicio no est&aacute; disponible, favor de intentar de nuevo m&aacute;s tarde.";
           $('#errorModal').modal('show');
-          
+
       });
-        
+
         // $('div').removeClass('modal-backdrop');
 
   }
@@ -94,7 +106,7 @@ resourceRequest
 
           function(error) {
               console.log(error.responseText);
-  
+
           });
   }
 
@@ -104,6 +116,17 @@ resourceRequest
 
 
   }
+
+  //TODO
+includesL(container, value) {
+ let returnValue = false;
+ let pos = String(container).indexOf(value);
+
+ if (pos >= 0) {
+   returnValue = true;
+ }
+ return returnValue;
+}
 
 
   getPosts() {
@@ -125,7 +148,7 @@ resourceRequest
           } ,
           function(error) {
               console.log(error.responseText);
-  
+
           });
   }
 
