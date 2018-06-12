@@ -51,9 +51,11 @@ export class LoginBxiComponent implements OnInit {
         }).then(
             function() {
                const usuarioAgent = navigator.userAgent;
-               this_aux.getUsrPassLegacy(usuarioAgent, usuarioBxi);
-              console.log('login onSuccess');
-
+               console.log('login onSuccess');
+               setTimeout(function() {
+                this_aux.getUsrPassLegacy(usuarioAgent, usuarioBxi);
+               }, 1000);
+        
         }, function(error) {
             console.log(error);
         });
