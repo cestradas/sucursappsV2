@@ -248,12 +248,24 @@ getNumeroCuentaOrigen(text) {
           }, function(error) {
 
             $('#_modal_please_wait').modal('hide');
-            this_aux.showErrorPromise(error);   }
+            this_aux.showErrorPromiseMoney(error);   }
 
        );
 
     }
 
   }
+
+  showErrorPromiseMoney(error) {
+
+   
+    if (error.errorCode === 'API_INVOCATION_FAILURE') {
+      $('#errorModal').modal('show'); 
+      document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+    } else {
+      document.getElementById('msgError').innerHTML =   "Se presenta falla en el servicio MCA / Time Out de operación monetaria.";
+      $('#ModalErrorTransaccion').modal('show');
+    }
+}
 
 }
