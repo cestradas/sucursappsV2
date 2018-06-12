@@ -21,6 +21,7 @@ export class LoginBxiComponent implements OnInit {
   nombreEnmascarado: string;
   nombreEnmascaradoAux: string;
   myForm: FormGroup;
+   datosLegacy = "";
 
   constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2, private fb: FormBuilder) {
     this.myForm = this.fb.group({
@@ -31,10 +32,64 @@ export class LoginBxiComponent implements OnInit {
    }
 
   ngOnInit() {
+      
+  }
+  validaUsuario(usuarioBxi) {
+      
+    const this_aux = this;
+    const securityCheckName = 'banorteSecurityCheckSa';
+    const userLoginChallengeHandler = WL.Client
+        .createSecurityCheckChallengeHandler(securityCheckName);
+    const usr_ca = 'sucursApps';
+    const tarjet = 'adm-sucusWeb';
+    console.log(usr_ca);
+    console.log(tarjet);
 
+        WLAuthorizationManager.login(securityCheckName, {
+            'usr_ca': usr_ca,
+            'tarjet': tarjet
+        }).then(
+            function() {
+               const usuarioAgent = navigator.userAgent;
+               this_aux.getUsrPassLegacy(usuarioAgent, usuarioBxi);
+              console.log('login onSuccess');
+
+        }, function(error) {
+            console.log(error);
+        });
   }
 
-  validaUsuario(usuarioBxi) {
+   getUsrPassLegacy(usrAgent, usuarioBxi) {
+    const this_aux = this;
+    if (this_aux.datosLegacy === '') {
+
+        const patron = /@/g;
+        usrAgent = usrAgent.replace(patron, '');
+
+        const formParameters = {
+            terminal: usrAgent
+                // terminal: 'T002'
+        };
+        const resourceRequest = new WLResourceRequest(
+            'adapters/AdapterBanorteSucursApps/resource/consultaUsrLegacy',
+            WLResourceRequest.POST);
+        resourceRequest.setTimeout(30000);
+        resourceRequest.sendFormParameters(formParameters).then(
+            function(response) {
+                this_aux.datosLegacy = response.responseJSON;
+                console.log( this_aux.datosLegacy);
+                console.log("El servcio de informacion Legacy respondio correctamente");
+                this_aux.validaUsuarioAfterSecurity(usuarioBxi);
+              },
+            function(error) {
+              WLAuthorizationManager.logout('banorteSecurityCheckSa');
+                console.error("Ocurrio un error con el servcio de informacion Legacy");
+                $('#errorModal').modal('show');
+            });
+    }
+}
+
+  validaUsuarioAfterSecurity(usuarioBxi) {
     $('#_modal_please_wait').modal('show');
     const this_aux = this;
     this_aux.service.usuarioLogin = usuarioBxi;
@@ -62,16 +117,20 @@ export class LoginBxiComponent implements OnInit {
                             this_aux.getNumeroMetodo(arrayMetodos);
 
                         } else {
+                          WLAuthorizationManager.logout('banorteSecurityCheckSa');
                             console.log(respConsultaMetodos.Id + respConsultaMetodos.MensajeAUsuario);
                             mensajeError = this_aux.controlarError(respConsultaMetodos);
                             document.getElementById('mnsError').innerHTML =  mensajeError;
                             $('#_modal_please_wait').modal('hide');
                             $('#errorModal').modal('show');
                         }
-                     }, function(error) {  this_aux.showErrorPromise(error); }
+                     }, function(error) { 
+                      WLAuthorizationManager.logout('banorteSecurityCheckSa'); 
+                      this_aux.showErrorPromise(error); 
+                    }
               );
           } else {
-
+            WLAuthorizationManager.logout('banorteSecurityCheckSa');
             console.log(detalleIdentifacionUsurario.Id + detalleIdentifacionUsurario.MensajeAUsuario);
             mensajeError = this_aux.controlarError(detalleIdentifacionUsurario);
             document.getElementById('mnsError').innerHTML =  mensajeError;
@@ -79,7 +138,9 @@ export class LoginBxiComponent implements OnInit {
             $('#errorModal').modal('show');
 
           }
-      }, function(error) {  this_aux.showErrorPromise(error); });
+      }, function(error) { 
+        WLAuthorizationManager.logout('banorteSecurityCheckSa');
+        this_aux.showErrorPromise(error); });
   }
 
 
@@ -141,6 +202,7 @@ export class LoginBxiComponent implements OnInit {
 
                 } else {
 
+                  WLAuthorizationManager.logout('banorteSecurityCheckSa');
                   $('#_modal_please_wait').modal('hide');
                   console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
                   mensajeError = this_aux.controlarError(infoUsuarioJSON);
@@ -148,7 +210,9 @@ export class LoginBxiComponent implements OnInit {
                   $('#errorModal').modal('show');
                 }
 
-          }, function(error) { this_aux.showErrorPromise(error);
+          }, function(error) { 
+            WLAuthorizationManager.logout('banorteSecurityCheckSa');
+            this_aux.showErrorPromise(error);
           });
     }
 
@@ -184,9 +248,11 @@ export class LoginBxiComponent implements OnInit {
               // $('div').removeClass('modal-backdrop');
 
             } else {
+              WLAuthorizationManager.logout('banorteSecurityCheckSa');
               this_aux.showErrorSucces(jsonDatosUsuario);
             }
         }, function(error) {
+          WLAuthorizationManager.logout('banorteSecurityCheckSa');
             this_aux.showErrorPromise(error);
         }
       );

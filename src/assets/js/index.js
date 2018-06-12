@@ -1,71 +1,81 @@
-var ROOT;
 var USR;
 var KEY;
+var AMBIENTES = ["","","","",""];
 
-$.getJSON('assets/js/cfg.json', function(datos) {
-    ROOT = datos['root'];
-    ROOT1 = datos['root1'];
-    ROOT2 = datos['root2'];
-    ROOT3 = datos['root3'];
-    USR = datos['user'];
-    KEY = datos['key'];
+$( document ).ready(function() {
+    $('#modal_please_wait').modal('show');  
+    if(localStorage.getItem("Ambientes") ){
+             AMBIENTES=localStorage.getItem("Ambientes").split(",");
+            console.log(localStorage.getItem("Ambientes")) 
+           
+            
+                getContextRoot();
+                 
+    }else if(localStorage.getItem("Ambientes") == "" ){
+        console.log("no hay mas contextos")
+    }
+    else{
 
+        
+        $.getJSON('assets/js/cfg.json', function(datos) {
+            AMBIENTES[0] = datos['root'];
+            AMBIENTES[1] = datos['root1'];
+            AMBIENTES[2] = datos['root2'];
+            AMBIENTES[3] = datos['root3'];
+            AMBIENTES[4] = datos['root4'];
+            USR = datos['user'];
+            KEY = datos['key'];
+        
+        });
+       
+        getContextRoot();
+    }
+    
+    
 });
 
-setTimeout(function() {
-    console.log(ROOT);
-    var wlInitOptions = {
-        mfpContextRoot: ROOT,
-        applicationId: 'com.banorte.sucursapps',
 
-    };
-
-    WL.Client.init(wlInitOptions).then(function() {
-        console.info("VERSION: 1.3, 07/06/2018")
-        setTimeout(function() {
-            var userLoginChallengeHandler = UserLoginChallengeHandler(USR, KEY);
-        }, 1000)
-
-    });
-}, 1000)
-
-
-
-var roots = function(param) {
+function getContextRoot(){
 
     setTimeout(function() {
-        console.log(param);
+       
+        console.log(AMBIENTES[0]);
+    
         var wlInitOptions = {
-            mfpContextRoot: param,
+            mfpContextRoot: AMBIENTES[0],
             applicationId: 'com.banorte.sucursapps',
-
         };
-
-        var prom1 = new Promise(function(resolve, reject) {
-            setTimeout(function() {
-                // console.log("Promesa terminada");
-                //termina bien
-                resolve(valRoot(param));
-
-            }, 1500);
+    
+        WL.Client.init(wlInitOptions).then(function() {
+            console.info("VERSION: 1.3, 07/06/2018")
+            
+               var formParameters = { };
+               var resourceRequest = new WLResourceRequest(
+                'adapters/AdapterBanorteSucursAppsBEL/resource/checkServer',
+                WLResourceRequest.POST);
+                resourceRequest.setTimeout(10000);
+                resourceRequest.sendFormParameters().then(
+                function(response){
+                   console.log(response);
+                    setTimeout(function(){
+                        $('#modal_please_wait').modal('hide');
+                    },500);
+               }, function(error){
+                    console.log(error);
+                    AMBIENTES.shift();
+                    localStorage.setItem("Ambientes",AMBIENTES);
+                    WL.Client.reloadApp();
+               });
+              
+    
+        }, function(error){
+            console.log(error);
         });
+    }, 1000)
+    
+}   
 
 
-    });
-
-}
-
-function valRoot(param) {
-
-    var wlInitOptions = {
-        mfpContextRoot: param,
-        applicationId: 'com.banorte.sucursapps',
-
-    };
-    console.info("VERSION: 1.3, 06/07/2018")
-    var userLoginChallengeHandler = UserLoginChallengeHandler(USR, KEY);
-
-}
 
 function listener() {
     window.addEventListener('message', function(e) {

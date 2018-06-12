@@ -1,6 +1,9 @@
-{
-    "root": "/mfp",
-    "root1": "/DEVMFPSapp",
+{   
+    "root": "/PROMFPAPP",
+    "root1": "/PREMFPAPP",
+    "root2": "/INTMFPSapp",
+    "root3": "/DEVMFPSapp",
+    "root4": "/mfp",
     "user": "sucursApps",
     "key": "adm-sucusWeb"
 }
