@@ -13,7 +13,7 @@
                     <div style="width: 980px" class="col-lg-6 text-right">
                         <select class="form-control input-lg selectModificado selColonia" id="account-cicle" (change)="calcularFecha()">
                                 <option value="0" #mes >Mes Actual</option>
-                                <option value="1" #mes>Mes Anterior</option> 
+                                <option value="1" #mes>Mes Anterior</option>
               </select>
                     </div>
                 </div>
@@ -95,7 +95,7 @@
     <div class="col-lg-2">
         <div class="row">
             <div style=" padding: 0px; margin-right:0" class="col-lg-9">
-                <button class="btn btn-danger  btn-lg letranegrita pull-right" routerLink="/menuTdd">
+                <button class="btn btn-lg letranegrita pull-right" routerLink="/menuTdd">
                     Regresar
                 </button>
             </div>
@@ -114,7 +114,7 @@
                 <p id="mnsErrorModal">Estimado cliente, No existen movimientos en el mes actual.</p>
             </div>
             <div class="modal-footer text-center">
-                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="currentPage.loadMenu()">Salir</button>
+                <button id="salir" type="button" class="btn color-botones" data-dismiss="modal" onclick="currentPage.loadMenu()">Salir</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -130,7 +130,7 @@
                 <p id="mnsErrorModal">Estimado cliente, No existen movimientos en el mes anterior.</p>
             </div>
             <div class="modal-footer text-center">
-                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="currentPage.loadMenu()">Salir</button>
+                <button id="salir2" type="button" class="btn color-botones" data-dismiss="modal" onclick="currentPage.loadMenu()">Salir</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -146,7 +146,7 @@
                 <p id="mnsErrorModal">Estimado cliente, Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.</p>
             </div>
             <div class="modal-footer text-center">
-                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="currentPage.loadMenu()">Salir</button>
+                <button id="salir3" type="button" class="btn color-botones" data-dismiss="modal" onclick="currentPage.loadMenu()">Salir</button>
             </div>
         </div>
         <!-- /.modal-content -->

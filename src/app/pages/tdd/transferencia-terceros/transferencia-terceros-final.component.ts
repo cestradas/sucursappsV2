@@ -17,19 +17,30 @@ export class TransferenciaTercerosFinalComponent implements OnInit {
 
   ngOnInit() {
 
+    //ESTILOS Preferente
+    let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
+    let btnContinuar = document.getElementById("terminar");
+
+    if (storageTipoClienteTar === "true") {
+
+      btnContinuar.classList.remove("color-botones");
+      btnContinuar.classList.add("color-botones_Preferente");
+    }
+
+
     this._service.validarDatosSaldoTdd().then(
       mensaje => {
 
         console.log('Saldos cargados correctamente TDD');
-        
+
         this.cuentaClienteTdd = mensaje.NumeroCuenta;
-        
+
 
       }
     );
 
     this.res  = this._response.respuesta.respuestaWS;
-    
+
     this.ctaAbono = this._response.respuesta.paramsExt;
 
   }

@@ -16,13 +16,13 @@
                             <tr>
                                 <td align="left" width="40%">Nombre <strong>
                                   <label #lblAliasOrigen>
-                                      {{ nombreUsuarioTdd }} 
+                                      {{ nombreUsuarioTdd }}
                                   </label>
                           </strong>
                                 </td>
                                 <td align="left" width="40%">
                                     <strong>
-                                      <label #lblSaldoOrigen>{{ saldoClienteTdd | currency }}</label> 
+                                      <label #lblSaldoOrigen>{{ saldoClienteTdd | currency }}</label>
                           </strong>
                                 </td>
                             </tr>
@@ -73,7 +73,7 @@
                 <button type="button" class="btn btn-lg" (click)="irMenuTDD()">Cancelar</button>
             </div>
             <div class="col-lg-1" style="padding-right: 2%;">
-                <button type="button" class="btn btn-danger btn-lg" [disabled]="(lblAliasOrigen.textContent === '' || lblCuentaOrigen.textContent === '') || (!isChecked && !AlertasActivas)||AlertasActivas" (click)="setAltaServicioAlertas()">
+                <button id="continuar" type="button" class="btn color-botones btn-lg" [disabled]="(lblAliasOrigen.textContent === '' || lblCuentaOrigen.textContent === '') || (!isChecked && !AlertasActivas)||AlertasActivas" (click)="setAltaServicioAlertas()">
                                         Continuar
                     </button>
             </div>

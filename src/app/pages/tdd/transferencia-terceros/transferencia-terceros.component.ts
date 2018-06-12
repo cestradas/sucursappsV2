@@ -46,6 +46,21 @@ export class TransferenciaTercerosComponent implements OnInit {
 
   ngOnInit() {
 
+    //ESTILOS Preferente
+    let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
+    let btnContinuar = document.getElementById("continuar");
+    let btnConfirmar = document.getElementById("confirmar");
+
+    if (storageTipoClienteTar === "true") {
+
+      btnContinuar.classList.remove("color-botones");
+      btnContinuar.classList.add("color-botones_Preferente");
+      btnConfirmar.classList.remove("color-botones");
+      btnConfirmar.classList.add("color-botones_Preferente");
+    }
+
+
+
     this._service.cargarSaldosTDD();
 
     $('#_modal_please_wait').modal('show');
@@ -61,7 +76,7 @@ export class TransferenciaTercerosComponent implements OnInit {
 
       }
     );
-    
+
     setTimeout( () => $('#_modal_please_wait').modal('hide'), 500 );
 
     this.forma = new FormGroup({
@@ -95,13 +110,13 @@ export class TransferenciaTercerosComponent implements OnInit {
       });
 
   }
-  
+
   transform() {
 
     if (this.importe !== '') {
-      
+
       this.importe = this.replaceSimbolo(this.importe);
-      this.importe = this.currencyPipe.transform(this.importe, 'USD'); 
+      this.importe = this.currencyPipe.transform(this.importe, 'USD');
 
     }
 
@@ -125,22 +140,22 @@ export class TransferenciaTercerosComponent implements OnInit {
         res = this._validaNipService.respuestaNip.res;
         console.log(res);
 
-        if (res === true) { 
+        if (res === true) {
 
           this.transTerceroTransaccion();
 
         } else {
 
           console.error("Mostrar modal las tarjetas no son iguales");
-          
+
 
         }
 
-        
+
 
       }
-    );         
-          
+    );
+
   }
 
   transTerceroTransaccion() {
@@ -150,9 +165,9 @@ export class TransferenciaTercerosComponent implements OnInit {
     this.importe = this.replaceSimbolo(this.importe);
 
     let pImporte = parseFloat(this.importe).toFixed(2);
-    
+
     const formParameters = {
-        
+
       email: this.correo,
       mnsEmail: this.desc,
       importe: pImporte,
@@ -183,9 +198,9 @@ export class TransferenciaTercerosComponent implements OnInit {
             console.error("El WS respondio incorrectamente1");
             // document.getElementById('mnsError').innerHTML = "El Ws no respondio";
             $('#errorModal').modal('show');
-            
-  
+
+
           });
 
   }
-} 
+}

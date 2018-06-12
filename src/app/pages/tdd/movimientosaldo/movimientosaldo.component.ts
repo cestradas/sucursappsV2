@@ -10,7 +10,7 @@ declare var $: any;
   templateUrl: './movimientosaldo.component.html'
 })
 export class MovimientosaldoComponent implements OnInit {
- 
+
   subscription: Subscription;
 
   cuentaClienteTdd: string;
@@ -20,9 +20,9 @@ export class MovimientosaldoComponent implements OnInit {
   saldoRetenidoClienteTdd: string;
   saldoMesAnteriorClienteTdd: string;
   nombreUsuarioTdd: string;
-  
-  
-  
+
+
+
   alias: any = '';
   TamArray: any;
   numPaginas: any;
@@ -41,10 +41,10 @@ export class MovimientosaldoComponent implements OnInit {
   fechaMesActualIni: String;
   diaMesAnterior: any;
 
-constructor( private _service: ConsultaSaldosTddService, 
+constructor( private _service: ConsultaSaldosTddService,
              private _serviceSesion: SesionTDDService) {
-              
-              
+
+
     const this_aux = this;
     this_aux.dia = new Date().getUTCDate();
     this_aux.mes = (new Date().getUTCMonth() + 1);
@@ -81,6 +81,22 @@ constructor( private _service: ConsultaSaldosTddService,
   }
 
   ngOnInit() {
+
+    //ESTILOS Preferente
+    let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
+    let btnContinuar = document.getElementById("salir");
+    let btnContinuar2 = document.getElementById("salir2");
+    let btnContinuar3 = document.getElementById("salir3");
+
+    if (storageTipoClienteTar === "true") {
+
+      btnContinuar.classList.remove("color-botones");
+      btnContinuar.classList.add("color-botones_Preferente");
+      btnContinuar2.classList.remove("color-botones");
+      btnContinuar2.classList.add("color-botones_Preferente");
+      btnContinuar3.classList.remove("color-botones");
+      btnContinuar3.classList.add("color-botones_Preferente");
+    }
   }
 
   calcularFecha() {
@@ -90,12 +106,12 @@ constructor( private _service: ConsultaSaldosTddService,
     this_aux.arrayNumPag = [];
     this_aux.numeroDatoInicial = 0;
     this_aux.numeroDatoFinal = this_aux.tamPaginas;
-    
+
     if (  this_aux.par === 0 ) {
       this_aux.fechaMesActualFin = (this_aux.anio + "-" + this_aux.mes + "-" + this_aux.dia).toString();
       this_aux.fechaMesActualIni = (this_aux.anio + "-" + this_aux.mes + "-01").toString();
       this_aux.llamarMovimientos (this.cuentaClienteTdd);
-    
+
     } else {
       if ( (this_aux.mes - 1) < 10) {
         this_aux.fechaMesActualFin = (this_aux.anio + "-" + "0" + (this_aux.mes - 1) + "-" + this_aux.diaMesAnterior).toString();
@@ -120,7 +136,7 @@ previousPag (numPrev) {
     this.numeroDatoFinal = (numeroPagActual) * this.tamPaginas ;
     this.numeroDatoInicial = this.numeroDatoFinal - this.tamPaginas;
   }
-  
+
 }
 
 nextPag (numeroNex) {
@@ -136,9 +152,9 @@ llamarMovimientos (numCuenta) {
   this.quitartabla();
   $('#_modal_please_wait').modal('show');
   this.ConsultaMovimientos(numCuenta, this.fechaMesActualIni  , this.fechaMesActualFin, "N", "N", "100");
-  
+
 }
-    
+
     ConsultaMovimientos(numeroCue, fDesde, fHasta, comi, pag, numreg) {
       const this_aux = this;
       const formParameters = {
@@ -148,22 +164,22 @@ llamarMovimientos (numCuenta) {
         Comision: comi,
         Pagina: pag,
         numeroRegistros: numreg
-      }; 
-      
-             
+      };
+
+
       const resourceRequest = new WLResourceRequest(
-        
+
         'adapters/AdapterBanorteSucursApps/resource/consultaMovimientos', WLResourceRequest.POST);
         resourceRequest.setTimeout(30000);
-        
+
         resourceRequest.sendFormParameters(formParameters).then(
           function(response) {
            // console.log(response.responseText);
            this_aux.movimientos = response.responseJSON;
-           if (this_aux.movimientos === null) { 
+           if (this_aux.movimientos === null) {
              this_aux.timeOut();
            }
-            
+
             const detalleCuenta = response.responseJSON;
             if ( detalleCuenta.Id === '1') {
 
@@ -171,7 +187,7 @@ llamarMovimientos (numCuenta) {
               this_aux.TamArray = this_aux.movimientosCue.length;
               this_aux.numPaginas = this_aux.TamArray / this_aux.tamPaginas;
          let i = 0;
-        
+
        for (i; i < this_aux.numPaginas; i ++) {
          this_aux.arrayNumPag.push(i);
        }
@@ -179,51 +195,51 @@ llamarMovimientos (numCuenta) {
               const textTitular = detalleCuenta;
               console.log(detalleCuenta.MensajeAUsuario);
               this_aux.mostrarTabla();
-              if (this_aux.numPaginas < 1 ) { 
+              if (this_aux.numPaginas < 1 ) {
                 const div2 = document.getElementById('Navegador');
                 div2.style.display = "none";
                }
             } else {
               console.log(detalleCuenta.MensajeAUsuario);
               this_aux.sinMovimientos(this_aux.par);
-              
+
             }
           }, function(error) {
             this_aux.showErrorPromise(error);
-            
+
       });
       console.log("Movimientos cargados correctamente");
       setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
     }
-    
+
     sinMovimientos(num) {
       if (num === 0 ) {
         console.log("no hay movimientos en mes actual");
         this.quitartabla ();
         this.noMovMesAct ();
-        
+
       } else {
         console.log("no hay movimientos en mes anterior");
         this.quitartabla ();
         this.noMovMesAnt();
-        
+
       }
     }
 
     noMovMesAct () {
       const div = document.getElementById('noMovimientosMesActual');
       $('#noMovimientosMesActual').modal('show');
-    
+
     }
     noMovMesAnt () {
       const div = document.getElementById('noMovimientosMesAnterior');
       $('#noMovimientosMesAnterior').modal('show');
-    
+
     }
     timeOut () {
       const div = document.getElementById('timeOut');
       $('#timeOut').modal('show');
-    
+
     }
     quitartabla() {
       const div = document.getElementById('tblDatos');
@@ -231,8 +247,8 @@ llamarMovimientos (numCuenta) {
       const div2 = document.getElementById('Navegador');
       div2.style.display = "none";
       div2.style.alignContent = "center";
-    
-      
+
+
     }
     mostrarTabla () {
       const div = document.getElementById('tblDatos');
@@ -241,13 +257,12 @@ llamarMovimientos (numCuenta) {
       const div2 = document.getElementById('Navegador');
       div2.style.display = "block";
     }
-    
+
     showErrorPromise(error) {
       console.log(error);
       // tslint:disable-next-line:max-line-length
-      document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde."; 
+      document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
       $('#_modal_please_wait').modal('hide');
       $('#errorModal').modal('show');
     }
 }
-

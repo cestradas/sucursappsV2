@@ -16,9 +16,18 @@ export class PagoTarjetaCreditoFinalComponent implements OnInit {
   constructor(private _response: ResponseWS) { }
 
   ngOnInit() {
-    
+    //ESTILOS Preferente
+    let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
+    let btnContinuar = document.getElementById("terminar");
+
+    if (storageTipoClienteTar === "true") {
+
+      btnContinuar.classList.remove("color-botones");
+      btnContinuar.classList.add("color-botones_Preferente");
+    }
+
     this.res  = this._response.respuesta.respuestaWS;
-    
+
   }
 
 }

@@ -11,7 +11,7 @@ declare var $: any;
 })
 export class TransferenciasSpeiDetailComponent implements OnInit {
   formatoFecha: any;
-  tipoOperacion: String;  
+  tipoOperacion: String;
   operacionType: any;
 
   detalleTransferencia: any = {
@@ -103,5 +103,18 @@ export class TransferenciasSpeiDetailComponent implements OnInit {
     $("#_modal_please_wait").modal("hide");
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+    //ESTILOS Preferente
+    let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
+    let btnContinuar = document.getElementById("terminar");
+
+    if (storageTipoClienteTar === "true") {
+
+      btnContinuar.classList.remove("color-botones");
+      btnContinuar.classList.add("color-botones_Preferente");
+    }
+
+
+  }
 }

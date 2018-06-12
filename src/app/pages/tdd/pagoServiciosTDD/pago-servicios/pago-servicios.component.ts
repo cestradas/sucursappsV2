@@ -28,14 +28,14 @@ export class PagoServiciosComponent implements OnInit {
   arrayEmpresas: Array<any> = [];
   listaEmpresas:  Array<any> = [];
   listaEmpresasAux: Array<any> = [];
-  
-  
+
+
   constructor(  private _service: ConsultaSaldosTddService,
                 private _serviceSesion: SesionTDDService,
                 private fb: FormBuilder,
                 private router: Router,
-                private service: SesionBxiService) { 
-                 
+                private service: SesionBxiService) {
+
     const this_aux = this;
     $('#_modal_please_wait').modal('show');
 
@@ -60,7 +60,7 @@ export class PagoServiciosComponent implements OnInit {
         this.nombreUsuarioTdd = this._serviceSesion.datosBreadCroms.nombreUsuarioTDD;
 
       }
-    );    
+    );
     setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
 
     this.myForm = this.fb.group({
@@ -69,16 +69,27 @@ export class PagoServiciosComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    //ESTILOS Preferente
+    let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
+    let btnContinuar = document.getElementById("continuar");
+
+    if (storageTipoClienteTar === "true") {
+
+      btnContinuar.classList.remove("color-botones");
+      btnContinuar.classList.add("color-botones_Preferente");
+    }
+
      this.getEmpresas();
   }
 
-  
+
   saveData() {
 
     const empresaSelect = this.facturador.nativeElement.value;
     this.getIdEmpresa(empresaSelect);
   }
-  
+
   getEmpresas() {
 
     const this_aux = this;
@@ -95,7 +106,7 @@ export class PagoServiciosComponent implements OnInit {
          console.log(this_aux.listaEmpresas);
          this_aux.listaEmpresasAux = this_aux.listaEmpresas;
          $('#_modal_please_wait').modal('hide');
-         
+
 
    } else {
 
@@ -176,7 +187,7 @@ getDetalleEmpresa(idFacturador) {
   this_aux.setClickOnBody();
 }
   setValue(value) {
-     
+
     const aux_this = this;
     const body = $('body');
     body.off('click');
@@ -207,16 +218,16 @@ getDetalleEmpresa(idFacturador) {
                if (element.includes(valueInput.toUpperCase())) {
                  auxOption.push(element);
                } });
-               
+
                  this_aux.listaEmpresas = auxOption;
                  }
-         
+
   });
 }
-  
+
  showErrorSucces(json) {
   console.log(json.Id + json.MensajeAUsuario);
-  document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+  document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
   $('#_modal_please_wait').modal('hide');
   $('#errorModal').modal('show');
 }
@@ -224,7 +235,7 @@ getDetalleEmpresa(idFacturador) {
 showErrorPromise(error) {
   console.log(error);
   // tslint:disable-next-line:max-line-length
-  document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde."; 
+  document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
   $('#_modal_please_wait').modal('hide');
   $('#errorModal').modal('show');
 }

@@ -25,7 +25,7 @@ export class MantenimientoBenefComponent implements OnInit {
   DatosJSONCP: any;
   CP: any;
 
-  @ViewChild("rColonias", { read: ElementRef }) rColonias: ElementRef; 
+  @ViewChild("rColonias", { read: ElementRef }) rColonias: ElementRef;
   @ViewChild("RApellidoPatAlta", { read: ElementRef }) RApellidoPatAlta: ElementRef;
   @ViewChild("RApellidoMatAlta", { read: ElementRef }) RApellidoMatAlta: ElementRef;
   @ViewChild("RPorcentajeAlta", { read: ElementRef }) RPorcentajeAlta: ElementRef;
@@ -45,9 +45,9 @@ export class MantenimientoBenefComponent implements OnInit {
   @ViewChild("RNumeroCalle", { read: ElementRef }) RNumeroCalle: ElementRef;
   @ViewChild("RNumeroDepartamento", { read: ElementRef }) RNumeroDepartamento: ElementRef;
   @ViewChild("RFisicaMoralSelec", { read: ElementRef }) RFisicaMoralSelec: ElementRef;
-  
-  
-  
+
+
+
   tamRegistrosBenef: any = 0;
   contadorModificaciones: any = [];
   contadorAltas: any = 0;
@@ -121,11 +121,43 @@ export class MantenimientoBenefComponent implements OnInit {
         this.numeroCuentaTitular = mensaje.NumeroCuenta;
         this.consultaBeneficiarios();
       }
-    ); 
+    );
     setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
   }
 
-  ngOnInit() {   
+  ngOnInit() {
+
+    //ESTILOS Preferente
+    let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
+    let btnAlta = document.getElementById("alta");
+    let btnGuardar = document.getElementById("gardar");
+    let btnGuardar2 = document.getElementById("guardar2");
+    let btnCp = document.getElementById("cp");
+    let btnCp2 = document.getElementById("cp2");
+    let btnContinuar = document.getElementById("confirmar");
+    let btnAceptar = document.getElementById("aceptar");
+    let btnAceptar2 = document.getElementById("aceptar2");
+
+    if (storageTipoClienteTar === "true") {
+
+      btnAlta.classList.remove("color-botones");
+      btnAlta.classList.add("color-botones_Preferente");
+      btnGuardar.classList.remove("color-botones");
+      btnGuardar.classList.add("color-botones_Preferente");
+      btnCp.classList.remove("color-botones");
+      btnCp.classList.add("color-botones_Preferente");
+      btnContinuar.classList.remove("color-botones");
+      btnContinuar.classList.add("color-botones_Preferente");
+      btnCp2.classList.remove("color-botones");
+      btnCp2.classList.add("color-botones_Preferente");
+      btnGuardar2.classList.remove("color-botones");
+      btnGuardar2.classList.add("color-botones_Preferente");
+      btnAceptar.classList.remove("color-botones");
+      btnAceptar.classList.add("color-botones_Preferente");
+      btnAceptar2.classList.remove("color-botones");
+      btnAceptar2.classList.add("color-botones_Preferente");
+    }
+
     $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
   }
 
@@ -150,7 +182,7 @@ export class MantenimientoBenefComponent implements OnInit {
     this.opcion = datosBeneficiario.Opcion;
     if (datosBeneficiario.FisicaMoral === "M") {
       this.razonSocial = datosBeneficiario.RazonSocial;
-    }    
+    }
     $("#modalBajaBeneficiarios").modal("show");
   }
 
@@ -159,7 +191,7 @@ export class MantenimientoBenefComponent implements OnInit {
     this_aux.reiniciarInput();
     this_aux.reiniciarValidaciones();
 
-    this_aux.codigoPostal = datosBeneficiario.CodigoPostal; 
+    this_aux.codigoPostal = datosBeneficiario.CodigoPostal;
     this_aux.consultaCodigoPostalSoap(this_aux.codigoPostal);
     this_aux.consecutivoSeleccionado = datosBeneficiario.NumeroConsecutiv;
     this_aux.registroFederal = datosBeneficiario.RegistroFederal;
@@ -168,13 +200,13 @@ export class MantenimientoBenefComponent implements OnInit {
     this_aux.nombreCalle = datosBeneficiario.NombreCalle;
     this_aux.numeroCalle = datosBeneficiario.NumeroCalle;
     this_aux.numeroDepartamento = datosBeneficiario.NumeroDepartamen;
-    this_aux.parentesco = datosBeneficiario.Parentesco;   
+    this_aux.parentesco = datosBeneficiario.Parentesco;
     this_aux.descripcionColonia = datosBeneficiario.DescripcionColonia;
     this_aux.opcion = datosBeneficiario.Opcion;
     this_aux.apellidoPat = datosBeneficiario.ApPaternoBenef;
-    this_aux.apellidoMat = datosBeneficiario.ApMaternoBenef; 
+    this_aux.apellidoMat = datosBeneficiario.ApMaternoBenef;
     if (datosBeneficiario.FisicaMoral === "F") {
-      this_aux.nombreBeneficiario = datosBeneficiario.NombreBeneficia;    
+      this_aux.nombreBeneficiario = datosBeneficiario.NombreBeneficia;
       this_aux.fisicaMoralSeleccionada = "PERSONA FÍSICA";
     }
     if (datosBeneficiario.FisicaMoral === "M") {
@@ -207,7 +239,7 @@ export class MantenimientoBenefComponent implements OnInit {
     const controlCP: FormControl = new FormControl('');
     this_aux.myformCP.setControl('CodPBenef', controlCP);
 
-      
+
   }
   reiniciarInput() {
     const this_aux = this;
@@ -218,7 +250,7 @@ export class MantenimientoBenefComponent implements OnInit {
     this_aux.myform.get('parentescoBenef').setValue('', '');
     this_aux.myform.get('registroFC').setValue('', '');
     this_aux.myformCP.get('CodPBenef').setValue('', '');
-    
+
     this_aux.RFisicaMoralSelecAlta.nativeElement.value = "";
     this_aux.RApellidoMatAlta.nativeElement.value = "";
     this_aux.RPorcentajeAlta.nativeElement.value = "";
@@ -292,14 +324,14 @@ export class MantenimientoBenefComponent implements OnInit {
               value.NuevaFecha = "";
             }
             this_aux.porcentajeGuardado = this_aux.porcentajeGuardado + Number(value.PorcentajeBenef);
-            this_aux.ultimoRegistroGuardado = Number(value.NumeroConsecutiv);          
+            this_aux.ultimoRegistroGuardado = Number(value.NumeroConsecutiv);
           });
           console.log("PORCENTAJE EN CONSULTA: " + this_aux.porcentajeGuardado);
           const stringDatosBen = JSON.stringify(this_aux.DatosJSON);
           this_aux.serviceMantenimiento.datosBeneficiarios = stringDatosBen;
           $('#_modal_please_wait').modal('hide');
         }
-        
+
       },
       function(error) {
         $('#errorModal').modal('show');
@@ -314,7 +346,7 @@ export class MantenimientoBenefComponent implements OnInit {
 
   bajaBeneficiariosView () {
     const this_aux = this;
-    
+
     this_aux.tamRegistrosBenef = --this_aux.tamRegistrosBenef;
     this_aux.BEN.forEach(function(value, index) {
       if (value.NumeroConsecutiv === this_aux.consecutivoSeleccionado) {
@@ -323,11 +355,11 @@ export class MantenimientoBenefComponent implements OnInit {
         }
 
         value.Opcion = 'B';
-        this_aux.porcentajeGuardado = this_aux.porcentajeGuardado - Number(value.PorcentajeBenef); 
+        this_aux.porcentajeGuardado = this_aux.porcentajeGuardado - Number(value.PorcentajeBenef);
         value.PorcentajeBenef = "0";
       }
     });
-    
+
     console.log("PORCENTAJE EN BAJA: " + this_aux.porcentajeGuardado);
   }
 
@@ -343,7 +375,7 @@ export class MantenimientoBenefComponent implements OnInit {
   bajaBeneficiariosSoap(numeroConsecutivoRec) {
     const this_aux = this;
     console.log("adentro BajaBeneficiarios");
-    let respuestaBaja: any; 
+    let respuestaBaja: any;
 
     const THIS: any = this;
 
@@ -366,7 +398,7 @@ export class MantenimientoBenefComponent implements OnInit {
           this_aux.serviceMantenimiento.detalleMantenimiento = stringDetalleMantenimiento;
           this_aux.B = false;
           this_aux.verificaTransacciones();
-          
+
         } else {
           $('#ModalErrorOperacion').modal('show');
         }
@@ -410,7 +442,7 @@ export class MantenimientoBenefComponent implements OnInit {
           'Opcion': 'A',
           'FisicaMoral': 'F',
           'NuevaFecha':  myform1.fechaNacBenef,
-          'NumeroConsecutiv': this_aux.ultimoRegistroGuardado 
+          'NumeroConsecutiv': this_aux.ultimoRegistroGuardado
           });
       } else {
         this_aux.BEN.push({
@@ -438,7 +470,7 @@ export class MantenimientoBenefComponent implements OnInit {
       this_aux.tamRegistrosBenef = this_aux.tamRegistrosBenef + this_aux.contadorAltas;
       console.log('ULTIMOS REGISTROS' + this_aux.ultimoRegistroGuardado);
       this.reiniciarInput();
-      this.reiniciarValidaciones(); 
+      this.reiniciarValidaciones();
   }
 
   altaBeneficiariosSoap() {
@@ -465,11 +497,11 @@ export class MantenimientoBenefComponent implements OnInit {
     });
   }
 
-  capturaDatosAltaBeneficiarioMoral(nomBenRec, fechaFormato,  parenRec, rFcRec, porcenRec, nomCRec, numCRec, 
+  capturaDatosAltaBeneficiarioMoral(nomBenRec, fechaFormato,  parenRec, rFcRec, porcenRec, nomCRec, numCRec,
     numDepRec, descripColoniaRec, codigoPRec, codigoDelRec, descripDelRec, codigoEdoRec, descripEdoRec) {
     const this_aux = this;
     console.log("adentro AltaBeneficiarioMoral");
-  
+
     const THIS: any = this;
 
     let respuestaAlta: any;
@@ -507,7 +539,7 @@ export class MantenimientoBenefComponent implements OnInit {
           this_aux.serviceMantenimiento.detalleMantenimiento = stringDetalleMantenimiento;
           this_aux.A = false;
           this_aux.verificaTransacciones();
-          
+
         } else {
           $('#ModalErrorOperacion').modal('show');
         }
@@ -562,7 +594,7 @@ export class MantenimientoBenefComponent implements OnInit {
           const stringDetalleMantenimiento = JSON.stringify(this_aux.DatosJSON);
           this_aux.serviceMantenimiento.detalleMantenimiento = stringDetalleMantenimiento;
           this_aux.A = false;
-          this_aux.verificaTransacciones();          
+          this_aux.verificaTransacciones();
         } else {
           $('#ModalErrorOperacion').modal('show');
         }
@@ -581,13 +613,13 @@ export class MantenimientoBenefComponent implements OnInit {
     this_aux.fisicaMoralSeleccionada = fisicaRec;
     if (fisicaRec === "1") {
       console.log("Se elimina rfc");
-      const controlrFcMF: FormControl = new FormControl('', 
+      const controlrFcMF: FormControl = new FormControl('',
       Validators.pattern( /^([A-ZÑ&, a-zñ&]{4})(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01]))([A-Z\d, a-z\d]{2})([A\d])$/
         ) );
       this_aux.myform.setControl('registroFC', controlrFcMF);
 
       const controlFisicoAp: FormControl = new FormControl(this_aux.RApellidoPatAlta.nativeElement.value, Validators.required);
-      const controlFisicoFecha: FormControl = new FormControl(this_aux.RFechaNacimientoAlta.nativeElement.value,  [Validators.required, 
+      const controlFisicoFecha: FormControl = new FormControl(this_aux.RFechaNacimientoAlta.nativeElement.value,  [Validators.required,
         Validators.pattern(/^\d{4}\-\d{2}\-\d{2}$/)]);
       const controlFisicoPar: FormControl = new FormControl(this_aux.RParentescoAlta.nativeElement.value, Validators.required);
       this_aux.myform.setControl('apPatBenef', controlFisicoAp);
@@ -602,13 +634,13 @@ export class MantenimientoBenefComponent implements OnInit {
 
       const controlApM: FormControl = new FormControl('');
       const controlFechaM: FormControl = new FormControl('', Validators.pattern(/^\d{4}\-\d{2}\-\d{2}$/));
-      const controlParM: FormControl = new FormControl(this_aux.RParentescoAlta.nativeElement.value);      
+      const controlParM: FormControl = new FormControl(this_aux.RParentescoAlta.nativeElement.value);
       this_aux.myform.setControl('apPatBenef', controlApM);
       this_aux.myform.setControl('fechaNacBenef', controlFechaM);
-      this_aux.myform.setControl('parentescoBenef', controlParM);   
+      this_aux.myform.setControl('parentescoBenef', controlParM);
       this_aux.RApellidoMatAlta.nativeElement.value = "";
     }
-     
+
     const controlNomCalle: FormControl = new FormControl('', Validators.required);
     this_aux.myform.setControl('nomCalleBenef', controlNomCalle);
   }
@@ -620,7 +652,7 @@ export class MantenimientoBenefComponent implements OnInit {
       console.log("Se elimina rfc");
       const nombreBen: FormControl = new FormControl(this_aux.nombreBeneficiario, Validators.required);
       this_aux.myform.setControl('nombreBenef', nombreBen);
-      const controlrFcMF: FormControl = new FormControl(this_aux.registroFederal,        
+      const controlrFcMF: FormControl = new FormControl(this_aux.registroFederal,
         Validators.pattern(/^([A-ZÑ&, a-zñ&]{4})(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01]))([A-Z\d, a-z\d]{2})([A\d])$/
         ) );
       this_aux.myform.setControl('registroFC', controlrFcMF);
@@ -639,11 +671,11 @@ export class MantenimientoBenefComponent implements OnInit {
       this_aux.myform.setControl('nombreBenef', nombreBen);
       const controlrFcMM: FormControl = new FormControl(this_aux.registroFederal, [Validators.required, Validators.pattern(
         /^([A-ZÑ&, a-zñ&]{3})(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01]))([A-Z\d, a-z\d]{2})([A\d])$/
-      )]); 
+      )]);
       this_aux.myform.setControl('registroFC', controlrFcMM);
 
 
-      const controlFisicoFecha: FormControl = new FormControl(this_aux.fechaNacimiento, 
+      const controlFisicoFecha: FormControl = new FormControl(this_aux.fechaNacimiento,
         Validators.pattern(/^\d{4}\-\d{2}\-\d{2}$/));
       this_aux.myform.setControl('fechaNacBenef', controlFisicoFecha);
     }
@@ -721,7 +753,7 @@ export class MantenimientoBenefComponent implements OnInit {
             this_aux.codigoDelegacion = "";
             this.descripcionColonia = "";
           }
-          
+
         } else {
           $('#errorModal').modal('show');
         }
@@ -757,12 +789,12 @@ export class MantenimientoBenefComponent implements OnInit {
       encontrar = this_aux.contadorModificaciones.find(function(element) {
         return element === this_aux.consecutivoSeleccionado;
       });
-  
+
       if (encontrar === undefined) {
         this_aux.contadorModificaciones.push(this_aux.consecutivoSeleccionado);
       }
     }
-    
+
 
     this_aux.BEN.forEach(function(value, key) {
       if (this_aux.consecutivoSeleccionado === value.NumeroConsecutiv) {
@@ -790,7 +822,7 @@ export class MantenimientoBenefComponent implements OnInit {
         }
       }
     });
-    
+
     this.reiniciarInput();
     this.reiniciarValidaciones();
   }
@@ -849,7 +881,7 @@ export class MantenimientoBenefComponent implements OnInit {
             } else {
               razonSocialModif = value.RazonSocial.toUpperCase();
             }
-            
+
             this_aux.modificarBeneficiariosSoap(consecutivoModifi, nombreBeneficiarioModif, apellidoPatModif,
               apellidoMatModif, rFCModif, fisicaMoralModif, razonSocialModif, codigoPostalModif,
               codigoDelegacionModif, codigoEstadoModif, descripcionDelegacionModif, descripcionColoniaModif,
@@ -916,11 +948,11 @@ export class MantenimientoBenefComponent implements OnInit {
           this_aux.serviceMantenimiento.detalleMantenimiento = stringDetalleMantenimiento;
           this_aux.C = false;
           this_aux.verificaTransacciones();
-          
+
         } else {
           $('#ModalErrorOperacion').modal('show');
         }
-        
+
       },
       function(error) {
         THIS.loading = false;
@@ -946,31 +978,31 @@ export class MantenimientoBenefComponent implements OnInit {
       this_aux.porcentajeGuardado = this_aux.porcentajeGuardado + conversion;
     });
     console.log("PORCENTAJE GUARDADO: " + this_aux.porcentajeGuardado);
-    
+
     if (this_aux.sumaPorcentajes(this_aux.porcentajeGuardado) && porcentajeVacio) {
       this._validaNipService.validaNipTrans();
 
       $('#ModalTDDLogin').modal('show');
 
       let res;
-  
+
       this._validaNipService.validarDatosrespuesta().then(
         mensaje => {
-  
+
           res = this._validaNipService.respuestaNip.res;
           console.log(res);
-  
-          if (res === true) {  
+
+          if (res === true) {
             $('#ModalTDDLogin').modal('hide');
             this_aux.verificaServicios();
           } else {
             console.error("Mostrar modal las tarjetas no son iguales");
           }
         }
-      );    
+      );
     } else {
       this_aux.abrirModalPorcentaje();
-    }  
+    }
   }
 
   verificaServicios() {
@@ -985,7 +1017,7 @@ export class MantenimientoBenefComponent implements OnInit {
     }
     if (this_aux.contadorAltas !== 0) {
       this_aux.A = true;
-    } 
+    }
     if (this_aux.arrayBajas.length !== 0) {
       this_aux.B = true;
     }
@@ -995,13 +1027,13 @@ export class MantenimientoBenefComponent implements OnInit {
 
   realizaAccion() {
     const this_aux = this;
-    if ( this_aux.A ) { 
+    if ( this_aux.A ) {
          this_aux.altaBeneficiariosSoap();
     } else {
         if (this_aux.B) {
           this_aux.bajaBeneficiarios();
         } else {
-              
+
           if (this_aux.C) {
              this_aux.guardarCambios();
           }
@@ -1011,7 +1043,7 @@ export class MantenimientoBenefComponent implements OnInit {
 
   verificaTransacciones() {
     const this_aux = this;
-    if ( this_aux.B === false && this_aux.C === false && this_aux.A === false ) {      
+    if ( this_aux.B === false && this_aux.C === false && this_aux.A === false ) {
       $('#_modal_please_wait').modal('show');
       this_aux.router.navigate(['/detalleBeneficiarios']);
 

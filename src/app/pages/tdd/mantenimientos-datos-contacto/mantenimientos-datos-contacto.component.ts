@@ -20,15 +20,30 @@ export class MantenimientosDatosContactoComponent implements OnInit {
   IsControlCelular = false;
   showCorreoError = false;
   showCelularError = false;
-  
+
   constructor(private router: Router, private fb: FormBuilder, private _serviceSesion: SesionTDDService) {
-    this.myForm = this.fb.group({ 
+    this.myForm = this.fb.group({
       fcCorreo: [],
       fcCelular: []
     });
    }
 
   ngOnInit() {
+
+    //ESTILOS Preferente
+    let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
+    let btnGuardar = document.getElementById("guardar");
+    let btnSalir = document.getElementById("salir");
+
+    if (storageTipoClienteTar === "true") {
+
+      btnGuardar.classList.remove("color-botones");
+      btnGuardar.classList.add("color-botones_Preferente");
+      btnSalir.classList.remove("color-botones");
+      btnSalir.classList.add("color-botones_Preferente");
+    }
+
+
     const this_aux = this;
     $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
     this.getDatosContacto();
@@ -39,14 +54,14 @@ export class MantenimientosDatosContactoComponent implements OnInit {
     const operaciones: consultaCatalogos = new consultaCatalogos();
     operaciones.consultarDatosContacto().then(
       function(respPago) {
-  
+
         const jsonRespuesta = respPago.responseJSON;
         if (jsonRespuesta.Id === '1') {
          console.log(respPago.responseText);
          this_aux._serviceSesion.datosBreadCroms.CelCliente = jsonRespuesta.Email;
          this_aux._serviceSesion.datosBreadCroms.EmailCliente = jsonRespuesta.Telefono;
           console.log("Consulta de Datos Exitosa");
-          
+
         } else {
           this_aux.showErrorSucces(jsonRespuesta);
           this._serviceSesion.datosBreadCroms.CelCliente = "";
@@ -61,14 +76,14 @@ export class MantenimientosDatosContactoComponent implements OnInit {
     const this_aux = this;
 
     this_aux.consultarDatos();
-    setTimeout(function() { 
-      
+    setTimeout(function() {
+
       const controlCorreo: FormControl = new FormControl(this_aux._serviceSesion.datosBreadCroms.CelCliente);
       this_aux.myForm.setControl('fcCorreo', controlCorreo );
       const controlCelular: FormControl = new FormControl( this_aux._serviceSesion.datosBreadCroms.EmailCliente);
       this_aux.myForm.setControl('fcCelular', controlCelular );
     }, 500);
-    
+
   }
 
   modificarDatos(correo , celular) {
@@ -82,7 +97,7 @@ export class MantenimientosDatosContactoComponent implements OnInit {
     console.log(correo + "   " + celular);
     operaciones.actualizaDatosContacto(correo, celular).then(
         function(resp) {
-    
+
           const jsonRespuesta = resp.responseJSON;
           if (jsonRespuesta.Id === '1') {
            console.log(resp.responseText);
@@ -95,7 +110,7 @@ export class MantenimientosDatosContactoComponent implements OnInit {
           }
         }, function(error) { this_aux.showErrorPromise(error); }
       );
-    
+
   }
 
   irMenuTDD() {
@@ -105,9 +120,9 @@ export class MantenimientosDatosContactoComponent implements OnInit {
 
 
   showErrorSucces(json) {
-    setTimeout(function() { 
+    setTimeout(function() {
       console.log(json.Id + json.MensajeAUsuario);
-      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
       $('#_modal_please_wait').modal('hide');
       $('#errorModal').modal('show');
     }, 500);
@@ -129,13 +144,13 @@ export class MantenimientosDatosContactoComponent implements OnInit {
 
   ErrorPatternCorreo(status) {
     const this_aux = this;
-    if (status === 'show') {this_aux.showCorreoError = true; 
+    if (status === 'show') {this_aux.showCorreoError = true;
     } else { this_aux.showCorreoError = false;    }
   }
 
   ErrorPatternCelular(status) {
     const this_aux = this;
-    if (status === 'show') {this_aux.showCelularError = true; 
+    if (status === 'show') {this_aux.showCelularError = true;
     } else { this_aux.showCelularError = false;    }
   }
 
@@ -159,4 +174,3 @@ export class MantenimientosDatosContactoComponent implements OnInit {
 
 
 }
-

@@ -20,13 +20,13 @@
                             <tr>
                                 <td align="left" width="40%">Nombre <strong>
                                             <label>
-                                                {{ nombreUsuarioTdd }} 
+                                                {{ nombreUsuarioTdd }}
                                             </label>
                                     </strong>
                                 </td>
                                 <td align="left" width="40%">
                                     <strong>
-                                                <label>{{ saldoClienteTdd | currency }}</label> 
+                                                <label>{{ saldoClienteTdd | currency }}</label>
                                     </strong>
                                 </td>
                             </tr>
@@ -102,7 +102,7 @@
                     <button class="btn btn-lg" [routerLink]="['/menuTdd']">Regresar</button>
                 </div>
                 <div class="col-lg-1">
-                    <button [disabled]="!forma.valid" class="btn btn-danger btn-lg pull-left" type="submit" data-toggle="modal" data-target="#confirmModal">Continuar</button>
+                    <button id="continuar" [disabled]="!forma.valid" class="btn color-botones btn-lg pull-left" type="submit" data-toggle="modal" data-target="#confirmModal">Continuar</button>
                 </div>
             </div>
         </form>
@@ -133,7 +133,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger btn-lg" (click)="transTercero()" data-dismiss="modal">Confirmar</button>
+                    <button id="confirmar" type="button" class="btn color-botones btn-lg" (click)="transTercero()" data-dismiss="modal">Confirmar</button>
                 </div>
             </div>
         </div>

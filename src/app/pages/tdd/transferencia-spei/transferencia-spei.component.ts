@@ -80,6 +80,20 @@ export class TransferenciaSpeiComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    //ESTILOS Preferente
+    let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
+    let btnContinuar = document.getElementById("continuarspei");
+    let btnContinuar2 = document.getElementById("continuar");
+
+    if (storageTipoClienteTar === "true") {
+
+      btnContinuar.classList.remove("color-botones");
+      btnContinuar.classList.add("color-botones_Preferente");
+      btnContinuar2.classList.remove("color-botones");
+      btnContinuar2.classList.add("color-botones_Preferente");
+    }
+
     $(".cdk-visually-hidden").css("margin-top", "5%");
   }
 

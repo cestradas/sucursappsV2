@@ -16,7 +16,7 @@ declare var $: any;
   styles: []
 })
 export class ImpresionEdcTddComponent implements OnInit {
-  
+
   @ViewChild("listaCuentas", { read: ElementRef })
   listaCuentas: ElementRef;
   @ViewChild("calendario", { read: ElementRef })
@@ -103,11 +103,33 @@ export class ImpresionEdcTddComponent implements OnInit {
         this_aux.numeroCuentaTitular = '0100000034';
         this_aux.mantenimientoEDC();
       }
-    ); 
+    );
     setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
   }
 
   ngOnInit() {
+
+    //ESTILOS Preferente
+    let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
+
+    let btnSalir = document.getElementById("salir");
+    let btnSalir2 = document.getElementById("salir2");
+    let btnSalir3 = document.getElementById("salir3");
+    let btnCorreo = document.getElementById("correo");
+
+
+    if (storageTipoClienteTar === "true") {
+
+      btnSalir.classList.remove("color-botones");
+      btnSalir.classList.add("color-botones_Preferente");
+      btnSalir2.classList.remove("color-botones");
+      btnSalir2.classList.add("color-botones_Preferente");
+      btnSalir3.classList.remove("color-botones");
+      btnSalir3.classList.add("color-botones_Preferente");
+      btnCorreo.classList.remove("color-botones");
+      btnCorreo.classList.add("color-botones_Preferente");
+    }
+
   }
 
   mantenimientoEDC() {
@@ -131,13 +153,13 @@ export class ImpresionEdcTddComponent implements OnInit {
         this_aux.obtenerListaDocs();
         $('#_modal_please_wait').modal('hide');
       },
-      function(error) {        
+      function(error) {
         console.log("Error en el mantenimiento EDC");
         $('#_modal_please_wait').modal('hide');
         $("#errorModal").modal("show");
       }
     );
-    console.log("Salió de Response mantenimiento EDC");   
+    console.log("Salió de Response mantenimiento EDC");
 
   }
 
@@ -163,18 +185,18 @@ export class ImpresionEdcTddComponent implements OnInit {
         this_aux.obj = JSON.parse(this_aux.fechas);
 
         for (let i = 0 ; i < res.length; i++) {
-           
-          
+
+
           let temp = res[i].Fecha.split("-");
           let tempCtaDoc = res[i].Documento;
           let fechaDoc = res[i].FechaObtenerDoc;
 
           for (let k = 0; k < temp.length; k++) {
-  
+
             if ( k === 0 || k === 1 || k === 2 ) {
 
               let strA = temp[k];
-              
+
               let strM = temp[k + 1];
               if ( strM === "01") {strM = "Enero"; }
               if ( strM === "02") {strM = "Febrero"; }
@@ -188,9 +210,9 @@ export class ImpresionEdcTddComponent implements OnInit {
               if ( strM === "10") {strM = "Octubre"; }
               if ( strM === "11") {strM = "Noviembre"; }
               if ( strM === "12") {strM = "Diciembre"; }
-              
+
               let strD = temp[k + 2];
-              
+
 
               this_aux.obj['fechas'].push({
                 "Anio" : strA,
@@ -201,12 +223,12 @@ export class ImpresionEdcTddComponent implements OnInit {
               });
               break;
             }
-          }  
+          }
        }
           // remover todos hijos del contenedor de los calendarios antes de insertar
        $("#calendario").empty();
        $("#calendario2").empty();
-       
+
 
        let cont = 0;
        let contFechas = this_aux.obj.fechas.length - 1;
@@ -214,41 +236,41 @@ export class ImpresionEdcTddComponent implements OnInit {
        let objCalendario1 = document.getElementById('calendario');
        let objCalendario2 = document.getElementById('calendario2');
        // let domString = '<div class="container"><span class="intro">Hello</span> <span id="name"> World!</span></div>';
-       
+
        // validar que existan **********
        // if (existe) {
        // let getItenCal = document.getElementById('Itemcalendario0');
        // objCalendario1.removeChild(getItenCal);
        // }
-      
+
 
        for (let i = res.length; i--;) {
 
         // if ( (res.length <= 12) && (res.length >= 7)) {
-         
+
           if ( cont <= 5) {
 
 
             // $("#calendario").append(
             //  this.calendario.nativeElement.insertAdjacentHTML(
-            //    this.renderer.invokeElementMethod(this.calendario.nativeElement.insertAdjacentHTML('beforeend', 
+            //    this.renderer.invokeElementMethod(this.calendario.nativeElement.insertAdjacentHTML('beforeend',
             // this.htmlToAdd =
             // this.calendario.insert(
-              let domContent = '<div value ="' + this_aux.obj['fechas'][contFechas].Documento + '"' + 'id="' + 'Itemcalendario' + 
+              let domContent = '<div value ="' + this_aux.obj['fechas'][contFechas].Documento + '"' + 'id="' + 'Itemcalendario' +
               cont + '"' + ' class="kiosk-cec-carousel-item estilo-item-calendar" >' +
-              '<div value ="' + this_aux.obj['fechas'][contFechas].FechaDoc + '"' + 'id="' + 'ItemcalendarioDoc' + 
+              '<div value ="' + this_aux.obj['fechas'][contFechas].FechaDoc + '"' + 'id="' + 'ItemcalendarioDoc' +
               cont + '"' + ' class="row no-space">' +
                   '<div class="col-xs-6">' +
                       '<div class="bg-grey-600 white vertical-align height-200 fondo-calendar" >' +
                           '<div class="vertical-align-middle">' +
-                              '<span class="icon-calendar size-icon-calendar" align="center" >' + 
+                              '<span class="icon-calendar size-icon-calendar" align="center" >' +
                               this_aux.obj['fechas'][contFechas].Dia + '</span>' +
                           '</div>' +
                       '</div>' +
                   '</div>' +
                   '<div class="col-xs-6">' +
                       '<div class="height-200 item-red-middle">' +
-                          '<span class="font-size-30 size-fecha-calendar" >' + this_aux.obj['fechas'][contFechas].Mes + ' ' 
+                          '<span class="font-size-30 size-fecha-calendar" >' + this_aux.obj['fechas'][contFechas].Mes + ' '
                           + this_aux.obj['fechas'][contFechas].Anio + '</span>' +
                       '</div>' +
                   '</div>' +
@@ -261,13 +283,13 @@ export class ImpresionEdcTddComponent implements OnInit {
       //      console.log(event.target);
       //      console.log(this.id);
       //    });
-          objCalendario1.appendChild(creaElement.firstChild); 
-         //  document.body.appendChild(creaElement.firstChild); 
+          objCalendario1.appendChild(creaElement.firstChild);
+         //  document.body.appendChild(creaElement.firstChild);
          // objTo.appendChild(this_aux.calendario.nativeElement);
 
             contFechas --;
-          
-            
+
+
         }
 
         cont ++;
@@ -286,7 +308,7 @@ export class ImpresionEdcTddComponent implements OnInit {
 
       elementoCal0.addEventListener("click", function(event) {
         console.log(this.id);
-        if ( ((this_aux.Valida_Seleccion_Calendario0 === 0) || (this_aux.Valida_Seleccion_Calendario0 === 1)) 
+        if ( ((this_aux.Valida_Seleccion_Calendario0 === 0) || (this_aux.Valida_Seleccion_Calendario0 === 1))
             && (this_aux.Valida_Seleccion_Calendario1 === 0)
             && (this_aux.Valida_Seleccion_Calendario2 === 0)
             && (this_aux.Valida_Seleccion_Calendario3 === 0)
@@ -299,13 +321,13 @@ export class ImpresionEdcTddComponent implements OnInit {
             && (this_aux.Valida_Seleccion_Calendario10 === 0)
             && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
 
-              this_aux.clickCal0(); 
+              this_aux.clickCal0();
             }
-        
+
       });
       elementoCal1.addEventListener("click", function(event) {
         console.log(this.id);
-        if ( ((this_aux.Valida_Seleccion_Calendario1 === 0) || (this_aux.Valida_Seleccion_Calendario1 === 1)) 
+        if ( ((this_aux.Valida_Seleccion_Calendario1 === 0) || (this_aux.Valida_Seleccion_Calendario1 === 1))
             && (this_aux.Valida_Seleccion_Calendario0 === 0)
             && (this_aux.Valida_Seleccion_Calendario2 === 0)
             && (this_aux.Valida_Seleccion_Calendario3 === 0)
@@ -317,12 +339,12 @@ export class ImpresionEdcTddComponent implements OnInit {
             && (this_aux.Valida_Seleccion_Calendario9 === 0)
             && (this_aux.Valida_Seleccion_Calendario10 === 0)
             && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-              this_aux.clickCal1(); 
+              this_aux.clickCal1();
             }
       });
       elementoCal2.addEventListener("click", function(event) {
         console.log(this.id);
-        if ( ((this_aux.Valida_Seleccion_Calendario2 === 0) || (this_aux.Valida_Seleccion_Calendario2 === 1)) 
+        if ( ((this_aux.Valida_Seleccion_Calendario2 === 0) || (this_aux.Valida_Seleccion_Calendario2 === 1))
             && (this_aux.Valida_Seleccion_Calendario0 === 0)
             && (this_aux.Valida_Seleccion_Calendario1 === 0)
             && (this_aux.Valida_Seleccion_Calendario3 === 0)
@@ -334,12 +356,12 @@ export class ImpresionEdcTddComponent implements OnInit {
             && (this_aux.Valida_Seleccion_Calendario9 === 0)
             && (this_aux.Valida_Seleccion_Calendario10 === 0)
             && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-                this_aux.clickCal2(); 
+                this_aux.clickCal2();
             }
       });
       elementoCal3.addEventListener("click", function(event) {
         console.log(this.id);
-        if ( ((this_aux.Valida_Seleccion_Calendario3 === 0) || (this_aux.Valida_Seleccion_Calendario3 === 1)) 
+        if ( ((this_aux.Valida_Seleccion_Calendario3 === 0) || (this_aux.Valida_Seleccion_Calendario3 === 1))
         && (this_aux.Valida_Seleccion_Calendario0 === 0)
         && (this_aux.Valida_Seleccion_Calendario1 === 0)
         && (this_aux.Valida_Seleccion_Calendario2 === 0)
@@ -351,12 +373,12 @@ export class ImpresionEdcTddComponent implements OnInit {
         && (this_aux.Valida_Seleccion_Calendario9 === 0)
         && (this_aux.Valida_Seleccion_Calendario10 === 0)
         && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-          this_aux.clickCal3(); 
+          this_aux.clickCal3();
         }
       });
       elementoCal4.addEventListener("click", function(event) {
         console.log(this.id);
-        if ( ((this_aux.Valida_Seleccion_Calendario4 === 0) || (this_aux.Valida_Seleccion_Calendario4 === 1)) 
+        if ( ((this_aux.Valida_Seleccion_Calendario4 === 0) || (this_aux.Valida_Seleccion_Calendario4 === 1))
         && (this_aux.Valida_Seleccion_Calendario0 === 0)
         && (this_aux.Valida_Seleccion_Calendario1 === 0)
         && (this_aux.Valida_Seleccion_Calendario2 === 0)
@@ -368,12 +390,12 @@ export class ImpresionEdcTddComponent implements OnInit {
         && (this_aux.Valida_Seleccion_Calendario9 === 0)
         && (this_aux.Valida_Seleccion_Calendario10 === 0)
         && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-          this_aux.clickCal4(); 
+          this_aux.clickCal4();
         }
       });
       elementoCal5.addEventListener("click", function(event) {
         console.log(this.id);
-        if ( ((this_aux.Valida_Seleccion_Calendario5 === 0) || (this_aux.Valida_Seleccion_Calendario5 === 1)) 
+        if ( ((this_aux.Valida_Seleccion_Calendario5 === 0) || (this_aux.Valida_Seleccion_Calendario5 === 1))
         && (this_aux.Valida_Seleccion_Calendario0 === 0)
         && (this_aux.Valida_Seleccion_Calendario1 === 0)
         && (this_aux.Valida_Seleccion_Calendario2 === 0)
@@ -385,37 +407,37 @@ export class ImpresionEdcTddComponent implements OnInit {
         && (this_aux.Valida_Seleccion_Calendario9 === 0)
         && (this_aux.Valida_Seleccion_Calendario10 === 0)
         && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-          this_aux.clickCal5(); 
+          this_aux.clickCal5();
         }
       });
 
        for (let i = res.length; i--;) {
 
         // if ( (res.length <= 12) && (res.length >= 7)) {
-         
+
           if ( cont >= 6) {
 
 
             // $("#calendario").append(
             //  this.calendario.nativeElement.insertAdjacentHTML(
-            //    this.renderer.invokeElementMethod(this.calendario.nativeElement.insertAdjacentHTML('beforeend', 
+            //    this.renderer.invokeElementMethod(this.calendario.nativeElement.insertAdjacentHTML('beforeend',
             // this.htmlToAdd =
             // this.calendario.insert(
               let domContent2 = '<div value ="' + this_aux.obj['fechas'][contFechas].Documento + '"' + 'id="' +
               'Itemcalendario' + cont + '"' + ' class="kiosk-cec-carousel-item estilo-item-calendar" >' +
-              '<div value ="'  + this_aux.obj['fechas'][contFechas].FechaDoc + '"' + 'id="' + 'ItemcalendarioDoc' + cont + '"' + 
+              '<div value ="'  + this_aux.obj['fechas'][contFechas].FechaDoc + '"' + 'id="' + 'ItemcalendarioDoc' + cont + '"' +
               ' class="row no-space">' +
                   '<div class="col-xs-6">' +
                       '<div class="bg-grey-600 white vertical-align height-200 fondo-calendar" >' +
                           '<div class="vertical-align-middle">' +
-                              '<span class="icon-calendar size-icon-calendar" align="center" >' + 
+                              '<span class="icon-calendar size-icon-calendar" align="center" >' +
                               this_aux.obj['fechas'][contFechas].Dia + '</span>' +
                           '</div>' +
                       '</div>' +
                   '</div>' +
                   '<div class="col-xs-6">' +
                       '<div class="height-200 item-red-middle">' +
-                          '<span class="font-size-30 size-fecha-calendar" >' + this_aux.obj['fechas'][contFechas].Mes  + ' ' +  
+                          '<span class="font-size-30 size-fecha-calendar" >' + this_aux.obj['fechas'][contFechas].Mes  + ' ' +
                           this_aux.obj['fechas'][contFechas].Anio + '</span>' +
                       '</div>' +
                   '</div>' +
@@ -424,13 +446,13 @@ export class ImpresionEdcTddComponent implements OnInit {
           '</div>' ;
 
           creaElement.innerHTML = domContent2;
-          objCalendario2.appendChild(creaElement.firstChild); 
-         //  document.body.appendChild(creaElement.firstChild); 
+          objCalendario2.appendChild(creaElement.firstChild);
+         //  document.body.appendChild(creaElement.firstChild);
          // objTo.appendChild(this_aux.calendario.nativeElement);
 
             contFechas --;
-          
-            
+
+
         }
 
         cont ++;
@@ -450,8 +472,8 @@ export class ImpresionEdcTddComponent implements OnInit {
 
       elementoCal6.addEventListener("click", function(event) {
         console.log(this.id);
-        if ( ((this_aux.Valida_Seleccion_Calendario6 === 0) || (this_aux.Valida_Seleccion_Calendario6 === 1)) 
-            && (this_aux.Valida_Seleccion_Calendario0 === 0)    
+        if ( ((this_aux.Valida_Seleccion_Calendario6 === 0) || (this_aux.Valida_Seleccion_Calendario6 === 1))
+            && (this_aux.Valida_Seleccion_Calendario0 === 0)
             && (this_aux.Valida_Seleccion_Calendario1 === 0)
             && (this_aux.Valida_Seleccion_Calendario2 === 0)
             && (this_aux.Valida_Seleccion_Calendario3 === 0)
@@ -463,15 +485,15 @@ export class ImpresionEdcTddComponent implements OnInit {
             && (this_aux.Valida_Seleccion_Calendario10 === 0)
             && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
 
-              this_aux.clickCal6(); 
+              this_aux.clickCal6();
             }
-        
+
       });
 
       elementoCal7.addEventListener("click", function(event) {
         console.log(this.id);
-        if ( ((this_aux.Valida_Seleccion_Calendario7 === 0) || (this_aux.Valida_Seleccion_Calendario7 === 1)) 
-            && (this_aux.Valida_Seleccion_Calendario0 === 0)    
+        if ( ((this_aux.Valida_Seleccion_Calendario7 === 0) || (this_aux.Valida_Seleccion_Calendario7 === 1))
+            && (this_aux.Valida_Seleccion_Calendario0 === 0)
             && (this_aux.Valida_Seleccion_Calendario1 === 0)
             && (this_aux.Valida_Seleccion_Calendario2 === 0)
             && (this_aux.Valida_Seleccion_Calendario3 === 0)
@@ -483,15 +505,15 @@ export class ImpresionEdcTddComponent implements OnInit {
             && (this_aux.Valida_Seleccion_Calendario10 === 0)
             && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
 
-              this_aux.clickCal7(); 
+              this_aux.clickCal7();
             }
-        
+
       });
 
       elementoCal8.addEventListener("click", function(event) {
         console.log(this.id);
-        if ( ((this_aux.Valida_Seleccion_Calendario8 === 0) || (this_aux.Valida_Seleccion_Calendario8 === 1)) 
-            && (this_aux.Valida_Seleccion_Calendario0 === 0)    
+        if ( ((this_aux.Valida_Seleccion_Calendario8 === 0) || (this_aux.Valida_Seleccion_Calendario8 === 1))
+            && (this_aux.Valida_Seleccion_Calendario0 === 0)
             && (this_aux.Valida_Seleccion_Calendario1 === 0)
             && (this_aux.Valida_Seleccion_Calendario2 === 0)
             && (this_aux.Valida_Seleccion_Calendario3 === 0)
@@ -503,15 +525,15 @@ export class ImpresionEdcTddComponent implements OnInit {
             && (this_aux.Valida_Seleccion_Calendario10 === 0)
             && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
 
-              this_aux.clickCal8(); 
+              this_aux.clickCal8();
             }
-        
+
       });
 
       elementoCal9.addEventListener("click", function(event) {
         console.log(this.id);
-        if ( ((this_aux.Valida_Seleccion_Calendario9 === 0) || (this_aux.Valida_Seleccion_Calendario9 === 1)) 
-            && (this_aux.Valida_Seleccion_Calendario0 === 0)    
+        if ( ((this_aux.Valida_Seleccion_Calendario9 === 0) || (this_aux.Valida_Seleccion_Calendario9 === 1))
+            && (this_aux.Valida_Seleccion_Calendario0 === 0)
             && (this_aux.Valida_Seleccion_Calendario1 === 0)
             && (this_aux.Valida_Seleccion_Calendario2 === 0)
             && (this_aux.Valida_Seleccion_Calendario3 === 0)
@@ -523,15 +545,15 @@ export class ImpresionEdcTddComponent implements OnInit {
             && (this_aux.Valida_Seleccion_Calendario10 === 0)
             && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
 
-              this_aux.clickCal9(); 
+              this_aux.clickCal9();
             }
-        
+
       });
 
       elementoCal10.addEventListener("click", function(event) {
         console.log(this.id);
-        if ( ((this_aux.Valida_Seleccion_Calendario10 === 0) || (this_aux.Valida_Seleccion_Calendario10 === 1)) 
-            && (this_aux.Valida_Seleccion_Calendario0 === 0)    
+        if ( ((this_aux.Valida_Seleccion_Calendario10 === 0) || (this_aux.Valida_Seleccion_Calendario10 === 1))
+            && (this_aux.Valida_Seleccion_Calendario0 === 0)
             && (this_aux.Valida_Seleccion_Calendario1 === 0)
             && (this_aux.Valida_Seleccion_Calendario2 === 0)
             && (this_aux.Valida_Seleccion_Calendario3 === 0)
@@ -543,15 +565,15 @@ export class ImpresionEdcTddComponent implements OnInit {
             && (this_aux.Valida_Seleccion_Calendario9 === 0)
             && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
 
-              this_aux.clickCal10(); 
+              this_aux.clickCal10();
             }
-        
+
       });
 
       elementoCal11.addEventListener("click", function(event) {
         console.log(this.id);
-        if ( ((this_aux.Valida_Seleccion_Calendario11 === 0) || (this_aux.Valida_Seleccion_Calendario11 === 1)) 
-            && (this_aux.Valida_Seleccion_Calendario0 === 0)    
+        if ( ((this_aux.Valida_Seleccion_Calendario11 === 0) || (this_aux.Valida_Seleccion_Calendario11 === 1))
+            && (this_aux.Valida_Seleccion_Calendario0 === 0)
             && (this_aux.Valida_Seleccion_Calendario1 === 0)
             && (this_aux.Valida_Seleccion_Calendario2 === 0)
             && (this_aux.Valida_Seleccion_Calendario3 === 0)
@@ -563,11 +585,11 @@ export class ImpresionEdcTddComponent implements OnInit {
             && (this_aux.Valida_Seleccion_Calendario9 === 0)
             && (this_aux.Valida_Seleccion_Calendario10 === 0)) {
 
-              this_aux.clickCal11(); 
+              this_aux.clickCal11();
             }
-        
+
       });
-       
+
 
        console.log(this_aux.obj['fechas']);
        $('#_modal_please_wait').modal('hide');
@@ -575,9 +597,9 @@ export class ImpresionEdcTddComponent implements OnInit {
         function(error) {
 
           console.error("Error");
-     
+
           $('#errorModal').modal('show');
-          
+
 
         });
   }
@@ -596,7 +618,7 @@ export class ImpresionEdcTddComponent implements OnInit {
     this.cuadroCalendario = $("#Itemcalendario0");
     this.cuadroCalendario.css({
       'opacity': '.5'
-    });	
+    });
     this.palomita0 = $("#palomita0");
     this.palomita0.css({
     'visibility': 'visible',
@@ -610,7 +632,7 @@ export class ImpresionEdcTddComponent implements OnInit {
     'background-image': 'url(images/check2.png)',
     'background-repeat': 'no-repeat',
     'display': 'inline-block'
-    });	
+    });
 
    console.log("b6: " + this.bandera0);
 } else {
@@ -621,11 +643,11 @@ export class ImpresionEdcTddComponent implements OnInit {
   this.Valida_Seleccion_Calendario0 --;
   this.cuadroCalendario = $("#Itemcalendario0");
   this.cuadroCalendario.css({
-      'opacity' : '10'    
-  });	
+      'opacity' : '10'
+  });
   this.palomita0 = $("#palomita0");
   this.palomita0.css({
-      
+
       'visibility' : 'hidden'
   });
   // palomita.remove();
@@ -648,10 +670,10 @@ clickCal1() {
     this.cuadroCalendario = $("#Itemcalendario1");
     this.cuadroCalendario.css({
       'opacity': '.5'
-    });	
+    });
     this.palomita1 = $("#palomita1");
     this.palomita1.css({
-      
+
     'visibility': 'visible',
     'opacity': '10',
       'position': 'absolute',
@@ -663,9 +685,9 @@ clickCal1() {
       'background-image': 'url(images/check2.png)',
       'background-repeat': 'no-repeat',
       'display': 'inline-block'
-    
-    });	
-    
+
+    });
+
     } else {
     this.numDocumento = "";
     this.fechaCorteDoc = "";
@@ -673,11 +695,11 @@ clickCal1() {
     this.Valida_Seleccion_Calendario1 --;
     this.cuadroCalendario = $("#Itemcalendario1");
     this.cuadroCalendario.css({
-      'opacity': '10'    
-    });	
+      'opacity': '10'
+    });
     this.palomita1 = $("#palomita1");
     this.palomita1.css({
-      
+
       'visibility': 'hidden'
     });
     }
@@ -697,10 +719,10 @@ clickCal2() {
     this.cuadroCalendario = $("#Itemcalendario2");
     this.cuadroCalendario.css({
       'opacity': '.5'
-    });	
+    });
     this.palomita2 = $("#palomita2");
     this.palomita2.css({
-    
+
     'visibility': 'visible',
     'opacity': '10',
     'position': 'absolute',
@@ -712,9 +734,9 @@ clickCal2() {
     'background-image': 'url(images/check2.png)',
     'background-repeat': 'no-repeat',
     'display': 'inline-block'
-    
-    });	
-    
+
+    });
+
     } else {
     this.numDocumento = "";
     this.fechaCorteDoc = "";
@@ -722,11 +744,11 @@ clickCal2() {
     this.Valida_Seleccion_Calendario2 --;
     this.cuadroCalendario = $("#Itemcalendario2");
     this.cuadroCalendario.css({
-    'opacity': '10'    
-    });	
+    'opacity': '10'
+    });
     this.palomita2 = $("#palomita2");
     this.palomita2.css({
-    
+
     'visibility': 'hidden'
     });
     }
@@ -746,10 +768,10 @@ clickCal3() {
     this.cuadroCalendario = $("#Itemcalendario3");
     this.cuadroCalendario.css({
       'opacity': '.5'
-    });	
+    });
     this.palomita3 = $("#palomita3");
     this.palomita3.css({
-    
+
     'visibility': 'visible',
     'opacity': '10',
     'position': 'absolute',
@@ -761,9 +783,9 @@ clickCal3() {
     'background-image': 'url(images/check2.png)',
     'background-repeat': 'no-repeat',
     'display': 'inline-block'
-    
-    });	
-    
+
+    });
+
     } else {
     this.numDocumento =  "";
     this.fechaCorteDoc = "";
@@ -771,11 +793,11 @@ clickCal3() {
     this.Valida_Seleccion_Calendario3 --;
     this.cuadroCalendario = $("#Itemcalendario3");
     this.cuadroCalendario.css({
-    'opacity': '10'    
-    });	
+    'opacity': '10'
+    });
     this.palomita3 = $("#palomita3");
     this.palomita3.css({
-    
+
     'visibility': 'hidden'
     });
     }
@@ -796,10 +818,10 @@ clickCal4() {
     this.cuadroCalendario = $("#Itemcalendario4");
     this.cuadroCalendario.css({
       'opacity': '.5'
-    });	
+    });
     this.palomita4 = $("#palomita4");
     this.palomita4.css({
-    
+
     'visibility': 'visible',
     'opacity': '10',
     'position': 'absolute',
@@ -811,9 +833,9 @@ clickCal4() {
     'background-image': 'url(images/check2.png)',
     'background-repeat': 'no-repeat',
     'display': 'inline-block'
-    
-    });	
-    
+
+    });
+
     } else {
     this.numDocumento =  "";
     this.fechaCorteDoc = "";
@@ -821,11 +843,11 @@ clickCal4() {
     this.Valida_Seleccion_Calendario4 --;
     this.cuadroCalendario = $("#Itemcalendario4");
     this.cuadroCalendario.css({
-    'opacity': '10'    
-    });	
+    'opacity': '10'
+    });
     this.palomita4 = $("#palomita4");
     this.palomita4.css({
-    
+
     'visibility': 'hidden'
     });
     }
@@ -845,10 +867,10 @@ clickCal5() {
     this.cuadroCalendario = $("#Itemcalendario5");
     this.cuadroCalendario.css({
       'opacity': '.5'
-    });	
+    });
     this.palomita5 = $("#palomita5");
     this.palomita5.css({
-    
+
     'visibility': 'visible',
     'opacity': '10',
     'position': 'absolute',
@@ -860,9 +882,9 @@ clickCal5() {
     'background-image': 'url(images/check2.png)',
     'background-repeat': 'no-repeat',
     'display': 'inline-block'
-    
-    });	
-    
+
+    });
+
     } else {
     this.numDocumento = "";
     this.fechaCorteDoc = "";
@@ -870,11 +892,11 @@ clickCal5() {
     this.Valida_Seleccion_Calendario5 --;
     this.cuadroCalendario = $("#Itemcalendario5");
     this.cuadroCalendario.css({
-    'opacity': '10'    
-    });	
+    'opacity': '10'
+    });
     this.palomita5 = $("#palomita5");
     this.palomita5.css({
-    
+
     'visibility': 'hidden'
     });
     }
@@ -894,10 +916,10 @@ clickCal6() {
     this.cuadroCalendario = $("#Itemcalendario6");
     this.cuadroCalendario.css({
       'opacity': '.5'
-    });	
+    });
     this.palomita6 = $("#palomita6");
     this.palomita6.css({
-    
+
     'visibility': 'visible',
     'opacity': '10',
     'position': 'absolute',
@@ -909,9 +931,9 @@ clickCal6() {
     'background-image': 'url(images/check2.png)',
     'background-repeat': 'no-repeat',
     'display': 'inline-block'
-    
-    });	
-    
+
+    });
+
     } else {
     this.numDocumento = "";
     this.fechaCorteDoc = "";
@@ -919,11 +941,11 @@ clickCal6() {
     this.Valida_Seleccion_Calendario6 --;
     this.cuadroCalendario = $("#Itemcalendario6");
     this.cuadroCalendario.css({
-    'opacity': '10'    
-    });	
+    'opacity': '10'
+    });
     this.palomita6 = $("#palomita6");
     this.palomita6.css({
-    
+
     'visibility': 'hidden'
     });
     }
@@ -943,10 +965,10 @@ clickCal7() {
     this.cuadroCalendario = $("#Itemcalendario7");
     this.cuadroCalendario.css({
       'opacity': '.5'
-    });	
+    });
     this.palomita7 = $("#palomita7");
     this.palomita7.css({
-  
+
   'visibility': 'visible',
   'opacity': '10',
   'position': 'absolute',
@@ -958,9 +980,9 @@ clickCal7() {
   'background-image': 'url(images/check2.png)',
   'background-repeat': 'no-repeat',
   'display': 'inline-block'
-  
-  });	
-  
+
+  });
+
   } else {
   this.numDocumento =  "";
   this.fechaCorteDoc = "";
@@ -968,11 +990,11 @@ clickCal7() {
   this.Valida_Seleccion_Calendario7 --;
   this.cuadroCalendario = $("#Itemcalendario7");
   this.cuadroCalendario.css({
-  'opacity': '10'    
-  });	
+  'opacity': '10'
+  });
   this.palomita7 = $("#palomita7");
   this.palomita7.css({
-  
+
   'visibility': 'hidden'
   });
   }
@@ -992,10 +1014,10 @@ clickCal8() {
     this.cuadroCalendario = $("#Itemcalendario8");
     this.cuadroCalendario.css({
       'opacity': '.5'
-    });	
+    });
     this.palomita8 = $("#palomita8");
     this.palomita8.css({
-    
+
     'visibility': 'visible',
     'opacity': '10',
     'position': 'absolute',
@@ -1007,8 +1029,8 @@ clickCal8() {
     'background-image': 'url(images/check2.png)',
     'background-repeat': 'no-repeat',
     'display': 'inline-block'
-    
-    });	
+
+    });
 
     } else {
     this.numDocumento = "";
@@ -1017,11 +1039,11 @@ clickCal8() {
     this.Valida_Seleccion_Calendario8 --;
     this.cuadroCalendario = $("#Itemcalendario8");
     this.cuadroCalendario.css({
-        'opacity': '10'    
-    });	
+        'opacity': '10'
+    });
     this.palomita8 = $("#palomita8");
     this.palomita8.css({
-        
+
         'visibility': 'hidden'
     });
     }
@@ -1041,10 +1063,10 @@ clickCal9() {
     this.cuadroCalendario = $("#Itemcalendario9");
     this.cuadroCalendario.css({
       'opacity': '.5'
-    });	
+    });
     this.palomita9 = $("#palomita9");
     this.palomita9.css({
-    
+
     'visibility': 'visible',
     'opacity': '10',
     'position': 'absolute',
@@ -1056,9 +1078,9 @@ clickCal9() {
     'background-image': 'url(images/check2.png)',
     'background-repeat': 'no-repeat',
     'display': 'inline-block'
-    
-    });	
-    
+
+    });
+
     } else {
     this.numDocumento = "";
     this.fechaCorteDoc = "";
@@ -1066,11 +1088,11 @@ clickCal9() {
     this.Valida_Seleccion_Calendario9 --;
     this.cuadroCalendario = $("#Itemcalendario9");
     this.cuadroCalendario.css({
-    'opacity': '10'    
-    });	
+    'opacity': '10'
+    });
     this.palomita9 = $("#palomita9");
     this.palomita9.css({
-    
+
     'visibility': 'hidden'
     });
     }
@@ -1090,10 +1112,10 @@ clickCal10() {
     this.cuadroCalendario = $("#Itemcalendario10");
     this.cuadroCalendario.css({
       'opacity': '.5'
-    });	
+    });
     this.palomita10 = $("#palomita10");
     this.palomita10.css({
-    
+
     'visibility': 'visible',
     'opacity': '10',
     'position': 'absolute',
@@ -1105,8 +1127,8 @@ clickCal10() {
     'background-image': 'url(images/check2.png)',
     'background-repeat': 'no-repeat',
     'display': 'inline-block'
-    
-    });	
+
+    });
 
   } else {
       this.numDocumento = "";
@@ -1115,11 +1137,11 @@ clickCal10() {
       this.Valida_Seleccion_Calendario10 --;
       this.cuadroCalendario = $("#Itemcalendario10");
       this.cuadroCalendario.css({
-      'opacity': '10'    
-      });	
+      'opacity': '10'
+      });
       this.palomita10 = $("#palomita10");
       this.palomita10.css({
-      
+
       'visibility': 'hidden'
       });
       }
@@ -1139,10 +1161,10 @@ clickCal11() {
     this.cuadroCalendario = $("#Itemcalendario11");
     this.cuadroCalendario.css({
       'opacity': '.5'
-    });	
+    });
     this.palomita11 = $("#palomita11");
     this.palomita11.css({
-    
+
     'visibility': 'visible',
     'opacity': '10',
     'position': 'absolute',
@@ -1154,9 +1176,9 @@ clickCal11() {
     'background-image': 'url(images/check2.png)',
     'background-repeat': 'no-repeat',
     'display': 'inline-block'
-    
-    });	
-    
+
+    });
+
     } else {
     this.numDocumento = "";
     this.fechaCorteDoc = "";
@@ -1164,11 +1186,11 @@ clickCal11() {
     this.Valida_Seleccion_Calendario11 --;
     this.cuadroCalendario = $("#Itemcalendario11");
     this.cuadroCalendario.css({
-    'opacity': '10'    
-    });	
+    'opacity': '10'
+    });
     this.palomita11 = $("#palomita11");
     this.palomita11.css({
-    
+
     'visibility': 'hidden'
     });
     }
@@ -1180,7 +1202,7 @@ operacion(id) {
 
   const this_aux = this;
 
-  
+
 
 
   if (id ===  '1') {
@@ -1196,13 +1218,13 @@ operacion(id) {
   } else {
     // Imprimir
 
-    
+
     $('#_modal_please_wait').modal('show');
     if ( this_aux .cal_Click_0 === 1 || this_aux.cal_Click_1 === 1 || this_aux.cal_Click_2 === 1 ||
       this_aux.cal_Click_3 === 1 || this_aux.cal_Click_4 === 1 || this_aux.cal_Click_5 === 1 ||
       this_aux.cal_Click_6 === 1 || this_aux.cal_Click_7 === 1 || this_aux.cal_Click_8 === 1 ||
       this_aux.cal_Click_9 === 1 || this_aux.cal_Click_10 === 1 || this_aux.cal_Click_11 === 1) {
-      
+
           const formParameters = {
             fechaCorte: this_aux.fechaCorteDoc,
            // fechaCorte: 'Thu Feb 01 13:15:05 CDT 2018',
@@ -1210,7 +1232,7 @@ operacion(id) {
             id: id
 
           };
-      
+
           const resourceRequest = new WLResourceRequest(
             'adapters/AdapterBanorteSucursApps/resource/obtenerDoc',
             WLResourceRequest.POST
@@ -1241,29 +1263,29 @@ operacion(id) {
                     // electron para DOCUMENTO
                     let fs1 = require("fs");
                     let tmpFileName0 = 'c:/temp/electron/' + 'D_1_' +  this_aux.numDocumento + '_' + 'fechasEnvioMail' + '.pdf';
-                    
+
                     fs1.writeFile(tmpFileName0, documento.PDF, 'base64', function(err) {
                       if (err) {
                         return console.log(err);
                       }
-              
+
                     });
 
                     this.enviaImprimir();
                   }
                   $('#_modal_please_wait').modal('hide');
                   setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
-                
+
               } else {
                 this_aux.showErrorSucces(documento);
              }
-              }, function(error) {        
+              }, function(error) {
               console.log("Error al obtener documento EDC");
               $("#errorModal").modal("show");
               $('#_modal_please_wait').modal('hide');
             }
           );
-          console.log("Salió de Response obtener documento EDC");    
+          console.log("Salió de Response obtener documento EDC");
     }
   }
 }
@@ -1280,11 +1302,11 @@ enviaImprimir() {
   $('#imprimiendo').modal('show');
   $('#_modal_please_wait').modal('show');
   setTimeout(function() {
-      
+
     console.log("enviaImprimir");
-    
+
     // 1
-    
+
     $.ajax({
      // url: 'http://localhost:8082/sucursappsdevices/printer/pdf?f='+'D_'+listObtenerDocumentos[0].docpdf+'_'+fechasEnvioMail[0]+'.pdf',
      url: 'http://localhost:8082/sucursappsdevices/printer/pdf?f=' + 'D_' + this.numDocumento + '_' + '"fecha"' + '.pdf',
@@ -1300,16 +1322,16 @@ enviaImprimir() {
       async: false,
       cache: false
     });
-    
+
     $('#_modal_please_wait').modal('hide');
-    
+
   }, delay2);
 }
 
 showErrorSucces(json) {
 
   console.log(json.Id + json.MensajeAUsuario);
-  document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+  document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
   $('#errorModal').modal('show');
 
 }

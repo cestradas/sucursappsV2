@@ -21,7 +21,7 @@ declare var $: any;
 export class PagoDeServicioDetallesComponent implements OnInit {
 
   @ViewChild('rImporte', { read: ElementRef}) rImporte: ElementRef ;
-  
+
   myForm: FormGroup;
   nombreServicio: any;
   cuentaClienteTdd: string;
@@ -33,13 +33,13 @@ export class PagoDeServicioDetallesComponent implements OnInit {
 
   postResp;
 
-  constructor(private _serviceSesion: SesionTDDService, 
-              private _service: ConsultaSaldosTddService, 
+  constructor(private _serviceSesion: SesionTDDService,
+              private _service: ConsultaSaldosTddService,
               private service: SesionBxiService,
               private currencyPipe: CurrencyPipe,
               private router: Router,
               private _validaNipService: ValidaNipTransaccion,
-              private fb: FormBuilder) { 
+              private fb: FormBuilder) {
 
                 this._service.cargarSaldosTDD();
 
@@ -54,7 +54,7 @@ export class PagoDeServicioDetallesComponent implements OnInit {
 
       }
     );
-    
+
     setTimeout( () => $('#_modal_please_wait').modal('hide'), 500 );
 
 
@@ -71,6 +71,20 @@ export class PagoDeServicioDetallesComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    //ESTILOS Preferente
+    let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
+    let btnContinuar = document.getElementById("continuar");
+    let btnContinuar2 = document.getElementById("continuar2");
+
+    if (storageTipoClienteTar === "true") {
+
+      btnContinuar.classList.remove("color-botones");
+      btnContinuar.classList.add("color-botones_Preferente");
+      btnContinuar2.classList.remove("color-botones");
+      btnContinuar2.classList.add("color-botones_Preferente");
+    }
+
     const this_aux = this;
     const detalleEmpresa = JSON.parse(this_aux.service.detalleEmpresa_PS);
 
@@ -125,7 +139,7 @@ console.log("aquiiiiiiiiiiiii");
 
       divChallenge.setAttribute('style', 'display: none');
       this_aux.labelTipoAutentica = 'Contrase&atilde;a';
-     
+
 
   $('#confirmModal').modal('show');
 }
@@ -155,7 +169,7 @@ replaceSimbolo(importe) {
 
 confirmarPago() {
   this._validaNipService.validaNipTrans();
-    const this_aux = this; 
+    const this_aux = this;
 
     if (this_aux.importeAux === undefined) { this_aux.importeAux = this_aux.replaceSimbolo( this_aux.myForm.get('fcImporte').value); }
 
@@ -183,26 +197,26 @@ confirmarPago() {
         res = this._validaNipService.respuestaNip.res;
         console.log(res);
 
-        if (res === true) { 
+        if (res === true) {
 
           this.pagoServicio();
 
         } else {
 
           console.error("Mostrar modal las tarjetas no son iguales");
-          
+
 
         }
 
-        
+
 
       }
-    );         
+    );
     $('#ModalTDDLogin').modal('hide');
 }
 
 pagoServicio() {
-  
+
 console.log("si entre");
 const this_aux = this;
 const operaciones: consultaCatalogos = new consultaCatalogos();
@@ -229,7 +243,7 @@ operaciones.pagaServicio(this_aux.service.idFacturador, this_aux.importeAux, thi
 
 showErrorSuccesMoney(json) {
   console.log(json.Id + json.MensajeAUsuario);
-  document.getElementById('msgError').innerHTML =   json.MensajeAUsuario; 
+  document.getElementById('msgError').innerHTML =   json.MensajeAUsuario;
   $('#_modal_please_wait').modal('hide');
   $('#ModalErrorTransaccion').modal('show');
 }
@@ -237,7 +251,7 @@ showErrorSuccesMoney(json) {
 showErrorPromise(error) {
   console.log(error);
   // tslint:disable-next-line:max-line-length
-  document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde."; 
+  document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
   $('#_modal_please_wait').modal('hide');
   $('#errorModal').modal('show');
 }
@@ -263,7 +277,7 @@ leeCodeBar(value) {
       this_aux.myForm.setControl('fcDigitoVerificador', controlDigito );
 
       $('#ModalLectordeRecibo').modal('hide');
-      
+
     }
   } else {
     if (value.length === 30) {
@@ -281,7 +295,7 @@ leeCodeBar(value) {
       this_aux.myForm.setControl('fcReferencia', controlReferencia );
       this_aux.myForm.setControl('fcFechaVencimiento', controlFecha );
       $('#ModalLectordeRecibo').modal('hide');
-    }  
+    }
  }
 }
 

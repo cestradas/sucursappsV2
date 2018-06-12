@@ -15,11 +15,21 @@ export class MantenimientoDatosContactoFinalComponent implements OnInit {
   Celular: string;
   CorreoElectronico: string;
 
-  constructor(private _serviceSesion: SesionTDDService, private router: Router) { 
+  constructor(private _serviceSesion: SesionTDDService, private router: Router) {
   }
 
   ngOnInit() {
-    
+
+    //ESTILOS Preferente
+    let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
+    let btnTerminar = document.getElementById("terminar");
+
+    if (storageTipoClienteTar === "true") {
+
+      btnTerminar.classList.remove("color-botones");
+      btnTerminar.classList.add("color-botones_Preferente");
+    }
+
 
     const this_aux = this;
 
@@ -27,7 +37,7 @@ export class MantenimientoDatosContactoFinalComponent implements OnInit {
   }
 
   mostrarDatos() {
-    
+
   }
 
 
@@ -40,7 +50,7 @@ export class MantenimientoDatosContactoFinalComponent implements OnInit {
     const operaciones: consultaCatalogos = new consultaCatalogos();
     operaciones.consultarDatosContacto().then(
       function(respPago) {
-  
+
         const jsonRespuesta = respPago.responseJSON;
         if (jsonRespuesta.Id === '1') {
          console.log(respPago.responseText);
@@ -48,8 +58,8 @@ export class MantenimientoDatosContactoFinalComponent implements OnInit {
          this_aux._serviceSesion.datosBreadCroms.EmailCliente = jsonRespuesta.Telefono;
           console.log("Consulta de Datos Exitosa");
 
-          setTimeout(function() { 
-      
+          setTimeout(function() {
+
             this_aux.NombreUser = this_aux._serviceSesion.datosBreadCroms.nombreUsuarioTDD;
             this_aux.Celular = this_aux._serviceSesion.datosBreadCroms.CelCliente;
             this_aux.CorreoElectronico = this_aux._serviceSesion.datosBreadCroms.EmailCliente;
@@ -57,14 +67,14 @@ export class MantenimientoDatosContactoFinalComponent implements OnInit {
             $('#_modal_please_wait').modal('hide');
           }, 500);
 
-          
+
         } else {
           this_aux.showErrorSucces(jsonRespuesta);
           this._serviceSesion.datosBreadCroms.CelCliente = "";
           this._serviceSesion.datosBreadCroms.EmailCliente = "";
           console.log("No hay Datos");
         }
-        
+
 
       }, function(error) { this_aux.showErrorPromise(error); }
     );
@@ -72,9 +82,9 @@ export class MantenimientoDatosContactoFinalComponent implements OnInit {
   }
 
   showErrorSucces(json) {
-    setTimeout(function() { 
+    setTimeout(function() {
       console.log(json.Id + json.MensajeAUsuario);
-      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
       $('#_modal_please_wait').modal('hide');
       $('#errorModal').modal('show');
     }, 500);

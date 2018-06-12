@@ -56,11 +56,11 @@
                     <td *ngIf="(beneficiario.Opcion != 'B')" style="text-align: center">{{beneficiario.NuevaFecha}}</td>
                     <td *ngIf="(beneficiario.Opcion != 'B')" style="text-align: center">{{beneficiario.PorcentajeBenef}}</td>
                     <td *ngIf="(beneficiario.Opcion != 'B')" align=center>
-                        <button id="buttonImageMantoBen" type="button"><img src="./assets/img/edit.png" 
+                        <button id="buttonImageMantoBen" type="button"><img src="./assets/img/edit.png"
                                                 alt="Modificar Beneficiario" (click)="modificacionBeneficiarioModal(beneficiario)" width="30px" height="30px" /></button>
                     </td>
                     <td *ngIf="(beneficiario.Opcion != 'B')" align=center>
-                        <button id="buttonImageMantoBen" type="button"><img src="./assets/img/trash.png" 
+                        <button id="buttonImageMantoBen" type="button"><img src="./assets/img/trash.png"
                                                 (click)="bajaBeneficiarioModal(beneficiario)" alt="Eliminar Beneficiario" width="30px" height="30px" /></button>
                     </td>
                 </tr>
@@ -69,10 +69,10 @@
             <br>
             <div class="row">
                 <div class="col-lg-10">
-                    <button type="button" class="color-botones btn btn-lg" [disabled]="tamRegistrosBenef == 10 || bloquearAlta || ultimoRegistroGuardado == 10 || contadorAltas == 10" (click)="altaBeneficiario()" style="margin-bottom: 20px; float: inherit; width: 110px;">Alta</button>
+                    <button  id="alta" type="button" class="color-botones btn btn-lg" [disabled]="tamRegistrosBenef == 10 || bloquearAlta || ultimoRegistroGuardado == 10 || contadorAltas == 10" (click)="altaBeneficiario()" style="margin-bottom: 20px; float: inherit; width: 110px;">Alta</button>
                 </div>
                 <div class="col-lg-2">
-                    <button type="button" class="color-botones btn btn-lg pull-right" [disabled]="contadorModificaciones.length == 0 && contadorAltas == 0  && arrayBajas.length == 0" (click)="finalizaProcesoGuardarDatos()" style="margin-left: 40px">Guardar Cambios</button>
+                    <button id="gardar" type="button" class="color-botones btn btn-lg pull-right" [disabled]="contadorModificaciones.length == 0 && contadorAltas == 0  && arrayBajas.length == 0" (click)="finalizaProcesoGuardarDatos()" style="margin-left: 40px">Guardar Cambios</button>
                 </div>
             </div>
         </div>
@@ -140,7 +140,7 @@
                             <label for="amount" class="col-sm control-label" style="text-align: right; top: -11px;">Tipo de Persona</label>
                         </div>
                         <div class="col-sm-3">
-                            <select class="input-whidth form-control amount input-lg selectModificado" id="selTypePersonAlta" (change)="fMSelect($event.target.value)" #RFisicaMoralSelecAlta>                            
+                            <select class="input-whidth form-control amount input-lg selectModificado" id="selTypePersonAlta" (change)="fMSelect($event.target.value)" #RFisicaMoralSelecAlta>
                         <option disabled="true" selected="true">Seleccione Opción</option>
                         <option [value]="1">Persona Física</option>
                         <option [value]="2">Persona Moral</option>
@@ -184,7 +184,7 @@
                             </div>
                         </div>
                         <div class="col-sm-1">
-                            <button type="button" class="color-botones btn btn-lg pull-right" [disabled]="myformCP.invalid" (click)="consultaCodigoPostalSoap(RAltaCodigoPostal.value)" style="font-size: 16px !important; margin-top: -2px">Consulta CP</button>
+                            <button id="cp" type="button" class="color-botones btn btn-lg pull-right" [disabled]="myformCP.invalid" (click)="consultaCodigoPostalSoap(RAltaCodigoPostal.value)" style="font-size: 16px !important; margin-top: -2px">Consulta CP</button>
                         </div>
                         <div class="form-group col-sm-1">
                             <label for="amount" class="col-sm control-label">Estado</label>
@@ -207,7 +207,7 @@
                         <div class="col-lg-3">
                             <select class="input-whidth form-control amount input-lg selectModificado" id="selColonia" (change)="seleccionColonia()" #rColonias style=" background-size: auto">
                                 <option [disabled]="true" selected="true">Seleccione Colonia</option>
-                                <option *ngFor="let colonias of CP"  [value]="colonias.Colonia">{{colonias.Colonia}}</option>                      
+                                <option *ngFor="let colonias of CP"  [value]="colonias.Colonia">{{colonias.Colonia}}</option>
                         </select>
                         </div>
                         <div class="form-group col-sm-1">
@@ -238,7 +238,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="color-botones btn btn-lg pull-right" [disabled]="myform.invalid  || rColonias.value === 'Seleccione Colonia' || rColonias.value === '' || RFisicaMoralSelecAlta.value  === 'Seleccione Opción' || RFisicaMoralSelecAlta.value === ''"
+                    <button id="confirmar" type="button" class="color-botones btn btn-lg pull-right" [disabled]="myform.invalid  || rColonias.value === 'Seleccione Colonia' || rColonias.value === '' || RFisicaMoralSelecAlta.value  === 'Seleccione Opción' || RFisicaMoralSelecAlta.value === ''"
                         ng-click="location.reload()" data-dismiss="modal" (click)="altaBeneficiarioView(myform.value, myformCP.value)">Confirmar</button>
                 </div>
 
@@ -345,7 +345,7 @@
                             </div>
                         </div>
                         <div class="col-sm-1">
-                            <button type="button" [disabled]="myformCPMod.invalid" class="color-botones btn btn-lg pull-right" (click)="consultaCodigoPostalSoap(RCodigoPostal.value)" style="font-size: 16px !important; margin-top: -2px">Consulta CP</button>
+                            <button id="cp2" type="button" [disabled]="myformCPMod.invalid" class="color-botones btn btn-lg pull-right" (click)="consultaCodigoPostalSoap(RCodigoPostal.value)" style="font-size: 16px !important; margin-top: -2px">Consulta CP</button>
                         </div>
                         <div class="form-group col-sm-1">
                             <label for="amount" class="col-sm control-label">Estado</label>
@@ -400,7 +400,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="color-botones btn btn-lg pull-right" [disabled]="myform.invalid  || RColoniasM.value === 'Seleccione Colonia' || RColoniasM.value === ''" (click)="guardarModificacionesView(myform.value, myformCPMod.value)" ng-click="location.reload()"
+                    <button id="guardar2" type="button" class="color-botones btn btn-lg pull-right" [disabled]="myform.invalid  || RColoniasM.value === 'Seleccione Colonia' || RColoniasM.value === ''" (click)="guardarModificacionesView(myform.value, myformCPMod.value)" ng-click="location.reload()"
                         data-dismiss="modal">Guardar</button>
                 </div>
 
@@ -421,7 +421,7 @@
                     <p style="text-align: center; font-weight: bold">{{razonSocial}} {{nombreBeneficiario}} {{apellidoPat}} {{apellidoMat}}</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="color-botones btn btn-lg pull-right" data-dismiss="modal" (click)="bajaBeneficiariosView()" ng-click="location.reload()" style="margin-right: 44px" data-dismiss="modal">Aceptar</button>
+                    <button id="aceptar" type="button" class="color-botones btn btn-lg pull-right" data-dismiss="modal" (click)="bajaBeneficiariosView()" ng-click="location.reload()" style="margin-right: 44px" data-dismiss="modal">Aceptar</button>
                     <button type="button" class="btn btn-lg" data-dismiss="modal" data-dismiss="modal">Cancelar</button>
                 </div>
 
@@ -440,7 +440,7 @@
                     <p style="text-align: left; font-weight: bold">Para poder continuar, es necesario que la suma de los porcentajes asignados a sus beneficiarios sea igual a 100%, por favor modifique, elimine o realice alta de beneficiarios hasta sumar el 100%.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="color-botones btn btn-lg pull-right" data-dismiss="modal" data-dismiss="modal">Aceptar</button>
+                    <button id="aceptar2" type="button" class="color-botones btn btn-lg pull-right" data-dismiss="modal" data-dismiss="modal">Aceptar</button>
                 </div>
 
             </div>

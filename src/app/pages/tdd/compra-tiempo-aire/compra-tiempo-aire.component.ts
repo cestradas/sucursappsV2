@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ConsultaSaldosTddService } from '../../../services/saldosTDD/consultaSaldos.service';
 import { SesionTDDService } from '../../../services/breadcrums/breadcroms.service';
-import { Subscription } from 'rxjs/Subscription'; 
+import { Subscription } from 'rxjs/Subscription';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 
 import { SaldosDiaMesService } from '../../../services/SaldosDiaMes/saldoDiaMes.service';
 import $ from 'jquery';
 declare var $: $;
 
-@Component({  
+@Component({
   selector: 'app-compra-tiempo-aire',
   templateUrl: './compra-tiempo-aire.component.html',
 })
@@ -31,7 +31,7 @@ export class CompraTiempoAireComponent implements OnInit {
   blClassI = false;
   blnStyle: false;
 
-  constructor( 
+  constructor(
                private _service: ConsultaSaldosTddService,
                private _serviceSesion: SesionTDDService,
                private _saldosDiaMes: SaldosDiaMesService
@@ -53,18 +53,30 @@ export class CompraTiempoAireComponent implements OnInit {
 
                 this._service.validarDatosSaldoTdd().then(
                   mensaje => {
-            
+
                     console.log('Saldos cargados correctamente TDD');
                     this.saldoClienteTdd = mensaje.SaldoDisponible;
                     this.cuentaClienteTdd = mensaje.NumeroCuenta;
                     this.nombreUsuarioTdd = this._serviceSesion.datosBreadCroms.nombreUsuarioTDD;
-            
+
                   }
-                );         
+                );
                 setTimeout( () => $('#_modal_please_wait').modal('hide'), 500 );
                }
 
   ngOnInit() {
+
+    //ESTILOS Preferente
+    let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
+    let btnContinuar = document.getElementById("continuar");
+
+    if (storageTipoClienteTar === "true") {
+
+      btnContinuar.classList.remove("color-botones");
+      btnContinuar.classList.add("color-botones_Preferente");
+    }
+
+
 
     const THIS: any = this;
 
@@ -76,7 +88,7 @@ export class CompraTiempoAireComponent implements OnInit {
       .send()
       .then(
           function(response) {
-            
+
           let res = response.responseJSON;
 
           // tslint:disable-next-line:forin
@@ -84,50 +96,50 @@ export class CompraTiempoAireComponent implements OnInit {
 
             console.log(res[i].Nombre);
 
-            switch (res[i].Nombre) { 
-              case 'Telcel': { 
+            switch (res[i].Nombre) {
+              case 'Telcel': {
                 document.getElementById("imagenTelcel").id = res[i].IdCatEmpresa;
-                
-                 break; 
-              } 
-              case 'Movistar': { 
+
+                 break;
+              }
+              case 'Movistar': {
                 document.getElementById("importeMovi").id = res[i].IdCatEmpresa;
-                
-                 break; 
+
+                 break;
               }
-              case 'Unefon': { 
+              case 'Unefon': {
                 document.getElementById("importeUnefon").id = res[i].IdCatEmpresa;
-                
-                 break; 
+
+                 break;
               }
-              case 'Iusacell': { 
+              case 'Iusacell': {
                 document.getElementById("importeIusa").id = res[i].IdCatEmpresa;
-                
-                 break; 
+
+                 break;
               }
-              default: { 
+              default: {
                 console.log("No se pudo cargar la informacion de los catalogos telefonicos");
-                 break; 
-              } 
-           } 
+                 break;
+              }
+           }
 
           }
 
-  
+
           },
           function(error) {
 
             console.error("El WS respondio incorrectamente1");
             // document.getElementById('mnsError').innerHTML = "El Ws no respondio";
             $('#errorModal').modal('show');
-            
-  
+
+
           });
 
-          
-          
+
+
   }
-  
+
 
   cargaSaldo(id) {
 
@@ -135,54 +147,54 @@ export class CompraTiempoAireComponent implements OnInit {
 
     const THIS: any = this;
 
-    switch (id.name) { 
-      case 'importeTelcel': { 
+    switch (id.name) {
+      case 'importeTelcel': {
         this.operador = 'Telcel';
         this.blClassT = true;
         this.blClassM = false;
         this.blClassU = false;
         this.blClassI = false;
         console.log('Telcel');
-         break; 
-      } 
-      case 'importeMovi': { 
+         break;
+      }
+      case 'importeMovi': {
         this.operador = 'Movistar';
         this.blClassM = true;
         this.blClassT = false;
         this.blClassU = false;
         this.blClassI = false;
-         break; 
+         break;
       }
-      case 'importeUnefon': { 
+      case 'importeUnefon': {
         this.operador = 'Unefon';
         this.blClassT = false;
         this.blClassM = false;
         this.blClassU = true;
         this.blClassI = false;
-         break; 
+         break;
       }
-      case 'importeIusa': { 
+      case 'importeIusa': {
         this.operador = 'Iusacell';
         this.blClassT = false;
         this.blClassM = false;
         this.blClassU = false;
         this.blClassI = true;
-         break; 
+         break;
       }
-      default: { 
+      default: {
         console.log("No existe ese operador: " + id.id);
-         break; 
-      } 
-   } 
-    
+         break;
+      }
+   }
+
     console.log("Params img telefonos: " , id.name);
 
     const formParameters = {
-      
+
       paramIdCatEmpresa: id.id,
-      
+
     };
-    
+
     const resourceRequest = new WLResourceRequest(
       'adapters/AdapterBanorteSucursApps/resource/consultaImporteTiempoAire',
       WLResourceRequest.POST);
@@ -191,19 +203,19 @@ export class CompraTiempoAireComponent implements OnInit {
       .sendFormParameters(formParameters)
       .then(
           function(response) {
-            
+
           let res = response.responseJSON;
 
           console.log(response.responseText);
 
           THIS.recargas = res;
-  
+
           },
           function(error) {
-  
-  
+
+
             console.error("El WS respondio incorrectamente2");
-  
+
           });
 
           setTimeout( () => $('#_modal_please_wait').modal('hide'), 500 );
@@ -213,7 +225,7 @@ export class CompraTiempoAireComponent implements OnInit {
   cargaImporte(param) {
 
     $('label').removeClass('border border-danger');
-    $('#' + param.id).addClass('border border-danger');    
+    $('#' + param.id).addClass('border border-danger');
     this.importe = param.id;
 
   }

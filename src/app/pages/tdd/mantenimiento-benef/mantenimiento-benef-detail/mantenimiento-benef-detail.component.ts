@@ -14,10 +14,10 @@ export class MantenimientoBenefDetailComponent implements OnInit {
 
   detalleBeneficiarios: any = {
     fechaOperacion: '',
-    horaOperacion: '' 
+    horaOperacion: ''
 };
 
-  constructor(private _service: ConsultaSaldosTddService) { 
+  constructor(private _service: ConsultaSaldosTddService) {
     $('#_modal_please_wait').modal('show');
     this._service.validarDatosSaldoTdd().then(
       mensaje => {
@@ -26,19 +26,29 @@ export class MantenimientoBenefDetailComponent implements OnInit {
         this.numeroCuentaTitular = mensaje.NumeroCuenta;
         this.consultaBeneficiarios();
       }
-    ); 
+    );
   }
 
-  
+
 
 
   ngOnInit() {
-   
+
+    //ESTILOS Preferente
+    let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
+    let btnContinuar = document.getElementById("terminar");
+
+    if (storageTipoClienteTar === "true") {
+
+      btnContinuar.classList.remove("color-botones");
+      btnContinuar.classList.add("color-botones_Preferente");
+    }
+
     const this_aux = this;
     this_aux.consultaBeneficiarios();
   }
 
-  
+
   consultaBeneficiarios() {
     const this_aux = this;
     const THIS: any = this;
@@ -78,11 +88,11 @@ export class MantenimientoBenefDetailComponent implements OnInit {
               value.NuevaFecha = mostrarFechaFormat;
             } else {
               value.NuevaFecha = "";
-            }                   
-          });                  
-        }        
+            }
+          });
+        }
       },
-      function(error) {        
+      function(error) {
         console.log("Error al consultar beneficiarios");
       }
     );

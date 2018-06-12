@@ -65,7 +65,7 @@
             <button class="btn  btn-lg letranegrita" (click)="irMenuTDD()">
                                         Cancelar
                                     </button>
-            <button class="btn btn-danger btn-lg letranegrita" type="button" [disabled]="((correoElectronico.readOnly === true) && (numeroCelular.readOnly === true)) || (numeroCelular.value === '' && numeroCelular.readOnly === false) || (correoElectronico.value === '' && correoElectronico.readOnly === false)"
+            <button id="guardar" class="btn color-botones btn-lg letranegrita" type="button" [disabled]="((correoElectronico.readOnly === true) && (numeroCelular.readOnly === true)) || (numeroCelular.value === '' && numeroCelular.readOnly === false) || (correoElectronico.value === '' && correoElectronico.readOnly === false)"
                 (click)="modificarDatos(correoElectronico.value,numeroCelular.value)">
                                 Guardar
                             </button>
@@ -82,7 +82,7 @@
                     <p id="mnsErrorModal">El correo se actualizo correctamente.</p>
                 </div>
                 <div class="modal-footer text-center">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="currentPage.loadMenu()">Salir</button>
+                    <button id="salir" type="button" class="btn color-botones" data-dismiss="modal" onclick="currentPage.loadMenu()">Salir</button>
                 </div>
             </div>
             <!-- /.modal-content -->

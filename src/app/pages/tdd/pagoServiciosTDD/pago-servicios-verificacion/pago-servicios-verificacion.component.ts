@@ -12,7 +12,7 @@ declare var $: any;
   templateUrl: './pago-servicios-verificacion.component.html'
 })
 export class PagoServiciosVerificacionComponent implements OnInit {
-  
+
   detallePago: any = {
     nombreServicio: '',
     fechaOperacion: '',
@@ -26,9 +26,9 @@ export class PagoServiciosVerificacionComponent implements OnInit {
 
 cuentaClienteTdd: string;
 
-  constructor(private service: SesionBxiService, 
-              private router: Router , 
-              private _service: ConsultaSaldosTddService) { 
+  constructor(private service: SesionBxiService,
+              private router: Router ,
+              private _service: ConsultaSaldosTddService) {
                 this._service.cargarSaldosTDD();
     this._service.validarDatosSaldoTdd().then(
       mensaje => {
@@ -36,10 +36,21 @@ cuentaClienteTdd: string;
         console.log('Saldos cargados correctamente TDD');
         this.cuentaClienteTdd = mensaje.NumeroCuenta;
       }
-    ); 
+    );
   }
 
   ngOnInit() {
+
+    //ESTILOS Preferente
+    let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
+    let btnContinuar = document.getElementById("terminar");
+
+    if (storageTipoClienteTar === "true") {
+
+      btnContinuar.classList.remove("color-botones");
+      btnContinuar.classList.add("color-botones_Preferente");
+    }
+    
     const this_aux = this;
     const respPago = this_aux.service.detalleConfirmacionPS;
     const respPagoJson = JSON.parse(respPago);
@@ -77,19 +88,19 @@ cuentaClienteTdd: string;
           this_aux.detallePago.comisioneiva = element.ImporteComisionRespCons;
           this_aux.detallePago.importe = element.ImporteTotal;
           });
-      
+
       const datosEmpresa = respPagoJson.DatosPagoEmpresa;
         datosEmpresa.forEach(element => {
           this_aux.detallePago.claveRastreo = element.ClaveConfirmacion;
         });
-      
-     
+
+
       }
-      
+
       $('#_modal_please_wait').modal('hide');
       setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
   }
-  
+
   irMenuTDD() {
     const this_aux = this;
     this_aux.router.navigate(['/menuTdd']);

@@ -11,7 +11,7 @@ import { ValidaNipTransaccion } from '../../../services/validaNipTrans/validaNip
 import $ from 'jquery';
 declare var $: $;
 
-@Component({  
+@Component({
   selector: 'app-pago-tarjeta-credito',
   templateUrl: './pago-tarjeta-credito.component.html'
 })
@@ -66,7 +66,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
         this.nombreUsuarioTdd = this._serviceSesion.datosBreadCroms.nombreUsuarioTDD;
 
       }
-    );    
+    );
 
     this.forma.controls['selectBanco'].valueChanges.subscribe(
       data => {
@@ -100,22 +100,38 @@ export class PagoTarjetaCreditoComponent implements OnInit {
           function(response) {
 
           THIS.bancos = response.responseJSON;
-  
+
           },
           function(error) {
 
             console.error("El WS respondio incorrectamente1");
             // document.getElementById('mnsError').innerHTML = "El Ws no respondio";
             $('#errorModal').modal('show');
-            
-  
+
+
           });
 
           setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
 
    }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+    //ESTILOS Preferente
+    let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
+    let btnContinuar = document.getElementById("continuar");
+    let btnContinuar2 = document.getElementById("continuar2");
+
+    if (storageTipoClienteTar === "true") {
+
+      btnContinuar.classList.remove("color-botones");
+      btnContinuar.classList.add("color-botones_Preferente");
+      btnContinuar2.classList.remove("color-botones");
+      btnContinuar2.classList.add("color-botones_Preferente");
+    }
+
+
+  }
 
   cargaBancos() {
 
@@ -160,22 +176,22 @@ export class PagoTarjetaCreditoComponent implements OnInit {
         res = this._validaNipService.respuestaNip.res;
         console.log(res);
 
-        if (res === true) { 
+        if (res === true) {
 
           this.pagarTarjetaCreditoTrans();
 
         } else {
 
           console.error("Mostrar modal las tarjetas no son iguales");
-          
+
 
         }
 
-        
+
 
       }
-    );         
-          
+    );
+
   }
 
   pagarTarjetaCreditoTrans() {
@@ -183,12 +199,12 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     const THIS: any = this;
 
     let pImporte = parseFloat(this.importe).toFixed(2);
-    // let deImpore: number = parseFloat(pImporte).toFixed(2); 
+    // let deImpore: number = parseFloat(pImporte).toFixed(2);
 
-    console.log(pImporte);  
+    console.log(pImporte);
 
     const formParameters = {
-        
+
       emisora: '2230',
       montoPagar: pImporte,
       referencia: THIS.noTarjeta,
@@ -217,8 +233,8 @@ export class PagoTarjetaCreditoComponent implements OnInit {
             console.error("El WS respondio incorrectamente1");
             // document.getElementById('mnsError').innerHTML = "El Ws no respondio";
             $('#errorModal').modal('show');
-            
-  
+
+
           });
 
   }
