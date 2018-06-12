@@ -50,7 +50,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       $('#_modal_please_wait').modal('hide');
     }, 500);
 
-    //ESTILOS Preferente
+    // ESTILOS Preferente
     let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
     let btnContinuar = document.getElementById("contiuar");
     let btnConfirmar = document.getElementById("confirmar");
@@ -313,7 +313,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       divTokenPass.setAttribute('style', 'display: block');
       this_aux.labelTipoAutentica = 'Token Fisico';
     }
-   setTimeout(function(){
+   setTimeout(function() {
        $( ".cdk-visually-hidden" ).css( "margin-top", "16%" );
       $('#confirmModal').modal('show');
    }, 500);
@@ -343,13 +343,13 @@ export class PagoTarjetaCreditoComponent implements OnInit {
                           } else {
                             $('#_modal_please_wait').modal('hide');
                             setTimeout(() => {
-                              this_aux.showErrorSuccesMoney(jsonDetallePago);
+                              this_aux.showErrorSucces(jsonDetallePago);
                             }, 300);
                           }
                       }, function(error) {
                         $('#_modal_please_wait').modal('hide');
                         setTimeout(() => {
-                          this_aux.showErrorPromise(error);
+                          this_aux.showErrorPromiseMoney(error);
                        }, 300);
                        }
                   );
@@ -364,7 +364,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
               }
         }, function(error) {
           $('#_modal_please_wait').modal('hide');
-           this_aux.showErrorPromise(error);
+           this_aux.showErrorPromiseMoney(error);
         });
   }
 
@@ -487,12 +487,17 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       $('#errorModal').modal('show');
   }
 
-  showErrorSuccesMoney(json) {
-    $('#_modal_please_wait').modal('hide');
-      console.log(json.Id + json.MensajeAUsuario);
-      document.getElementById('msgError').innerHTML =   json.MensajeAUsuario;
+  showErrorPromiseMoney(error) {
+
+   
+    if (error.errorCode === 'API_INVOCATION_FAILURE') {
+      $('#errorModal').modal('show'); 
+      document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+    } else {
+      document.getElementById('msgError').innerHTML =   "Se presenta falla en el servicio MCA / Time Out de operación monetaria.";
       $('#ModalErrorTransaccion').modal('show');
-  }
+    }
+}
 
   irMenuBXI() {
     this.router.navigate(['/menuBXI']);

@@ -71,7 +71,7 @@ export class PagoServiciosDetailComponent implements OnInit {
           $('#_modal_please_wait').modal('hide');
     }, 500);
 
-    //ESTILOS Preferente
+    // ESTILOS Preferente
     let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
     let btnContinuar = document.getElementById("contiuar");
 
@@ -124,7 +124,7 @@ export class PagoServiciosDetailComponent implements OnInit {
 
               setTimeout(() => {
                 $('#_modal_please_wait').modal('hide');
-                this_aux.showErrorSuccesMoney(detallePrepara);
+                this_aux.showErrorSucces(detallePrepara);
              }, 1000);
             }
           }, function(error) {
@@ -180,11 +180,11 @@ export class PagoServiciosDetailComponent implements OnInit {
                         this_aux.router.navigate(['/pagoservicios_verify']);
                       } else {
                         $('#_modal_please_wait').modal('hide');
-                        this_aux.showErrorSuccesMoney(jsonDetallePago);
+                        this_aux.showErrorSucces(jsonDetallePago);
                       }
                     }, function(error) {
                       $('#_modal_please_wait').modal('hide');
-                      this_aux.showErrorPromise(error); }
+                      this_aux.showErrorPromiseMoney(error); }
                   );
               } else {
 
@@ -197,7 +197,7 @@ export class PagoServiciosDetailComponent implements OnInit {
               }
         }, function(error) {
           $('#_modal_please_wait').modal('hide');
-          this_aux.showErrorPromise(error);
+          this_aux.showErrorPromiseMoney(error);
         });
 
   }
@@ -244,6 +244,7 @@ export class PagoServiciosDetailComponent implements OnInit {
                     break;
       case 'SEG0009':  mensajeError = "Límite de sesiones superado, favor de cerrar las sesiones de banca en línea activas.";
                     break;
+      // tslint:disable-next-line:max-line-length
       case 'SEGTK03': mensajeError = "Token desincronizado."; // Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
                      break;
       // tslint:disable-next-line:max-line-length
@@ -280,18 +281,22 @@ export class PagoServiciosDetailComponent implements OnInit {
       }
   }
 
+  showErrorPromiseMoney(error) {
+
+   
+    if (error.errorCode === 'API_INVOCATION_FAILURE') {
+      $('#errorModal').modal('show'); 
+      document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+    } else {
+      document.getElementById('msgError').innerHTML =   "Se presenta falla en el servicio MCA / Time Out de operación monetaria.";
+      $('#ModalErrorTransaccion').modal('show');
+    }
+}
+
   showErrorSucces(json) {
       console.log(json.Id + json.MensajeAUsuario);
       document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
       $('#errorModal').modal('show');
-  }
-
-  showErrorSuccesMoney(json) {
-
-      console.log(json.Id + json.MensajeAUsuario);
-      document.getElementById('msgError').innerHTML =   json.MensajeAUsuario;
-      $('#ModalErrorTransaccion').modal('show');
-
   }
 
   irMenuBXI() {
@@ -333,6 +338,7 @@ export class PagoServiciosDetailComponent implements OnInit {
           const dia = value.substring(18, 20);
           const fecha = anio + '-' + mes + '-' + dia;
           const controlReferencia: FormControl = new FormControl(referencia, Validators.required);
+          // tslint:disable-next-line:max-line-length
           const controlFecha: FormControl = new FormControl(fecha, [Validators.required,  Validators.pattern(/^\d{2,4}\-\d{1,2}\-\d{1,2}$/)]);
           const controlImporte: FormControl = new FormControl(importe, Validators.required);
           this_aux.myForm.setControl('fcImporte', controlImporte );
