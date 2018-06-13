@@ -35,7 +35,7 @@ export class PagoServiciosIniComponent implements OnInit {
        this.fillSelectCuentas();
        this.getEmpresas();
 
-       //ESTILOS Preferente
+       // ESTILOS Preferente
     let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
     let btnContinuar = document.getElementById("contiuar");
 
@@ -208,7 +208,7 @@ getEmpresas() {
              if (detalleEmpresa.Id === '1') {
               this_aux.service.detalleEmpresa_PS = response.responseText;
 
-                  body.off('click');
+                  // body.off('click');
                   this_aux.router.navigate(['/pagoservicios_detail']);
 
              } else {
@@ -232,7 +232,7 @@ getEmpresas() {
 
        const aux_this = this;
        const body = $('body');
-       body.off('click');
+      // body.off('click');
        aux_this.facturador.nativeElement.value = value ;
        aux_this.showOptions = false;
       }
@@ -244,7 +244,7 @@ getEmpresas() {
 
      body.on('click', function() {
 
-      console.log( this_aux.facturador.nativeElement.value);
+      // console.log( this_aux.facturador.nativeElement.value);
       const auxOption = [];
       const valueInput = this_aux.facturador.nativeElement.value;
 

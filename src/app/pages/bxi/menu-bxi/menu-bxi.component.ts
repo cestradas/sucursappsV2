@@ -27,7 +27,7 @@ export class MenuBxiComponent implements OnInit {
 
   ngOnInit() {
     const body = $('body');
-    body.off('click');
+    // body.off('click');
     this.setNombreUsuario();
     this.getidSesion(); 
       if (sessionStorage.getItem("campania") === null)      {
@@ -174,6 +174,7 @@ export class MenuBxiComponent implements OnInit {
     console.log('getDatosContacto');
     const this_aux = this;
     const operaciones: OperacionesBXI = new OperacionesBXI();
+      // tslint:disable-next-line:max-line-length
       if ( this_aux.service.CelCliente === null || this_aux.service.CelCliente === '' || this_aux.service.EmailCliente === null ||  this_aux.service.EmailCliente === '' || this_aux.service.EmailCliente === undefined || this_aux.service.CelCliente === undefined) {
         operaciones.consultaDatosContacto(this_aux.service.infoUsuarioSIC).then(
           function(data) {
@@ -182,9 +183,11 @@ export class MenuBxiComponent implements OnInit {
                 console.log('Datos contacto' + jsonData);
                   this_aux.service.EmailCliente = jsonData.Email;
                   this_aux.service.CelCliente = jsonData.Telefono;
+                  // tslint:disable-next-line:max-line-length
                   if (jsonData.Email === undefined || jsonData.Email === '' || jsonData.Telefono === undefined || jsonData.Telefono === '') {
                     if (opc === 'activaAlertas') {  
                       setTimeout(function() { 
+                          // tslint:disable-next-line:max-line-length
                           document.getElementById('mnsError').innerHTML =   "Estimado cliente, es necesario que registres tu correo electrónico y número móvil poder continuar. ";
                           $('#errorModal').modal('show');
                         }, 1000);
