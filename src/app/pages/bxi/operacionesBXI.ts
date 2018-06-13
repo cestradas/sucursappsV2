@@ -406,18 +406,28 @@ export class OperacionesBXI {
 
             return resourceRequest.send();
         }
-    
+
         getDocumento(fechaCorte, idDocumento, id): any {
             const formParameters = {
                 fechaCorte: fechaCorte,
                 idDocumento: idDocumento,
                 id: id
             };
-    
+
             const    resourceRequest = new WLResourceRequest(
                 'adapters/AdapterBanorteSucursAppsBEL/resource/obtenerDoc', WLResourceRequest.POST);
-          resourceRequest.setTimeout(30000);
-    
+          resourceRequest.setTimeout(100000);
+
           return resourceRequest.sendFormParameters(formParameters);
+        }
+
+        consultaBancos() {
+
+            const resourceRequest = new WLResourceRequest(
+                "adapters/AdapterBanorteSucursAppsBEL/resource/consultaTablaCorporativaBancos",
+                WLResourceRequest.POST);
+
+                resourceRequest.setTimeout(30000);
+                return resourceRequest.send();
         }
 }
