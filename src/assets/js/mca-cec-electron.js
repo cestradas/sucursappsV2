@@ -39,6 +39,8 @@ function callPinPad() {
 
     // fetch(url).then((resp) => { return resp.text() }).then((text) => { console.log(text) });
 
+    //setTimeout(function() {
+
     fetch(url).then(function(response) {
         // Convert to JSON
         return response.json();
@@ -46,9 +48,15 @@ function callPinPad() {
 
         console.log(res);
 
-        localStorage.setItem("tr2", res.tr2);
-        localStorage.setItem("np", res.np);
-        localStorage.setItem("res", res.res);
+        var respuesta = JSON.parse(res);
+
+        if (respuesta.res != "NO_OK") {
+            localStorage.setItem("tr2", respuesta.tr2);
+            localStorage.setItem("np", respuesta.np);
+            localStorage.setItem("res", respuesta.res);
+        }
+
+
 
 
     }, function(err) {
@@ -57,6 +65,10 @@ function callPinPad() {
         }
 
     });
+
+    //}, 3000);
+
+
 
 }
 
