@@ -57,6 +57,9 @@ function getContextRoot(){
                 resourceRequest.sendFormParameters().then(
                 function(response){
                    console.log(response);
+                   var responseJson= response.responseJSON;
+                   localStorage.setItem("TimeOut", responseJson.TimeOut);
+                   localStorage.setItem("TimeOutIni", responseJson.TimeOut);
                     setTimeout(function(){
                         $('#modal_please_wait').modal('hide');
                     },500);

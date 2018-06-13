@@ -1,8 +1,10 @@
+import { OperacionesBXI } from './../operacionesBXI';
 import { Autenticacion } from './../autenticacion';
 import { SesionBxiService } from './../sesion-bxi.service';
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+
 
 declare var jquery: any; // jquery
 declare var $: any;
@@ -197,6 +199,7 @@ export class LoginBxiComponent implements OnInit {
                 const infoUsuarioJSON = response.responseJSON;
                 if (infoUsuarioJSON.Id === 'SEG0001') {
 
+
                     this_aux.service.NombreUsuario = infoUsuarioJSON.NombreUsuario;
                     this_aux.service.infoUsuario = infoUsuario;
                     this_aux.service.infoUsuarioSIC = infoUsuarioJSON.Sic;
@@ -234,11 +237,10 @@ export class LoginBxiComponent implements OnInit {
         function(datosUsuario) {
            const jsonDatosUsuario = datosUsuario.responseJSON;
             if (jsonDatosUsuario.Id === '1') {
-
               console.log(jsonDatosUsuario);
               this_aux.service.isPreferente = jsonDatosUsuario.Preferente;
               // $( ".nav-img-banorte" ).css( "background-image", "");
-              
+              this_aux.comienzaContador();
               if (this_aux.service.isPreferente  === true) {
                // PREFERENTE
                localStorage.setItem("tipoClienteBEL", jsonDatosUsuario.Preferente );
@@ -259,6 +261,60 @@ export class LoginBxiComponent implements OnInit {
         }
       );
     }
+
+    comienzaContador() {
+      const this_aux = this;
+      const body = $('body');
+      body.on('click', function() {
+        localStorage.setItem('TimeOut', localStorage.getItem('TimeOutIni'));
+      });
+  
+      setInterval(function() {
+       const valueNewTimeOut = +localStorage.getItem('TimeOut') - 1;
+       localStorage.setItem('TimeOut', valueNewTimeOut.toString());
+       console.log(valueNewTimeOut);
+       if (valueNewTimeOut === 0) {
+        this_aux.cerrarSesionTimeOutBXI();
+       }
+      }, 1000);
+    }
+
+    cerrarSesionTimeOutBXI() {
+
+      $('#modal_please_wait').modal('show');
+      const this_aux = this;
+      sessionStorage.removeItem("campania");
+      const THIS: any = this;
+      this_aux.service.Login = "0";
+      const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+      console.log("Cerrar sesion BEL");
+      operacionesbxi.cerrarSesionBEL().then(
+          function(response) {
+            console.log(response);
+            const responseJson = response.responseJSON;
+            if (responseJson.Id === "SEG0001") {
+              WLAuthorizationManager.logout('banorteSecurityCheckSa');
+              localStorage.removeItem('TimeOut');
+              localStorage.removeItem('TimeOutIni');
+              console.log("BEL cerro sesion",  this_aux.service.Login);
+              this_aux.router.navigate(['/login']);
+              location.reload(true);
+            } else {
+              console.log("BEL error cerrar sesion", responseJson.Id  + responseJson.MensajeAUsuario);
+              document.getElementById('msgError').innerHTML =   "Error en cerrar sesión";
+              $('#ModalErrorTransaccion').modal('show');
+            }
+          },
+          function(error) {
+
+            console.log(error);
+            document.getElementById('msgError').innerHTML =   "Error en cerrar sesión";
+            console.log("BEL error cerrar sesion", error.errorCode  + error.errorMsg);
+           // this_aux.router.navigate(['/login']);
+
+          });
+
+      }
 
     controlarError(json) {
 
