@@ -199,7 +199,7 @@ export class LoginBxiComponent implements OnInit {
                 const infoUsuarioJSON = response.responseJSON;
                 if (infoUsuarioJSON.Id === 'SEG0001') {
 
-                    if (infoUsuarioJSON.Sic = '99999999 ') {
+                    if (infoUsuarioJSON.Sic = '99999999') {
                             WLAuthorizationManager.logout('banorteSecurityCheckSa');
                             $('#_modal_please_wait').modal('hide');
                             mensajeError = "Los datos proporcionados son incorrectos, favor de verificar.";
