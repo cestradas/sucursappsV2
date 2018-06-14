@@ -23,6 +23,7 @@ export class LoginComponent {
   postResp;
   contenido: any;
   datosLegacy = "";
+  respuestaTrjeta = "";
 
   constructor( private _http: Http,
                private router: Router,
@@ -31,60 +32,69 @@ export class LoginComponent {
 
                onPlasticLogin() {
 
-                               const this_aux = this;
-                               const securityCheckName = 'banorteSecurityCheckSa';
-                               const userLoginChallengeHandler = WL.Client
-                                   .createSecurityCheckChallengeHandler(securityCheckName);
-                               const usr_ca = 'sucursApps';
-                               const tarjet = 'adm-sucusWeb';
-                               console.log(usr_ca);
-                               console.log(tarjet);
+                 $('#ModalTDDLogin').modal('show');
 
-                                   WLAuthorizationManager.login(securityCheckName, {
-                                       'usr_ca': usr_ca,
-                                       'tarjet': tarjet
-                                   }).then(
-                                       function() {
-                                          const usuarioAgent = navigator.userAgent;
-                                          console.log('login onSuccess');
-                                          setTimeout(function() {
-                                           this_aux.getUsrPassLegacy(usuarioAgent);
-                                          }, 1000);
+                 setTimeout(function() {
+                 const this_aux = this;
+                 const securityCheckName = 'banorteSecurityCheckSa';
+                 const userLoginChallengeHandler = WL.Client
+                     .createSecurityCheckChallengeHandler(securityCheckName);
+                 const usr_ca = 'sucursApps';
+                 const tarjet = 'adm-sucusWeb';
+                 console.log(usr_ca);
+                 console.log(tarjet);
 
-                                   }, function(error) {
-                                       console.log(error);
-                                   });
-                             }
+                     WLAuthorizationManager.login(securityCheckName, {
+                         'usr_ca': usr_ca,
+                         'tarjet': tarjet
+                     }).then(
+                         function() {
+                            const usuarioAgent = navigator.userAgent;
+                            console.log('login onSuccess');
+                            setTimeout(function() {
+                             this_aux.getUsrPassLegacy(usuarioAgent);
+                            }, 1000);
 
-                              getUsrPassLegacy(usrAgent) {
-                               const this_aux = this;
-                               if (this_aux.datosLegacy === '') {
+                     }, function(error) {
+                         console.log(error);
+                         $('#ModalTDDLogin').modal('hide');
+                         setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
+                     });
+                     setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
+                   }, 50000);
+               }
 
-                                   const patron = /@/g;
-                                   usrAgent = usrAgent.replace(patron, '');
+                getUsrPassLegacy(usrAgent) {
+                 const this_aux = this;
+                 if (this_aux.datosLegacy === '') {
 
-                                   const formParameters = {
-                                       terminal: usrAgent
-                                           // terminal: 'T002'
-                                   };
-                                   const resourceRequest = new WLResourceRequest(
-                                       'adapters/AdapterBanorteSucursApps/resource/consultaUsrLegacy',
-                                       WLResourceRequest.POST);
-                                   resourceRequest.setTimeout(30000);
-                                   resourceRequest.sendFormParameters(formParameters).then(
-                                       function(response) {
-                                           this_aux.datosLegacy = response.responseJSON;
-                                           console.log( this_aux.datosLegacy);
-                                           console.log("El servcio de informacion Legacy respondio correctamente");
-                                           this_aux.onPlasticLoginafterSecurity();
-                                         },
-                                       function(error) {
-                                         WLAuthorizationManager.logout('banorteSecurityCheckSa');
-                                           console.log("Ocurrio un error con el servcio de informacion Legacy");
-                                           $('#errorModal').modal('show');
-                                       });
-                               }
-                           }
+                     const patron = /@/g;
+                     usrAgent = usrAgent.replace(patron, '');
+
+                     const formParameters = {
+                         terminal: usrAgent
+                             // terminal: 'T002'
+                     };
+                     const resourceRequest = new WLResourceRequest(
+                         'adapters/AdapterBanorteSucursApps/resource/consultaUsrLegacy',
+                         WLResourceRequest.POST);
+                     resourceRequest.setTimeout(30000);
+                     resourceRequest.sendFormParameters(formParameters).then(
+                         function(response) {
+                             this_aux.datosLegacy = response.responseJSON;
+                             console.log( this_aux.datosLegacy);
+                             console.log("El servcio de informacion Legacy respondio correctamente");
+                             this_aux.onPlasticLoginafterSecurity();
+                           },
+                         function(error) {
+                           WLAuthorizationManager.logout('banorteSecurityCheckSa');
+                             console.log("Ocurrio un error con el servcio de informacion Legacy");
+                             $('#errorModal').modal('show');
+                             $('#ModalTDDLogin').modal('hide');
+                         });
+                 }
+             }
+
 
 
   onPlasticLoginafterSecurity() {
@@ -96,13 +106,14 @@ export class LoginComponent {
 
     // console.log(this.postResp);
 
-    setTimeout(function() {
+    //setTimeout(function() {
 
       let tr2 = localStorage.getItem("tr2");
-      let np = localStorage.getItem("np");
-      let respTar = localStorage.getItem("res");
-      let respTar = localStorage.getItem("res");
-      let descripcion = localStorage.getItem("des");
+     let np = localStorage.getItem("np");
+     let respTar = localStorage.getItem("res");
+     this.respuestaTrjeta = respTar;
+     let descripcion = localStorage.getItem("des");
+
 
 
       if ((respTar !== "NO_OK") && (respTar !== null)) {
@@ -167,13 +178,13 @@ export class LoginComponent {
 
 
                // tslint:disable-next-line:max-line-length
-               console.log("Pinpad respondio con " + this.respTar);
+               console.log("Pinpad respondio con " + this.respuestaTrjeta);
                document.getElementById('mnsError').innerHTML = "Por el momento este servicio no est&aacute; disponible, favor de intentar de nuevo m&aacute;s tarde.";
                $('#errorModal').modal('show');
 
          }
 
-   }, 50000);
+   // }, 50000);
 
 
   }
