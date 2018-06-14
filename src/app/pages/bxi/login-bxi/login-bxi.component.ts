@@ -3,7 +3,7 @@ import { Autenticacion } from './../autenticacion';
 import { SesionBxiService } from './../sesion-bxi.service';
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 
 
 declare var jquery: any; // jquery
@@ -238,6 +238,11 @@ export class LoginBxiComponent implements OnInit {
     }
 
     modalIdentificaUsuario() {
+
+      const this_aux = this;
+      const control: FormControl = new FormControl('', Validators.required);
+      this_aux.myForm.setControl('fcUsuario', control );
+      this_aux.myForm.setControl('fcPass', control );
 
       document.getElementById('view_usr').style.display = 'block';
       document.getElementById('viewGeneralAutentica').style.display = 'none';
