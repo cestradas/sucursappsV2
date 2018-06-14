@@ -126,6 +126,9 @@ export class BreadcrumbsComponent implements OnInit {
 
     console.log("Cerrar sesion");
     sessionStorage.removeItem("campania");
+    sessionStorage.removeItem("np");
+    sessionStorage.removeItem("res");
+    sessionStorage.removeItem("tr2");
     const resourceRequest = new WLResourceRequest(
       'adapters/AdapterBanorteSucursApps/resource/cerrarSesion',
       WLResourceRequest.POST);
@@ -135,6 +138,7 @@ export class BreadcrumbsComponent implements OnInit {
 
             console.log(response);
 
+            location.reload(true);
             THIS.router.navigate(['/login']);
 
           },

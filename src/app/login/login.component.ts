@@ -70,15 +70,17 @@ setTimeout(function() {
          // setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
 
          let tipoPreferencia = res.DetalleClave;
-         let validaPreferencia = false;
+         let validaPreferencia = true;
+          this_aux.comienzaContador();
 
-         if (this.includesL(validaPreferencia, "PREFERENTE")) {
-           // PREFERENTE
-           validaPreferencia = true;
-           localStorage.setItem("tipoClienteTar", this.validaPreferencia );
-         }
-           // NORMAL
-           localStorage.setItem("tipoClienteTar", this.validaPreferencia  );
+          if (this_aux.includesL(validaPreferencia, "PREFERENTE")) {
+            // PREFERENTE
+            validaPreferencia = false;
+            localStorage.setItem("tipoClienteTar", validaPreferencia.toString() );
+          } else {
+            // NORMAL
+            localStorage.setItem("tipoClienteTar", validaPreferencia.toString()  );
+          }
 
          $('#ModalTDDLogin').modal('hide');
          THIS.router.navigate(['/menuTdd']);
@@ -117,6 +119,56 @@ setTimeout(function() {
         // $('div').removeClass('modal-backdrop');
 
   }
+
+  comienzaContador() {
+  const this_aux = this;
+  const body = $('body');
+  body.on('click', function() {
+    localStorage.setItem('TimeOut', localStorage.getItem('TimeOutIni'));
+  });
+
+  setInterval(function() {
+   const valueNewTimeOut = +localStorage.getItem('TimeOut') - 1;
+   localStorage.setItem('TimeOut', valueNewTimeOut.toString());
+   console.log(valueNewTimeOut);
+   if (valueNewTimeOut === 0) {
+    this_aux.cerrarSesion();
+   }
+  }, 1000);
+}
+
+
+cerrarSesion() {
+
+  const THIS: any = this;
+
+  console.log("Cerrar sesion");
+  sessionStorage.removeItem("campania");
+
+  sessionStorage.removeItem("np");
+  sessionStorage.removeItem("res");
+  sessionStorage.removeItem("tr2");
+  const resourceRequest = new WLResourceRequest(
+    'adapters/AdapterBanorteSucursApps/resource/cerrarSesion',
+    WLResourceRequest.POST);
+resourceRequest.setTimeout(30000);
+resourceRequest.send().then(
+        function(response) {
+
+          console.log(response);
+
+          location.reload(true);
+          THIS.router.navigate(['/login']);
+
+        },
+        function(error) {
+
+          console.log(error);
+          THIS.router.navigate(['/login']);
+
+        });
+
+}
 
   idSession() {
     const this_aux = this;
