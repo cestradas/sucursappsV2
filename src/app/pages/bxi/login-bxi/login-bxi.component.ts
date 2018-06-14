@@ -86,6 +86,7 @@ export class LoginBxiComponent implements OnInit {
                 this_aux.validaUsuarioAfterSecurity(usuarioBxi);
               },
             function(error) {
+              
               WLAuthorizationManager.logout('banorteSecurityCheckSa');
                 console.error("Ocurrio un error con el servcio de informacion Legacy");
                 $('#errorModal').modal('show');
@@ -121,6 +122,7 @@ export class LoginBxiComponent implements OnInit {
                             this_aux.getNumeroMetodo(arrayMetodos);
 
                         } else {
+                          this_aux.datosLegacy = '';
                           WLAuthorizationManager.logout('banorteSecurityCheckSa');
                             console.log(respConsultaMetodos.Id + respConsultaMetodos.MensajeAUsuario);
                             mensajeError = this_aux.controlarError(respConsultaMetodos);
@@ -134,6 +136,7 @@ export class LoginBxiComponent implements OnInit {
                     }
               );
           } else {
+            this_aux.datosLegacy = '';
             WLAuthorizationManager.logout('banorteSecurityCheckSa');
             console.log(detalleIdentifacionUsurario.Id + detalleIdentifacionUsurario.MensajeAUsuario);
             mensajeError = this_aux.controlarError(detalleIdentifacionUsurario);
@@ -143,6 +146,7 @@ export class LoginBxiComponent implements OnInit {
 
           }
       }, function(error) { 
+        this_aux.datosLegacy = '';
         WLAuthorizationManager.logout('banorteSecurityCheckSa');
         this_aux.showErrorPromise(error); });
   }
@@ -216,6 +220,7 @@ export class LoginBxiComponent implements OnInit {
 
                 } else {
 
+                  this_aux.datosLegacy = '';
                   WLAuthorizationManager.logout('banorteSecurityCheckSa');
                   $('#_modal_please_wait').modal('hide');
                   console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
@@ -225,6 +230,7 @@ export class LoginBxiComponent implements OnInit {
                 }
 
           }, function(error) { 
+            this_aux.datosLegacy = '';
             WLAuthorizationManager.logout('banorteSecurityCheckSa');
             this_aux.showErrorPromise(error);
           });
