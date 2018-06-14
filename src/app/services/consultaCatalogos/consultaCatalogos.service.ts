@@ -28,12 +28,11 @@ export class consultaCatalogos {
            return resourceRequest.sendFormParameters(formParameters);
         }
         
-        pagaServicio(idFacturador, montoAPagar, referencia, cuentaCargo, fechaVencimiento): any {
+        pagaServicio(idFacturador, montoAPagar, referencia, fechaVencimiento): any {
             const formParameters = {
                 idFacturador: idFacturador,
                 montoAPagar: montoAPagar,
                 referencia: referencia,
-                cuentaCargo: cuentaCargo,
                 fechaVencimiento: fechaVencimiento
                 
               };
@@ -76,6 +75,31 @@ export class consultaCatalogos {
     
           return resourceRequest.sendFormParameters(formParameters);
         }
+
+        altaServicioAlertasTDD(evento) {
+
+          const formParameters = {
+            servicio: evento
+            };
+  
+            const    resourceRequest = new WLResourceRequest(
+              'adapters/AdapterBanorteSucursApps/resource/altaServicioAlertas', WLResourceRequest.POST);
+        resourceRequest.setTimeout(30000);
+  
+        return resourceRequest.sendFormParameters(formParameters);
+      }
+
+      mantieneAlertas() {
+
+        const formParameters = {
+          };
+
+          const    resourceRequest = new WLResourceRequest(
+            'adapters/AdapterBanorteSucursApps/resource/consultaServicioAlertas', WLResourceRequest.POST);
+      resourceRequest.setTimeout(30000);
+
+      return resourceRequest.sendFormParameters(formParameters);
+    }
 
        constructor() {  }
         

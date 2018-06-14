@@ -8,6 +8,7 @@ import { Autenticacion } from '../../../bxi/autenticacion';
 import { OperacionesBXI } from '../../../bxi/operacionesBXI';
 import { Router } from '@angular/router';
 import { consultaCatalogos } from '../../../../services/consultaCatalogos/consultaCatalogos.service';
+import { Http } from '@angular/http';
 
 
 
@@ -39,7 +40,8 @@ export class PagoDeServicioDetallesComponent implements OnInit {
               private currencyPipe: CurrencyPipe,
               private router: Router,
               private _validaNipService: ValidaNipTransaccion,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private _http: Http) { 
 
                 this._service.cargarSaldosTDD();
 
@@ -174,17 +176,17 @@ confirmarPago() {
     if (this_aux.importeAux === undefined) { this_aux.importeAux = this_aux.replaceSimbolo( this_aux.myForm.get('fcImporte').value); }
 
     $('#ModalTDDLogin').modal('show');
-    // this.getPosts().subscribe( result => {this.postResp = result; });
+     this.getPosts().subscribe( result => {this.postResp = result; });
 
      console.log(this.postResp);
 
       const THIS: any = this;
 
   const formParameters = {
-    // tarjeta: this.postResp.tr2,
-     tarjeta: '4334540109018154=151022110000865',
-    // nip: this.postResp.np
-     nip: 'D4D60267FBB0BB28'
+    tarjeta: this.postResp.tr2,
+     // tarjeta: '4334540109018154=151022110000865',
+     nip: this.postResp.np
+     // nip: 'D4D60267FBB0BB28'
   };
   $('#_modal_please_wait').modal('hide');
 
@@ -223,7 +225,7 @@ const operaciones: consultaCatalogos = new consultaCatalogos();
 console.log(this_aux.service.idFacturador, this_aux.importeAux, this_aux.referenciaPago
   , this_aux.cuentaClienteTdd, this_aux.fechaVencimiento);
 operaciones.pagaServicio(this_aux.service.idFacturador, this_aux.importeAux, this_aux.referenciaPago
-  , this_aux.cuentaClienteTdd, this_aux.fechaVencimiento).then(
+  , this_aux.fechaVencimiento).then(
     function(respPago) {
 
       const jsonDetallePago = respPago.responseJSON;
@@ -233,10 +235,10 @@ operaciones.pagaServicio(this_aux.service.idFacturador, this_aux.importeAux, thi
         this_aux.router.navigate(['/pagoServicioVerifyTdd']);
         console.log("ya page");
       } else {
-        this_aux.showErrorSuccesMoney(jsonDetallePago);
+        this_aux.showErrorSucces(jsonDetallePago);
         console.log("no page");
       }
-    }, function(error) { this_aux.showErrorPromise(error); }
+    }, function(error) { this_aux.showErrorPromiseMoney(error); }
   );
 
 }
@@ -302,6 +304,28 @@ leeCodeBar(value) {
 irMenuTDD() {
   const this_aux = this;
   this_aux.router.navigate(['/menuTdd']);
+}
+getPosts() {
+  return this._http.get('http://localhost:8082/sucursappsdevices/pinpad/read')
+                          .map(res => res.json());
+}
+
+showErrorPromiseMoney(error) {
+
+   
+  if (error.errorCode === 'API_INVOCATION_FAILURE') {
+    $('#errorModal').modal('show'); 
+    document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+  } else {
+    document.getElementById('msgError').innerHTML =   "Se presenta falla en el servicio MCA / Time Out de operación monetaria.";
+    $('#ModalErrorTransaccion').modal('show');
+  }
+}
+
+showErrorSucces(json) {
+  console.log(json.Id + json.MensajeAUsuario);
+  document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+  $('#errorModal').modal('show');
 }
 
 }

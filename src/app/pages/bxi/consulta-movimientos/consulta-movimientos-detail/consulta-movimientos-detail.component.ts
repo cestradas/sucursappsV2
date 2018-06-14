@@ -12,7 +12,7 @@ declare var $: any;
 })
 
 export class ConsultaMovimientosDetailComponent implements OnInit {
-
+  
   cuentaClienteBXI: String;
   tipoCuenta: String;
   noTarjeta: String;
@@ -21,7 +21,7 @@ export class ConsultaMovimientosDetailComponent implements OnInit {
 
   saldoDispoinible: String;
   SaldoActual: string;
-
+  
   alias: any = '';
   TamArray: any;
   numPaginas: any;
@@ -39,17 +39,16 @@ export class ConsultaMovimientosDetailComponent implements OnInit {
   fechaMesActualFin: String;
   fechaMesActualIni: String;
   diaMesAnterior: any;
-
+  opcionSeleccionado: String = "0" ;
+  
   moviMesActual: Array<any> = [] ;
   moviMesAnterior: Array<any> = [] ;
   constructor(private service: SesionBxiService) {
 
-
-
   }
 
   ngOnInit() {
-
+   
 
     this.cuentaClienteBXI = this.service.numCuentaSeleccionado;
     this.tipoCuenta = this.service.aliasCuentaSeleccionada;
@@ -77,7 +76,18 @@ export class ConsultaMovimientosDetailComponent implements OnInit {
         }
     this_aux.fechaMesActualFin = (this_aux.anio + "-" + this_aux.mes + "-" + this_aux.dia).toString();
     this_aux.fechaMesActualIni = (this_aux.anio + "-" + this_aux.mes + "-01").toString();
-     this.seleccionarTipoCuenta();
+     
+    console.log("valor inicial tipo cuenta" + this.service.tipoCuenta);
+    if (this.service.tipoCuenta === "1") {
+      const div2 = document.getElementById('selectTDD');
+      div2.style.display = "block";
+      $("#selecttdd").val('0');
+
+     } else {
+      const div2 = document.getElementById('selectTDC');
+      div2.style.display = "block";
+      $("#selecttdc").val('0');
+this.seleccionarTipoCuenta();
 
      //ESTILOS Preferente
     let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
@@ -87,31 +97,44 @@ export class ConsultaMovimientosDetailComponent implements OnInit {
 
       btnContinuar.classList.remove("color-botones");
       btnContinuar.classList.add("color-botones_Preferente");
-    }
+     }
+     
 
+     this.seleccionarTipoCuenta();
   }
 
 
-  previousPag (numPrev) {
-    if ((this.numeroDatoFinal - 1) >= this.tamPaginas ) {
-      let numeroPagActual = (numPrev / this.tamPaginas) - 1;
-      this.numeroDatoFinal = (numeroPagActual) * this.tamPaginas ;
-      this.numeroDatoInicial = this.numeroDatoFinal - this.tamPaginas;
-    }
-
-  }
+  
 
   cambiarPagina(numeroPag) {
-    this.numeroDatoFinal = (numeroPag.textContent ) * this.tamPaginas ;
+    this.numeroDatoFinal = (numeroPag ) * this.tamPaginas ;
     this.numeroDatoInicial = this.numeroDatoFinal - this.tamPaginas;
   }
 
-  nextPag (numeroNex) {
-    if ((this.numeroDatoFinal + 1) <= this.TamArray) {
-      let numeroPagActual = (numeroNex / this.tamPaginas) + 1;
-      this.numeroDatoFinal = (numeroPagActual) * this.tamPaginas ;
-      this.numeroDatoInicial = this.numeroDatoFinal - this.tamPaginas;
+ 
+
+  paginador2() {
+  
+    const this_aux = this;
+    let paginasVisibles = 8 ;
+    if (this_aux.numPaginas < paginasVisibles) {
+        paginasVisibles = this_aux.numPaginas ;
     }
+    $('#paginador').twbsPagination('destroy');
+    $('#paginador').twbsPagination({
+      startpages: 1,
+      totalPages: this_aux.numPaginas,
+      visiblePages: paginasVisibles,
+      first: '',
+      last: '',
+      prev: 'Anterior',
+      next: 'Siguiente',
+      onPageClick: function (event, page) {
+        console.log(page);
+        this_aux.cambiarPagina(page);
+      
+      }
+  });
   }
 
 
@@ -122,12 +145,12 @@ export class ConsultaMovimientosDetailComponent implements OnInit {
     this_aux.arrayNumPag = [];
     this_aux.numeroDatoInicial = 0;
     this_aux.numeroDatoFinal = this_aux.tamPaginas;
-
+    
     if (  this_aux.par === 0 ) {
       this_aux.fechaMesActualFin = (this_aux.anio + "-" + this_aux.mes + "-" + this_aux.dia).toString();
       this_aux.fechaMesActualIni = (this_aux.anio + "-" + this_aux.mes + "-01").toString();
       this.seleccionarTipoCuenta();
-
+    
     } else {
       if ( (this_aux.mes - 1) < 10) {
         this_aux.fechaMesActualFin = (this_aux.anio + "-" + "0" + (this_aux.mes - 1) + "-" + this_aux.diaMesAnterior).toString();
@@ -158,7 +181,7 @@ export class ConsultaMovimientosDetailComponent implements OnInit {
     this.quitartabla();
     $('#_modal_please_wait').modal('show');
     this.ConsultaMovimientosTDD(numCuenta, this.fechaMesActualIni  , this.fechaMesActualFin, "N", "N", "100");
-
+    
   }
 
   llamarMovimientosTDC (numCuenta) {
@@ -173,50 +196,52 @@ export class ConsultaMovimientosDetailComponent implements OnInit {
     const div2 = document.getElementById('Navegador');
     div2.style.display = "none";
     div2.style.alignContent = "center";
-
-
+  
+    
   }
 
 consultaMovimientosTDC(numeroCue) {
 
-
+  
   const this_aux = this;
+  console.log(this_aux.opcionSeleccionado);
   this_aux.mostrarSaldoCredito();
   const formParameters = {
-    cuenta: numeroCue
-  };
-
+    cuenta: numeroCue,
+    tipoConsulta: this_aux.opcionSeleccionado
+  }; 
+  
   console.log(formParameters);
-
+         
   const resourceRequest = new WLResourceRequest(
-
+    
     'adapters/AdapterBanorteSucursAppsBEL/resource/consultaMovimientosTarjetas', WLResourceRequest.POST);
     resourceRequest.setTimeout(30000);
-
+    
     resourceRequest.sendFormParameters(formParameters).then(
       function(response) {
         console.log(response.responseText);
        this_aux.movimientos = response.responseJSON;
-       if (this_aux.movimientos === null) {
+       if (this_aux.movimientos === null) { 
          this_aux.timeOut();
        }
-
+        
         const detalleCuenta = response.responseJSON;
         if ( detalleCuenta.Id === '1') {
 
           this_aux.movimientosCue = this_aux.movimientos.movimientos;
 
           console.log(this_aux.movimientosCue);
-          this_aux.movimentosMesActual(this_aux.movimientosCue);
+          // this_aux.movimentosMesActual(this_aux.movimientosCue);
          if ( this_aux.movimientosCue.length === 0 ) {
           console.log(detalleCuenta.MensajeAUsuario);
           this_aux.sinMovimientos(this_aux.par);
          } else {
           this_aux.TamArray = this_aux.movimientosCue.length;
-          this_aux.numPaginas = this_aux.TamArray / this_aux.tamPaginas;
+          this_aux.numPaginas = this_aux.TamArray / this_aux.tamPaginas;         
 
            let i = 0;
-
+    
              for (i; i < this_aux.numPaginas; i ++) {
                  this_aux.arrayNumPag.push(i);
              }
@@ -224,14 +249,18 @@ consultaMovimientosTDC(numeroCue) {
               const textTitular = detalleCuenta;
               console.log(detalleCuenta.MensajeAUsuario);
               this_aux.mostrarTabla();
-              if (this_aux.numPaginas <= 1 ) {
+              if (this_aux.numPaginas <= 1 ) { 
                 const div2 = document.getElementById('Navegador');
                 div2.style.display = "none";
                }
+               
          }
-
-
-        }
+         if (this_aux.options === 0) {
+            $("#selecttdc").val('0');
+         }
+         
+          
+        } 
       }, function(error) {
   });
   console.log("Movimientos cargados correctamente");
@@ -242,7 +271,7 @@ movimentosMesActual (movimentos) {
 
   let mes = new Date().getUTCMonth() ;
 
-
+  
   movimentos.forEach(movimiento => {
       console.log(movimiento);
       let algo = movimiento.FechaOperacion;
@@ -252,7 +281,7 @@ movimentosMesActual (movimentos) {
 
     if (mes === mesMov ) {
      this.moviMesActual.push(movimiento);
-    }
+    } 
     if ((mes - 1) === mesMov ) {
       this.moviMesAnterior.push(movimiento);
     }
@@ -266,7 +295,7 @@ movimentosMesActual (movimentos) {
   } else {
             this.movimientosCue = this.moviMesAnterior;
   }
-
+  
 console.log( this.movimientosCue);
 
 }
@@ -275,13 +304,14 @@ mostrarSaldoDebito() {
 
   const cuentaCredito = document.getElementById('cuentaCredito');
   cuentaCredito.setAttribute('style', 'display: none');
-
+  
 }
 
 mostrarSaldoCredito() {
+  this.mostrarSaldoDebito();
   const cuentaCredito = document.getElementById('cuentaCredito');
   cuentaCredito.setAttribute('style', 'display: block');
-
+  
 }
   ConsultaMovimientosTDD(numeroCue, fDesde, fHasta, comi, pag, numreg) {
     const this_aux = this;
@@ -292,47 +322,45 @@ mostrarSaldoCredito() {
       Comision: comi,
       Pagina: pag,
       numeroRegistros: numreg
-    };
-
+    }; 
+    
     console.log(formParameters);
-
+           
     const resourceRequest = new WLResourceRequest(
-
+      
       'adapters/AdapterBanorteSucursAppsBEL/resource/consultaMovimientos', WLResourceRequest.POST);
       resourceRequest.setTimeout(30000);
-
+      
       resourceRequest.sendFormParameters(formParameters).then(
         function(response) {
           console.log(response.responseText);
          this_aux.movimientos = response.responseJSON;
-         if (this_aux.movimientos === null) {
+         if (this_aux.movimientos === null) { 
            this_aux.timeOut();
          }
-
+          
           const detalleCuenta = response.responseJSON;
           if ( detalleCuenta.Id === '1') {
 
             this_aux.movimientosCue = this_aux.movimientos.movimientos;
             this_aux.TamArray = this_aux.movimientosCue.length;
-            this_aux.numPaginas = this_aux.TamArray / this_aux.tamPaginas;
-       let i = 0;
-
-     for (i; i < this_aux.numPaginas; i ++) {
-       this_aux.arrayNumPag.push(i);
-     }
+            this_aux.numPaginas = this_aux.TamArray / this_aux.tamPaginas;     
 
             const textTitular = detalleCuenta;
             console.log(detalleCuenta.MensajeAUsuario);
             this_aux.mostrarTabla();
-            if (this_aux.numPaginas <= 1 ) {
+            if (this_aux.numPaginas <= 1 ) { 
               const div2 = document.getElementById('Navegador');
               div2.style.display = "none";
              }
           } else {
             console.log(detalleCuenta.MensajeAUsuario);
             this_aux.sinMovimientos(this_aux.par);
-
+            
           }
+          if (this_aux.options === 0) {
+            $("#selecttdd").val('0');
+         }
         }, function(error) {
     });
 
@@ -355,12 +383,12 @@ mostrarSaldoCredito() {
       console.log("no hay movimientos en mes actual");
       this.quitartabla ();
       this.noMovMesAct ();
-
+      
     } else {
       console.log("no hay movimientos en mes anterior");
       this.quitartabla ();
       this.noMovMesAnt();
-
+      
     }
   }
 
@@ -368,17 +396,17 @@ mostrarSaldoCredito() {
   noMovMesAct () {
     const div = document.getElementById('noMovimientosMesActual');
     $('#noMovimientosMesActual').modal('show');
-
+  
   }
   noMovMesAnt () {
     const div = document.getElementById('noMovimientosMesAnterior');
     $('#noMovimientosMesAnterior').modal('show');
-
+  
   }
   timeOut () {
     const div = document.getElementById('timeOut');
     $('#timeOut').modal('show');
-
+  
   }
 
 

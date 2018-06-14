@@ -1,23 +1,44 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { consultaCatalogos } from '../../../services/consultaCatalogos/consultaCatalogos.service';
+import { ConsultaSaldosTddService, SesionTDDService } from '../../../services/service.index';
 declare var $: any;
 @Component({
   selector: 'app-activar-alertas',
   templateUrl: './activar-alertas.component.html',
 })
 export class ActivarAlertasComponent implements OnInit {
+  nombreUsuarioTdd: string;
+  saldoClienteTdd: string;
+  cuentaClienteTdd: string;
   AlertasActivas = false;
   isChecked = false ;
   Evento: string;
   ArrayAlertasCliente: Array<any> = [];
 
   @ViewChild('rcheck', { read: ElementRef}) rcheck: ElementRef ;
+  
+  constructor(private router: Router, private _service: ConsultaSaldosTddService, private _serviceSesion: SesionTDDService) {
+     
 
-  constructor(private router: Router) { }
+   }
 
   ngOnInit() {
-    //ESTILOS Preferente
+$('#_modal_please_wait').modal('show');
+     this._service.cargarSaldosTDD();
+     this._service.validarDatosSaldoTdd().then(
+       mensaje => {
+
+         console.log('Saldos cargados correctamente TDD');
+         this.saldoClienteTdd = mensaje.SaldoDisponible;
+         this.cuentaClienteTdd = mensaje.NumeroCuenta;
+         this.nombreUsuarioTdd = this._serviceSesion.datosBreadCroms.nombreUsuarioTDD;
+         this.consultaAlertas();
+         setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
+       }
+     );
+     
+    // ESTILOS Preferente
     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
     let btnContinuar = document.getElementById("continuar");
 
@@ -34,8 +55,7 @@ export class ActivarAlertasComponent implements OnInit {
 
       const this_aux = this;
     const operaciones: consultaCatalogos = new consultaCatalogos();
-      $('#_modal_please_wait').modal('show');
-      operaciones.mantieneAlertas('C').then(
+      operaciones.mantieneAlertas().then(
         function(detalleAlertas) {
               const detalle = detalleAlertas.responseJSON;
               let AlertasActivas_true = false;
@@ -52,16 +72,17 @@ export class ActivarAlertasComponent implements OnInit {
                     this_aux.AlertasActivas = AlertasActivas_true;
                     console.log('this_aux.AlertasActivas' + this_aux.AlertasActivas);
                     if (this_aux.AlertasActivas) {
-                      $('#_modal_please_wait').modal('hide');
-                        document.getElementById('mnsError').innerHTML =  "Ya tienes alertas activas para esta cuenta";
+                      setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
+                        document.getElementById('mnsError').innerHTML =  "Ya tienes alertas activas para esta cuenta"; 
                         $('#errorModal').modal('show');
                     }
 
               } else {
                 $('#_modal_please_wait').modal('hide');
                 this_aux.showErrorSucces(detalle);      }
-        }, function(error) {
-          $('#_modal_please_wait').modal('hide');
+                $("div").remove(".modal-backdrop");
+        }, function(error) { 
+          setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
           this_aux.showErrorPromise(error);    }
       );
     }
@@ -80,16 +101,14 @@ export class ActivarAlertasComponent implements OnInit {
 setAltaServicioAlertas() {
   $('#_modal_please_wait').modal('show');
   const this_aux = this;
-  let TDD  = false;
-  let TDC = false;
-  let I = false;
+  
 
   if (this_aux.ArrayAlertasCliente.length !== 0) {
      const elemento = this_aux.ArrayAlertasCliente[0];
      const servicioEvento = elemento.ServicioEvento;
      this_aux.Evento = servicioEvento.substring(2, 5);
      const operaciones: consultaCatalogos = new consultaCatalogos();
-     operaciones.altaServicioAlertasTDD('A', this_aux.Evento ).then(
+     operaciones.altaServicioAlertasTDD(this_aux.Evento).then(
         function(res) {
             const respuestaActivacion = res.responseJSON;
               if (respuestaActivacion.Id === '1') {
@@ -101,14 +120,14 @@ setAltaServicioAlertas() {
                     this_aux.Evento = servicioEventoAux.substring(2, 5);
                     this_aux.setAltaServicioAlertas();
                   } else {
-                    this_aux.router.navigate(['/activaAlertas_verify']);
+                    this_aux.router.navigate(['/activarAlertasVerifyTDD']);
                   }
-              } else {
-                $('#_modal_please_wait').modal('hide');
+              } else { 
+                setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
                 this_aux.showErrorSucces(res); }
-        }, function(error) {
-
-          $('#_modal_please_wait').modal('hide');
+        }, function(error) {  
+          
+          setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
           this_aux.showErrorPromise(error);   }
 
      );

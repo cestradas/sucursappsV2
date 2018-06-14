@@ -99,18 +99,24 @@
                 </div>
             </div>
         </div>
-        <div class="modal-footer deletePaddingRigth-buttom row">
 
-            <div class="col-lg-1 pull-right">
-                <button class="btn btn-lg" (click)="irMenuTDD()">Cancelar</button>
-                <button id="continuar" type="button" class="color-botones btn btn-lg " [disabled]="myForm.invalid" (click)="showDetallePago(myForm.value)">
-                                Continuar
-                        </button>
-            </div>
-        </div>
 
     </fieldset>
+    <div class="modal-footer deletePaddingRigth-buttom row">
 
+        <div class="col-lg-9"></div>
+        <div class="col-lg-3">
+            <div class="row">
+                <div class="col-lg-10 pull-right">
+                    <button class="btn btn-lg" (click)="irMenuTDD()">Cancelar</button>
+                    <button id="continuar" type="button" class="color-botones btn btn-lg " [disabled]="myForm.invalid" (click)="showDetallePago(myForm.value)">
+                                Continuar
+                        </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Modal -->
     <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">

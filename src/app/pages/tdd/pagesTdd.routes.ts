@@ -22,6 +22,7 @@ import { PagoServiciosVerificacionComponent } from './pagoServiciosTDD/pago-serv
 // tslint:disable-next-line:max-line-length
 import { MantenimientoDatosContactoFinalComponent } from './mantenimientos-datos-contacto/mantenimiento-datos-contacto-final/mantenimiento-datos-contacto-final.component';
 import { MantenimientosDatosContactoComponent } from './mantenimientos-datos-contacto/mantenimientos-datos-contacto.component';
+import { ActivarAlertasVerifyTddComponent } from './activar-alertas/activar-alertas-verify-tdd/activar-alertas-verify-tdd.component';
 
 const pageRoutesTDD: Routes = [
     {
@@ -43,7 +44,8 @@ const pageRoutesTDD: Routes = [
             { path: 'detalleTransferenciaSpei', component: TransferenciasSpeiDetailComponent},            
             { path: 'actualizarDatosContactoFinalTDD', component: MantenimientoDatosContactoFinalComponent},
             { path: 'actualizarDatosContactoTDD', component: MantenimientosDatosContactoComponent},
-            { path: 'activarAlertas', component: ActivarAlertasComponent},
+            { path: 'activarAlertasTDD', component: ActivarAlertasComponent},
+            { path: 'activarAlertasVerifyTDD', component: ActivarAlertasVerifyTddComponent},
             { path: 'transTercerosFinal', component: TransferenciaTercerosFinalComponent},
             { path: 'impresion-edc', component: ImpresionEdcTddComponent},
             { path: 'impresion-edc-final', component: ImpresionEdcFinishComponent},

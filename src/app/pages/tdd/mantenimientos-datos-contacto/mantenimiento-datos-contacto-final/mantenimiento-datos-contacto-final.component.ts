@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConsultaSaldosTddService, SesionTDDService } from '../../../../services/service.index';
 import { Router } from '@angular/router';
 import { consultaCatalogos } from '../../../../services/consultaCatalogos/consultaCatalogos.service';
-
+import $ from 'jquery';
 declare var jquery: any; // jquery
 declare var $: any;
 @Component({
@@ -64,7 +64,7 @@ export class MantenimientoDatosContactoFinalComponent implements OnInit {
             this_aux.Celular = this_aux._serviceSesion.datosBreadCroms.CelCliente;
             this_aux.CorreoElectronico = this_aux._serviceSesion.datosBreadCroms.EmailCliente;
             this_aux.Sic = this_aux._serviceSesion.datosBreadCroms.numeroCliente;
-            $('#_modal_please_wait').modal('hide');
+            setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
           }, 500);
 
 

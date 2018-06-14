@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { consultaCatalogos } from '../../../services/consultaCatalogos/consultaCatalogos.service';
 import { SesionBxiService } from '../../bxi/sesion-bxi.service';
 import { SesionTDDService } from '../../../services/service.index';
-
+import $ from 'jquery';
 
 declare var $: any;
 @Component({
@@ -68,20 +68,23 @@ export class MantenimientosDatosContactoComponent implements OnInit {
           this._serviceSesion.datosBreadCroms.EmailCliente = "";
           console.log("No hay Datos");
         }
+
+        setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
       }, function(error) { this_aux.showErrorPromise(error); }
     );
   }
 
   getDatosContacto() {
     const this_aux = this;
-
+    $('#_modal_please_wait').modal('show');
     this_aux.consultarDatos();
-    setTimeout(function() {
-
+    setTimeout(function() { 
+      $('#_modal_please_wait').modal('show');
       const controlCorreo: FormControl = new FormControl(this_aux._serviceSesion.datosBreadCroms.CelCliente);
       this_aux.myForm.setControl('fcCorreo', controlCorreo );
       const controlCelular: FormControl = new FormControl( this_aux._serviceSesion.datosBreadCroms.EmailCliente);
       this_aux.myForm.setControl('fcCelular', controlCelular );
+      setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
     }, 500);
 
   }
