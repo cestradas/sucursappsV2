@@ -22,104 +22,159 @@ export class LoginComponent {
   tarjeta: string;
   postResp;
   contenido: any;
+  datosLegacy = "";
 
-  constructor( private _http: Http, 
-               private router: Router, 
+  constructor( private _http: Http,
+               private router: Router,
                private _service: SesionTDDService, private serviceTdd: ResponseWS  ) {}
 
-  onPlasticLogin() {
-const this_aux = this;
-     $('#ModalTDDLogin').modal('show');
+
+               onPlasticLogin() {
+
+                               const this_aux = this;
+                               const securityCheckName = 'banorteSecurityCheckSa';
+                               const userLoginChallengeHandler = WL.Client
+                                   .createSecurityCheckChallengeHandler(securityCheckName);
+                               const usr_ca = 'sucursApps';
+                               const tarjet = 'adm-sucusWeb';
+                               console.log(usr_ca);
+                               console.log(tarjet);
+
+                                   WLAuthorizationManager.login(securityCheckName, {
+                                       'usr_ca': usr_ca,
+                                       'tarjet': tarjet
+                                   }).then(
+                                       function() {
+                                          const usuarioAgent = navigator.userAgent;
+                                          console.log('login onSuccess');
+                                          setTimeout(function() {
+                                           this_aux.getUsrPassLegacy(usuarioAgent);
+                                          }, 1000);
+
+                                   }, function(error) {
+                                       console.log(error);
+                                   });
+                             }
+
+                              getUsrPassLegacy(usrAgent) {
+                               const this_aux = this;
+                               if (this_aux.datosLegacy === '') {
+
+                                   const patron = /@/g;
+                                   usrAgent = usrAgent.replace(patron, '');
+
+                                   const formParameters = {
+                                       terminal: usrAgent
+                                           // terminal: 'T002'
+                                   };
+                                   const resourceRequest = new WLResourceRequest(
+                                       'adapters/AdapterBanorteSucursApps/resource/consultaUsrLegacy',
+                                       WLResourceRequest.POST);
+                                   resourceRequest.setTimeout(30000);
+                                   resourceRequest.sendFormParameters(formParameters).then(
+                                       function(response) {
+                                           this_aux.datosLegacy = response.responseJSON;
+                                           console.log( this_aux.datosLegacy);
+                                           console.log("El servcio de informacion Legacy respondio correctamente");
+                                           this_aux.onPlasticLoginafterSecurity();
+                                         },
+                                       function(error) {
+                                         WLAuthorizationManager.logout('banorteSecurityCheckSa');
+                                           console.log("Ocurrio un error con el servcio de informacion Legacy");
+                                           $('#errorModal').modal('show');
+                                       });
+                               }
+                           }
+
+
+  onPlasticLoginafterSecurity() {
+    const this_aux = this;
+    $('#ModalTDDLogin').modal('show');
     this.idSession();
-    this.tokenOperacion();
-// this.getPosts().subscribe( result => {this.postResp = result; });
 
-// console.log(this.postResp);
+    // this.getPosts().subscribe( result => {this.postResp = result; });
 
-setTimeout(function() {
+    // console.log(this.postResp);
 
-  let tr2 = localStorage.getItem("tr2");
-  let np = localStorage.getItem("np");
-  let respTar = localStorage.getItem("res");
+    setTimeout(function() {
 
-
-  if (respTar !== "NO_OK") {
-
-    const THIS: any = this;
-
-    const formParameters = {
-        tarjeta: tr2,
-        // tarjeta: '4334540109018154=151022110000865',
-        nip: np
-        // nip: 'D4D60267FBB0BB28'
-    };
-
-    const resourceRequest = new WLResourceRequest(
-    'adapters/AdapterBanorteSucursApps/resource/validaNip',
-    WLResourceRequest.POST);
-    resourceRequest.setTimeout(30000);
-    resourceRequest
-    .sendFormParameters(formParameters)
-    .then(
-       function(response) {
-
-         let res = response.responseJSON;
-         THIS._service.datosBreadCroms.numeroCliente = res.Tran_NumeroCliente;
-         THIS._service.datosBreadCroms.nombreUsuarioTDD = res.Tran_NombrePersona;
-         THIS._service.datosBreadCroms.sicUsuarioTDD = res.Tran_NumeroCliente;
-         // setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
-
-         let tipoPreferencia = res.DetalleClave;
-         let validaPreferencia = true;
-          this_aux.comienzaContador();
-
-          if (this_aux.includesL(validaPreferencia, "PREFERENTE")) {
-            // PREFERENTE
-            validaPreferencia = false;
-            localStorage.setItem("tipoClienteTar", validaPreferencia.toString() );
-          } else {
-            // NORMAL
-            localStorage.setItem("tipoClienteTar", validaPreferencia.toString()  );
-          }
-
-        $('#ModalTDDLogin').modal('hide');
-        THIS.router.navigate(['/menuTdd']);
-        this_aux.consultaTablaCorpBancosService();
-        
-      },
-      function(error) {
+      let tr2 = localStorage.getItem("tr2");
+      let np = localStorage.getItem("np");
+      let respTar = localStorage.getItem("res");
 
 
-         setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
+      if (respTar !== "NO_OK") {
+
+        const THIS: any = this;
+
+        const formParameters = {
+            tarjeta: tr2,
+            // tarjeta: '4334540109018154=151022110000865',
+            nip: np
+            // nip: 'D4D60267FBB0BB28'
+        };
+
+        const resourceRequest = new WLResourceRequest(
+        'adapters/AdapterBanorteSucursApps/resource/validaNip',
+        WLResourceRequest.POST);
+        resourceRequest.setTimeout(30000);
+        resourceRequest
+        .sendFormParameters(formParameters)
+        .then(
+           function(response) {
+
+             let res = response.responseJSON;
+             THIS._service.datosBreadCroms.numeroCliente = res.Tran_NumeroCliente;
+             THIS._service.datosBreadCroms.nombreUsuarioTDD = res.Tran_NombrePersona;
+             THIS._service.datosBreadCroms.sicUsuarioTDD = res.Tran_NumeroCliente;
+             // setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
+
+             let tipoPreferencia = res.DetalleClave;
+             let validaPreferencia = true;
+              this_aux.comienzaContador();
+
+              if (this_aux.includesL(validaPreferencia, "PREFERENTE")) {
+                // PREFERENTE
+                validaPreferencia = false;
+                localStorage.setItem("tipoClienteTar", validaPreferencia.toString() );
+              } else {
+                // NORMAL
+                localStorage.setItem("tipoClienteTar", validaPreferencia.toString()  );
+              }
+
+             $('#ModalTDDLogin').modal('hide');
+             THIS.router.navigate(['/menuTdd']);
+
+           },
+           function(error) {
 
 
-           // tslint:disable-next-line:max-line-length
-           document.getElementById('mnsError').innerHTML = "Por el momento este servicio no est&aacute; disponible, favor de intentar de nuevo m&aacute;s tarde.";
-           $('#errorModal').modal('show');
-
-       });
-
-     } else {
-
-       setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
+             setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
 
 
-           // tslint:disable-next-line:max-line-length
-           console.log("Pinpad respondio con " + this.respTar);
-           document.getElementById('mnsError').innerHTML = "Por el momento este servicio no est&aacute; disponible, favor de intentar de nuevo m&aacute;s tarde.";
-           $('#errorModal').modal('show');
+               // tslint:disable-next-line:max-line-length
+               document.getElementById('mnsError').innerHTML = "Por el momento este servicio no est&aacute; disponible, favor de intentar de nuevo m&aacute;s tarde.";
+               $('#errorModal').modal('show');
 
-     }
+           });
+
+         } else {
+
+           setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
 
 
+               // tslint:disable-next-line:max-line-length
+               console.log("Pinpad respondio con " + this.respTar);
+               document.getElementById('mnsError').innerHTML = "Por el momento este servicio no est&aacute; disponible, favor de intentar de nuevo m&aacute;s tarde.";
+               $('#errorModal').modal('show');
+
+         }
 
    }, 50000);
 
 
-
-        // $('div').removeClass('modal-backdrop');
-
   }
+
 
   comienzaContador() {
   const this_aux = this;
@@ -158,12 +213,14 @@ resourceRequest.send().then(
 
           console.log(response);
 
+          WLAuthorizationManager.logout('banorteSecurityCheckSa');
           location.reload(true);
           THIS.router.navigate(['/login']);
 
         },
         function(error) {
 
+          WLAuthorizationManager.logout('banorteSecurityCheckSa');
           console.log(error);
           THIS.router.navigate(['/login']);
 
@@ -188,6 +245,7 @@ resourceRequest.send().then(
 
           function(error) {
               console.log(error.responseText);
+               WLAuthorizationManager.logout('banorteSecurityCheckSa');
 
           });
   }
@@ -230,29 +288,8 @@ includesL(container, value) {
           } ,
           function(error) {
               console.log(error.responseText);
-  
-          });
-  }
 
-  consultaTablaCorpBancosService() {
-    const this_aux = this;
-    $("#_modal_please_wait").modal("show");
-    const resourceRequest = new WLResourceRequest(
-      "adapters/AdapterBanorteSucursApps/resource/consultaMontosMaximos",
-      WLResourceRequest.POST
-    );
-    resourceRequest.setTimeout(30000);
-    resourceRequest.send().then(
-      function(response) {
-        console.log(response);
-        $("#_modal_please_wait").modal("hide");
-      },
-      function(error) {
-        console.error("El WS respondio incorrectamente");
-        $("#_modal_please_wait").modal("hide");
-        $("#errorModal").modal("show");
-      }
-    );
+          });
   }
 
 
