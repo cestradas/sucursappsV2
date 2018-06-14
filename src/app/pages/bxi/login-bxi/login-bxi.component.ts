@@ -131,6 +131,7 @@ export class LoginBxiComponent implements OnInit {
                             $('#errorModal').modal('show');
                         }
                      }, function(error) { 
+                      this_aux.datosLegacy = '';
                       WLAuthorizationManager.logout('banorteSecurityCheckSa'); 
                       this_aux.showErrorPromise(error); 
                     }
