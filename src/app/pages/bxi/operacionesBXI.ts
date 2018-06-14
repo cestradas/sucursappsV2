@@ -421,7 +421,21 @@ export class OperacionesBXI {
           return resourceRequest.sendFormParameters(formParameters);
         }
 
-        consultaBancos() {
+        mantenimientoCancelacionEDC (opcion, solicitud, cuenta) {
+            const formParameters = {
+                opcion: opcion,
+                solicitud: solicitud,
+                cuenta: cuenta
+            };
+
+            const    resourceRequest = new WLResourceRequest(
+                'adapters/AdapterBanorteSucursAppsBEL/resource/mantoCancelacionEnvioEDC', WLResourceRequest.POST);
+          resourceRequest.setTimeout(30000);
+    
+          return resourceRequest.sendFormParameters(formParameters);
+        }
+	
+	consultaBancos() {
 
             const resourceRequest = new WLResourceRequest(
                 "adapters/AdapterBanorteSucursAppsBEL/resource/consultaTablaCorporativaBancos",

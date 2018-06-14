@@ -6,6 +6,7 @@ import { MovimientosaldoComponent } from './movimientosaldo/movimientosaldo.comp
 import { TransferenciaSpeiComponent } from './transferencia-spei/transferencia-spei.component';
 import { TransferenciaTercerosComponent } from './transferencia-terceros/transferencia-terceros.component';
 import { CompraTiempoAireComponent } from './compra-tiempo-aire/compra-tiempo-aire.component';
+import { CompraTiempoAireFinalComponent } from './compra-tiempo-aire/compra-tiempo-aire-final.component';
 import { MantenimientoBenefComponent } from './mantenimiento-benef/mantenimiento-benef.component';
 import { PagoTarjetaCreditoComponent } from './pago-tarjeta-credito/pago-tarjeta-credito.component';
 import { PagoTarjetaCreditoFinalComponent } from './pago-tarjeta-credito/pago-tarjeta-credito-final.component';
@@ -30,6 +31,7 @@ const pageRoutesTDD: Routes = [
             { path: 'pagoServicioDetailTdd', component: PagoDeServicioDetallesComponent},
             { path: 'movimientoSaldo', component: MovimientosaldoComponent},
             { path: 'compraTiempoAire', component: CompraTiempoAireComponent},
+            { path: 'compraTiempoAireFinal', component: CompraTiempoAireFinalComponent},
             { path: 'spei', component: TransferenciaSpeiComponent},
             { path: 'transBanorte', component: TransferenciaTercerosComponent},
             { path: 'pagoServiciosTDD', component: PagoServiciosComponent},

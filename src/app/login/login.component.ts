@@ -23,15 +23,15 @@ export class LoginComponent {
   postResp;
   contenido: any;
 
-  constructor( private _http: Http,
-               private router: Router,
+  constructor( private _http: Http, 
+               private router: Router, 
                private _service: SesionTDDService, private serviceTdd: ResponseWS  ) {}
 
   onPlasticLogin() {
 const this_aux = this;
-$('#ModalTDDLogin').modal('show');
-this.idSession();
-
+     $('#ModalTDDLogin').modal('show');
+    this.idSession();
+    this.tokenOperacion();
 // this.getPosts().subscribe( result => {this.postResp = result; });
 
 // console.log(this.postResp);
@@ -82,11 +82,12 @@ setTimeout(function() {
             localStorage.setItem("tipoClienteTar", validaPreferencia.toString()  );
           }
 
-         $('#ModalTDDLogin').modal('hide');
-         THIS.router.navigate(['/menuTdd']);
-
-       },
-       function(error) {
+        $('#ModalTDDLogin').modal('hide');
+        THIS.router.navigate(['/menuTdd']);
+        this_aux.consultaTablaCorpBancosService();
+        
+      },
+      function(error) {
 
 
          setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
@@ -229,8 +230,29 @@ includesL(container, value) {
           } ,
           function(error) {
               console.log(error.responseText);
-
+  
           });
+  }
+
+  consultaTablaCorpBancosService() {
+    const this_aux = this;
+    $("#_modal_please_wait").modal("show");
+    const resourceRequest = new WLResourceRequest(
+      "adapters/AdapterBanorteSucursApps/resource/consultaMontosMaximos",
+      WLResourceRequest.POST
+    );
+    resourceRequest.setTimeout(30000);
+    resourceRequest.send().then(
+      function(response) {
+        console.log(response);
+        $("#_modal_please_wait").modal("hide");
+      },
+      function(error) {
+        console.error("El WS respondio incorrectamente");
+        $("#_modal_please_wait").modal("hide");
+        $("#errorModal").modal("show");
+      }
+    );
   }
 
 

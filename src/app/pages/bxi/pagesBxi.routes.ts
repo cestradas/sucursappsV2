@@ -21,6 +21,8 @@ import { TransferenciasBanorteComponent } from "./transferencias-banorte/transfe
 import { TransferenciaFinishBanorteComponent } from "./transferencias-banorte/transferencia-finish-banorte/transferencia-finish-banorte.component";
 import { ConsultaMovimientosComponent } from './consulta-movimientos/consulta-movimientos.component';
 import { ConsultaMovimientosDetailComponent } from './consulta-movimientos/consulta-movimientos-detail/consulta-movimientos-detail.component';
+import { CancelarEnvioEdcComponent } from './impresion-edc/cancelar-envio-edc/cancelar-envio-edc.component';
+import { CancelarEnvioEdcFinishComponent } from './impresion-edc/cancelar-envio-edc-finish/cancelar-envio-edc-finish.component';
 
 const pageRoutesBXI: Routes = [
     {
@@ -43,7 +45,9 @@ const pageRoutesBXI: Routes = [
             { path: 'TransferBanorte', component: TransferenciasBanorteComponent},
             { path: 'TransferFinishBanorte', component: TransferenciaFinishBanorteComponent},
             { path: 'impresion_EDC', component: ImpresionEdcComponent},
-            { path: 'impresion_EDC_Finish', component: ImpresionEdcFinishComponent}
+            { path: 'impresion_EDC_Finish', component: ImpresionEdcFinishComponent},
+            { path: 'cancelarEnvioEDC_Domicilio', component: CancelarEnvioEdcComponent},
+            { path: 'cancelarEnvioEDC_DomicilioFinish', component: CancelarEnvioEdcFinishComponent}
 
         ]
     }

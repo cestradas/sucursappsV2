@@ -56,11 +56,11 @@
                     <td *ngIf="(beneficiario.Opcion != 'B')" style="text-align: center">{{beneficiario.NuevaFecha}}</td>
                     <td *ngIf="(beneficiario.Opcion != 'B')" style="text-align: center">{{beneficiario.PorcentajeBenef}}</td>
                     <td *ngIf="(beneficiario.Opcion != 'B')" align=center>
-                        <button id="buttonImageMantoBen" type="button"><img src="./assets/img/edit.png"
+                        <button id="buttonImageMantoBen" type="button"><img src="./assets/img/edit.png" 
                                                 alt="Modificar Beneficiario" (click)="modificacionBeneficiarioModal(beneficiario)" width="30px" height="30px" /></button>
                     </td>
                     <td *ngIf="(beneficiario.Opcion != 'B')" align=center>
-                        <button id="buttonImageMantoBen" type="button"><img src="./assets/img/trash.png"
+                        <button id="buttonImageMantoBen" type="button"><img src="./assets/img/trash.png" 
                                                 (click)="bajaBeneficiarioModal(beneficiario)" alt="Eliminar Beneficiario" width="30px" height="30px" /></button>
                     </td>
                 </tr>
@@ -140,7 +140,7 @@
                             <label for="amount" class="col-sm control-label" style="text-align: right; top: -11px;">Tipo de Persona</label>
                         </div>
                         <div class="col-sm-3">
-                            <select class="input-whidth form-control amount input-lg selectModificado" id="selTypePersonAlta" (change)="fMSelect($event.target.value)" #RFisicaMoralSelecAlta>
+                            <select class="input-whidth form-control amount input-lg selectModificado" id="selTypePersonAlta" (change)="fMSelect($event.target.value)" #RFisicaMoralSelecAlta>                            
                         <option disabled="true" selected="true">Seleccione Opción</option>
                         <option [value]="1">Persona Física</option>
                         <option [value]="2">Persona Moral</option>
@@ -207,7 +207,7 @@
                         <div class="col-lg-3">
                             <select class="input-whidth form-control amount input-lg selectModificado" id="selColonia" (change)="seleccionColonia()" #rColonias style=" background-size: auto">
                                 <option [disabled]="true" selected="true">Seleccione Colonia</option>
-                                <option *ngFor="let colonias of CP"  [value]="colonias.Colonia">{{colonias.Colonia}}</option>
+                                <option *ngFor="let colonias of CP"  [value]="colonias.Colonia">{{colonias.Colonia}}</option>                      
                         </select>
                         </div>
                         <div class="form-group col-sm-1">

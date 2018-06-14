@@ -13,13 +13,13 @@
                         <tr>
                             <td align="left" width="40%">Nombre <strong>
                               <label>
-                                  {{ nombreUsuarioTdd }}
+                                  {{ nombreUsuarioTdd }} 
                               </label>
                             </strong>
                             </td>
                             <td align="left" width="40%">
                                 <strong>
-                              <label>{{ saldoClienteTdd | currency }}</label>
+                              <label>{{ saldoClienteTdd | currency }}</label> 
                             </strong>
                             </td>
                         </tr>
@@ -41,7 +41,7 @@
     </div>
     <br>
 
-    <form [formGroup]="forma" (ngSubmit)="recargaTiempoAire()">
+    <form [formGroup]="forma">
 
         <div class="row sumando-form-group letranegrita">
             <div class="col-sm-1 sumando-bg-red group-name">
@@ -96,7 +96,7 @@
                     <label class="col-sm-2 control-label">Tel&eacute;fono</label>
 
                     <div class="col-sm-10">
-                        <input formControlName="telefono" id="telefono" name="telefono" type="text" class="input-whidth form-control amount input-lg" />
+                        <input formControlName="telefono" id="telefono" #telefonoF name="telefono" type="text" class="input-whidth form-control amount input-lg" />
                         <div *ngIf="forma.hasError('maxlength', 'telefono') || forma.hasError('minlength', 'telefono')" class="alert alert-danger">
                             El numero telefonico debe ser a 10 digitos.
                         </div>
@@ -137,35 +137,51 @@
 
 <!-- Modal -->
 <!--hasta aqui revise fade-->
-<div class="modal fade " id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog" role="document">
+<div class="modal fade " id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="ModalTDDLogin" data-backdrop="static" data-keyboard="true">
+    < <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 21%; position: initial !important;">
         <div class="modal-content shadowModal">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Confirma tu compra de tiempo aire</h4>
-            </div>
-            <div class="modal-body">
+            <h4 class="text-center padding-barToTittle deleteMargin-h2  color-letra" style="padding-top: 30px;">Confirma tu compra de tiempo aire</h4>
+            <div class="modal-body modal-body-aux">
 
-                <ul class="list-group">
-                    <li class="list-group-item"><strong><label>Operador:</label></strong>
-                        <label>{{ operador }}</label>
-                    </li>
-                    <li class="list-group-item"><strong><label>Importe:</label></strong>
+                <div class="row">
+                    <div class="col-lg 6">
+                        <label>Operador:</label>
+                    </div>
+                    <div class="col-lg 6">
+                        <label>{{ operador}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg 6">
+                        <label>Importe:</label>
+                    </div>
+                    <div class="col-lg 6">
                         <label>{{ importe | currency }}</label>
-                    </li>
-                    <li class="list-group-item"><strong><label>N&uacute;mero de celular:</label></strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg 6">
+                        <label>N&uacute;mero de celular:</label>
+                    </div>
+                    <div class="col-lg 6">
                         <label>{{ forma.get('telefono').value }}</label>
-                    </li>
-                    <li class="list-group-item"><strong><label>Correo:</label></strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg 6">
+                        <label>Correo:</label>
+                    </div>
+                    <div class="col-lg 6">
                         <label>{{ forma.get('email').value }}</label>
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer ">
                 <button type="button" class="btn btn-lg letranegrita" data-dismiss="modal">Cancelar</button>
-                <button type="button" onClick="onTransfer()" class="btn btn-danger btn-lg letranegrita" style="margin:0px 20px 0px 0px;">Confirmar</button>
+                <button type="button" (click)="recargaTiempoAire()" class="btn btn-danger btn-lg letranegrita" style="margin:0px 20px 0px 0px;">Confirmar</button>
             </div>
         </div>
-    </div>
+</div>
 </div>
 <div class="uiv-animate" ui-view></div>
 

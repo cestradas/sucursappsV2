@@ -104,8 +104,9 @@ export class SesionBxiService {
     stringDocumento: string;
     numeroDocumento: string;
     fechaDocumento: string;
-
-
+    numeroCuentaEDCSel: string;
+    aliasCuentaEDCSel: string;
+    opcionEDCSel: string;
      // Envio EDC Correo
     fechaCorte: string;
     numDoc: string;

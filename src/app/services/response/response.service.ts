@@ -16,7 +16,8 @@ export class ResponseWS {
     stringDocumento: string;
     numeroDocumento: string;
     fechaDocumento: string;
-    //
+    // Compra TA
+    detalleConfirmacionCTA: string;
     respuesta: Respuesta = {
 
         respuestaWS: '',

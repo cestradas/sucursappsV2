@@ -145,7 +145,16 @@ export class ImpresionEdcComponent implements OnInit {
           const a = this.renderer.createElement('a');
           const textoCuenta = this.renderer.createText( cuenta.Alias);
           this.renderer.setProperty(a, 'value', cuenta.NoCuenta);
-          this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target); });
+
+          this. renderer.listen(a, 'click', (event) => { 
+            this_aux.service.numeroCuentaEDCSel = cuenta.NoCuenta;
+            this_aux.service.aliasCuentaEDCSel = cuenta.Alias;
+            if (cuenta.TipoCuenta !== 5) {
+              this_aux.service.opcionEDCSel = '1';
+            } else {              
+              this_aux.service.opcionEDCSel = '2';
+            } 
+            this_aux.setDatosCuentaSeleccionada(event.target); });
           this.renderer.appendChild(a, textoCuenta),
           this.renderer.appendChild(li, a);
           this.renderer.appendChild(this.listaCuentas.nativeElement, li);
@@ -180,11 +189,6 @@ setDatosCuentaSeleccionada(elementHTML) {
 
   // desactiva combo cuentas usuario
   $('#dropdownMenu1').prop("disabled", false);
-
-  this.mantenimientoEDC();
-
-
-
   }
 
   getSaldoDeCuenta(numCuenta_seleccionada) {
@@ -204,8 +208,37 @@ setDatosCuentaSeleccionada(elementHTML) {
              } else {
                 this_aux.showErrorSucces(detalleSaldos);
           }
+          
+        this_aux.consultaCancelacionEDCDomicilio(this_aux.service.opcionEDCSel, this_aux.service.numeroCuentaEDCSel); 
         }, function(error) {
     });
+  }
+
+  consultaCancelacionEDCDomicilio(opcion, cuenta) {
+    const this_aux = this;
+    const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+    operacionesbxi.mantenimientoCancelacionEDC(opcion, '', cuenta).then(
+      function(response) {        
+        setTimeout(function() { 
+          const detalleMant = response.responseJSON;
+          let btnCancelarEnvio = document.getElementById('cancelarEnvioDomicilio');
+          if(detalleMant.Id === "1") {
+            if(detalleMant.StatusImpresion !== "A"){              
+              btnCancelarEnvio.style.display = 'initial';
+            } else {
+              btnCancelarEnvio.style.display = 'none';
+            }
+          } else {
+            btnCancelarEnvio.style.display = 'none';
+          }
+          this_aux.mantenimientoEDC();
+       }, 3000); 
+      },
+        function(error) {
+          console.error("Error");
+          $('#errorModal').modal('show');
+          this_aux.mantenimientoEDC();
+        });
   }
 
   mantenimientoEDC() {
@@ -224,9 +257,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
           console.log(response.responseText);
           const detalleMant = response.responseJSON;
-
         this_aux.obtenerListaDocs();
-         
           $('#_modal_please_wait').modal('hide');
        }, 3000); 
 
@@ -1412,6 +1443,11 @@ setDatosCuentaSeleccionada(elementHTML) {
     document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
     $('#errorModal').modal('show');
 
+}
+
+cancelarEnvio() {
+  const this_aux = this;
+  this_aux.router.navigate(['/cancelarEnvioEDC_Domicilio']);
 }
 
 }

@@ -46,11 +46,11 @@
 
             <select class="input-whidth selectModificado" name="tipo" id="tipo" #rTipoTransferencia (change)="seleccionOperacion($event.target.value)" style=" width: 100%; height: 60px; border:0px solid red;">
                        <!-- <img src="./assets/img/bg_selectN.png" align="right" style="width: 3.8%; float: right; position: absolute;     margin-left: 1549px;"> -->
-
+    
                     <option disabled="true" selected>Seleccione transferencia</option>
                    <!-- <option value="1">SPEI</option>-->
                     <option value="1">Rapida</option>
-                    <option value="2">TEF</option>
+                    <option value="2">TEF</option>                    
                 </select>
         </div>
 
@@ -70,7 +70,7 @@
                     <div class="dropdown sumando-dropdown-account col-sm-9">
                         <select class="input-whidth input-lg selectModificado" name="sel1" id="selecBanco" #rSelecBanco (change)="selectBanco($event.target.value)" style="border:0px solid red; background-size: auto; width: 100%">
                             <option disabled="true">Seleccione un banco</option>
-                            <option *ngFor="let bancos of listaBancos"  [value]="bancos.IdSecoban">{{bancos.NombreBanco}}</option>
+                            <option *ngFor="let bancos of listaBancos"  [value]="bancos.IdSecoban">{{bancos.NombreBanco}}</option>                                     
                         </select>
                     </div>
                 </div>
@@ -330,14 +330,14 @@
               <h4 class="modal-title" id="myModalLabel">Ocurrio un error</h4>
             </div>
             <div class="modal-body">
-
+      
               <ul class="list-group">
                 <li class="list-group-item">
                   <label></label>
                   <label id="errorMensaje"></label>
                 </li>
-
-
+                
+             
               </ul>
             </div>
          <div class="modal-footer">
@@ -346,6 +346,6 @@
               <div class="modal-footer">   <button type="button" class="btn btn-primary btn-lg" onClick="onTransferSPEI()">Confirmar</button>
             </div>
           </div>
-
+      
         </div>
       </div> -->
