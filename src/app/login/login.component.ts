@@ -101,9 +101,12 @@ export class LoginComponent {
       let tr2 = localStorage.getItem("tr2");
       let np = localStorage.getItem("np");
       let respTar = localStorage.getItem("res");
+      let respTar = localStorage.getItem("res");
+      let descripcion = localStorage.getItem("des");
 
 
-      if (respTar !== "NO_OK") {
+      if ((respTar !== "NO_OK") && (respTar !== null)) {
+
 
         const THIS: any = this;
 
