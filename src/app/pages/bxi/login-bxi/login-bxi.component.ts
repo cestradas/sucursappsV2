@@ -199,11 +199,19 @@ export class LoginBxiComponent implements OnInit {
                 const infoUsuarioJSON = response.responseJSON;
                 if (infoUsuarioJSON.Id === 'SEG0001') {
 
-
-                    this_aux.service.NombreUsuario = infoUsuarioJSON.NombreUsuario;
-                    this_aux.service.infoUsuario = infoUsuario;
-                    this_aux.service.infoUsuarioSIC = infoUsuarioJSON.Sic;
-                    this_aux.verificaPreferencia();
+                    if (infoUsuarioJSON.Sic = '99999999 ') {
+                            WLAuthorizationManager.logout('banorteSecurityCheckSa');
+                            $('#_modal_please_wait').modal('hide');
+                            mensajeError = "Los datos proporcionados son incorrectos, favor de verificar.";
+                            document.getElementById('mnsError').innerHTML =  mensajeError;
+                            $('#errorModal').modal('show');
+                    } else {
+                            this_aux.service.NombreUsuario = infoUsuarioJSON.NombreUsuario;
+                            this_aux.service.infoUsuario = infoUsuario;
+                            this_aux.service.infoUsuarioSIC = infoUsuarioJSON.Sic;
+                            this_aux.verificaPreferencia();
+  
+                    }
 
                 } else {
 
