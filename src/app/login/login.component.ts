@@ -214,7 +214,7 @@ cerrarSesion() {
 
   console.log("Cerrar sesion");
   sessionStorage.removeItem("campania");
-
+  sessionStorage.removeItem("des");
   sessionStorage.removeItem("np");
   sessionStorage.removeItem("res");
   sessionStorage.removeItem("tr2");

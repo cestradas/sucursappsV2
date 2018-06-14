@@ -126,6 +126,7 @@ export class BreadcrumbsComponent implements OnInit {
 
     console.log("Cerrar sesion");
     sessionStorage.removeItem("campania");
+    sessionStorage.removeItem("des");
     sessionStorage.removeItem("np");
     sessionStorage.removeItem("res");
     sessionStorage.removeItem("tr2");
@@ -138,12 +139,14 @@ export class BreadcrumbsComponent implements OnInit {
 
             console.log(response);
 
+            WLAuthorizationManager.logout('banorteSecurityCheckSa');
             location.reload(true);
             THIS.router.navigate(['/login']);
 
           },
           function(error) {
 
+            WLAuthorizationManager.logout('banorteSecurityCheckSa');
             console.log(error);
             THIS.router.navigate(['/login']);
 
