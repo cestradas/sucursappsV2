@@ -102,6 +102,7 @@ this.seleccionarTipoCuenta();
 
      this.seleccionarTipoCuenta();
   }
+}
 
 
   

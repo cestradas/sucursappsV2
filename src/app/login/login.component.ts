@@ -101,7 +101,7 @@ export class LoginComponent {
     const this_aux = this;
     $('#ModalTDDLogin').modal('show');
     this.idSession();
-
+    this.tokenOperacion();
     // this.getPosts().subscribe( result => {this.postResp = result; });
 
     // console.log(this.postResp);

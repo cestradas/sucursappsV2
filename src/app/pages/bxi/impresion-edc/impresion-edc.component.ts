@@ -166,7 +166,8 @@ export class ImpresionEdcComponent implements OnInit {
 setDatosCuentaSeleccionada(elementHTML) {
 
   $('#_modal_please_wait').modal('show');
-
+  let btnCancelarEnvio = document.getElementById('cancelarEnvioDomicilio');
+  btnCancelarEnvio.style.display = 'none';
   const this_aux = this;
   console.log(elementHTML);
   const tableOrigen = document.getElementById('tableOrigen');
