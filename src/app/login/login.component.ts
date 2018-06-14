@@ -31,11 +31,11 @@ export class LoginComponent {
 
 
                onPlasticLogin() {
-
+                const this_aux = this;
                  $('#ModalTDDLogin').modal('show');
 
                  setTimeout(function() {
-                 const this_aux = this;
+                 
                  const securityCheckName = 'banorteSecurityCheckSa';
                  const userLoginChallengeHandler = WL.Client
                      .createSecurityCheckChallengeHandler(securityCheckName);
@@ -59,47 +59,16 @@ export class LoginComponent {
                          console.log(error);
                          $('#ModalTDDLogin').modal('hide');
                          setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
-                     });
-                     setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
-                   }, 50000);
+                     });                     
+                   }, 30000);
                }
 
-                getUsrPassLegacy(usrAgent) {
-                 const this_aux = this;
-                 if (this_aux.datosLegacy === '') {
-
-                     const patron = /@/g;
-                     usrAgent = usrAgent.replace(patron, '');
-
-                     const formParameters = {
-                         terminal: usrAgent
-                             // terminal: 'T002'
-                     };
-                     const resourceRequest = new WLResourceRequest(
-                         'adapters/AdapterBanorteSucursApps/resource/consultaUsrLegacy',
-                         WLResourceRequest.POST);
-                     resourceRequest.setTimeout(30000);
-                     resourceRequest.sendFormParameters(formParameters).then(
-                         function(response) {
-                             this_aux.datosLegacy = response.responseJSON;
-                             console.log( this_aux.datosLegacy);
-                             console.log("El servcio de informacion Legacy respondio correctamente");
-                             this_aux.onPlasticLoginafterSecurity();
-                           },
-                         function(error) {
-                           WLAuthorizationManager.logout('banorteSecurityCheckSa');
-                             console.log("Ocurrio un error con el servcio de informacion Legacy");
-                             $('#errorModal').modal('show');
-                             $('#ModalTDDLogin').modal('hide');
-                         });
-                 }
-             }
+               
 
 
 
   onPlasticLoginafterSecurity() {
     const this_aux = this;
-    $('#ModalTDDLogin').modal('show');
     this.idSession();
     this.tokenOperacion();
     // this.getPosts().subscribe( result => {this.postResp = result; });
@@ -122,10 +91,10 @@ export class LoginComponent {
         const THIS: any = this;
 
         const formParameters = {
-            tarjeta: tr2,
-            // tarjeta: '4334540109018154=151022110000865',
-            nip: np
-            // nip: 'D4D60267FBB0BB28'
+            //tarjeta: tr2,
+             tarjeta: '4334540109018154=151022110000865',
+            //nip: np
+             nip: 'D4D60267FBB0BB28'
         };
 
         const resourceRequest = new WLResourceRequest(
@@ -156,11 +125,12 @@ export class LoginComponent {
                 localStorage.setItem("tipoClienteTar", validaPreferencia.toString()  );
               }
 
-             $('#ModalTDDLogin').modal('hide');
-             THIS.router.navigate(['/menuTdd']);
-
-           },
-           function(error) {
+        $('#ModalTDDLogin').modal('hide');
+        THIS.router.navigate(['/menuTdd']);
+        this_aux.consultaTablaCorpBancosService();
+        
+      },
+      function(error) {
 
 
              setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
@@ -189,7 +159,34 @@ export class LoginComponent {
 
   }
 
+  getUsrPassLegacy(usrAgent) {
+    const this_aux = this;
 
+        const patron = /@/g;
+        usrAgent = usrAgent.replace(patron, '');
+
+        const formParameters = {
+            terminal: usrAgent
+                // terminal: 'T002'
+        };
+        const resourceRequest = new WLResourceRequest(
+            'adapters/AdapterBanorteSucursApps/resource/consultaUsrLegacy',
+            WLResourceRequest.POST);
+        resourceRequest.setTimeout(30000);
+        resourceRequest.sendFormParameters(formParameters).then(
+            function(response) {
+                this_aux.datosLegacy = response.responseJSON;
+                console.log( this_aux.datosLegacy);
+                console.log("El servcio de informacion Legacy respondio correctamente");
+                this_aux.onPlasticLoginafterSecurity();
+              },
+            function(error) {
+              WLAuthorizationManager.logout('banorteSecurityCheckSa');
+                console.log("Ocurrio un error con el servcio de informacion Legacy");
+                $('#errorModal').modal('show');
+                $('#ModalTDDLogin').modal('hide');
+            });
+}
   comienzaContador() {
   const this_aux = this;
   const body = $('body');
@@ -200,7 +197,6 @@ export class LoginComponent {
   setInterval(function() {
    const valueNewTimeOut = +localStorage.getItem('TimeOut') - 1;
    localStorage.setItem('TimeOut', valueNewTimeOut.toString());
-   console.log(valueNewTimeOut);
    if (valueNewTimeOut === 0) {
     this_aux.cerrarSesion();
    }
