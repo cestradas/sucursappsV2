@@ -54,6 +54,9 @@ function callPinPad() {
             localStorage.setItem("tr2", respuesta.tr2);
             localStorage.setItem("np", respuesta.np);
             localStorage.setItem("res", respuesta.res);
+        } else {
+            localStorage.setItem("res", respuesta.res);
+            localStorage.setItem("des", respuesta.des);
         }
 
 
