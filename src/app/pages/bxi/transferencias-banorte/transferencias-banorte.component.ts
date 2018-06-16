@@ -22,7 +22,7 @@ let paramMnsEmail = "";
 
 let importe = "";
 let concepto = "";
-
+          
 
 @Component({
   selector: 'app-transferencias-banorte',
@@ -51,16 +51,18 @@ export class TransferenciasBanorteComponent implements OnInit {
   correoBeneModal = "";
   nombreBeneModal = "";
 
-  constructor(private _http: Http, private router: Router, public service: SesionBxiService, private renderer: Renderer2) {
+  NumeroSeguridad: string;
+
+  constructor(private _http: Http, private router: Router, public service: SesionBxiService, private renderer: Renderer2) { 
 
     const this_aux = this;
 
     this.forma = new FormGroup({
 
-
+      
       'amount': new FormControl('', [Validators.required, Validators.min(0), Validators.max(7000)]),
       'concepto': new FormControl('', [Validators.required, Validators.maxLength(60)])
-
+     
     });
 
     console.log(this.forma);
@@ -69,7 +71,7 @@ export class TransferenciasBanorteComponent implements OnInit {
       data => {
         console.log('amount', data);
         console.log('forma', this.forma);
-
+        
         this_aux.importeF = data;
       });
 
@@ -83,26 +85,9 @@ export class TransferenciasBanorteComponent implements OnInit {
 
   }
 
-
+  
 
   ngOnInit() {
-
-    //ESTILOS Preferente
-    let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
-    let btnContinuar = document.getElementById("continuarTransfer");
-    let btnConfirmar = document.getElementById("confirmar");
-    let btnCerrar = document.getElementById("cerrar");
-
-    if (storageTipoClienteBEL === "true") {
-
-      btnContinuar.classList.remove("color-botones");
-      btnContinuar.classList.add("color-botones_Preferente");
-      btnConfirmar.classList.remove("color-botones");
-      btnConfirmar.classList.add("color-botones_Preferente");
-      btnCerrar.classList.remove("color-botones");
-      btnCerrar.classList.add("color-botones_Preferente");
-    }
-
 
     this.fillSelectCuentas();
     // this.consultaCuentas();
@@ -154,11 +139,11 @@ setDatosCuentaSeleccionada(elementHTML) {
 
   // desactiva combo cuentas usuario
   $('#dropdownMenu2').prop("disabled", false);
-
+  
 }
 
 getSaldoDeCuenta(numCuenta_seleccionada) {
-
+ 
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
   operacionesbxi.getSaldo(numCuenta_seleccionada).then(
       function(response1) {
@@ -176,7 +161,7 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
 
 
 fillCuentasBeneficiario () {
-
+  
   const this_aux = this;
   let cuenta;
   let datosB;
@@ -201,7 +186,7 @@ fillCuentasBeneficiario () {
 
           this_aux.listaCuentasBen.push(data);
 
-
+          
 
         });
   });
@@ -212,11 +197,11 @@ fillCuentasBeneficiario () {
 
           this_aux.listaDatosBen.push(element1);
 
-
+          
 
     //    });
   });
-
+  
   console.log(this_aux.listaCuentasBen);
   console.log(this_aux.listaDatosBen);
   console.log(this_aux.listaCuentasUsr);
@@ -239,7 +224,7 @@ defineFiltros() {
     }
     if (cuenta.TipoCuenta.toString() === '2' && cuenta.ClaveBanco.toString() !== '40103') {
       this.existenExternas = true;
-    }
+    } 
 
     if ( data.AplicaTEF === 'true' ) {
             this_aux.listaCuentasBenTEF.push(data);
@@ -278,7 +263,7 @@ setCuentasBenficiarioXTipo() {
       node.removeChild(node.firstChild);
      }
   }
-
+  
   // CUENTAS DEL USUSARIO
 
   console.log('setCuentasUsuario');
@@ -290,12 +275,12 @@ setCuentasBenficiarioXTipo() {
      }
 
   this_aux.listaCuentasUsr.forEach(auxcuenta => {
-
+      
     // VALIDAR TIPOS DE CUENTA BANORTE PROPIAS
           if (auxcuenta.TipoCuenta.toString() === "1") {
-
-
-
+    
+           
+    
           const cuentasString = this_aux.service.infoCuentas;
           console.log(this_aux.service.infoCuentas);
           const consultaCuentas = JSON.parse(cuentasString);
@@ -310,25 +295,25 @@ setCuentasBenficiarioXTipo() {
               this.renderer.appendChild(li, a);
               this.renderer.appendChild(this.listaCuentas.nativeElement, li);
           //  });
-
+    
            }
-
+    
            $('#dropdownMenu1').prop("disabled", false);
-
+    
           });
 
+  
 
-
-
+  
     if (this_aux.selectTipo.nativeElement.value.toString() === "1") {  // PROPIAS
 
       // document.getElementById('tranTEF').style.display = 'none';
       this_aux.listaCuentasUsr.forEach(auxcuenta => {
-
+      
 // VALIDAR TIPOS DE CUENTA BANORTE PROPIAS
       if (auxcuenta.TipoCuenta.toString() === "1") {
 
-
+       
 
       const cuentasString = this_aux.service.infoCuentas;
       console.log(this_aux.service.infoCuentas);
@@ -352,7 +337,7 @@ setCuentasBenficiarioXTipo() {
       });
 
     }
-
+    
 
 
 
@@ -369,8 +354,8 @@ setCuentasBenficiarioXTipo() {
         const textoCuenta = this.renderer.createText( auxcuenta.DescripcionTipoCuenta);
         this.renderer.setProperty(a, 'value', auxcuenta.Alias + ','
                                             + auxcuenta.NoCuenta + ','
-                                            + auxcuenta.ClaveBanco + ','
-                                            + auxcuenta.DescripcionTipoCuenta + ','
+                                            + auxcuenta.ClaveBanco + ',' 
+                                            + auxcuenta.DescripcionTipoCuenta + ',' 
                                             + auxcuenta.NumBenef );
         this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaBeneficiario(event.target); });
         this.renderer.appendChild(a, textoCuenta),
@@ -380,18 +365,18 @@ setCuentasBenficiarioXTipo() {
 
        // desbloquea CUENTAS ORIGEN
        $('#dropdownMenu1').prop("disabled", false);
+      
 
-
-
+    
 
   });
-
+ 
 
 }
 }
 
 setDatosCuentaBeneficiario(elementHTML) {
-
+ 
   const this_aux = this;
   console.log(elementHTML);
   const tableBeneficiarios = document.getElementById('tableBeneficiarios');
@@ -410,9 +395,9 @@ setDatosCuentaBeneficiario(elementHTML) {
   this_aux.service.claveAliasCuenta = this_aux.getNameAliasCuenta(valueElement);
   this_aux.service.claveNumBenefi = this_aux.getNumBeneficiario(valueElement);
 
-
+  
   // this_aux.consultaClabeSaldos(this_aux.service.numCuentaDestinario);
-
+  
 
    if (this_aux.cuentaOrigenModal === this_aux.CuentaDestino) {
     // bloquea campos
@@ -426,10 +411,10 @@ setDatosCuentaBeneficiario(elementHTML) {
     $('#amount').prop("disabled", false);
     $('#concepto').prop("disabled", false);
    }
-
+  
 
   console.log(this_aux.service.claveBancoDestino + this_aux.service.claveAliasCuenta + this_aux.service.claveNumBenefi);
-
+  
 }
 
 
@@ -440,7 +425,7 @@ getNumeroCuentaDestino(text) {
   console.log(arregloDeSubCadenas);
   console.log(numCuentaDestino);
 
-  return numCuentaDestino;
+  return numCuentaDestino; 
 }
 
 getNameInstitucion(text) {
@@ -450,7 +435,7 @@ getNameInstitucion(text) {
   console.log(arregloDeSubCadenas);
   console.log(nameInstitucion);
 
-  return nameInstitucion;
+  return nameInstitucion; 
 }
 
 getNameAliasCuenta(text) {
@@ -460,7 +445,7 @@ getNameAliasCuenta(text) {
   console.log(arregloDeSubCadenas);
   console.log(nameAliasCuenta);
 
-  return nameAliasCuenta;
+  return nameAliasCuenta; 
 }
 
 getNumBeneficiario(text) {
@@ -470,7 +455,7 @@ getNumBeneficiario(text) {
   console.log(arregloDeSubCadenas);
   console.log(numBeneCta);
 
-  return numBeneCta;
+  return numBeneCta; 
 }
 
 consultaClabeSaldos(numCuentaDestinario_seleccionada) {
@@ -481,13 +466,13 @@ consultaClabeSaldos(numCuentaDestinario_seleccionada) {
         console.log(response1.responseText);
         const detalleSaldos = response1.responseJSON;
         if ( detalleSaldos.Id === '1') {
-
+          
           this_aux.service.clabeDestinatario = detalleSaldos.ClabeCuenta;
 
           $('#amount').prop("disabled", false);
           $('#concepto').prop("disabled", false);
-
-
+        
+        
         } else {
           console.log(detalleSaldos.MensajeAUsuario);
 
@@ -498,11 +483,11 @@ consultaClabeSaldos(numCuentaDestinario_seleccionada) {
           // Mostrar modal de error
 
           // Bloquear campos
-
+          
           /*
           $('#amount').prop("disabled", true);
           $('#concepto').prop("disabled", true);
-
+          
           */
 
         }
@@ -512,8 +497,8 @@ consultaClabeSaldos(numCuentaDestinario_seleccionada) {
 
 
 showDetallePago() {
-  const this_aux = this;
-
+  const this_aux = this;  
+    
   console.log("adentro Trnsferencias Internacionales");
 
   const operacionSelect = this_aux.selectTipo.nativeElement.value.toString();
@@ -525,7 +510,7 @@ showDetallePago() {
 
     importe = this_aux.importeF;
     concepto = this_aux.conceptoF;
-
+          
 
           break;
 
@@ -534,13 +519,13 @@ showDetallePago() {
     importe = this_aux.importeF;
     concepto = this_aux.conceptoF;
 
-
+     
           break;
-
+        
 
         }
 
-
+  
 
     this_aux.setTipoAutenticacionOnModal();
 }
@@ -551,10 +536,36 @@ setTipoAutenticacionOnModal() {
   const divChallenge = document.getElementById('challenger');
   const divTokenPass = document.getElementById('divPass');
   if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
-
+    $('#_modal_please_wait').modal('show');
     this_aux.labelTipoAutentica = 'Token Celular';
-    divChallenge.setAttribute('style', 'display: block');
     divTokenPass.setAttribute('style', 'display: block');
+    const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+    operacionesbxi.preparaAutenticacion().then(
+      function(response) {
+        const detallePrepara = response.responseJSON;
+        console.log(detallePrepara);
+        if (detallePrepara.Id === 'SEG0001') {
+          divChallenge.setAttribute('style', 'display: block');
+          this_aux.NumeroSeguridad = detallePrepara.MensajeUsuarioUno;
+          setTimeout(() => {
+            $('#_modal_please_wait').modal('hide');
+         }, 500);
+
+        } else {
+
+          setTimeout(() => {
+            $('#_modal_please_wait').modal('hide');
+            this_aux.showErrorSucces(detallePrepara);
+         }, 1000);
+        }
+      }, function(error) {
+
+        setTimeout(() => {
+          $('#_modal_please_wait').modal('hide');
+          this_aux.showErrorPromise(error);
+       }, 1000);
+
+      });
 
   } else if (this_aux.service.metodoAutenticaMayor.toString()  === '0') {
 
@@ -580,17 +591,23 @@ setTipoAutenticacionOnModal() {
 
     case '1':  // Cuentas propias Banorte
 
-    $('#confirmModal').modal('show');
-
-          break;
+        setTimeout(function() {
+          $( ".cdk-visually-hidden" ).css( "margin-top", "19%" );
+          $('#confirmModal').modal('show'); 
+        }, 500);
+            
+        break;
 
     case '2':  // Cuentas a terceros Banorte
 
 
-    $('#confirmModal').modal('show');
+          setTimeout(function() {
+            $( ".cdk-visually-hidden" ).css( "margin-top", "19%" );
+            $('#confirmModal').modal('show'); 
+          }, 500);
 
           break;
-
+    
         }
 
 }
@@ -599,10 +616,10 @@ validaDatosBen() {
 
   const this_aux =  this;
 
-
+   
 
   this_aux.listaCuentasBen.forEach(cuenta => {
-
+    
     this_aux.listaDatosBen.forEach(Beneficiarios => {
 
       if (cuenta.NumBenef === Beneficiarios.NumBenef) {
@@ -611,12 +628,12 @@ validaDatosBen() {
         this_aux.correoBeneModal = this_aux.service.correoBeneficiario ;
         this_aux.service.nombreBeneficiario = Beneficiarios.NombreSinFormato;
         this_aux.nombreBeneModal = this_aux.service.nombreBeneficiario;
-
+        
       }
     });
-
-
-
+        
+        
+    
       });
 }
 
@@ -624,20 +641,20 @@ validaDatosBen() {
 
 confirmarPago(token) {
 
-
+    
 
   const this_aux = this;
   let mensajeError;
   // this.validaDatosBen();
-
+  
   ctaO = this_aux.service.numCuentaTranPropBanorte;
   ctaDest = this_aux.service.numCuentaDestinario;
   sic = this_aux.service.infoUsuarioSIC;
 
-
-  // obtener mensaje de EMAIL
+  
+  // obtener mensaje de EMAIL 
   paramMnsEmail = "Transferencia Banorte";
-
+ 
 
   const autenticacion: Autenticacion = new Autenticacion();
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
@@ -657,26 +674,26 @@ confirmarPago(token) {
             if (infoUsuarioJSON.Id === 'SEG0001') {
                 console.log('Nivel de autenticacion alcanzado');
 
-                operacionesbxi.confirmaTransferPropTerBanorte(sic, this_aux.service.correoBeneficiario, paramMnsEmail,
-                                                              this_aux.service.AliasCuentaTranPropBanorte, ctaO,
-                                                              ctaDest, importe, concepto,
+                operacionesbxi.confirmaTransferPropTerBanorte(sic, this_aux.service.correoBeneficiario, paramMnsEmail, 
+                                                              this_aux.service.AliasCuentaTranPropBanorte, ctaO, 
+                                                              ctaDest, importe, concepto, 
                                                               this_aux.service.NombreUsuario)
                 .then(
-
+              
                   function(response) {
                     console.log(response.responseJSON);
-
+            
                     const transferPropTer = response.responseJSON;
-
-
+                     
+                    
                      if ( transferPropTer.Id === '1') {
-
+         
                        console.log(transferPropTer);
                        this_aux.service.validaFinishTipoTransfer = "1";
                        this_aux.service.detalleConfirmacionTranPropBanorte = response.responseText;
                        console.log(this_aux.service.detalleConfirmacionTranPropBanorte);
                        this_aux.router.navigate(['/TransferFinishBanorte']);
-
+                              
                      } else {
                         this_aux.showErrorSuccesMoney(transferPropTer);
                      }
@@ -684,7 +701,7 @@ confirmarPago(token) {
                   }, function(error) { this_aux.showErrorPromise(error);  }
                 );
             } else {
-              console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
+              console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);  
               mensajeError = this_aux.controlarError(infoUsuarioJSON);
               document.getElementById('mnsError').innerHTML =  mensajeError;
               $('#_modal_please_wait').modal('hide');
@@ -693,7 +710,7 @@ confirmarPago(token) {
       }, function(error) {
         this_aux.showErrorPromise(error);
       });
-
+      
 
           break;
     case '2':  // Cuentas a terceros Banorte
@@ -706,26 +723,26 @@ confirmarPago(token) {
             if (infoUsuarioJSON.Id === 'SEG0001') {
                 console.log('Nivel de autenticacion alcanzado');
 
-                operacionesbxi.confirmaTransferPropTerBanorte(sic, this_aux.service.correoBeneficiario, paramMnsEmail,
-                                                              this_aux.service.AliasCuentaTranPropBanorte, ctaO,
-                                                              ctaDest, importe, concepto,
+                operacionesbxi.confirmaTransferPropTerBanorte(sic, this_aux.service.correoBeneficiario, paramMnsEmail, 
+                                                              this_aux.service.AliasCuentaTranPropBanorte, ctaO, 
+                                                              ctaDest, importe, concepto, 
                                                               this_aux.service.NombreUsuario)
                 .then(
-
+              
                   function(response) {
                     console.log(response.responseJSON);
-
+            
                     const transferPropTer = response.responseJSON;
-
-
+                     
+                    
                      if ( transferPropTer.Id === '1') {
-
+         
                        console.log(transferPropTer);
                        this_aux.service.validaFinishTipoTransfer = "1";
                        this_aux.service.detalleConfirmacionTranPropBanorte = response.responseText;
                        console.log(this_aux.service.detalleConfirmacionTranPropBanorte);
                        this_aux.router.navigate(['/TransferFinishBanorte']);
-
+                              
                      } else {
                         this_aux.showErrorSuccesMoney(transferPropTer);
                      }
@@ -733,7 +750,7 @@ confirmarPago(token) {
                   }, function(error) { this_aux.showErrorPromise(error);  }
                 );
             } else {
-              console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
+              console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);  
               mensajeError = this_aux.controlarError(infoUsuarioJSON);
               document.getElementById('mnsError').innerHTML =  mensajeError;
               $('#_modal_please_wait').modal('hide');
@@ -745,7 +762,7 @@ confirmarPago(token) {
 
 
           break;
-
+    
 
         }
 }
@@ -755,22 +772,22 @@ controlarError(json) {
 
   const id = json.Id ;
   const mensajeUsuario = json.MensajeAUsuario;
-  let mensajeError;
+  let mensajeError; 
 
   switch (id) {
-
+        
     case 'SEG0003': mensajeError = "Usuario bloqueado, favor de esperar 15 minutos e intentar nuevamente.";
-                  break;
+                  break; 
     case 'SEG0004': mensajeError =  "Usuario bloqueado, favor de marcar a Banortel.";
-                  break;
+                  break; 
     case 'SEG0005': mensajeError =  "Los datos proporcionados son incorrectos, favor de verificar.";
-                  break;
+                  break; 
     case 'SEG0007': mensajeError = "Los datos proporcionados son incorrectos, favor de verificar.";
-                  break;
+                  break; 
     case 'SEG0008':  mensajeError = "La sesión ha caducado.";
-                  break;
+                  break; 
     case 'SEG0009':  mensajeError = "Límite de sesiones superado, favor de cerrar las sesiones de banca en línea activas.";
-                  break;
+                  break; 
     // tslint:disable-next-line:max-line-length
     case 'SEGOTP1': mensajeError = "Token desincronizado. Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
                   break;
@@ -782,14 +799,14 @@ controlarError(json) {
                   break;
     // tslint:disable-next-line:max-line-length
     case 'SEGAM81': mensajeError = "Token desincronizado. Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
-                  break;
-    case 'SEGAM82': mensajeError = "Token bloqueado, favor de marcar a Banortel.";
-                  break;
+                  break; 
+    case 'SEGAM82': mensajeError = "Token bloqueado, favor de marcar a Banortel."; 
+                  break;   
     case 'SEGAM83': mensajeError = "Token deshabilitado, favor de marcar a Banortel.";
-                  break;
+                  break;   
     case 'SEGAM84': mensajeError = "Token no activado, favor de marcar a Banortel.";
-                  break;
-    case '2'      : mensajeError = mensajeUsuario;
+                  break;  
+    case '2'      : mensajeError = mensajeUsuario;            
   }
 
   return mensajeError;
@@ -798,21 +815,21 @@ controlarError(json) {
 showErrorPromise(error) {
   console.log(error);
   // tslint:disable-next-line:max-line-length
-  document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
+  document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde."; 
   $('#_modal_please_wait').modal('hide');
   $('#errorModal').modal('show');
 }
 
 showErrorSucces(json) {
   console.log(json.Id + json.MensajeAUsuario);
-  document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+  document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
   $('#_modal_please_wait').modal('hide');
   $('#errorModal').modal('show');
 }
 
 showErrorSuccesMoney(json) {
   console.log(json.Id + json.MensajeAUsuario);
-  document.getElementById('msgError').innerHTML =   json.MensajeAUsuario;
+  document.getElementById('msgError').innerHTML =   json.MensajeAUsuario; 
   $('#_modal_please_wait').modal('hide');
   $('#ModalErrorTransaccion').modal('show');
 }

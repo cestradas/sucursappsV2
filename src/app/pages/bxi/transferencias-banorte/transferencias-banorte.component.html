@@ -180,7 +180,7 @@
             </div>
             <!-- <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
             <div class="col-sm-1">
-                <button [disabled]="!forma.valid" id="continuarTransfer" name="continuarspei" class="btn color-botones btn-lg" type="submit">
+                <button [disabled]="!forma.valid" id="continuarspei" name="continuarspei" class="btn btn-danger btn-lg" type="submit">
                     Continuar</button>
             </div>
         </div>
@@ -255,7 +255,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                    <button id="confirmar" class="color-botones btn btn-lg " (click)="confirmarPago(token.value)">
+                    <button class="color-botones btn btn-lg " (click)="confirmarPago(token.value)">
                                 Confirmar
                               </button>
                 </div>
@@ -277,7 +277,7 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <button id="cerrar" type="button" class="btn color-botones" data-dismiss="modal" onClick="currentPage.loadMenu();">Cerrar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onClick="currentPage.loadMenu();">Cerrar</button>
             </div>
         </div>
         <!-- /.modal-content -->

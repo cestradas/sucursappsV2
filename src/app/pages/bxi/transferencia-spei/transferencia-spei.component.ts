@@ -79,6 +79,9 @@ export class TransferenciaSpeiComponent implements OnInit {
 
   listaBancos: any;
   
+  NumeroSeguridad: string;
+
+
   constructor(private _http: Http, private router: Router, public service: SesionBxiService, private renderer: Renderer2) { 
 
     const this_aux = this;
@@ -339,10 +342,36 @@ export class TransferenciaSpeiComponent implements OnInit {
     const divChallenge = document.getElementById('challenger');
     const divTokenPass = document.getElementById('divPass');
     if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
-
+      $('#_modal_please_wait').modal('show');
       this_aux.labelTipoAutentica = 'Token Celular';
-      divChallenge.setAttribute('style', 'display: block');
       divTokenPass.setAttribute('style', 'display: block');
+      const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+      operacionesbxi.preparaAutenticacion().then(
+        function(response) {
+          const detallePrepara = response.responseJSON;
+          console.log(detallePrepara);
+          if (detallePrepara.Id === 'SEG0001') {
+            divChallenge.setAttribute('style', 'display: block');
+            this_aux.NumeroSeguridad = detallePrepara.MensajeUsuarioUno;
+            setTimeout(() => {
+              $('#_modal_please_wait').modal('hide');
+           }, 500);
+
+          } else {
+
+            setTimeout(() => {
+              $('#_modal_please_wait').modal('hide');
+              this_aux.showErrorSucces(detallePrepara);
+           }, 1000);
+          }
+        }, function(error) {
+
+          setTimeout(() => {
+            $('#_modal_please_wait').modal('hide');
+            this_aux.showErrorPromise(error);
+         }, 1000);
+
+        });
 
     } else if (this_aux.service.metodoAutenticaMayor.toString()  === '0') {
 
@@ -368,20 +397,30 @@ export class TransferenciaSpeiComponent implements OnInit {
 
       case '1':  // SPEI
 
-      $('#confirmModalSPEI').modal('show');         
+      
+            setTimeout(function() {
+              $( ".cdk-visually-hidden" ).css( "margin-top", "19%" );
+              $('#confirmModalSPEI').modal('show');  
+            }, 500);       
 
             break;
 
       case '2':  // TEF
 
       
-      $('#confirmModalTEF').modal('show');     
-
+            setTimeout(function() {
+              $( ".cdk-visually-hidden" ).css( "margin-top", "19%" );
+              $('#confirmModalTEF').modal('show');   
+            }, 500);   
+        
             break;
       case '3':  // QUICK
 
-      $('#confirmModalQUICK').modal('show');      
-     
+            setTimeout(function() {
+              $( ".cdk-visually-hidden" ).css( "margin-top", "19%" );
+              $('#confirmModalQUICK').modal('show'); 
+            }, 500);  
+           
             break;
           }
   

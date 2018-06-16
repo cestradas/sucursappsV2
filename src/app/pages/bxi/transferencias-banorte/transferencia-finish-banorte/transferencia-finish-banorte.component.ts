@@ -15,7 +15,7 @@ export class TransferenciaFinishBanorteComponent implements OnInit {
 
 
   detallePago: any = {
-
+    
     referenciaNumerica: '',
     fechaOperacion: '',
     horaOperacion: '',
@@ -33,21 +33,11 @@ export class TransferenciaFinishBanorteComponent implements OnInit {
 
   ngOnInit() {
 
-    //ESTILOS Preferente
-    let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
-    let btnContinuar = document.getElementById("terminar");
-
-    if (storageTipoClienteBEL === "true") {
-
-      btnContinuar.classList.remove("color-botones");
-      btnContinuar.classList.add("color-botones_Preferente");
-    }
-
     const this_aux = this;
     $('div').removeClass('modal-backdrop');
 
     const operacionSelect = this_aux.service.validaFinishTipoTransfer;
-
+ 
     switch (operacionSelect) {
 
       case '1':  // Cuentas propias Banorte
@@ -56,9 +46,9 @@ export class TransferenciaFinishBanorteComponent implements OnInit {
       const respPagoJsonPropias = JSON.parse(respPagoPropias);
       console.log(respPagoJsonPropias);
 
-
+      
       this_aux.detallePago.referenciaNumerica = respPagoJsonPropias.NumReferencia;
-
+      
       this_aux.detallePago.fechaOperacion  = respPagoJsonPropias.FechaOperacion;
       this_aux.detallePago.horaOperacion = respPagoJsonPropias.HoraOperacion;
       this_aux.detallePago.cuentaOrdenante = respPagoJsonPropias.CccCargo;
@@ -66,7 +56,7 @@ export class TransferenciaFinishBanorteComponent implements OnInit {
       this_aux.detallePago.nombreBeneficario = respPagoJsonPropias.TitularAbono;
       this_aux.detallePago.numMovimientoAbono = respPagoJsonPropias.NumMovimientoAbono;
       this_aux.detallePago.importeIva = respPagoJsonPropias.ImporteIva;
-      this_aux.detallePago.importeTotTraspaso = respPagoJsonPropias.ImporteTotTraspaso;
+      this_aux.detallePago.importeTotTraspaso = respPagoJsonPropias.ImporteTotTraspaso;       
 
             break;
 
@@ -78,7 +68,7 @@ export class TransferenciaFinishBanorteComponent implements OnInit {
 
 
       this_aux.detallePago.referenciaNumerica = respPagoJsonTerceros.NumReferencia;
-
+      
       this_aux.detallePago.fechaOperacion  = respPagoJsonTerceros.FechaOperacion;
       this_aux.detallePago.horaOperacion = respPagoJsonTerceros.HoraOperacion;
       this_aux.detallePago.cuentaOrdenante = respPagoJsonTerceros.CccCargo;
@@ -86,11 +76,11 @@ export class TransferenciaFinishBanorteComponent implements OnInit {
       this_aux.detallePago.nombreBeneficario = respPagoJsonTerceros.TitularAbono;
       this_aux.detallePago.numMovimientoAbono = respPagoJsonTerceros.NumMovimientoAbono;
       this_aux.detallePago.importeIva = respPagoJsonTerceros.ImporteIva;
-      this_aux.detallePago.importeTotTraspaso = respPagoJsonTerceros.ImporteTotTraspaso;
+      this_aux.detallePago.importeTotTraspaso = respPagoJsonTerceros.ImporteTotTraspaso;      
 
 
             break;
-
+     
           }
 
   }
