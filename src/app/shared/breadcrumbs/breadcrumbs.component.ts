@@ -130,6 +130,9 @@ export class BreadcrumbsComponent implements OnInit {
     sessionStorage.removeItem("np");
     sessionStorage.removeItem("res");
     sessionStorage.removeItem("tr2");
+    sessionStorage.removeItem("tr2_serv");
+    sessionStorage.removeItem("np_serv");
+    sessionStorage.removeItem("res_serv");
     const resourceRequest = new WLResourceRequest(
       'adapters/AdapterBanorteSucursApps/resource/cerrarSesion',
       WLResourceRequest.POST);

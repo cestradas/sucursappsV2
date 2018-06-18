@@ -28,20 +28,19 @@ export class ValidaNipTransaccion {
       // trae los datos de sesion de login Tarjeta
       let tr2 = localStorage.getItem("tr2");
       let np = localStorage.getItem("np");
-
-      let descripcion = localStorage.getItem("des");
+      let respTar = localStorage.getItem("res");
 
       // trae los datos de sesion de login al pedir validacion de TDD por segunda vez
       let tr2_serv = localStorage.getItem("tr2_serv");
       let np_serv = localStorage.getItem("np_serv");
-      let respTar_serv = localStorage.getItem("res");
-      this.respuestaTrjeta_serv = respTar;
+      let respTar_serv = localStorage.getItem("res_serv");
+      this.respuestaTrjeta_serv = respTar_serv;
 
 
       if (tr2_serv != null) {
 
 
-          if ((respTar !== "NO_OK") && (respTar !== null)) {
+          if ((respTar_serv !== "NO_OK") && (respTar_serv !== null)) {
 
             const formParameters = {
               tarjeta: tr2,
