@@ -3,6 +3,7 @@ import { OperacionesBXI } from './../../operacionesBXI';
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { FUNCTION_TYPE } from '@angular/compiler/src/output/output_ast';
 
 declare var jquery: any; // jquery
 declare var $: any;
@@ -110,12 +111,17 @@ export class PagoServiciosIniComponent implements OnInit {
                  $('#_modal_please_wait').modal('hide');
                }, 500);
              } else {
+              setTimeout(function() { 
               $('#_modal_please_wait').modal('hide');
                 this_aux.showErrorSucces(detalleSaldos);
+              }, 500);
              }
            }, function(error) {
-            $('#_modal_please_wait').modal('hide');
-              this_aux.showErrorPromise(error);
+
+            setTimeout(function() {
+              $('#_modal_please_wait').modal('hide');
+                this_aux.showErrorPromise(error);
+            }, 500);
        });
      }
 
@@ -162,13 +168,18 @@ getEmpresas() {
 
                     }, 500);
                   } else {
-                    $('#_modal_please_wait').modal('hide');
-                    this_aux.showErrorSucces(consultaEmpresas);
+
+                    setTimeout(function() {
+                      $('#_modal_please_wait').modal('hide');
+                      this_aux.showErrorSucces(consultaEmpresas);
+                    }, 500);
                 }
 
               }, function(error) {
-                $('#_modal_please_wait').modal('hide');
-                    this_aux.showErrorPromise(error);
+                setTimeout(function() {
+                  $('#_modal_please_wait').modal('hide');
+                  this_aux.showErrorPromise(error);
+                });
               });
       }
 }
@@ -212,12 +223,16 @@ getEmpresas() {
                   this_aux.router.navigate(['/pagoservicios_detail']);
 
              } else {
-              $('#_modal_please_wait').modal('hide');
-                  this_aux.showErrorSucces(detalleEmpresa);
+                setTimeout(function() {
+                  $('#_modal_please_wait').modal('hide');
+                        this_aux.showErrorSucces(detalleEmpresa);  
+                }, 500);          
              }
            }, function(error) {
+            setTimeout(function() {
             $('#_modal_please_wait').modal('hide');
                 this_aux.showErrorPromise(error);
+            }, 500);
            });
      }
 

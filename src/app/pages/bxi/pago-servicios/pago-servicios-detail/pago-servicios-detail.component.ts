@@ -179,25 +179,34 @@ export class PagoServiciosDetailComponent implements OnInit {
                         $('div').removeClass('modal-backdrop');
                         this_aux.router.navigate(['/pagoservicios_verify']);
                       } else {
-                        $('#_modal_please_wait').modal('hide');
-                        this_aux.showErrorSucces(jsonDetallePago);
+
+                        setTimeout(function() {
+                          $('#_modal_please_wait').modal('hide');
+                          this_aux.showErrorSucces(jsonDetallePago);
+                        }, 500);
                       }
                     }, function(error) {
-                      $('#_modal_please_wait').modal('hide');
-                      this_aux.showErrorPromiseMoney(error); }
+                         setTimeout(function() {
+                          $('#_modal_please_wait').modal('hide');
+                          this_aux.showErrorPromiseMoney(error);   
+                        }, 500);
+                      }
                   );
               } else {
-
-                    $('#_modal_please_wait').modal('hide');
-                      console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
-                      mensajeError = this_aux.controlarError(infoUsuarioJSON);
-                      document.getElementById('mnsError').innerHTML =  mensajeError;
-                      $('#errorModal').modal('show');
-
+                      setTimeout(function() {
+                        $('#_modal_please_wait').modal('hide');
+                          console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
+                          mensajeError = this_aux.controlarError(infoUsuarioJSON);
+                          document.getElementById('mnsError').innerHTML =  mensajeError;
+                          $('#errorModal').modal('show');
+                      }, 500);
               }
         }, function(error) {
-          $('#_modal_please_wait').modal('hide');
-          this_aux.showErrorPromiseMoney(error);
+
+          setTimeout(function() {
+            $('#_modal_please_wait').modal('hide');
+            this_aux.showErrorPromiseMoney(error);
+          }, 500);
         });
 
   }

@@ -35,7 +35,7 @@ export class PagoTarjetaCreditoVerifyComponent implements OnInit {
 
       this_aux.showData();
 
-      //ESTILOS Preferente
+      // ESTILOS Preferente
     let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
     let btnContinuar = document.getElementById("terminar");
 

@@ -127,7 +127,7 @@ export class LoginComponent {
 
         $('#ModalTDDLogin').modal('hide');
         THIS.router.navigate(['/menuTdd']);
-        this_aux.consultaTablaCorpBancosService();
+        //    this_aux.consultaTablaCorpBancosService();
         
       },
       function(error) {

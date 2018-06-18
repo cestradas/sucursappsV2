@@ -92,11 +92,18 @@ export class MantenimientoDatosIniComponent implements OnInit {
               this_aux.service.CelCliente = celular;
               this_aux.router.navigate(['/mantiene-datos-fin']);
         } else {
-          $('#_modal_please_wait').modal('hide');
-          this_aux.showErrorSucces(jsonRespuesta); }
+
+          setTimeout(function() { 
+            $('#_modal_please_wait').modal('hide');
+          this_aux.showErrorSucces(jsonRespuesta); 
+          }, 500);
+        }
       }, function(error) {
-        $('#_modal_please_wait').modal('hide');
-        this_aux.showErrorPromiseMoney(error);   }
+        setTimeout(function() { 
+          $('#_modal_please_wait').modal('hide');
+          this_aux.showErrorPromiseMoney(error);   
+        }, 500); 
+      }
     );
 
 

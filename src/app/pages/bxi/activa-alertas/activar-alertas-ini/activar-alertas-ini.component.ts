@@ -4,6 +4,7 @@ import { SesionBxiService } from './../../sesion-bxi.service';
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { FUNCTION_TYPE } from '@angular/compiler/src/output/output_ast';
 
 declare var jquery: any; // jquery
 declare var $: any;
@@ -123,18 +124,29 @@ consultaAlertas(I, TDD , TDC , numeroCuenta) {
                 this_aux.AlertasActivas = AlertasActivas_true;
                 console.log('this_aux.AlertasActivas' + this_aux.AlertasActivas);
                 if (this_aux.AlertasActivas) {
-                  $('#_modal_please_wait').modal('hide');
+                  
+                  setTimeout(function() { 
+                    $('#_modal_please_wait').modal('hide');
                     document.getElementById('mnsError').innerHTML =  "Ya tienes alertas activas para esta cuenta";
                     $('#errorModal').modal('show');
+                  }, 500);
                 }
                 this_aux.getSaldoDeCuenta(numeroCuenta);
 
           } else {
-            $('#_modal_please_wait').modal('hide');
-            this_aux.showErrorSucces(detalle);      }
+
+            setTimeout(function() {
+              $('#_modal_please_wait').modal('hide');
+              this_aux.showErrorSucces(detalle);
+            }, 500);
+          }
     }, function(error) {
-      $('#_modal_please_wait').modal('hide');
-      this_aux.showErrorPromise(error);    }
+
+      setTimeout(function() {
+        $('#_modal_please_wait').modal('hide');
+        this_aux.showErrorPromise(error);             
+      }, 500);
+     }
   );
 }
 
@@ -148,15 +160,24 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
           const detalleSaldos = response1.responseJSON;
             if ( detalleSaldos.Id === '1') {
                 lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
-                $('#_modal_please_wait').modal('hide');
+                setTimeout(function() { 
+                  $('#_modal_please_wait').modal('hide');
+                }, 500);
+                
             } else {
-              $('#_modal_please_wait').modal('hide');
-              this_aux.showErrorSucces(detalleSaldos);
-              lblSaldoOrigen.innerHTML = '';
+
+              setTimeout(function() { 
+                $('#_modal_please_wait').modal('hide');
+                this_aux.showErrorSucces(detalleSaldos);
+                lblSaldoOrigen.innerHTML = '';
+              }, 500);
             }
       }, function(error) {
-        $('#_modal_please_wait').modal('hide');
-        this_aux.showErrorPromise(error);  }
+        setTimeout(function() { 
+          $('#_modal_please_wait').modal('hide');
+          this_aux.showErrorPromise(error);            
+        }, 500);
+      }
     );
 }
 irMenuBXI() {
@@ -244,12 +265,17 @@ getNumeroCuentaOrigen(text) {
                       this_aux.router.navigate(['/activaAlertas_verify']);
                     }
                 } else {
-                  $('#_modal_please_wait').modal('hide');
-                  this_aux.showErrorSucces(res); }
+                  setTimeout(function() {
+                    $('#_modal_please_wait').modal('hide');
+                    this_aux.showErrorSucces(res); 
+                  }, 500);
+                 }
           }, function(error) {
-
-            $('#_modal_please_wait').modal('hide');
-            this_aux.showErrorPromiseMoney(error);   }
+              setTimeout(function() {
+                $('#_modal_please_wait').modal('hide');
+                this_aux.showErrorPromiseMoney(error);            
+               }, 500);
+            }
 
        );
 
