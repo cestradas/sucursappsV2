@@ -49,11 +49,20 @@ function callPinPad() {
         console.log(res);
 
         var respuesta = JSON.parse(res);
+        var validaNipServ = 0;
 
         if (respuesta.res != "NO_OK") {
-            localStorage.setItem("tr2", respuesta.tr2);
-            localStorage.setItem("np", respuesta.np);
-            localStorage.setItem("res", respuesta.res);
+            if (validaNipServ === 0) {
+                localStorage.setItem("tr2", respuesta.tr2);
+                localStorage.setItem("np", respuesta.np);
+                localStorage.setItem("res", respuesta.res);
+                validaNipServ = 1;
+            } else {
+                localStorage.setItem("tr2_serv", respuesta.tr2);
+                localStorage.setItem("np_serv", respuesta.np);
+                localStorage.setItem("res_serv", respuesta.res);
+            }
+
         } else {
             localStorage.setItem("res", respuesta.res);
             localStorage.setItem("des", respuesta.des);

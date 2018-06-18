@@ -7,6 +7,7 @@ export class ValidaNipTransaccion {
 
     postResp;
     respuestaTrjeta = "";
+    respuestaTrjeta_serv = "";
 
     respuestaNip: RespuestaNip = {
 
@@ -24,44 +25,54 @@ export class ValidaNipTransaccion {
 
         const THIS: any = this;
 
-      // trae los datos de sesion
+      // trae los datos de sesion de login Tarjeta
       let tr2 = localStorage.getItem("tr2");
       let np = localStorage.getItem("np");
-      let respTar = localStorage.getItem("res");
-      this.respuestaTrjeta = respTar;
+
       let descripcion = localStorage.getItem("des");
 
+      // trae los datos de sesion de login al pedir validacion de TDD por segunda vez
+      let tr2_serv = localStorage.getItem("tr2_serv");
+      let np_serv = localStorage.getItem("np_serv");
+      let respTar_serv = localStorage.getItem("res");
+      this.respuestaTrjeta_serv = respTar;
 
-      if ((respTar !== "NO_OK") && (respTar !== null)) {
 
-        const formParameters = {
-          tarjeta: tr2,
-          // tarjeta: '4334540109018154=151022110000865',
-          nip: np
-          // nip: 'D4D60267FBB0BB28'
-        };
+      if (tr2_serv != null) {
 
-        const resourceRequest = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursApps/resource/validaNipTrans',
-            WLResourceRequest.POST);
-        resourceRequest.setTimeout(30000);
-        resourceRequest
-            .sendFormParameters(formParameters)
-            .then(
-                function(response) {
 
-                    THIS.respuestaNip.res = response.responseJSON;
-                    console.log("Respuesta desde el Service RES: " , THIS.respuestaNip.res);
+          if ((respTar !== "NO_OK") && (respTar !== null)) {
 
-                } ,
+            const formParameters = {
+              tarjeta: tr2,
+              // tarjeta: '4334540109018154=151022110000865',
+              nip: np
+              // nip: 'D4D60267FBB0BB28'
+            };
 
-                function(error) {
+            const resourceRequest = new WLResourceRequest(
+                'adapters/AdapterBanorteSucursApps/resource/validaNipTrans',
+                WLResourceRequest.POST);
+            resourceRequest.setTimeout(30000);
+            resourceRequest
+                .sendFormParameters(formParameters)
+                .then(
+                    function(response) {
 
-                    console.log(error.responseText);
+                        THIS.respuestaNip.res = response.responseJSON;
+                        console.log("Respuesta desde el Service RES: " , THIS.respuestaNip.res);
 
-                });
+                    } ,
 
-        }
+                    function(error) {
+
+                        console.log(error.responseText);
+
+                    });
+
+            }
+
+       }
 
     }
 
