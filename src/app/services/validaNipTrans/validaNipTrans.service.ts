@@ -6,6 +6,7 @@ import { Http } from '@angular/http';
 export class ValidaNipTransaccion {
 
     postResp;
+    respuestaTrjeta = "";
 
     respuestaNip: RespuestaNip = {
 
@@ -17,18 +18,28 @@ export class ValidaNipTransaccion {
 
     validaNipTrans() {
 
-        this.getPosts().subscribe( result => {this.postResp = result; });
+        //this.getPosts().subscribe( result => {this.postResp = result; });
 
-        console.log(this.postResp);
+        //console.log(this.postResp);
 
         const THIS: any = this;
 
+      // trae los datos de sesion
+      let tr2 = localStorage.getItem("tr2");
+      let np = localStorage.getItem("np");
+      let respTar = localStorage.getItem("res");
+      this.respuestaTrjeta = respTar;
+      let descripcion = localStorage.getItem("des");
+
+
+      if ((respTar !== "NO_OK") && (respTar !== null)) {
+
         const formParameters = {
-            tarjeta: this.postResp.tr2,
-            // tarjeta: '4334540109018154=151022110000865',
-            nip: this.postResp.np
-            // nip: 'D4D60267FBB0BB28'
-          };
+          tarjeta: tr2,
+          // tarjeta: '4334540109018154=151022110000865',
+          nip: np
+          // nip: 'D4D60267FBB0BB28'
+        };
 
         const resourceRequest = new WLResourceRequest(
             'adapters/AdapterBanorteSucursApps/resource/validaNipTrans',
@@ -38,17 +49,19 @@ export class ValidaNipTransaccion {
             .sendFormParameters(formParameters)
             .then(
                 function(response) {
-                  
+
                     THIS.respuestaNip.res = response.responseJSON;
                     console.log("Respuesta desde el Service RES: " , THIS.respuestaNip.res);
-        
+
                 } ,
 
                 function(error) {
-        
+
                     console.log(error.responseText);
-        
+
                 });
+
+        }
 
     }
 
@@ -58,25 +71,25 @@ export class ValidaNipTransaccion {
             let intervalo = setInterval( () => {
 
                 console.log("Dentro de la promesa: " + this.respuestaNip.res);
-    
+
                 if ( this.respuestaNip.res !== '' ) {
 
                     let resp = {
 
                         'response': this.respuestaNip.res
-                        
+
                     };
-        
+
                     resolve(resp);
 
                     clearInterval(intervalo);
-        
+
                 }
-        
+
               }, 1000);
         });
 
-        
+
 
     }
 
