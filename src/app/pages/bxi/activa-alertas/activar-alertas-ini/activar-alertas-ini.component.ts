@@ -28,7 +28,7 @@ export class ActivarAlertasIniComponent implements OnInit {
   ngOnInit() {
     this.fillSelectCuentas();
 
-    //ESTILOS Preferente
+    // ESTILOS Preferente
     let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
     let btnContinuar = document.getElementById("continuarA");
 
@@ -228,6 +228,7 @@ getNumeroCuentaOrigen(text) {
        const servicioEvento = elemento.ServicioEvento;
        this_aux.Evento = servicioEvento.substring(2, 5);
        const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+       // tslint:disable-next-line:max-line-length
        operacionesbxi.altaServicioAlertas('A', this_aux.service.infoUsuarioSIC, I, TDD, TDC, this_aux.service.numCuentaSeleccionado, this_aux.Evento ).then(
           function(res) {
               const respuestaActivacion = res.responseJSON;
@@ -263,7 +264,7 @@ getNumeroCuentaOrigen(text) {
       $('#errorModal').modal('show'); 
       document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
     } else {
-      document.getElementById('msgError').innerHTML =   "Se presenta falla en el servicio MCA / Time Out de operación monetaria.";
+      document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tus datos.";
       $('#ModalErrorTransaccion').modal('show');
     }
 }

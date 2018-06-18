@@ -33,7 +33,7 @@ export class MantenimientoDatosIniComponent implements OnInit {
     $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
     this.getDatosContacto();
 
-    //ESTILOS Preferente
+    // ESTILOS Preferente
     let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
     let btnContinuar = document.getElementById("guardar");
 
@@ -131,7 +131,7 @@ export class MantenimientoDatosIniComponent implements OnInit {
       $('#errorModal').modal('show'); 
       document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
     } else {
-      document.getElementById('msgError').innerHTML =   "Se presenta falla en el servicio MCA / Time Out de operación monetaria.";
+      document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tus datos.";
       $('#ModalErrorTransaccion').modal('show');
     }
 }

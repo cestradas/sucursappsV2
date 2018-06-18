@@ -288,7 +288,7 @@ export class PagoServiciosDetailComponent implements OnInit {
       $('#errorModal').modal('show'); 
       document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
     } else {
-      document.getElementById('msgError').innerHTML =   "Se presenta falla en el servicio MCA / Time Out de operación monetaria.";
+      document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tu saldo.";
       $('#ModalErrorTransaccion').modal('show');
     }
 }
