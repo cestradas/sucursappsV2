@@ -144,7 +144,8 @@ export class BreadcrumbsComponent implements OnInit {
 
             WLAuthorizationManager.logout('banorteSecurityCheckSa');
             location.reload(true);
-            THIS.router.navigate(['/login']);
+            setTimeout( () => THIS.router.navigate(['/login']), 500 );
+
 
           },
           function(error) {
