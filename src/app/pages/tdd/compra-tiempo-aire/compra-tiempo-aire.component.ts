@@ -294,6 +294,7 @@ export class CompraTiempoAireComponent implements OnInit {
   trnasrecargaTA() {
 
     $('#ModalTDDLogin').modal('show');
+    $('#_modal_please_wait').modal('show');
     this._validaNipService.validaNipTrans();
 
     let res;
@@ -306,12 +307,15 @@ export class CompraTiempoAireComponent implements OnInit {
 
         if (res === true) {
 
+          $('#ModalTDDLogin').modal('hide');
           this.recargaTiempoAire();
 
         } else {
 
           console.error("Mostrar modal las tarjetas no son iguales");
-
+          document.getElementById('mnsError').innerHTML =   "Las tarjetas no corresponden.";
+          $('#_modal_please_wait').modal('hide');
+          $('#errorModal').modal('show');
 
         }
 
