@@ -4,6 +4,7 @@ import { SesionTDDService } from '../../../services/breadcrums/breadcroms.servic
 import { Subscription } from 'rxjs/Subscription';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { ResponseWS } from '../../../services/response/response.service';
+import { ValidaNipTransaccion } from '../../../services/validaNipTrans/validaNipTrans.service';
 import { SaldosDiaMesService } from '../../../services/SaldosDiaMes/saldoDiaMes.service';
 import $ from 'jquery';
 declare var $: $;
@@ -40,6 +41,7 @@ export class CompraTiempoAireComponent implements OnInit {
                private _service: ConsultaSaldosTddService,
                private _serviceSesion: SesionTDDService,
                private _saldosDiaMes: SaldosDiaMesService,
+               private _validaNipService: ValidaNipTransaccion,
                private serviceResponse: ResponseWS
               ) {
 
@@ -242,12 +244,6 @@ export class CompraTiempoAireComponent implements OnInit {
 
   recargaTiempoAire() {
 
-    this.onPlasticLoginafterSecurity();
-
-    if (this.validacionNip === "OK") {
-
-      // Si el NIP es correcto ejecuta operacion
-
     const this_aux = this;
     let importeDecimal  = parseFloat(this_aux.importe.toString()).toFixed(2);
     let formParameters = {
@@ -289,88 +285,40 @@ export class CompraTiempoAireComponent implements OnInit {
             this_aux.showErrorPromise(error);
           });
 
-    }
+
 
   }
 
 
-  onPlasticLoginafterSecurity() {
-    const this_aux = this;
+
+  trnasrecargaTA() {
+
+    $('#ModalTDDLogin').modal('show');
+    this._validaNipService.validaNipTrans();
+
+    let res;
+
+    this._validaNipService.validarDatosrespuesta().then(
+      mensaje => {
+
+        res = this._validaNipService.respuestaNip.res;
+        console.log(res);
+
+        if (res === true) {
+
+          this.recargaTiempoAire();
+
+        } else {
+
+          console.error("Mostrar modal las tarjetas no son iguales");
 
 
-    //setTimeout(function() {
-
-    let tr2 = localStorage.getItem("tr2");
-     let np = localStorage.getItem("np");
-     let respTar = localStorage.getItem("res");
-     this.respuestaTrjeta = respTar;
-     let descripcion = localStorage.getItem("des");
+        }
 
 
 
-      if ((respTar !== "NO_OK") && (respTar !== null)) {
-
-
-        const THIS: any = this;
-
-        const formParameters = {
-            //tarjeta: tr2,
-             tarjeta: '4334540109018154=151022110000865',
-            //nip: np
-             nip: 'D4D60267FBB0BB28'
-        };
-
-        const resourceRequest = new WLResourceRequest(
-        'adapters/AdapterBanorteSucursApps/resource/validaNip',
-        WLResourceRequest.POST);
-        resourceRequest.setTimeout(30000);
-        resourceRequest
-        .sendFormParameters(formParameters)
-        .then(
-           function(response) {
-
-             let res = response.responseJSON;
-             THIS._service.datosBreadCroms.numeroCliente = res.Tran_NumeroCliente;
-             THIS._service.datosBreadCroms.nombreUsuarioTDD = res.Tran_NombrePersona;
-             THIS._service.datosBreadCroms.sicUsuarioTDD = res.Tran_NumeroCliente;
-             this.validacionNip = "OK";
-             // setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
-
-             // DATOS CORRECTOS
-
-        $('#ModalTDDLogin').modal('hide');
-        document.getElementById('mnsError').innerHTML = "Validacion exitosa";
-        $('#errorModal').modal('show');
-        // THIS.router.navigate(['/menuTdd']);
-        // this_aux.consultaTablaCorpBancosService();
-
-      },
-      function(error) {
-
-
-             setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
-
-              this.validacionNip = "NOK";
-               // tslint:disable-next-line:max-line-length
-               document.getElementById('mnsError').innerHTML = "Por el momento este servicio no est&aacute; disponible, favor de intentar de nuevo m&aacute;s tarde.";
-               $('#errorModal').modal('show');
-
-           });
-
-         } else {
-
-           setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
-
-              this.validacionNip = "NOK";
-               // tslint:disable-next-line:max-line-length
-               console.log("Pinpad respondio con " + this.respuestaTrjeta);
-               document.getElementById('mnsError').innerHTML = "Por el momento este servicio no est&aacute; disponible, favor de intentar de nuevo m&aacute;s tarde.";
-               $('#errorModal').modal('show');
-
-         }
-
-   // }, 50000);
-
+      }
+    );
 
   }
 
