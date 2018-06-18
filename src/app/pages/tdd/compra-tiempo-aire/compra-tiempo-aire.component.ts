@@ -308,6 +308,7 @@ export class CompraTiempoAireComponent implements OnInit {
         if (res === true) {
 
           $('#ModalTDDLogin').modal('hide');
+          setTimeout( () => $('#_modal_please_wait').modal('hide'), 500 );
           this.recargaTiempoAire();
 
         } else {
