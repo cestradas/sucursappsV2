@@ -23,11 +23,11 @@
         <div style="margin:30px 20px 0px 0px; margin-top: 10px" class="row actions-form-group text-right">
             <div class="col-sm-9"></div>
             <div class="col-sm-2">
-                <button class="btn btn-lg" routerLink="/menuBXI" style="margin-right: -49px; ">Cancelar</button>
+                <button class="btn btn-lg" routerLink="/menuBXI" style="margin-right: -34px; ">Cancelar</button>
             </div>
             <!-- <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
             <div class="col-sm-1">
-                <button id="continuarCancelacion" [disabled]="botonAceptar == 0 || botonTerminos == 0" name="continuarCancelacion" class="btn btn-danger btn-lg" style="margin-right: -49px;" (click)="activarCancelacion()">Continuar</button>
+                <button id="continuarCancelacion" [disabled]="botonAceptar == 0 || botonTerminos == 0" name="continuarCancelacion" class="btn btn-danger btn-lg" style="margin-right: -34px;" (click)="activarCancelacion()">Continuar</button>
             </div>
         </div>
     </fieldset>
@@ -54,16 +54,20 @@
 <!-- Modal Terminos y Condiciones -->
 
 <div class="modal fade" id="modalTerminos" tabindex="-1" role="dialog" aria-labelledby="ModalTDDLogin" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 21%; position: initial !important;">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 32%; position: initial !important;">
         <div class="modal-content shadowModal">
             <span class="color-botones btn btn-lg pull-right" data-dismiss="modal" style="position: absolute; top: 5px; right: 5px"><span>X</span></span>
-            <h2 class="text-center padding-barToTittle deleteMargin-h2  color-letra">Aviso</h2>
+            <h2 class="text-center padding-barToTittle deleteMargin-h2">Términos y Condiciones</h2>
             <div class="modal-body modal-body-aux">
-                <p style="text-align: justify">Términos y Condiciones Estimado Cliente: Te agradecemos haber seleccionado la opción de NO envío del estado de cuenta de tu tarjeta de crédito, cuenta de cheques/débito, Contrato de Sociedades de Inversión, Contrato de Casa de Bolsa o
-                    Crediactivo, lo cual implica que estás de acuerdo en no recibirlo en papel a través del correo tradicional a partir del siguiente corte de tu cuenta. En caso de que requieras nuevamente el envío en papel de tu estado de cuenta a través
-                    del correo tradicional, es necesario configures nuevamente la opción para recibirlo a domicilio. Si requieres una copia en papel podrás imprimirla en la consulta de Estado de Cuenta. Te recordamos que el hecho de que no recibas tu
-                    estado de cuenta no constituye
-                </p>
+                <p>Estimado Cliente: </p>
+                <br>
+                <p style="text-align: justify">Te agradecemos haber seleccionado la opción de NO envío del estado de cuenta de tu tarjeta de crédito, cuenta de cheques/débito, Contrato de Sociedades de Inversión, Contrato de Casa de Bolsa o Crediactivo, lo cual implica que estás de
+                    acuerdo en no recibirlo en papel a través del correo tradicional a partir del siguiente corte de tu cuenta.</p>
+                <br>
+                <p style="text-align: justify">En caso de que requieras nuevamente el envío en papel de tu estado de cuenta a través del correo tradicional, es necesario configures nuevamente la opción para recibirlo a domicilio. Si requieres una copia en papel podrás imprimirla en
+                    la consulta de Estado de Cuenta.</p>
+                <br>
+                <p style="text-align: justify">Te recordamos que el hecho de que no recibas tu estado de cuenta no constituye una excepción a tu obligación de pago de tu cuenta de tarjeta de crédito.</p>
             </div>
         </div>
     </div>

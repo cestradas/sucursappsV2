@@ -293,7 +293,6 @@ export class LoginBxiComponent implements OnInit {
       setInterval(function() {
        const valueNewTimeOut = +localStorage.getItem('TimeOut') - 1;
        localStorage.setItem('TimeOut', valueNewTimeOut.toString());
-       console.log(valueNewTimeOut);
        if (valueNewTimeOut === 0) {
         this_aux.cerrarSesionTimeOutBXI();
        }

@@ -36,6 +36,7 @@ export class ValidaNipTransaccion {
       let respTar_serv = localStorage.getItem("res_serv");
       this.respuestaTrjeta_serv = respTar_serv;
 
+      setTimeout(function() {
 
       if (tr2_serv != null) {
 
@@ -69,9 +70,7 @@ export class ValidaNipTransaccion {
 
                     });
 
-            }
-
-       }
+        } } }, 30000);
 
     }
 

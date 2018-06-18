@@ -1,5 +1,8 @@
 // export funciona metodo con importacion en ts
 // function saveDocElectron(documentoB64, numDoc, fechaDoc) {
+
+var validaNipServ = 0;
+
 function saveDocElectron(documentoB64, nombremDoc) {
 
     var fs1 = require("fs");
@@ -49,7 +52,7 @@ function callPinPad() {
         console.log(res);
 
         var respuesta = JSON.parse(res);
-        var validaNipServ = 0;
+
 
         if (respuesta.res != "NO_OK") {
             if (validaNipServ === 0) {
