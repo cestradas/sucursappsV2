@@ -206,7 +206,7 @@ export class LoginBxiComponent implements OnInit {
 
                     if (infoUsuarioJSON.Sic === '99999999') {
                            
-                            WLAuthorizationManager.logout('banorteSecurityCheckSa');
+                            
                             $('#_modal_please_wait').modal('hide');
                             mensajeError = "Los datos proporcionados son incorrectos, favor de verificar.";
                             document.getElementById('mnsError').innerHTML =  mensajeError;
@@ -221,17 +221,19 @@ export class LoginBxiComponent implements OnInit {
 
                 } else {
 
-                 
-                  WLAuthorizationManager.logout('banorteSecurityCheckSa');
+                 setTimeout(function() {
                   $('#_modal_please_wait').modal('hide');
                   console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
                   mensajeError = this_aux.controlarError(infoUsuarioJSON);
                   document.getElementById('mnsError').innerHTML =  mensajeError;
                   $('#errorModal').modal('show');
+                 }, 500);
+                  
                 }
 
           }, function(error) { 
-           
+            
+            this_aux.modalIdentificaUsuario();
             WLAuthorizationManager.logout('banorteSecurityCheckSa');
             this_aux.showErrorPromise(error);
           });

@@ -13,6 +13,18 @@ $( document ).ready(function() {
                  
     }else if(localStorage.getItem("Ambientes") == "" ){
         console.log("no hay mas contextos")
+        $.getJSON('assets/js/cfg.json', function(datos) {
+            AMBIENTES[0] = datos['root'];
+            AMBIENTES[1] = datos['root1'];
+            AMBIENTES[2] = datos['root2'];
+            AMBIENTES[3] = datos['root3'];
+            AMBIENTES[4] = datos['root4'];
+            USR = datos['user'];
+            KEY = datos['key'];
+        
+        });
+       
+        getContextRoot();
     }
     else{
 
