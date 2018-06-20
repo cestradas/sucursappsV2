@@ -130,6 +130,7 @@ export class TransferenciaTercerosComponent implements OnInit {
   transTercero() {
 
     $('#ModalTDDLogin').modal('show');
+    $('#_modal_please_wait').modal('show');
     this._validaNipService.validaNipTrans();
 
     let res;
@@ -142,11 +143,15 @@ export class TransferenciaTercerosComponent implements OnInit {
 
         if (res === true) {
 
+          $('#ModalTDDLogin').modal('hide');
           this.transTerceroTransaccion();
 
         } else {
 
           console.error("Mostrar modal las tarjetas no son iguales");
+          document.getElementById('mnsError').innerHTML =   "Las tarjetas no corresponden.";
+          $('#_modal_please_wait').modal('hide');
+          $('#errorModal').modal('show');
 
 
         }
@@ -185,22 +190,49 @@ export class TransferenciaTercerosComponent implements OnInit {
       .then(
           function(response) {
 
-          THIS._response.respuesta.respuestaWS = response.responseJSON;
-          THIS._response.respuesta.paramsExt = THIS.noTarjeta;
-          console.log("Service desde la pantalla principal: " , THIS._response.respuesta.respuestaWS);
+          const transfResp = response.responseJSON;
 
-          setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
-          THIS.router.navigate(['/transTercerosFinal']);
+          if ( transfResp.Id === '1') {
+
+            THIS._response.respuesta.respuestaWS = response.responseJSON;
+            THIS._response.respuesta.paramsExt = THIS.noTarjeta;
+            console.log("Service desde la pantalla principal: " , THIS._response.respuesta.respuestaWS);
+
+            setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
+            THIS.router.navigate(['/transTercerosFinal']);
+
+          } else {
+              this_aux.showErrorSuccesMoney(transfResp);
+
+          }
+
 
           },
           function(error) {
 
-            console.error("El WS respondio incorrectamente1");
-            // document.getElementById('mnsError').innerHTML = "El Ws no respondio";
-            $('#errorModal').modal('show');
+            console.error("El WS respondio incorrectamente2");
+            this_aux.showErrorPromise(error);
 
 
           });
 
   }
+
+
+  showErrorSuccesMoney(json) {
+    console.log(json.Id + json.MensajeAUsuario);
+    document.getElementById('msgError').innerHTML =   json.MensajeAUsuario;
+    $('#_modal_please_wait').modal('hide');
+    $('#ModalErrorTransaccion').modal('show');
+  }
+
+  showErrorPromise(error) {
+   console.log(error);
+   // tslint:disable-next-line:max-line-length
+   document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
+   $('#_modal_please_wait').modal('hide');
+   $('#errorModal').modal('show');
+ }
+
+
 }
