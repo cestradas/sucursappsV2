@@ -434,7 +434,9 @@ validarSaldo(tipoOperecionPago) {
     const this_aux = this;
     $('#_modal_please_wait').modal('show');
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
-    operacionesbxi.consultaTablaYValidaSaldo(this_aux.service.numCuentaSPEISel, this_aux.importeF).then(
+    let importeOpe = this_aux.importeF;
+    importeOpe.replace(',', "");
+    operacionesbxi.consultaTablaYValidaSaldo(this_aux.service.numCuentaSPEISel, importeOpe).then(
       function(response) {
         console.log(response.responseText);
         if (response.responseText === "1") {
