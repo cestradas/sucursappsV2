@@ -438,9 +438,11 @@ validarSaldo(tipoOperecionPago) {
     importeOpe.replace(',', "");
     operacionesbxi.consultaTablaYValidaSaldo(this_aux.service.numCuentaSPEISel, importeOpe).then(
       function(response) {
+        let DatosJSON = response.responseJSON;
         console.log(response.responseText);
-        if (response.responseText === "1") {
-          // MANDAR A LLAMAR MODAL DE CONFIRMACION
+        if (DatosJSON.Id === "1") {
+
+          console.log("Pago validado");
           if (tipoOperecionPago === "1") {          // SPEI
             $('#confirmModalSPEI').modal('show');
           } else if (tipoOperecionPago === "2") {   //TEF
@@ -449,10 +451,12 @@ validarSaldo(tipoOperecionPago) {
             $('#confirmModalQUICK').modal('show');
           }
 
-        } else if ( response.responseText === "0" ) {
+        } else if ( DatosJSON.Id === "4" ) {
           $('#modalLimiteDiario').modal('show');
-        } else if ( response.responseText === "2" ) {
+        } else if ( DatosJSON.Id === "5" ) {
           $('#modalLimiteMensual').modal('show');
+        } else {
+          $('#errorModal').modal('show');
         }
         $('#_modal_please_wait').modal('hide');
       }, function(error) {

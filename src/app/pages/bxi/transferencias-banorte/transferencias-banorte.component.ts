@@ -622,8 +622,13 @@ validarSaldo(tipoOperecionPago) {
     importeOpe.replace(',', "");
     operacionesbxi.consultaTablaYValidaSaldo(this_aux.service.numCuentaTranPropBanorte, importeOpe).then(
       function(response) {
+
+        let DatosJSON = response.responseJSON;
         console.log(response.responseText);
-        if (response.responseText === "1") {
+        if (DatosJSON.Id === "1") {
+
+          console.log("Pago validado");
+
           // MANDAR A LLAMAR MODAL DE CONFIRMACION
           if (tipoOperecionPago === "1") {           // Cuentas propias Banorte
             $('#confirmModal').modal('show');
@@ -631,12 +636,15 @@ validarSaldo(tipoOperecionPago) {
             $('#confirmModal').modal('show');
           }
 
-        } else if ( response.responseText === "0" ) {
+        } else if ( DatosJSON.Id === "4" ) {
           $('#modalLimiteDiario').modal('show');
-        } else if ( response.responseText === "2" ) {
+        } else if ( DatosJSON.Id === "5" ) {
           $('#modalLimiteMensual').modal('show');
+        } else {
+          $('#errorModal').modal('show');
         }
         $('#_modal_please_wait').modal('hide');
+
       }, function(error) {
        $('#_modal_please_wait').modal('hide');
   });
