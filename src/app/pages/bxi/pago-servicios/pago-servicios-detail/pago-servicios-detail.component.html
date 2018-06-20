@@ -103,12 +103,12 @@
         </div>
         </div>
         <div class="row actions-form-group text-right">
-                <div class="col-lg-9"></div>
-                <div class="col-lg-2">
-                    <button type="button" class="btn btn-lg" (click)="irMenuBXI()">Cancelar</button>
-                </div>
-                <div class="col-lg-1" style="padding-right: 2%;">
-                    <button id="contiuar" type="button" class="btn color-botones btn-lg" [disabled]="myForm.invalid" (click)="showDetallePago(myForm.value)">
+            <div class="col-lg-9"></div>
+            <div class="col-lg-2">
+                <button type="button" class="btn btn-lg" (click)="irMenuBXI()">Cancelar</button>
+            </div>
+            <div class="col-lg-1" style="padding-right: 2%;">
+                <button id="contiuar" type="button" class="btn color-botones btn-lg" [disabled]="myForm.invalid" (click)="validarSaldo(myForm.value)">
                                         Continuar
                     </button>
                 </div>

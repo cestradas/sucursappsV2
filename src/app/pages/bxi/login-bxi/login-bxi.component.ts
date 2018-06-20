@@ -65,7 +65,7 @@ export class LoginBxiComponent implements OnInit {
 
    getUsrPassLegacy(usrAgent, usuarioBxi) {
     const this_aux = this;
-    
+    $('#_modal_please_wait').modal('show');
 
         const patron = /@/g;
         usrAgent = usrAgent.replace(patron, '');
@@ -84,12 +84,14 @@ export class LoginBxiComponent implements OnInit {
                 console.log( this_aux.datosLegacy);
                 console.log("El servcio de informacion Legacy respondio correctamente");
                 this_aux.validaUsuarioAfterSecurity(usuarioBxi);
+
               },
             function(error) {
               
               WLAuthorizationManager.logout('banorteSecurityCheckSa');
                 console.error("Ocurrio un error con el servcio de informacion Legacy");
                 $('#errorModal').modal('show');
+                $('#_modal_please_wait').modal('hide');
             });
     
 }

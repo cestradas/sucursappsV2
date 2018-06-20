@@ -86,10 +86,34 @@ export class PagoServiciosDetailComponent implements OnInit {
 
   }
 
-  showDetallePago( myForm) {
+  validarSaldo(myForm) {
+    const this_aux = this;
+    $('#_modal_please_wait').modal('show');
+    const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+    if (this_aux.importeAux === undefined) { this_aux.importeAux = this_aux.replaceSimbolo( this_aux.myForm.get('fcImporte').value); }
+    const patron = /,/g;  
+    this_aux.importe = this_aux.importeAux;
+    this_aux.importe = this_aux.importe.replace(patron, '');
+    operacionesbxi.consultaTablaYValidaSaldo(this_aux.cuentaCargo, this_aux.importe).then(
+      function(response) {
+        console.log(response.responseText);
+        if (response.responseText === "1") {
+          console.log("Pago validado");
+          this_aux.showDetallePago(myForm);
+        } else if ( response.responseText === "0" ) {
+          $('#modalLimiteDiario').modal('show');
+        } else if ( response.responseText === "2" ) {
+          $('#modalLimiteMensual').modal('show');
+        }
+        $('#_modal_please_wait').modal('hide');
+      }, function(error) {
+       $('#_modal_please_wait').modal('hide');
+  });
+  }
+  showDetallePago(myForm) {
     const this_aux = this;
        if (this_aux.importeAux === undefined) { this_aux.importeAux = this_aux.replaceSimbolo( this_aux.myForm.get('fcImporte').value); }
-      this_aux.importe = this_aux.importeAux;
+       this_aux.importe = this_aux.importeAux;
       console.log(this_aux.importe);
       this_aux.fechaVencimiento = myForm.fcFechaVencimiento.toString();
       if (this_aux.service.idFacturador === '1310') {
@@ -161,6 +185,8 @@ export class PagoServiciosDetailComponent implements OnInit {
       const operacionesbxi: OperacionesBXI = new OperacionesBXI();
       let mensajeError;
       if (this_aux.importeAux === undefined) { this_aux.importeAux = this_aux.replaceSimbolo( this_aux.myForm.get('fcImporte').value); }
+      const patron = /,/g;  
+    this_aux.importeAux = this_aux.importeAux.replace(patron, '');
       autenticacion.autenticaUsuario(token, this_aux.service.metodoAutenticaMayor).then(
         function(detalleAutentica) {
               // console.log(detalleAutentica.responseJSON);

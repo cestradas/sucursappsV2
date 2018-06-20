@@ -125,14 +125,15 @@ export class BreadcrumbsComponent implements OnInit {
     const THIS: any = this;
 
     console.log("Cerrar sesion");
+    localStorage.removeItem("validaNipServ");
     sessionStorage.removeItem("campania");
-    sessionStorage.removeItem("des");
-    sessionStorage.removeItem("np");
-    sessionStorage.removeItem("res");
-    sessionStorage.removeItem("tr2");
-    sessionStorage.removeItem("tr2_serv");
-    sessionStorage.removeItem("np_serv");
-    sessionStorage.removeItem("res_serv");
+    localStorage.removeItem("des");
+    localStorage.removeItem("np");
+    localStorage.removeItem("res");
+    localStorage.removeItem("tr2");
+    localStorage.removeItem("tr2_serv");
+    localStorage.removeItem("np_serv");
+    localStorage.removeItem("res_serv");
     const resourceRequest = new WLResourceRequest(
       'adapters/AdapterBanorteSucursApps/resource/cerrarSesion',
       WLResourceRequest.POST);

@@ -1,7 +1,6 @@
 // export funciona metodo con importacion en ts
 // function saveDocElectron(documentoB64, numDoc, fechaDoc) {
 
-var validaNipServ = 0;
 
 function saveDocElectron(documentoB64, nombremDoc) {
 
@@ -55,12 +54,14 @@ function callPinPad() {
 
 
         if (respuesta.res != "NO_OK") {
-            if (validaNipServ === 0) {
+            if (localStorage.getItem("validaNipServ") === null) {
+
                 localStorage.setItem("tr2", respuesta.tr2);
                 localStorage.setItem("np", respuesta.np);
                 localStorage.setItem("res", respuesta.res);
-                validaNipServ = 1;
+
             } else {
+
                 localStorage.setItem("tr2_serv", respuesta.tr2);
                 localStorage.setItem("np_serv", respuesta.np);
                 localStorage.setItem("res_serv", respuesta.res);

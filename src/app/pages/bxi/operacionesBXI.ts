@@ -444,4 +444,17 @@ export class OperacionesBXI {
                 resourceRequest.setTimeout(30000);
                 return resourceRequest.send();
         }
+
+    consultaTablaYValidaSaldo(cuenta, importe) {
+        const formParameters = {
+            cuenta: cuenta,
+            importe: importe
+        };
+      const resourceRequest = new WLResourceRequest(
+        "adapters/AdapterBanorteSucursAppsBEL/resource/consultaMontosMaximos",
+        WLResourceRequest.POST
+      );
+      resourceRequest.setTimeout(30000);
+      return resourceRequest.sendFormParameters(formParameters);
+    }
 }
