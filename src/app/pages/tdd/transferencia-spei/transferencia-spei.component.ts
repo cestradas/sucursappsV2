@@ -81,6 +81,14 @@ export class TransferenciaSpeiComponent implements OnInit {
 
   ngOnInit() {
 
+    localStorage.removeItem("des");
+    localStorage.removeItem("np");
+    localStorage.removeItem("res");
+    localStorage.removeItem("tr2");
+    localStorage.removeItem("tr2_serv");
+    localStorage.removeItem("np_serv");
+    localStorage.removeItem("res_serv");
+
     //ESTILOS Preferente
     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
     let btnContinuar = document.getElementById("continuarspei");
@@ -434,11 +442,14 @@ export class TransferenciaSpeiComponent implements OnInit {
               this_aux.email
             );
           }
+          this._validaNipService.respuestaNip.res = "";
         } else {
           console.error("Mostrar modal las tarjetas no son iguales");
           document.getElementById('mnsError').innerHTML =   "Las tarjetas no corresponden.";
           $('#_modal_please_wait').modal('hide');
           $('#errorModal').modal('show');
+          $('#ModalTDDLogin').modal('hide');
+          this._validaNipService.respuestaNip.res = "";
         }
       }
     );

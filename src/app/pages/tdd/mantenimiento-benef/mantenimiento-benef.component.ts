@@ -127,6 +127,14 @@ export class MantenimientoBenefComponent implements OnInit {
 
   ngOnInit() {
 
+    localStorage.removeItem("des");
+    localStorage.removeItem("np");
+    localStorage.removeItem("res");
+    localStorage.removeItem("tr2");
+    localStorage.removeItem("tr2_serv");
+    localStorage.removeItem("np_serv");
+    localStorage.removeItem("res_serv");
+
     //ESTILOS Preferente
     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
     let btnAlta = document.getElementById("alta");
@@ -305,12 +313,14 @@ export class MantenimientoBenefComponent implements OnInit {
       function(response) {
         console.log(response.responseJSON);
         this_aux.DatosJSON = response.responseJSON;
-        this_aux.BEN = this_aux.DatosJSON.ArrayBeneficiarios;
-
+/*
         if (this_aux.BEN === undefined) {
-          $('#errorModal').modal('show');
+          $('#errorModal').modal('show');          
           this_aux.bloquearAlta = true;
+        }*/ if (this_aux.DatosJSON.MensajeAUsuario === "Sin datos") {
+          this_aux.BEN = new Array();
         } else {
+          this_aux.BEN = this_aux.DatosJSON.ArrayBeneficiarios;
           this_aux.BEN.forEach(function(value, key) {
             this_aux.tamRegistrosBenef = ++this_aux.tamRegistrosBenef;
             if (value.FechaNacimiento !== "00010101" && value.FechaNacimiento !== "19000101") {

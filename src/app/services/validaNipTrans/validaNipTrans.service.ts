@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-
+import $ from 'jquery';
+declare var $: $;
 
 @Injectable()
 export class ValidaNipTransaccion {
@@ -8,7 +9,6 @@ export class ValidaNipTransaccion {
     postResp;
     respuestaTrjeta = "";
     respuestaTrjeta_serv = "";
-
     respuestaNip: RespuestaNip = {
 
         res: ''
@@ -41,12 +41,12 @@ export class ValidaNipTransaccion {
       if (tr2_serv != null) {
 
 
-          if ((respTar_serv !== "NO_OK") && (respTar_serv !== null)) {
+          if ((respTar_serv !== "NO_OK") && (respTar_serv !== null) && (localStorage.getItem("validaNipServ") === "1")) {
 
             const formParameters = {
-              tarjeta: tr2,
+              tarjeta: tr2_serv,
               // tarjeta: '4334540109018154=151022110000865',
-              nip: np
+              nip: np_serv
               // nip: 'D4D60267FBB0BB28'
             };
 
@@ -58,14 +58,20 @@ export class ValidaNipTransaccion {
                 .sendFormParameters(formParameters)
                 .then(
                     function(response) {
+                        if (response.responseJSON === true) {              
+                            THIS.respuestaNip.res = response.responseJSON;
+                            console.log("Respuesta desde el Service RES: " , THIS.respuestaNip.res);
+                           } else {
+                            THIS.respuestaNip.res = response.responseJSON;
+                            // tslint:disable-next-line:max-line-length                            
+                           }
 
-                        THIS.respuestaNip.res = response.responseJSON;
-                        console.log("Respuesta desde el Service RES: " , THIS.respuestaNip.res);
 
                     } ,
 
                     function(error) {
-
+                        document.getElementById('mnsError').innerHTML = "Por el momento este servicio no est&aacute; disponible, favor de intentar de nuevo m&aacute;s tarde.";
+                            $('#errorModal').modal('show');
                         console.log(error.responseText);
 
                     });
@@ -76,24 +82,23 @@ export class ValidaNipTransaccion {
 
     validarDatosrespuesta(): Promise<any> {
         return new Promise( (resolve, reject) => {
-
+            let resp;
             let intervalo = setInterval( () => {
 
                 console.log("Dentro de la promesa: " + this.respuestaNip.res);
 
-                if ( this.respuestaNip.res !== '' ) {
+                if ( this.respuestaNip.res !== '') {
 
-                    let resp = {
+                    resp = {
 
                         'response': this.respuestaNip.res
 
-                    };
-
+                    };                     
                     resolve(resp);
-
                     clearInterval(intervalo);
 
                 }
+              
 
               }, 1000);
         });

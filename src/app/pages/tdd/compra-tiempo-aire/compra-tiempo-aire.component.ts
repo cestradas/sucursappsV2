@@ -74,6 +74,14 @@ export class CompraTiempoAireComponent implements OnInit {
 
   ngOnInit() {
 
+    localStorage.removeItem("des");
+    localStorage.removeItem("np");
+    localStorage.removeItem("res");
+    localStorage.removeItem("tr2");
+    localStorage.removeItem("tr2_serv");
+    localStorage.removeItem("np_serv");
+    localStorage.removeItem("res_serv");
+
     //ESTILOS Preferente
     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
     let btnContinuar = document.getElementById("continuar");
@@ -310,6 +318,7 @@ export class CompraTiempoAireComponent implements OnInit {
           $('#ModalTDDLogin').modal('hide');
           setTimeout( () => $('#_modal_please_wait').modal('hide'), 500 );
           this.recargaTiempoAire();
+          this._validaNipService.respuestaNip.res = false;
 
         } else {
 
