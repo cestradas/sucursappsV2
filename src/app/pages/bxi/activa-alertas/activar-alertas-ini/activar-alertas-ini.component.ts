@@ -84,7 +84,13 @@ setDatosCuentaSeleccionada(elementHTML) {
 
   const tipoCuenta = this_aux.getTipoCuenta(value);
   const tipoTarjeta = this_aux.filtroTipoCuenta(tipoCuenta);
-  this_aux.searchAlertasByTipoCuenta(tipoTarjeta);
+  if ( tipoTarjeta === '') {
+    $('#errorModal').modal('show'); 
+    document.getElementById('mnsError').innerHTML = 'Tipo de cuenta invalida';
+  } else {
+    this_aux.searchAlertasByTipoCuenta(tipoTarjeta);
+  }
+  
 }
 searchAlertasByTipoCuenta(tipoTarjeta) {
   const this_aux = this;
@@ -93,13 +99,17 @@ searchAlertasByTipoCuenta(tipoTarjeta) {
     I = false;
     TDD = true;
     TDC = false;
-  }if ( tipoTarjeta === 'TDC') {
+    
+
+  } else if ( tipoTarjeta === 'TDC') {
     I = false;
     TDD = false;
-    TDC = true;
+    TDC = true; 
   }
-  this_aux.tipoTarjetaAlertas = tipoTarjeta;
-  this_aux.consultaAlertas(I, TDD, TDC, this_aux.service.numCuentaSeleccionado);
+    this_aux.tipoTarjetaAlertas = tipoTarjeta;
+     this_aux.consultaAlertas(I, TDD, TDC, this_aux.service.numCuentaSeleccionado);
+  
+  
 }
 
 consultaAlertas(I, TDD , TDC , numeroCuenta) {
@@ -207,8 +217,12 @@ getNumeroCuentaOrigen(text) {
   filtroTipoCuenta(tipoCuenta) {
 
     let tipoTarjeta;
-    if (tipoCuenta === '5') {        tipoTarjeta = 'TDC';    }
-    if (tipoCuenta === '1') {      tipoTarjeta = 'TDD';    }
+    if (tipoCuenta === '5') {        tipoTarjeta = 'TDC';    
+    }  else if (tipoCuenta === '1') {      tipoTarjeta = 'TDD';    
+    } else {
+      tipoTarjeta = '';
+    } 
+
     return tipoTarjeta;
   }
 

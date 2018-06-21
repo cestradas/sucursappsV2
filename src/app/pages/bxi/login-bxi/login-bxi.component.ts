@@ -81,15 +81,26 @@ export class LoginBxiComponent implements OnInit {
         resourceRequest.sendFormParameters(formParameters).then(
             function(response) {
                 this_aux.datosLegacy = response.responseJSON;
+                const resLegacyJson = response.responseJSON;
                 console.log( this_aux.datosLegacy);
-                console.log("El servcio de informacion Legacy respondio correctamente");
-                this_aux.validaUsuarioAfterSecurity(usuarioBxi);
+                if (resLegacyJson.Id === '0') {
+                    WLAuthorizationManager.logout('banorteSecurityCheckSa');
+                   
+                    setTimeout(function() {
+                      $('#_modal_please_wait').modal('hide');
+                      $('#errorModal').modal('show');
+                    }, 500);
+                    
+                } else {
+                  console.log("El servcio de informacion Legacy respondio correctamente");
+                  this_aux.validaUsuarioAfterSecurity(usuarioBxi);
 
+                }
               },
             function(error) {
               
               WLAuthorizationManager.logout('banorteSecurityCheckSa');
-                console.error("Ocurrio un error con el servcio de informacion Legacy");
+                console.log("Ocurrio un error con el servcio de informacion Legacy");
                 $('#errorModal').modal('show');
                 $('#_modal_please_wait').modal('hide');
             });

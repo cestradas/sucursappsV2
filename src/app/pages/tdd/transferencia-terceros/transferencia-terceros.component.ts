@@ -202,7 +202,7 @@ export class TransferenciaTercerosComponent implements OnInit {
             THIS.router.navigate(['/transTercerosFinal']);
 
           } else {
-              this_aux.showErrorSuccesMoney(transfResp);
+            THIS.showErrorSuccesMoney(transfResp);
 
           }
 
@@ -211,7 +211,7 @@ export class TransferenciaTercerosComponent implements OnInit {
           function(error) {
 
             console.error("El WS respondio incorrectamente2");
-            this_aux.showErrorPromise(error);
+            THIS.showErrorPromise(error);
 
 
           });
