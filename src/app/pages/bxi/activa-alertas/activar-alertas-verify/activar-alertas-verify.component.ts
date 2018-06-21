@@ -25,7 +25,7 @@ export class ActivarAlertasVerifyComponent implements OnInit {
       $('#_modal_please_wait').modal('hide');
     }, 500);
 
-    //ESTILOS Preferente
+    // ESTILOS Preferente
     let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
     let btnContinuar = document.getElementById("terminarA");
 

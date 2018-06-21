@@ -108,10 +108,16 @@ export class PagoServiciosDetailComponent implements OnInit {
         } else {
           $('#errorModal').modal('show');
         }
-        $('#_modal_please_wait').modal('hide');
+        setTimeout(function() {
+          $('#_modal_please_wait').modal('hide');
+        }, 500);
+        
       }, function(error) {
-       $('#_modal_please_wait').modal('hide');
+        setTimeout(function() {
+          $('#_modal_please_wait').modal('hide');
        this_aux.showErrorPromise(error);
+        }, 500);
+       
   });
   }
   showDetallePago(myForm) {
