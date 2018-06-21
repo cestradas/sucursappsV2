@@ -57,8 +57,8 @@ export class CompraTaComponent implements OnInit {
     this.forma = new FormGroup({
 
       'telefono': new FormControl('', [Validators.required, Validators.maxLength(10), Validators.pattern('/^([0-9])*$/')]),
-      'operador': new FormControl(),
-      'importe': new FormControl()
+      // 'operador': new FormControl(),
+      // 'importe': new FormControl()
 
     });
 
@@ -70,13 +70,18 @@ export class CompraTaComponent implements OnInit {
         console.log('forma', this.forma);
 
         this_aux.telefonoF = data;
+        if (this_aux.telefonoF.length === 10) {
+
+          $('#continuarTA').prop("disabled", false);
+        }
 
       });
 
 
 
+       // console.log('data',  this.forma.controls['operador'].touched.valueOf());
 
-      //console.log('data',  this.forma.controls['operador'].touched.valueOf());
+
 
   }
 
@@ -287,6 +292,9 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
     $('label').removeClass('border border-danger');
     $('#' + param.id).addClass('border border-danger');
     this_aux.importe = param.id;
+
+
+    $('#telefono').prop("disabled", false);
 
   }
 

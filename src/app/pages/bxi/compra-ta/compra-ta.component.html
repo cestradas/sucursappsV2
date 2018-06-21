@@ -102,7 +102,7 @@
                             <label class="col-sm-2 control-label">Tel&eacute;fono</label>
 
                             <div class="col-sm-10">
-                                <input [matKeyboard]="'num'" formControlName="telefono" id="telefono" name="telefono" type="text" class="input-whidth form-control amount input-lg" />
+                                <input disabled="disabled" [matKeyboard]="'num'" formControlName="telefono" id="telefono" name="telefono" type="text" class="input-whidth form-control amount input-lg" />
                                 <div *ngIf="forma.hasError('maxlength', 'telefono')" class="alert alert-danger">
                                     El numero telefonico no puede ser mayor a 10 digitos.
                                 </div>
@@ -121,9 +121,9 @@
             <div class="col-sm-2">
                 <button type="button" class="btn btn-lg" routerLink="/menuBXI">Regresar</button>
             </div>
-            <!-- <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
+            <!-- <button class="btn btn-primary [disabled]="!forma.valid" btn-lg" ng-click="onSiguiente01();"> -->
             <div class="col-sm-1">
-                <button id="continuarTA" [disabled]="!forma.valid" name="continuarspei" class="color-botones btn btn-lg " type="submit">
+                <button disabled="disabled" id="continuarTA" name="continuarspei" class="color-botones btn btn-lg " type="submit">
                   Continuar</button>
             </div>
         </div>
