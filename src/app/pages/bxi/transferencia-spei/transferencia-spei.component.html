@@ -457,11 +457,10 @@
                     <div class="col-lg 12">
                         <div id="challenger" class="form-group">
                             <label>N&uacute;mero de seguridad</label>
-                            <input type='text' id='numeroSeguridadT' class='form-control input-lg' ng-model='challenge.rcg' readonly>
-
+                            <label id='numeroSeguridadT' class='form-control input-lg'>{{NumeroSeguridad}}</label>
                         </div>
                         <div id="divPass" class="form-group">
-                            <label>TipoAutentica</label>
+                            <label>{{labelTipoAutentica}}</label>
 
                             <input type="password" class="form-control input-lg" #tokenTef [matKeyboard]="">
                             <div *ngIf="(tokenTef.value == '')  && tokenTef.touched" class="alert alert-danger">
@@ -538,11 +537,10 @@
                     <div class="col-lg 12">
                         <div id="challenger" class="form-group">
                             <label>N&uacute;mero de seguridad</label>
-                            <input type='text' id='numeroSeguridadQ' class='form-control input-lg' ng-model='challenge.rcg' readonly>
-
+                            <label  id='numeroSeguridadQ' class='form-control input-lg'>{{NumeroSeguridad}}</label>
                         </div>
                         <div id="divPass" class="form-group">
-                            <label>TipoAutentica</label>
+                            <label>{{labelTipoAutentica}}</label>
 
                             <input type="password" class="form-control input-lg" #tokenQuick [matKeyboard]="">
                             <div *ngIf="(tokenQuick.value == '')  && tokenQuick.touched" class="alert alert-danger">
