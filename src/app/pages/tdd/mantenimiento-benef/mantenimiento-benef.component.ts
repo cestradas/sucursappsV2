@@ -985,7 +985,7 @@ export class MantenimientoBenefComponent implements OnInit {
       $('#ModalTDDLogin').modal('show');
 
       let res;
-  
+
       this._validaNipService.validarDatosrespuesta().then(
         mensaje => {
   
@@ -994,12 +994,17 @@ export class MantenimientoBenefComponent implements OnInit {
   
           if (res === true) {  
             $('#ModalTDDLogin').modal('hide');
-            this_aux.verificaServicios();
-          } else {
+            setTimeout( () => $('#_modal_please_wait').modal('hide'), 500 );
+            this_aux.verificaServicios();  
+          } else {  
             console.error("Mostrar modal las tarjetas no son iguales");
+            document.getElementById('mnsError').innerHTML =   "Las tarjetas no corresponden.";
+            $('#_modal_please_wait').modal('hide');
+            $('#errorModal').modal('show');
+  
           }
         }
-      );    
+      ); 
     } else {
       this_aux.abrirModalPorcentaje();
     }  

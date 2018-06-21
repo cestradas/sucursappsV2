@@ -166,7 +166,7 @@ export class TransferenciaTercerosComponent implements OnInit {
   transTerceroTransaccion() {
 
     const THIS: any = this;
-
+    const this_aux = this;
     this.importe = this.replaceSimbolo(this.importe);
 
     let pImporte = parseFloat(this.importe).toFixed(2);
@@ -202,7 +202,7 @@ export class TransferenciaTercerosComponent implements OnInit {
             THIS.router.navigate(['/transTercerosFinal']);
 
           } else {
-            THIS.showErrorSuccesMoney(transfResp);
+              this_aux.showErrorSuccesMoney(transfResp);
 
           }
 
@@ -211,7 +211,7 @@ export class TransferenciaTercerosComponent implements OnInit {
           function(error) {
 
             console.error("El WS respondio incorrectamente2");
-            THIS.showErrorPromise(error);
+            this_aux.showErrorPromise(error);
 
 
           });

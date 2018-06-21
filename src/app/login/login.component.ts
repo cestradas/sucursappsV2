@@ -129,7 +129,7 @@ export class LoginComponent {
                $('#ModalTDDLogin').modal('hide');
               THIS.router.navigate(['/menuTdd']);
               //    this_aux.consultaTablaCorpBancosService();
-              localStorage.setItem("validaNipServ", "");
+              localStorage.setItem("validaNipServ", "1");
 
              } else {
               
@@ -202,7 +202,6 @@ export class LoginComponent {
                 console.log("El servcio de informacion Legacy respondio correctamente");
                 this_aux.idSession();
                 this_aux.tokenOperacion();
-                this_aux.onPlasticLoginafterSecurity();
               },
             function(error) {
               WLAuthorizationManager.logout('banorteSecurityCheckSa');
@@ -310,6 +309,7 @@ includesL(container, value) {
   }
 
   tokenOperacion() {
+    const this_aux = this;
     const resourceRequest = new WLResourceRequest(
       'adapters/AdapterBanorteSucursApps/resource/tokenOperacion',
       WLResourceRequest.POST);
@@ -319,7 +319,8 @@ includesL(container, value) {
       .then(
           function(response) {
               let resp = response.responseJSON;
-              console.log(response.responseText);
+              console.log(response.responseText);              
+              this_aux.onPlasticLoginafterSecurity();
           } ,
           function(error) {
               console.log(error.responseText);

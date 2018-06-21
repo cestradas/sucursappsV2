@@ -54,7 +54,7 @@ function callPinPad() {
 
 
         if (respuesta.res != "NO_OK") {
-            if (localStorage.getItem("validaNipServ") === null) {
+            if ((localStorage.getItem("validaNipServ") === null) || (localStorage.getItem("validaNipServ") === "")) {
 
                 localStorage.setItem("tr2", respuesta.tr2);
                 localStorage.setItem("np", respuesta.np);

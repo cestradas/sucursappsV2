@@ -69,10 +69,10 @@
             <br>
             <div class="row">
                 <div class="col-lg-10">
-                    <button  id="alta" type="button" class="color-botones btn btn-lg" [disabled]="tamRegistrosBenef == 10 || bloquearAlta || ultimoRegistroGuardado == 10 || contadorAltas == 10" (click)="altaBeneficiario()" style="margin-bottom: 20px; float: inherit; width: 110px;">Alta</button>
+                    <button id="alta" type="button" class="color-botones btn btn-lg" [disabled]="tamRegistrosBenef == 10 || bloquearAlta || ultimoRegistroGuardado == 10 || contadorAltas == 10" (click)="altaBeneficiario()" style="margin-bottom: 20px; float: inherit; width: 110px;">Alta</button>
                 </div>
                 <div class="col-lg-2">
-                    <button id="gardar" type="button" class="color-botones btn btn-lg pull-right" [disabled]="contadorModificaciones.length == 0 && contadorAltas == 0  && arrayBajas.length == 0" (click)="finalizaProcesoGuardarDatos()" style="margin-left: 40px">Guardar Cambios</button>
+                    <button id="gardar" type="button" class="color-botones btn btn-lg pull-right" [disabled]="contadorModificaciones.length == 0 && contadorAltas == 0  && arrayBajas.length == 0" onclick="handlerCallPinpad()" (click)="finalizaProcesoGuardarDatos()" style="margin-left: 40px">Guardar Cambios</button>
                 </div>
             </div>
         </div>

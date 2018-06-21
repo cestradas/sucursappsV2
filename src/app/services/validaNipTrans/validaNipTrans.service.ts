@@ -30,14 +30,14 @@ export class ValidaNipTransaccion {
       let np = localStorage.getItem("np");
       let respTar = localStorage.getItem("res");
 
-      // trae los datos de sesion de login al pedir validacion de TDD por segunda vez
+      setTimeout(function() {
+
+          // trae los datos de sesion de login al pedir validacion de TDD por segunda vez
       let tr2_serv = localStorage.getItem("tr2_serv");
       let np_serv = localStorage.getItem("np_serv");
       let respTar_serv = localStorage.getItem("res_serv");
       this.respuestaTrjeta_serv = respTar_serv;
-
-      setTimeout(function() {
-
+      
       if (tr2_serv != null) {
 
 

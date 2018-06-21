@@ -76,6 +76,7 @@ function getContextRoot() {
                     localStorage.removeItem("tr2_serv");
                     localStorage.removeItem("np_serv");
                     localStorage.removeItem("res_serv");
+                    localStorage.removeItem("validaNipServ");
 
                     var responseJson = response.responseJSON;
                     localStorage.setItem("TimeOut", responseJson.TimeOut);
