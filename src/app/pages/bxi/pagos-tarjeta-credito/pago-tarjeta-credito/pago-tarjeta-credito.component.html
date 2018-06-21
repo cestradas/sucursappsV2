@@ -197,7 +197,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                    <button id="confirmar" class="color-botones btn btn-lg " (click)="confirmarPago(token.value)">
+                          <button id="confirmar" class="color-botones btn btn-lg " (click)="confirmarPago(token.value)" [disabled]="(token.value == '')">
                             Confirmar
                           </button>
                 </div>
