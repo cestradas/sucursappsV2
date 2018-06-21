@@ -31,7 +31,7 @@ export class ConsultaMovimientosComponent implements OnInit {
     $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
   this.fillSelectCuentasTDD();
 
-    //ESTILOS Preferente
+    // ESTILOS Preferente
     let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
     let btnContinuar = document.getElementById("regresarBXI");
 
@@ -41,7 +41,7 @@ export class ConsultaMovimientosComponent implements OnInit {
       btnContinuar.classList.add("color-botones_Preferente");
     }
 
-
+    setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
 
   }
 
@@ -167,11 +167,12 @@ getSaldoDeCuentaTDD(numCuenta_seleccionada) {
           // lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
           this_aux.saldoSeleccionado = detalleSaldos.SaldoDisponible;
           this_aux.service.saldoSeleccionado = this_aux.saldoSeleccionado;
-          $('#_modal_please_wait').modal('hide');
+          
 
         } else {
            this_aux.showErrorSucces(detalleSaldos);
         }
+        setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
       }, function(error) {
          this_aux.showErrorPromise(error);
   });
@@ -190,14 +191,17 @@ getSaldoDeCuentaTDC(numCuenta_seleccionada) {
           this_aux.saldoSeleccionado = detalleSaldos.SaldoDisponible;
           this_aux.service.saldoSeleccionado = this_aux.saldoSeleccionado;
           this_aux.service.SaldoActual = detalleSaldos.SaldoActual;
-          $('#_modal_please_wait').modal('hide');
+          
 
         } else {
            this_aux.showErrorSucces(detalleSaldos);
         }
+
+        setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
       }, function(error) {
          this_aux.showErrorPromise(error);
   });
+
 
 
 
@@ -208,7 +212,7 @@ getSaldoDeCuentaTDC(numCuenta_seleccionada) {
 showErrorSucces(json) {
   console.log(json.Id + json.MensajeAUsuario);
   document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
-  $('#_modal_please_wait').modal('hide');
+  setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
   $('#errorModal').modal('show');
 }
 
@@ -216,7 +220,7 @@ showErrorPromise(error) {
   console.log(error);
   // tslint:disable-next-line:max-line-length
   document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde."; 
-  $('#_modal_please_wait').modal('hide');
+  setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
   $('#errorModal').modal('show');
 }
   cambiarMenu(peticion) {

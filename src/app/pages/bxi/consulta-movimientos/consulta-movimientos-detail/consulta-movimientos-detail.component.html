@@ -36,9 +36,12 @@
                                 <tr *ngFor="let movimiento of movimientosCue; let i = index">
                                     <td *ngIf="(i>=numeroDatoInicial) && (i < numeroDatoFinal)">{{movimiento.FechaOperacion|date:'dd/MM/yyyy'}}</td>
                                     <td *ngIf="(i>=numeroDatoInicial) && (i < numeroDatoFinal)">{{movimiento.DescripVariableUno}}</td>
-                                    <td *ngIf="(i>=numeroDatoInicial) && (i < numeroDatoFinal)">{{movimiento.Importe| currency}}</td>
-                                </tr>
-
+                                    <ng-template [ngIf]="(i>=numeroDatoInicial) && (i < numeroDatoFinal) &&(movimiento.TipoTransaccion != 'D')" [ngIfElse]="negativo">
+                                        <td>{{movimiento.Importe| currency}}</td>
+                                    </ng-template>
+                                    <ng-template #negativo>
+                                        <td style="color:red">-{{movimiento.Importe| currency}}</td>
+                                    </ng-template>
                             </table>
                         </div>
                         <div class="row">

@@ -87,9 +87,8 @@ export class ConsultaMovimientosDetailComponent implements OnInit {
       const div2 = document.getElementById('selectTDC');
       div2.style.display = "block";
       $("#selecttdc").val('0');
-this.seleccionarTipoCuenta();
-
-     //ESTILOS Preferente
+     }
+     // ESTILOS Preferente
     let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
     let btnContinuar = document.getElementById("regresarBXI");
 
@@ -102,7 +101,6 @@ this.seleccionarTipoCuenta();
 
      this.seleccionarTipoCuenta();
   }
-}
 
 
   
@@ -233,20 +231,13 @@ consultaMovimientosTDC(numeroCue) {
           this_aux.movimientosCue = this_aux.movimientos.movimientos;
 
           console.log(this_aux.movimientosCue);
-          // this_aux.movimentosMesActual(this_aux.movimientosCue);
-         if ( this_aux.movimientosCue.length === 0 ) {
+          
+         if ( this_aux.movimientosCue === undefined ) {
           console.log(detalleCuenta.MensajeAUsuario);
           this_aux.sinMovimientos(this_aux.par);
          } else {
           this_aux.TamArray = this_aux.movimientosCue.length;
           this_aux.numPaginas = this_aux.TamArray / this_aux.tamPaginas;         
-
-           let i = 0;
-    
-             for (i; i < this_aux.numPaginas; i ++) {
-                 this_aux.arrayNumPag.push(i);
-             }
-
               const textTitular = detalleCuenta;
               console.log(detalleCuenta.MensajeAUsuario);
               this_aux.mostrarTabla();
@@ -261,45 +252,34 @@ consultaMovimientosTDC(numeroCue) {
          }
          
           
-        } 
+        } else {
+          this_aux.showErrorSucces(detalleCuenta);
+
+        }
+        setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
+        console.log("Movimientos cargados correctamente");
       }, function(error) {
+        this_aux.showErrorPromise(error);
   });
-  console.log("Movimientos cargados correctamente");
+  
+}
+
+showErrorSucces(json) {
+  console.log(json.Id + json.MensajeAUsuario);
+  document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
   setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
+  $('#errorModal').modal('show');
 }
 
-movimentosMesActual (movimentos) {
-
-  let mes = new Date().getUTCMonth() ;
-
-  
-  movimentos.forEach(movimiento => {
-      console.log(movimiento);
-      let algo = movimiento.FechaOperacion;
-        console.log(algo);
-         let mesMov = new Date(algo).getUTCMonth();
-     console.log(mesMov);
-
-    if (mes === mesMov ) {
-     this.moviMesActual.push(movimiento);
-    } 
-    if ((mes - 1) === mesMov ) {
-      this.moviMesAnterior.push(movimiento);
-    }
-  });
-
-  console.log(this.moviMesActual);
-  console.log(this.moviMesAnterior);
-
-  if (  this.par === 0 ) {
-            this.movimientosCue = this.moviMesActual;
-  } else {
-            this.movimientosCue = this.moviMesAnterior;
-  }
-  
-console.log( this.movimientosCue);
-
+showErrorPromise(error) {
+  console.log(error);
+  // tslint:disable-next-line:max-line-length
+  document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde."; 
+  setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
+  $('#errorModal').modal('show');
 }
+
+
 
 mostrarSaldoDebito() {
 
@@ -361,13 +341,18 @@ mostrarSaldoCredito() {
           }
           if (this_aux.options === 0) {
             $("#selecttdd").val('0');
+            
          }
+         setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
         }, function(error) {
+
+          setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
+          this_aux.showErrorPromise(error);
     });
 
     this_aux.mostrarSaldoDebito();
     console.log("Movimientos cargados correctamente");
-    setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
+    
   }
 
   mostrarTabla () {
@@ -404,7 +389,7 @@ mostrarSaldoCredito() {
     $('#noMovimientosMesAnterior').modal('show');
   
   }
-  timeOut () {
+  timeOut() {
     const div = document.getElementById('timeOut');
     $('#timeOut').modal('show');
   
