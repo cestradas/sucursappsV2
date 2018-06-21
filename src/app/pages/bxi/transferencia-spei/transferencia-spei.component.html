@@ -409,7 +409,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                    <button id="confirmar" class="color-botones btn btn-lg " (click)="confirmarPago(token.value)">
+                    <button id="confirmar" class="color-botones btn btn-lg " (click)="confirmarPago(token.value, " "," ")">
                                 Confirmar
                               </button>
                 </div>
@@ -463,13 +463,16 @@
                         <div id="divPass" class="form-group">
                             <label>TipoAutentica</label>
 
-                            <input type="password" class="form-control input-lg" #token [matKeyboard]="">
+                            <input type="password" class="form-control input-lg" #tokenTef [matKeyboard]="">
+                            <div *ngIf="(tokenTef.value == '')  && tokenTef.touched" class="alert alert-danger">
+                                <p color="danger" *ngIf="(tokenTef.value == '')">Dato obligatorio, favor de capturar. </p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                    <button id="confirmarP" class="color-botones btn btn-lg " (click)="confirmarPago(token.value)">
+                    <button id="confirmarP" class="color-botones btn btn-lg " (click)="confirmarPago(" ", tokenTef.value, " ")">
                                 Confirmar
                               </button>
                 </div>
@@ -541,13 +544,16 @@
                         <div id="divPass" class="form-group">
                             <label>TipoAutentica</label>
 
-                            <input type="password" class="form-control input-lg" #token [matKeyboard]="">
+                            <input type="password" class="form-control input-lg" #tokenQuick [matKeyboard]="">
+                            <div *ngIf="(tokenQuick.value == '')  && tokenQuick.touched" class="alert alert-danger">
+                                <p color="danger" *ngIf="(tokenQuick.value == '')">Dato obligatorio, favor de capturar. </p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                    <button id="confirmarP2" class="color-botones btn btn-lg " (click)="confirmarPago(token.value)">
+                    <button id="confirmarP2" class="color-botones btn btn-lg " (click)="confirmarPago(" "," ", tokenQuick.value)">
                                 Confirmar
                               </button>
                 </div>

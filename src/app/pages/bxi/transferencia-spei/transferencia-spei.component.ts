@@ -864,7 +864,7 @@ validaDatosBen() {
 
 
 
-  confirmarPago(token) {
+  confirmarPago(token, tokenTef, tokenQuick) {
 
 
 
@@ -961,7 +961,7 @@ validaDatosBen() {
 
       this_aux.consultaTablaCorpBancosService();
 
-      autenticacion.autenticaUsuario(token, this_aux.service.metodoAutenticaMayor).then(
+      autenticacion.autenticaUsuario(tokenTef, this_aux.service.metodoAutenticaMayor).then(
         function(detalleAutentica) {
               // console.log(detalleAutentica.responseJSON);
               const infoUsuarioJSON = detalleAutentica.responseJSON;
@@ -1011,7 +1011,7 @@ validaDatosBen() {
 
 
 
-      autenticacion.autenticaUsuario(token, this_aux.service.metodoAutenticaMayor).then(
+      autenticacion.autenticaUsuario(tokenQuick, this_aux.service.metodoAutenticaMayor).then(
         function(detalleAutentica) {
               // console.log(detalleAutentica.responseJSON);
               const infoUsuarioJSON = detalleAutentica.responseJSON;
