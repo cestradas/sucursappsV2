@@ -70,8 +70,9 @@
                             <div id="carriersDiv" class="row col-sm-8" style="height:60px; width:1200px;">
                                 <input type="hidden" id="carrier" name="carrier" />
                                 <div [ngClass]="{'Telcel col-sm-2': true , 'border border-danger': blClassT}">
-                                    <img src="./assets/img/7000.png" style="display: inline-block; float: center !important;" class="imagenTelcel compTelefonica" #importeTelcel id="imagenTelcel" name='importeTelcel' ngDefaultControl formControlName="operador" (click)="insertaSaldo(importeTelcel)"
-                                    />
+                                    <!-- <img src="./assets/img/7000.png" style="display: inline-block; float: center !important;" class="imagenTelcel compTelefonica" #importeTelcel id="imagenTelcel" name='importeTelcel' ngDefaultControl formControlName="operador" (click)="insertaSaldo(importeTelcel)"
+                                    /> -->
+                                    <img src="./assets/img/7000.png" style="display: inline-block; float: center !important;" class="imagenTelcel compTelefonica" #importeTelcel id="imagenTelcel" name='importeTelcel' ngDefaultControl (click)="insertaSaldo(importeTelcel)" />
                                 </div>
                                 <div [ngClass]="{'Movistar col-sm-2': true , 'border border-danger': blClassM}">
                                     <img src="./assets/img/11000.png" style="display: inline-block;float: left;" class="imagenMovistar compTelefonica" #importeMovi id="importeMovi" name='importeMovi' ngDefaultControl (click)="insertaSaldo(importeMovi)" />
@@ -88,8 +89,8 @@
                     <div class="row padding-InFieldset">
                         <label style="width: 8.3%;" class="col-sm-2 control-label">Monto</label>
                         <div class="col-sm-1 amount-list" *ngFor="let recarga of recargas; let i = index">
-
-                            <label formControlName="importe" ngDefaultControl #importe id="{{recarga.ImporteTiempoAire}}" (click)="cargaImporte(importe)">{{recarga.ImporteTiempoAire | currency}}</label>
+                            <!--<label formControlName="importe" ngDefaultControl #importe id="{{recarga.ImporteTiempoAire}}" (click)="cargaImporte(importe)">{{recarga.ImporteTiempoAire | currency}}</label> -->
+                            <label ngDefaultControl #importe id="{{recarga.ImporteTiempoAire}}" (click)="cargaImporte(importe)">{{recarga.ImporteTiempoAire | currency}}</label>
 
                             <div id="botonMontos" style="display:none; ">
                                 <div id="muestraMontos" name="muestraMontos" class="btn-group" role="group">
