@@ -135,7 +135,7 @@
                                 <label>Importe: </label>
                             </div>
                             <div class="col-sm-10">
-                                <input id="amount" name="amount" formControlName="amount" type="text" class="form-control amount input-lg" maxlength="60" required />
+                                <input id="amount" [matKeyboard]="'num'" name="amount" formControlName="amount" type="text" class="form-control amount input-lg" maxlength="60" required />
                                 <div *ngIf="forma.hasError('min', 'amount') || forma.hasError('max', 'amount') " class="alert alert-danger">
                                     Limite de....
                                 </div>
@@ -151,7 +151,7 @@
                                 <label>Concepto: </label>
                             </div>
                             <div class="col-sm-10">
-                                <input aria-describedby="validationTooltipUsernamePrepend" id="concepto" name="concepto" formControlName="concepto" type="text" maxlength="7" class="form-control amount is-invalid" required />
+                                <input aria-describedby="validationTooltipUsernamePrepend" [matKeyboard]="" id="concepto" name="concepto" formControlName="concepto" type="text" maxlength="7" class="form-control amount is-invalid" required />
                                 <div *ngIf="forma.hasError('maxlength', 'concepto')" class="alert alert-danger">
                                     Limite de descripcion debe ser de....
                                 </div>
