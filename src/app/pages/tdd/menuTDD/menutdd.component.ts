@@ -70,6 +70,9 @@ export class MenutddComponent implements OnInit {
       case "actDatosContacto":
         this.router.navigate(["/actualizarDatosContactoTDD"]);
         break;
+        case "actAlertas":
+        this.router.navigate(["/activarAlertasTDD"]);
+        break;
 
       default:
         this.router.navigate(["/menuTdd"]);
