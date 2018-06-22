@@ -348,6 +348,9 @@ export class PagoServiciosDetailComponent implements OnInit {
      this.router.navigate(['/menuBXI']);
   }
 
+  irPagoServiciosIni() {
+    this.router.navigate(['/pagoservicios_ini']);
+  }
 
 
   leeCodeBar(value) {

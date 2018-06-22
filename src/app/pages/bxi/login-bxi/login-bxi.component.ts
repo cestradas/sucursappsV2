@@ -34,7 +34,7 @@ export class LoginBxiComponent implements OnInit {
    }
 
   ngOnInit() {
-      
+    
   }
   validaUsuario(usuarioBxi) {
       

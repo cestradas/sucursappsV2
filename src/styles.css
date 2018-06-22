@@ -1302,3 +1302,15 @@ button#buttonImageMantoBen {
     border-bottom: 0;
     border-left: .3em solid transparent;
 }
+
+.modal-dialog-centered {
+    padding-top: 10% !important;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: block !important;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    min-height: calc(100% - (.5rem * 2));
+}
+

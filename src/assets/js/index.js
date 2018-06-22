@@ -53,7 +53,8 @@ function getContextRoot() {
         console.log(AMBIENTES[0]);
 
         var wlInitOptions = {
-            mfpContextRoot: AMBIENTES[0],
+           // mfpContextRoot: AMBIENTES[0],
+           mfpContextRoot: AMBIENTES[0],
             applicationId: 'com.banorte.sucursapps',
         };
 
