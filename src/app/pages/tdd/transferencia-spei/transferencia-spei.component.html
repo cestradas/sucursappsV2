@@ -181,7 +181,7 @@
             <!-- <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
             <div class="col-sm-1">
                 <button id="continuarspei" name="continuarspei" class="btn color-botones btn-lg" [disabled]="myform.invalid || rSelecBanco.value === 'Seleccione un banco' || rSelecBanco.value === ''
-                || rTipoTransferencia.value === 'Seleccione transferencia' || rTipoTransferencia.value === ''" (click)="showDetallePago(rClabe.value, rBeneficiario.value, rReferencia.value, rImporte.value, rDescripcion.value,
+                || rTipoTransferencia.value === 'Seleccione transferencia' || rTipoTransferencia.value === ''" (click)="validarSaldo(rClabe.value, rBeneficiario.value, rReferencia.value, rImporte.value, rDescripcion.value,
                     rEmail.value)" style="margin-right: -49px;">
                         Continuar</button>
             </div>

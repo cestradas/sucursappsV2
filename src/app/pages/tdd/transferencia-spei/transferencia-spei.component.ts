@@ -355,57 +355,6 @@ export class TransferenciaSpeiComponent implements OnInit {
     );
   }
 
-  validarSaldoDiaSoap(): any {
-    const this_aux = this;
-    console.log("Inicia validacion de saldo dia");
-
-    let formParameters = {
-      numeroCuenta: this_aux.numeroCuentaTitular,
-      importe: this_aux.importe
-    };
-
-    let respuestaTef;
-
-    const resourceRequest = new WLResourceRequest(
-      "adapters/AdapterBanorteSucursApps/resource/validaSaldoDia",
-      WLResourceRequest.POST
-    );
-    resourceRequest.setTimeout(30000);
-    resourceRequest.sendFormParameters(formParameters).then(
-      function(response) {
-        console.log("VALIDACION DE SALDO AL DIA: " + response.responseJSON);
-      },
-      function(error) {
-        console.log("Error al realizar validacion de saldo dia");
-      }
-    );
-  }
-
-  validarSaldoMensualSoap(): any {
-    const this_aux = this;
-    console.log("Inicia validacion de saldo mensual");
-
-    let formParameters = {
-      numeroCuenta: this_aux.numeroCuentaTitular,
-      importe: this_aux.importe
-    };
-
-    let respuestaTef;
-
-    const resourceRequest = new WLResourceRequest(
-      "adapters/AdapterBanorteSucursApps/resource/validaSaldoMes",
-      WLResourceRequest.POST
-    );
-    resourceRequest.setTimeout(30000);
-    resourceRequest.sendFormParameters(formParameters).then(
-      function(response) {
-        console.log("VALIDACION DE SALDO AL MES: " + response.responseJSON);
-      },
-      function(error) {
-        console.log("Error al realizar validacion de saldo mensual");
-      }
-    );
-  }
 
   confirmarTransaccion() {
     this._validaNipService.validaNipTrans();
@@ -453,5 +402,33 @@ export class TransferenciaSpeiComponent implements OnInit {
         }
       }
     );
+  }
+
+  validarSaldo(clabeBenRec, nombreBeneRec, refRec, importeRec, descripcionRec, correoRec) {
+    const this_aux = this;
+    
+    this._validaNipService.consultaTablaYValidaSaldo(this_aux.numeroCuentaTitular, importeRec).then(
+      function(response) {
+        let DatosJSON = response.responseJSON;
+        if (DatosJSON.Id === "1") {
+          this_aux.showDetallePago(clabeBenRec, nombreBeneRec, refRec, importeRec, descripcionRec, correoRec);
+        } else if ( DatosJSON.Id === "4" ) {
+          $('#modalLimiteDiario').modal('show');
+        } else if ( DatosJSON.Id === "5" ) {
+          $('#modalLimiteMensual').modal('show');
+        } else {
+          $('#errorModal').modal('show');
+        }
+        setTimeout(function() {
+          $('#_modal_please_wait').modal('hide');
+        }, 500);
+        
+      }, function(error) {
+        setTimeout(function() {
+          $('#_modal_please_wait').modal('hide');
+          $('#errorModal').modal('show');
+        }, 500);
+       
+  });
   }
 }

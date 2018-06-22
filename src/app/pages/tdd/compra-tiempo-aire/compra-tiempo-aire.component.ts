@@ -318,15 +318,15 @@ export class CompraTiempoAireComponent implements OnInit {
           $('#ModalTDDLogin').modal('hide');
           setTimeout( () => $('#_modal_please_wait').modal('hide'), 500 );
           this.recargaTiempoAire();
-          this._validaNipService.respuestaNip.res = false;
+          this._validaNipService.respuestaNip.res = "";
 
         } else {
-
           console.error("Mostrar modal las tarjetas no son iguales");
           document.getElementById('mnsError').innerHTML =   "Las tarjetas no corresponden.";
           $('#_modal_please_wait').modal('hide');
           $('#errorModal').modal('show');
-
+          $('#ModalTDDLogin').modal('hide');
+          this._validaNipService.respuestaNip.res = "";
         }
 
 
