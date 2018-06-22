@@ -182,13 +182,15 @@ fillCuentasBeneficiario () {
     });
   arrayCuentasXBeneficiario.forEach(element1 => {
     cuenta = element1.Cuenta;
+      if (cuenta !== undefined) {
+
         cuenta.forEach(data => {
 
           this_aux.listaCuentasBen.push(data);
 
-
-
         });
+
+      }
   });
 
   datosBeneficiarios.forEach(element1 => {
