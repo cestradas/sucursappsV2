@@ -219,11 +219,13 @@ export class LoginBxiComponent implements OnInit {
 
                     if (infoUsuarioJSON.Sic === '99999999') {
                            
-                            
-                            $('#_modal_please_wait').modal('hide');
-                            mensajeError = "Los datos proporcionados son incorrectos, favor de verificar.";
-                            document.getElementById('mnsError').innerHTML =  mensajeError;
-                            $('#errorModal').modal('show');
+                            setTimeout(function() {
+                              $('#_modal_please_wait').modal('hide');
+                              mensajeError = "Los datos proporcionados son incorrectos, favor de verificar.";
+                              document.getElementById('mnsError').innerHTML =  mensajeError;
+                              $('#errorModal').modal('show');
+                            }, 500);
+                           
                     } else {
                             this_aux.service.NombreUsuario = infoUsuarioJSON.NombreUsuario;
                             this_aux.service.infoUsuario = infoUsuario;

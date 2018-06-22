@@ -125,12 +125,13 @@ export class PagoTarjetaCreditoComponent implements OnInit {
               } else {
 
                 setTimeout(function() {
+                  document.getElementById('lblSaldoOrigen').innerHTML = "";
                   $('#_modal_please_wait').modal('hide');
                   this_aux.showErrorSucces(detalleSaldos);
                }, 500); 
               }
         }, function(error) {
-
+          document.getElementById('lblSaldoOrigen').innerHTML = "";
           setTimeout(function() {
             $('#_modal_please_wait').modal('hide');
             this_aux.showErrorPromise(error);
@@ -424,7 +425,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   replaceSimbolo(importe) {
     let importeAux;
     importeAux = importe.replace('$', '');
-    importeAux = importe.replace(',', '');
+    importeAux = importeAux.replace(',', '');
     return importeAux;
   }
 

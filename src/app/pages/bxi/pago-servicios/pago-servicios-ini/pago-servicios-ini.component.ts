@@ -112,13 +112,14 @@ export class PagoServiciosIniComponent implements OnInit {
                  $('#_modal_please_wait').modal('hide');
                }, 500);
              } else {
+              document.getElementById('lblSaldoOrigen').innerHTML = "";
               setTimeout(function() { 
               $('#_modal_please_wait').modal('hide');
                 this_aux.showErrorSucces(detalleSaldos);
               }, 500);
              }
            }, function(error) {
-
+            document.getElementById('lblSaldoOrigen').innerHTML = "";
             setTimeout(function() {
               $('#_modal_please_wait').modal('hide');
                 this_aux.showErrorPromise(error);
@@ -198,7 +199,7 @@ getEmpresas() {
          });
          if (valueFacturador === undefined) {
 
-          document.getElementById('mnsError').innerHTML = "Servicio invalidado, verifica tu elección;";
+          document.getElementById('mnsError').innerHTML = "Servicio invalidado, verifica tu elección.";
           $('#errorModal').modal('show');
 
          } else {

@@ -88,7 +88,18 @@ export class MenuBxiComponent implements OnInit {
             break;
       case 'compraTA': this_aux.router.navigate(['/CompraTaComponent']);
             break;
-      case 'pagotar': this_aux.router.navigate(['/pagoTarjetaCredito_ini']);
+      case 'pagotar': 
+                            if (this_aux.countCuentasBene() === 0) {
+
+                              setTimeout(function() { 
+                                $('#_modal_please_wait').modal('hide');
+                                document.getElementById('mnsError').innerHTML =   "Lo sentimos, no cuentas con beneficiarios registrados.";
+                                $('#errorModal').modal('show');
+                              }, 500);
+
+                            } else {
+                              this_aux.router.navigate(['/pagoTarjetaCredito_ini']);
+                            }
             break;
       case 'activaAlertas': setTimeout(function() { 
                               $('#_modal_please_wait').modal('hide');
@@ -188,7 +199,7 @@ export class MenuBxiComponent implements OnInit {
                     if (opc === 'activaAlertas') {  
                       setTimeout(function() { 
                           // tslint:disable-next-line:max-line-length
-                          document.getElementById('mnsError').innerHTML =   "Estimado cliente, es necesario que registres tu correo electrónico y número móvil poder continuar. ";
+                          document.getElementById('mnsError').innerHTML =   "Estimado cliente, es necesario que registres tu correo electrónico y número móvil para poder continuar. ";
                           $('#errorModal').modal('show');
                         }, 1000);
                       }
@@ -318,4 +329,21 @@ send(msg) {
   return false;
   }
 
+  countCuentasBene() {
+    const this_aux = this;
+    const arrayCuentasXBeneficiario = JSON.parse(this_aux.service.infoCuentasBeneficiarios); // JSON CON CUENTAS DE BENEFICIARIOS
+    let cuenta;
+    let tamCuentasBene = 0;
+    arrayCuentasXBeneficiario.forEach(element1 => {
+      if (element1.Cuenta !== undefined ) {
+        cuenta = element1.Cuenta;
+        cuenta.forEach(data => {
+            tamCuentasBene = tamCuentasBene + 1;
+        });
+      }
+    });
+    return tamCuentasBene;
+  }
 }
+
+
