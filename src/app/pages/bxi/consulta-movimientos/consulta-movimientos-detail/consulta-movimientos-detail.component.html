@@ -26,13 +26,29 @@
                 </div>
                 <div class="row padding-top-15">
                     <div class="col-lg-12">
-                        <div id="paginador" id="tblDatos" style="display:none">
+                        <div id="paginador" id="tblDatosTDD" style="display:none">
                             <table class="table table-striped accounts-table">
                                 <tr>
                                     <th>Fecha</th>
                                     <th>Descripci&oacute;n</th>
                                     <th>Importe</th>
                                 </tr>
+                                <!-- Tabla TDD-->
+                                <tr *ngFor="let movimiento of movimientosCue; let i = index">
+                                    <td *ngIf="(i>=numeroDatoInicial) && (i < numeroDatoFinal)">{{movimiento.FechaOperacion|date:'dd/MM/yyyy'}}</td>
+                                    <td *ngIf="(i>=numeroDatoInicial) && (i < numeroDatoFinal)">{{movimiento.DescripVariableUno}}</td>
+                                    <td *ngIf="(i>=numeroDatoInicial) && (i < numeroDatoFinal)">{{movimiento.Importe| currency}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="paginador" id="tblDatosTDC" style="display:none">
+                            <table class="table table-striped accounts-table">
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Descripci&oacute;n</th>
+                                    <th>Importe</th>
+                                </tr>
+                                <!-- Tabla TDC-->
                                 <tr *ngFor="let movimiento of movimientosCue; let i = index">
                                     <td *ngIf="(i>=numeroDatoInicial) && (i < numeroDatoFinal)">{{movimiento.FechaOperacion|date:'dd/MM/yyyy'}}</td>
                                     <td *ngIf="(i>=numeroDatoInicial) && (i < numeroDatoFinal)">{{movimiento.DescripVariableUno}}</td>
@@ -99,7 +115,7 @@
     <div class="col-lg-2">
         <div class="row">
             <div style=" padding: 0px;" class="col-lg-9">
-                <button id="regresarBXI" class="btn color-botones  btn-lg letranegrita pull-right" routerLink="/menuBXI">
+                <button id="regresarBXI" class="btn color-botones  btn-lg letranegrita pull-right" routerLink="/saldosBXI">
                 Regresar
             </button>
             </div>

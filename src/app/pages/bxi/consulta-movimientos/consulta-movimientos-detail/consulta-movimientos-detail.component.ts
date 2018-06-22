@@ -190,13 +190,16 @@ export class ConsultaMovimientosDetailComponent implements OnInit {
   }
 
   quitartabla() {
-    const div = document.getElementById('tblDatos');
+    const div = document.getElementById('tblDatosTDD');
     div.style.display = "none";
+
     const div2 = document.getElementById('Navegador');
     div2.style.display = "none";
     div2.style.alignContent = "center";
+
+    const div3 = document.getElementById('tblDatosTDC');
+    div3.style.display = "none";
   
-    
   }
 
 consultaMovimientosTDC(numeroCue) {
@@ -240,7 +243,7 @@ consultaMovimientosTDC(numeroCue) {
           this_aux.numPaginas = this_aux.TamArray / this_aux.tamPaginas;         
               const textTitular = detalleCuenta;
               console.log(detalleCuenta.MensajeAUsuario);
-              this_aux.mostrarTabla();
+              this_aux.mostrarTablaTDC();
               if (this_aux.numPaginas <= 1 ) { 
                 const div2 = document.getElementById('Navegador');
                 div2.style.display = "none";
@@ -329,7 +332,7 @@ mostrarSaldoCredito() {
 
             const textTitular = detalleCuenta;
             console.log(detalleCuenta.MensajeAUsuario);
-            this_aux.mostrarTabla();
+            this_aux.mostrarTablaTDD();
             if (this_aux.numPaginas <= 1 ) { 
               const div2 = document.getElementById('Navegador');
               div2.style.display = "none";
@@ -355,8 +358,16 @@ mostrarSaldoCredito() {
     
   }
 
-  mostrarTabla () {
-    const div = document.getElementById('tblDatos');
+  mostrarTablaTDD () {
+    const div = document.getElementById('tblDatosTDD');
+    div.style.display = "block";
+
+    const div2 = document.getElementById('Navegador');
+    div2.style.display = "block";
+  }
+
+  mostrarTablaTDC () {
+    const div = document.getElementById('tblDatosTDC');
     div.style.display = "block";
 
     const div2 = document.getElementById('Navegador');

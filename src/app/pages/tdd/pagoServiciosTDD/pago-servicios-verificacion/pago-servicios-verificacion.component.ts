@@ -41,7 +41,7 @@ cuentaClienteTdd: string;
 
   ngOnInit() {
 
-    //ESTILOS Preferente
+    // ESTILOS Preferente
     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
     let btnContinuar = document.getElementById("terminar");
 

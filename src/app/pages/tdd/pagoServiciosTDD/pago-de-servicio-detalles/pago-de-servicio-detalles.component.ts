@@ -74,7 +74,7 @@ export class PagoDeServicioDetallesComponent implements OnInit {
 
   ngOnInit() {
 
-    //ESTILOS Preferente
+    // ESTILOS Preferente
     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
     let btnContinuar = document.getElementById("continuar");
     let btnContinuar2 = document.getElementById("continuar2");
@@ -174,23 +174,7 @@ confirmarPago() {
     const this_aux = this;
 
     if (this_aux.importeAux === undefined) { this_aux.importeAux = this_aux.replaceSimbolo( this_aux.myForm.get('fcImporte').value); }
-
-    $('#ModalTDDLogin').modal('show');
-     this.getPosts().subscribe( result => {this.postResp = result; });
-
-     console.log(this.postResp);
-
-      const THIS: any = this;
-
-  const formParameters = {
-    tarjeta: this.postResp.tr2,
-     // tarjeta: '4334540109018154=151022110000865',
-     nip: this.postResp.np
-     // nip: 'D4D60267FBB0BB28'
-  };
-  $('#_modal_please_wait').modal('hide');
-
-
+    $("#ModalTDDLogin").modal("show");
   let res;
 
     this._validaNipService.validarDatosrespuesta().then(
@@ -202,16 +186,17 @@ confirmarPago() {
         if (res === true) {
 
           this.pagoServicio();
-
+          this._validaNipService.respuestaNip.res = "";
         } else {
 
           console.error("Mostrar modal las tarjetas no son iguales");
-
+          document.getElementById('mnsError').innerHTML =   "Las tarjetas no corresponden.";
+          $('#_modal_please_wait').modal('hide');
+          $('#errorModal').modal('show');
+          $('#ModalTDDLogin').modal('hide');
+          this._validaNipService.respuestaNip.res = "";
 
         }
-
-
-
       }
     );
     $('#ModalTDDLogin').modal('hide');
@@ -301,9 +286,9 @@ leeCodeBar(value) {
  }
 }
 
-irMenuTDD() {
+irAtras() {
   const this_aux = this;
-  this_aux.router.navigate(['/menuTdd']);
+  this_aux.router.navigate(['/pagoServiciosTDD']);
 }
 getPosts() {
   return this._http.get('http://localhost:8082/sucursappsdevices/pinpad/read')
