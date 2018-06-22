@@ -221,39 +221,45 @@
                         Instrucciones:
                         </p>
                     </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-lg-5">
-                                <p>
-                                        1.  Coloca tu recibo con el
-                                          código de barras visible
-                                          en el Scanner
-                                  </p>
-                        </div>
-                    </div>
-                    <div class="row">
-                            <div class="col-lg-5">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                     <p>
+                                             1.  Coloca tu recibo con el
+                                              código de barras visible
+                                              en el Scanner
+                                     </p>
+                                </td>
+                                <td rowspan="3" colspan="4">
+                                    <img src="./assets/img/cel_token.png" width="90% ">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     <p>
                                             2. Espera a que el
                                             dispositivo valide la
                                             información
-                                      </p>
-                            </div>
-                    </div>
-                    <div class="row">
-                            <div class="col-lg-5">
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     <p>
                                             3.  Tiene 5 intentos para
                                             que el scanner valide
                                             información, si no,
                                             capture manualmente
                                       </p>
-                            </div>
-                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <div class="row">
-                            <div class="col-lg-5">
-                                    <input type="text"  #rCodeBar autofocus (input)="leeCodeBar(rCodeBar.value)" class="txt-codeBar">
-                            </div>
+                                            <div class="col-lg-5">
+                                                    <input type="text"  #rCodeBar autofocus (input)="leeCodeBar(rCodeBar.value)" class="txt-codeBar">
+                                            </div>
                     </div>
                 </div>
             </div>
