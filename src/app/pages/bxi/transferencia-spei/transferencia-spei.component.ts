@@ -46,6 +46,9 @@ export class TransferenciaSpeiComponent implements OnInit {
   @ViewChild('listaCuentas', { read: ElementRef}) listaCuentas: ElementRef ;
   @ViewChild('listaCuentasBeneficiario', { read: ElementRef}) listaCuentasBeneficiario: ElementRef ;
   @ViewChild('selectTipo', { read: ElementRef}) selectTipo: ElementRef;
+  @ViewChild('rImporteSPEI', { read: ElementRef}) rImporteSPEI: ElementRef ;
+  @ViewChild('rImporteTEF', { read: ElementRef}) rImporteTEF: ElementRef ;
+  @ViewChild('rImporteQUICK', { read: ElementRef}) rImporteQUICK: ElementRef ;
 
   listaCuentasUsr: Array<any> = [];
   listaCuentasBen: Array<any> = [];
@@ -62,6 +65,7 @@ export class TransferenciaSpeiComponent implements OnInit {
   nombreBeneModal = "";
 
   forma: FormGroup;
+  importeAux: string;
 
   importeF = "";
   descripcionF = "";
@@ -82,7 +86,7 @@ export class TransferenciaSpeiComponent implements OnInit {
   NumeroSeguridad: string;
 
 
-  constructor(private _http: Http, private router: Router, public service: SesionBxiService, private renderer: Renderer2) {
+  constructor(private _http: Http, private router: Router, public service: SesionBxiService, private renderer: Renderer2, private currencyPipe: CurrencyPipe) {
 
     const this_aux = this;
 
@@ -441,7 +445,7 @@ validarSaldo(tipoOperecionPago) {
         let DatosJSON = response.responseJSON;
         console.log(response.responseText);
         if (DatosJSON.Id === "1") {
-
+          
           console.log("Pago validado");
           if (tipoOperecionPago === "1") {          // SPEI
             $('#confirmModalSPEI').modal('show');
@@ -521,6 +525,8 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
           lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
         } else {
           console.log(detalleSaldos.MensajeAUsuario);
+          document.getElementById('mnsError').innerHTML = detalleSaldos.MensajeAUsuario;
+          $('#errorModal').modal('show');
         }
       }, function(error) {
   });
@@ -547,17 +553,18 @@ fillCuentasBeneficiario () {
       // }
 
     });
-  arrayCuentasXBeneficiario.forEach(element1 => {
-    cuenta = element1.Cuenta;
-        if (cuenta !== undefined) {
+  arrayCuentasXBeneficiario.forEach(Cuenta => {
+    cuenta = Cuenta.Cuenta;
+      if (cuenta !== undefined) {
 
-            cuenta.forEach(data => {
+        cuenta.forEach(data => {
 
-              this_aux.listaCuentasBen.push(data);
+          this_aux.listaCuentasBen.push(data);
 
-            });
+        });
 
-        }
+      }
+        
   });
 
   datosBeneficiarios.forEach(element1 => {
@@ -1104,6 +1111,78 @@ sortByProperty = function (property) {
   };
 
 };
+
+
+transformAmount(impor) {
+  const this_aux = this;
+  const operacionSelect = this_aux.selectTipo.nativeElement.value.toString();
+
+  switch (operacionSelect) {
+
+    case '1':  // SPEI
+
+
+      if (impor !== '') {
+        const control: FormControl = new FormControl('');
+        this_aux.forma.setControl('amountSPEI', control);
+        this_aux.importeAux = this_aux.replaceSimbolo(impor);
+        this_aux.rImporteSPEI.nativeElement.value = this_aux.currencyPipe.transform(this_aux.importeAux, 'USD');
+        this_aux.importeAux = this_aux.replaceSimbolo( this_aux.rImporteSPEI.nativeElement.value) ;
+    
+      } else {
+          if (this_aux.forma.get('amountSPEI').errors === null) {
+            const control: FormControl = new FormControl('', Validators.required);
+            this_aux.forma.setControl('amountSPEI', control );
+          }
+      }
+
+    break;
+
+    case '2':  // TEF
+
+
+      if (impor !== '') {
+        const control: FormControl = new FormControl('');
+        this_aux.forma.setControl('amountTEF', control);
+        this_aux.importeAux = this_aux.replaceSimbolo(impor);
+        this_aux.rImporteTEF.nativeElement.value = this_aux.currencyPipe.transform(this_aux.importeAux, 'USD');
+        this_aux.importeAux = this_aux.replaceSimbolo( this_aux.rImporteTEF.nativeElement.value) ;
+    
+      } else {
+          if (this_aux.forma.get('amountTEF').errors === null) {
+            const control: FormControl = new FormControl('', Validators.required);
+            this_aux.forma.setControl('amountTEF', control );
+          }
+      }
+
+    break;
+    case '3':  // QUICK
+
+        if (impor !== '') {
+          const control: FormControl = new FormControl('');
+          this_aux.forma.setControl('ammountQUICK', control);
+          this_aux.importeAux = this_aux.replaceSimbolo(impor);
+          this_aux.rImporteQUICK.nativeElement.value = this_aux.currencyPipe.transform(this_aux.importeAux, 'USD');
+          this_aux.importeAux = this_aux.replaceSimbolo( this_aux.rImporteQUICK.nativeElement.value) ;
+      
+        } else {
+            if (this_aux.forma.get('ammountQUICK').errors === null) {
+              const control: FormControl = new FormControl('', Validators.required);
+              this_aux.forma.setControl('ammountQUICK', control );
+            }
+        }
+
+          break;
+        }
+
+
+  
+}
+
+replaceSimbolo(impor) {
+  const importeAux = impor.replace('$', '');
+  return importeAux;
+}
 
 controlarError(json) {
 

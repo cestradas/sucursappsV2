@@ -34,6 +34,7 @@ export class TransferenciasBanorteComponent implements OnInit {
   @ViewChild('listaCuentas', { read: ElementRef}) listaCuentas: ElementRef ;
   @ViewChild('listaCuentasBeneficiario', { read: ElementRef}) listaCuentasBeneficiario: ElementRef ;
   @ViewChild('selectTipo', { read: ElementRef}) selectTipo: ElementRef;
+  @ViewChild('rImporte', { read: ElementRef}) rImporte: ElementRef ;
 
   listaCuentasUsr: Array<any> = [];
   listaCuentasBen: Array<any> = [];
@@ -44,6 +45,8 @@ export class TransferenciasBanorteComponent implements OnInit {
   CuentaDestino: string;
 
   forma: FormGroup;
+  importeAux: string;
+
   importeF = "";
   conceptoF = "";
 
@@ -53,9 +56,12 @@ export class TransferenciasBanorteComponent implements OnInit {
 
   NumeroSeguridad: string;
 
-  constructor(private _http: Http, private router: Router, public service: SesionBxiService, private renderer: Renderer2) {
+  constructor(private _http: Http, private router: Router, public service: SesionBxiService, private renderer: Renderer2, private currencyPipe: CurrencyPipe) {
 
     const this_aux = this;
+
+    setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
+
 
     this.forma = new FormGroup({
 
@@ -88,6 +94,7 @@ export class TransferenciasBanorteComponent implements OnInit {
 
 
   ngOnInit() {
+
 
     this.fillSelectCuentas();
     // this.consultaCuentas();
@@ -154,6 +161,8 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
           lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
         } else {
           console.log(detalleSaldos.MensajeAUsuario);
+          document.getElementById('mnsError').innerHTML = detalleSaldos.MensajeAUsuario;
+          $('#errorModal').modal('show');
         }
       }, function(error) {
   });
@@ -182,15 +191,15 @@ fillCuentasBeneficiario () {
     });
   arrayCuentasXBeneficiario.forEach(element1 => {
     cuenta = element1.Cuenta;
-      if (cuenta !== undefined) {
+        if (cuenta !== undefined) {
 
-        cuenta.forEach(data => {
+          cuenta.forEach(data => {
 
-          this_aux.listaCuentasBen.push(data);
+            this_aux.listaCuentasBen.push(data);
 
-        });
+          });
 
-      }
+        }
   });
 
   datosBeneficiarios.forEach(element1 => {
@@ -624,13 +633,13 @@ validarSaldo(tipoOperecionPago) {
     importeOpe.replace(',', "");
     operacionesbxi.consultaTablaYValidaSaldo(this_aux.service.numCuentaTranPropBanorte, importeOpe).then(
       function(response) {
-
+        
         let DatosJSON = response.responseJSON;
         console.log(response.responseText);
         if (DatosJSON.Id === "1") {
 
           console.log("Pago validado");
-
+          
           // MANDAR A LLAMAR MODAL DE CONFIRMACION
           if (tipoOperecionPago === "1") {           // Cuentas propias Banorte
             $('#confirmModal').modal('show');
@@ -805,6 +814,30 @@ confirmarPago(token) {
 
 
         }
+}
+
+transformAmount(impor) {
+  const this_aux = this;
+
+      if (impor !== '') {
+        const control: FormControl = new FormControl('');
+        this_aux.forma.setControl('amount', control);
+        this_aux.importeAux = this_aux.replaceSimbolo(impor);
+        this_aux.rImporte.nativeElement.value = this_aux.currencyPipe.transform(this_aux.importeAux, 'USD');
+        this_aux.importeAux = this_aux.replaceSimbolo( this_aux.rImporte.nativeElement.value) ;
+    
+      } else {
+          if (this_aux.forma.get('amount').errors === null) {
+            const control: FormControl = new FormControl('', Validators.required);
+            this_aux.forma.setControl('amount', control );
+          }
+      }
+
+}
+
+replaceSimbolo(impor) {
+  const importeAux = impor.replace('$', '');
+  return importeAux;
 }
 
 

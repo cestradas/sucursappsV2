@@ -135,7 +135,7 @@
                                 <label>Importe: </label>
                             </div>
                             <div class="col-sm-10">
-                                <input id="amount" [matKeyboard]="'num'" name="amount" formControlName="amount" type="text" class="form-control amount input-lg" maxlength="60" required />
+                                <input id="amount" #rImporte [matKeyboard]="'num'" name="amount" formControlName="amount" type="text" class="form-control amount input-lg" maxlength="60" required (blur)="transformAmount(rImporte.value)" />
                                 <div *ngIf="forma.hasError('min', 'amount') || forma.hasError('max', 'amount') " class="alert alert-danger">
                                     Limite de....
                                 </div>
@@ -151,7 +151,7 @@
                                 <label>Concepto: </label>
                             </div>
                             <div class="col-sm-10">
-                                <input aria-describedby="validationTooltipUsernamePrepend" [matKeyboard]="" id="concepto" name="concepto" formControlName="concepto" type="text" maxlength="7" class="form-control amount is-invalid" required />
+                                <input aria-describedby="validationTooltipUsernamePrepend" [matKeyboard]="" id="concepto" name="concepto" formControlName="concepto" type="text" maxlength="7" class="form-control amount" required />
                                 <div *ngIf="forma.hasError('maxlength', 'concepto')" class="alert alert-danger">
                                     Limite de descripcion debe ser de....
                                 </div>
@@ -243,12 +243,11 @@
                     <div class="col-lg 12">
                         <div id="challenger" class="form-group">
                             <label>N&uacute;mero de seguridad</label>
+                            <label class='form-control input-lg'>{{NumeroSeguridad}}</label>
 
-                            <label id='numeroSeguridad' class='form-control input-lg'>{{NumeroSeguridad}}</label>
                         </div>
                         <div id="divPass" class="form-group">
                             <label>{{labelTipoAutentica}}</label>
-
                             <input type="password" class="form-control input-lg" #token [matKeyboard]="'num'">
                             <div *ngIf="(token.value == '')  && token.touched" class="alert alert-danger">
                                 <p color="danger" *ngIf="(token.value == '')">Dato obligatorio, favor de capturar. </p>

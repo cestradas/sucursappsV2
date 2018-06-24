@@ -205,6 +205,8 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
           lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
         } else {
           console.log(detalleSaldos.MensajeAUsuario);
+          document.getElementById('mnsError').innerHTML = detalleSaldos.MensajeAUsuario;
+          $('#errorModal').modal('show');
         }
       }, function(error) {
   });
@@ -405,7 +407,7 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
             } else {
               console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
                 mensajeError = this_aux.controlarError(infoUsuarioJSON);
-                document.getElementById('mnsError').innerHTML =  mensajeError;
+                document.getElementById('mnsError').innerHTML =   infoUsuarioJSON.MensajeAUsuario;
                 $('#_modal_please_wait').modal('hide');
                 $('#errorModal').modal('show');
             }

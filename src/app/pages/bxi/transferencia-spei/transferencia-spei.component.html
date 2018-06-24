@@ -137,7 +137,7 @@
                                 <label>Importe: </label>
                             </div>
                             <div class="col-lg-10">
-                                <input formControlName="amountSPEI" [matKeyboard]="'num'" name="amountSPEI" id="amountSPEI" type="text" step="0.01" currency required class="form-control amount input-lg" />
+                                <input formControlName="amountSPEI" [matKeyboard]="'num'" name="amountSPEI" #rImporteSPEI id="amountSPEI" type="text" step="0.01" currency required class="form-control amount input-lg" (blur)="transformAmount(rImporteSPEI.value)" />
 
                                 <div *ngIf="forma.hasError('min', 'amountSPEI') || forma.hasError('max', 'amountSPEI') " class="alert alert-danger">
                                     El importe debe ser menor a....
@@ -191,7 +191,7 @@
                                 <label>Importe: </label>
                             </div>
                             <div class="col-sm-10">
-                                <input id="amountTEF" [matKeyboard]="'num'" name="amountTEF" formControlName="amountTEF" type="text" class="form-control amount input-lg" maxlength="60" required />
+                                <input id="amountTEF" #rImporteTEF [matKeyboard]="'num'" name="amountTEF" formControlName="amountTEF" type="text" class="form-control amount input-lg" maxlength="60" required (blur)="transformAmount(rImporteTEF.value)" />
                                 <div *ngIf="forma.hasError('min', 'amountTEF') || forma.hasError('max', 'amountTEF') " class="alert alert-danger">
                                     Limite de....
                                 </div>
@@ -290,7 +290,7 @@
                                 <label>Importe: </label>
                             </div>
                             <div class="col-sm-10">
-                                <input id="ammountQUICK" [matKeyboard]="'num'" name="ammountQUICK" formControlName="ammountQUICK" type="text" maxlength="7" class="form-control amount input-lg" required />
+                                <input id="ammountQUICK" #rImporteQUICK [matKeyboard]="'num'" name="ammountQUICK" formControlName="ammountQUICK" type="text" maxlength="7" class="form-control amount input-lg" required (blur)="transformAmount(rImporteQUICK.value)" />
                                 <div *ngIf="forma.hasError('min', 'ammountQUICK') || forma.hasError('max', 'ammountQUICK') " class="alert alert-danger">
                                     El importe debe ser de....
                                 </div>
@@ -365,20 +365,20 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <!--<div class="row">
                     <div class="col-lg 6">
                         <label>Correo:</label>
                     </div>
                     <div class="col-lg 6">
                         <label>${{correoBeneModal}}</label>
                     </div>
-                </div>
+                </div>-->
                 <div class="row">
                     <div class="col-lg 6">
                         <label>Nombre:</label>
                     </div>
                     <div class="col-lg 6">
-                        <label>${{nombreBeneModal}}</label>
+                        <label>{{nombreBeneModal}}</label>
                     </div>
                 </div>
 
@@ -409,7 +409,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                    <button id="confirmar" class="color-botones btn btn-lg " (click)="confirmarPago(token.value, ' ',' ')">
+                    <button id="confirmar" class="color-botones btn btn-lg " (click)="confirmarPago(token.value, '','')">
                                 Confirmar
                               </button>
                 </div>
@@ -471,7 +471,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                    <button id="confirmarP" class="color-botones btn btn-lg " (click)="confirmarPago(' ', tokenTef.value, ' ')">
+                    <button id="confirmarP" class="color-botones btn btn-lg " (click)="confirmarPago('', tokenTef.value, '')">
                                 Confirmar
                               </button>
                 </div>
@@ -520,7 +520,7 @@
                         <label>Referencia:</label>
                     </div>
                     <div class="col-lg 6">
-                        <label>${{refF}}</label>
+                        <label>{{refF}}</label>
                     </div>
                 </div>
 
@@ -537,7 +537,7 @@
                     <div class="col-lg 12">
                         <div id="challenger" class="form-group">
                             <label>N&uacute;mero de seguridad</label>
-                            <label  id='numeroSeguridadQ' class='form-control input-lg'>{{NumeroSeguridad}}</label>
+                            <label id='numeroSeguridadQ' class='form-control input-lg'>{{NumeroSeguridad}}</label>
                         </div>
                         <div id="divPass" class="form-group">
                             <label>{{labelTipoAutentica}}</label>
@@ -551,7 +551,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                    <button id="confirmarP2" class="color-botones btn btn-lg " (click)="confirmarPago(' ',' ', tokenQuick.value)">
+                    <button id="confirmarP2" class="color-botones btn btn-lg " (click)="confirmarPago('','', tokenQuick.value)">
                                 Confirmar
                               </button>
                 </div>
