@@ -321,8 +321,8 @@ export class CompraTiempoAireComponent implements OnInit {
           this._validaNipService.respuestaNip.res = "";
 
         } else {
-          console.error("Mostrar modal las tarjetas no son iguales");
-          document.getElementById('mnsError').innerHTML =   "Las tarjetas no corresponden.";
+          console.error("Mostrar modal el nip no es igual");
+          document.getElementById('mnsError').innerHTML =   "El NIP introducido no corresponde.";
           $('#_modal_please_wait').modal('hide');
           $('#errorModal').modal('show');
           $('#ModalTDDLogin').modal('hide');
