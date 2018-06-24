@@ -717,6 +717,8 @@ setCuentasBenficiarioXTipo() {
 
       setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
 
+      const desactivaCtaOri = document.getElementById("dropdownMenu1");
+      desactivaCtaOri.removeAttribute("disabled");
       const desactivaCtaDest = document.getElementById("dropdownMenu2");
       desactivaCtaDest.removeAttribute("disabled");
 
@@ -748,6 +750,8 @@ setCuentasBenficiarioXTipo() {
 
     if (this_aux.selectTipo.nativeElement.value.toString() === "2") { // TEF
 
+      const desactivaCtaOri = document.getElementById("dropdownMenu1");
+      desactivaCtaOri.removeAttribute("disabled");
       const desactivaCtaDest = document.getElementById("dropdownMenu2");
       desactivaCtaDest.removeAttribute("disabled");
 
@@ -783,7 +787,8 @@ setCuentasBenficiarioXTipo() {
 
     if (this_aux.selectTipo.nativeElement.value.toString() === "3") {  // Quick
 
-
+      const desactivaCtaOri = document.getElementById("dropdownMenu1");
+      desactivaCtaOri.removeAttribute("disabled");
       const desactivaCtaDest = document.getElementById("dropdownMenu2");
       desactivaCtaDest.setAttribute('disabled','true');
 
