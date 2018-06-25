@@ -380,13 +380,17 @@ export class OperacionesBXI {
      return resourceRequest.sendFormParameters(formParameters);
    }
 
-   getListaDocumentos(): any {
+   getListaDocumentos(documeto): any {
+
+    const formParameters = {
+        documeto: documeto
+    };
        const resourceRequest = new WLResourceRequest(
            'adapters/AdapterBanorteSucursAppsBEL/resource/listaDocs',
            WLResourceRequest.POST);
        resourceRequest.setTimeout(30000);
 
-          return resourceRequest.send();
+          return resourceRequest.sendFormParameters(formParameters);
    }
 
    preparaAutenticacion () {
@@ -431,10 +435,10 @@ export class OperacionesBXI {
             const    resourceRequest = new WLResourceRequest(
                 'adapters/AdapterBanorteSucursAppsBEL/resource/mantoCancelacionEnvioEDC', WLResourceRequest.POST);
           resourceRequest.setTimeout(30000);
-    
+
           return resourceRequest.sendFormParameters(formParameters);
         }
-	
+
 	consultaBancos() {
 
             const resourceRequest = new WLResourceRequest(

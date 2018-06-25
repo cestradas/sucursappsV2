@@ -281,7 +281,8 @@ setDatosCuentaSeleccionada(elementHTML) {
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     $('#_modal_please_wait').modal('show');
 
-    operacionesbxi.getListaDocumentos().then(
+    // operacionesbxi.mantEDC(this_aux.service.numCuentaTranPropBanorte).then(
+    operacionesbxi.getListaDocumentos("201536140").then(
       function(response) {
 
         // console.log(response.responseText);
