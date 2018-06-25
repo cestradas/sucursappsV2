@@ -167,6 +167,8 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   pagarTarjetaCredito() {
 
     $('#ModalTDDLogin').modal('show');
+    $('#_modal_please_wait').modal('show');
+    this._validaNipService.validaNipTrans();
 
     let res;
 
@@ -178,11 +180,19 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
         if (res === true) {
 
+          $('#ModalTDDLogin').modal('hide');
+          setTimeout( () => $('#_modal_please_wait').modal('hide'), 500 );
           this.pagarTarjetaCreditoTrans();
+          this._validaNipService.respuestaNip.res = "";
 
         } else {
 
           console.error("Mostrar modal las tarjetas no son iguales");
+          document.getElementById('mnsError').innerHTML =   "El NIP introducido no corresponde.";
+          $('#_modal_please_wait').modal('hide');
+          $('#errorModal').modal('show');
+          $('#ModalTDDLogin').modal('hide');
+          this._validaNipService.respuestaNip.res = "";
 
 
         }
