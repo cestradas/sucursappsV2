@@ -82,7 +82,7 @@ constructor( private _service: ConsultaSaldosTddService,
 
   ngOnInit() {
 
-    //ESTILOS Preferente
+    // ESTILOS Preferente
     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
     let btnContinuar = document.getElementById("salir");
     let btnContinuar2 = document.getElementById("salir2");
@@ -126,25 +126,33 @@ constructor( private _service: ConsultaSaldosTddService,
   }
 
 cambiarPagina(numeroPag) {
-  this.numeroDatoFinal = (numeroPag.textContent ) * this.tamPaginas ;
+  this.numeroDatoFinal = (numeroPag) * this.tamPaginas ;
   this.numeroDatoInicial = this.numeroDatoFinal - this.tamPaginas;
 }
 
-previousPag (numPrev) {
-  if ((this.numeroDatoFinal - 1) >= this.tamPaginas ) {
-    let numeroPagActual = (numPrev / this.tamPaginas) - 1;
-    this.numeroDatoFinal = (numeroPagActual) * this.tamPaginas ;
-    this.numeroDatoInicial = this.numeroDatoFinal - this.tamPaginas;
-  }
 
-}
-
-nextPag (numeroNex) {
-  if ((this.numeroDatoFinal + 1) <= this.TamArray) {
-    let numeroPagActual = (numeroNex / this.tamPaginas) + 1;
-    this.numeroDatoFinal = (numeroPagActual) * this.tamPaginas ;
-    this.numeroDatoInicial = this.numeroDatoFinal - this.tamPaginas;
+paginador2() {
+  
+  const this_aux = this;
+  let paginasVisibles = 8 ;
+  if (this_aux.numPaginas < paginasVisibles) {
+      paginasVisibles = this_aux.numPaginas ;
   }
+  $('#paginador').twbsPagination('destroy');
+  $('#paginador').twbsPagination({
+    startpages: 1,
+    totalPages: this_aux.numPaginas,
+    visiblePages: paginasVisibles,
+    first: '',
+    last: '',
+    prev: 'Anterior',
+    next: 'Siguiente',
+    onPageClick: function (event, page) {
+      console.log(page);
+      this_aux.cambiarPagina(page);
+    
+    }
+});
 }
 
 // tslint:disable-next-line:one-line
@@ -186,14 +194,14 @@ llamarMovimientos (numCuenta) {
               this_aux.movimientosCue = this_aux.movimientos.movimientos;
               this_aux.TamArray = this_aux.movimientosCue.length;
               this_aux.numPaginas = this_aux.TamArray / this_aux.tamPaginas;
-         let i = 0;
 
-       for (i; i < this_aux.numPaginas; i ++) {
-         this_aux.arrayNumPag.push(i);
-       }
 
               const textTitular = detalleCuenta;
+              console.log(this_aux.TamArray);
               console.log(detalleCuenta.MensajeAUsuario);
+              if (this_aux.numPaginas > 1) {
+                this_aux.paginador2();
+              }
               this_aux.mostrarTabla();
               if (this_aux.numPaginas < 1 ) {
                 const div2 = document.getElementById('Navegador');
@@ -204,12 +212,13 @@ llamarMovimientos (numCuenta) {
               this_aux.sinMovimientos(this_aux.par);
 
             }
+            setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
           }, function(error) {
             this_aux.showErrorPromise(error);
-
+            setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
       });
       console.log("Movimientos cargados correctamente");
-      setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
+      
     }
 
     sinMovimientos(num) {

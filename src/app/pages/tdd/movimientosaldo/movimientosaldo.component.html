@@ -38,11 +38,7 @@
                             <div class="col-sm-4"></div>
                             <div class="col-sm-4" style="display:none" id="Navegador">
                                 <nav aria-label="Page navigation example">
-                                    <ul class="pagination">
-                                        <li class="page-item boton"><a class="page-link" ng-click='setPage(page.no)' (click)="previousPag(numeroDatoFinal)" #algo>Anterior</a></li>
-                                        <li class="page-item" *ngFor="let pagina of arrayNumPag"><a class="page-link" #paginaNum (click)="cambiarPagina(paginaNum)">{{pagina + 1}}</a></li>
-                                        <li class="page-item"><a class="page-link" (click)="nextPag(numeroDatoFinal)" #algo1>Siguiente</a></li>
-                                    </ul>
+                                    <ul id="paginador" class="pagination-sm"></ul>
                                 </nav>
                             </div>
 
