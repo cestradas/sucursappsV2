@@ -404,4 +404,10 @@ export class PagoServiciosDetailComponent implements OnInit {
         }
      }
   }
+
+  ocultaModal() {
+    const this_aux = this;
+    const control: FormControl = new FormControl('');
+    this_aux.myForm.setControl('fcToken', control );
+  }
 }
