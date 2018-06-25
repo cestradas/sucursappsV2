@@ -13,6 +13,9 @@
                     <p *ngIf="myForm.get('fcUsuario').hasError('required')">
                             Dato obligatorio, favor de capturar.
                     </p>
+                    <p *ngIf="myForm.get('fcUsuario').hasError('pattern')">
+                        Los datos proporcionados son incorrectos, favor de verificar.
+                    </p>
             </div>
         </div>
         <!-- <button [routerLink]="['/menuBXI']" type="button" class="btn btn-primary btn-block btn-lg" style="border: 0; border-color: #eb012a; background-color: #eb0029;" id="botonUsr"> -->
@@ -147,6 +150,9 @@
                                 <p *ngIf="myForm.get('fcPass').hasError('required')">
                                         Dato obligatorio, favor de capturar.
                                 </p>
+                                <p *ngIf="myForm.get('fcPass').hasError('pattern')">
+                                    Los datos proporcionados son incorrectos, favor de verificar.
+                            </p>
                         </div>
                     </div>
                     <button style="border: 0; border-color: #eb012a; background-color: #eb0029;" type="button" class="btn btn-primary btn-block btn-lg" 

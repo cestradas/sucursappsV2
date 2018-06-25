@@ -482,7 +482,7 @@ html {
 }
 
 .cdk-visually-hidden {
-    margin-bottom: -150px !important;
+    margin-bottom: -250px !important;
 }
 
 .mat-keyboard-wrapper {
@@ -1313,4 +1313,5 @@ button#buttonImageMantoBen {
     align-items: center;
     min-height: calc(100% - (.5rem * 2));
 }
+
 

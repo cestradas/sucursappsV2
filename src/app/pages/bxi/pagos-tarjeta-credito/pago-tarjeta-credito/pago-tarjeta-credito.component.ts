@@ -5,7 +5,7 @@ import { Component, OnInit, ViewChild, ElementRef, Renderer2} from '@angular/cor
 import { FormBuilder, FormGroup, Validators, NgControl, FormControl } from '@angular/forms';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import {CurrencyPipe} from '@angular/common';
-import { FUNCTION_TYPE } from '@angular/compiler/src/output/output_ast';
+
 
 declare var jquery: any; // jquery
 declare var $: any;
@@ -38,7 +38,8 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   // tslint:disable-next-line:max-line-length
   constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2,  private fb: FormBuilder, private currencyPipe: CurrencyPipe) {
     this.myForm = this.fb.group({
-      fcImporte: ['', [Validators.required /*Validators.pattern(/^[0-9]+[0-9]*$/ )*/]]
+      fcImporte: ['', [Validators.required /*Validators.pattern(/^[0-9]+[0-9]*$/ )*/]],
+      fcToken: []
     });
   }
 
@@ -281,6 +282,10 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     const this_aux = this;
     const divChallenge = document.getElementById('challenger');
     const divTokenPass = document.getElementById('divPass');
+
+    const control: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([0-9])*$/)]);
+    this_aux.myForm.setControl('fcToken', control );
+
     if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
       $('#_modal_please_wait').modal('show');
       this_aux.labelTipoAutentica = 'Token Celular';
@@ -317,6 +322,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       this_aux.labelTipoAutentica = 'Contrase&atilde;a';
     } else if (this_aux.service.metodoAutenticaMayor.toString()  === '1') {
 
+      
       divChallenge.setAttribute('style', 'display: none');
       divTokenPass.setAttribute('style', 'display: block');
       this_aux.labelTipoAutentica = 'Token Fisico';

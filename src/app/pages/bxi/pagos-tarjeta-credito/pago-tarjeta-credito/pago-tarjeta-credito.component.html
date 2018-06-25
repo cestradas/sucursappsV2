@@ -192,7 +192,11 @@
                         <div id="divPass" class="form-group">
                           <label>{{labelTipoAutentica}}</label>
                             <input type="password" class="form-control input-lg" #token [matKeyboard]="'num'">
-                        </div>
+                            <div *ngIf="myForm.get('fcToken').errors  && myForm.get('fcToken').touched " class="alert alert-danger">
+                              <p color="danger" *ngIf="myForm.get('fcToken').hasError('required')"> Dato obligatorio, favor de capturar.</p>
+                              <p color="danger" *ngIf="myForm.get('fcToken').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
+                          </div>
+                          </div>
                     </div>
                 </div>
                 <div class="modal-footer">
