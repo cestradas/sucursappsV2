@@ -260,7 +260,7 @@ export class LoginBxiComponent implements OnInit {
 
       const this_aux = this;
       // tslint:disable-next-line:max-line-length
-      const control: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^[a0-zA9-Z-ÑñáéíóúÁÉÍÓÚ]+(\s*[a0-zA9-Z-äëöüÄËÖÜÑñáéíóúÁÉÍÓÚ'/\.\-\_]*)*[a0-zA9-Z-ÑñáéíóúÁÉÍÓÚ\s]+$/)]);
+      const control: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^[a0-zA9-Z]+(\s*[a0-zA9-Z]*)*[a0-zA9-Z]+$/)]);
       this_aux.myForm.setControl('fcUsuario', control );
       this_aux.myForm.setControl('fcPass', control );
 
