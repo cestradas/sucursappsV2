@@ -41,7 +41,7 @@ export class PagoDeServicioDetallesComponent implements OnInit {
               private router: Router,
               private _validaNipService: ValidaNipTransaccion,
               private fb: FormBuilder,
-              private _http: Http) { 
+              private _http: Http) {
 
                 this._service.cargarSaldosTDD();
 
@@ -228,6 +228,34 @@ operaciones.pagaServicio(this_aux.service.idFacturador, this_aux.importeAux, thi
 
 }
 
+validarSaldo(myForm) {
+    const this_aux = this;
+
+    this._validaNipService.consultaTablaYValidaSaldo(this.cuentaClienteTdd, this_aux.importe).then(
+      function(response) {
+        let DatosJSON = response.responseJSON;
+        if (DatosJSON.Id === "1") {
+          this_aux.showDetallePago(myForm);
+        } else if ( DatosJSON.Id === "4" ) {
+          $('#modalLimiteDiario').modal('show');
+        } else if ( DatosJSON.Id === "5" ) {
+          $('#modalLimiteMensual').modal('show');
+        } else {
+          $('#errorModal').modal('show');
+        }
+        setTimeout(function() {
+          $('#_modal_please_wait').modal('hide');
+        }, 500);
+
+      }, function(error) {
+        setTimeout(function() {
+          $('#_modal_please_wait').modal('hide');
+          $('#errorModal').modal('show');
+        }, 500);
+
+  });
+  }
+
 showErrorSuccesMoney(json) {
   console.log(json.Id + json.MensajeAUsuario);
   document.getElementById('msgError').innerHTML =   json.MensajeAUsuario;
@@ -297,9 +325,9 @@ getPosts() {
 
 showErrorPromiseMoney(error) {
 
-   
+
   if (error.errorCode === 'API_INVOCATION_FAILURE') {
-    $('#errorModal').modal('show'); 
+    $('#errorModal').modal('show');
     document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
   } else {
     document.getElementById('msgError').innerHTML =   "Se presenta falla en el servicio MCA / Time Out de operación monetaria.";
@@ -309,7 +337,7 @@ showErrorPromiseMoney(error) {
 
 showErrorSucces(json) {
   console.log(json.Id + json.MensajeAUsuario);
-  document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+  document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
   $('#errorModal').modal('show');
 }
 
