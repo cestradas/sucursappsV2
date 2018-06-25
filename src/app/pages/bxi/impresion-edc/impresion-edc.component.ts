@@ -1327,6 +1327,7 @@ setDatosCuentaSeleccionada(elementHTML) {
       this_aux.service.numDoc = this.numDocumento;
       this_aux.service.idOpe = id;
 
+      $('#_modal_please_wait').modal('show');
       this_aux.router.navigate(['/impresion_EDC_Finish']);
 
     } else {
