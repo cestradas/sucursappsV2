@@ -23,31 +23,13 @@ export class DocElectronComponent implements OnInit {
 
   constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2) {
 
-    
+
     setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
 
 }
 
 ngOnInit() {
-  
-  let crypto = require('crypto');
-  console.log(crypto);
 
-  let fs1 = require("fs");
-   /*               
-  let tmpFileName0 = 'c:/temp/electron/'+'D_1_'+ this.numDocumento +'_'+ 'fechasEnvioMail' + '.pdf';
-                    
-                   
-  fs1.writeFile(tmpFileName0, documento.PDF, 'base64', function(err) {
-                      
-    if (err) {
-                       
-      return console.log(err);
-      
-    }
-                
-  });
-  */
 
 }
 

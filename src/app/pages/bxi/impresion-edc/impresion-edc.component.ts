@@ -93,7 +93,7 @@ export class ImpresionEdcComponent implements OnInit {
 
   constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2) {
 
- 
+
     setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
 
 
@@ -110,7 +110,7 @@ export class ImpresionEdcComponent implements OnInit {
     let btnContinuar = document.getElementById("continuarImp");
     let btnError = document.getElementById("errorImp");
     let btnImpOK = document.getElementById("impOK");
-    
+
 
     if (storageTipoClienteBEL === "true") {
 
@@ -124,7 +124,7 @@ export class ImpresionEdcComponent implements OnInit {
       btnImpOK.classList.add("color-botones_Preferente");
 
       //localStorage.removeItem("tipoClienteBEL");
-   
+
     }
 
     // this.obtenerListaDocs();
@@ -146,14 +146,14 @@ export class ImpresionEdcComponent implements OnInit {
           const textoCuenta = this.renderer.createText( cuenta.Alias);
           this.renderer.setProperty(a, 'value', cuenta.NoCuenta);
 
-          this. renderer.listen(a, 'click', (event) => { 
+          this. renderer.listen(a, 'click', (event) => {
             this_aux.service.numeroCuentaEDCSel = cuenta.NoCuenta;
             this_aux.service.aliasCuentaEDCSel = cuenta.Alias;
             if (cuenta.TipoCuenta !== 5) {
               this_aux.service.opcionEDCSel = '1';
-            } else {              
+            } else {
               this_aux.service.opcionEDCSel = '2';
-            } 
+            }
             this_aux.setDatosCuentaSeleccionada(event.target); });
           this.renderer.appendChild(a, textoCuenta),
           this.renderer.appendChild(li, a);
@@ -201,7 +201,7 @@ setDatosCuentaSeleccionada(elementHTML) {
           console.log(response1.responseText);
           const detalleSaldos = response1.responseJSON;
           if ( detalleSaldos.Id === '1') {
-            setTimeout(function() { 
+            setTimeout(function() {
                 const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
                 lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
                  $('#_modal_please_wait').modal('hide');
@@ -209,8 +209,8 @@ setDatosCuentaSeleccionada(elementHTML) {
              } else {
                 this_aux.showErrorSucces(detalleSaldos);
           }
-          
-        this_aux.consultaCancelacionEDCDomicilio(this_aux.service.opcionEDCSel, this_aux.service.numeroCuentaEDCSel); 
+
+        this_aux.consultaCancelacionEDCDomicilio(this_aux.service.opcionEDCSel, this_aux.service.numeroCuentaEDCSel);
         }, function(error) {
     });
   }
@@ -219,12 +219,12 @@ setDatosCuentaSeleccionada(elementHTML) {
     const this_aux = this;
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     operacionesbxi.mantenimientoCancelacionEDC(opcion, '', cuenta).then(
-      function(response) {        
-        setTimeout(function() { 
+      function(response) {
+        setTimeout(function() {
           const detalleMant = response.responseJSON;
           let btnCancelarEnvio = document.getElementById('cancelarEnvioDomicilio');
           if(detalleMant.Id === "1") {
-            if(detalleMant.StatusImpresion !== "A"){              
+            if(detalleMant.StatusImpresion !== "A"){
               btnCancelarEnvio.style.display = 'initial';
             } else {
               btnCancelarEnvio.style.display = 'none';
@@ -233,7 +233,7 @@ setDatosCuentaSeleccionada(elementHTML) {
             btnCancelarEnvio.style.display = 'none';
           }
           this_aux.mantenimientoEDC();
-       }, 3000); 
+       }, 3000);
       },
         function(error) {
           console.error("Error");
@@ -244,7 +244,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
   mantenimientoEDC() {
 
-    
+
     $('#_modal_please_wait').modal('show');
 
     const this_aux =  this;
@@ -253,14 +253,14 @@ setDatosCuentaSeleccionada(elementHTML) {
     // operacionesbxi.mantEDC(this_aux.service.numCuentaTranPropBanorte).then(
       operacionesbxi.mantEDC("0100000034").then(
       function(response) {
-        
-        setTimeout(function() { 
+
+        setTimeout(function() {
 
           console.log(response.responseText);
           const detalleMant = response.responseJSON;
         this_aux.obtenerListaDocs();
           $('#_modal_please_wait').modal('hide');
-       }, 3000); 
+       }, 3000);
 
       },
         function(error) {
@@ -287,27 +287,27 @@ setDatosCuentaSeleccionada(elementHTML) {
         // console.log(response.responseText);
         let res = response.responseJSON;
 
-          setTimeout(function() { 
+          setTimeout(function() {
 
           console.log(res);
 
           this_aux.obj = JSON.parse(this_aux.fechas);
-  
+
           for (let i = 0 ; i < res.length; i++) {
-  
-  
+
+
             let temp = res[i].Fecha.split("-");
             // Asigna numero de documento y fecha para escribir e imprimir el documento
             let tempCtaDoc = res[i].Documento;
             let fechaDoc = res[i].FechaObtenerDoc;
             let fechaDocPDF = res[i].Fecha;
-  
+
             for (let k = 0; k < temp.length; k++) {
-  
+
               if ( k === 0 || k === 1 || k === 2 ) {
-  
+
                 let strA = temp[k];
-  
+
                 let strM = temp[k + 1];
                 if ( strM === "01") {strM = "Enero"; }
                 if ( strM === "02") {strM = "Febrero"; }
@@ -321,10 +321,10 @@ setDatosCuentaSeleccionada(elementHTML) {
                 if ( strM === "10") {strM = "Octubre"; }
                 if ( strM === "11") {strM = "Noviembre"; }
                 if ( strM === "12") {strM = "Diciembre"; }
-  
+
                 let strD = temp[k + 2];
-  
-  
+
+
                 this_aux.obj['fechas'].push({
                   "Anio" : strA,
                   "Mes" : strM,
@@ -333,47 +333,47 @@ setDatosCuentaSeleccionada(elementHTML) {
                   "FechaDoc": fechaDoc,
                   "fechaDocPDF": fechaDocPDF
                 });
-  
+
                 break;
               }
-  
-  
+
+
             }
-  
-  
+
+
          }
          // remover todos hijos del contenedor de los calendarios antes de insertar
          $("#calendario").empty();
          $("#calendario2").empty();
-  
-  
+
+
          let cont = 0;
          let contFechas = this_aux.obj.fechas.length - 1;
          let creaElement = document.createElement('div');
          let objCalendario1 = document.getElementById('calendario');
          let objCalendario2 = document.getElementById('calendario2');
          // let domString = '<div class="container"><span class="intro">Hello</span> <span id="name"> World!</span></div>';
-  
+
          // validar que existan **********
          //if (existe) {
          // let getItenCal = document.getElementById('Itemcalendario0');
          // objCalendario1.removeChild(getItenCal);
          //}
-  
-  
+
+
          for (let i = res.length; i--;) {
-  
+
           // if ( (res.length <= 12) && (res.length >= 7)) {
-  
+
             if ( cont <= 5) {
-  
-  
+
+
               // $("#calendario").append(
               //  this.calendario.nativeElement.insertAdjacentHTML(
               //    this.renderer.invokeElementMethod(this.calendario.nativeElement.insertAdjacentHTML('beforeend',
               // this.htmlToAdd =
               // this.calendario.insert(
-                //inserta los datos del documento dentro del value para mandarlos al servicio 
+                //inserta los datos del documento dentro del value para mandarlos al servicio
                 let domContent = '<div value ="'+this_aux.obj['fechas'][contFechas].Documento + '"' + 'id="'+'Itemcalendario' + cont + '"' + ' class="kiosk-cec-carousel-item estilo-item-calendar" >' +
                 '<div value ="'+this_aux.obj['fechas'][contFechas].FechaDoc + '"' + 'id="'+'ItemcalendarioDoc' + cont + '"' + ' class="row no-space">' +
                     '<div class="col-xs-6">' +
@@ -389,9 +389,9 @@ setDatosCuentaSeleccionada(elementHTML) {
                         '</div>' +
                     '</div>' +
                 '</div>' +
-  
+
             '</div>' ;
-  
+
             creaElement.innerHTML = domContent;
         //    objCalendario1.addEventListener("click", function(event) {
         //      console.log(event.target);
@@ -400,14 +400,14 @@ setDatosCuentaSeleccionada(elementHTML) {
             objCalendario1.appendChild(creaElement.firstChild);
            //  document.body.appendChild(creaElement.firstChild);
            // objTo.appendChild(this_aux.calendario.nativeElement);
-  
+
               contFechas --;
-  
-  
+
+
           }
-  
+
           cont ++;
-  
+
           if (cont === 6) {
             break;
           }
@@ -419,7 +419,7 @@ setDatosCuentaSeleccionada(elementHTML) {
          let elementoCal3 = document.getElementById('Itemcalendario3');
          let elementoCal4 = document.getElementById('Itemcalendario4');
          let elementoCal5 = document.getElementById('Itemcalendario5');
-  
+
         elementoCal0.addEventListener("click", function(event) {
           console.log(this.id);
           if( ((this_aux.Valida_Seleccion_Calendario0 === 0) || (this_aux.Valida_Seleccion_Calendario0 === 1))
@@ -434,10 +434,10 @@ setDatosCuentaSeleccionada(elementHTML) {
               && (this_aux.Valida_Seleccion_Calendario9 === 0)
               && (this_aux.Valida_Seleccion_Calendario10 === 0)
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-  
+
                 this_aux.clickCal0();
               }
-  
+
         });
         elementoCal1.addEventListener("click", function(event) {
           console.log(this.id);
@@ -524,14 +524,14 @@ setDatosCuentaSeleccionada(elementHTML) {
             this_aux.clickCal5();
           }
         });
-  
+
          for (let i = res.length; i--;) {
-  
+
           // if ( (res.length <= 12) && (res.length >= 7)) {
-  
+
             if ( cont >= 6) {
-  
-  
+
+
               // $("#calendario").append(
               //  this.calendario.nativeElement.insertAdjacentHTML(
               //    this.renderer.invokeElementMethod(this.calendario.nativeElement.insertAdjacentHTML('beforeend',
@@ -552,26 +552,26 @@ setDatosCuentaSeleccionada(elementHTML) {
                         '</div>' +
                     '</div>' +
                 '</div>' +
-  
+
             '</div>' ;
-  
+
             creaElement.innerHTML = domContent2;
             objCalendario2.appendChild(creaElement.firstChild);
            //  document.body.appendChild(creaElement.firstChild);
            // objTo.appendChild(this_aux.calendario.nativeElement);
-  
+
               contFechas --;
-  
-  
+
+
           }
-  
+
           cont ++;
-  
+
           if (cont === 12) {
             break;
           }
          }
-  
+
          // Validar seleecion de cada calendario (segundo elemnto carousel)
          let elementoCal6 = document.getElementById('Itemcalendario6');
          let elementoCal7 = document.getElementById('Itemcalendario7');
@@ -579,7 +579,7 @@ setDatosCuentaSeleccionada(elementHTML) {
          let elementoCal9 = document.getElementById('Itemcalendario9');
          let elementoCal10 = document.getElementById('Itemcalendario10');
          let elementoCal11 = document.getElementById('Itemcalendario11');
-  
+
         elementoCal6.addEventListener("click", function(event) {
           console.log(this.id);
           if( ((this_aux.Valida_Seleccion_Calendario6 === 0) || (this_aux.Valida_Seleccion_Calendario6 === 1))
@@ -594,12 +594,12 @@ setDatosCuentaSeleccionada(elementHTML) {
               && (this_aux.Valida_Seleccion_Calendario9 === 0)
               && (this_aux.Valida_Seleccion_Calendario10 === 0)
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-  
+
                 this_aux.clickCal6();
               }
-  
+
         });
-  
+
         elementoCal7.addEventListener("click", function(event) {
           console.log(this.id);
           if( ((this_aux.Valida_Seleccion_Calendario7 === 0) || (this_aux.Valida_Seleccion_Calendario7 === 1))
@@ -614,12 +614,12 @@ setDatosCuentaSeleccionada(elementHTML) {
               && (this_aux.Valida_Seleccion_Calendario9 === 0)
               && (this_aux.Valida_Seleccion_Calendario10 === 0)
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-  
+
                 this_aux.clickCal7();
               }
-  
+
         });
-  
+
         elementoCal8.addEventListener("click", function(event) {
           console.log(this.id);
           if( ((this_aux.Valida_Seleccion_Calendario8 === 0) || (this_aux.Valida_Seleccion_Calendario8 === 1))
@@ -634,12 +634,12 @@ setDatosCuentaSeleccionada(elementHTML) {
               && (this_aux.Valida_Seleccion_Calendario9 === 0)
               && (this_aux.Valida_Seleccion_Calendario10 === 0)
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-  
+
                 this_aux.clickCal8();
               }
-  
+
         });
-  
+
         elementoCal9.addEventListener("click", function(event) {
           console.log(this.id);
           if( ((this_aux.Valida_Seleccion_Calendario9 === 0) || (this_aux.Valida_Seleccion_Calendario9 === 1))
@@ -654,12 +654,12 @@ setDatosCuentaSeleccionada(elementHTML) {
               && (this_aux.Valida_Seleccion_Calendario8 === 0)
               && (this_aux.Valida_Seleccion_Calendario10 === 0)
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-  
+
                 this_aux.clickCal9();
               }
-  
+
         });
-  
+
         elementoCal10.addEventListener("click", function(event) {
           console.log(this.id);
           if( ((this_aux.Valida_Seleccion_Calendario10 === 0) || (this_aux.Valida_Seleccion_Calendario10 === 1))
@@ -674,12 +674,12 @@ setDatosCuentaSeleccionada(elementHTML) {
               && (this_aux.Valida_Seleccion_Calendario8 === 0)
               && (this_aux.Valida_Seleccion_Calendario9 === 0)
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-  
+
                 this_aux.clickCal10();
               }
-  
+
         });
-  
+
         elementoCal11.addEventListener("click", function(event) {
           console.log(this.id);
           if( ((this_aux.Valida_Seleccion_Calendario11 === 0) || (this_aux.Valida_Seleccion_Calendario11 === 1))
@@ -694,19 +694,19 @@ setDatosCuentaSeleccionada(elementHTML) {
               && (this_aux.Valida_Seleccion_Calendario8 === 0)
               && (this_aux.Valida_Seleccion_Calendario9 === 0)
               && (this_aux.Valida_Seleccion_Calendario10 === 0)) {
-  
+
                 this_aux.clickCal11();
               }
-  
+
         });
-  
-  
+
+
          console.log(this_aux.obj['fechas']);
 
-         
+
             $('#_modal_please_wait').modal('hide');
           }, 500);
-        
+
    }, function(error) {
       //this_aux.showErrorPromise(error);
 });
@@ -1314,7 +1314,7 @@ setDatosCuentaSeleccionada(elementHTML) {
     const this_aux = this;
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     const autenticacion: Autenticacion = new Autenticacion();
-    
+
 
 
 
@@ -1338,7 +1338,7 @@ setDatosCuentaSeleccionada(elementHTML) {
           this.cal_Click_6 === 1 || this.cal_Click_7 === 1 || this.cal_Click_8 === 1 ||
           this.cal_Click_9 === 1 || this.cal_Click_10 === 1 || this.cal_Click_11 === 1) {
 
-        
+
          //   const nombreDoc = 'D_'+ this.numDocumento+'_' + this.fechaCorteDoc;
          const nombreDoc = 'D_'+ this.numDocumento;
 
@@ -1350,11 +1350,11 @@ setDatosCuentaSeleccionada(elementHTML) {
               $('#_modal_please_wait').modal('show');
 
               if ( documento.Id === '1') {
-                
+
 
                   if ( documento.PDF !== undefined) {
 
-                    
+
                     console.log("info doc", nombreDoc);
                     localStorage.setItem("doc", documento.PDF);
                     localStorage.setItem("nombreDoc", nombreDoc);
@@ -1364,17 +1364,11 @@ setDatosCuentaSeleccionada(elementHTML) {
 
 
                     $('#infoPrinter').modal('show');
-                    // this.GuardaDocElectron(this.nombreDocumento);
 
-                    // electron para DOCUMENTO
-
-                    // this.saveDocElectron(documento.PDF, this.numDocumento, this.fechaCorteDoc);
-
-                   //  this.callPrinter('D_'+ this.numDocumento+'_' + this.fechaCorteDoc);
                   }
                   $('#_modal_please_wait').modal('hide');
                   setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
-                
+
               }else {
                 this_aux.showErrorSucces(documento);
                 setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
@@ -1390,58 +1384,19 @@ setDatosCuentaSeleccionada(elementHTML) {
 
   }
 
+  finishPagePrint(){
 
-  GuardaDocElectron(documentoEDC){
-
-    const this_aux = this;
+   const this_aux = this;
 //
-    //this_aux.router.navigate(['/impresion_EDC_Finish']);
-  }
-
-
-
-  enviaImprimir(){
-
-
-    let delay2 = 10000;
-    $('#imprimiendo').modal('show');
-    $('#_modal_please_wait').modal('show');
-    setTimeout(function(){
-
-      console.log("enviaImprimir");
-
-      // 1
-
-      $.ajax({
-       // url: 'http://localhost:8082/sucursappsdevices/printer/pdf?f='+'D_'+listObtenerDocumentos[0].docpdf+'_'+fechasEnvioMail[0]+'.pdf',
-       url: 'http://localhost:8082/sucursappsdevices/printer/pdf?f='+'D_'+ this.numDocumento+'_' + '"fecha"' + '.pdf',
-        type: "GET",
-        success: function(){
-          console.log("se ejecuto correctamente el proceso para llamar a impresora");
-          $('#okPrint').modal('show');
-        },
-        error: function(){
-          console.log("error de procedimiento para llamar a impresora");
-          $('#ErrorPrint').modal('show');
-        },
-        async: false,
-        cache: false
-      });
-
-      $('#_modal_please_wait').modal('hide');
-
-    }, delay2);
-
-
-  }
-
+    this_aux.router.navigate(['/impresion_EDC_Electron']);
+ }
 
 
   showErrorSucces(json) {
 
 
     console.log(json.Id + json.MensajeAUsuario);
-    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
     $('#errorModal').modal('show');
 
 }
