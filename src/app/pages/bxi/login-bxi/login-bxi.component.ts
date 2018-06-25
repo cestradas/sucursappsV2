@@ -28,9 +28,9 @@ export class LoginBxiComponent implements OnInit {
   constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2, private fb: FormBuilder) {
     this.myForm = this.fb.group({
       // tslint:disable-next-line:max-line-length
-      fcUsuario: ['', [Validators.required, Validators.pattern(/^([a0-zA9-Z])+$/)]],
+      fcUsuario: ['', [Validators.required, Validators.pattern(/^[a0-zA9-Z]+([a0-zA9-Z])+$/)]],
       // tslint:disable-next-line:max-line-length
-      fcPass: ['', [ Validators.required, Validators.pattern(/^([a0-zA9-Z])+$/)]]
+      fcPass: ['', [ Validators.required, Validators.pattern(/^[a0-zA9-Z]+([a0-zA9-Z])+$/)]]
 
     });
    }
@@ -260,7 +260,7 @@ export class LoginBxiComponent implements OnInit {
 
       const this_aux = this;
       // tslint:disable-next-line:max-line-length
-      const control: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([a0-zA9-Z])+$/)]);
+      const control: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^[a0-zA9-Z]+([a0-zA9-Z])+$/)]);
       this_aux.myForm.setControl('fcUsuario', control );
       this_aux.myForm.setControl('fcPass', control );
 
