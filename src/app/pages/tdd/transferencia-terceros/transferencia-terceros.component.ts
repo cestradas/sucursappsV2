@@ -144,14 +144,18 @@ export class TransferenciaTercerosComponent implements OnInit {
         if (res === true) {
 
           $('#ModalTDDLogin').modal('hide');
+          setTimeout( () => $('#_modal_please_wait').modal('hide'), 500 );
           this.transTerceroTransaccion();
+          this._validaNipService.respuestaNip.res = "";
 
         } else {
 
           console.error("Mostrar modal las tarjetas no son iguales");
-          document.getElementById('mnsError').innerHTML =   "Las tarjetas no corresponden.";
+          document.getElementById('mnsError').innerHTML =   "El NIP introducido no corresponde.";
           $('#_modal_please_wait').modal('hide');
           $('#errorModal').modal('show');
+          $('#ModalTDDLogin').modal('hide');
+          this._validaNipService.respuestaNip.res = "";
 
 
         }
