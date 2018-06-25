@@ -234,8 +234,10 @@ validarSaldo(myForm) {
     this._validaNipService.consultaTablaYValidaSaldo(this.cuentaClienteTdd, this_aux.importe).then(
       function(response) {
         let DatosJSON = response.responseJSON;
+        console.log(response.responseText);
         if (DatosJSON.Id === "1") {
-          this_aux.showDetallePago(myForm);
+         // aqiiiiiiiii
+         this_aux.confirmarPago();
         } else if ( DatosJSON.Id === "4" ) {
           $('#modalLimiteDiario').modal('show');
         } else if ( DatosJSON.Id === "5" ) {

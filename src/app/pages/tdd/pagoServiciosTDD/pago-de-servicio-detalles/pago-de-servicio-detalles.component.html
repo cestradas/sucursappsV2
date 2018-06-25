@@ -109,7 +109,7 @@
             <div class="row">
                 <div class="col-lg-10 pull-right">
                     <button class="btn btn-lg" (click)="irAtras()">Regresar</button>
-                    <button id="continuar" type="button" class="color-botones btn btn-lg " [disabled]="myForm.invalid" (click)="validarSaldo(myForm.value)">
+                    <button id="continuar" type="button" class="color-botones btn btn-lg " [disabled]="myForm.invalid" (click)="showDetallePago(myForm.value)">
                                 Continuar
                         </button>
 
@@ -186,7 +186,7 @@
 
                     <div class="modal-footer">
                         <button class="btn btn-lg" data-dismiss="modal">Regresar</button>
-                        <button id="continuar2" class="color-botones btn btn-lg " (click)="confirmarPago()">
+                        <button id="continuar2" class="color-botones btn btn-lg " (click)="validarSaldo(myForm.value)">
                                 Confirmar
                               </button>
                     </div>
