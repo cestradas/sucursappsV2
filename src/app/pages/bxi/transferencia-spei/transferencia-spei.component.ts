@@ -445,7 +445,7 @@ validarSaldo(tipoOperecionPago) {
         let DatosJSON = response.responseJSON;
         console.log(response.responseText);
         if (DatosJSON.Id === "1") {
-          
+
           console.log("Pago validado");
           if (tipoOperecionPago === "1") {          // SPEI
             $('#confirmModalSPEI').modal('show');
@@ -489,7 +489,9 @@ validarSaldo(tipoOperecionPago) {
 
 setDatosCuentaSeleccionada(elementHTML) {
 
+  $('#_modal_please_wait').modal('show');
   const this_aux = this;
+  const operacionesbxi: OperacionesBXI = new OperacionesBXI();
   console.log(elementHTML);
   const tableOrigen = document.getElementById('tableOrigen');
   const tableDefaultOrigen = document.getElementById('tableDefaultOrigen');
@@ -503,7 +505,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
   lblAliasOrigen.innerHTML = elementHTML.textContent;
   lblAliasOrigen.innerHTML = AliasCuenta_seleccionada.toString();
-  lblCuentaOrigen.innerHTML = numCuenta_seleccionada.toString();
+  lblCuentaOrigen.innerHTML = operacionesbxi.mascaraNumeroCuenta(numCuenta_seleccionada.toString());
   this_aux.service.numCuentaSPEISel = numCuenta_seleccionada;
   this_aux.service.AliasCuentaSPEISel = AliasCuenta_seleccionada;
   this_aux.cuentaOrigenModal = this_aux.service.numCuentaSPEISel;
@@ -564,7 +566,7 @@ fillCuentasBeneficiario () {
         });
 
       }
-        
+
   });
 
   datosBeneficiarios.forEach(element1 => {
@@ -1133,7 +1135,7 @@ transformAmount(impor) {
         this_aux.importeAux = this_aux.replaceSimbolo(impor);
         this_aux.rImporteSPEI.nativeElement.value = this_aux.currencyPipe.transform(this_aux.importeAux, 'USD');
         this_aux.importeAux = this_aux.replaceSimbolo( this_aux.rImporteSPEI.nativeElement.value) ;
-    
+
       } else {
           if (this_aux.forma.get('amountSPEI').errors === null) {
             const control: FormControl = new FormControl('', Validators.required);
@@ -1152,7 +1154,7 @@ transformAmount(impor) {
         this_aux.importeAux = this_aux.replaceSimbolo(impor);
         this_aux.rImporteTEF.nativeElement.value = this_aux.currencyPipe.transform(this_aux.importeAux, 'USD');
         this_aux.importeAux = this_aux.replaceSimbolo( this_aux.rImporteTEF.nativeElement.value) ;
-    
+
       } else {
           if (this_aux.forma.get('amountTEF').errors === null) {
             const control: FormControl = new FormControl('', Validators.required);
@@ -1169,7 +1171,7 @@ transformAmount(impor) {
           this_aux.importeAux = this_aux.replaceSimbolo(impor);
           this_aux.rImporteQUICK.nativeElement.value = this_aux.currencyPipe.transform(this_aux.importeAux, 'USD');
           this_aux.importeAux = this_aux.replaceSimbolo( this_aux.rImporteQUICK.nativeElement.value) ;
-      
+
         } else {
             if (this_aux.forma.get('ammountQUICK').errors === null) {
               const control: FormControl = new FormControl('', Validators.required);
@@ -1181,7 +1183,7 @@ transformAmount(impor) {
         }
 
 
-  
+
 }
 
 replaceSimbolo(impor) {

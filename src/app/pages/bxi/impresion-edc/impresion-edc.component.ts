@@ -166,6 +166,9 @@ export class ImpresionEdcComponent implements OnInit {
 setDatosCuentaSeleccionada(elementHTML) {
 
   $('#_modal_please_wait').modal('show');
+
+  const this_aux = this;
+  const operacionesbxi: OperacionesBXI = new OperacionesBXI();
   let btnCancelarEnvio = document.getElementById('cancelarEnvioDomicilio');
   btnCancelarEnvio.style.display = 'none';
   const this_aux = this;
@@ -182,7 +185,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
   lblAliasOrigen.innerHTML = elementHTML.textContent;
   lblAliasOrigen.innerHTML = AliasCuenta_seleccionada.toString();
-  lblCuentaOrigen.innerHTML = numCuenta_seleccionada.toString();
+  lblCuentaOrigen.innerHTML = operacionesbxi.mascaraNumeroCuenta(numCuenta_seleccionada.toString());
   this_aux.service.numCuentaTranPropBanorte = numCuenta_seleccionada;
   this_aux.service.AliasCuentaTranPropBanorte  = AliasCuenta_seleccionada;
   this_aux.cuentaOrigenModal = this_aux.service.numCuentaTranPropBanorte;

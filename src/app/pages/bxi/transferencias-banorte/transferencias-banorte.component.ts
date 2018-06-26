@@ -124,7 +124,9 @@ export class TransferenciasBanorteComponent implements OnInit {
 
 setDatosCuentaSeleccionada(elementHTML) {
 
+  $('#_modal_please_wait').modal('show');
   const this_aux = this;
+  const operacionesbxi: OperacionesBXI = new OperacionesBXI();
   console.log(elementHTML);
   const tableOrigen = document.getElementById('tableOrigen');
   const tableDefaultOrigen = document.getElementById('tableDefaultOrigen');
@@ -138,7 +140,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
   lblAliasOrigen.innerHTML = elementHTML.textContent;
   lblAliasOrigen.innerHTML = AliasCuenta_seleccionada.toString();
-  lblCuentaOrigen.innerHTML = numCuenta_seleccionada.toString();
+  lblCuentaOrigen.innerHTML = operacionesbxi.mascaraNumeroCuenta(numCuenta_seleccionada.toString());
   this_aux.service.numCuentaTranPropBanorte = numCuenta_seleccionada;
   this_aux.service.AliasCuentaTranPropBanorte  = AliasCuenta_seleccionada;
   this_aux.cuentaOrigenModal = this_aux.service.numCuentaTranPropBanorte;
@@ -633,13 +635,13 @@ validarSaldo(tipoOperecionPago) {
     importeOpe.replace(',', "");
     operacionesbxi.consultaTablaYValidaSaldo(this_aux.service.numCuentaTranPropBanorte, importeOpe).then(
       function(response) {
-        
+
         let DatosJSON = response.responseJSON;
         console.log(response.responseText);
         if (DatosJSON.Id === "1") {
 
           console.log("Pago validado");
-          
+
           // MANDAR A LLAMAR MODAL DE CONFIRMACION
           if (tipoOperecionPago === "1") {           // Cuentas propias Banorte
             $('#confirmModal').modal('show');
@@ -825,7 +827,7 @@ transformAmount(impor) {
         this_aux.importeAux = this_aux.replaceSimbolo(impor);
         this_aux.rImporte.nativeElement.value = this_aux.currencyPipe.transform(this_aux.importeAux, 'USD');
         this_aux.importeAux = this_aux.replaceSimbolo( this_aux.rImporte.nativeElement.value) ;
-    
+
       } else {
           if (this_aux.forma.get('amount').errors === null) {
             const control: FormControl = new FormControl('', Validators.required);

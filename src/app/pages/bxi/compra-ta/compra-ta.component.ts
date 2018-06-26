@@ -173,7 +173,9 @@ export class CompraTaComponent implements OnInit {
 
 setDatosCuentaSeleccionada(elementHTML) {
 
+  $('#_modal_please_wait').modal('show');
   const this_aux = this;
+  const operacionesbxi: OperacionesBXI = new OperacionesBXI();
   console.log(elementHTML);
   const tableOrigen = document.getElementById('tableOrigen');
   const tableDefaultOrigen = document.getElementById('tableDefaultOrigen');
@@ -185,7 +187,7 @@ setDatosCuentaSeleccionada(elementHTML) {
   tableDefaultOrigen.setAttribute('style', 'display: none');
 
   lblAliasOrigen.innerHTML = elementHTML.textContent;
-  lblCuentaOrigen.innerHTML = numCuenta_seleccionada.toString();
+  lblCuentaOrigen.innerHTML = operacionesbxi.mascaraNumeroCuenta(numCuenta_seleccionada.toString());
   this_aux.service.numCuentaCTASel = numCuenta_seleccionada;
   this_aux.cuentaSeleccionada = numCuenta_seleccionada;
   this_aux.getSaldoDeCuenta(numCuenta_seleccionada);
