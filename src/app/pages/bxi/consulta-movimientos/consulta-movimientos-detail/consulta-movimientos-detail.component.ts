@@ -266,6 +266,7 @@ consultaMovimientosTDC(numeroCue) {
         console.log("Movimientos cargados correctamente");
       }, function(error) {
         this_aux.showErrorPromise(error);
+        setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
   });
   
 }

@@ -174,7 +174,10 @@ getSaldoDeCuentaTDD(numCuenta_seleccionada) {
         }
         setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
       }, function(error) {
+        this_aux.saldoSeleccionado = "";
+          this_aux.service.saldoSeleccionado = this_aux.saldoSeleccionado;
          this_aux.showErrorPromise(error);
+         setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
   });
 }
 
@@ -199,7 +202,10 @@ getSaldoDeCuentaTDC(numCuenta_seleccionada) {
 
         setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
       }, function(error) {
+        this_aux.saldoSeleccionado = "";
+          this_aux.service.saldoSeleccionado = this_aux.saldoSeleccionado;
          this_aux.showErrorPromise(error);
+         setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
   });
 
 
