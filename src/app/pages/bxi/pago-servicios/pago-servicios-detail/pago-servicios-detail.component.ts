@@ -44,11 +44,12 @@ export class PagoServiciosDetailComponent implements OnInit {
 
   ngOnInit() {
     const this_aux = this;
+    const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
         const detalleEmpresa = JSON.parse(this_aux.service.detalleEmpresa_PS);
           this_aux.nombreServicio =  detalleEmpresa.empresa;
           this_aux.service.nombreServicio = this_aux.nombreServicio;
-          this_aux.cuentaCargo = this_aux.service.numCuentaSeleccionado;
+          this_aux.cuentaCargo = operacionesbxi.mascaraNumeroCuenta(this_aux.service.numCuentaSeleccionado);
 
           if (this_aux.service.idFacturador === '1310') {
             $('#ModalLectordeRecibo').modal('show');

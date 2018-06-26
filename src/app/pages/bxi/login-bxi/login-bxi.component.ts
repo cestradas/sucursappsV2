@@ -22,6 +22,8 @@ export class LoginBxiComponent implements OnInit {
   urlImagenAux: string;
   nombreEnmascarado: string;
   nombreEnmascaradoAux: string;
+  MENSAJEPERSONAL: string;
+  MENSAJEPERSONAL_aux: string;
   myForm: FormGroup;
    datosLegacy = "";
 
@@ -125,6 +127,7 @@ export class LoginBxiComponent implements OnInit {
               this_aux.service.detalleIdentificacion = detalleIdentifacionUsurario.toString();
               this_aux.urlImagenAux = detalleIdentifacionUsurario.UrlImagenPersonal;
               this_aux.nombreEnmascaradoAux = detalleIdentifacionUsurario.NombreEnmascarado;
+              this_aux.MENSAJEPERSONAL_aux = detalleIdentifacionUsurario.MensajePersonal;
 
               autenticacion.getMetodosAutenticacionUsuario().then(
                     function(metodos) {
@@ -201,6 +204,7 @@ export class LoginBxiComponent implements OnInit {
           document.getElementById('view_pass').style.display = 'block';
           this_aux.nombreEnmascarado = this_aux.nombreEnmascaradoAux;
           this_aux.urlImagen = this_aux.urlImagenAux;
+          this_aux.MENSAJEPERSONAL = this_aux.MENSAJEPERSONAL_aux;  
           $('#_modal_please_wait').modal('hide');
 
     }
@@ -250,7 +254,7 @@ export class LoginBxiComponent implements OnInit {
 
           }, function(error) { 
             
-            this_aux.modalIdentificaUsuario();
+           // this_aux.modalIdentificaUsuario();
             WLAuthorizationManager.logout('banorteSecurityCheckSa');
             this_aux.showErrorPromise(error);
           });
@@ -260,9 +264,10 @@ export class LoginBxiComponent implements OnInit {
 
       const this_aux = this;
       // tslint:disable-next-line:max-line-length
-      const control: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^[a0-zA9-Z]+([a0-zA9-Z])+$/)]);
-      this_aux.myForm.setControl('fcUsuario', control );
-      this_aux.myForm.setControl('fcPass', control );
+      const control1: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^[a0-zA9-Z]+([a0-zA9-Z])+$/)]);
+      const control2: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^[a0-zA9-Z]+([a0-zA9-Z])+$/)]);
+      this_aux.myForm.setControl('fcUsuario', control1 );
+      this_aux.myForm.setControl('fcPass', control2 );
 
       document.getElementById('view_usr').style.display = 'block';
       document.getElementById('viewGeneralAutentica').style.display = 'none';

@@ -439,6 +439,7 @@ export class OperacionesBXI {
           return resourceRequest.sendFormParameters(formParameters);
         }
 
+        // tslint:disable-next-line:indent
 	consultaBancos() {
 
             const resourceRequest = new WLResourceRequest(
@@ -460,5 +461,14 @@ export class OperacionesBXI {
       );
       resourceRequest.setTimeout(30000);
       return resourceRequest.sendFormParameters(formParameters);
+    }
+
+    mascaraNumeroCuenta(numCtaSel) {
+
+        const tamNumCta = numCtaSel.length;
+        const numCta_aux = numCtaSel.substring(tamNumCta - 4, tamNumCta);
+        const numCuenta_show = '******' + numCta_aux;
+
+        return numCuenta_show;
     }
 }

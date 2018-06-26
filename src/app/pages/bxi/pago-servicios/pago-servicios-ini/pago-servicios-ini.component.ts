@@ -80,6 +80,7 @@ export class PagoServiciosIniComponent implements OnInit {
 
        $('#_modal_please_wait').modal('show');
        const this_aux = this;
+       const operacionesbxi: OperacionesBXI = new OperacionesBXI();
        console.log(elementHTML);
        const tableOrigen = document.getElementById('tableOrigen');
        const tableDefaultOrigen = document.getElementById('tableDefaultOrigen');
@@ -91,7 +92,7 @@ export class PagoServiciosIniComponent implements OnInit {
        tableDefaultOrigen.setAttribute('style', 'display: none');
 
        lblAliasOrigen.innerHTML = elementHTML.textContent;
-       lblCuentaOrigen.innerHTML = numCuenta_seleccionada.toString();
+       lblCuentaOrigen.innerHTML = operacionesbxi.mascaraNumeroCuenta( numCuenta_seleccionada.toString());
        this_aux.service.numCuentaSeleccionado = numCuenta_seleccionada;
        this_aux.actualizaEmpresasXtipoPago(numCuenta_seleccionada);
        this_aux.getSaldoDeCuenta(numCuenta_seleccionada);

@@ -70,6 +70,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
   const this_aux = this;
   console.log(elementHTML);
+  const operacionesbxi: OperacionesBXI = new OperacionesBXI();
   const tableOrigen = document.getElementById('tableOrigen');
   const tableDefaultOrigen = document.getElementById('tableDefaultOrigen');
   const lblCuentaOrigen = document.getElementById('lblCuentaOrigen');
@@ -79,7 +80,7 @@ setDatosCuentaSeleccionada(elementHTML) {
   tableOrigen.setAttribute('style', 'display: block');
   tableDefaultOrigen.setAttribute('style', 'display: none');
   lblAliasOrigen.innerHTML = elementHTML.textContent;
-  lblCuentaOrigen.innerHTML = this_aux.getNumeroCuentaOrigen(value);
+  lblCuentaOrigen.innerHTML = operacionesbxi.mascaraNumeroCuenta( this_aux.getNumeroCuentaOrigen(value));
   this_aux.service.numCuentaSeleccionado = this_aux.getNumeroCuentaOrigen(value);
 
   const tipoCuenta = this_aux.getTipoCuenta(value);
