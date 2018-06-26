@@ -987,12 +987,13 @@ table {
 /* estilo para ul*/
 
 .ul-facturadores {
-    width: 1280px;
+    width: 100%;
     height: auto;
     overflow: auto;
     position: absolute;
     z-index: 1;
     display: inline-block;
+    background-color: white;
 }
 
 .img-select-seleccion {

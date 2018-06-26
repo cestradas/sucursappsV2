@@ -1,9 +1,9 @@
 import { SesionBxiService } from './../../sesion-bxi.service';
 import { OperacionesBXI } from './../../operacionesBXI';
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-import { FUNCTION_TYPE } from '@angular/compiler/src/output/output_ast';
+import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import { Router } from '@angular/router';
+
 
 declare var jquery: any; // jquery
 declare var $: any;
@@ -24,6 +24,8 @@ export class PagoServiciosIniComponent implements OnInit {
   showOptions: Boolean = false;
   empresaInLocal: string ;
   myForm: FormGroup;
+  empresaSelect: Boolean = false ;
+  nombreEmpresaSelect: string;
 
 
    constructor( private fb: FormBuilder, private router: Router, private service: SesionBxiService, private renderer: Renderer2) {
@@ -247,11 +249,13 @@ getEmpresas() {
 
      setValue(value) {
 
-       const aux_this = this;
-       const body = $('body');
-      // body.off('click');
-       aux_this.facturador.nativeElement.value = value ;
-       aux_this.showOptions = false;
+       const this_aux = this;
+      this_aux.facturador.nativeElement.value = value ;
+      const control: FormControl = new FormControl(value, Validators.required);
+      this_aux.myForm.setControl('fcFacturador', control );
+      this_aux.nombreEmpresaSelect = value;
+      this_aux.showOptions = false;
+      this_aux.empresaSelect = true;
       }
 
      setClickOnBody() {
@@ -269,8 +273,16 @@ getEmpresas() {
                 this_aux.showOptions = false;
 
               } else {
-
-                this_aux.showOptions = true;
+                if (  this_aux.empresaSelect) {
+                  this_aux.showOptions = false; 
+                    
+                    if (this_aux.nombreEmpresaSelect !== valueInput) {
+                      this_aux.empresaSelect = false;
+                    } 
+                } else {
+                  this_aux.showOptions = true;
+                }
+                
                 this_aux.listaEmpresas = this_aux.listaEmpresasAux;
                 this_aux.listaEmpresas.forEach(element => {
                   if (element.includes(valueInput.toUpperCase())) {
