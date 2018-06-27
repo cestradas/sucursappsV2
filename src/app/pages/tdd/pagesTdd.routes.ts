@@ -23,6 +23,9 @@ import { PagoServiciosVerificacionComponent } from './pagoServiciosTDD/pago-serv
 import { MantenimientoDatosContactoFinalComponent } from './mantenimientos-datos-contacto/mantenimiento-datos-contacto-final/mantenimiento-datos-contacto-final.component';
 import { MantenimientosDatosContactoComponent } from './mantenimientos-datos-contacto/mantenimientos-datos-contacto.component';
 import { ActivarAlertasVerifyTddComponent } from './activar-alertas/activar-alertas-verify-tdd/activar-alertas-verify-tdd.component';
+import { DocElectronTddComponent } from './impresion-edc-tdd/doc-electron-tdd/doc-electron-tdd.component';
+import { CancelarEnvioEdcTddComponent } from './impresion-edc-tdd/cancelar-envio-edc-tdd/cancelar-envio-edc-tdd.component';
+import { CancelarEnvioEdcFinishTddComponent } from './impresion-edc-tdd/cancelar-envio-edc-finish-tdd/cancelar-envio-edc-finish-tdd.component';
 
 const pageRoutesTDD: Routes = [
     {
@@ -49,6 +52,9 @@ const pageRoutesTDD: Routes = [
             { path: 'transTercerosFinal', component: TransferenciaTercerosFinalComponent},
             { path: 'impresion-edc', component: ImpresionEdcTddComponent},
             { path: 'impresion-edc-final', component: ImpresionEdcFinishComponent},
+            { path: 'impresion_EDC_Tdd_Electron', component: DocElectronTddComponent},
+            { path: 'cancelarEnvioEDCDomicilio', component: CancelarEnvioEdcTddComponent},
+            { path: 'cancelarEnvioEDCDomicilioFinish', component: CancelarEnvioEdcFinishTddComponent},
             { path: '', pathMatch: 'full', redirectTo: '/menuTdd' },
             
         ]

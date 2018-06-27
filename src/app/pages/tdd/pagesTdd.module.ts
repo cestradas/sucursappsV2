@@ -31,6 +31,8 @@ import { MantenimientoDatosContactoFinalComponent } from './mantenimientos-datos
 import { ImpresionEdcFinishComponent } from './impresion-edc-tdd/impresion-edc-finish/impresion-edc-finish.component';
 import { DocElectronTddComponent } from './impresion-edc-tdd/doc-electron-tdd/doc-electron-tdd.component';
 import { ActivarAlertasVerifyTddComponent } from './activar-alertas/activar-alertas-verify-tdd/activar-alertas-verify-tdd.component';
+import { CancelarEnvioEdcTddComponent } from './impresion-edc-tdd/cancelar-envio-edc-tdd/cancelar-envio-edc-tdd.component';
+import { CancelarEnvioEdcFinishTddComponent } from './impresion-edc-tdd/cancelar-envio-edc-finish-tdd/cancelar-envio-edc-finish-tdd.component';
 
 
 
@@ -90,7 +92,9 @@ const customLayouts: IKeyboardLayouts = {
         MantenimientoDatosContactoFinalComponent,
 	ImpresionEdcFinishComponent,
         DocElectronTddComponent,
-        ActivarAlertasVerifyTddComponent
+        ActivarAlertasVerifyTddComponent,
+        CancelarEnvioEdcTddComponent,
+        CancelarEnvioEdcFinishTddComponent
         
     ],
     exports: [],

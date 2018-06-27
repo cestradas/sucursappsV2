@@ -18,6 +18,9 @@ export class ResponseWS {
     fechaDocumento: string;
     // Compra TA
     detalleConfirmacionCTA: string;
+    // Cancelacion Envio EDC Domicilio
+    numeroCuentaTdd: string;
+    email: string;
     respuesta: Respuesta = {
 
         respuestaWS: '',

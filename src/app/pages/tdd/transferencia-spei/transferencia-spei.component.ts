@@ -54,7 +54,8 @@ export class TransferenciaSpeiComponent implements OnInit {
     private _service: ConsultaSaldosTddService,
     private _validaNipService: ValidaNipTransaccion,
     private router: Router,
-    private serviceTransferenciaSpei: ResponseWS
+    private serviceTransferenciaSpei: ResponseWS,
+    private currencyPipe: CurrencyPipe
   ) {
     this._service.cargarSaldosTDD();
 
@@ -161,8 +162,20 @@ export class TransferenciaSpeiComponent implements OnInit {
 
 };
 
+limpiarFormulario () {
+  const this_aux = this;
+
+  this_aux.rClabe.nativeElement.value = "";
+  this_aux.rBeneficiario.nativeElement.value = "";
+  this_aux.rDescripcion.nativeElement.value = "";
+  this_aux.rImporte.nativeElement.value = "";
+  this_aux.rReferencia.nativeElement.value = "";
+  this_aux.rEmail.nativeElement.value = "";
+}
+
   seleccionOperacion(operacion) {
     const this_aux = this;
+    this_aux.limpiarFormulario();
     this_aux.nombreOperacion = operacion;
 
     const controlNombrenBenef: FormControl = new FormControl(
@@ -175,11 +188,10 @@ export class TransferenciaSpeiComponent implements OnInit {
       Validators.required
     );
     this_aux.myform.setControl("descripcionF", controlDescripcion);
-    const controlImporte: FormControl = new FormControl(
-      this_aux.rImporte.nativeElement.value,
-      Validators.required
-    );
-    this_aux.myform.setControl("importeF", controlImporte);
+
+    // const controlImporte: FormControl = new FormControl('', Validators.required);
+    // this_aux.myform.setControl("importeF", controlImporte);
+
     const controlReferencia: FormControl = new FormControl(
       this_aux.rReferencia.nativeElement.value,
       [Validators.maxLength(7)]
@@ -290,10 +302,11 @@ export class TransferenciaSpeiComponent implements OnInit {
           const stringDatosSpei = JSON.stringify(respuestaSpei);
           this_aux.serviceTransferenciaSpei.datosTransferenciaSPEI = stringDatosSpei;
           this_aux.serviceTransferenciaSpei.nombreOperacion = "SPEI";
-          $("#_modal_please_wait").modal("show");
+          $("#_modal_please_wait").modal("hide");
           this_aux.router.navigate(["/detalleTransferenciaSpei"]);
         } else {
           $("#ModalErrorTransaccion").modal("show");
+          $('#_modal_please_wait').modal('hide');
         }
       },
       function(error) {
@@ -340,7 +353,7 @@ export class TransferenciaSpeiComponent implements OnInit {
           const stringDatosTef = JSON.stringify(respuestaTef);
           this_aux.serviceTransferenciaSpei.datosTransferenciaSPEI = stringDatosTef;
           this_aux.serviceTransferenciaSpei.nombreOperacion = "TEF";
-          $("#_modal_please_wait").modal("show");
+          $("#_modal_please_wait").modal("hide");
           this_aux.router.navigate(["/detalleTransferenciaSpei"]);
         } else {
           $("#ModalErrorTransaccion").modal("show");
@@ -371,7 +384,7 @@ export class TransferenciaSpeiComponent implements OnInit {
 
         if (res === true) {
           $('#ModalTDDLogin').modal('hide');
-          setTimeout( () => $('#_modal_please_wait').modal('hide'), 500 );
+          $('#_modal_please_wait').modal('show');
           if (this_aux.nombreOperacion === "1") {
             this_aux.transferenciaSPEISoap(
               this_aux.clabe,
@@ -394,7 +407,7 @@ export class TransferenciaSpeiComponent implements OnInit {
           this._validaNipService.respuestaNip.res = "";
         } else {
           console.error("Mostrar modal las tarjetas no son iguales");
-          document.getElementById('mnsError').innerHTML =   "Las tarjetas no corresponden.";
+          document.getElementById('mnsError').innerHTML =   "Los datos no corresponden";
           $('#_modal_please_wait').modal('hide');
           $('#errorModal').modal('show');
           $('#ModalTDDLogin').modal('hide');
@@ -404,14 +417,46 @@ export class TransferenciaSpeiComponent implements OnInit {
     );
   }
 
+  transformAmount(impor) {
+    const this_aux = this;
+    let importeAux = "";
+    if (impor !== '') {
+      const control: FormControl = new FormControl('');
+      this_aux.myform.setControl(this_aux.rImporte.nativeElement.value, control);
+      importeAux = this_aux.replaceSimbolo(impor);
+      this_aux.rImporte.nativeElement.value = this_aux.currencyPipe.transform(importeAux, 'USD');
+      importeAux = this_aux.replaceSimbolo( this_aux.rImporte.nativeElement.value) ;
+    } else {
+      if (this_aux.myform.get('importeF').errors === null) {
+        const control: FormControl = new FormControl('', Validators.required);
+        this_aux.myform.setControl('importeF', control );
+      }
+  }
+  
+
+  this_aux.myform.controls['importeF'].valueChanges.subscribe(
+    data => {
+      console.log('importeF', data);
+      console.log('myform', this_aux.myform);
+    });
+    
+  }
+  replaceSimbolo(impor) {
+    const importeAux = impor.replace('$', '');
+    return importeAux;
+  }
+
   validarSaldo(clabeBenRec, nombreBeneRec, refRec, importeRec, descripcionRec, correoRec) {
     const this_aux = this;
-    
-    this._validaNipService.consultaTablaYValidaSaldo(this_aux.numeroCuentaTitular, importeRec).then(
+    let importeOpe = importeRec;
+    $('#_modal_please_wait').modal('show');
+    importeOpe = importeOpe.replace(',', "");
+    importeOpe = importeOpe.replace('$', "");
+    this._validaNipService.consultaTablaYValidaSaldo(importeOpe).then(
       function(response) {
         let DatosJSON = response.responseJSON;
         if (DatosJSON.Id === "1") {
-          this_aux.showDetallePago(clabeBenRec, nombreBeneRec, refRec, importeRec, descripcionRec, correoRec);
+          this_aux.showDetallePago(clabeBenRec, nombreBeneRec, refRec, importeOpe, descripcionRec, correoRec);
         } else if ( DatosJSON.Id === "4" ) {
           $('#modalLimiteDiario').modal('show');
         } else if ( DatosJSON.Id === "5" ) {
@@ -430,5 +475,12 @@ export class TransferenciaSpeiComponent implements OnInit {
         }, 500);
        
   });
+  }
+
+  tecladoMoverAbajo () {
+    $( ".cdk-visually-hidden" ).css( "margin-top", "5%" );
+  }
+  tecladoMoverArriba () {
+    $( ".cdk-visually-hidden" ).css( "margin-top", "-36%" );
   }
 }

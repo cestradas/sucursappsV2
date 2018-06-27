@@ -112,9 +112,8 @@ export class ValidaNipTransaccion {
                                 .map(res => res.json());
       }
 
-      consultaTablaYValidaSaldo(cuenta, importe) {
+      consultaTablaYValidaSaldo(importe) {
         const formParameters = {
-            cuenta: cuenta,
             importe: importe
         };
       const resourceRequest = new WLResourceRequest(

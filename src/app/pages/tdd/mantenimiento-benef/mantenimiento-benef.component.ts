@@ -1009,7 +1009,7 @@ export class MantenimientoBenefComponent implements OnInit {
             this._validaNipService.respuestaNip.res = "";
           } else {  
             console.error("Mostrar modal las tarjetas no son iguales");
-            document.getElementById('mnsError').innerHTML =   "Las tarjetas no corresponden.";
+            document.getElementById('mnsError').innerHTML =   "El NIP introducido no corresponde.";
             $('#_modal_please_wait').modal('hide');
             $('#errorModal').modal('show');
             $('#ModalTDDLogin').modal('hide');
@@ -1067,5 +1067,11 @@ export class MantenimientoBenefComponent implements OnInit {
     } else {
         this_aux.realizaAccion();
     }
+  }
+  tecladoMoverAbajo () {
+    $( ".cdk-visually-hidden" ).css( "margin-top", "19%" );
+  }
+  tecladoMoverArriba () {
+    $( ".cdk-visually-hidden" ).css( "margin-top", "-19%" );
   }
 }

@@ -47,17 +47,7 @@ export class CompraTiempoAireComponent implements OnInit {
 
                 this._service.cargarSaldosTDD();
 
-                $('#_modal_please_wait').modal('show');
-
-                this.forma = new FormGroup({
-
-                  'telefono': new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]),
-                  'email': new FormControl('', [Validators.required,
-                    Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
-                  'operador': new FormControl(),
-                  'importe': new FormControl()
-
-                });
+                $('#_modal_please_wait').modal('show');                
 
                 this._service.validarDatosSaldoTdd().then(
                   mensaje => {
@@ -70,6 +60,16 @@ export class CompraTiempoAireComponent implements OnInit {
                   }
                 );
                 setTimeout( () => $('#_modal_please_wait').modal('hide'), 500 );
+
+                this.forma = new FormGroup({
+
+                  'telefono': new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]),
+                  'email': new FormControl('', [Validators.required,
+                    Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
+                  'operador': new FormControl(),
+                  'importe': new FormControl()
+
+                });
                }
 
   ngOnInit() {
@@ -328,12 +328,41 @@ export class CompraTiempoAireComponent implements OnInit {
           $('#ModalTDDLogin').modal('hide');
           this._validaNipService.respuestaNip.res = "";
         }
-
-
-
       }
     );
 
+  }
+
+  confirmarModal () {
+    $("#confirmModal").modal("show");
+  }
+
+  validarSaldo() {
+    const this_aux = this;
+    let importeDecimal  = parseFloat(this_aux.importe.toString()).toFixed(2);
+    this._validaNipService.consultaTablaYValidaSaldo(importeDecimal).then(
+      function(response) {
+        let DatosJSON = response.responseJSON;
+        if (DatosJSON.Id === "1") {
+          this_aux.confirmarModal();
+        } else if ( DatosJSON.Id === "4" ) {
+          $('#modalLimiteDiario').modal('show');
+        } else if ( DatosJSON.Id === "5" ) {
+          $('#modalLimiteMensual').modal('show');
+        } else {
+          $('#errorModal').modal('show');
+        }
+        setTimeout(function() {
+          $('#_modal_please_wait').modal('hide');
+        }, 500);
+        
+      }, function(error) {
+        setTimeout(function() {
+          $('#_modal_please_wait').modal('hide');
+          $('#errorModal').modal('show');
+        }, 500);
+       
+  });
   }
 
   showErrorPromise(error) {

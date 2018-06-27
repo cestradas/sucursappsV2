@@ -306,6 +306,7 @@ cargarcampanias() {
      document.getElementById("frameCampania").style.height = "100%";
      document.getElementById("divLargo").style.maxWidth = ancho.toString() + "px";
      document.getElementById("divAltura").style.maxHeight = alto.toString() + "px";
+     document.getElementById("divAltura").style.height = alto.toString() + "px";
      $("#campaniaModal").modal("show");   
   }
 }

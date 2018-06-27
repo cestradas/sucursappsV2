@@ -231,7 +231,7 @@ operaciones.pagaServicio(this_aux.service.idFacturador, this_aux.importeAux, thi
 validarSaldo(myForm) {
     const this_aux = this;
 
-    this._validaNipService.consultaTablaYValidaSaldo(this.cuentaClienteTdd, this_aux.importe).then(
+    this._validaNipService.consultaTablaYValidaSaldo(this_aux.importe).then(
       function(response) {
         let DatosJSON = response.responseJSON;
         console.log(response.responseText);

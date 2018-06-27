@@ -3,27 +3,27 @@
     <fieldset class="padding-TittleToFieldset padding-fieldset-general">
         <div style="background-color: white; padding-left: 20px; padding-right: 20px; padding-top: 20px">
             <div style="padding-top: 20px;">
-                <label> El estado de cuenta {{aliasCuenta}} con terminación {{terminacionTarjeta}} está configurado para ser entregado en tu domicilio</label>
+                <label> El estado de cuenta con terminación {{terminacionTarjeta}} está configurado para ser entregado en tu domicilio</label>
             </div>
             <div style="padding-top: 20px;">
                 <strong><label>¿Deseas cancelar este servicio?</label></strong>
             </div>
             <div style=" padding-top: 20px">
                 <button id="buttonAceptar" type="button" style="background-color: white; border: none">
-                    <img id="imageAcept"src="./assets/img/cancelacionEDC.png" 
-                    alt="Aceptar Cancelacion EDC" (click)="checkBox(1)"/></button>
+                  <img id="imageAcept"src="./assets/img/cancelacionEDC.png" 
+                  alt="Aceptar Cancelacion EDC" (click)="checkBox(1)"/></button>
                 <label>Sí</label>
             </div>
             <div style=" padding-top: 20px; padding-bottom: 20px;">
                 <button id="buttonTerminos" type="button" (click)="checkBox(2)" style="background-color: white; border: none;">
-                    <img id="imageTerminos" src="./assets/img/cancelacionEDC.png" alt="Aceptar Cancelacion EDC" /></button>
+                  <img id="imageTerminos" src="./assets/img/cancelacionEDC.png" alt="Aceptar Cancelacion EDC" /></button>
                 <label>He leído y acepto los <strong><u (click)="mostrarTerminos()">Términos y condiciones</u></strong></label>
             </div>
         </div>
         <div style="margin:30px 20px 0px 0px; margin-top: 10px" class="row actions-form-group text-right">
             <div class="col-sm-9"></div>
             <div class="col-sm-2">
-                <button class="btn btn-lg" routerLink="/impresion_EDC" style="margin-right: -34px; ">Regresar</button>
+                <button class="btn btn-lg" routerLink="/impresion-edc" style="margin-right: -34px; ">Regresar</button>
             </div>
             <!-- <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
             <div class="col-sm-1">
@@ -44,7 +44,7 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="color-botones btn btn-lg pull-right" routerLink="/menuBXI">Terminar</button>
+                <button type="button" class="color-botones btn btn-lg pull-right" routerLink="/menuTdd">Terminar</button>
             </div>
 
         </div>

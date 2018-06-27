@@ -127,7 +127,7 @@
                 <button class="btn btn-lg pull-right" [routerLink]="['/menuTdd']">Regresar</button>
             </div>
             <div class="col-sm-1">
-                <button id="continuar" [disabled]="!forma.valid" class="btn color-botones btn-lg pull-left" type="submit" data-toggle="modal" data-target="#confirmModal">Continuar</button>
+                <button id="continuar" [disabled]="!forma.valid" class="btn color-botones btn-lg pull-left" type="submit" data-toggle="modal" (click)="validarSaldo()">Continuar</button>
             </div>
         </div>
 
@@ -178,7 +178,7 @@
             </div>
             <div class="modal-footer ">
                 <button type="button" class="btn btn-lg letranegrita" data-dismiss="modal">Cancelar</button>
-                <button type="button" onclick="handlerCallPinpad()" (click)="trnasrecargaTA()" class="btn btn-danger btn-lg letranegrita" style="margin:0px 20px 0px 0px;">Confirmar</button>
+                <button type="button" onclick="handlerCallPinpad()" (click)="trnasrecargaTA()" class="btn btn-danger btn-lg letranegrita" style="margin:0px 20px 0px 0px;" data-dismiss="modal">Confirmar</button>
             </div>
         </div>
 </div>

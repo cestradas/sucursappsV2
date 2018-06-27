@@ -99,17 +99,18 @@ export class ImpresionEdcTddComponent implements OnInit {
 
         console.log('Saldos cargados correctamente TDD');
         this_aux.saldoDisponibleClienteTdd = mensaje.SaldoDisponible;
-        // this.numeroCuentaTitular = mensaje.NumeroCuenta;
-        this_aux.numeroCuentaTitular = '0100000034';
-        this_aux.mantenimientoEDC();
+        this_aux.numeroCuentaTitular = mensaje.NumeroCuenta;
+        serviceTdd.numeroCuentaTdd = this_aux.numeroCuentaTitular; 
+        
       }
     ); 
     setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
+    setTimeout(() => this_aux.consultaCancelacionEDCDomicilio('1'), 500);
   }
 
   ngOnInit() {
 
-    //ESTILOS Preferente
+    // ESTILOS Preferente
     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
 
     let btnSalir = document.getElementById("salir");
@@ -137,7 +138,8 @@ export class ImpresionEdcTddComponent implements OnInit {
     $('#_modal_please_wait').modal('show');
     console.log("adentro de mantenimiento EDC");
     const formParameters = {
-      ctaO: this_aux.numeroCuentaTitular
+      // ctaO: this_aux.numeroCuentaTitular
+      ctaO: '0100000034'
     };
 
     const resourceRequest = new WLResourceRequest(
@@ -147,20 +149,18 @@ export class ImpresionEdcTddComponent implements OnInit {
     resourceRequest.setTimeout(30000);
     resourceRequest.sendFormParameters(formParameters).then(
       function(response) {
-        console.log(response.responseText);
-        const detalleMant = response.responseJSON;
-
+        setTimeout(function() {
+          console.log(response.responseText);
+          const detalleMant = response.responseJSON;
         this_aux.obtenerListaDocs();
-        $('#_modal_please_wait').modal('hide');
+          $('#_modal_please_wait').modal('hide');
+       }, 3000);
       },
-      function(error) {        
-        console.log("Error en el mantenimiento EDC");
+        function(error) {
+          console.error("Error");
         $('#_modal_please_wait').modal('hide');
-        $("#errorModal").modal("show");
-      }
-    );
-    console.log("Salió de Response mantenimiento EDC");   
-
+          $('#errorModal').modal('show');
+        });
   }
 
   obtenerListaDocs() {
@@ -168,7 +168,8 @@ export class ImpresionEdcTddComponent implements OnInit {
     $('#_modal_please_wait').modal('show');
     console.log("adentro de obtener Lista Docs");
     const formParameters = {
-      numeroCuenta: this_aux.numeroCuentaTitular
+//      documeto: this_aux.numeroCuentaTitular
+        documeto: '201536140'
     };
 
     const resourceRequest = new WLResourceRequest(
@@ -178,423 +179,429 @@ export class ImpresionEdcTddComponent implements OnInit {
     resourceRequest.setTimeout(30000);
     resourceRequest.sendFormParameters(formParameters).then(
       function(response) {
+
+        // console.log(response.responseText);
         let res = response.responseJSON;
 
-        console.log(res);
+          setTimeout(function() {
 
-        this_aux.obj = JSON.parse(this_aux.fechas);
+          console.log(res);
 
-        for (let i = 0 ; i < res.length; i++) {
-           
-          
-          let temp = res[i].Fecha.split("-");
-          let tempCtaDoc = res[i].Documento;
-          let fechaDoc = res[i].FechaObtenerDoc;
+          this_aux.obj = JSON.parse(this_aux.fechas);
 
-          for (let k = 0; k < temp.length; k++) {
-  
-            if ( k === 0 || k === 1 || k === 2 ) {
+          for (let i = 0 ; i < res.length; i++) {
 
-              let strA = temp[k];
-              
-              let strM = temp[k + 1];
-              if ( strM === "01") {strM = "Enero"; }
-              if ( strM === "02") {strM = "Febrero"; }
-              if ( strM === "03") {strM = "Marzo"; }
-              if ( strM === "04") {strM = "Abril"; }
-              if ( strM === "05") {strM = "Mayo"; }
-              if ( strM === "06") {strM = "Junio"; }
-              if ( strM === "07") {strM = "Julio"; }
-              if ( strM === "08") {strM = "Agosto"; }
-              if ( strM === "09") {strM = "Septiembre"; }
-              if ( strM === "10") {strM = "Octubre"; }
-              if ( strM === "11") {strM = "Noviembre"; }
-              if ( strM === "12") {strM = "Diciembre"; }
-              
-              let strD = temp[k + 2];
-              
 
-              this_aux.obj['fechas'].push({
-                "Anio" : strA,
-                "Mes" : strM,
-                "Dia" : strD,
-                "Documento" :  tempCtaDoc,
-                "FechaDoc": fechaDoc
-              });
-              break;
+            let temp = res[i].Fecha.split("-");
+            // Asigna numero de documento y fecha para escribir e imprimir el documento
+            let tempCtaDoc = res[i].Documento;
+            let fechaDoc = res[i].FechaObtenerDoc;
+            let fechaDocPDF = res[i].Fecha;
+
+            for (let k = 0; k < temp.length; k++) {
+
+              if ( k === 0 || k === 1 || k === 2 ) {
+
+                let strA = temp[k];
+
+                let strM = temp[k + 1];
+                if ( strM === "01") {strM = "Enero"; }
+                if ( strM === "02") {strM = "Febrero"; }
+                if ( strM === "03") {strM = "Marzo"; }
+                if ( strM === "04") {strM = "Abril"; }
+                if ( strM === "05") {strM = "Mayo"; }
+                if ( strM === "06") {strM = "Junio"; }
+                if ( strM === "07") {strM = "Julio"; }
+                if ( strM === "08") {strM = "Agosto"; }
+                if ( strM === "09") {strM = "Septiembre"; }
+                if ( strM === "10") {strM = "Octubre"; }
+                if ( strM === "11") {strM = "Noviembre"; }
+                if ( strM === "12") {strM = "Diciembre"; }
+
+                let strD = temp[k + 2];
+
+
+                this_aux.obj['fechas'].push({
+                  "Anio" : strA,
+                  "Mes" : strM,
+                  "Dia" : strD,
+                  "Documento" :  tempCtaDoc,
+                  "FechaDoc": fechaDoc,
+                  "fechaDocPDF": fechaDocPDF
+                });
+
+                break;
+              }
+
+
             }
-          }  
-       }
-          // remover todos hijos del contenedor de los calendarios antes de insertar
-       $("#calendario").empty();
-       $("#calendario2").empty();
-       
-
-       let cont = 0;
-       let contFechas = this_aux.obj.fechas.length - 1;
-       let creaElement = document.createElement('div');
-       let objCalendario1 = document.getElementById('calendario');
-       let objCalendario2 = document.getElementById('calendario2');
-       // let domString = '<div class="container"><span class="intro">Hello</span> <span id="name"> World!</span></div>';
-       
-       // validar que existan **********
-       // if (existe) {
-       // let getItenCal = document.getElementById('Itemcalendario0');
-       // objCalendario1.removeChild(getItenCal);
-       // }
-      
-
-       for (let i = res.length; i--;) {
-
-        // if ( (res.length <= 12) && (res.length >= 7)) {
-         
-          if ( cont <= 5) {
 
 
-            // $("#calendario").append(
-            //  this.calendario.nativeElement.insertAdjacentHTML(
-            //    this.renderer.invokeElementMethod(this.calendario.nativeElement.insertAdjacentHTML('beforeend', 
-            // this.htmlToAdd =
-            // this.calendario.insert(
-              let domContent = '<div value ="' + this_aux.obj['fechas'][contFechas].Documento + '"' + 'id="' + 'Itemcalendario' + 
-              cont + '"' + ' class="kiosk-cec-carousel-item estilo-item-calendar" >' +
-              '<div value ="' + this_aux.obj['fechas'][contFechas].FechaDoc + '"' + 'id="' + 'ItemcalendarioDoc' + 
-              cont + '"' + ' class="row no-space">' +
-                  '<div class="col-xs-6">' +
-                      '<div class="bg-grey-600 white vertical-align height-200 fondo-calendar" >' +
-                          '<div class="vertical-align-middle">' +
-                              '<span class="icon-calendar size-icon-calendar" align="center" >' + 
-                              this_aux.obj['fechas'][contFechas].Dia + '</span>' +
-                          '</div>' +
-                      '</div>' +
-                  '</div>' +
-                  '<div class="col-xs-6">' +
-                      '<div class="height-200 item-red-middle">' +
-                          '<span class="font-size-30 size-fecha-calendar" >' + this_aux.obj['fechas'][contFechas].Mes + ' ' 
-                          + this_aux.obj['fechas'][contFechas].Anio + '</span>' +
-                      '</div>' +
-                  '</div>' +
-              '</div>' +
-
-          '</div>' ;
-
-          creaElement.innerHTML = domContent;
-      //    objCalendario1.addEventListener("click", function(event) {
-      //      console.log(event.target);
-      //      console.log(this.id);
-      //    });
-          objCalendario1.appendChild(creaElement.firstChild); 
-         //  document.body.appendChild(creaElement.firstChild); 
-         // objTo.appendChild(this_aux.calendario.nativeElement);
-
-            contFechas --;
-          
-            
-        }
-
-        cont ++;
-
-        if (cont === 6) {
-          break;
-        }
-       }
-       // Validar seleecion de cada calendario (primer elemnto carousel)
-       let elementoCal0 = document.getElementById('Itemcalendario0');
-       let elementoCal1 = document.getElementById('Itemcalendario1');
-       let elementoCal2 = document.getElementById('Itemcalendario2');
-       let elementoCal3 = document.getElementById('Itemcalendario3');
-       let elementoCal4 = document.getElementById('Itemcalendario4');
-       let elementoCal5 = document.getElementById('Itemcalendario5');
-
-      elementoCal0.addEventListener("click", function(event) {
-        console.log(this.id);
-        if ( ((this_aux.Valida_Seleccion_Calendario0 === 0) || (this_aux.Valida_Seleccion_Calendario0 === 1)) 
-            && (this_aux.Valida_Seleccion_Calendario1 === 0)
-            && (this_aux.Valida_Seleccion_Calendario2 === 0)
-            && (this_aux.Valida_Seleccion_Calendario3 === 0)
-            && (this_aux.Valida_Seleccion_Calendario4 === 0)
-            && (this_aux.Valida_Seleccion_Calendario5 === 0)
-            && (this_aux.Valida_Seleccion_Calendario6 === 0)
-            && (this_aux.Valida_Seleccion_Calendario7 === 0)
-            && (this_aux.Valida_Seleccion_Calendario8 === 0)
-            && (this_aux.Valida_Seleccion_Calendario9 === 0)
-            && (this_aux.Valida_Seleccion_Calendario10 === 0)
-            && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-
-              this_aux.clickCal0(); 
-            }
-        
-      });
-      elementoCal1.addEventListener("click", function(event) {
-        console.log(this.id);
-        if ( ((this_aux.Valida_Seleccion_Calendario1 === 0) || (this_aux.Valida_Seleccion_Calendario1 === 1)) 
-            && (this_aux.Valida_Seleccion_Calendario0 === 0)
-            && (this_aux.Valida_Seleccion_Calendario2 === 0)
-            && (this_aux.Valida_Seleccion_Calendario3 === 0)
-            && (this_aux.Valida_Seleccion_Calendario4 === 0)
-            && (this_aux.Valida_Seleccion_Calendario5 === 0)
-            && (this_aux.Valida_Seleccion_Calendario6 === 0)
-            && (this_aux.Valida_Seleccion_Calendario7 === 0)
-            && (this_aux.Valida_Seleccion_Calendario8 === 0)
-            && (this_aux.Valida_Seleccion_Calendario9 === 0)
-            && (this_aux.Valida_Seleccion_Calendario10 === 0)
-            && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-              this_aux.clickCal1(); 
-            }
-      });
-      elementoCal2.addEventListener("click", function(event) {
-        console.log(this.id);
-        if ( ((this_aux.Valida_Seleccion_Calendario2 === 0) || (this_aux.Valida_Seleccion_Calendario2 === 1)) 
-            && (this_aux.Valida_Seleccion_Calendario0 === 0)
-            && (this_aux.Valida_Seleccion_Calendario1 === 0)
-            && (this_aux.Valida_Seleccion_Calendario3 === 0)
-            && (this_aux.Valida_Seleccion_Calendario4 === 0)
-            && (this_aux.Valida_Seleccion_Calendario5 === 0)
-            && (this_aux.Valida_Seleccion_Calendario6 === 0)
-            && (this_aux.Valida_Seleccion_Calendario7 === 0)
-            && (this_aux.Valida_Seleccion_Calendario8 === 0)
-            && (this_aux.Valida_Seleccion_Calendario9 === 0)
-            && (this_aux.Valida_Seleccion_Calendario10 === 0)
-            && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-                this_aux.clickCal2(); 
-            }
-      });
-      elementoCal3.addEventListener("click", function(event) {
-        console.log(this.id);
-        if ( ((this_aux.Valida_Seleccion_Calendario3 === 0) || (this_aux.Valida_Seleccion_Calendario3 === 1)) 
-        && (this_aux.Valida_Seleccion_Calendario0 === 0)
-        && (this_aux.Valida_Seleccion_Calendario1 === 0)
-        && (this_aux.Valida_Seleccion_Calendario2 === 0)
-        && (this_aux.Valida_Seleccion_Calendario4 === 0)
-        && (this_aux.Valida_Seleccion_Calendario5 === 0)
-        && (this_aux.Valida_Seleccion_Calendario6 === 0)
-        && (this_aux.Valida_Seleccion_Calendario7 === 0)
-        && (this_aux.Valida_Seleccion_Calendario8 === 0)
-        && (this_aux.Valida_Seleccion_Calendario9 === 0)
-        && (this_aux.Valida_Seleccion_Calendario10 === 0)
-        && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-          this_aux.clickCal3(); 
-        }
-      });
-      elementoCal4.addEventListener("click", function(event) {
-        console.log(this.id);
-        if ( ((this_aux.Valida_Seleccion_Calendario4 === 0) || (this_aux.Valida_Seleccion_Calendario4 === 1)) 
-        && (this_aux.Valida_Seleccion_Calendario0 === 0)
-        && (this_aux.Valida_Seleccion_Calendario1 === 0)
-        && (this_aux.Valida_Seleccion_Calendario2 === 0)
-        && (this_aux.Valida_Seleccion_Calendario3 === 0)
-        && (this_aux.Valida_Seleccion_Calendario5 === 0)
-        && (this_aux.Valida_Seleccion_Calendario6 === 0)
-        && (this_aux.Valida_Seleccion_Calendario7 === 0)
-        && (this_aux.Valida_Seleccion_Calendario8 === 0)
-        && (this_aux.Valida_Seleccion_Calendario9 === 0)
-        && (this_aux.Valida_Seleccion_Calendario10 === 0)
-        && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-          this_aux.clickCal4(); 
-        }
-      });
-      elementoCal5.addEventListener("click", function(event) {
-        console.log(this.id);
-        if ( ((this_aux.Valida_Seleccion_Calendario5 === 0) || (this_aux.Valida_Seleccion_Calendario5 === 1)) 
-        && (this_aux.Valida_Seleccion_Calendario0 === 0)
-        && (this_aux.Valida_Seleccion_Calendario1 === 0)
-        && (this_aux.Valida_Seleccion_Calendario2 === 0)
-        && (this_aux.Valida_Seleccion_Calendario3 === 0)
-        && (this_aux.Valida_Seleccion_Calendario4 === 0)
-        && (this_aux.Valida_Seleccion_Calendario6 === 0)
-        && (this_aux.Valida_Seleccion_Calendario7 === 0)
-        && (this_aux.Valida_Seleccion_Calendario8 === 0)
-        && (this_aux.Valida_Seleccion_Calendario9 === 0)
-        && (this_aux.Valida_Seleccion_Calendario10 === 0)
-        && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-          this_aux.clickCal5(); 
-        }
-      });
-
-       for (let i = res.length; i--;) {
-
-        // if ( (res.length <= 12) && (res.length >= 7)) {
-         
-          if ( cont >= 6) {
+         }
+         // remover todos hijos del contenedor de los calendarios antes de insertar
+         $("#calendario").empty();
+         $("#calendario2").empty();
 
 
-            // $("#calendario").append(
-            //  this.calendario.nativeElement.insertAdjacentHTML(
-            //    this.renderer.invokeElementMethod(this.calendario.nativeElement.insertAdjacentHTML('beforeend', 
-            // this.htmlToAdd =
-            // this.calendario.insert(
-              let domContent2 = '<div value ="' + this_aux.obj['fechas'][contFechas].Documento + '"' + 'id="' +
-              'Itemcalendario' + cont + '"' + ' class="kiosk-cec-carousel-item estilo-item-calendar" >' +
-              '<div value ="'  + this_aux.obj['fechas'][contFechas].FechaDoc + '"' + 'id="' + 'ItemcalendarioDoc' + cont + '"' + 
-              ' class="row no-space">' +
-                  '<div class="col-xs-6">' +
-                      '<div class="bg-grey-600 white vertical-align height-200 fondo-calendar" >' +
-                          '<div class="vertical-align-middle">' +
-                              '<span class="icon-calendar size-icon-calendar" align="center" >' + 
-                              this_aux.obj['fechas'][contFechas].Dia + '</span>' +
-                          '</div>' +
-                      '</div>' +
-                  '</div>' +
-                  '<div class="col-xs-6">' +
-                      '<div class="height-200 item-red-middle">' +
-                          '<span class="font-size-30 size-fecha-calendar" >' + this_aux.obj['fechas'][contFechas].Mes  + ' ' +  
-                          this_aux.obj['fechas'][contFechas].Anio + '</span>' +
-                      '</div>' +
-                  '</div>' +
-              '</div>' +
+         let cont = 0;
+         let contFechas = this_aux.obj.fechas.length - 1;
+         let creaElement = document.createElement('div');
+         let objCalendario1 = document.getElementById('calendario');
+         let objCalendario2 = document.getElementById('calendario2');
+         // let domString = '<div class="container"><span class="intro">Hello</span> <span id="name"> World!</span></div>';
 
-          '</div>' ;
+         // validar que existan **********
+         //if (existe) {
+         // let getItenCal = document.getElementById('Itemcalendario0');
+         // objCalendario1.removeChild(getItenCal);
+         //}
 
-          creaElement.innerHTML = domContent2;
-          objCalendario2.appendChild(creaElement.firstChild); 
-         //  document.body.appendChild(creaElement.firstChild); 
-         // objTo.appendChild(this_aux.calendario.nativeElement);
 
-            contFechas --;
-          
-            
-        }
+         for (let i = res.length; i--;) {
 
-        cont ++;
+          // if ( (res.length <= 12) && (res.length >= 7)) {
 
-        if (cont === 12) {
-          break;
-        }
-       }
+            if ( cont <= 5) {
 
-       // Validar seleecion de cada calendario (segundo elemnto carousel)
-       let elementoCal6 = document.getElementById('Itemcalendario6');
-       let elementoCal7 = document.getElementById('Itemcalendario7');
-       let elementoCal8 = document.getElementById('Itemcalendario8');
-       let elementoCal9 = document.getElementById('Itemcalendario9');
-       let elementoCal10 = document.getElementById('Itemcalendario10');
-       let elementoCal11 = document.getElementById('Itemcalendario11');
 
-      elementoCal6.addEventListener("click", function(event) {
-        console.log(this.id);
-        if ( ((this_aux.Valida_Seleccion_Calendario6 === 0) || (this_aux.Valida_Seleccion_Calendario6 === 1)) 
-            && (this_aux.Valida_Seleccion_Calendario0 === 0)    
-            && (this_aux.Valida_Seleccion_Calendario1 === 0)
-            && (this_aux.Valida_Seleccion_Calendario2 === 0)
-            && (this_aux.Valida_Seleccion_Calendario3 === 0)
-            && (this_aux.Valida_Seleccion_Calendario4 === 0)
-            && (this_aux.Valida_Seleccion_Calendario5 === 0)
-            && (this_aux.Valida_Seleccion_Calendario7 === 0)
-            && (this_aux.Valida_Seleccion_Calendario8 === 0)
-            && (this_aux.Valida_Seleccion_Calendario9 === 0)
-            && (this_aux.Valida_Seleccion_Calendario10 === 0)
-            && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+              // $("#calendario").append(
+              //  this.calendario.nativeElement.insertAdjacentHTML(
+              //    this.renderer.invokeElementMethod(this.calendario.nativeElement.insertAdjacentHTML('beforeend',
+              // this.htmlToAdd =
+              // this.calendario.insert(
+                //inserta los datos del documento dentro del value para mandarlos al servicio
+                let domContent = '<div value ="'+this_aux.obj['fechas'][contFechas].Documento + '"' + 'id="'+'Itemcalendario' + cont + '"' + ' class="kiosk-cec-carousel-item estilo-item-calendar" >' +
+                '<div value ="'+this_aux.obj['fechas'][contFechas].FechaDoc + '"' + 'id="'+'ItemcalendarioDoc' + cont + '"' + ' class="row no-space">' +
+                    '<div class="col-xs-6">' +
+                        '<div class="bg-grey-600 white vertical-align height-200 fondo-calendar" >' +
+                            '<div class="vertical-align-middle">' +
+                                '<span class="icon-calendar size-icon-calendar" align="center" >' + this_aux.obj['fechas'][contFechas].Dia + '</span>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="col-xs-6">' +
+                        '<div class="height-200 item-red-middle">' +
+                            '<span class="font-size-30 size-fecha-calendar" >' + this_aux.obj['fechas'][contFechas].Mes + ' ' + this_aux.obj['fechas'][contFechas].Anio + '</span>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
 
-              this_aux.clickCal6(); 
-            }
-        
-      });
+            '</div>' ;
 
-      elementoCal7.addEventListener("click", function(event) {
-        console.log(this.id);
-        if ( ((this_aux.Valida_Seleccion_Calendario7 === 0) || (this_aux.Valida_Seleccion_Calendario7 === 1)) 
-            && (this_aux.Valida_Seleccion_Calendario0 === 0)    
-            && (this_aux.Valida_Seleccion_Calendario1 === 0)
-            && (this_aux.Valida_Seleccion_Calendario2 === 0)
-            && (this_aux.Valida_Seleccion_Calendario3 === 0)
-            && (this_aux.Valida_Seleccion_Calendario4 === 0)
-            && (this_aux.Valida_Seleccion_Calendario5 === 0)
-            && (this_aux.Valida_Seleccion_Calendario6 === 0)
-            && (this_aux.Valida_Seleccion_Calendario8 === 0)
-            && (this_aux.Valida_Seleccion_Calendario9 === 0)
-            && (this_aux.Valida_Seleccion_Calendario10 === 0)
-            && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+            creaElement.innerHTML = domContent;
+        //    objCalendario1.addEventListener("click", function(event) {
+        //      console.log(event.target);
+        //      console.log(this.id);
+        //    });
+            objCalendario1.appendChild(creaElement.firstChild);
+           //  document.body.appendChild(creaElement.firstChild);
+           // objTo.appendChild(this_aux.calendario.nativeElement);
 
-              this_aux.clickCal7(); 
-            }
-        
-      });
+              contFechas --;
 
-      elementoCal8.addEventListener("click", function(event) {
-        console.log(this.id);
-        if ( ((this_aux.Valida_Seleccion_Calendario8 === 0) || (this_aux.Valida_Seleccion_Calendario8 === 1)) 
-            && (this_aux.Valida_Seleccion_Calendario0 === 0)    
-            && (this_aux.Valida_Seleccion_Calendario1 === 0)
-            && (this_aux.Valida_Seleccion_Calendario2 === 0)
-            && (this_aux.Valida_Seleccion_Calendario3 === 0)
-            && (this_aux.Valida_Seleccion_Calendario4 === 0)
-            && (this_aux.Valida_Seleccion_Calendario5 === 0)
-            && (this_aux.Valida_Seleccion_Calendario6 === 0)
-            && (this_aux.Valida_Seleccion_Calendario7 === 0)
-            && (this_aux.Valida_Seleccion_Calendario9 === 0)
-            && (this_aux.Valida_Seleccion_Calendario10 === 0)
-            && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
 
-              this_aux.clickCal8(); 
-            }
-        
-      });
+          }
 
-      elementoCal9.addEventListener("click", function(event) {
-        console.log(this.id);
-        if ( ((this_aux.Valida_Seleccion_Calendario9 === 0) || (this_aux.Valida_Seleccion_Calendario9 === 1)) 
-            && (this_aux.Valida_Seleccion_Calendario0 === 0)    
-            && (this_aux.Valida_Seleccion_Calendario1 === 0)
-            && (this_aux.Valida_Seleccion_Calendario2 === 0)
-            && (this_aux.Valida_Seleccion_Calendario3 === 0)
-            && (this_aux.Valida_Seleccion_Calendario4 === 0)
-            && (this_aux.Valida_Seleccion_Calendario5 === 0)
-            && (this_aux.Valida_Seleccion_Calendario6 === 0)
-            && (this_aux.Valida_Seleccion_Calendario7 === 0)
-            && (this_aux.Valida_Seleccion_Calendario8 === 0)
-            && (this_aux.Valida_Seleccion_Calendario10 === 0)
-            && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+          cont ++;
 
-              this_aux.clickCal9(); 
-            }
-        
-      });
+          if (cont === 6) {
+            break;
+          }
+         }
+         // Validar seleecion de cada calendario (primer elemnto carousel)
+         let elementoCal0 = document.getElementById('Itemcalendario0');
+         let elementoCal1 = document.getElementById('Itemcalendario1');
+         let elementoCal2 = document.getElementById('Itemcalendario2');
+         let elementoCal3 = document.getElementById('Itemcalendario3');
+         let elementoCal4 = document.getElementById('Itemcalendario4');
+         let elementoCal5 = document.getElementById('Itemcalendario5');
 
-      elementoCal10.addEventListener("click", function(event) {
-        console.log(this.id);
-        if ( ((this_aux.Valida_Seleccion_Calendario10 === 0) || (this_aux.Valida_Seleccion_Calendario10 === 1)) 
-            && (this_aux.Valida_Seleccion_Calendario0 === 0)    
-            && (this_aux.Valida_Seleccion_Calendario1 === 0)
-            && (this_aux.Valida_Seleccion_Calendario2 === 0)
-            && (this_aux.Valida_Seleccion_Calendario3 === 0)
-            && (this_aux.Valida_Seleccion_Calendario4 === 0)
-            && (this_aux.Valida_Seleccion_Calendario5 === 0)
-            && (this_aux.Valida_Seleccion_Calendario6 === 0)
-            && (this_aux.Valida_Seleccion_Calendario7 === 0)
-            && (this_aux.Valida_Seleccion_Calendario8 === 0)
-            && (this_aux.Valida_Seleccion_Calendario9 === 0)
-            && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+        elementoCal0.addEventListener("click", function(event) {
+          console.log(this.id);
+          if( ((this_aux.Valida_Seleccion_Calendario0 === 0) || (this_aux.Valida_Seleccion_Calendario0 === 1))
+              && (this_aux.Valida_Seleccion_Calendario1 === 0)
+              && (this_aux.Valida_Seleccion_Calendario2 === 0)
+              && (this_aux.Valida_Seleccion_Calendario3 === 0)
+              && (this_aux.Valida_Seleccion_Calendario4 === 0)
+              && (this_aux.Valida_Seleccion_Calendario5 === 0)
+              && (this_aux.Valida_Seleccion_Calendario6 === 0)
+              && (this_aux.Valida_Seleccion_Calendario7 === 0)
+              && (this_aux.Valida_Seleccion_Calendario8 === 0)
+              && (this_aux.Valida_Seleccion_Calendario9 === 0)
+              && (this_aux.Valida_Seleccion_Calendario10 === 0)
+              && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
 
-              this_aux.clickCal10(); 
-            }
-        
-      });
+                this_aux.clickCal0();
+              }
 
-      elementoCal11.addEventListener("click", function(event) {
-        console.log(this.id);
-        if ( ((this_aux.Valida_Seleccion_Calendario11 === 0) || (this_aux.Valida_Seleccion_Calendario11 === 1)) 
-            && (this_aux.Valida_Seleccion_Calendario0 === 0)    
-            && (this_aux.Valida_Seleccion_Calendario1 === 0)
-            && (this_aux.Valida_Seleccion_Calendario2 === 0)
-            && (this_aux.Valida_Seleccion_Calendario3 === 0)
-            && (this_aux.Valida_Seleccion_Calendario4 === 0)
-            && (this_aux.Valida_Seleccion_Calendario5 === 0)
-            && (this_aux.Valida_Seleccion_Calendario6 === 0)
-            && (this_aux.Valida_Seleccion_Calendario7 === 0)
-            && (this_aux.Valida_Seleccion_Calendario8 === 0)
-            && (this_aux.Valida_Seleccion_Calendario9 === 0)
-            && (this_aux.Valida_Seleccion_Calendario10 === 0)) {
+        });
+        elementoCal1.addEventListener("click", function(event) {
+          console.log(this.id);
+          if( ((this_aux.Valida_Seleccion_Calendario1 === 0) || (this_aux.Valida_Seleccion_Calendario1 === 1))
+              && (this_aux.Valida_Seleccion_Calendario0 === 0)
+              && (this_aux.Valida_Seleccion_Calendario2 === 0)
+              && (this_aux.Valida_Seleccion_Calendario3 === 0)
+              && (this_aux.Valida_Seleccion_Calendario4 === 0)
+              && (this_aux.Valida_Seleccion_Calendario5 === 0)
+              && (this_aux.Valida_Seleccion_Calendario6 === 0)
+              && (this_aux.Valida_Seleccion_Calendario7 === 0)
+              && (this_aux.Valida_Seleccion_Calendario8 === 0)
+              && (this_aux.Valida_Seleccion_Calendario9 === 0)
+              && (this_aux.Valida_Seleccion_Calendario10 === 0)
+              && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+                this_aux.clickCal1();
+              }
+        });
+        elementoCal2.addEventListener("click", function(event) {
+          console.log(this.id);
+          if( ((this_aux.Valida_Seleccion_Calendario2 === 0) || (this_aux.Valida_Seleccion_Calendario2 === 1))
+              && (this_aux.Valida_Seleccion_Calendario0 === 0)
+              && (this_aux.Valida_Seleccion_Calendario1 === 0)
+              && (this_aux.Valida_Seleccion_Calendario3 === 0)
+              && (this_aux.Valida_Seleccion_Calendario4 === 0)
+              && (this_aux.Valida_Seleccion_Calendario5 === 0)
+              && (this_aux.Valida_Seleccion_Calendario6 === 0)
+              && (this_aux.Valida_Seleccion_Calendario7 === 0)
+              && (this_aux.Valida_Seleccion_Calendario8 === 0)
+              && (this_aux.Valida_Seleccion_Calendario9 === 0)
+              && (this_aux.Valida_Seleccion_Calendario10 === 0)
+              && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+                  this_aux.clickCal2();
+              }
+        });
+        elementoCal3.addEventListener("click", function(event) {
+          console.log(this.id);
+          if( ((this_aux.Valida_Seleccion_Calendario3 === 0) || (this_aux.Valida_Seleccion_Calendario3 === 1))
+          && (this_aux.Valida_Seleccion_Calendario0 === 0)
+          && (this_aux.Valida_Seleccion_Calendario1 === 0)
+          && (this_aux.Valida_Seleccion_Calendario2 === 0)
+          && (this_aux.Valida_Seleccion_Calendario4 === 0)
+          && (this_aux.Valida_Seleccion_Calendario5 === 0)
+          && (this_aux.Valida_Seleccion_Calendario6 === 0)
+          && (this_aux.Valida_Seleccion_Calendario7 === 0)
+          && (this_aux.Valida_Seleccion_Calendario8 === 0)
+          && (this_aux.Valida_Seleccion_Calendario9 === 0)
+          && (this_aux.Valida_Seleccion_Calendario10 === 0)
+          && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+            this_aux.clickCal3();
+          }
+        });
+        elementoCal4.addEventListener("click", function(event) {
+          console.log(this.id);
+          if( ((this_aux.Valida_Seleccion_Calendario4 === 0) || (this_aux.Valida_Seleccion_Calendario4 === 1))
+          && (this_aux.Valida_Seleccion_Calendario0 === 0)
+          && (this_aux.Valida_Seleccion_Calendario1 === 0)
+          && (this_aux.Valida_Seleccion_Calendario2 === 0)
+          && (this_aux.Valida_Seleccion_Calendario3 === 0)
+          && (this_aux.Valida_Seleccion_Calendario5 === 0)
+          && (this_aux.Valida_Seleccion_Calendario6 === 0)
+          && (this_aux.Valida_Seleccion_Calendario7 === 0)
+          && (this_aux.Valida_Seleccion_Calendario8 === 0)
+          && (this_aux.Valida_Seleccion_Calendario9 === 0)
+          && (this_aux.Valida_Seleccion_Calendario10 === 0)
+          && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+            this_aux.clickCal4();
+          }
+        });
+        elementoCal5.addEventListener("click", function(event) {
+          console.log(this.id);
+          if( ((this_aux.Valida_Seleccion_Calendario5 === 0) || (this_aux.Valida_Seleccion_Calendario5 === 1))
+          && (this_aux.Valida_Seleccion_Calendario0 === 0)
+          && (this_aux.Valida_Seleccion_Calendario1 === 0)
+          && (this_aux.Valida_Seleccion_Calendario2 === 0)
+          && (this_aux.Valida_Seleccion_Calendario3 === 0)
+          && (this_aux.Valida_Seleccion_Calendario4 === 0)
+          && (this_aux.Valida_Seleccion_Calendario6 === 0)
+          && (this_aux.Valida_Seleccion_Calendario7 === 0)
+          && (this_aux.Valida_Seleccion_Calendario8 === 0)
+          && (this_aux.Valida_Seleccion_Calendario9 === 0)
+          && (this_aux.Valida_Seleccion_Calendario10 === 0)
+          && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+            this_aux.clickCal5();
+          }
+        });
 
-              this_aux.clickCal11(); 
-            }
-        
-      });
-       
+         for (let i = res.length; i--;) {
+
+          // if ( (res.length <= 12) && (res.length >= 7)) {
+
+            if ( cont >= 6) {
+
+
+              // $("#calendario").append(
+              //  this.calendario.nativeElement.insertAdjacentHTML(
+              //    this.renderer.invokeElementMethod(this.calendario.nativeElement.insertAdjacentHTML('beforeend',
+              // this.htmlToAdd =
+              // this.calendario.insert(
+                let domContent2 = '<div value ="'+this_aux.obj['fechas'][contFechas].Documento + '"' + 'id="'+'Itemcalendario' + cont + '"' + ' class="kiosk-cec-carousel-item estilo-item-calendar" >' +
+                '<div value ="'+this_aux.obj['fechas'][contFechas].FechaDoc + '"' + 'id="'+'ItemcalendarioDoc' + cont + '"' + ' class="row no-space">' +
+                    '<div class="col-xs-6">' +
+                        '<div class="bg-grey-600 white vertical-align height-200 fondo-calendar" >' +
+                            '<div class="vertical-align-middle">' +
+                                '<span class="icon-calendar size-icon-calendar" align="center" >' + this_aux.obj['fechas'][contFechas].Dia + '</span>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="col-xs-6">' +
+                        '<div class="height-200 item-red-middle">' +
+                            '<span class="font-size-30 size-fecha-calendar" >' + this_aux.obj['fechas'][contFechas].Mes  + ' ' +  this_aux.obj['fechas'][contFechas].Anio + '</span>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+
+            '</div>' ;
+
+            creaElement.innerHTML = domContent2;
+            objCalendario2.appendChild(creaElement.firstChild);
+           //  document.body.appendChild(creaElement.firstChild);
+           // objTo.appendChild(this_aux.calendario.nativeElement);
+
+              contFechas --;
+
+
+          }
+
+          cont ++;
+
+          if (cont === 12) {
+            break;
+          }
+         }
+
+         // Validar seleecion de cada calendario (segundo elemnto carousel)
+         let elementoCal6 = document.getElementById('Itemcalendario6');
+         let elementoCal7 = document.getElementById('Itemcalendario7');
+         let elementoCal8 = document.getElementById('Itemcalendario8');
+         let elementoCal9 = document.getElementById('Itemcalendario9');
+         let elementoCal10 = document.getElementById('Itemcalendario10');
+         let elementoCal11 = document.getElementById('Itemcalendario11');
+
+        elementoCal6.addEventListener("click", function(event) {
+          console.log(this.id);
+          if( ((this_aux.Valida_Seleccion_Calendario6 === 0) || (this_aux.Valida_Seleccion_Calendario6 === 1))
+              && (this_aux.Valida_Seleccion_Calendario0 === 0)
+              && (this_aux.Valida_Seleccion_Calendario1 === 0)
+              && (this_aux.Valida_Seleccion_Calendario2 === 0)
+              && (this_aux.Valida_Seleccion_Calendario3 === 0)
+              && (this_aux.Valida_Seleccion_Calendario4 === 0)
+              && (this_aux.Valida_Seleccion_Calendario5 === 0)
+              && (this_aux.Valida_Seleccion_Calendario7 === 0)
+              && (this_aux.Valida_Seleccion_Calendario8 === 0)
+              && (this_aux.Valida_Seleccion_Calendario9 === 0)
+              && (this_aux.Valida_Seleccion_Calendario10 === 0)
+              && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+
+                this_aux.clickCal6();
+              }
+
+        });
+
+        elementoCal7.addEventListener("click", function(event) {
+          console.log(this.id);
+          if( ((this_aux.Valida_Seleccion_Calendario7 === 0) || (this_aux.Valida_Seleccion_Calendario7 === 1))
+              && (this_aux.Valida_Seleccion_Calendario0 === 0)
+              && (this_aux.Valida_Seleccion_Calendario1 === 0)
+              && (this_aux.Valida_Seleccion_Calendario2 === 0)
+              && (this_aux.Valida_Seleccion_Calendario3 === 0)
+              && (this_aux.Valida_Seleccion_Calendario4 === 0)
+              && (this_aux.Valida_Seleccion_Calendario5 === 0)
+              && (this_aux.Valida_Seleccion_Calendario6 === 0)
+              && (this_aux.Valida_Seleccion_Calendario8 === 0)
+              && (this_aux.Valida_Seleccion_Calendario9 === 0)
+              && (this_aux.Valida_Seleccion_Calendario10 === 0)
+              && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+
+                this_aux.clickCal7();
+              }
+
+        });
+
+        elementoCal8.addEventListener("click", function(event) {
+          console.log(this.id);
+          if( ((this_aux.Valida_Seleccion_Calendario8 === 0) || (this_aux.Valida_Seleccion_Calendario8 === 1))
+              && (this_aux.Valida_Seleccion_Calendario0 === 0)
+              && (this_aux.Valida_Seleccion_Calendario1 === 0)
+              && (this_aux.Valida_Seleccion_Calendario2 === 0)
+              && (this_aux.Valida_Seleccion_Calendario3 === 0)
+              && (this_aux.Valida_Seleccion_Calendario4 === 0)
+              && (this_aux.Valida_Seleccion_Calendario5 === 0)
+              && (this_aux.Valida_Seleccion_Calendario6 === 0)
+              && (this_aux.Valida_Seleccion_Calendario7 === 0)
+              && (this_aux.Valida_Seleccion_Calendario9 === 0)
+              && (this_aux.Valida_Seleccion_Calendario10 === 0)
+              && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+
+                this_aux.clickCal8();
+              }
+
+        });
+
+        elementoCal9.addEventListener("click", function(event) {
+          console.log(this.id);
+          if( ((this_aux.Valida_Seleccion_Calendario9 === 0) || (this_aux.Valida_Seleccion_Calendario9 === 1))
+              && (this_aux.Valida_Seleccion_Calendario0 === 0)
+              && (this_aux.Valida_Seleccion_Calendario1 === 0)
+              && (this_aux.Valida_Seleccion_Calendario2 === 0)
+              && (this_aux.Valida_Seleccion_Calendario3 === 0)
+              && (this_aux.Valida_Seleccion_Calendario4 === 0)
+              && (this_aux.Valida_Seleccion_Calendario5 === 0)
+              && (this_aux.Valida_Seleccion_Calendario6 === 0)
+              && (this_aux.Valida_Seleccion_Calendario7 === 0)
+              && (this_aux.Valida_Seleccion_Calendario8 === 0)
+              && (this_aux.Valida_Seleccion_Calendario10 === 0)
+              && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+
+                this_aux.clickCal9();
+              }
+
+        });
+
+        elementoCal10.addEventListener("click", function(event) {
+          console.log(this.id);
+          if( ((this_aux.Valida_Seleccion_Calendario10 === 0) || (this_aux.Valida_Seleccion_Calendario10 === 1))
+              && (this_aux.Valida_Seleccion_Calendario0 === 0)
+              && (this_aux.Valida_Seleccion_Calendario1 === 0)
+              && (this_aux.Valida_Seleccion_Calendario2 === 0)
+              && (this_aux.Valida_Seleccion_Calendario3 === 0)
+              && (this_aux.Valida_Seleccion_Calendario4 === 0)
+              && (this_aux.Valida_Seleccion_Calendario5 === 0)
+              && (this_aux.Valida_Seleccion_Calendario6 === 0)
+              && (this_aux.Valida_Seleccion_Calendario7 === 0)
+              && (this_aux.Valida_Seleccion_Calendario8 === 0)
+              && (this_aux.Valida_Seleccion_Calendario9 === 0)
+              && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+
+                this_aux.clickCal10();
+              }
+
+        });
+
+        elementoCal11.addEventListener("click", function(event) {
+          console.log(this.id);
+          if( ((this_aux.Valida_Seleccion_Calendario11 === 0) || (this_aux.Valida_Seleccion_Calendario11 === 1))
+              && (this_aux.Valida_Seleccion_Calendario0 === 0)
+              && (this_aux.Valida_Seleccion_Calendario1 === 0)
+              && (this_aux.Valida_Seleccion_Calendario2 === 0)
+              && (this_aux.Valida_Seleccion_Calendario3 === 0)
+              && (this_aux.Valida_Seleccion_Calendario4 === 0)
+              && (this_aux.Valida_Seleccion_Calendario5 === 0)
+              && (this_aux.Valida_Seleccion_Calendario6 === 0)
+              && (this_aux.Valida_Seleccion_Calendario7 === 0)
+              && (this_aux.Valida_Seleccion_Calendario8 === 0)
+              && (this_aux.Valida_Seleccion_Calendario9 === 0)
+              && (this_aux.Valida_Seleccion_Calendario10 === 0)) {
+
+                this_aux.clickCal11();
+              }
+
+        });
+
 
        console.log(this_aux.obj['fechas']);
        $('#_modal_please_wait').modal('hide');
-      },
-        function(error) {
+          }, 500);
+
+   }, function(error) {
 
           console.error("Error");
      
@@ -1201,10 +1208,6 @@ clickCal11() {
 operacion(id) {
 
   const this_aux = this;
-
-  
-
-
   if (id ===  '1') {
     // Envio por correo
 
@@ -1212,25 +1215,24 @@ operacion(id) {
     this_aux.serviceTdd.fechaCorte = this_aux .fechaCorteDoc;
     this_aux.serviceTdd.numDoc = this_aux .numDocumento;
     this_aux.serviceTdd.idOpe = id;
-
+      $('#_modal_please_wait').modal('show');
     this_aux.router.navigate(['/impresion-edc-final']);
-
   } else {
     // Imprimir
-
-    
     $('#_modal_please_wait').modal('show');
     if ( this_aux .cal_Click_0 === 1 || this_aux.cal_Click_1 === 1 || this_aux.cal_Click_2 === 1 ||
       this_aux.cal_Click_3 === 1 || this_aux.cal_Click_4 === 1 || this_aux.cal_Click_5 === 1 ||
       this_aux.cal_Click_6 === 1 || this_aux.cal_Click_7 === 1 || this_aux.cal_Click_8 === 1 ||
       this_aux.cal_Click_9 === 1 || this_aux.cal_Click_10 === 1 || this_aux.cal_Click_11 === 1) {
       
+      //   const nombreDoc = 'D_'+ this.numDocumento+'_' + this.fechaCorteDoc;
+         const nombreDoc = 'D_' + this.numDocumento;
+      
           const formParameters = {
             fechaCorte: this_aux.fechaCorteDoc,
            // fechaCorte: 'Thu Feb 01 13:15:05 CDT 2018',
             idDocumento: this_aux.numDocumento,
             id: id
-
           };
       
           const resourceRequest = new WLResourceRequest(
@@ -1243,96 +1245,87 @@ operacion(id) {
               console.log(response.responseText);
               const documento = response.responseJSON;
               $('#_modal_please_wait').modal('show');
+
               if ( documento.Id === '1') {
-                // electron para DOCUMENTO
-                let crypto = require('crypto');
-                console.log(crypto);
-
                   if ( documento.PDF !== undefined) {
-
+                    console.log("info doc", nombreDoc);
+                    localStorage.setItem("doc", documento.PDF);
+                    localStorage.setItem("nombreDoc", nombreDoc);
                     // strae PDF del respWL
                     // this.doc_1 = documento.PDF;
                     this_aux.nombreDocumento = documento.NombreDoc;
-
-                    this_aux.serviceTdd.numeroDocumento = this_aux.numDocumento;
-                    this_aux.serviceTdd.fechaDocumento = this_aux.fechaCorteDoc;
-                    this_aux.serviceTdd.stringDocumento = documento.PDF;
-
-                    // this.GuardaDocElectron(this.nombreDocumento);
-
-                    // electron para DOCUMENTO
-                    let fs1 = require("fs");
-                    let tmpFileName0 = 'c:/temp/electron/' + 'D_1_' +  this_aux.numDocumento + '_' + 'fechasEnvioMail' + '.pdf';
-                    
-                    fs1.writeFile(tmpFileName0, documento.PDF, 'base64', function(err) {
-                      if (err) {
-                        return console.log(err);
-                      }
-              
-                    });
-
-                    this.enviaImprimir();
+                    $('#infoPrinter').modal('show');
                   }
                   $('#_modal_please_wait').modal('hide');
                   setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
-                
+
               } else {
                 this_aux.showErrorSucces(documento);
+                setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
              }
-              }, function(error) {        
-              console.log("Error al obtener documento EDC");
-              $("#errorModal").modal("show");
-              $('#_modal_please_wait').modal('hide');
-            }
-          );
-          console.log("Salió de Response obtener documento EDC");    
+           }, function(error) {
+              //this_aux.showErrorPromise(error);
+       });
+      }
     }
   }
+
+  finishPagePrint() {
+
+    const this_aux = this;
+ //
+     this_aux.router.navigate(['/impresion_EDC_Tdd_Electron']);
+  }
+
+  showErrorSucces(json) {
+
+
+    console.log(json.Id + json.MensajeAUsuario);
+    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+    $('#errorModal').modal('show');
+
 }
 
-GuardaDocElectron(documentoEDC) {
-
+cancelarEnvio() {
   const this_aux = this;
-//
-  // this_aux.router.navigate(['/impresion_EDC_Finish']);
+  this_aux.router.navigate(['/cancelarEnvioEDCDomicilio']);
 }
 
-enviaImprimir() {
-  let delay2 = 10000;
-  $('#imprimiendo').modal('show');
-  $('#_modal_please_wait').modal('show');
-  setTimeout(function() {
-      
-    console.log("enviaImprimir");
-    
-    // 1
-    
-    $.ajax({
-     // url: 'http://localhost:8082/sucursappsdevices/printer/pdf?f='+'D_'+listObtenerDocumentos[0].docpdf+'_'+fechasEnvioMail[0]+'.pdf',
-     url: 'http://localhost:8082/sucursappsdevices/printer/pdf?f=' + 'D_' + this.numDocumento + '_' + '"fecha"' + '.pdf',
-      type: "GET",
-      success: function() {
-        console.log("se ejecuto correctamente el proceso para llamar a impresora");
-        $('#okPrint').modal('show');
-      },
-      error: function() {
-        console.log("error de procedimiento para llamar a impresora");
-        $('#ErrorPrint').modal('show');
-      },
-      async: false,
-      cache: false
-    });
-    
-    $('#_modal_please_wait').modal('hide');
-    
-  }, delay2);
-}
+consultaCancelacionEDCDomicilio(opcion) {
+ const this_aux = this;
 
-showErrorSucces(json) {
-
-  console.log(json.Id + json.MensajeAUsuario);
-  document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
-  $('#errorModal').modal('show');
+      const formParameters = {
+        opcion: opcion,
+        solicitud: '',
+      };
+  
+      const resourceRequest = new WLResourceRequest(
+        'adapters/AdapterBanorteSucursApps/resource/mantoCancelacionEnvioEDC',
+        WLResourceRequest.POST
+      );
+      resourceRequest.setTimeout(30000);
+      resourceRequest.sendFormParameters(formParameters).then(
+        function(response) {
+          setTimeout(function() {
+            const detalleMant = response.responseJSON;
+            let btnCancelarEnvio = document.getElementById('cancelarEnvioDomicilio');
+            if (detalleMant.Id === "1") {
+              if (detalleMant.StatusImpresion !== "A") {
+                btnCancelarEnvio.style.display = 'initial';
+              } else {
+                btnCancelarEnvio.style.display = 'none';
+              }
+            } else {
+              btnCancelarEnvio.style.display = 'none';
+            }
+            this_aux.mantenimientoEDC();
+         }, 3000);
+        },
+          function(error) {
+            console.error("Error");
+            $('#errorModal').modal('show');
+            this_aux.mantenimientoEDC();
+          });
 
 }
 
