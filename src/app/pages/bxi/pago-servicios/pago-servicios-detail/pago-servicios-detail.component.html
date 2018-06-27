@@ -207,7 +207,7 @@
             <div class="modal-header">
                     <div class="row">
                             <div class="col-md-9">
-                                    <h4 class="modal-title" style="color: #eb012a; font-weight: 700;">Coloca tu recibo para continuar</h4>
+                                    <h4 class="modal-title" style="color: rgb(176, 22, 87); font-weight: 700;">Coloca tu recibo para continuar</h4>
                             </div>
                     </div>
                     <div class="row">
@@ -225,23 +225,21 @@
                     <table>
                         <tbody>
                             <tr>
-                                <td>
+                                <td style=" width: 50%;">
                                      <p>
                                              1.  Coloca tu recibo con el
                                               código de barras visible
-                                              en el Scanner
+                                              en el esc&aacute;ner
                                      </p>
                                 </td>
                                 <td rowspan="3" colspan="4">
-                                    <img src="./assets/img/cel_token.png" width="90% ">
+                                    <img src="./assets/img/scan.jpg" width="90% " style="height: 12%;">
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <p>
-                                            2. Espera a que el
-                                            dispositivo valide la
-                                            información
+                                            2. Presiona el gatillo  del esc&aacute;ner y espera a que el dispositivo valide la informaci&oacute;n
                                     </p>
                                 </td>
                             </tr>
@@ -257,9 +255,9 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div class="row">
+                    <div class="row" >
                                             <div class="col-lg-5">
-                                                    <input type="text"  #rCodeBar autofocus (input)="leeCodeBar(rCodeBar.value)" class="txt-codeBar">
+                                                    <input type="text" id="txtReadCode" #rCodeBar autofocus (input)="leeCodeBar(rCodeBar.value)" class="txt-codeBar" >
                                             </div>
                     </div>
                 </div>

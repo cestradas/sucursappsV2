@@ -1316,3 +1316,6 @@ button#buttonImageMantoBen {
 }
 
 
+#txtReadCode:focus{
+	outline:0px;
+}

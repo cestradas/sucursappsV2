@@ -1,3 +1,4 @@
+import { OperacionesBXI } from './../../operacionesBXI';
 import { Component, OnInit } from '@angular/core';
 import { SesionBxiService } from './../../sesion-bxi.service';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
@@ -52,6 +53,7 @@ export class PagoTarjetaCreditoVerifyComponent implements OnInit {
     const this_aux = this;
     const resPagoString = this_aux.service.detallePagoTarjeta;
     const respPagoJson  = JSON.parse(resPagoString);
+    const operacionesbxi: OperacionesBXI = new OperacionesBXI();
 
     const certificadoPago = respPagoJson.CertificadoPago;
       certificadoPago.forEach(element => {
@@ -75,7 +77,7 @@ export class PagoTarjetaCreditoVerifyComponent implements OnInit {
 
     this_aux.detallePago.institucion = this_aux.service.nameBancoDestino;
     this_aux.detallePago.operacion = this_aux.service.nameOperacion;
-    this_aux.detallePago.cuentaOrigen = this_aux.service.numCuentaSeleccionado;
+    this_aux.detallePago.cuentaOrigen = operacionesbxi.mascaraNumeroCuenta(this_aux.service.numCuentaSeleccionado);
     this_aux.detallePago.cuentaDestino = this_aux.service.numCtaBenSeleccionada;
     setTimeout(function() {
       $('#_modal_please_wait').modal('hide');

@@ -1,3 +1,4 @@
+import { OperacionesBXI } from './../../operacionesBXI';
 import { SesionBxiService } from './../../sesion-bxi.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
@@ -29,9 +30,10 @@ export class PagoServiciosVerifyComponent implements OnInit {
     const this_aux = this;
     const respPago = this_aux.service.detalleConfirmacionPS;
     const respPagoJson = JSON.parse(respPago);
+    const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     console.log(respPagoJson);
     this_aux.detallePago.nombreServicio = this_aux.service.nombreServicio;
-    this_aux.detallePago.cuentaCargo = this_aux.service.numCuentaSeleccionado;
+    this_aux.detallePago.cuentaCargo = operacionesbxi.mascaraNumeroCuenta( this_aux.service.numCuentaSeleccionado);
     if (this.service.idFacturador === '1310') {
 
       const certificadoPago = respPagoJson.CertificadoPago;
@@ -75,7 +77,7 @@ export class PagoServiciosVerifyComponent implements OnInit {
         $('#_modal_please_wait').modal('hide');
       }, 500);
 
-      //ESTILOS Preferente
+      // ESTILOS Preferente
     let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
     let btnContinuar = document.getElementById("contiuar");
 

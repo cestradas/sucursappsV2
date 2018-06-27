@@ -272,7 +272,8 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
   confirmaOperacion(montoAPagar) {
     const this_aux = this;
-    this_aux.CuentaOrigen = this_aux.service.numCuentaSeleccionado;
+    const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+    this_aux.CuentaOrigen = operacionesbxi.mascaraNumeroCuenta( this_aux.service.numCuentaSeleccionado);
     this_aux.nombreBanco = this_aux.service.nameBancoDestino;
     this_aux.Importe = this_aux.replaceSimbolo( montoAPagar);
     this_aux.validarSaldo(this_aux.CuentaOrigen, this_aux.Importe);
