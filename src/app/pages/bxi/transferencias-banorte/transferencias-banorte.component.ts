@@ -551,14 +551,14 @@ setTipoAutenticacionOnModal() {
   if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
     $('#_modal_please_wait').modal('show');
     this_aux.labelTipoAutentica = 'Token Celular';
-    divTokenPass.setAttribute('style', 'display: block');
+    divTokenPass.setAttribute('style', 'display: flex');
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     operacionesbxi.preparaAutenticacion().then(
       function(response) {
         const detallePrepara = response.responseJSON;
         console.log(detallePrepara);
         if (detallePrepara.Id === 'SEG0001') {
-          divChallenge.setAttribute('style', 'display: block');
+          divChallenge.setAttribute('style', 'display: flex');
           this_aux.NumeroSeguridad = detallePrepara.MensajeUsuarioUno;
           setTimeout(() => {
             $('#_modal_please_wait').modal('hide');
@@ -583,12 +583,12 @@ setTipoAutenticacionOnModal() {
   } else if (this_aux.service.metodoAutenticaMayor.toString()  === '0') {
 
     divChallenge.setAttribute('style', 'display: none');
-    divTokenPass.setAttribute('style', 'display: block');
+    divTokenPass.setAttribute('style', 'display: flex');
     this_aux.labelTipoAutentica = 'Contrase&atilde;a';
   } else if (this_aux.service.metodoAutenticaMayor.toString()  === '1') {
 
     divChallenge.setAttribute('style', 'display: none');
-    divTokenPass.setAttribute('style', 'display: block');
+    divTokenPass.setAttribute('style', 'display: flex');
     this_aux.labelTipoAutentica = 'Token Fisico';
   }
 
@@ -835,6 +835,28 @@ transformAmount(impor) {
           }
       }
 
+      let importeTran = $('#amount').val();
+      let conceptoTran = $('#concepto').val();
+
+
+      if ((importeTran !== "") && (conceptoTran !== "")) {
+
+        $('#continuarspei').prop("disabled", false);
+
+      }
+
+}
+
+desabilitaBtn() {
+
+  let importeTran = $('#amount').val();
+  let conceptoTran = $('#concepto').val();
+
+  if ((importeTran !== "") && (conceptoTran !== "")) {
+
+    $('#continuarspei').prop("disabled", false);
+
+  }
 }
 
 replaceSimbolo(impor) {
