@@ -19,7 +19,7 @@ export class OperacionesBXI {
                 cuenta: numCuenta_seleccionada
           };
           const resourceRequest1 = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursAppsBEL/resource/consultaMovimientosTarjetas', WLResourceRequest.POST);
+            'adapters/AdapterBanorteSucursAppsBEL/resource/consultaSaldosTarjetas', WLResourceRequest.POST);
             resourceRequest1.setTimeout(30000);
 
             return resourceRequest1.sendFormParameters(formParameters1);
@@ -468,6 +468,15 @@ export class OperacionesBXI {
         const tamNumCta = numCtaSel.length;
         const numCta_aux = numCtaSel.substring(tamNumCta - 4, tamNumCta);
         const numCuenta_show = '******' + numCta_aux;
+
+        return numCuenta_show;
+    }
+
+    mascaraNumeroTarjeta(numCtaSel) {
+
+        const tamNumCta = numCtaSel.length;
+        const numCta_aux = numCtaSel.substring(tamNumCta - 4, tamNumCta);
+        const numCuenta_show = '************' + numCta_aux;
 
         return numCuenta_show;
     }
