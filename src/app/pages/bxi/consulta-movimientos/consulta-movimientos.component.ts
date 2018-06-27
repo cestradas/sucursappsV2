@@ -123,6 +123,7 @@ resetLista() {
 
 
   setDatosCuentaSeleccionada(elementHTML, tipoCuenta) {
+    const operacionesbxi: OperacionesBXI = new OperacionesBXI();
       console.log("setDatosCuentaSeleccionada inicial  " + tipoCuenta);
   $('#_modal_please_wait').modal('show');
   const this_aux = this;
@@ -137,7 +138,7 @@ resetLista() {
   tableDefaultOrigen.setAttribute('style', 'display: none');
 
   lblAliasOrigen.innerHTML = elementHTML.textContent;
-  lblCuentaOrigen.innerHTML = numCuenta_seleccionada.toString();
+  lblCuentaOrigen.innerHTML = operacionesbxi.mascaraNumeroCuenta(numCuenta_seleccionada.toString());
   this_aux.service.numCuentaSeleccionado = numCuenta_seleccionada;
   console.log("setDatosCuentaSeleccionada final  " + tipoCuenta);
 

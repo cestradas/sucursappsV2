@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import $ from 'jquery';
 import { SesionBxiService } from '../../sesion-bxi.service';
+import { OperacionesBXI } from '../../operacionesBXI';
 declare var $: any;
 
 
@@ -49,10 +50,10 @@ export class ConsultaMovimientosDetailComponent implements OnInit {
 
   ngOnInit() {
    
+    
 
-    this.cuentaClienteBXI = this.service.numCuentaSeleccionado;
+    
     this.tipoCuenta = this.service.aliasCuentaSeleccionada;
-    this.noTarjeta = this.service.noTarjetaSeleccionada;
     this.divisa = this.service.divisa;
 
     this.saldoDispoinible = this.service.saldoSeleccionado;
@@ -165,12 +166,18 @@ export class ConsultaMovimientosDetailComponent implements OnInit {
 
   seleccionarTipoCuenta() {
     let tipCuenta = this.service.tipoCuenta;
+    const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     if ( tipCuenta === "1" ) {
       console.log("Cuenta TDD");
-      this.llamarMovimientosTDD (this.cuentaClienteBXI);
+
+      this.cuentaClienteBXI = operacionesbxi.mascaraNumeroCuenta(this.service.numCuentaSeleccionado);
+      this.noTarjeta = operacionesbxi.mascaraNumeroTarjeta(this.service.numCuentaSeleccionado);
+      this.llamarMovimientosTDD (this.service.numCuentaSeleccionado);
 
     } else {
-      this.llamarMovimientosTDC (this.cuentaClienteBXI);
+      this.cuentaClienteBXI = operacionesbxi.mascaraNumeroTarjeta(this.service.numCuentaSeleccionado);
+      this.noTarjeta = operacionesbxi.mascaraNumeroTarjeta(this.service.numCuentaSeleccionado);
+      this.llamarMovimientosTDC (this.service.numCuentaSeleccionado);
       console.log("Cuenta TDC");
     }
   }
