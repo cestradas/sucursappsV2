@@ -19,7 +19,7 @@ export class OperacionesBXI {
                 cuenta: numCuenta_seleccionada
           };
           const resourceRequest1 = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursAppsBEL/resource/consultaSaldosTarjetas', WLResourceRequest.POST);
+            'adapters/AdapterBanorteSucursAppsBEL2/resource/consultaSaldosTarjetas', WLResourceRequest.POST);
             resourceRequest1.setTimeout(30000);
 
             return resourceRequest1.sendFormParameters(formParameters1);
@@ -86,10 +86,10 @@ export class OperacionesBXI {
           let resourceRequest;
           if (idFacturador === '1310' || idFacturador === '88924') {
              resourceRequest = new WLResourceRequest(
-                'adapters/AdapterBanorteSucursAppsBEL/resource/pagoDisposicionCredito', WLResourceRequest.POST);
+                'adapters/AdapterBanorteSucursAppsBEL2/resource/pagoDisposicionCredito', WLResourceRequest.POST);
           } else {
              resourceRequest = new WLResourceRequest(
-                'adapters/AdapterBanorteSucursAppsBEL/resource/pagoConcentracionEmpresarial', WLResourceRequest.POST);
+                'adapters/AdapterBanorteSucursAppsBEL2/resource/pagoConcentracionEmpresarial', WLResourceRequest.POST);
           }
           resourceRequest.setTimeout(30000);
 
@@ -100,7 +100,7 @@ export class OperacionesBXI {
 
 
         const resourceRequest = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursAppsBEL/resource/consultaCatalogoEmpresaTel',
+            'adapters/AdapterBanorteSucursAppsBEL2/resource/consultaCatalogoEmpresaTel',
             WLResourceRequest.POST);
         resourceRequest.setTimeout(30000);
 
@@ -117,7 +117,7 @@ export class OperacionesBXI {
           };
 
           const resourceRequest = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursAppsBEL/resource/consultaImporteTiempoAire', WLResourceRequest.POST);
+            'adapters/AdapterBanorteSucursAppsBEL2/resource/consultaImporteTiempoAire', WLResourceRequest.POST);
            resourceRequest.setTimeout(30000);
 
            return resourceRequest.sendFormParameters(formParameters);
@@ -135,7 +135,7 @@ export class OperacionesBXI {
 
 
          const resourceRequest = new WLResourceRequest(
-           'adapters/AdapterBanorteSucursAppsBEL/resource/compraTiempoAire', WLResourceRequest.POST);
+           'adapters/AdapterBanorteSucursAppsBEL2/resource/compraTiempoAire', WLResourceRequest.POST);
           resourceRequest.setTimeout(30000);
 
       return resourceRequest.sendFormParameters(formParameters);
@@ -261,7 +261,7 @@ export class OperacionesBXI {
           };
 
         const resourceRequest = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursAppsBEL/resource/getCuentasBeneficiarios',
+            'adapters/AdapterBanorteSucursAppsBEL2/resource/getCuentasBeneficiarios',
             WLResourceRequest.POST);
         resourceRequest.setTimeout(30000);
         resourceRequest
@@ -280,7 +280,7 @@ export class OperacionesBXI {
           };
 
          const    resourceRequest = new WLResourceRequest(
-                'adapters/AdapterBanorteSucursAppsBEL/resource/pagoTarjetaCredito', WLResourceRequest.POST);
+                'adapters/AdapterBanorteSucursAppsBEL2/resource/pagoTarjetaCredito', WLResourceRequest.POST);
           resourceRequest.setTimeout(30000);
 
           return resourceRequest.sendFormParameters(formParameters);
@@ -297,7 +297,7 @@ export class OperacionesBXI {
           };
 
           const    resourceRequest = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursAppsBEL/resource/consultaServicioAlertas', WLResourceRequest.POST);
+            'adapters/AdapterBanorteSucursAppsBEL2/resource/consultaServicioAlertas', WLResourceRequest.POST);
       resourceRequest.setTimeout(30000);
 
       return resourceRequest.sendFormParameters(formParameters);
@@ -310,7 +310,7 @@ export class OperacionesBXI {
           };
 
           const    resourceRequest = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursAppsBEL/resource/consultaDatosContacto', WLResourceRequest.POST);
+            'adapters/AdapterBanorteSucursAppsBEL2/resource/consultaDatosContacto', WLResourceRequest.POST);
       resourceRequest.setTimeout(30000);
 
       return resourceRequest.sendFormParameters(formParameters);
@@ -325,7 +325,7 @@ export class OperacionesBXI {
           };
 
           const    resourceRequest = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursAppsBEL/resource/actualizaDatosContacto', WLResourceRequest.POST);
+            'adapters/AdapterBanorteSucursAppsBEL2/resource/actualizaDatosContacto', WLResourceRequest.POST);
       resourceRequest.setTimeout(30000);
 
       return resourceRequest.sendFormParameters(formParameters);
@@ -343,7 +343,7 @@ export class OperacionesBXI {
           };
 
           const    resourceRequest = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursAppsBEL/resource/altaServicioAlertas', WLResourceRequest.POST);
+            'adapters/AdapterBanorteSucursAppsBEL2/resource/altaServicioAlertas', WLResourceRequest.POST);
       resourceRequest.setTimeout(30000);
 
       return resourceRequest.sendFormParameters(formParameters);
@@ -374,7 +374,7 @@ export class OperacionesBXI {
        };
 
        const    resourceRequest = new WLResourceRequest(
-           'adapters/AdapterBanorteSucursAppsBEL/resource/mantenimientoEDC', WLResourceRequest.POST);
+           'adapters/AdapterBanorteSucursAppsBEL2/resource/mantenimientoEDC', WLResourceRequest.POST);
      resourceRequest.setTimeout(30000);
 
      return resourceRequest.sendFormParameters(formParameters);
@@ -386,7 +386,7 @@ export class OperacionesBXI {
         documeto: documeto
     };
        const resourceRequest = new WLResourceRequest(
-           'adapters/AdapterBanorteSucursAppsBEL/resource/listaDocs',
+           'adapters/AdapterBanorteSucursAppsBEL2/resource/listaDocs',
            WLResourceRequest.POST);
        resourceRequest.setTimeout(30000);
 
@@ -419,7 +419,7 @@ export class OperacionesBXI {
             };
 
             const    resourceRequest = new WLResourceRequest(
-                'adapters/AdapterBanorteSucursAppsBEL/resource/obtenerDoc', WLResourceRequest.POST);
+                'adapters/AdapterBanorteSucursAppsBEL2/resource/obtenerDoc', WLResourceRequest.POST);
           resourceRequest.setTimeout(100000);
 
           return resourceRequest.sendFormParameters(formParameters);
@@ -433,7 +433,7 @@ export class OperacionesBXI {
             };
 
             const    resourceRequest = new WLResourceRequest(
-                'adapters/AdapterBanorteSucursAppsBEL/resource/mantoCancelacionEnvioEDC', WLResourceRequest.POST);
+                'adapters/AdapterBanorteSucursAppsBEL2/resource/mantoCancelacionEnvioEDC', WLResourceRequest.POST);
           resourceRequest.setTimeout(30000);
 
           return resourceRequest.sendFormParameters(formParameters);
@@ -443,7 +443,7 @@ export class OperacionesBXI {
 	consultaBancos() {
 
             const resourceRequest = new WLResourceRequest(
-                "adapters/AdapterBanorteSucursAppsBEL/resource/consultaTablaCorporativaBancos",
+                "adapters/AdapterBanorteSucursAppsBEL2/resource/consultaTablaCorporativaBancos",
                 WLResourceRequest.POST);
 
                 resourceRequest.setTimeout(30000);
@@ -456,7 +456,7 @@ export class OperacionesBXI {
             importe: importe
         };
       const resourceRequest = new WLResourceRequest(
-        "adapters/AdapterBanorteSucursAppsBEL/resource/consultaMontosMaximos",
+        "adapters/AdapterBanorteSucursAppsBEL2/resource/consultaMontosMaximos",
         WLResourceRequest.POST
       );
       resourceRequest.setTimeout(30000);

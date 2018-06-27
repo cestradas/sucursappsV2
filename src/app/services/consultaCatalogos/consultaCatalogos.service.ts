@@ -12,7 +12,7 @@ export class consultaCatalogos {
           };
 
           const resourceRequest = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursApps/resource/getDetalleEmpresa', WLResourceRequest.POST);
+            'adapters/AdapterBanorteSucursApps2/resource/getDetalleEmpresa', WLResourceRequest.POST);
           resourceRequest.setTimeout(30000);
 
          return  resourceRequest.sendFormParameters(formParameters);
@@ -22,7 +22,7 @@ export class consultaCatalogos {
 
         const formParameters = { };
         const resourceRequest = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursApps/resource/getEmpresas', WLResourceRequest.POST);
+            'adapters/AdapterBanorteSucursApps2/resource/getEmpresas', WLResourceRequest.POST);
            resourceRequest.setTimeout(30000);
     
            return resourceRequest.sendFormParameters(formParameters);
@@ -39,10 +39,10 @@ export class consultaCatalogos {
               let resourceRequest;
               if (idFacturador === '1310') {
                  resourceRequest = new WLResourceRequest(
-                    'adapters/AdapterBanorteSucursApps/resource/pagoDisposicionCredito', WLResourceRequest.POST);
+                    'adapters/AdapterBanorteSucursApps2/resource/pagoDisposicionCredito', WLResourceRequest.POST);
               } else {
                  resourceRequest = new WLResourceRequest(
-                    'adapters/AdapterBanorteSucursApps/resource/pagoConcentracionEmpresarial', WLResourceRequest.POST);
+                    'adapters/AdapterBanorteSucursApps2/resource/pagoConcentracionEmpresarial', WLResourceRequest.POST);
               }
               resourceRequest.setTimeout(30000);
     
@@ -100,6 +100,15 @@ export class consultaCatalogos {
 
       return resourceRequest.sendFormParameters(formParameters);
     }
+
+    mascaraNumeroCuenta(numCtaSel) {
+
+      const tamNumCta = numCtaSel.length;
+      const numCta_aux = numCtaSel.substring(tamNumCta - 4, tamNumCta);
+      const numCuenta_show = '******' + numCta_aux;
+
+      return numCuenta_show;
+  }
 
        constructor() {  }
         

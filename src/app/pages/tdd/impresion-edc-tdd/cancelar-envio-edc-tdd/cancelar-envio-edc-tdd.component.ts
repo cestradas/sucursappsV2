@@ -90,7 +90,7 @@ export class CancelarEnvioEdcTddComponent implements OnInit {
     };
 
     const resourceRequest = new WLResourceRequest(
-      'adapters/AdapterBanorteSucursApps/resource/mantoCancelacionEnvioEDC',
+      'adapters/AdapterBanorteSucursApps2/resource/mantoCancelacionEnvioEDC',
       WLResourceRequest.POST
     );
     resourceRequest.setTimeout(30000);

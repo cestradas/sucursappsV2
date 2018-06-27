@@ -90,14 +90,15 @@ export class MantenimientoBenefDetailComponent implements OnInit {
               value.NuevaFecha = "";
             }                   
           });                  
-        }        
+        }  
+        $('#_modal_please_wait').modal('hide')      
       },
       function(error) {        
         console.log("Error al consultar beneficiarios");
+        $('#_modal_please_wait').modal('hide')
       }
     );
     console.log("Salió de Response Consultar Beneficiarios");
-    setTimeout(() => $('#_modal_please_wait').modal('hide'), 2000);
   }
 
 

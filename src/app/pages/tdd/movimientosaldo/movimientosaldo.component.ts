@@ -181,7 +181,7 @@ llamarMovimientos () {
 
       const resourceRequest = new WLResourceRequest(
 
-        'adapters/AdapterBanorteSucursApps/resource/consultaMovimientos', WLResourceRequest.POST);
+        'adapters/AdapterBanorteSucursApps2/resource/consultaMovimientos', WLResourceRequest.POST);
         resourceRequest.setTimeout(30000);
 
         resourceRequest.sendFormParameters(formParameters).then(

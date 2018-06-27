@@ -9,6 +9,7 @@ import { CurrencyPipe } from "@angular/common";
 import $ from 'jquery';
 import { refCount } from "rxjs/operators";
 import { ResponseWS } from '../../../services/response/response.service';
+import { consultaCatalogos } from '../../../services/consultaCatalogos/consultaCatalogos.service';
 
 declare var $: any;
 
@@ -32,6 +33,7 @@ export class TransferenciaSpeiComponent implements OnInit {
   rEmail: ElementRef;
 
   numeroCuentaTitular: string;
+  mostrarCuentaMascara: string;
   saldoDisponibleClienteTdd: string;
   idCuentaTitular: string;
   nombreSele: any = "";
@@ -61,9 +63,11 @@ export class TransferenciaSpeiComponent implements OnInit {
 
     $("#_modal_please_wait").modal("show");
     this._service.validarDatosSaldoTdd().then(mensaje => {
+      const operaciones: consultaCatalogos = new consultaCatalogos();
       console.log("Saldos cargados correctamente TDD");
       this.saldoDisponibleClienteTdd = mensaje.SaldoDisponible;
       this.numeroCuentaTitular = mensaje.NumeroCuenta;
+      this.mostrarCuentaMascara = operaciones.mascaraNumeroCuenta(this.numeroCuentaTitular);
       this.idCuentaTitular = mensaje.Id;
       setTimeout(() => $("#_modal_please_wait").modal("hide"), 1000);
     });

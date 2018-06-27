@@ -117,7 +117,7 @@ export class ValidaNipTransaccion {
             importe: importe
         };
       const resourceRequest = new WLResourceRequest(
-        "adapters/AdapterBanorteSucursApps/resource/consultaMontosMaximos",
+        "adapters/AdapterBanorteSucursApps2/resource/consultaMontosMaximos",
         WLResourceRequest.POST
       );
       resourceRequest.setTimeout(30000);

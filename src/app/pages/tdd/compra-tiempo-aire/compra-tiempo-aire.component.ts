@@ -97,7 +97,7 @@ export class CompraTiempoAireComponent implements OnInit {
     const THIS: any = this;
 
     const resourceRequest = new WLResourceRequest(
-      'adapters/AdapterBanorteSucursApps/resource/consultaCatalogoEmpresaTel',
+      'adapters/AdapterBanorteSucursApps2/resource/consultaCatalogoEmpresaTel',
       WLResourceRequest.POST);
   resourceRequest.setTimeout(30000);
   resourceRequest
@@ -216,7 +216,7 @@ export class CompraTiempoAireComponent implements OnInit {
     };
 
     const resourceRequest = new WLResourceRequest(
-      'adapters/AdapterBanorteSucursApps/resource/consultaImporteTiempoAire',
+      'adapters/AdapterBanorteSucursApps2/resource/consultaImporteTiempoAire',
       WLResourceRequest.POST);
   resourceRequest.setTimeout(30000);
   resourceRequest
@@ -261,7 +261,7 @@ export class CompraTiempoAireComponent implements OnInit {
       importeTel: importeDecimal
     };
     const resourceRequest = new WLResourceRequest(
-      'adapters/AdapterBanorteSucursApps/resource/compraTiempoAire',
+      'adapters/AdapterBanorteSucursApps2/resource/compraTiempoAire',
       WLResourceRequest.POST);
   resourceRequest.setTimeout(30000);
   resourceRequest

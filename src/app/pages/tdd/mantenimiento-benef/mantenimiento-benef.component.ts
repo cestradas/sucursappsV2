@@ -11,6 +11,7 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Route
 import { ResponseWS } from '../../../services/response/response.service';
 import { ValidaNipTransaccion } from '../../../services/validaNipTrans/validaNipTrans.service';
 import { ConsultaSaldosTddService } from '../../../services/saldosTDD/consultaSaldos.service';
+import { consultaCatalogos } from '../../../services/consultaCatalogos/consultaCatalogos.service';
 
 declare var $: any;
 declare var angular: any;
@@ -60,6 +61,7 @@ export class MantenimientoBenefComponent implements OnInit {
   opcion: any = 0;
   bloquearAlta: any = false;
   numeroCuentaTitular: string;
+  mostrarCuentaMascara: string;
   saldoDisponibleClienteTdd: string;
 
   registroFederal: any = "";
@@ -115,10 +117,11 @@ export class MantenimientoBenefComponent implements OnInit {
     $('#_modal_please_wait').modal('show');
     this._service.validarDatosSaldoTdd().then(
       mensaje => {
-
+        const operaciones: consultaCatalogos = new consultaCatalogos();
         console.log('Saldos cargados correctamente TDD');
         this.saldoDisponibleClienteTdd = mensaje.SaldoDisponible;
         this.numeroCuentaTitular = mensaje.NumeroCuenta;
+        this.mostrarCuentaMascara = operaciones.mascaraNumeroCuenta(this.numeroCuentaTitular);
         this.consultaBeneficiarios();
       }
     ); 

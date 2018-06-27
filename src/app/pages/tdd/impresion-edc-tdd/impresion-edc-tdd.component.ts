@@ -143,7 +143,7 @@ export class ImpresionEdcTddComponent implements OnInit {
     };
 
     const resourceRequest = new WLResourceRequest(
-      'adapters/AdapterBanorteSucursApps/resource/mantenimientoEDC',
+      'adapters/AdapterBanorteSucursApps2/resource/mantenimientoEDC',
       WLResourceRequest.POST
     );
     resourceRequest.setTimeout(30000);
@@ -173,7 +173,7 @@ export class ImpresionEdcTddComponent implements OnInit {
     };
 
     const resourceRequest = new WLResourceRequest(
-      'adapters/AdapterBanorteSucursApps/resource/listaDocs',
+      'adapters/AdapterBanorteSucursApps2/resource/listaDocs',
       WLResourceRequest.POST
     );
     resourceRequest.setTimeout(30000);
@@ -1236,7 +1236,7 @@ operacion(id) {
           };
       
           const resourceRequest = new WLResourceRequest(
-            'adapters/AdapterBanorteSucursApps/resource/obtenerDoc',
+            'adapters/AdapterBanorteSucursApps2/resource/obtenerDoc',
             WLResourceRequest.POST
           );
           resourceRequest.setTimeout(100000);
@@ -1300,7 +1300,7 @@ consultaCancelacionEDCDomicilio(opcion) {
       };
   
       const resourceRequest = new WLResourceRequest(
-        'adapters/AdapterBanorteSucursApps/resource/mantoCancelacionEnvioEDC',
+        'adapters/AdapterBanorteSucursApps2/resource/mantoCancelacionEnvioEDC',
         WLResourceRequest.POST
       );
       resourceRequest.setTimeout(30000);

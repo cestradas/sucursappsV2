@@ -2,7 +2,7 @@
     <h2 class="text-center padding-barToTittle deleteMargin-h2  color-letra">Mantenimiento de Beneficiarios</h2>
     <fieldset class="padding-TittleToFieldset padding-fieldset-general">
         <div class="row sumando-form-group letranegrita">
-            <div class="col-sm-1 sumando-bg-red group-name">
+            <div class="col-sm-1 sumando-bg-red group-name" style="height: 66px;">
                 Desde
             </div>
             <div class="col-sm-11 group-controls padding-InFieldset" style="padding-left: 0px; padding-right:  0px;">
@@ -23,7 +23,7 @@
                             <tr>
                                 <td align="left" style="border: 0px">Cuenta
                                     <strong>
-                                                    <label> {{numeroCuentaTitular}}
+                                                    <label> {{mostrarCuentaMascara}}
                                                      </label>
                                                 </strong>
                                 </td>
@@ -141,7 +141,7 @@
                         </div>
                         <div class="col-sm-3">
                             <select class="input-whidth form-control amount input-lg selectModificado" id="selTypePersonAlta" (change)="fMSelect($event.target.value)" #RFisicaMoralSelecAlta>                            
-                        <option disabled="true" selected="true">Seleccione Opción</option>
+                        <option disabled="true" selected="true">SELECCIONE OPCIÓN</option>
                         <option [value]="1">Persona Física</option>
                         <option [value]="2">Persona Moral</option>
                       </select>
@@ -193,7 +193,7 @@
                             <input class="input-whidth form-control amount input-lg text-uppercase" type=text id=EdoInputText #RDescripcionEstadoAlta style="text-align: center" [value]="descripcionEstado" placeholder="Ingrese Estado" disabled="true">
                         </div>
                         <div class="form-group col-sm-1">
-                            <label for="amount" class="col-sm control-label" style="top: -11px;">Delegacion/ Municipio</label>
+                            <label for="amount" class="col-sm control-label" style="top: -11px;">Delegación/ Municipio</label>
                         </div>
                         <div class="col-sm-3">
                             <input class="input-whidth form-control amount input-lg text-uppercase" type=text id=DelMunIputText #RDescripcionDelegacionAlta style="text-align: center" placeholder="Delegación/Municipio" [value]="descripcionDelegacion" disabled="true">
@@ -206,7 +206,7 @@
                         </div>
                         <div class="col-lg-3">
                             <select class="input-whidth form-control amount input-lg selectModificado" id="selColonia" (change)="seleccionColonia()" #rColonias style=" background-size: auto">
-                                <option [disabled]="true" selected="true">Seleccione Colonia</option>
+                                <option [disabled]="true" selected="true">SELECCIONE COLONIA</option>
                                 <option *ngFor="let colonias of CP"  [value]="colonias.Colonia">{{colonias.Colonia}}</option>                      
                         </select>
                         </div>
@@ -252,6 +252,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 85%; position: initial !important; margin-top: -41px;">
             <div class="modal-content shadowModal">
                 <h2 class="text-center padding-barToTittle deleteMargin-h2  color-letra">Modificacion de Beneficiario</h2>
+                <!--<h4 class="text-center padding-barToTittle deleteMargin-h2" class="text-center padding-barToTittle deleteMargin-h2" style="color: #B01657; font-weight: 700;">Modificacion de Beneficiario</h4>-->
                 <br>
                 <div class="modal-body modal-body-aux">
 
@@ -355,7 +356,7 @@
                             <input type="text" class="input-whidth form-control amount input-lg text-uppercase" id=EdoInputText #RDescripcionEstado [value]="descripcionEstado" style="text-align: center" placeholder="Ingrese Estado" disabled="true">
                         </div>
                         <div class="form-group col-sm-1">
-                            <label for="amount" class="col-sm control-label" style="top: -11px;">Delegacion/ Municipio</label>
+                            <label for="amount" class="col-sm control-label" style="top: -11px;">Delegación/ Municipio</label>
                         </div>
                         <div class="col-sm-3">
                             <input type="text" class="input-whidth form-control amount input-lg text-uppercase" id=DelMunIputText #RDescripcionDelegacion [value]="descripcionDelegacion" style="text-align: center" placeholder="Delegación/Municipio" disabled="true">
@@ -369,7 +370,7 @@
                         <div class="col-sm-3">
                             <select class="input-whidth form-control amount input-lg selectModificado" id="selColonia" (change)="seleccionColonia()" #RColoniasM style="text-align: center; background-size: auto">
                                             <option *ngIf="descripcionColonia !== ''">{{descripcionColonia}}</option>
-                                            <option disabled="true">Seleccione Colonia</option>
+                                            <option disabled="true">SELECCIONE COLONIA</option>
                                             <option  *ngFor="let colonias of CP" [value]="colonias.Colonia">{{colonias.Colonia}}</option>
                                   </select>
                         </div>
@@ -414,7 +415,8 @@
     <div class="modal fade" id="modalBajaBeneficiarios" tabindex="-1" role="dialog" aria-labelledby="ModalTDDLogin" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 21%; position: initial !important;">
             <div class="modal-content shadowModal">
-                <h2 class="text-center padding-barToTittle deleteMargin-h2  color-letra">Aviso</h2>
+                <!--<h2 class="text-center padding-barToTittle deleteMargin-h2  color-letra">Aviso</h2>-->
+                <h4 class="text-center padding-barToTittle deleteMargin-h2" style="color: #B01657; font-weight: 700;">Aviso</h4>
                 <br>
                 <div class="modal-body modal-body-aux">
                     <p style="text-align: center; font-weight: bold">Confirmar la eliminación del beneficiario: </p>
@@ -435,10 +437,11 @@
     <div class="modal fade" id="porcentajeModal" tabindex="-1" role="dialog" aria-labelledby="ModalTDDLogin" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 21%; position: initial !important;">
             <div class="modal-content shadowModal">
-                <h2 class="text-center padding-barToTittle deleteMargin-h2  color-letra">Aviso</h2>
+                <!--<h2 class="text-center padding-barToTittle deleteMargin-h2  color-letra">Aviso</h2>-->
+                <h4 class="text-center padding-barToTittle deleteMargin-h2" style="color: #B01657; font-weight: 700;">Aviso</h4>
                 <br>
                 <div class="modal-body modal-body-aux">
-                    <p style="text-align: left; font-weight: bold">Para poder continuar, es necesario que la suma de los porcentajes asignados a sus beneficiarios sea igual a 100%, por favor modifique, elimine o realice alta de beneficiarios hasta sumar el 100%.</p>
+                    <p style="text-align: justify; font-weight: bold">Para poder continuar, es necesario que la suma de los porcentajes asignados a sus beneficiarios sea igual a 100%, por favor modifique, elimine o realice alta de beneficiarios hasta sumar el 100%.</p>
                 </div>
                 <div class="modal-footer">
                     <button id="aceptar2" type="button" class="color-botones btn btn-lg pull-right" data-dismiss="modal" data-dismiss="modal">Aceptar</button>

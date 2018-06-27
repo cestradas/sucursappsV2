@@ -239,7 +239,7 @@ cerrarSesion() {
   localStorage.removeItem("res");
   localStorage.removeItem("tr2");
   const resourceRequest = new WLResourceRequest(
-    'adapters/AdapterBanorteSucursApps/resource/cerrarSesion',
+    'adapters/AdapterBanorteSucursApps2/resource/cerrarSesion',
     WLResourceRequest.POST);
 resourceRequest.setTimeout(30000);
 resourceRequest.send().then(
@@ -332,7 +332,7 @@ includesL(container, value) {
     const this_aux = this;
     $("#_modal_please_wait").modal("show");
     const resourceRequest = new WLResourceRequest(
-      "adapters/AdapterBanorteSucursApps/resource/consultaMontosMaximos",
+      "adapters/AdapterBanorteSucursApps2/resource/consultaMontosMaximos",
       WLResourceRequest.POST
     );
     resourceRequest.setTimeout(30000);

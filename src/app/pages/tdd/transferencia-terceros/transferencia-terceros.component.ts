@@ -168,7 +168,7 @@ export class TransferenciaTercerosComponent implements OnInit {
   }
 
   transTerceroTransaccion() {
-
+/*
     const THIS: any = this;
     const this_aux = this;
     this.importe = this.replaceSimbolo(this.importe);
@@ -177,13 +177,13 @@ export class TransferenciaTercerosComponent implements OnInit {
 
     const formParameters = {
 
-      email: this.correo,
-      mnsEmail: this.desc,
-      importe: pImporte,
-      ctaCargo: this.cuentaClienteTdd,
-      ctaAbono: this.noTarjeta
-
-    };
+      paramEmailBeneficiario: this.correo,
+      paramMnsEmail: this.desc,
+      paramAliasCuentaOrigen: 'Cuenta TDD',
+      paramNumeroCuentaCargo: this.cuentaClienteTdd,
+      paramCuentaAbono: this.noTarjeta,
+      paramImporte: pImporte
+    }
 
     const resourceRequest = new WLResourceRequest(
       'adapters/AdapterBanorteSucursApps/resource/transfenciaTerceroBanorte',
@@ -219,8 +219,8 @@ export class TransferenciaTercerosComponent implements OnInit {
 
 
           });
-
-  }
+*/
+  } 
 
 
   showErrorSuccesMoney(json) {
