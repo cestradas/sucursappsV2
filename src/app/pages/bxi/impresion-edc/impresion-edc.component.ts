@@ -171,7 +171,6 @@ setDatosCuentaSeleccionada(elementHTML) {
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
   let btnCancelarEnvio = document.getElementById('cancelarEnvioDomicilio');
   btnCancelarEnvio.style.display = 'none';
-  const this_aux = this;
   console.log(elementHTML);
   const tableOrigen = document.getElementById('tableOrigen');
   const tableDefaultOrigen = document.getElementById('tableDefaultOrigen');
