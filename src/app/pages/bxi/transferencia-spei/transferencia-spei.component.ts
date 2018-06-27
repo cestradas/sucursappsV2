@@ -843,11 +843,11 @@ consultaClabeSaldos(numCuentaDestinario_seleccionada) {
 
           // Bloquear campos
 
-          /*
+
           $('#amountSPEI').prop("disabled", true);
           $('#descriptionSPEI').prop("disabled", true);
           $('#referenceSPEI').prop("disabled", true);
-          */
+          
 
         }
       }, function(error) {
