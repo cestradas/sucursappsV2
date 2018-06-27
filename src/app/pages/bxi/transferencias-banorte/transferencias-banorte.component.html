@@ -1,6 +1,8 @@
-<h2 class="text-center deleteMargin-h2 padding-barToTittle">
-    Transferencias Banorte</h2>
-<fieldset class="padding-fieldset-general padding-TittleToFieldset">
+<div ng-cloak class="padding-barToTittle">
+    <h2 class="text-center color-letra">Transferencias a otros bancos</h2>
+</div>
+
+<fieldset class="padding-TittleToFieldset padding-fieldset-general">
 
     <div class="row sumando-form-group letranegrita padding-InFieldset">
         <div class="col-sm-1 sumando-bg-red group-name">
@@ -9,12 +11,13 @@
         <div class="dropdown sumando-dropdown-account col-sm-11" style="padding-left: 0px; padding-right: 0px;">
 
             <select class="input-whidth selectModificado" #selectTipo id="tipoTransfer" (change)="setCuentasBenficiarioXTipo();" style=" width: 100%; height: 60px; border:0px solid red;">
-               <!-- <img src="./assets/img/bg_selectN.png" align="right" style="width: 3.8%; float: right; position: absolute;     margin-left: 1549px;"> -->
+                           <!-- <img src="./assets/img/bg_selectN.png" align="right" style="width: 3.8%; float: right; position: absolute;     margin-left: 1549px;"> -->
 
-            <option value="0" disabled selected>Seleccione tipo de transferencia...</option>
-            <option value="1">Entre cuentas propias</option>
-            <option value="2">A terceros banorte</option>
-        </select>
+                        <option value="0" disabled selected>Seleccione transferencia</option>
+                        <option value="1">SPEI</option>
+                        <option value="2">TEF</option>
+                        <option value="3">Rapida</option>
+                    </select>
         </div>
 
     </div>
@@ -28,34 +31,34 @@
                 <div class="sumando-bg-white">
                     <input type="hidden">
                     <div class="dropdown sumando-dropdown-account">
-                        <button disabled="disabled" class="btn btn-default btn-block dropdown-toggle btn-color-cuentas" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                <table id="tableOrigen" style="display: none" width="100%">
-                  <tr>
-                    <td align="left" width="45%">
-                      <strong><label  id="lblAliasOrigen" #lblAliasOrigen></label></strong>
-                    </td>
-                    <td align="left" width="45%">
-                      <strong>$<label id ="lblSaldoOrigen"></label>
-                      </strong>
-                    </td>
-                    <td width="5%" rowspan="2" class="dropdown-caret" style="padding-left: 21px;">
-                      <img  class="select-img" src="./assets/img/bg_selectN.png" style="width: 91%; height: 181%;" >
-                    </td>
-                  </tr>
-                  <tr>
-                    <td align="left">Cuenta <label id="lblCuentaOrigen" #lblCuentaOrigen></label></td>
-                    <td align="left">Saldo Disponible</td>
-                  </tr>
-                </table>
-                <table  id="tableDefaultOrigen" width="100%" style="height: 100%;">
-                  <tr>
-                    <td align="left" rowspan="2">Seleccione una cuenta de origen...</td>
-                    <td width="5%" style="height: 40px;" rowspan="2" class="dropdown-caret">
-                      <img src="./assets/img/bg_selectN.png" class="select-img">
-                    </td>
-                  </tr>
-                </table>
-              </button>
+                        <button class="btn btn-default btn-block dropdown-toggle btn-color-cuentas" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" disabled="true" aria-expanded="true">
+                  <table id="tableOrigen" style="display: none" width="100%">
+                    <tr>
+                      <td align="left" width="45%">
+                        <strong><label  id="lblAliasOrigen" #lblAliasOrigen></label></strong>
+                      </td>
+                      <td align="left" width="45%">
+                        <strong>$<label id ="lblSaldoOrigen"></label>
+                        </strong>
+                      </td>
+                      <td width="5%" rowspan="2" class="dropdown-caret" style="padding-left: 21px;">
+                        <img  class="select-img" src="./assets/img/bg_selectN.png" style="width: 91%; height: 181%;" >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="left">Cuenta <label id="lblCuentaOrigen" #lblCuentaOrigen></label></td>
+                      <td align="left">Saldo Disponible</td>
+                    </tr>
+                  </table>
+                  <table  id="tableDefaultOrigen" width="100%" style="height: 100%;">
+                    <tr>
+                      <td align="left" rowspan="2">Seleccione una cuenta de origen...</td>
+                      <td width="5%" style="height: 40px;" rowspan="2" class="dropdown-caret">
+                        <img src="./assets/img/bg_selectN.png" class="select-img">
+                      </td>
+                    </tr>
+                  </table>
+                </button>
                         <div>
                             <ul id="ul_Cuentas" #listaCuentas class="dropdown-menu btn-block" aria-labelledby="dropdownMenu1" style="width: 100%; height: 200px; overflow: auto">
 
@@ -67,8 +70,6 @@
         </div>
     </div>
 
-
-
     <div id="beneficiarios">
         <div class="row sumando-form-group letranegrita">
             <div class="col-sm-1 sumando-bg-red group-name">
@@ -79,34 +80,34 @@
                     <div class="sumando-bg-white">
                         <input type="hidden">
                         <div class="dropdown sumando-dropdown-account">
-                            <button disabled="disabled" class="btn btn-default btn-block dropdown-toggle btn-color-cuentas" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                <table id="tableBeneficiarios" style="display: none" width="100%">
-                  <tr>
-                    <td align="left" width="45%" style="width: 0px; margin-right: 64px;">
-                      <strong><label  id="lbDescripcionCtaBen" #lbDescripcionCtaBen></label></strong>
-                    </td>
-                    <!-- <td align="left" width="45%">
-                     <strong>$<label id ="lblSaldoOrigen"></label>
-                     </strong>
-                   </td>-->
-                    <td width="5%" rowspan="2" class="dropdown-caret" style="padding-left: 2px;">
-                      <img  class="select-img" src="./assets/img/bg_selectN.png" style="width: 80%; height: 184%; margin-left: 42px;">
-                    </td>
-                  </tr>
-                  <tr>
-                      <td align="left">Cuenta <label id="lblCuentaDestino" #lblCuentaDestino></label></td>
-                      <!--<td align="left">Saldo Disponible</td-->
+                            <button disabled="true" class="btn btn-default btn-block dropdown-toggle btn-color-cuentas" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  <table id="tableBeneficiarios" style="display: none" width="100%">
+                    <tr>
+                      <td align="left" width="45%" style="width: 0px; margin-right: 64px;">
+                        <strong><label  id="lbDescripcionCtaBen" #lbDescripcionCtaBen></label></strong>
+                      </td>
+                      <!-- <td align="left" width="45%">
+                       <strong>$<label id ="lblSaldoOrigen"></label>
+                       </strong>
+                     </td>-->
+                      <td width="5%" rowspan="2" class="dropdown-caret" style="padding-left: 2px;">
+                        <img  class="select-img" src="./assets/img/bg_selectN.png" style="width: 80%; height: 184%; margin-left: 42px;">
+                      </td>
                     </tr>
-                </table>
-                <table  id="tableDefaultBeneficiarios" width="100%" style="height: 100%;">
-                  <tr>
-                      <td align="left" rowspan="2">Seleccione una cuenta destino...</td>
-                    <td width="5%" style="height: 40px;" rowspan="2" class="dropdown-caret">
-                      <img src="./assets/img/bg_selectN.png" class="select-img">
-                    </td>
-                  </tr>
-                </table>
-              </button>
+                    <tr>
+                        <td align="left">Cuenta <label id="lblCuentaDestino" #lblCuentaDestino></label></td>
+                        <!--<td align="left">Saldo Disponible</td-->
+                      </tr>
+                  </table>
+                  <table  id="tableDefaultBeneficiarios" width="100%" style="height: 100%;">
+                    <tr>
+                        <td align="left" rowspan="2">Seleccione una cuenta destino...</td>
+                      <td width="5%" style="height: 40px;" rowspan="2" class="dropdown-caret">
+                        <img src="./assets/img/bg_selectN.png" class="select-img">
+                      </td>
+                    </tr>
+                  </table>
+                </button>
                             <div>
                                 <ul id="ul_CuentasBen" #listaCuentasBeneficiario class="dropdown-menu btn-block" aria-labelledby="dropdownMenu2" style="width: 100%; height: 200px; overflow: auto">
 
@@ -121,13 +122,68 @@
 
 
 
-    <form [formGroup]="forma" (ngSubmit)="showDetallePago()" class="needs-validation">
+
+
+    <form [formGroup]="forma" (ngSubmit)="showDetallePago()">
         <div id="divisionInputs"></div>
         <div class="row sumando-form-group letranegrita">
-            <div class="col-sm-1 sumando-bg-red group-name" style="background-color: #ff000000;"></div>
+            <div class="col-sm-1 sumando-bg-red group-name">Para</div>
             <div class="col-sm-11 sumando-well-white">
 
-                <div id="transferencia" style="display: block;">
+                <div id="tranSPEI" style="display: block;">
+                    <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
+                        <div class="row">
+                            <div class="col-lg-1 padding-labelToInput">
+                                <label>Importe: </label>
+                            </div>
+                            <div class="col-lg-10">
+                                <input formControlName="amountSPEI" [matKeyboard]="'num'" name="amountSPEI" #rImporteSPEI id="amountSPEI" type="text" step="0.01" currency required class="form-control amount input-lg" (blur)="transformAmount(rImporteSPEI.value)" />
+
+                                <div *ngIf="forma.hasError('min', 'amountSPEI') || forma.hasError('max', 'amountSPEI') " class="alert alert-danger">
+                                    El importe debe ser menor a....
+                                </div>
+                                <div *ngIf="forma.hasError('required', 'amountSPEI') && forma.get('amountSPEI').touched" class="alert alert-danger">
+                                    Este dato es obligatorio.
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
+                        <div class="row">
+                            <div class="col-lg-1 padding-labelToInput">
+                                <label>Descripci&oacute;n: </label>
+                            </div>
+                            <div class="col-sm-10">
+                                <input name="descriptionSPEI" [matKeyboard]="" formControlName="descriptionSPEI" id="descriptionSPEI" type="text" class="form-control amount input-lg" maxlength="60" required />
+                                <div *ngIf="forma.hasError('maxlength', 'descriptionSPEI')" class="alert alert-danger">
+                                    Limite de descripcion....
+                                </div>
+                                <div *ngIf="forma.hasError('required', 'descriptionSPEI') && forma.get('descriptionSPEI').touched" class="alert alert-danger">
+                                    Este dato es obligatorio.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
+                        <div class="row">
+                            <div class="col-lg-1 padding-labelToInput">
+                                <label>Referencia: </label>
+                            </div>
+                            <div class="col-sm-10">
+                                <input id="referenceSPEI" [matKeyboard]="" name="referenceSPEI" formControlName="referenceSPEI" type="text" maxlength="7" class="form-control amount input-lg" required />
+                                <div *ngIf="forma.hasError('maxlength', 'referenceSPEI')" class="alert alert-danger">
+                                    Limite de descripcion....
+                                </div>
+                                <div *ngIf="forma.hasError('required', 'referenceSPEI') && forma.get('referenceSPEI').touched" class="alert alert-danger">
+                                    Este dato es obligatorio.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tranTEF" style="display: none;">
 
                     <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
                         <div class="row">
@@ -135,11 +191,11 @@
                                 <label>Importe: </label>
                             </div>
                             <div class="col-sm-10">
-                                <input id="amount" #rImporte [matKeyboard]="'num'" name="amount" formControlName="amount" type="text" class="form-control amount input-lg" maxlength="60" required (blur)="transformAmount(rImporte.value)" />
-                                <div *ngIf="forma.hasError('min', 'amount') || forma.hasError('max', 'amount') " class="alert alert-danger">
+                                <input id="amountTEF" #rImporteTEF [matKeyboard]="'num'" name="amountTEF" formControlName="amountTEF" type="text" class="form-control amount input-lg" maxlength="60" required (blur)="transformAmount(rImporteTEF.value)" />
+                                <div *ngIf="forma.hasError('min', 'amountTEF') || forma.hasError('max', 'amountTEF') " class="alert alert-danger">
                                     Limite de....
                                 </div>
-                                <div *ngIf="forma.hasError('required', 'amount') && forma.get('amount').touched" style="margin-bottom: 0px; padding: 0.5rem 1.20rem;" class="alert alert-danger">
+                                <div *ngIf="forma.hasError('required', 'amountTEF') && forma.get('amountTEF').touched" class="alert alert-danger">
                                     Este dato es obligatorio.
                                 </div>
                             </div>
@@ -148,27 +204,121 @@
                     <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
                         <div class="row">
                             <div class="col-lg-1 padding-labelToInput">
-                                <label>Concepto: </label>
+                                <label>Descripci&oacute;n: </label>
                             </div>
                             <div class="col-sm-10">
-                                <input aria-describedby="validationTooltipUsernamePrepend" [matKeyboard]="" id="concepto" name="concepto" formControlName="concepto" type="text" maxlength="7" class="form-control amount" required />
-                                <div *ngIf="forma.hasError('maxlength', 'concepto')" class="alert alert-danger">
+                                <input id="descriptionTEF" [matKeyboard]="" name="descriptionTEF" formControlName="descriptionTEF" type="text" maxlength="7" class="form-control amount input-lg" required />
+                                <div *ngIf="forma.hasError('maxlength', 'descriptionTEF')" class="alert alert-danger">
                                     Limite de descripcion debe ser de....
                                 </div>
-                                <div *ngIf="forma.hasError('required', 'concepto') && forma.get('concepto').touched" class="invalid-tooltip">
+                                <div *ngIf="forma.hasError('required', 'descriptionTEF') && forma.get('descriptionTEF').touched" class="alert alert-danger">
                                     Este dato es obligatorio.
                                 </div>
-
                             </div>
+                        </div>
+                    </div>
+                    <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
+                        <div class="row">
+                            <div class="col-lg-1 padding-labelToInput">
+                                <label>Referencia: </label>
+                            </div>
+                            <div class="col-sm-10">
+                                <input id="referenceTEF" [matKeyboard]="" name="referenceTEF" formControlName="referenceTEF" type="text" maxlength="7" class="form-control amount input-lg" required />
+                                <div *ngIf="forma.hasError('maxlength', 'referenceTEF')" class="alert alert-danger">
+                                    La referencia debe ser de....
+                                </div>
+                                <div *ngIf="forma.hasError('required', 'referenceTEF') && forma.get('referenceTEF').touched" class="alert alert-danger">
+                                    Este dato es obligatorio.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-
-
-
-
+                <div id="tranQuick" style="display: none;">
+                    <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
+                        <div class="row">
+                            <div class="col-lg-1 padding-labelToInput">
+                                <label>Cuenta: </label>
+                            </div>
+                            <div class="col-lg-10">
+                                <input name="cuenta" [matKeyboard]="'num'" id="cuenta" formControlName="cuenta" type="text" step="0.01" currency required class="form-control amount input-lg" ng-model="command.amount" ng-min="1" ng-max="7000" />
+                                <div *ngIf="forma.hasError('maxlength', 'cuenta')" class="alert alert-danger">
+                                    La cuenta debe ser de....
+                                </div>
+                                <div *ngIf="forma.hasError('required', 'cuenta') && forma.get('cuenta').touched" class="alert alert-danger">
+                                    Este dato es obligatorio.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
+                        <div class="row">
+                            <div class="col-lg-1 padding-labelToInput">
+                                <label for="amount" class="col-sm-2 control-label" style="margin-left: -15px;">Banco Destino</label>
+                            </div>
+                            <div class="dropdown sumando-dropdown-account col-sm-9">
+                                <select class="input-whidth input-lg selectModificado" name="sel1" id="selecBanco" #rSelecBanco (change)="selectBanco($event.target.value)" style="border:0px solid red; background-size: auto; width: 111%">
+                                        <option disabled="true">Seleccione un banco</option>
+                                        <option *ngFor="let bancos of listaBancos"  [value]="bancos.IdSecoban">{{bancos.NombreBanco}}</option>
+                                    </select>
+                                <div *ngIf="forma.hasError('required', 'sel1') && forma.get('sel1').touched" class="alert alert-danger">
+                                    Este dato es obligatorio.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
+                        <div class="row">
+                            <div class="col-lg-1 padding-labelToInput">
+                                <label>CLABE: </label>
+                            </div>
+                            <div class="col-sm-10">
+                                <input id="clabe" [matKeyboard]="'num'" name="clabe" formControlName="clabe" type="text" maxlength="16" class="form-control amount input-lg" required />
+                                <div *ngIf="forma.hasError('maxlength', 'clabe')" class="alert alert-danger">
+                                    La clabe debe ser de....
+                                </div>
+                                <div *ngIf="forma.hasError('required', 'clabe') && forma.get('clabe').touched" class="alert alert-danger">
+                                    Este dato es obligatorio.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
+                        <div class="row">
+                            <div class="col-lg-1 padding-labelToInput">
+                                <label>Importe: </label>
+                            </div>
+                            <div class="col-sm-10">
+                                <input id="ammountQUICK" #rImporteQUICK [matKeyboard]="'num'" name="ammountQUICK" formControlName="ammountQUICK" type="text" maxlength="7" class="form-control amount input-lg" required (blur)="transformAmount(rImporteQUICK.value)" />
+                                <div *ngIf="forma.hasError('min', 'ammountQUICK') || forma.hasError('max', 'ammountQUICK') " class="alert alert-danger">
+                                    El importe debe ser de....
+                                </div>
+                                <div *ngIf="forma.hasError('required', 'ammountQUICK') && forma.get('ammountQUICK').touched" class="alert alert-danger">
+                                    Este dato es obligatorio.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
+                        <div class="row">
+                            <div class="col-lg-1 padding-labelToInput">
+                                <label>Referencia: </label>
+                            </div>
+                            <div class="col-sm-10">
+                                <input id="referenceQuick" [matKeyboard]="" name="referenceQuick" formControlName="referenceQuick" type="text" maxlength="7" class="form-control amount input-lg" required />
+                                <div *ngIf="forma.hasError('maxlength', 'referenceQuick')" class="alert alert-danger">
+                                    La referencia debe ser de....
+                                </div>
+                                <div *ngIf="forma.hasError('required', 'referenceQuick') && forma.get('referenceQuick').touched" class="alert alert-danger">
+                                    Este dato es obligatorio.
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                 </div>
+
             </div>
         </div>
 
@@ -177,10 +327,11 @@
             <div class="col-sm-9"></div>
             <div class="col-sm-2">
                 <button type="button" class="btn btn-lg" routerLink="/menuBXI">Regresar</button>
+
             </div>
             <!-- <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
             <div class="col-sm-1">
-                <button [disabled]="!forma.valid" id="continuarspei" name="continuarspei" class="btn btn-danger btn-lg" type="submit">
+                <button id="continuarspei" name="continuarspei" class="btn color-botones btn-lg" type="submit">
                     Continuar</button>
             </div>
         </div>
@@ -188,8 +339,9 @@
 </fieldset>
 
 
+
 <!-- Modal -->
-<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
+<div class="modal fade" id="confirmModalSPEI" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content shadowModal ">
 
@@ -213,14 +365,14 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <!--<div class="row">
                     <div class="col-lg 6">
                         <label>Correo:</label>
                     </div>
                     <div class="col-lg 6">
-                        <label>{{correoBeneModal}}</label>
+                        <label>${{correoBeneModal}}</label>
                     </div>
-                </div>
+                </div>-->
                 <div class="row">
                     <div class="col-lg 6">
                         <label>Nombre:</label>
@@ -273,7 +425,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                    <button class="color-botones btn btn-lg " (click)="confirmarPago(token.value)">
+                    <button id="confirmar" class="color-botones btn btn-lg " (click)="confirmarPago(token.value, '','')">
                                 Confirmar
                               </button>
                 </div>
@@ -283,22 +435,224 @@
     </div>
 </div>
 
-<div class="uiv-animate" ui-view></div>
+<!-- Modal -->
+<div class="modal fade" id="confirmModalTEF" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content shadowModal ">
+
+            <div class="modal-body" style="padding: 2rem;">
+
+                <h4 style="color: #B01657; font-weight: 700;">Confirmar pago</h4>
+                <div class="row">
+                    <div class="col-lg 6">
+                        <label>Cuenta origen:</label>
+                    </div>
+                    <div class="col-lg 6">
+                        <label>{{cuentaOrigenModal}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg 6">
+                        <label>Cuenta destino:</label>
+                    </div>
+                    <div class="col-lg 6">
+                        <label>{{CuentaDestino}}</label>
+                    </div>
+                </div>
 
 
-<div id="errorModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+                <div class="row">
+                    <div class="col-lg 6">
+                        <label>Importe total:</label>
+                    </div>
+                    <div class="col-lg 6">
+                        <label>${{importeF}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label style="display: block; text-align: center; line-height: 280%; color: #eb012a;">Por favor captura tu <label>{{labelTipoAutentica}}</label> para poder continuar</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg 12">
+                        <div id="challenger" class="row">
+                            <div class="col-lg 6">
+                                <label>N&uacute;mero de seguridad</label>
+                            </div>
+                            <div class="col-lg 6">
+                                <label class='form-control input-lg'>{{NumeroSeguridad}}</label>
+                            </div>
+
+                        </div>
+                        <div id="divPass" class="row">
+                            <div class="col-lg 6">
+                                <label>{{labelTipoAutentica}}</label>
+                            </div>
+                            <div class="col-lg 6">
+                                <label>
+                                <input type="password" class="form-control input-lg" #token [matKeyboard]="'num'">
+                                <div *ngIf="(token.value == '')  && token.touched" class="alert alert-danger">
+                                    <p color="danger" *ngIf="(token.value == '')">Dato obligatorio, favor de capturar. </p>
+                                </div>
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
+                    <button id="confirmarP" class="color-botones btn btn-lg " (click)="confirmarPago('', tokenTef.value, '')">
+                                Confirmar
+                              </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmModalQUICK" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content shadowModal ">
+
+            <div class="modal-body" style="padding: 2rem;">
+
+                <h4 style="color: #B01657; font-weight: 700;">Confirmar pago</h4>
+                <div class="row">
+                    <div class="col-lg 6">
+                        <label>Cuenta origen:</label>
+                    </div>
+                    <div class="col-lg 6">
+                        <label>{{cuentaOrigenModal}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg 6">
+                        <label>Cuenta destino:</label>
+                    </div>
+                    <div class="col-lg 6">
+                        <label>{{tipoCuentaF}}</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg 6">
+                        <label>Clabe:</label>
+                    </div>
+                    <div class="col-lg 6">
+                        <label>{{clabeF}}</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg 6">
+                        <label>Referencia:</label>
+                    </div>
+                    <div class="col-lg 6">
+                        <label>{{refF}}</label>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-lg 6">
+                        <label>Importe total:</label>
+                    </div>
+                    <div class="col-lg 6">
+                        <label>${{importeF}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label style="display: block; text-align: center; line-height: 280%; color: #eb012a;">Por favor captura tu <label>{{labelTipoAutentica}}</label> para poder continuar</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg 12">
+                        <div id="challenger" class="row">
+                            <div class="col-lg 6">
+                                <label>N&uacute;mero de seguridad</label>
+                            </div>
+                            <div class="col-lg 6">
+                                <label class='form-control input-lg'>{{NumeroSeguridad}}</label>
+                            </div>
+
+                        </div>
+                        <div id="divPass" class="row">
+                            <div class="col-lg 6">
+                                <label>{{labelTipoAutentica}}</label>
+                            </div>
+                            <div class="col-lg 6">
+                                <label>
+                                <input type="password" class="form-control input-lg" #token [matKeyboard]="'num'">
+                                <div *ngIf="(token.value == '')  && token.touched" class="alert alert-danger">
+                                    <p color="danger" *ngIf="(token.value == '')">Dato obligatorio, favor de capturar. </p>
+                                </div>
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
+                    <button id="confirmarP2" class="color-botones btn btn-lg " (click)="confirmarPago('','', tokenQuick.value)">
+                                Confirmar
+                              </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- //////////////////////////////////////////////////////////////////////////////////////////////////// Modal End here-->
+
+
+<div id="modalErrorMessage" class="modal fade" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog-error">
         <div class="modal-content">
             <div class="modal-body text-center">
                 <p>
-                    <label id="mnsError"></label>
+                    <label id="errorMensaje"></label>
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" onClick="currentPage.loadMenu();">Cerrar</button>
+                <button id="cerrar" type="button" class="btn btn-default" data-dismiss="modal" onClick="currentPage.loadMenu();">Cerrar</button>
             </div>
         </div>
         <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
 </div>
+
+<!-- <div class="modal fade" id="modalErrorMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">Ocurrio un error</h4>
+        </div>
+        <div class="modal-body">
+
+          <ul class="list-group">
+            <li class="list-group-item">
+              <label></label>
+              <label id="errorMensaje"></label>
+            </li>
+
+
+          </ul>
+        </div>
+     <div class="modal-footer">
+          <button type="button" class="btn btn-lg" data-dismiss="modal">Cerrar</button>
+     </div>
+          <div class="modal-footer">   <button type="button" class="btn btn-primary btn-lg" onClick="onTransferSPEI()">Confirmar</button>
+        </div>
+      </div>
+
+    </div>
+  </div> -->
