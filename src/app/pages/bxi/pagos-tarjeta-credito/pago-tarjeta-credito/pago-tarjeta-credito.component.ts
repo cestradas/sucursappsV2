@@ -276,7 +276,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     this_aux.CuentaOrigen = operacionesbxi.mascaraNumeroCuenta( this_aux.service.numCuentaSeleccionado);
     this_aux.nombreBanco = this_aux.service.nameBancoDestino;
     this_aux.Importe = this_aux.replaceSimbolo( montoAPagar);
-    this_aux.validarSaldo(this_aux.CuentaOrigen, this_aux.Importe);
+    this_aux.validarSaldo(this_aux.service.numCuentaSeleccionado, this_aux.Importe);
 
   }
 
@@ -291,14 +291,14 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
       $('#_modal_please_wait').modal('show');
       this_aux.labelTipoAutentica = 'Token Celular';
-        divTokenPass.setAttribute('style', 'display: block');
+        divTokenPass.setAttribute('style', 'display: flex');
         const operacionesbxi: OperacionesBXI = new OperacionesBXI();
         operacionesbxi.preparaAutenticacion().then(
           function(response) {
             const detallePrepara = response.responseJSON;
             console.log(detallePrepara);
             if (detallePrepara.Id === 'SEG0001') {
-              divChallenge.setAttribute('style', 'display: block');
+              divChallenge.setAttribute('style', 'display: flex');
               this_aux.NumeroSeguridad = detallePrepara.MensajeUsuarioUno;
               setTimeout(() => {
                 $('#_modal_please_wait').modal('hide');
@@ -320,13 +320,13 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     } else if (this_aux.service.metodoAutenticaMayor.toString()  === '0') {
 
       divChallenge.setAttribute('style', 'display: none');
-      divTokenPass.setAttribute('style', 'display: block');
+      divTokenPass.setAttribute('style', 'display: flex');
       this_aux.labelTipoAutentica = 'Contrase&atilde;a';
     } else if (this_aux.service.metodoAutenticaMayor.toString()  === '1') {
 
       
       divChallenge.setAttribute('style', 'display: none');
-      divTokenPass.setAttribute('style', 'display: block');
+      divTokenPass.setAttribute('style', 'display: flex');
       this_aux.labelTipoAutentica = 'Token Fisico';
     }
    setTimeout(function() {
@@ -348,7 +348,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
               if (infoUsuarioJSON.Id === 'SEG0001') {
                   console.log('Pago validado');
                   // tslint:disable-next-line:max-line-length
-                  operacionesbxi.pagoTarjetaCredito(this_aux.tipoTarjeta, this_aux.Importe, this_aux.CuentaDestino, this_aux.CuentaOrigen).then(
+                  operacionesbxi.pagoTarjetaCredito(this_aux.tipoTarjeta, this_aux.Importe, this_aux.CuentaDestino, this_aux.service.numCuentaSeleccionado).then(
                       function(detallePago) {
                           console.log('Pago Validado');
                           const jsonDetallePago = detallePago.responseJSON;

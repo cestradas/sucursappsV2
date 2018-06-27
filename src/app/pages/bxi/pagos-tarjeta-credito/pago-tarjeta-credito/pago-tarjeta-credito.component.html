@@ -149,56 +149,71 @@
 
             <div class="modal-body" style="padding: 2rem;">
 
-                <h4 style="color: #eb012a; font-weight: 700;">Confirmar pago</h4>
+                <h4 style="color: rgb(176, 22, 87); font-weight: 700;">Confirmar pago</h4>
                 <div class="row">
-                    <div class="col-lg 6">
+                    <div class="col-lg-6">
                         <label>Cuenta origen:</label>
                     </div>
-                    <div class="col-lg 6">
+                    <div class="col-lg-6">
                         <label>{{CuentaOrigen}}</label>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg 6">
+                    <div class="col-lg-6">
                         <label>Banco destino:</label>
                     </div>
-                    <div class="col-lg 6">
+                    <div class="col-lg-6">
                         <label>{{nombreBanco}}</label>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg 6">
+                    <div class="col-lg-6">
                         <label>Cuenta Destino:</label>
                     </div>
-                    <div class="col-lg 6">
+                    <div class="col-lg-6">
                         <label>{{CuentaDestino}}</label>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg 6">
+                    <div class="col-lg-6">
                         <label>Importe:</label>
                     </div>
-                    <div class="col-lg 6">
+                    <div class="col-lg-6">
                         <label>${{Importe}}</label>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg 12">
-                        <div id="challenger" class="form-group">
-                            <label>N&uacute;mero de seguridad</label>
-                            <label  class='form-control input-lg'  >{{NumeroSeguridad}}</label>
-
-                        </div>
-                        <div id="divPass" class="form-group">
-                          <label>{{labelTipoAutentica}}</label>
-                            <input type="password" class="form-control input-lg" #token [matKeyboard]="'num'" formControlName='fcToken'>
-                            <div *ngIf="myForm.get('fcToken').errors  && myForm.get('fcToken').touched " class="alert alert-danger">
-                              <p color="danger" *ngIf="myForm.get('fcToken').hasError('required')"> Dato obligatorio, favor de capturar.</p>
-                              <p color="danger" *ngIf="myForm.get('fcToken').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
-                          </div>
-                          </div>
+                    <div class="col-lg-12">
+                      <label style="display: block; text-align: center; line-height: 280%; 	color: #eb012a;">Por favor captura tu 
+                          <label>{{labelTipoAutentica}}</label> 
+                        para poder continuar
+                      </label>
                     </div>
                 </div>
+                <div id="challenger" class="row">
+                        <div class="col-lg-6" align="center">
+                              <label>N&uacute;mero de seguridad</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label  class='form-control input-lg'  >{{NumeroSeguridad}}</label>
+                        </div>
+                </div>
+                <div id="divPass" class="row">
+                            <div class="col-lg-6" align="center">
+                                <label>{{labelTipoAutentica}}</label>
+                             </div>
+                              <div class="col-lg-6">
+                                <input type="password" class="form-control input-lg" #token [matKeyboard]="'num'" formControlName='fcToken'>
+                                <div *ngIf="myForm.get('fcToken').errors  && myForm.get('fcToken').touched " class="alert alert-danger">
+                                    <p color="danger" *ngIf="myForm.get('fcToken').hasError('required')"> Dato obligatorio, favor de capturar.
+                                    </p>
+                                    <p color="danger" *ngIf="myForm.get('fcToken').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.
+                                    </p>
+                                </div>
+                              </div>
+                  </div>
+                  
+                  <br>
                 <div class="modal-footer">
                     <button class="btn btn-lg" data-dismiss="modal" (click)="ocultaModal()">Cancelar</button>
                           <button id="confirmar" class="color-botones btn btn-lg " (click)="confirmarPago(token.value)" [disabled]="(myForm.get('fcToken').invalid)">
