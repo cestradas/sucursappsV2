@@ -46,13 +46,12 @@ export class PagoDeServicioDetallesComponent implements OnInit {
                 this._service.cargarSaldosTDD();
 
     $('#_modal_please_wait').modal('show');
-
+    const operaciones: consultaCatalogos = new consultaCatalogos();
     this._service.validarDatosSaldoTdd().then(
       mensaje => {
 
         console.log('Saldos cargados correctamente TDD');
-
-        this.cuentaClienteTdd = mensaje.NumeroCuenta;
+        this.cuentaClienteTdd = operaciones.mascaraNumeroCuenta(mensaje.NumeroCuenta);
 
       }
     );
@@ -113,11 +112,12 @@ export class PagoDeServicioDetallesComponent implements OnInit {
     $('#_modal_please_wait').modal('hide');
   }
 
+ 
 
   espacioTeclado() {
     // ESTILO TECLADO (QUITAR ESTILO AL SALIR DE PAGINA PARA EVITAR QUE BAJE MAS EN OTRAS PANTALLAS)
 console.log("aquiiiiiiiiiiiii");
-    $( ".cdk-overlay-container" ).css( "margin-top", "8%" );
+    $( ".cdk-overlay-container" ).css( "margin-top", "20%" );
     $( ".cdk-visually-hidden" ).css( "margin-bottom", "0%" );
   }
 
@@ -320,10 +320,7 @@ irAtras() {
   const this_aux = this;
   this_aux.router.navigate(['/pagoServiciosTDD']);
 }
-getPosts() {
-  return this._http.get('http://localhost:8082/sucursappsdevices/pinpad/read')
-                          .map(res => res.json());
-}
+
 
 showErrorPromiseMoney(error) {
 

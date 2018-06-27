@@ -70,8 +70,8 @@ export class MantenimientoDatosContactoFinalComponent implements OnInit {
 
         } else {
           this_aux.showErrorSucces(jsonRespuesta);
-          this._serviceSesion.datosBreadCroms.CelCliente = "";
-          this._serviceSesion.datosBreadCroms.EmailCliente = "";
+          this_aux._serviceSesion.datosBreadCroms.CelCliente = "";
+          this_aux._serviceSesion.datosBreadCroms.EmailCliente = "";
           console.log("No hay Datos");
         }
 

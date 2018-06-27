@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SesionBxiService } from '../../../bxi/sesion-bxi.service';
 import { Router } from '@angular/router';
 import { ConsultaSaldosTddService } from '../../../../services/service.index';
+import { consultaCatalogos } from '../../../../services/consultaCatalogos/consultaCatalogos.service';
 
 declare var jquery: any; // jquery
 declare var $: any;
@@ -30,11 +31,12 @@ cuentaClienteTdd: string;
               private router: Router ,
               private _service: ConsultaSaldosTddService) {
                 this._service.cargarSaldosTDD();
+                const operaciones: consultaCatalogos = new consultaCatalogos();
     this._service.validarDatosSaldoTdd().then(
       mensaje => {
 
         console.log('Saldos cargados correctamente TDD');
-        this.cuentaClienteTdd = mensaje.NumeroCuenta;
+        this.cuentaClienteTdd = operaciones.mascaraNumeroCuenta(mensaje.NumeroCuenta);
       }
     );
   }

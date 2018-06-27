@@ -30,7 +30,7 @@ export class MantenimientosDatosContactoComponent implements OnInit {
 
   ngOnInit() {
 
-    //ESTILOS Preferente
+    // ESTILOS Preferente
     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
     let btnGuardar = document.getElementById("guardar");
     let btnSalir = document.getElementById("salir");
@@ -46,7 +46,7 @@ export class MantenimientosDatosContactoComponent implements OnInit {
 
     const this_aux = this;
     $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
-    this.getDatosContacto();
+    this.consultarDatos();
   }
 
   consultarDatos() {
@@ -64,20 +64,21 @@ export class MantenimientosDatosContactoComponent implements OnInit {
 
         } else {
           this_aux.showErrorSucces(jsonRespuesta);
-          this._serviceSesion.datosBreadCroms.CelCliente = "";
-          this._serviceSesion.datosBreadCroms.EmailCliente = "";
+          this_aux._serviceSesion.datosBreadCroms.CelCliente = "";
+          this_aux._serviceSesion.datosBreadCroms.EmailCliente = "";
           console.log("No hay Datos");
         }
-
+        this_aux.getDatosContacto();
         setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
       }, function(error) { this_aux.showErrorPromise(error); }
     );
+    
   }
 
   getDatosContacto() {
     const this_aux = this;
     $('#_modal_please_wait').modal('show');
-    this_aux.consultarDatos();
+   // this_aux.consultarDatos();
     setTimeout(function() { 
       $('#_modal_please_wait').modal('show');
       const controlCorreo: FormControl = new FormControl(this_aux._serviceSesion.datosBreadCroms.CelCliente);

@@ -4,6 +4,7 @@ import { SesionBxiService } from '../../bxi/sesion-bxi.service';
 import { Subscription } from 'rxjs/Subscription';
 import $ from 'jquery';
 import { SesionTDDService } from '../../../services/breadcrums/breadcroms.service';
+import { consultaCatalogos } from '../../../services/consultaCatalogos/consultaCatalogos.service';
 declare var $: any;
 @Component ({
   selector: 'app-movimientosaldo',
@@ -60,23 +61,27 @@ constructor( private _service: ConsultaSaldosTddService,
         }
     this_aux.fechaMesActualFin = (this_aux.anio + "-" + this_aux.mes + "-" + this_aux.dia).toString();
     this_aux.fechaMesActualIni = (this_aux.anio + "-" + this_aux.mes + "-01").toString();
-
+    const operaciones: consultaCatalogos = new consultaCatalogos();
     this._service.cargarSaldosTDD();
     this._service.validarDatosSaldoTdd().then(
       mensaje => {
 
         console.log('Saldos cargados correctamente TDD');
-        this.cuentaClienteTdd = mensaje.NumeroCuenta;
+        this.cuentaClienteTdd = operaciones.mascaraNumeroCuenta(mensaje.NumeroCuenta);        
         this.clabeClienteTdd = mensaje.ClabeCuenta;
         this.saldoDiaClienteTdd = mensaje.SaldoDia;
         this.saldoDisponibleClienteTdd = mensaje.SaldoDisponible;
         this.saldoRetenidoClienteTdd = mensaje.SaldoRetenido;
         this.saldoMesAnteriorClienteTdd = mensaje.SaldoMesAnterior;
         this.nombreUsuarioTdd = this._serviceSesion.datosBreadCroms.nombreUsuarioTDD;
-        this_aux.llamarMovimientos ( this.cuentaClienteTdd );
+        this_aux.llamarMovimientos ();
 
       }
     );
+
+    
+
+    
 
   }
 
@@ -110,17 +115,17 @@ constructor( private _service: ConsultaSaldosTddService,
     if (  this_aux.par === 0 ) {
       this_aux.fechaMesActualFin = (this_aux.anio + "-" + this_aux.mes + "-" + this_aux.dia).toString();
       this_aux.fechaMesActualIni = (this_aux.anio + "-" + this_aux.mes + "-01").toString();
-      this_aux.llamarMovimientos (this.cuentaClienteTdd);
+      this_aux.llamarMovimientos ();
 
     } else {
       if ( (this_aux.mes - 1) < 10) {
         this_aux.fechaMesActualFin = (this_aux.anio + "-" + "0" + (this_aux.mes - 1) + "-" + this_aux.diaMesAnterior).toString();
         this_aux.fechaMesActualIni = (this_aux.anio + "-" + "0" + (this_aux.mes - 1) + "-01").toString();
-        this_aux.llamarMovimientos (this.cuentaClienteTdd);
+        this_aux.llamarMovimientos ();
       } else {
         this_aux.fechaMesActualFin = (this_aux.anio + "-" + (this_aux.mes - 1) + "-" + this_aux.diaMesAnterior).toString();
         this_aux.fechaMesActualIni = (this_aux.anio + "-" + (this_aux.mes - 1) + "-01").toString();
-        this_aux.llamarMovimientos (this.cuentaClienteTdd);
+        this_aux.llamarMovimientos ();
       }
     }
   }
@@ -156,17 +161,16 @@ paginador2() {
 }
 
 // tslint:disable-next-line:one-line
-llamarMovimientos (numCuenta) {
+llamarMovimientos () {
   this.quitartabla();
   $('#_modal_please_wait').modal('show');
-  this.ConsultaMovimientos(numCuenta, this.fechaMesActualIni  , this.fechaMesActualFin, "N", "N", "100");
+  this.ConsultaMovimientos(this.fechaMesActualIni  , this.fechaMesActualFin, "N", "N", "100");
 
 }
 
-    ConsultaMovimientos(numeroCue, fDesde, fHasta, comi, pag, numreg) {
+    ConsultaMovimientos(fDesde, fHasta, comi, pag, numreg) {
       const this_aux = this;
       const formParameters = {
-        cuenta: numeroCue,
         fechaDesde: fDesde,
         fechaHasta: fHasta,
         Comision: comi,

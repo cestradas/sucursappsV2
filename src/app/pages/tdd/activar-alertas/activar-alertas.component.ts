@@ -95,7 +95,7 @@ $('#_modal_please_wait').modal('show');
   }
 
   irMenuTDD() {
-    this.router.navigate(['/menuTDD']);
+    this.router.navigate(['/menuTdd']);
 }
 
 setAltaServicioAlertas() {
