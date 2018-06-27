@@ -30,6 +30,7 @@ let descripcion = "";
 let correo = "";
 let rfcEmi = "";
 let aliasCta = "";
+let clabeTEF_SPEI = "";
 
 let bancoRecep = "";
 let refFront = "";
@@ -893,6 +894,7 @@ validaDatosBen() {
     sic = this_aux.service.infoUsuarioSIC;
     bancoRecep = this_aux.service.claveBancoDestino;
     aliasCta = this_aux.service.claveAliasCuenta;
+    clabeTEF_SPEI = this_aux.service.clabeDestinatario.trim();
 
     if (clabe === null || clabe === "") {
       clabe = "014180570107939481";
@@ -935,7 +937,7 @@ validaDatosBen() {
               if (infoUsuarioJSON.Id === 'SEG0001') {
                   console.log('Nivel de autenticacion alcanzado');
 
-                  operacionesbxi.confirmaTransferSPEI(ctaO, ctaDest, sic, bancoRecep, clabe,
+                  operacionesbxi.confirmaTransferSPEI(ctaO, ctaDest, sic, bancoRecep, clabeTEF_SPEI,
                                                       nombreBene, refFront, importeFront,
                                                       descripcionFront, correo, rfcEmi, aliasCta)
                   .then(
@@ -985,7 +987,7 @@ validaDatosBen() {
                   console.log('Nivel de autenticacion alcanzado');
 
                   operacionesbxi.confirmaTransferTEF(this_aux.service.AliasCuentaSPEISel, ctaO, sic, rfcEmi,
-                                                     this_aux.service.claveAliasCuenta , this_aux.service.claveNumBenefi, clabe,
+                                                     this_aux.service.claveAliasCuenta , this_aux.service.claveNumBenefi, clabeTEF_SPEI,
                                                      this_aux.service.NombreUsuario, importeFront, descripcionFront, refFront)
 
                   .then(
