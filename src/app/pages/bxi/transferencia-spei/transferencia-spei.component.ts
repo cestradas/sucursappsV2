@@ -59,6 +59,7 @@ export class TransferenciaSpeiComponent implements OnInit {
 
   labelTipoAutentica: string;
   CuentaDestino: string;
+  CuentaDestinoM: string;
 
 
   cuentaOrigenModal = "";
@@ -509,7 +510,10 @@ setDatosCuentaSeleccionada(elementHTML) {
   lblCuentaOrigen.innerHTML = operacionesbxi.mascaraNumeroCuenta(numCuenta_seleccionada.toString());
   this_aux.service.numCuentaSPEISel = numCuenta_seleccionada;
   this_aux.service.AliasCuentaSPEISel = AliasCuenta_seleccionada;
-  this_aux.cuentaOrigenModal = this_aux.service.numCuentaSPEISel;
+  this_aux.cuentaOrigenModal = operacionesbxi.mascaraNumeroCuenta(this_aux.service.numCuentaSPEISel);
+
+
+
   this_aux.getSaldoDeCuenta(numCuenta_seleccionada);
 
 
@@ -532,6 +536,7 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
           console.log(detalleSaldos.MensajeAUsuario);
           document.getElementById('mnsError').innerHTML = detalleSaldos.MensajeAUsuario;
           $('#errorModal').modal('show');
+          setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
         }
       }, function(error) {
   });
@@ -608,6 +613,8 @@ crearListaBeneficiarios(data) {
 
 setDatosCuentaBeneficiario(elementHTML) {
 
+  const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+
   const this_aux = this;
   console.log(elementHTML);
   const tableBeneficiarios = document.getElementById('tableBeneficiarios');
@@ -621,6 +628,7 @@ setDatosCuentaBeneficiario(elementHTML) {
   lbDescripcionCtaBen.innerHTML = elementHTML.textContent;
   lblCuentaDestino.innerHTML = this_aux.getNumeroCuentaDestino(valueElement);
   this_aux.CuentaDestino = this_aux.getNumeroCuentaDestino(valueElement);
+
   this_aux.service.numCuentaDestinario = this_aux.CuentaDestino;
   this_aux.service.claveBancoDestino = this_aux.getNameInstitucion(valueElement);
   this_aux.service.claveAliasCuenta = this_aux.getNameAliasCuenta(valueElement);
