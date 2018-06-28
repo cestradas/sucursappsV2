@@ -416,7 +416,7 @@ setDatosCuentaBeneficiario(elementHTML) {
 
    if (this_aux.cuentaOrigenModal === this_aux.CuentaDestino) {
     // bloquea campos
-    document.getElementById('mnsError').innerHTML = "Por vavor selecciona una cuenta diferente a la de origen";
+    document.getElementById('mnsError').innerHTML = "Por favor selecciona una cuenta diferente a la de origen";
     $('#errorModal').modal('show');
     $('#amount').prop("disabled", true);
     $('#concepto').prop("disabled", true);
