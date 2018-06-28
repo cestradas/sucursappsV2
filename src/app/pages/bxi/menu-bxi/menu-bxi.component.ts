@@ -323,7 +323,7 @@ encriptarSic() {
   };
 
   const resourceRequest = new WLResourceRequest(
-     'adapters/AdapterBanorteSucursApps/resource/encriptarSic',
+     'adapters/AdapterBanorteSucursApps2/resource/encriptarSic',
     WLResourceRequest.POST
   );
   resourceRequest.setTimeout(30000);
