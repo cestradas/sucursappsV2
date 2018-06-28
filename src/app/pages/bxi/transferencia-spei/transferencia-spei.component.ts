@@ -21,7 +21,7 @@ let ctaDest = "";
 
 let tipoCuenta = "";
 let bancoRecept = "";
-let clabe = "";
+//let clabe = "";
 let nombreBene = "";
 let ref = "";
 
@@ -112,7 +112,7 @@ export class TransferenciaSpeiComponent implements OnInit {
 
       'cuenta': new FormControl('', [Validators.required, Validators.maxLength(20)]),
       'sel1': new FormControl('', [Validators.required]),
-      'clabe': new FormControl('', [Validators.required, Validators.maxLength(16)]),
+      //'clabe': new FormControl('', [Validators.required, Validators.maxLength(16)]),
       'ammountQUICK': new FormControl('', [Validators.required, Validators.min(0), Validators.max(7000)]),
       'referenceQuick': new FormControl('', [Validators.required, Validators.maxLength(7)])
     });
@@ -183,6 +183,7 @@ export class TransferenciaSpeiComponent implements OnInit {
                         this_aux.bancoReceptF = data;
                       });
 
+                      /*
                       this.forma.controls['clabe'].valueChanges.subscribe(
                         data => {
                           console.log('clabe', data);
@@ -190,7 +191,7 @@ export class TransferenciaSpeiComponent implements OnInit {
 
                           this_aux.clabeF = data;
                         });
-
+                      */
                         this.forma.controls['ammountQUICK'].valueChanges.subscribe(
                           data => {
                             console.log('ammountQUICK', data);
@@ -327,7 +328,7 @@ export class TransferenciaSpeiComponent implements OnInit {
 
       tipoCuenta = this_aux.tipoCuentaF;
       bancoRecept =  this_aux.bancoReceptF;
-      clabe = this_aux.clabeF;
+      //clabe = this_aux.clabeF;
       importe = this_aux.importeF;
       ref = this_aux.refF;
 
@@ -502,7 +503,7 @@ setDatosCuentaSeleccionada(elementHTML) {
   const numCuenta_seleccionada = elementHTML.value;
   const AliasCuenta_seleccionada = elementHTML.text;
 
-  tableOrigen.setAttribute('style', 'display: block');
+  tableOrigen.setAttribute('style', 'display: flex');
   tableDefaultOrigen.setAttribute('style', 'display: none');
 
   lblAliasOrigen.innerHTML = elementHTML.textContent;
@@ -623,7 +624,7 @@ setDatosCuentaBeneficiario(elementHTML) {
   const lbDescripcionCtaBen = document.getElementById('lbDescripcionCtaBen');
   const valueElement = elementHTML.value;
 
-  tableBeneficiarios.setAttribute('style', 'display: block');
+  tableBeneficiarios.setAttribute('style', 'display: flex');
   tableDefaultBeneficiarios.setAttribute('style', 'display: none');
   lbDescripcionCtaBen.innerHTML = elementHTML.textContent;
   lblCuentaDestino.innerHTML = this_aux.getNumeroCuentaDestino(valueElement);
@@ -906,12 +907,13 @@ validaDatosBen() {
     aliasCta = this_aux.service.claveAliasCuenta;
     clabeTEF_SPEI = this_aux.service.clabeDestinatario.trim();
 
+    /*
     if (clabe === null || clabe === "" || clabe === undefined) {
       clabe = "014180570107939481";
     } else {
       clabe = this_aux.service.clabeDestinatario;
     }
-
+    */
     // this_aux.service.clabeDestinatario
 
 
@@ -1049,7 +1051,8 @@ validaDatosBen() {
                   console.log('Nivel de autenticacion alcanzado');
 
                   operacionesbxi.confirmaTransferQUICK(ctaO, this_aux.tipoCuentaF, sic, this_aux.bancoRecep.trim(),
-                                                      this_aux.clabeF, nombreBene, this_aux.refF , importeFront,
+                                                      //this_aux.clabeF,
+                                                       nombreBene, this_aux.refF , importeFront,
                                                       descripcionFront, correo, rfcEmi)
                   .then(
 

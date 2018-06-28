@@ -32,7 +32,7 @@
                     <input type="hidden">
                     <div class="dropdown sumando-dropdown-account">
                         <button class="btn btn-default btn-block dropdown-toggle btn-color-cuentas" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" disabled="true" aria-expanded="true">
-                  <table id="tableOrigen" style="display: none" width="100%">
+                  <table id="tableOrigen" style="display: none" width="99%">
                     <tr>
                       <td align="left" width="45%">
                         <strong><label  id="lblAliasOrigen" #lblAliasOrigen></label></strong>
@@ -41,8 +41,8 @@
                         <strong>$<label id ="lblSaldoOrigen"></label>
                         </strong>
                       </td>
-                      <td width="5%" rowspan="2" class="dropdown-caret" style="padding-left: 21px;">
-                        <img  class="select-img" src="./assets/img/bg_selectN.png" style="width: 91%; height: 181%;" >
+                      <td width="5%" rowspan="2" class="dropdown-caret" style="padding-left: 21px; width:5%; ">
+                        <img  class="select-img" src="./assets/img/bg_selectN.png" style="width: 90%; height: 190%;" >
                       </td>
                     </tr>
                     <tr>
@@ -81,17 +81,17 @@
                         <input type="hidden">
                         <div class="dropdown sumando-dropdown-account">
                             <button disabled="true" class="btn btn-default btn-block dropdown-toggle btn-color-cuentas" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                  <table id="tableBeneficiarios" style="display: none" width="100%">
+                  <table id="tableBeneficiarios" style="display: none" width="97%">
                     <tr>
-                      <td align="left" width="45%" style="width: 0px; margin-right: 64px;">
+                      <td align="left" width="50%" style="width: 0px;">
                         <strong><label  id="lbDescripcionCtaBen" #lbDescripcionCtaBen></label></strong>
                       </td>
                       <!-- <td align="left" width="45%">
                        <strong>$<label id ="lblSaldoOrigen"></label>
                        </strong>
                      </td>-->
-                      <td width="5%" rowspan="2" class="dropdown-caret" style="padding-left: 2px;">
-                        <img  class="select-img" src="./assets/img/bg_selectN.png" style="width: 80%; height: 184%; margin-left: 42px;">
+                      <td width="5%" rowspan="2" class="dropdown-caret" style="">
+                        <img  class="select-img" src="./assets/img/bg_selectN.png" style="width: 75%; height: 190%; margin-left: 68px;">
                       </td>
                     </tr>
                     <tr>
@@ -268,6 +268,7 @@
                             </div>
                         </div>
                     </div>
+                    <!--
                     <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
                         <div class="row">
                             <div class="col-lg-1 padding-labelToInput">
@@ -284,6 +285,8 @@
                             </div>
                         </div>
                     </div>
+                    -->
+
                     <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
                         <div class="row">
                             <div class="col-lg-1 padding-labelToInput">
@@ -491,9 +494,9 @@
                             </div>
                             <div class="col-lg 6">
                                 <label>
-                                <input type="password" class="form-control input-lg" #token [matKeyboard]="'num'">
-                                <div *ngIf="(token.value == '')  && token.touched" class="alert alert-danger">
-                                    <p color="danger" *ngIf="(token.value == '')">Dato obligatorio, favor de capturar. </p>
+                                <input type="password" class="form-control input-lg" #tokenTef [matKeyboard]="'num'">
+                                <div *ngIf="(tokenTef.value == '')  && tokenTef.touched" class="alert alert-danger">
+                                    <p color="danger" *ngIf="(tokenTef.value == '')">Dato obligatorio, favor de capturar. </p>
                                 </div>
                                 </label>
                             </div>
@@ -538,14 +541,7 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>Clabe:</label>
-                    </div>
-                    <div class="col-lg 6">
-                        <label>{{clabeF}}</label>
-                    </div>
-                </div>
+
 
                 <div class="row">
                     <div class="col-lg 6">
@@ -587,9 +583,9 @@
                             </div>
                             <div class="col-lg 6">
                                 <label>
-                                <input type="password" class="form-control input-lg" #token [matKeyboard]="'num'">
-                                <div *ngIf="(token.value == '')  && token.touched" class="alert alert-danger">
-                                    <p color="danger" *ngIf="(token.value == '')">Dato obligatorio, favor de capturar. </p>
+                                <input type="password" class="form-control input-lg" #tokenQuick [matKeyboard]="'num'">
+                                <div *ngIf="(tokenQuick.value == '')  && tokenQuick.touched" class="alert alert-danger">
+                                    <p color="danger" *ngIf="(tokenQuick.value == '')">Dato obligatorio, favor de capturar. </p>
                                 </div>
                                 </label>
                             </div>

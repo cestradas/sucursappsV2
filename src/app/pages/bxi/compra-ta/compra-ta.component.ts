@@ -205,10 +205,12 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
         if ( detalleSaldos.Id === '1') {
           const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
           lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
+          setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
         } else {
           console.log(detalleSaldos.MensajeAUsuario);
           document.getElementById('mnsError').innerHTML = detalleSaldos.MensajeAUsuario;
           $('#errorModal').modal('show');
+          setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
         }
       }, function(error) {
   });

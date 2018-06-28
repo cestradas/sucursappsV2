@@ -161,10 +161,12 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
         if ( detalleSaldos.Id === '1') {
           const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
           lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
+          setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
         } else {
           console.log(detalleSaldos.MensajeAUsuario);
           document.getElementById('mnsError').innerHTML = detalleSaldos.MensajeAUsuario;
           $('#errorModal').modal('show');
+          setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
         }
       }, function(error) {
   });
@@ -360,7 +362,7 @@ setCuentasBenficiarioXTipo() {
       this_aux.listaCuentasBen.forEach(auxcuenta => {
 
 // VALIDAR TIPOS DE CUENTA BANORTE TERCEROS
-      if (auxcuenta.ClaveBanco.toString() === "40072") {
+      if (auxcuenta.ClaveBanco.toString() !== "40072") {
 
         const li =  this.renderer.createElement('li');
         const a = this.renderer.createElement('a');
