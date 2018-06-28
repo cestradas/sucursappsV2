@@ -204,6 +204,9 @@ llamarMovimientos () {
               console.log(this_aux.TamArray);
               console.log(detalleCuenta.MensajeAUsuario);
               if (this_aux.numPaginas > 1) {
+                if (this_aux.numPaginas % 1 !==  0) {
+                  this_aux.numPaginas = Math.trunc(this_aux.numPaginas) + 1;
+                } 
                 this_aux.paginador2();
               }
               this_aux.mostrarTabla();

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { consultaCatalogos } from '../../../services/consultaCatalogos/consultaCatalogos.service';
 import { ConsultaSaldosTddService, SesionTDDService } from '../../../services/service.index';
+import $ from 'jquery';
 declare var $: any;
 @Component({
   selector: 'app-activar-alertas',
@@ -72,15 +73,15 @@ $('#_modal_please_wait').modal('show');
                     this_aux.AlertasActivas = AlertasActivas_true;
                     console.log('this_aux.AlertasActivas' + this_aux.AlertasActivas);
                     if (this_aux.AlertasActivas) {
-                      setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
+                      
                         document.getElementById('mnsError').innerHTML =  "Ya tienes alertas activas para esta cuenta"; 
                         $('#errorModal').modal('show');
                     }
 
               } else {
-                $('#_modal_please_wait').modal('hide');
-                this_aux.showErrorSucces(detalle);      }
-                $("div").remove(".modal-backdrop");
+                this_aux.showErrorSucces(detalle);      
+              }
+              setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
         }, function(error) { 
           setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
           this_aux.showErrorPromise(error);    }
@@ -132,7 +133,7 @@ setAltaServicioAlertas() {
 
      );
 
-  }
+  }setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
 
 }
 

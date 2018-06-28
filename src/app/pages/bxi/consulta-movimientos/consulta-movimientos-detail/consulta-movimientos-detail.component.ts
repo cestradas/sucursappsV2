@@ -251,6 +251,9 @@ consultaMovimientosTDC(numeroCue) {
               const textTitular = detalleCuenta;
               console.log(detalleCuenta.MensajeAUsuario);
               if (this_aux.numPaginas > 1) {
+                if (this_aux.numPaginas % 1 !==  0) {
+                  this_aux.numPaginas = Math.trunc(this_aux.numPaginas) + 1;
+                } 
                 this_aux.paginador2();
               }
               this_aux.mostrarTablaTDC();
@@ -339,8 +342,12 @@ mostrarSaldoCredito() {
 
             this_aux.movimientosCue = this_aux.movimientos.movimientos;
             this_aux.TamArray = this_aux.movimientosCue.length;
+
             this_aux.numPaginas = this_aux.TamArray / this_aux.tamPaginas;     
             if (this_aux.numPaginas > 1) {
+              if (this_aux.numPaginas % 1 !==  0) {
+                this_aux.numPaginas = Math.trunc(this_aux.numPaginas) + 1;
+              } 
               this_aux.paginador2();
             }
             const textTitular = detalleCuenta;

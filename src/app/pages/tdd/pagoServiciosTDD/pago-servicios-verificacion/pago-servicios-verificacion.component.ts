@@ -3,7 +3,7 @@ import { SesionBxiService } from '../../../bxi/sesion-bxi.service';
 import { Router } from '@angular/router';
 import { ConsultaSaldosTddService } from '../../../../services/service.index';
 import { consultaCatalogos } from '../../../../services/consultaCatalogos/consultaCatalogos.service';
-
+import $ from 'jquery';
 declare var jquery: any; // jquery
 declare var $: any;
 

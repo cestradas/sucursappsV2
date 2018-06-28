@@ -3,6 +3,7 @@ import { SesionBxiService } from '../../../bxi/sesion-bxi.service';
 import { Router } from '@angular/router';
 import { ConsultaSaldosTddService } from '../../../../services/service.index';
 import { consultaCatalogos } from '../../../../services/consultaCatalogos/consultaCatalogos.service';
+import $ from 'jquery';
 declare var jquery: any; // jquery
 declare var $: any;
 @Component({
@@ -76,7 +77,7 @@ export class ActivarAlertasVerifyTddComponent implements OnInit {
     
     $('#errorModal').modal('show');
     if (error.errorCode === 'API_INVOCATION_FAILURE') {
-        document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+        document.getElementById('mnsError').innerHTML = 'Tu sesiï¿½n ha expirado';
     } else {
       document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
     }
