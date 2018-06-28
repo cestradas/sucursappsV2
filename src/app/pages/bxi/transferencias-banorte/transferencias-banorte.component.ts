@@ -514,6 +514,8 @@ consultaClabeSaldos(numCuentaDestinario_seleccionada) {
 showDetallePago() {
   const this_aux = this;
 
+  $('#inputToken').val('');
+
   console.log("adentro Trnsferencias Internacionales");
 
   const operacionSelect = this_aux.selectTipo.nativeElement.value.toString();

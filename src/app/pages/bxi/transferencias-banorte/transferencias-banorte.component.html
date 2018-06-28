@@ -261,7 +261,7 @@
                             </div>
                             <div class="col-lg 6">
                                 <label>
-                                <input type="password" class="form-control input-lg" #token [matKeyboard]="'num'">
+                                <input  id="inputToken" type="password" class="form-control input-lg" #token [matKeyboard]="'num'">
                                 <div *ngIf="(token.value == '')  && token.touched" class="alert alert-danger">
                                     <p color="danger" *ngIf="(token.value == '')">Dato obligatorio, favor de capturar. </p>
                                 </div>

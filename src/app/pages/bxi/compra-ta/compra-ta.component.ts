@@ -307,6 +307,9 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
 
 
   setTipoAutenticacionOnModal() {
+
+    $('#inputToken').val('');
+    
     const this_aux = this;
     const divChallenge = document.getElementById('challenger');
     const divTokenPass = document.getElementById('divPass');

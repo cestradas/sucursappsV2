@@ -297,7 +297,9 @@ export class TransferenciaSpeiComponent implements OnInit {
   showDetallePago() {
     const this_aux = this;
 
-
+    $('#inputTokenSPEI').val('');
+    $('#inputTokenTEF').val('');
+    $('#inputTokenQUICK').val('');
 
     console.log("adentro Trnsferencias Internacionales");
 
