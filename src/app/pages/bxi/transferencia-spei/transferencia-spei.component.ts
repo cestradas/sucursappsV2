@@ -907,7 +907,7 @@ validaDatosBen() {
     sic = this_aux.service.infoUsuarioSIC;
     bancoRecep = this_aux.service.claveBancoDestino;
     aliasCta = this_aux.service.claveAliasCuenta;
-    clabeTEF_SPEI = this_aux.service.clabeDestinatario.trim();
+    clabeTEF_SPEI = this_aux.replaceSpaces(this_aux.service.clabeDestinatario);
 
     /*
     if (clabe === null || clabe === "" || clabe === undefined) {
@@ -1203,6 +1203,11 @@ transformAmount(impor) {
 
 
 
+}
+
+replaceSpaces(cadena) {
+  const cadenaLimpia = cadena.replace(/\s+/g,"");
+  return cadenaLimpia;
 }
 
 replaceSimbolo(impor) {
