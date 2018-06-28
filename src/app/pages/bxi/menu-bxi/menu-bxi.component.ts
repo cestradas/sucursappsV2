@@ -88,7 +88,7 @@ export class MenuBxiComponent implements OnInit {
         setTimeout(function() { 
           $('#_modal_please_wait').modal('hide');
           this_aux.getDatosContacto(idOperacion);
-          }, 1000);
+          }, 500);
       } else {
 
         setTimeout(function() { 
@@ -104,7 +104,7 @@ export class MenuBxiComponent implements OnInit {
           setTimeout(function() { 
             $('#_modal_please_wait').modal('hide');
             this_aux.getDatosContacto(idOperacion);
-            }, 1000);
+            }, 500);
         } else {
         setTimeout(function() { 
           $('#_modal_please_wait').modal('hide');
@@ -132,12 +132,12 @@ export class MenuBxiComponent implements OnInit {
       case 'activaAlertas': setTimeout(function() { 
                               $('#_modal_please_wait').modal('hide');
                               this_aux.getDatosContacto(idOperacion);
-                            }, 1000);
+                            }, 500);
             break;
       case 'actualizaDatos': setTimeout(function() { 
                               $('#_modal_please_wait').modal('hide');
                               this_aux.getDatosContacto(idOperacion);
-                              }, 1000);
+                              }, 500);
             break;
       case 'transferBanorte': this_aux.router.navigate(['/TransferBanorte']);
             break;
@@ -228,7 +228,7 @@ export class MenuBxiComponent implements OnInit {
                           // tslint:disable-next-line:max-line-length
                           document.getElementById('mnsError').innerHTML =   "Estimado cliente, es necesario que registres tu correo electrónico y número móvil para poder continuar. ";
                           $('#errorModal').modal('show');
-                        }, 1000);
+                        }, 500);
                       }
                     } else { if (opc === 'activaAlertas') {
                       $('#_modal_please_wait').modal('show');  
