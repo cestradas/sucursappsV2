@@ -13,33 +13,33 @@
                     <input type="hidden">
                     <div class="dropdown sumando-dropdown-account">
                         <button class="btn btn-default btn-block dropdown-toggle btn-color-cuentas" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                <table id="tableOrigen" style="display: none" width="100%">
-                  <tr>
-                    <td align="left" width="45%">
-                      <strong><label  id="lblAliasOrigen" #lblAliasOrigen></label></strong>
-                    </td>
-                    <td align="left" width="45%">
-                      <strong>$<label id ="lblSaldoOrigen"></label>
-                      </strong>
-                    </td>
-                    <td width="5%" rowspan="2" class="dropdown-caret" style="padding-left: 21px;">
-                      <img  class="select-img" src="./assets/img/bg_selectN.png" style="width: 91%; height: 181%;" >
-                    </td>
-                  </tr>
-                  <tr>
-                    <td align="left">Cuenta <label id="lblCuentaOrigen" #lblCuentaOrigen></label></td>
-                    <td align="left">Saldo Disponible</td>
-                  </tr>
-                </table>
-                <table  id="tableDefaultOrigen" width="100%" style="height: 100%;">
-                  <tr>
-                    <td align="left" rowspan="2">Seleccione una cuenta de origen...</td>
-                    <td width="5%" style="height: 40px;" rowspan="2" class="dropdown-caret">
-                      <img src="./assets/img/bg_selectN.png" class="select-img">
-                    </td>
-                  </tr>
-                </table>
-              </button>
+                        <table id="tableOrigen" style="display: none" width="100%">
+                          <tr>
+                            <td align="left" width="45%">
+                              <strong><label  id="lblAliasOrigen" #lblAliasOrigen></label></strong>
+                            </td>
+                            <td align="left" width="45%">
+                              <strong>$<label id ="lblSaldoOrigen"></label>
+                              </strong>
+                            </td>
+                            <td width="5%" rowspan="2" class="dropdown-caret" style="padding-left: 21px;">
+                              <img  class="select-img" src="./assets/img/bg_selectN.png" style="width: 91%; height: 181%;" >
+                            </td>
+                          </tr>
+                          <tr>
+                            <td align="left">Cuenta <label id="lblCuentaOrigen" #lblCuentaOrigen></label></td>
+                            <td align="left">Saldo Disponible</td>
+                          </tr>
+                        </table>
+                        <table  id="tableDefaultOrigen" width="100%" style="height: 100%;">
+                          <tr>
+                            <td align="left" rowspan="2">Seleccione una cuenta de origen...</td>
+                            <td width="5%" style="height: 40px;" rowspan="2" class="dropdown-caret">
+                              <img src="./assets/img/bg_selectN.png" class="select-img">
+                            </td>
+                          </tr>
+                        </table>
+                      </button>
                         <div>
                             <ul id="ul_Cuentas" #listaCuentas class="dropdown-menu btn-block" aria-labelledby="dropdownMenu1" style="width: 100%; height: 200px; overflow: auto">
 
@@ -52,9 +52,10 @@
     </div>
 
 
+
     <div class="padding-barToTittle">
 
-        <h4 class="text-center color-letra">Selecciona el estado de cuenta que desea imprimir</h4>
+        <h4 class="text-center color-letra">Seleccione el estado de cuenta que desea imprimir</h4>
     </div>
 
 
@@ -119,12 +120,12 @@ calendario item -->
         </div>
 
         <div class="row">
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon arrowCarousel" aria-hidden="true" style="margin-bottom: -101px;"></span>
+            <a id="flechasEDCI" style="opacity: 0; margin-top: 278px;" class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon arrowCarousel" aria-hidden="true" style="margin-bottom: 160px;"></span>
                 <span class="sr-only">Previous</span>
             </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon arrowCarousel" aria-hidden="true" style="margin-bottom: -101px;"></span>
+            <a id="flechasEDCD" style="opacity: 0; margin-top: 278px;" class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon arrowCarousel" aria-hidden="true" style="margin-bottom: 160px;"></span>
                 <span class="sr-only">Next</span>
             </a>
         </div>
@@ -146,7 +147,7 @@ calendario item -->
         <button style="display: none" type="button" id="cancelarEnvioDomicilio" class="color-botones btn btn-lg " (click)="cancelarEnvio()">Cancelar envío de EDC a domicilio</button>
         <button type="button" id="imprimirDOC" class="color-botones btn btn-lg " (click)="operacion('0')">
       Imprimir
-	
+
     </button>
 
 
@@ -163,7 +164,7 @@ calendario item -->
         <div class="modal-content">
             <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
                 <h4 class="color-letra">Aviso</h4>
-                <p id="mnsErrorModal">Se esta procesando su solicitud</p>
+                <p id="mnsErrorModal">Se est&aacute; procesando su solicitud</p>
             </div>
             <div class="modal-footer text-center">
                 <!-- Aqui se hace manda a llamar a la funcion ubicada en script del index.html para guardado silencioso en la carpeta C:/temp-->

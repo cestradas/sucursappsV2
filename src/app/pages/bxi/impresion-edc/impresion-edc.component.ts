@@ -377,7 +377,7 @@ setDatosCuentaSeleccionada(elementHTML) {
               // this.htmlToAdd =
               // this.calendario.insert(
                 //inserta los datos del documento dentro del value para mandarlos al servicio
-                let domContent = '<div value ="'+this_aux.obj['fechas'][contFechas].Documento + '"' + 'id="'+'Itemcalendario' + cont + '"' + ' class="kiosk-cec-carousel-item estilo-item-calendar" >' +
+                let domContent = '<div value ="'+this_aux.obj['fechas'][contFechas].Documento + '"' + 'id="'+'Itemcalendario' + cont + '"' + ' class="kiosk-cec-carousel-item estilo-item-calendar" style="opacity: .5;">' +
                 '<div value ="'+this_aux.obj['fechas'][contFechas].FechaDoc + '"' + 'id="'+'ItemcalendarioDoc' + cont + '"' + ' class="row no-space">' +
                     '<div class="col-xs-6">' +
                         '<div class="bg-grey-600 white vertical-align height-200 fondo-calendar" >' +
@@ -540,7 +540,7 @@ setDatosCuentaSeleccionada(elementHTML) {
               //    this.renderer.invokeElementMethod(this.calendario.nativeElement.insertAdjacentHTML('beforeend',
               // this.htmlToAdd =
               // this.calendario.insert(
-                let domContent2 = '<div value ="'+this_aux.obj['fechas'][contFechas].Documento + '"' + 'id="'+'Itemcalendario' + cont + '"' + ' class="kiosk-cec-carousel-item estilo-item-calendar" >' +
+                let domContent2 = '<div value ="'+this_aux.obj['fechas'][contFechas].Documento + '"' + 'id="'+'Itemcalendario' + cont + '"' + ' class="kiosk-cec-carousel-item estilo-item-calendar" style="opacity: .5;">' +
                 '<div value ="'+this_aux.obj['fechas'][contFechas].FechaDoc + '"' + 'id="'+'ItemcalendarioDoc' + cont + '"' + ' class="row no-space">' +
                     '<div class="col-xs-6">' +
                         '<div class="bg-grey-600 white vertical-align height-200 fondo-calendar" >' +
@@ -729,7 +729,7 @@ setDatosCuentaSeleccionada(elementHTML) {
       this.Valida_Seleccion_Calendario0 ++;
       this.cuadroCalendario = $("#Itemcalendario0");
       this.cuadroCalendario.css({
-        'opacity':'.5'
+        'opacity':'10'
       });
       this.palomita0 = $("#palomita0");
       this.palomita0.css({
@@ -757,7 +757,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 		this.Valida_Seleccion_Calendario0 --;
 		this.cuadroCalendario = $("#Itemcalendario0");
 		this.cuadroCalendario.css({
-	    	'opacity':'10'
+	    	'opacity':'.5'
 		});
 		this.palomita0 = $("#palomita0");
 		this.palomita0.css({
@@ -783,7 +783,7 @@ setDatosCuentaSeleccionada(elementHTML) {
       this.Valida_Seleccion_Calendario1 ++;
       this.cuadroCalendario = $("#Itemcalendario1");
       this.cuadroCalendario.css({
-        'opacity':'.5'
+        'opacity':'10'
       });
       this.palomita1 = $("#palomita1");
       this.palomita1.css({
@@ -809,7 +809,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 		this.Valida_Seleccion_Calendario1 --;
 		this.cuadroCalendario = $("#Itemcalendario1");
 		this.cuadroCalendario.css({
-	    	'opacity':'10'
+	    	'opacity':'.5'
 		});
 		this.palomita1 = $("#palomita1");
 		this.palomita1.css({
@@ -832,7 +832,7 @@ setDatosCuentaSeleccionada(elementHTML) {
       this.Valida_Seleccion_Calendario2 ++;
       this.cuadroCalendario = $("#Itemcalendario2");
       this.cuadroCalendario.css({
-        'opacity':'.5'
+        'opacity':'10'
       });
       this.palomita2 = $("#palomita2");
       this.palomita2.css({
@@ -858,7 +858,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 		this.Valida_Seleccion_Calendario2 --;
 		this.cuadroCalendario = $("#Itemcalendario2");
 		this.cuadroCalendario.css({
-	    	'opacity':'10'
+	    	'opacity':'.5'
 		});
 		this.palomita2 = $("#palomita2");
 		this.palomita2.css({
@@ -881,7 +881,7 @@ setDatosCuentaSeleccionada(elementHTML) {
       this.Valida_Seleccion_Calendario3 ++;
       this.cuadroCalendario = $("#Itemcalendario3");
       this.cuadroCalendario.css({
-        'opacity':'.5'
+        'opacity':'10'
       });
       this.palomita3 = $("#palomita3");
       this.palomita3.css({
@@ -907,7 +907,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 		this.Valida_Seleccion_Calendario3 --;
 		this.cuadroCalendario = $("#Itemcalendario3");
 		this.cuadroCalendario.css({
-	    	'opacity':'10'
+	    	'opacity':'.5'
 		});
 		this.palomita3 = $("#palomita3");
 		this.palomita3.css({
@@ -931,7 +931,7 @@ setDatosCuentaSeleccionada(elementHTML) {
       this.Valida_Seleccion_Calendario4 ++;
       this.cuadroCalendario = $("#Itemcalendario4");
       this.cuadroCalendario.css({
-        'opacity':'.5'
+        'opacity':'10'
       });
       this.palomita4 = $("#palomita4");
       this.palomita4.css({
@@ -957,7 +957,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 		this.Valida_Seleccion_Calendario4 --;
 		this.cuadroCalendario = $("#Itemcalendario4");
 		this.cuadroCalendario.css({
-	    	'opacity':'10'
+	    	'opacity':'.5'
 		});
 		this.palomita4 = $("#palomita4");
 		this.palomita4.css({
@@ -980,7 +980,7 @@ setDatosCuentaSeleccionada(elementHTML) {
       this.Valida_Seleccion_Calendario5 ++;
       this.cuadroCalendario = $("#Itemcalendario5");
       this.cuadroCalendario.css({
-        'opacity':'.5'
+        'opacity':'10'
       });
       this.palomita5 = $("#palomita5");
       this.palomita5.css({
@@ -1006,7 +1006,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 		this.Valida_Seleccion_Calendario5 --;
 		this.cuadroCalendario = $("#Itemcalendario5");
 		this.cuadroCalendario.css({
-	    	'opacity':'10'
+	    	'opacity':'.5'
 		});
 		this.palomita5 = $("#palomita5");
 		this.palomita5.css({
@@ -1029,7 +1029,7 @@ setDatosCuentaSeleccionada(elementHTML) {
       this.Valida_Seleccion_Calendario6 ++;
       this.cuadroCalendario = $("#Itemcalendario6");
       this.cuadroCalendario.css({
-        'opacity':'.5'
+        'opacity':'10'
       });
       this.palomita6 = $("#palomita6");
       this.palomita6.css({
@@ -1055,7 +1055,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 		this.Valida_Seleccion_Calendario6 --;
 		this.cuadroCalendario = $("#Itemcalendario6");
 		this.cuadroCalendario.css({
-	    	'opacity':'10'
+	    	'opacity':'.5'
 		});
 		this.palomita6 = $("#palomita6");
 		this.palomita6.css({
@@ -1078,7 +1078,7 @@ setDatosCuentaSeleccionada(elementHTML) {
       this.Valida_Seleccion_Calendario7 ++;
       this.cuadroCalendario = $("#Itemcalendario7");
       this.cuadroCalendario.css({
-        'opacity':'.5'
+        'opacity':'10'
       });
       this.palomita7 = $("#palomita7");
       this.palomita7.css({
@@ -1104,7 +1104,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 		this.Valida_Seleccion_Calendario7 --;
 		this.cuadroCalendario = $("#Itemcalendario7");
 		this.cuadroCalendario.css({
-	    	'opacity':'10'
+	    	'opacity':'.5'
 		});
 		this.palomita7 = $("#palomita7");
 		this.palomita7.css({
@@ -1127,7 +1127,7 @@ setDatosCuentaSeleccionada(elementHTML) {
       this.Valida_Seleccion_Calendario8 ++;
       this.cuadroCalendario = $("#Itemcalendario8");
       this.cuadroCalendario.css({
-        'opacity':'.5'
+        'opacity':'10'
       });
       this.palomita8 = $("#palomita8");
       this.palomita8.css({
@@ -1153,7 +1153,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 		this.Valida_Seleccion_Calendario8 --;
 		this.cuadroCalendario = $("#Itemcalendario8");
 		this.cuadroCalendario.css({
-	    	'opacity':'10'
+	    	'opacity':'.5'
 		});
 		this.palomita8 = $("#palomita8");
 		this.palomita8.css({
@@ -1176,7 +1176,7 @@ setDatosCuentaSeleccionada(elementHTML) {
       this.Valida_Seleccion_Calendario9 ++;
       this.cuadroCalendario = $("#Itemcalendario9");
       this.cuadroCalendario.css({
-        'opacity':'.5'
+        'opacity':'10'
       });
       this.palomita9 = $("#palomita9");
       this.palomita9.css({
@@ -1202,7 +1202,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 		this.Valida_Seleccion_Calendario9 --;
 		this.cuadroCalendario = $("#Itemcalendario9");
 		this.cuadroCalendario.css({
-	    	'opacity':'10'
+	    	'opacity':'.5'
 		});
 		this.palomita9 = $("#palomita9");
 		this.palomita9.css({
@@ -1225,7 +1225,7 @@ setDatosCuentaSeleccionada(elementHTML) {
       this.Valida_Seleccion_Calendario10 ++;
       this.cuadroCalendario = $("#Itemcalendario10");
       this.cuadroCalendario.css({
-        'opacity':'.5'
+        'opacity':'10'
       });
       this.palomita10 = $("#palomita10");
       this.palomita10.css({
@@ -1251,7 +1251,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 		this.Valida_Seleccion_Calendario10 --;
 		this.cuadroCalendario = $("#Itemcalendario10");
 		this.cuadroCalendario.css({
-	    	'opacity':'10'
+	    	'opacity':'.5'
 		});
 		this.palomita10 = $("#palomita10");
 		this.palomita10.css({
@@ -1274,7 +1274,7 @@ setDatosCuentaSeleccionada(elementHTML) {
       this.Valida_Seleccion_Calendario11 ++;
       this.cuadroCalendario = $("#Itemcalendario11");
       this.cuadroCalendario.css({
-        'opacity':'.5'
+        'opacity':'10'
       });
       this.palomita11 = $("#palomita11");
       this.palomita11.css({
@@ -1300,7 +1300,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 		this.Valida_Seleccion_Calendario11 --;
 		this.cuadroCalendario = $("#Itemcalendario11");
 		this.cuadroCalendario.css({
-	    	'opacity':'10'
+	    	'opacity':'.5'
 		});
 		this.palomita11 = $("#palomita11");
 		this.palomita11.css({
