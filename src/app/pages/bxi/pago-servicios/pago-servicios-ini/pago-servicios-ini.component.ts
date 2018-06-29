@@ -64,13 +64,14 @@ export class PagoServiciosIniComponent implements OnInit {
    fillSelectCuentas() {
              const this_aux = this;
              const cuentasString = this_aux.service.infoCuentas;
+             const operacionesbxi: OperacionesBXI = new OperacionesBXI();
              console.log(this_aux.service.infoCuentas);
              const consultaCuentas = JSON.parse(cuentasString);
              const cuentasArray = consultaCuentas.ArrayCuentas;
                cuentasArray.forEach(cuenta => {
                    const li =  this.renderer.createElement('li');
                    const a = this.renderer.createElement('a');
-                   const textoCuenta = this.renderer.createText( cuenta.Alias);
+                   const textoCuenta = this.renderer.createText( cuenta.Alias + ' ' + operacionesbxi.mascaraNumeroCuenta(cuenta.NoCuenta));
                    this.renderer.setProperty(a, 'value', cuenta.NoCuenta);
                    this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target); });
                    this.renderer.appendChild(a, textoCuenta),

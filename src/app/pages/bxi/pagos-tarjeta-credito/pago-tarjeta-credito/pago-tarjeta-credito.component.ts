@@ -83,9 +83,10 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
   crearListaCuentas(cuenta) {
     const this_aux = this;
+    const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     const li =  this.renderer.createElement('li');
     const a = this.renderer.createElement('a');
-    const textoCuenta = this.renderer.createText( cuenta.Alias);
+    const textoCuenta = this.renderer.createText( cuenta.Alias + ' ' + operacionesbxi.mascaraNumeroCuenta(cuenta.NoCuenta) );
     this.renderer.setProperty(a, 'value', cuenta.NoCuenta);
     this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target); });
     this.renderer.appendChild(a, textoCuenta),
