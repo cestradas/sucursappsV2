@@ -3,6 +3,7 @@ import { OperacionesBXI } from './../../operacionesBXI';
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { Router } from '@angular/router';
+import { CurrencyPipe } from '@angular/common';
 
 
 declare var jquery: any; // jquery
@@ -26,6 +27,7 @@ export class PagoServiciosIniComponent implements OnInit {
   myForm: FormGroup;
   empresaSelect: Boolean = false ;
   nombreEmpresaSelect: string;
+  SaldoOrigen: number;
 
 
    constructor( private fb: FormBuilder, private router: Router, private service: SesionBxiService, private renderer: Renderer2) {
@@ -110,8 +112,9 @@ export class PagoServiciosIniComponent implements OnInit {
              if ( detalleSaldos.Id === '1') {
 
               setTimeout(function() {
-                const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
-                lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
+                // const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
+                // lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
+                this_aux.SaldoOrigen = detalleSaldos.SaldoDisponible;
                  $('#_modal_please_wait').modal('hide');
                }, 500);
              } else {
@@ -122,7 +125,8 @@ export class PagoServiciosIniComponent implements OnInit {
               }, 500);
              }
            }, function(error) {
-            document.getElementById('lblSaldoOrigen').innerHTML = "";
+           // document.getElementById('lblSaldoOrigen').innerHTML = "";
+           this_aux.SaldoOrigen = 0;
             setTimeout(function() {
               $('#_modal_please_wait').modal('hide');
                 this_aux.showErrorPromise(error);

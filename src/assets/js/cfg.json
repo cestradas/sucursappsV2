@@ -1,7 +1,7 @@
-{   
+{
     "root": "/PROMFPAPP",
     "root1": "/PREMFPAPP",
-    "root2": "/INTMFPSapp",
+    "root2": "/INTMFPSApps",
     "root3": "/DEVMFPSapp",
     "root4": "/mfp",
     "user": "sucursApps",
