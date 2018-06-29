@@ -80,7 +80,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
   tableOrigen.setAttribute('style', 'display: block');
   tableDefaultOrigen.setAttribute('style', 'display: none');
-  lblAliasOrigen.innerHTML = elementHTML.textContent;
+  lblAliasOrigen.innerHTML = this_aux.getCtaFromTextContet( elementHTML.textContent);
   lblCuentaOrigen.innerHTML = operacionesbxi.mascaraNumeroCuenta( this_aux.getNumeroCuentaOrigen(value));
   this_aux.service.numCuentaSeleccionado = this_aux.getNumeroCuentaOrigen(value);
 
@@ -296,6 +296,18 @@ getNumeroCuentaOrigen(text) {
        );
 
     }
+
+  }
+
+  getCtaFromTextContet(textContent) {
+    
+    const re = /\*/g;
+    const reNum = /\d/g;
+    let textContentAux = textContent.replace(re, '');
+    textContentAux = textContentAux.replace(reNum, '');
+    console.log(textContentAux);
+
+    return textContentAux;
 
   }
 

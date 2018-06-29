@@ -96,7 +96,7 @@ export class PagoServiciosIniComponent implements OnInit {
        tableOrigen.setAttribute('style', 'display: block');
        tableDefaultOrigen.setAttribute('style', 'display: none');
 
-       lblAliasOrigen.innerHTML = elementHTML.textContent;
+       lblAliasOrigen.innerHTML = this_aux.getCtaFromTextContet(elementHTML.textContent);
        lblCuentaOrigen.innerHTML = operacionesbxi.mascaraNumeroCuenta( numCuenta_seleccionada.toString());
        this_aux.service.numCuentaSeleccionado = numCuenta_seleccionada;
        this_aux.actualizaEmpresasXtipoPago(numCuenta_seleccionada);
@@ -368,5 +368,17 @@ getEmpresas() {
          console.log(this_aux.listaEmpresas);
          this_aux.listaEmpresasAux = this_aux.listaEmpresas;
       }
+    }
+
+    getCtaFromTextContet(textContent) {
+    
+      const re = /\*/g;
+      const reNum = /\d/g;
+      let textContentAux = textContent.replace(re, '');
+      textContentAux = textContentAux.replace(reNum, '');
+      console.log(textContentAux);
+  
+      return textContentAux;
+  
     }
  }

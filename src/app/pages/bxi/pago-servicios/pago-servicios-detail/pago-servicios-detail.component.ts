@@ -287,6 +287,7 @@ export class PagoServiciosDetailComponent implements OnInit {
         return importeAux;
   }
 
+
   controlarError(json) {
 
     const id = json.Id ;

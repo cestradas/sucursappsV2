@@ -108,7 +108,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
     tableOrigen.setAttribute('style', 'display: block');
     tableDefaultOrigen.setAttribute('style', 'display: none');
-    lblAliasOrigen.innerHTML = elementHTML.textContent;
+    lblAliasOrigen.innerHTML = this_aux.getCtaFromTextContet(elementHTML.textContent);
     lblCuentaOrigen.innerHTML = operacionesbxi.mascaraNumeroCuenta(numCuenta_seleccionada.toString());
     this_aux.service.numCuentaSeleccionado = numCuenta_seleccionada;
     this_aux.getSaldoDeCuenta(numCuenta_seleccionada);
@@ -560,5 +560,17 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     const this_aux = this;
     const control: FormControl = new FormControl('');
     this_aux.myForm.setControl('fcToken', control );
+  }
+
+   getCtaFromTextContet(textContent) {
+    
+    const re = /\*/g;
+    const reNum = /\d/g;
+    let textContentAux = textContent.replace(re, '');
+    textContentAux = textContentAux.replace(reNum, '');
+    console.log(textContentAux);
+
+    return textContentAux;
+
   }
 }
