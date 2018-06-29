@@ -34,6 +34,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   importeAux: string;
   nombreBanco: string;
   NumeroSeguridad: string;
+  SaldoOrigen: number;
 
   // tslint:disable-next-line:max-line-length
   constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2,  private fb: FormBuilder, private currencyPipe: CurrencyPipe) {
@@ -120,20 +121,20 @@ export class PagoTarjetaCreditoComponent implements OnInit {
             const detalleSaldos = response1.responseJSON;
               if ( detalleSaldos.Id === '1') {
                 setTimeout(function() {
-                  const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
-                  lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
+                  this_aux.SaldoOrigen = detalleSaldos.SaldoDisponible;
                   $('#_modal_please_wait').modal('hide');
                 }, 500);
               } else {
 
                 setTimeout(function() {
-                  document.getElementById('lblSaldoOrigen').innerHTML = "";
+
+                  this_aux.SaldoOrigen = 0;
                   $('#_modal_please_wait').modal('hide');
                   this_aux.showErrorSucces(detalleSaldos);
                }, 500); 
               }
         }, function(error) {
-          document.getElementById('lblSaldoOrigen').innerHTML = "";
+          this_aux.SaldoOrigen = 0;
           setTimeout(function() {
             $('#_modal_please_wait').modal('hide');
             this_aux.showErrorPromise(error);
@@ -429,12 +430,16 @@ export class PagoTarjetaCreditoComponent implements OnInit {
         }
     }
   }
-
   replaceSimbolo(importe) {
-    let importeAux;
-    importeAux = importe.replace('$', '');
-    importeAux = importeAux.replace(',', '');
-    return importeAux;
+    const this_aux = this;
+    let importeAux = importe.replace('$', '');
+          importeAux = importeAux.replace(',', '');
+
+          if ( importeAux.search(',') > -1) {
+              this_aux.replaceSimbolo(importeAux);
+          } else {
+            return importeAux;
+          }
   }
 
   controlarError(json) {

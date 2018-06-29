@@ -92,10 +92,10 @@ export class PagoServiciosDetailComponent implements OnInit {
     const this_aux = this;
     $('#_modal_please_wait').modal('show');
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
-    if (this_aux.importeAux === undefined) { this_aux.importeAux = this_aux.replaceSimbolo( this_aux.myForm.get('fcImporte').value); }
-    const patron = /,/g;  
+   // if (this_aux.importeAux === undefined) {
+       this_aux.importeAux = this_aux.replaceSimbolo( this_aux.myForm.get('fcImporte').value); 
+    // }  
     this_aux.importe = this_aux.importeAux;
-    this_aux.importe = this_aux.importe.replace(patron, '');
     operacionesbxi.consultaTablaYValidaSaldo(this_aux.cuentaCargo, this_aux.importe).then(
       function(response) {
         let DatosJSON = response.responseJSON;
@@ -274,8 +274,15 @@ export class PagoServiciosDetailComponent implements OnInit {
   }
 
   replaceSimbolo(importe) {
-    const importeAux = importe.replace('$', '');
-    return importeAux;
+    const this_aux = this;
+    let importeAux = importe.replace('$', '');
+          importeAux = importeAux.replace(',', '');
+
+          if ( importeAux.search(',') > -1) {
+              this_aux.replaceSimbolo(importeAux);
+          } else {
+            return importeAux;
+          }
   }
 
   controlarError(json) {

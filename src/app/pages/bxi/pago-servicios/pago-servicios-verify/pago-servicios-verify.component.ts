@@ -20,7 +20,7 @@ export class PagoServiciosVerifyComponent implements OnInit {
       comisioneiva: '',
       cuentaCargo: '',
       horaOperacion: '',
-      importe: ''
+      importe : ''
 
   };
   constructor(private service: SesionBxiService, private router: Router) { }

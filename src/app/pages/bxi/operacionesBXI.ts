@@ -480,4 +480,6 @@ export class OperacionesBXI {
 
         return numCuenta_show;
     }
+
+    
 }

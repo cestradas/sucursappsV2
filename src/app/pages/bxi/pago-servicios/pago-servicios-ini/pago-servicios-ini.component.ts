@@ -112,20 +112,19 @@ export class PagoServiciosIniComponent implements OnInit {
              if ( detalleSaldos.Id === '1') {
 
               setTimeout(function() {
-                // const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
-                // lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
+               
                 this_aux.SaldoOrigen = detalleSaldos.SaldoDisponible;
                  $('#_modal_please_wait').modal('hide');
                }, 500);
              } else {
-              document.getElementById('lblSaldoOrigen').innerHTML = "";
+              this_aux.SaldoOrigen = 0;
               setTimeout(function() { 
               $('#_modal_please_wait').modal('hide');
                 this_aux.showErrorSucces(detalleSaldos);
               }, 500);
              }
            }, function(error) {
-           // document.getElementById('lblSaldoOrigen').innerHTML = "";
+           
            this_aux.SaldoOrigen = 0;
             setTimeout(function() {
               $('#_modal_please_wait').modal('hide');
