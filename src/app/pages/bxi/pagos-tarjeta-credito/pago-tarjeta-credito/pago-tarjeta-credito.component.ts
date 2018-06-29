@@ -7,6 +7,7 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Route
 import {CurrencyPipe} from '@angular/common';
 
 
+
 declare var jquery: any; // jquery
 declare var $: any;
 
@@ -433,13 +434,12 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   replaceSimbolo(importe) {
     const this_aux = this;
     let importeAux = importe.replace('$', '');
-          importeAux = importeAux.replace(',', '');
+    const re = /\,/g;
+    importeAux = importeAux.replace(re, '');
+    console.log(importeAux);
 
-          if ( importeAux.search(',') > -1) {
-              this_aux.replaceSimbolo(importeAux);
-          } else {
-            return importeAux;
-          }
+        return importeAux;
+          
   }
 
   controlarError(json) {

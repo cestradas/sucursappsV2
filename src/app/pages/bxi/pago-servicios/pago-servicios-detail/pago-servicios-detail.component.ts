@@ -92,9 +92,9 @@ export class PagoServiciosDetailComponent implements OnInit {
     const this_aux = this;
     $('#_modal_please_wait').modal('show');
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
-   // if (this_aux.importeAux === undefined) {
+    if (this_aux.importeAux === undefined) {
        this_aux.importeAux = this_aux.replaceSimbolo( this_aux.myForm.get('fcImporte').value); 
-    // }  
+     }  
     this_aux.importe = this_aux.importeAux;
     operacionesbxi.consultaTablaYValidaSaldo(this_aux.cuentaCargo, this_aux.importe).then(
       function(response) {
@@ -124,7 +124,9 @@ export class PagoServiciosDetailComponent implements OnInit {
   }
   showDetallePago(myForm) {
     const this_aux = this;
-       if (this_aux.importeAux === undefined) { this_aux.importeAux = this_aux.replaceSimbolo( this_aux.myForm.get('fcImporte').value); }
+       if (this_aux.importeAux === undefined) { 
+         this_aux.importeAux = this_aux.replaceSimbolo( this_aux.myForm.get('fcImporte').value); 
+        }
        this_aux.importe = this_aux.importeAux;
       console.log(this_aux.importe);
       this_aux.fechaVencimiento = myForm.fcFechaVencimiento.toString();
@@ -276,13 +278,11 @@ export class PagoServiciosDetailComponent implements OnInit {
   replaceSimbolo(importe) {
     const this_aux = this;
     let importeAux = importe.replace('$', '');
-          importeAux = importeAux.replace(',', '');
+    const re = /\,/g;
+    importeAux = importeAux.replace(re, '');
+    console.log(importeAux);
 
-          if ( importeAux.search(',') > -1) {
-              this_aux.replaceSimbolo(importeAux);
-          } else {
-            return importeAux;
-          }
+        return importeAux;
   }
 
   controlarError(json) {
