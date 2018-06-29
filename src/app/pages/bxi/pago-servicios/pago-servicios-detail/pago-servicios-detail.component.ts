@@ -28,6 +28,7 @@ export class PagoServiciosDetailComponent implements OnInit {
   importeAux: string;
   showFocus = true;
   NumeroSeguridad: string;
+  importeShow: number;
 
   constructor( private service: SesionBxiService, private fb: FormBuilder, private router: Router, private currencyPipe: CurrencyPipe) {
 
@@ -128,6 +129,7 @@ export class PagoServiciosDetailComponent implements OnInit {
          this_aux.importeAux = this_aux.replaceSimbolo( this_aux.myForm.get('fcImporte').value); 
         }
        this_aux.importe = this_aux.importeAux;
+       this_aux.importeShow = parseInt(this_aux.importe, 10);
       console.log(this_aux.importe);
       this_aux.fechaVencimiento = myForm.fcFechaVencimiento.toString();
       if (this_aux.service.idFacturador === '1310') {

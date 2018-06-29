@@ -36,6 +36,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   nombreBanco: string;
   NumeroSeguridad: string;
   SaldoOrigen: number;
+  ImporteShow: number;
 
   // tslint:disable-next-line:max-line-length
   constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2,  private fb: FormBuilder, private currencyPipe: CurrencyPipe) {
@@ -277,6 +278,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     this_aux.CuentaOrigen = operacionesbxi.mascaraNumeroCuenta( this_aux.service.numCuentaSeleccionado);
     this_aux.nombreBanco = this_aux.service.nameBancoDestino;
+    this_aux.ImporteShow = parseInt(montoAPagar, 10);
     this_aux.Importe = this_aux.replaceSimbolo( montoAPagar);
     this_aux.validarSaldo(this_aux.service.numCuentaSeleccionado, this_aux.Importe);
 
