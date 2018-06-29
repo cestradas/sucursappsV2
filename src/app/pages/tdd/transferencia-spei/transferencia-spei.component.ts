@@ -295,7 +295,7 @@ limpiarFormulario () {
     let respuestaSpei;
 
     const resourceRequest = new WLResourceRequest(
-      "adapters/AdapterBanorteSucursApps/resource/transferInterSPEI",
+      "adapters/AdapterBanorteSucursApps2/resource/transferInterSPEI",
       WLResourceRequest.POST
     );
     resourceRequest.setTimeout(30000);
@@ -346,7 +346,7 @@ limpiarFormulario () {
     let respuestaTef;
 
     const resourceRequest = new WLResourceRequest(
-      "adapters/AdapterBanorteSucursApps/resource/transferInterTEF",
+      "adapters/AdapterBanorteSucursApps2/resource/transferInterTEF",
       WLResourceRequest.POST
     );
     resourceRequest.setTimeout(30000);

@@ -186,7 +186,7 @@ export class TransferenciaTercerosComponent implements OnInit {
     }
 
     const resourceRequest = new WLResourceRequest(
-      'adapters/AdapterBanorteSucursApps/resource/transfenciaTerceroBanorte',
+      'adapters/AdapterBanorteSucursApps2/resource/transfenciaTerceroBanorte',
       WLResourceRequest.POST);
   resourceRequest.setTimeout(30000);
   resourceRequest

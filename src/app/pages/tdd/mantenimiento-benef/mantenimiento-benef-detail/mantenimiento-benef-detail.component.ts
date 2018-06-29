@@ -62,7 +62,7 @@ export class MantenimientoBenefDetailComponent implements OnInit {
     };
 
     const resourceRequest = new WLResourceRequest(
-      'adapters/AdapterBanorteSucursApps/resource/consultaMantenimientoBeneficiarios',
+      'adapters/AdapterBanorteSucursApps2/resource/consultaMantenimientoBeneficiarios',
       WLResourceRequest.POST
     );
     resourceRequest.setTimeout(30000);

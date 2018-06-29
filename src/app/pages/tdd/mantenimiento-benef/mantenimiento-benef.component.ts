@@ -308,7 +308,7 @@ export class MantenimientoBenefComponent implements OnInit {
     };
 
     const resourceRequest = new WLResourceRequest(
-       'adapters/AdapterBanorteSucursApps/resource/consultaMantenimientoBeneficiarios',
+       'adapters/AdapterBanorteSucursApps2/resource/consultaMantenimientoBeneficiarios',
       WLResourceRequest.POST
     );
     resourceRequest.setTimeout(30000);
@@ -398,7 +398,7 @@ export class MantenimientoBenefComponent implements OnInit {
     };
 
     const resourceRequest = new WLResourceRequest(
-       'adapters/AdapterBanorteSucursApps/resource/bajaMantenimientoBeneficiarios',
+       'adapters/AdapterBanorteSucursApps2/resource/bajaMantenimientoBeneficiarios',
       WLResourceRequest.POST
     );
     resourceRequest.setTimeout(30000);
@@ -538,7 +538,7 @@ export class MantenimientoBenefComponent implements OnInit {
     };
 
     const resourceRequest = new WLResourceRequest(
-       'adapters/AdapterBanorteSucursApps/resource/altaMantenimientoBeneficiarioMoral',
+       'adapters/AdapterBanorteSucursApps2/resource/altaMantenimientoBeneficiarioMoral',
       WLResourceRequest.POST
     );
     resourceRequest.setTimeout(30000);
@@ -594,7 +594,7 @@ export class MantenimientoBenefComponent implements OnInit {
     };
 
     const resourceRequest = new WLResourceRequest(
-      'adapters/AdapterBanorteSucursApps/resource/altaMantenimientoBeneficiarioFisica',
+      'adapters/AdapterBanorteSucursApps2/resource/altaMantenimientoBeneficiarioFisica',
       WLResourceRequest.POST
     );
     resourceRequest.setTimeout(30000);
@@ -945,7 +945,7 @@ export class MantenimientoBenefComponent implements OnInit {
     };
 
     const resourceRequest = new WLResourceRequest(
-      'adapters/AdapterBanorteSucursApps/resource/modificarBeneficiarios',
+      'adapters/AdapterBanorteSucursApps2/resource/modificarBeneficiarios',
       WLResourceRequest.POST
     );
     resourceRequest.setTimeout(30000);
