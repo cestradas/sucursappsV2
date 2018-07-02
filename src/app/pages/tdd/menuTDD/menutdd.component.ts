@@ -28,12 +28,12 @@ export class MenutddComponent implements OnInit {
   urlProperty: any;
   sesionBrowser: any;
 
-  constructor(private router: Router, private http: Http, private _service: ConsultaSaldosTddService, 
+  constructor(private router: Router, private http: Http, private _service: ConsultaSaldosTddService,
     private _serviceSesion: SesionTDDService, private serviceTdd: ResponseWS) {}
 
   ngOnInit() {
     // $('div').removeClass('modal-backdrop');
-      this.getidSesion(); 
+      this.getidSesion();
       if (sessionStorage.getItem("campania") === null)      {
         sessionStorage.setItem("campania", "activa");
       }
@@ -85,27 +85,44 @@ export class MenutddComponent implements OnInit {
   }
 
   moreOptions() {
-    // setTimeout(() => {
+    setTimeout(() => {
 
     document.getElementById("operacionesFrecuentes").style.display = "none";
     document.getElementById("opciones").style.display = "none";
     document.getElementById("masOpciones").style.display = "block";
     document.getElementById("regresar").style.display = "block";
+    $('#operacionesFrecuentes').removeClass('animated fadeOutUp slow');
+    $('#opciones').removeClass('flipOutY fast');
 
-    // }, 2000);
 
-    // $('#operacionesFrecuentes').addClass('animated fadeOutUp slow');
+    }, 2000);
+
+    $('#operacionesFrecuentes').addClass('animated fadeOutUp slow');
+    $('#masOpciones').addClass('animated fadeInUp slow');
+
+    $('#opciones').addClass('flipOutY fast');
+    $('#regresar').addClass('flipInY slow');
   }
 
   regresar() {
-    // setTimeout(() => {
+    setTimeout(() => {
 
     document.getElementById("operacionesFrecuentes").style.display = "block";
     document.getElementById("opciones").style.display = "block";
     document.getElementById("masOpciones").style.display = "none";
     document.getElementById("regresar").style.display = "none";
 
-    // }, 2000);
+    $('#masOpciones').removeClass('animated fadeOutUp slow');
+    $('#regresar').removeClass('flipOutY fast');
+
+    }, 2000);
+
+    $('#masOpciones').addClass('animated fadeOutUp slow');
+    $('#operacionesFrecuentes').addClass('animated fadeInUp slow');
+
+    $('#regresar').addClass('flipOutY fast');
+    $('#opciones').addClass('flipInY slow');
+
   }
 
   cargarcampanias() {
@@ -120,7 +137,7 @@ export class MenutddComponent implements OnInit {
     // this_aux.stringUrl = this_aux.urlProperty + "/ade-front/existeEvento.json?param1=cGP7ZYTkSjuaCtabUn%2BA2Q%3D%3D";
      this_aux.stringUrl = this_aux.urlProperty + "/ade-front/existeEvento.json";
     // this_aux.urlProperty + "/ade-front/existeEvento.json";
-       
+
     this.http
       .get(this_aux.stringUrl, {
         search: params
@@ -133,14 +150,14 @@ export class MenutddComponent implements OnInit {
         let ancho = cadena.substring(val1 + 1, val2);
         let alto = cadena.substring(val2 + 1);
 
-       document.getElementById("frameCampania").setAttribute("src", 
-      this_aux.urlProperty + "/ade-front/ade.htm?param1=" + this_aux.sicCifrado + 
+       document.getElementById("frameCampania").setAttribute("src",
+      this_aux.urlProperty + "/ade-front/ade.htm?param1=" + this_aux.sicCifrado +
       "&param2=SUCA&sesion=" + this_aux.sesionBrowser + "&param3=" + this_aux.idSucursal);
        document.getElementById("frameCampania").style.height = "100%";
        document.getElementById("divLargo").style.maxWidth = ancho.toString() + "px";
        document.getElementById("divAltura").style.maxHeight = alto.toString() + "px";
        document.getElementById("divAltura").style.height = alto.toString() + "px";
-       $("#campaniaModal").modal("show");   
+       $("#campaniaModal").modal("show");
     }
   }
 
@@ -149,7 +166,7 @@ export class MenutddComponent implements OnInit {
     const this_aux = this;
     const THIS: any = this;
     console.log("adentro encriptar sic: " + this_aux._serviceSesion.datosBreadCroms.sicUsuarioTDD);
-    
+
     const formParameters = {
         sic: this_aux._serviceSesion.datosBreadCroms.sicUsuarioTDD
       //  sic: '12345'
@@ -179,7 +196,7 @@ export class MenutddComponent implements OnInit {
     );
     console.log("Salió de encriptar sic");
   }
-  
+
   getidSesion() {
     const this_aux = this;
     this_aux.sesionBrowser = this_aux.serviceTdd.sesionTdd;
@@ -187,10 +204,10 @@ export class MenutddComponent implements OnInit {
 
     if (sessionStorage.getItem("campania") === "activa") {
       this_aux.encriptarSic();
-    } 
+    }
 }
 
-  
+
  send(msg) {
     const this_aux = this;
     let popupIframe = document.getElementsByTagName('iframe')[0];
@@ -201,7 +218,6 @@ export class MenutddComponent implements OnInit {
     return false;
     }
 
-   
+
 
 }
-
