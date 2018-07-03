@@ -13,14 +13,14 @@ declare var $: any;
   templateUrl: './consulta-movimientos.component.html'
 })
 export class ConsultaMovimientosComponent implements OnInit {
-  
+
 
   cuentasArray: Array<any>;
   saldoSeleccionado: string;
   aliasSeleccionado: String;
-  
+
   @ViewChild('listaCuentas', { read: ElementRef}) listaCuentas: ElementRef ;
-  
+
   constructor(private router: Router,
               private service: SesionBxiService,
               private renderer: Renderer2) {
@@ -35,11 +35,15 @@ export class ConsultaMovimientosComponent implements OnInit {
     // ESTILOS Preferente
     let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
     let btnContinuar = document.getElementById("regresarBXI");
+    let btnDetalle = document.getElementById("verDetalle");
 
     if (storageTipoClienteBEL === "true") {
 
       btnContinuar.classList.remove("color-botones");
       btnContinuar.classList.add("color-botones_Preferente");
+
+      btnDetalle.classList.remove("color-botones");
+      btnDetalle.classList.add("color-botones_Preferente");
     }
 
     setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
@@ -56,16 +60,16 @@ fillSelectCuentas() {
     this_aux.cuentasArray = consultaCuentas.ArrayCuentas;
     console.log(this_aux.cuentasArray.length);
 
-  
+
   console.log(this_aux.cuentasArray);
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
- 
+
     for (let i = 0; i < this_aux.cuentasArray.length; i++) {
       const li =  this.renderer.createElement('li');
       const a = this.renderer.createElement('a');
       let mascaraCuenta;
 
-      
+
       this_aux.service.noTarjetaSeleccionada = this_aux.cuentasArray[i].Plastico;
       this_aux.service.divisa = this_aux.cuentasArray[i].Divisa;
       if (this_aux.cuentasArray[i].TipoCuenta === 5) {
@@ -74,14 +78,14 @@ fillSelectCuentas() {
         mascaraCuenta = operacionesbxi.mascaraNumeroCuenta(this_aux.cuentasArray[i].NoCuenta);
       }
       const textoCuenta = this.renderer.createText( this_aux.cuentasArray[i].Alias + " - " + mascaraCuenta);
-      
+
       this.renderer.setProperty(a, 'value', this_aux.cuentasArray[i].NoCuenta);
       // tslint:disable-next-line:max-line-length
       this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target, this_aux.cuentasArray[i].TipoCuenta, this_aux.cuentasArray[i].Alias); });
       this.renderer.appendChild(a, textoCuenta),
       this.renderer.appendChild(li, a);
-      this.renderer.appendChild(this.listaCuentas.nativeElement, li); 
-  } 
+      this.renderer.appendChild(this.listaCuentas.nativeElement, li);
+  }
 }
 
 
@@ -129,7 +133,7 @@ resetLista() {
     this_aux.getSaldoDeCuentaTDC(this_aux.service.numCuentaSeleccionado);
     console.log("llego el saldo tdc");
   }
-  
+
 }
 
 getSaldoDeCuentaTDD(numCuenta_seleccionada) {
@@ -144,7 +148,7 @@ getSaldoDeCuentaTDD(numCuenta_seleccionada) {
           // lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
           this_aux.saldoSeleccionado = detalleSaldos.SaldoDisponible;
           this_aux.service.saldoSeleccionado = this_aux.saldoSeleccionado;
-          
+
 
         } else {
            this_aux.showErrorSucces(detalleSaldos);
@@ -171,7 +175,7 @@ getSaldoDeCuentaTDC(numCuenta_seleccionada) {
           this_aux.saldoSeleccionado = detalleSaldos.SaldoDisponible;
           this_aux.service.saldoSeleccionado = this_aux.saldoSeleccionado;
           this_aux.service.SaldoActual = detalleSaldos.SaldoActual;
-          
+
 
         } else {
            this_aux.showErrorSucces(detalleSaldos);
@@ -194,7 +198,7 @@ getSaldoDeCuentaTDC(numCuenta_seleccionada) {
 
 showErrorSucces(json) {
   console.log(json.Id + json.MensajeAUsuario);
-  document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
+  document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
   setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
   $('#errorModal').modal('show');
 }
@@ -202,17 +206,17 @@ showErrorSucces(json) {
 showErrorPromise(error) {
   console.log(error);
   // tslint:disable-next-line:max-line-length
-  document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde."; 
+  document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
   setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
   $('#errorModal').modal('show');
 }
-  
-  
+
+
     consultarSaldos() {
       const this_aux = this;
       this_aux.fillSelectCuentas();
       this_aux.router.navigate(['/saldosDetailBXI']);
-      
+
 
 
     }
