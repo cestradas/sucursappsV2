@@ -183,9 +183,10 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   crearListaBeneficiarios(data, isBanorte) {
 
             const this_aux = this;
+            const operacionesbxi: OperacionesBXI = new OperacionesBXI();
             const li =  this.renderer.createElement('li');
             const a = this.renderer.createElement('a');
-            const textoCuenta = this.renderer.createText( data.Alias);
+            const textoCuenta = this.renderer.createText( data.Alias + ' ' + data.NoCuenta);
             if ( isBanorte) {
                 this.renderer.setProperty(a, 'value', data.NoCuenta + ',Banorte' );
             } else {
@@ -230,7 +231,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
     tableBeneficiarios.setAttribute('style', 'display: block');
     tableDefaultBeneficiarios.setAttribute('style', 'display: none');
-    lbDescripcionCtaBen.innerHTML = elementHTML.textContent;
+    lbDescripcionCtaBen.innerHTML = this_aux.getCtaFromTextContet(elementHTML.textContent);
     lblCuentaDestino.innerHTML = this_aux.getNumeroCuentaDestino(valueElement);
     this_aux.CuentaDestino =  this_aux.getNumeroCuentaDestino(valueElement);
     this_aux.service.numCtaBenSeleccionada = this_aux.CuentaDestino;
