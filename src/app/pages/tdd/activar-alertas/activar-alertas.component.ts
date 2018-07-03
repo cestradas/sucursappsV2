@@ -26,13 +26,14 @@ export class ActivarAlertasComponent implements OnInit {
 
   ngOnInit() {
 $('#_modal_please_wait').modal('show');
+     const operaciones: consultaCatalogos = new consultaCatalogos();
      this._service.cargarSaldosTDD();
      this._service.validarDatosSaldoTdd().then(
        mensaje => {
 
          console.log('Saldos cargados correctamente TDD');
          this.saldoClienteTdd = mensaje.SaldoDisponible;
-         this.cuentaClienteTdd = mensaje.NumeroCuenta;
+         this.cuentaClienteTdd = operaciones.mascaraNumeroCuenta(mensaje.NumeroCuenta);
          this.nombreUsuarioTdd = this._serviceSesion.datosBreadCroms.nombreUsuarioTDD;
          this.consultaAlertas();
          setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
@@ -48,8 +49,7 @@ $('#_modal_please_wait').modal('show');
       btnContinuar.classList.remove("color-botones");
       btnContinuar.classList.add("color-botones_Preferente");
     }
-
-  this.consultaAlertas();
+  
   }
 
     consultaAlertas() {

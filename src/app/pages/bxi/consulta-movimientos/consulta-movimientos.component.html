@@ -5,61 +5,50 @@
 
 <div class="content">
     <div id="paginationdemo" class="demo">
-        <h2 class="text-center color-letra">Mis cuentas</h2>
-
-
-        <div class="row">
-            <div class="col-md-6 col-sm-6 col-xl-6 ">
-                <div class="tConsultaSaldos" style="background-color:#a51029" id="cuentas1" #deposito (click)="cambiarMenu(deposito.id)">
-                    Cuentas de dep&oacute;sito
-                </div>
-                <div class="flecha_abajo" id="flecha1"></div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-xl-6 ">
-                <div class="tConsultaSaldos" style="background-color:#c41330" id="cuentas2" #deposito2 (click)="cambiarMenu(deposito2.id)">
-                    Cuentas de cr&eacute;dito
-                </div>
-                <div class="flecha_abajo" id="flecha2" style='display:none'></div>
-            </div>
-        </div>
-
+        <h2 class="text-center color-letra">Consultar saldos y movimientos</h2>
+        <br>
+        <h4 class="text-center" style="color: #B01657">Selecciona una cuenta para ver el detalle</h4>
         <!-- Tab panes -->
         <br>
+        <br><br>
         <fieldset class="padding-TittleToFieldset padding-fieldset-general">
             <div class="row sumando-form-group">
-                <div class="col-sm-10 group-controls  padding-InFieldset" style="padding-left: 0px; padding-right:  0px;">
+                <div class="col-sm-1 sumando-bg-red group-name">
+                    Desde
+                </div>
+                <div class="col-sm-11 group-controls  padding-InFieldset" style="padding-left: 0px; padding-right:  0px;">
                     <div class="form-group">
                         <div class="sumando-bg-white">
                             <input type="hidden">
                             <div class="dropdown sumando-dropdown-account">
                                 <button class="btn btn-default btn-block dropdown-toggle btn-color-cuentas " type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="padding-right: 0px;padding-top: 0px;padding-bottom: 0px">
-                    <table id="tableOrigen" style="display: none;" width="100%" height="62px">
-                      <tr>
-                        <td align="left" width="45%">
-                          <strong><label  id="lblAliasOrigen" #lblAliasOrigen></label></strong>
-                        </td>
-                        <td align="left" width="45%">
-                          <strong><label id ="lblSaldoOrigen" #lblSaldoOrigen>{{saldoSeleccionado | currency}}</label>
-                          </strong>
-                        </td>
-                        <td width="5%" rowspan="2" class="dropdown-caret">
-                          <img  class="img-select-seleccion2" src="./assets/img/bg_selectN.png">
-                        </td>
-                      </tr>
-                      <tr>
-                        <td align="left"><label id="lblCuentaOrigen" #lblCuentaOrigen></label></td>
-                        <td align="left">Saldo Disponible</td>
-                      </tr>
-                    </table>
-                    <table  id="tableDefaultOrigen"  width="100%">
-                      <tr>
-                        <td align="left" rowspan="2"  height="62px">Seleccione una cuenta de origen...</td>
-                        <td width="5%" rowspan="2" class="dropdown-caret">
-                             <img  class="select-img2" src="./assets/img/bg_selectN.png">
-                        </td>
-                      </tr>
-                    </table>
-                  </button>
+                            <table id="tableOrigen" style="display: none" width="100%">
+                              <tr>
+                                <td align="left" width="45%">
+                                  <strong><label  id="lblAliasOrigen" #lblAliasOrigen>{{aliasSeleccionado}}</label></strong>
+                                </td>
+                                <td align="left" width="45%">
+                                  <strong><label id ="lblSaldoOrigen" #lblSaldoOrigen>{{saldoSeleccionado | currency}}</label>
+                                  </strong>
+                                </td>
+                                <td width="5%" rowspan="2" class="dropdown-caret">
+                                  <img  class="img-select-seleccion" src="./assets/img/bg_selectN.png">
+                                </td>
+                              </tr>
+                              <tr>
+                                <td align="left">Cuenta <label id="lblCuentaOrigen" #lblCuentaOrigen></label></td>
+                                <td align="left">Saldo Disponible</td>
+                              </tr>
+                            </table>
+                            <table  id="tableDefaultOrigen" width="100%">
+                              <tr>
+                                <td align="left" rowspan="2">Seleccione una cuenta de origen...</td>
+                                <td width="5%" rowspan="2" class="dropdown-caret">
+                                  <img src="./assets/img/bg_selectN.png" class="select-img">
+                                </td>
+                              </tr>
+                            </table>
+                          </button>
                                 <div>
                                     <ul id="ul_Cuentas" #listaCuentas class="dropdown-menu btn-block" aria-labelledby="dropdownMenu1" style="width : 100%; height : 200px; overflow: auto;">
 
@@ -69,9 +58,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-2 sumando-bg-red group-name2" (click)="consultarSaldos()" style="padding-top: 20px; top: 2px;">
-                    Ver detalle
-                </div>
+
 
             </div>
 
@@ -82,14 +69,18 @@
             <div class="col-lg-10"></div>
             <div class="col-lg-2">
                 <div class="row">
-                    <div style=" padding: 0px;" class="col-lg-9">
+                    <div style=" padding: 0px;" class="col-lg-3">
                         <button id="regresarBXI" class="btn color-botones  btn-lg letranegrita pull-right" routerLink="/menuBXI">
                         Regresar
                     </button>
                     </div>
+                    <div style=" padding: 0px;" class="col-lg-6">
+                        <button id="regresarBXI" class="btn color-botones  btn-lg letranegrita pull-right" (click)="consultarSaldos()">
+                        Ver detalle
+                    </button>
+                    </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
-</div>

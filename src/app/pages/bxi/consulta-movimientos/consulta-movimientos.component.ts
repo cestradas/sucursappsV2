@@ -17,6 +17,7 @@ export class ConsultaMovimientosComponent implements OnInit {
 
   cuentasArray: Array<any>;
   saldoSeleccionado: string;
+  aliasSeleccionado: String;
   
   @ViewChild('listaCuentas', { read: ElementRef}) listaCuentas: ElementRef ;
   
@@ -29,7 +30,7 @@ export class ConsultaMovimientosComponent implements OnInit {
 
   ngOnInit() {
     $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
-  this.fillSelectCuentasTDD();
+    this.fillSelectCuentas();
 
     // ESTILOS Preferente
     let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
@@ -45,41 +46,7 @@ export class ConsultaMovimientosComponent implements OnInit {
 
   }
 
-
-  fillSelectCuentasTDD() {
-
-    console.log("Entre a fiillSelectCuentasTDD");
-    const this_aux = this;
-    this_aux.resetLista();
-    this_aux.service.tipoCuenta = "1";
-    const cuentasString = this_aux.service.infoCuentas;
-    console.log(this_aux.service.infoCuentas);
-    const consultaCuentas = JSON.parse(cuentasString);
-    this_aux.cuentasArray = consultaCuentas.ArrayCuentas;
-    console.log(this_aux.cuentasArray.length);
-    
-    
-    console.log(this_aux.cuentasArray);
-      for (let i = 0; i < this_aux.cuentasArray.length; i++) {
-      if (this_aux.cuentasArray[i].TipoCuenta === 1) {
-        const li =  this.renderer.createElement('li');
-        const a = this.renderer.createElement('a');
-
-        this_aux.service.aliasCuentaSeleccionada = this_aux.cuentasArray[i].Alias;
-        this_aux.service.noTarjetaSeleccionada = this_aux.cuentasArray[i].Plastico;
-        this_aux.service.divisa = this_aux.cuentasArray[i].Divisa;
-
-        const textoCuenta = this.renderer.createText( this_aux.cuentasArray[i].Alias);
-        this.renderer.setProperty(a, 'value', this_aux.cuentasArray[i].NoCuenta);
-        this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target, this_aux.service.tipoCuenta); });
-        this.renderer.appendChild(a, textoCuenta),
-        this.renderer.appendChild(li, a);
-        this.renderer.appendChild(this.listaCuentas.nativeElement, li);
-      }
-    } 
-}
-
-fillSelectCuentasTDC() {
+fillSelectCuentas() {
   console.log("Entre a fiillSelectCuentasTDC");
   const this_aux = this;
     this_aux.resetLista();
@@ -89,28 +56,34 @@ fillSelectCuentasTDC() {
     this_aux.cuentasArray = consultaCuentas.ArrayCuentas;
     console.log(this_aux.cuentasArray.length);
 
-  this_aux.service.tipoCuenta = "5";
+  
   console.log(this_aux.cuentasArray);
-
+  const operacionesbxi: OperacionesBXI = new OperacionesBXI();
  
     for (let i = 0; i < this_aux.cuentasArray.length; i++) {
-    if (this_aux.cuentasArray[i].TipoCuenta === 5) {
       const li =  this.renderer.createElement('li');
       const a = this.renderer.createElement('a');
+      let mascaraCuenta;
 
-      this_aux.service.aliasCuentaSeleccionada = this_aux.cuentasArray[i].Alias;
+      
       this_aux.service.noTarjetaSeleccionada = this_aux.cuentasArray[i].Plastico;
       this_aux.service.divisa = this_aux.cuentasArray[i].Divisa;
-
-      const textoCuenta = this.renderer.createText( this_aux.cuentasArray[i].Alias);
+      if (this_aux.cuentasArray[i].TipoCuenta === 5) {
+        mascaraCuenta = operacionesbxi.mascaraNumeroTarjeta(this_aux.cuentasArray[i].NoCuenta);
+      } else if (this_aux.cuentasArray[i].TipoCuenta = 1) {
+        mascaraCuenta = operacionesbxi.mascaraNumeroCuenta(this_aux.cuentasArray[i].NoCuenta);
+      }
+      const textoCuenta = this.renderer.createText( this_aux.cuentasArray[i].Alias + " - " + mascaraCuenta);
+      
       this.renderer.setProperty(a, 'value', this_aux.cuentasArray[i].NoCuenta);
-      this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target, this_aux.service.tipoCuenta); });
+      // tslint:disable-next-line:max-line-length
+      this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target, this_aux.cuentasArray[i].TipoCuenta, this_aux.cuentasArray[i].Alias); });
       this.renderer.appendChild(a, textoCuenta),
       this.renderer.appendChild(li, a);
-      this.renderer.appendChild(this.listaCuentas.nativeElement, li);
-    }
+      this.renderer.appendChild(this.listaCuentas.nativeElement, li); 
   } 
 }
+
 
 resetLista() {
     const node = document.getElementById("ul_Cuentas");
@@ -122,7 +95,7 @@ resetLista() {
 
 
 
-  setDatosCuentaSeleccionada(elementHTML, tipoCuenta) {
+  setDatosCuentaSeleccionada(elementHTML, tipoCuenta, alias) {
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
       console.log("setDatosCuentaSeleccionada inicial  " + tipoCuenta);
   $('#_modal_please_wait').modal('show');
@@ -131,26 +104,29 @@ resetLista() {
   const tableOrigen = document.getElementById('tableOrigen');
   const tableDefaultOrigen = document.getElementById('tableDefaultOrigen');
   const lblCuentaOrigen = document.getElementById('lblCuentaOrigen');
-  const lblAliasOrigen = document.getElementById('lblAliasOrigen');
+  // const lblAliasOrigen = document.getElementById('lblAliasOrigen');
   const numCuenta_seleccionada = elementHTML.value;
-
+  this_aux.aliasSeleccionado = alias;
+  this_aux.service.aliasCuentaSeleccionada = alias;
   tableOrigen.setAttribute('style', 'display: block');
   tableDefaultOrigen.setAttribute('style', 'display: none');
 
-  lblAliasOrigen.innerHTML = elementHTML.textContent;
+  // lblAliasOrigen.innerHTML = elementHTML.textContent;
   lblCuentaOrigen.innerHTML = operacionesbxi.mascaraNumeroCuenta(numCuenta_seleccionada.toString());
   this_aux.service.numCuentaSeleccionado = numCuenta_seleccionada;
   console.log("setDatosCuentaSeleccionada final  " + tipoCuenta);
 
-  if (tipoCuenta === "1") {
-
+  if (tipoCuenta === 1) {
+    this_aux.service.tipoCuenta = "1";
     console.log("setDatosCuentaSeleccionada if cuando 1  " + tipoCuenta);
-    this_aux.getSaldoDeCuentaTDD(numCuenta_seleccionada);
+    this_aux.getSaldoDeCuentaTDD(this_aux.service.numCuentaSeleccionado);
+
     console.log("llego el saldo tdd");
   } else {
+     this_aux.service.tipoCuenta = "5";
 
     console.log("setDatosCuentaSeleccionada if cuando 2  " + tipoCuenta);
-    this_aux.getSaldoDeCuentaTDC(numCuenta_seleccionada);
+    this_aux.getSaldoDeCuentaTDC(this_aux.service.numCuentaSeleccionado);
     console.log("llego el saldo tdc");
   }
   
@@ -230,42 +206,15 @@ showErrorPromise(error) {
   setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
   $('#errorModal').modal('show');
 }
-  cambiarMenu(peticion) {
-
-    console.log("Hola");
-    console.log(peticion);
-    const div = document.getElementById('flecha1');
-    const div2 = document.getElementById('flecha2');
-    const divcuentas = document.getElementById("cuentas1");
-    const divcuentas2 = document.getElementById("cuentas2");
-        switch (peticion) {
-    
-          case 'cuentas1':
-            div.style.display  = 'block'; 
-            div2.style.display = "none";
-            divcuentas.style.backgroundColor = '#a51029';
-            divcuentas2.style.backgroundColor = '#c41330';
-
-            this.fillSelectCuentasTDD();
-            // disparar accion para consultar los datos
-          break;
-          case 'cuentas2': 
-            div.style.display = "none";
-            div2.style.display = "block";
-            divcuentas.style.backgroundColor = '#c41330';
-            divcuentas2.style.backgroundColor = '#a51029';
-
-            this.fillSelectCuentasTDC();
-            // disparar accion para consultar los datos
-          break;
-            }
-    
-    }
   
   
     consultarSaldos() {
       const this_aux = this;
+      this_aux.fillSelectCuentas();
       this_aux.router.navigate(['/saldosDetailBXI']);
+      
+
+
     }
 
 

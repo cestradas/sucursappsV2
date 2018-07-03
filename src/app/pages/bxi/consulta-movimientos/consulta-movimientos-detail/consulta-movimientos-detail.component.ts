@@ -300,6 +300,9 @@ showErrorPromise(error) {
 
 mostrarSaldoDebito() {
 
+  const cuentaDebito = document.getElementById('cuentaDebito');
+  cuentaDebito.setAttribute('style', 'display: block');
+
   const cuentaCredito = document.getElementById('cuentaCredito');
   cuentaCredito.setAttribute('style', 'display: none');
   
@@ -309,6 +312,8 @@ mostrarSaldoCredito() {
   this.mostrarSaldoDebito();
   const cuentaCredito = document.getElementById('cuentaCredito');
   cuentaCredito.setAttribute('style', 'display: block');
+  const cuentaDebito = document.getElementById('cuentaDebito');
+  cuentaDebito.setAttribute('style', 'display: none');
   
 }
   ConsultaMovimientosTDD(numeroCue, fDesde, fHasta, comi, pag, numreg) {

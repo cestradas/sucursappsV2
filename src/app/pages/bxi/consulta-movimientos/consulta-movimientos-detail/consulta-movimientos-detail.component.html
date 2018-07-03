@@ -8,7 +8,7 @@
             <div class="col-sm-9">
                 <div class="row padding-TittleToFieldset padding-InFieldset">
                     <div style="width: 300px" class="col-lg-6 ">
-                        <h4 class="color-letra">Selecciona una opci&oacute;n</h4>
+                        <h4 class="color-letra">Selecciona periodo</h4>
                     </div>
                     <div style="width: 980px" class="col-lg-6 text-right" id="selectTDC" style="display:none">
                         <select class="form-control input-lg selectModificado selColonia" id="selecttdc" (change)="calcularFecha()" [(ngModel)]="opcionSeleccionado">
@@ -56,7 +56,7 @@
                                         <td>{{movimiento.Importe| currency}}</td>
                                     </ng-template>
                                     <ng-template #negativo>
-                                        <td style="color:red">-{{movimiento.Importe| currency}}</td>
+                                        <td>-{{movimiento.Importe| currency}}</td>
                                     </ng-template>
                             </table>
                         </div>
@@ -79,19 +79,19 @@
                 <h4 class="color-letra">Tu cuenta</h4>
                 <ul class="list-group">
                     <li class="list-group-item list-group-item1">
-                        <strong>Tipo de cuenta</strong>
+                        <strong>Tipo de cuenta:</strong>
                         <samp id="txtTitular">{{tipoCuenta}}</samp>
                     </li>
-                    <li class="list-group-item list-group-item1">
+                    <li class="list-group-item list-group-item1" id="cuentaDebito" style="display: none">
                         <strong>No. de Cuenta:</strong>
                         <samp id="txtCuenta">{{cuentaClienteBXI}}</samp>
                     </li>
                     <li class="list-group-item list-group-item1">
-                        <strong>No. de Tarjeta</strong>
+                        <strong>No. de Tarjeta:</strong>
                         <samp id="txtTarjeta">{{noTarjeta}}</samp>
                     </li>
                     <li class="list-group-item list-group-item1">
-                        <strong>Divisa</strong>
+                        <strong>Divisa:</strong>
                         <samp id="txtDivisa">{{divisa}}</samp>
                     </li>
                     <li class="list-group-item list-group-item1">
