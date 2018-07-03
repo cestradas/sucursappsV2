@@ -17,7 +17,7 @@
                             </td>
                             <td align="left" style="border: 0px">
                                 <strong>
-                                    <label>$ {{saldoDisponibleClienteTdd | currency}}
+                                    <label>{{saldoDisponibleClienteTdd | currency}}
                                     </label>
                                 </strong>
                             </td>
@@ -25,7 +25,7 @@
                         <tr>
                             <td align="left" style="border: 0px">Cuenta
                                 <strong>
-                                                <label> {{numeroCuentaTitular}}
+                                                <label> {{mostrarCuentaMascara}}
                                                  </label>
                                             </strong>
                             </td>
@@ -107,11 +107,11 @@ calendario item -->
 
         <div class="row">
             <a id="flechasEDCI" style="opacity: 0; margin-top: 278px;" class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon arrowCarousel" aria-hidden="true" style="margin-bottom: -101px;"></span>
+                <span class="carousel-control-prev-icon arrowCarousel" aria-hidden="true" style="margin-bottom: 160px;"></span>
                 <span class="sr-only">Previous</span>
             </a>
             <a id="flechasEDCD" style="opacity: 0; margin-top: 278px;" class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon arrowCarousel" aria-hidden="true" style="margin-bottom: -101px;"></span>
+                <span class="carousel-control-next-icon arrowCarousel" aria-hidden="true" style="margin-bottom: 160px;"></span>
                 <span class="sr-only">Next</span>
             </a>
         </div>
@@ -140,6 +140,7 @@ calendario item -->
 
 
     </div>
+
 </fieldset>
 
 
@@ -148,7 +149,7 @@ calendario item -->
         <div class="modal-content">
             <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
                 <h4 class="color-letra">Aviso</h4>
-                <p id="mnsErrorModal">Se esta procesando su solicitud</p>
+                <p id="mnsErrorModal">Se est&aacute; procesando su solicitud</p>
             </div>
             <div class="modal-footer text-center">
                 <!-- Aqui se hace manda a llamar a la funcion ubicada en script del index.html para guardado silencioso en la carpeta C:/temp-->

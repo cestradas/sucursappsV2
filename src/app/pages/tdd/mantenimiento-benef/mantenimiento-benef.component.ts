@@ -82,7 +82,7 @@ export class MantenimientoBenefComponent implements OnInit {
   codigoEstado: any = "";
   descripcionEstado: any = "";
   parentesco: any = "";
-
+  idEliminarTabla: any = "";
   myform: FormGroup;
   myformCP: FormGroup;
   myformCPMod: FormGroup;
@@ -125,7 +125,6 @@ export class MantenimientoBenefComponent implements OnInit {
         this.consultaBeneficiarios();
       }
     ); 
-    setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
   }
 
   ngOnInit() {
@@ -193,7 +192,8 @@ export class MantenimientoBenefComponent implements OnInit {
     this.opcion = datosBeneficiario.Opcion;
     if (datosBeneficiario.FisicaMoral === "M") {
       this.razonSocial = datosBeneficiario.RazonSocial;
-    }    
+    }   
+    this.idEliminarTabla =  this.razonSocial + this.nombreBeneficiario + this.apellidoPat +this.apellidoMat;
     $("#modalBajaBeneficiarios").modal("show");
   }
 
@@ -337,7 +337,7 @@ export class MantenimientoBenefComponent implements OnInit {
               value.NuevaFecha = "";
             }
             this_aux.porcentajeGuardado = this_aux.porcentajeGuardado + Number(value.PorcentajeBenef);
-            this_aux.ultimoRegistroGuardado = Number(value.NumeroConsecutiv);          
+            this_aux.ultimoRegistroGuardado = Number(value.NumeroConsecutiv);
           });
           console.log("PORCENTAJE EN CONSULTA: " + this_aux.porcentajeGuardado);
           const stringDatosBen = JSON.stringify(this_aux.DatosJSON);
@@ -373,6 +373,8 @@ export class MantenimientoBenefComponent implements OnInit {
       }
     });
     
+    let tr = document.getElementById(this_aux.idEliminarTabla);
+    tr.remove();
     console.log("PORCENTAJE EN BAJA: " + this_aux.porcentajeGuardado);
   }
 
@@ -778,6 +780,8 @@ export class MantenimientoBenefComponent implements OnInit {
         console.log("Error al consultar CP");
       }
     );
+
+    setTimeout( () => $('#_modal_please_wait').modal('hide'), 3000 );
     console.log("Salió de Response Consultar CP");
   }
 
@@ -1072,7 +1076,7 @@ export class MantenimientoBenefComponent implements OnInit {
     }
   }
   tecladoMoverAbajo () {
-    $( ".cdk-visually-hidden" ).css( "margin-top", "19%" );
+    $( ".cdk-visually-hidden" ).css( "margin-top", "15%" );
   }
   tecladoMoverArriba () {
     $( ".cdk-visually-hidden" ).css( "margin-top", "-19%" );

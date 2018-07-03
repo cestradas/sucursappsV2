@@ -7,6 +7,7 @@ import { CurrencyPipe } from "@angular/common";
 import { FormGroup, FormControl, Validators, FormArray } from "@angular/forms";
 import { ConsultaSaldosTddService } from '../../../services/saldosTDD/consultaSaldos.service';
 import { ResponseWS } from '../../../services/response/response.service';
+import { consultaCatalogos } from '../../../services/consultaCatalogos/consultaCatalogos.service';
 declare var jquery: any; // jquery
 declare var $: any;
 
@@ -27,6 +28,7 @@ export class ImpresionEdcTddComponent implements OnInit {
   obj: any;
   numeroCuentaTitular: string;
   saldoDisponibleClienteTdd: string;
+  mostrarCuentaMascara: string;
 
   bandera0 = 1;
   bandera1 = 1;
@@ -96,10 +98,11 @@ export class ImpresionEdcTddComponent implements OnInit {
     $('#_modal_please_wait').modal('show');
     this._service.validarDatosSaldoTdd().then(
       mensaje => {
-
+        const operaciones: consultaCatalogos = new consultaCatalogos();
         console.log('Saldos cargados correctamente TDD');
         this_aux.saldoDisponibleClienteTdd = mensaje.SaldoDisponible;
         this_aux.numeroCuentaTitular = mensaje.NumeroCuenta;
+        this.mostrarCuentaMascara = operaciones.mascaraNumeroCuenta(this.numeroCuentaTitular);
         serviceTdd.numeroCuentaTdd = this_aux.numeroCuentaTitular;
 
       }
