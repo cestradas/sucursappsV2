@@ -79,7 +79,7 @@ export class ImpresionEdcFinishComponent implements OnInit {
 
     const this_aux = this;
 
-    if ( (this_aux.confirmCorreo !== this_aux.correo) && (this_aux.contraZip !== undefined) ) {
+    if ( (this_aux.confirmCorreo !== this_aux.correo) && (this_aux.contraZip !== undefined || this_aux.contraZip !== "") ) {
       $('#continuarEdc').prop("disabled", true);
     } else {
       $('#continuarEdc').prop("disabled", false);
