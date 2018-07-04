@@ -644,7 +644,7 @@ S2.define('select2/utils',[
     var chars = '';
 
     for (var i = 0; i < length; i++) {
-      var randomChar = Math.floor(Math.random() * 36);
+      var randomChar = Math.floor(window.crypto.getRandomValues(new Uint32Array(1)) * 36);
       chars += randomChar.toString(36);
     }
 
