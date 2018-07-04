@@ -38,15 +38,15 @@
               <input  #numeroCelular  type="text" class="tamimput form-control amount input-lg" (blur)="ErrorPatternCelular('show')" (focus)="ErrorPatternCelular('hide')"
               formControlName="fcCelular" [matKeyboard]="'num'" placeholder="Número de celular" readonly maxlength="10"/>
               <div *ngIf="IsControlCelular">
-                <div *ngIf="myForm.get('fcCelular').errors  && myForm.get('fcCelular').touched">
-                    <p *ngIf="myForm.get('fcCelular').hasError('required')"  class="alert alert-danger">
+                <div *ngIf="myForm.get('fcCelular').errors  && myForm.get('fcCelular').touched" class="alert alert-danger">
+                    <p *ngIf="myForm.get('fcCelular').hasError('required')"  >
                             Dato obligatorio, favor de capturar.
                     </p>
                     <div *ngIf="showCelularError">
-                        <p *ngIf="(myForm.get('fcCelular').hasError('pattern') && numeroCelular.value !== '')||(myForm.get('fcCelular').hasError('minlength') && numeroCelular.value !== '') " class="alert alert-danger">
+                        <p *ngIf="(myForm.get('fcCelular').hasError('pattern') && numeroCelular.value !== '')||(myForm.get('fcCelular').hasError('minlength') && numeroCelular.value !== '') " >
                             Los datos proporcionados son incorrectos, favor de verificar.
                         </p>
-                        <p *ngIf="(myForm.get('fcCelular').hasError('pattern') && numeroCelular.value !== '')||(myForm.get('fcCelular').hasError('maxlength') && numeroCelular.value !== '') " class="alert alert-danger">
+                        <p *ngIf="(myForm.get('fcCelular').hasError('pattern') && numeroCelular.value !== '')||(myForm.get('fcCelular').hasError('maxlength') && numeroCelular.value !== '') " >
                             Los datos proporcionados son incorrectos, favor de verificar.
                         </p>
 
