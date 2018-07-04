@@ -742,6 +742,11 @@ input[type=month] .input-lg {
     line-height: 53px
 }
 
+input[type=text] {
+   
+    font-size: 25px;
+}
+
 .padding-top-15 {
     padding-top: 15px;
 }
