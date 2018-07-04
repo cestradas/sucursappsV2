@@ -24,7 +24,7 @@
                                             <label> Telefono:</label>
                                         </div>
                                         <div class="col-lg-4">
-                                            <input type="text" id="idTelefono"  class="form-control input-lg" formControlName="fcTelefono" #rTelefono [matKeyboard]="'num'" />
+                                            <input type="text" id="idTelefono"  class="form-control input-lg" formControlName="fcTelefono" #rTelefono [matKeyboard]="'num'" maxlength="10"/>
                                             <div *ngIf="myForm.get('fcTelefono').errors  && myForm.get('fcTelefono').touched" class="alert alert-danger">
                                                 <p *ngIf="myForm.get('fcTelefono').hasError('required')">
                                                         Dato obligatorio, favor de capturar.
@@ -38,7 +38,7 @@
                                             <label>DV: </label>
                                         </div>
                                         <div class="col-lg-4">
-                                            <input type="text" id="idDigitoV" class="form-control input-lg" #rDigitoVerificador formControlName="fcDigitoVerificador" [matKeyboard]="'num'" />
+                                            <input type="text" id="idDigitoV" class="form-control input-lg" #rDigitoVerificador formControlName="fcDigitoVerificador" [matKeyboard]="'num'" maxlength="1"/>
                                             <div *ngIf="myForm.get('fcDigitoVerificador').errors  && myForm.get('fcDigitoVerificador').touched" class="alert alert-danger">
                                                 <p *ngIf="myForm.get('fcDigitoVerificador').hasError('required')">
                                                         Dato obligatorio, favor de capturar.
