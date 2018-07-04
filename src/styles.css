@@ -641,8 +641,8 @@ select.selectModificado::-ms-expand {
 }
 
 .color-letra {
-    color: #eb0029;
-    ;
+    color: rgb(226, 6, 45);
+    
 }
 
 .sumando-list-group .list-group-item {

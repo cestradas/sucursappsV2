@@ -5,7 +5,7 @@
     },
     "apps": [{
         "root": "src",
-        "outDir": "C:/Users/Juan/Documents/Sucursapps 2.0/SucursApps V2/SucursAppsWeb/WebContent",
+        "outDir": "C:/Users/Juan/Documents/Sucursapps 2.0/SucursAppsV2_FIN/SucursAppsWeb/WebContent",
         "assets": [
             "assets",
             "favicon.ico"
