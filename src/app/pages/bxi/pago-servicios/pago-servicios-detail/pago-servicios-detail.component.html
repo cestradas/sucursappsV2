@@ -18,18 +18,17 @@
                     <div *ngIf="myForm.get('fcTelefono') !== null && myForm.get('fcDigitoVerificador') !== null">
                         <div class="row padding-InFieldset">
                             <div class="col-lg-12">
-                                <div class="form-group">
                                     <div class="row ">
                                         <div class=" col-lg-2">
                                             <label> Telefono:</label>
                                         </div>
                                         <div class="col-lg-4">
-                                            <input type="text" id="idTelefono"  class="form-control input-lg" formControlName="fcTelefono" #rTelefono [matKeyboard]="'num'" maxlength="10"/>
-                                            <div *ngIf="myForm.get('fcTelefono').errors  && myForm.get('fcTelefono').touched" >
-                                                <p *ngIf="myForm.get('fcTelefono').hasError('required')" class="alert alert-danger">
+                                            <input type="text" id="idTelefono"  class="form-control input-lg" formControlName="fcTelefono" #rTelefono [matKeyboard]="'num'" />
+                                            <div *ngIf="myForm.get('fcTelefono').errors  && myForm.get('fcTelefono').touched" class="alert alert-danger">
+                                                <p *ngIf="myForm.get('fcTelefono').hasError('required')">
                                                         Dato obligatorio, favor de capturar.
                                                 </p>
-                                                <p *ngIf="myForm.get('fcTelefono').hasError('minlength')" class="alert alert-danger">
+                                                <p *ngIf="myForm.get('fcTelefono').hasError('minlength')">
                                                         Los datos proporcionados son incorrectos, favor de verificar.
                                                 </p>
                                             </div>
@@ -38,15 +37,15 @@
                                             <label>DV: </label>
                                         </div>
                                         <div class="col-lg-4">
-                                            <input type="text" id="idDigitoV" class="form-control input-lg" #rDigitoVerificador formControlName="fcDigitoVerificador" [matKeyboard]="'num'" maxlength="1"/>
-                                            <div *ngIf="myForm.get('fcDigitoVerificador').errors  && myForm.get('fcDigitoVerificador').touched" >
-                                                <p *ngIf="myForm.get('fcDigitoVerificador').hasError('required')" class="alert alert-danger">
+                                            <input type="text" id="idDigitoV" class="form-control input-lg" #rDigitoVerificador formControlName="fcDigitoVerificador" [matKeyboard]="'num'" />
+                                            <div *ngIf="myForm.get('fcDigitoVerificador').errors  && myForm.get('fcDigitoVerificador').touched" class="alert alert-danger">
+                                                <p *ngIf="myForm.get('fcDigitoVerificador').hasError('required')">
                                                         Dato obligatorio, favor de capturar.
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
