@@ -1,10 +1,10 @@
-<h2 class="text-center deleteMargin-h2 padding-barToTittle">
+<h2 class="text-center color-letra deleteMargin-h2 padding-barToTittle">
     Envio de estado de cuenta</h2>
 <fieldset class="padding-fieldset-general padding-TittleToFieldset">
 
 
 
-    <form [formGroup]="forma" (ngSubmit)="showDetallePago()" class="needs-validation">
+    <form [formGroup]="forma" (ngSubmit)="enviaCorreo()" class="needs-validation">
         <div id="divisionInputs"></div>
         <div class="row sumando-form-group letranegrita">
             <div class="col-sm-1 sumando-bg-red group-name">Envio</div>
@@ -74,11 +74,11 @@
         <div style="margin:30px 20px 0px 0px;" class="row actions-form-group text-right">
             <div class="col-sm-9"></div>
             <div class="col-sm-2">
-                <button class="btn btn-lg" onClick="currentPage.loadMenu();">Regresar</button>
+                <button type="button" class="btn btn-lg" routerLink="/menuBXI">Regresar</button>
             </div>
-            <!-- <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
+            <!-- <button [disabled]="!forma.valid" class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
             <div class="col-sm-1">
-                <button [disabled]="!forma.valid" id="continuarspei" name="continuarspei" class="btn btn-danger btn-lg" type="submit">
+                <button disabled="disabled" id="continuarEdc" name="continuarEdc" class="btn btn-danger btn-lg" type="submit">
                     Continuar</button>
             </div>
         </div>

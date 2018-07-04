@@ -30,6 +30,19 @@ export class DocElectronComponent implements OnInit {
 
 ngOnInit() {
 
+    const this_aux = this;
+
+
+    if ( this_aux.service.validaMail === "1") {
+
+      document.getElementById("msgUsuario").innerHTML = "Se ha realizado el envío de su estado cuenta a su dirección de correo electrónico.";
+
+    } else {
+
+      document.getElementById("msgUsuario").innerHTML = "La impresión del estado de cuenta ha terminado.";
+
+    }
+
 
 }
 

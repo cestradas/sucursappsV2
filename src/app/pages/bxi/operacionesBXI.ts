@@ -439,6 +439,24 @@ export class OperacionesBXI {
           return resourceRequest.sendFormParameters(formParameters);
         }
 
+        envioEDC(fechaCorte, idDocumento, psw, correo, id, nombre): any {
+            const formParameters = {
+                fechaCorte: fechaCorte,
+                idDocumento: idDocumento,
+                psw: psw,
+                correo: correo,
+                id: id,
+                nombre: nombre
+            };
+
+            const    resourceRequest = new WLResourceRequest(
+                'adapters/AdapterBanorteSucursAppsBEL/resource/envioDoc', WLResourceRequest.POST);
+          resourceRequest.setTimeout(100000);
+
+          return resourceRequest.sendFormParameters(formParameters);
+
+        }
+
         // tslint:disable-next-line:indent
 	consultaBancos() {
 
@@ -481,5 +499,5 @@ export class OperacionesBXI {
         return numCuenta_show;
     }
 
-    
+
 }

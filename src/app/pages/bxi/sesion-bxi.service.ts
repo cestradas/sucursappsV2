@@ -111,6 +111,7 @@ export class SesionBxiService {
     fechaCorte: string;
     numDoc: string;
     idOpe: string;
+    validaMail: string;
 
     // Session
 
