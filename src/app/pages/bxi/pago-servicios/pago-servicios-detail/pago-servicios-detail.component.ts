@@ -33,9 +33,9 @@ export class PagoServiciosDetailComponent implements OnInit {
   constructor( private service: SesionBxiService, private fb: FormBuilder, private router: Router, private currencyPipe: CurrencyPipe) {
 
     this.myForm = this.fb.group({
-     fcTelefono: ['', [Validators.required, Validators.minLength(10)]],
+     fcTelefono: ['', [Validators.required, Validators.minLength(10),  Validators.maxLength(10)]],
      fcReferencia: ['', [Validators.required]],
-     fcDigitoVerificador: ['', [Validators.required]],
+     fcDigitoVerificador: ['', [Validators.required, Validators.maxLength(1)]],
      fcFechaVencimiento: ['', [Validators.required , Validators.pattern(/^\d{2,4}\-\d{1,2}\-\d{1,2}$/)]],
      fcImporte: ['', [Validators.required ]],
      fcToken: []
@@ -385,8 +385,9 @@ export class PagoServiciosDetailComponent implements OnInit {
           const unidades = '$' + parseInt(value.substring(10, 17), 10) ;
           const importe = unidades + centavos;
           const digito = value.substring(19, 20);
-          const controlTelefono: FormControl = new FormControl(telefono, [Validators.required, Validators.minLength(10)]);
-          const controlDigito: FormControl = new FormControl(digito, Validators.required);
+          // tslint:disable-next-line:max-line-length
+          const controlTelefono: FormControl = new FormControl(telefono, [Validators.required, Validators.minLength(10), Validators.maxLength(1)]);
+          const controlDigito: FormControl = new FormControl(digito, [Validators.required, Validators.maxLength(1)]);
           const controlImporte: FormControl = new FormControl(importe, Validators.required);
           this_aux.myForm.setControl('fcImporte', controlImporte );
           this_aux.myForm.setControl('fcTelefono', controlTelefono );

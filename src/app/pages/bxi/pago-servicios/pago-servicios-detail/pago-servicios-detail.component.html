@@ -31,6 +31,9 @@
                                                 <p *ngIf="myForm.get('fcTelefono').hasError('minlength')">
                                                         Los datos proporcionados son incorrectos, favor de verificar.
                                                 </p>
+                                                <p *ngIf="myForm.get('fcTelefono').hasError('maxlength')">
+                                                        Los datos proporcionados son incorrectos, favor de verificar.
+                                            </p>
                                             </div>
                                         </div>
                                         <div class="col-lg-1">
@@ -42,6 +45,9 @@
                                                 <p *ngIf="myForm.get('fcDigitoVerificador').hasError('required')">
                                                         Dato obligatorio, favor de capturar.
                                                 </p>
+                                                <p *ngIf="myForm.get('fcDigitoVerificador').hasError('maxlength')">
+                                                    Dato obligatorio, favor de capturar.
+                                            </p>
                                             </div>
                                         </div>
                                     </div>
