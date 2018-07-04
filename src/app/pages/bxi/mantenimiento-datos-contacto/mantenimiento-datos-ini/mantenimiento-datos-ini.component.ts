@@ -73,7 +73,7 @@ export class MantenimientoDatosIniComponent implements OnInit {
     const this_aux = this;
     numCelHTML.readOnly = false;
     // tslint:disable-next-line:max-line-length
-    const control: FormControl = new FormControl(this_aux.numeroCelular.nativeElement.value, [Validators.required, Validators.pattern(/^([0-9])*$/), Validators.minLength(10) ]);
+    const control: FormControl = new FormControl(this_aux.numeroCelular.nativeElement.value, [Validators.required, Validators.pattern(/^([0-9])*$/), Validators.minLength(10), Validators.maxLength(10) ]);
     this_aux.myForm.setControl('fcCelular', control );
     this_aux.IsControlCelular = true;
   }
