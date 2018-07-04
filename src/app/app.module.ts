@@ -16,6 +16,7 @@ import { IKeyboardLayouts, keyboardLayouts, MAT_KEYBOARD_LAYOUTS, MatKeyboardMod
 import { ServiceModule } from './services/service.module';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from './shared/shared.module';
+import { FinalComponent } from './final/final.component';
 
 
 const customLayouts: IKeyboardLayouts = {
@@ -55,6 +56,7 @@ const customLayouts: IKeyboardLayouts = {
     AppComponent,
     LoginComponent,
     LoginBxiComponent,
+    FinalComponent,
 
   ],
   imports: [

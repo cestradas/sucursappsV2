@@ -78,6 +78,18 @@ export class BreadcrumbsComponent implements OnInit {
 
   }
 
+  depedida() {
+    const this_aux = this;  
+    this_aux.router.navigate(['/final']) ;
+
+    setTimeout( function() {
+      this_aux.cerrarSessionBEL();
+    } 
+    , 3000);
+    
+    
+  }
+
   cerrarSessionBEL() {
     const this_aux = this;
     if (this_aux.service.Login === "1" ) {

@@ -1,5 +1,5 @@
 <form [formGroup]="myForm" novalidate>
-    <h2 class="text-center padding-barToTittle deleteMargin-h2">{{nombreServicio}}</h2>
+    <h2 class="text-center padding-barToTittle deleteMargin-h2 color-letra">{{nombreServicio}}</h2>
     <fieldset class="padding-TittleToFieldset padding-fieldset-general">
         <div class="sumando-well-white" style="padding-right: 15px; padding-left: 15px;">
             <div class="sumando-form-group padding-InFieldset ">
@@ -185,7 +185,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button class="btn btn-lg" data-dismiss="modal">Regresar</button>
+                        <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
                         <button id="continuar2" class="color-botones btn btn-lg " (click)="validarSaldo(myForm.value)">
                                 Confirmar
                               </button>

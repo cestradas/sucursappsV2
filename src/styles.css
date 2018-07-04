@@ -93,7 +93,7 @@ html {
 }
 
 .espacioBotones {
-    margin-left: 115px;
+    margin-left: 140px;
 }
 
 
@@ -641,9 +641,7 @@ select.selectModificado::-ms-expand {
 }
 
 .color-letra {
-    
-    color: rgb(226, 6, 45);
-    
+    color: rgb(236, 28, 45);
 }
 
 .sumando-list-group .list-group-item {
