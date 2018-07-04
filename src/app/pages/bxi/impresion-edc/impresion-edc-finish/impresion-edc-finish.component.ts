@@ -46,11 +46,7 @@ export class ImpresionEdcFinishComponent implements OnInit {
 
         this_aux.correo = data;
 
-        if ( this_aux.correo !== this_aux.confirmCorreo) {
-          $('#continuarEdc').prop("disabled", true);
-        } else {
-          $('#continuarEdc').prop("disabled", false);
-        }
+        this_aux.validateFields();
 
       });
 
@@ -62,11 +58,7 @@ export class ImpresionEdcFinishComponent implements OnInit {
 
           this_aux.confirmCorreo = data;
 
-          if ( this_aux.confirmCorreo !== this_aux.correo ) {
-            $('#continuarEdc').prop("disabled", true);
-          } else {
-            $('#continuarEdc').prop("disabled", false);
-          }
+          this_aux.validateFields();
 
         });
 
@@ -76,11 +68,24 @@ export class ImpresionEdcFinishComponent implements OnInit {
             console.log('forma', this.forma);
 
             this_aux.contraZip = data;
+
+            this_aux.validateFields();
+
           });
 
   }
 
+  validateFields() {
 
+    const this_aux = this;
+
+    if ( (this_aux.confirmCorreo !== this_aux.correo) && (this_aux.contraZip !== undefined) ) {
+      $('#continuarEdc').prop("disabled", true);
+    } else {
+      $('#continuarEdc').prop("disabled", false);
+    }
+
+  }
 
   ngOnInit() {
   }

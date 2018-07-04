@@ -18,7 +18,7 @@
                                 <label>Correo electronico: </label>
                             </div>
                             <div class="col-sm-10">
-                                <input id="correo" name="correo" formControlName="correo" type="text" class="form-control amount input-lg" maxlength="60" required />
+                                <input id="correo" name="correo" [matKeyboard]="" formControlName="correo" type="text" class="form-control amount input-lg" maxlength="60" required />
                                 <div *ngIf="forma.hasError('pattern', 'correo') || forma.hasError('max', 'correo') " style="margin-bottom: 0px; padding: 0.5rem 1.20rem;" class="alert alert-danger">
                                     Correo electronico incorrecto.
                                 </div>
@@ -34,7 +34,7 @@
                                 <label>Confirma correo electronico: </label>
                             </div>
                             <div class="col-sm-10">
-                                <input id="confCorreo" name="confCorreo" formControlName="confCorreo" type="text" class="form-control amount input-lg" maxlength="60" required />
+                                <input id="confCorreo" name="confCorreo" [matKeyboard]="" formControlName="confCorreo" type="text" class="form-control amount input-lg" maxlength="60" required />
                                 <div *ngIf="forma.hasError('pattern', 'confCorreo') || forma.hasError('max', 'correo') " style="margin-bottom: 0px; padding: 0.5rem 1.20rem;" class="alert alert-danger">
                                     Correo electronico incorrecto.
                                 </div>
@@ -51,7 +51,7 @@
                             </div>
 
                             <div class="col-sm-10">
-                                <input id="contra" name="contra" formControlName="contra" type="text" class="form-control amount input-lg" maxlength="60" required />
+                                <input id="contra" name="contra" [matKeyboard]="" formControlName="contra" type="password" class="form-control amount input-lg" maxlength="60" required />
                                 <div *ngIf="forma.hasError('min', 'contra') || forma.hasError('max', 'contra') " style="margin-bottom: 0px; padding: 0.5rem 1.20rem;" class="alert alert-danger">
                                     Limite de....
                                 </div>
