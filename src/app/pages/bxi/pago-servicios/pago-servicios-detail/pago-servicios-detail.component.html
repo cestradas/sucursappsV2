@@ -39,8 +39,8 @@
                                         </div>
                                         <div class="col-lg-4">
                                             <input type="text" id="idDigitoV" class="form-control input-lg" #rDigitoVerificador formControlName="fcDigitoVerificador" [matKeyboard]="'num'" maxlength="1"/>
-                                            <div *ngIf="myForm.get('fcDigitoVerificador').errors  && myForm.get('fcDigitoVerificador').touched" class="alert alert-danger">
-                                                <p *ngIf="myForm.get('fcDigitoVerificador').hasError('required')">
+                                            <div *ngIf="myForm.get('fcDigitoVerificador').errors  && myForm.get('fcDigitoVerificador').touched" >
+                                                <p *ngIf="myForm.get('fcDigitoVerificador').hasError('required')" class="alert alert-danger">
                                                         Dato obligatorio, favor de capturar.
                                                 </p>
                                             </div>
