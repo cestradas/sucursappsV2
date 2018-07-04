@@ -25,11 +25,11 @@
                                         </div>
                                         <div class="col-lg-4">
                                             <input type="text" id="idTelefono"  class="form-control input-lg" formControlName="fcTelefono" #rTelefono [matKeyboard]="'num'" maxlength="10"/>
-                                            <div *ngIf="myForm.get('fcTelefono').errors  && myForm.get('fcTelefono').touched" class="alert alert-danger">
-                                                <p *ngIf="myForm.get('fcTelefono').hasError('required')">
+                                            <div *ngIf="myForm.get('fcTelefono').errors  && myForm.get('fcTelefono').touched" >
+                                                <p *ngIf="myForm.get('fcTelefono').hasError('required')" class="alert alert-danger">
                                                         Dato obligatorio, favor de capturar.
                                                 </p>
-                                                <p *ngIf="myForm.get('fcTelefono').hasError('minlength')">
+                                                <p *ngIf="myForm.get('fcTelefono').hasError('minlength')" class="alert alert-danger">
                                                         Los datos proporcionados son incorrectos, favor de verificar.
                                                 </p>
                                             </div>
