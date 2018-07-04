@@ -91,12 +91,10 @@ export class ConsultaMovimientosDetailComponent implements OnInit {
      }
      // ESTILOS Preferente
     let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
-    let btnContinuar = document.getElementById("regresarBXI");
+    
 
     if (storageTipoClienteBEL === "true") {
 
-      btnContinuar.classList.remove("color-botones");
-      btnContinuar.classList.add("color-botones_Preferente");
      }
      
 
@@ -244,7 +242,7 @@ consultaMovimientosTDC(numeroCue) {
           
          if ( this_aux.movimientosCue === undefined ) {
           console.log(detalleCuenta.MensajeAUsuario);
-          this_aux.sinMovimientos(this_aux.par);
+          this_aux.sinMovimientosTDC(this_aux.par);
          } else {
           this_aux.TamArray = this_aux.movimientosCue.length;
           this_aux.numPaginas = this_aux.TamArray / this_aux.tamPaginas;         
@@ -300,6 +298,9 @@ showErrorPromise(error) {
 
 mostrarSaldoDebito() {
 
+  const cuentaDebito = document.getElementById('cuentaDebito');
+  cuentaDebito.setAttribute('style', 'display: block');
+
   const cuentaCredito = document.getElementById('cuentaCredito');
   cuentaCredito.setAttribute('style', 'display: none');
   
@@ -309,6 +310,8 @@ mostrarSaldoCredito() {
   this.mostrarSaldoDebito();
   const cuentaCredito = document.getElementById('cuentaCredito');
   cuentaCredito.setAttribute('style', 'display: block');
+  const cuentaDebito = document.getElementById('cuentaDebito');
+  cuentaDebito.setAttribute('style', 'display: none');
   
 }
   ConsultaMovimientosTDD(numeroCue, fDesde, fHasta, comi, pag, numreg) {
@@ -410,6 +413,20 @@ mostrarSaldoCredito() {
     }
   }
 
+  sinMovimientosTDC(num) {
+    if (num === 0 ) {
+      console.log("no hay movimientos despues del corte");
+      this.quitartabla ();
+      this.noMovDesCort ();
+      
+    } else {
+      console.log("no hay movimientos en el corte anterior");
+      this.quitartabla ();
+      this.noMovUltCort();
+      
+    }
+  }
+
 
   noMovMesAct () {
     const div = document.getElementById('noMovimientosMesActual');
@@ -421,6 +438,19 @@ mostrarSaldoCredito() {
     $('#noMovimientosMesAnterior').modal('show');
   
   }
+
+  noMovDesCort () {
+    const div = document.getElementById('noMovimientosDespuesCorte');
+    $('#noMovimientosDespuesCorte').modal('show');
+  
+  }
+  noMovUltCort () {
+    const div = document.getElementById('noMovimientosUltimoCorte');
+    $('#noMovimientosUltimoCorte').modal('show');
+  
+  }
+
+
   timeOut() {
     const div = document.getElementById('timeOut');
     $('#timeOut').modal('show');

@@ -8,7 +8,7 @@
             <div class="col-sm-9">
                 <div class="row padding-TittleToFieldset padding-InFieldset">
                     <div style="width: 300px" class="col-lg-6 ">
-                        <h4 class="color-letra">Selecciona una opci&oacute;n</h4>
+                        <h4 class="color-letra">Selecciona periodo</h4>
                     </div>
                     <div style="width: 980px" class="col-lg-6 text-right" id="selectTDC" style="display:none">
                         <select class="form-control input-lg selectModificado selColonia" id="selecttdc" (change)="calcularFecha()" [(ngModel)]="opcionSeleccionado">
@@ -56,7 +56,7 @@
                                         <td>{{movimiento.Importe| currency}}</td>
                                     </ng-template>
                                     <ng-template #negativo>
-                                        <td style="color:red">-{{movimiento.Importe| currency}}</td>
+                                        <td>-{{movimiento.Importe| currency}}</td>
                                     </ng-template>
                             </table>
                         </div>
@@ -79,19 +79,19 @@
                 <h4 class="color-letra">Tu cuenta</h4>
                 <ul class="list-group">
                     <li class="list-group-item list-group-item1">
-                        <strong>Tipo de cuenta</strong>
+                        <strong>Tipo de cuenta:</strong>
                         <samp id="txtTitular">{{tipoCuenta}}</samp>
                     </li>
-                    <li class="list-group-item list-group-item1">
+                    <li class="list-group-item list-group-item1" id="cuentaDebito" style="display: none">
                         <strong>No. de Cuenta:</strong>
                         <samp id="txtCuenta">{{cuentaClienteBXI}}</samp>
                     </li>
                     <li class="list-group-item list-group-item1">
-                        <strong>No. de Tarjeta</strong>
+                        <strong>No. de Tarjeta:</strong>
                         <samp id="txtTarjeta">{{noTarjeta}}</samp>
                     </li>
                     <li class="list-group-item list-group-item1">
-                        <strong>Divisa</strong>
+                        <strong>Divisa:</strong>
                         <samp id="txtDivisa">{{divisa}}</samp>
                     </li>
                     <li class="list-group-item list-group-item1">
@@ -115,7 +115,7 @@
     <div class="col-lg-2">
         <div class="row">
             <div style=" padding: 0px;" class="col-lg-9">
-                <button id="regresarBXI" class="btn color-botones  btn-lg letranegrita pull-right" routerLink="/saldosBXI">
+                <button id="regresarBXI" class="btn btn-lg letranegrita pull-right" routerLink="/saldosBXI">
                 Regresar
             </button>
             </div>
@@ -128,10 +128,42 @@
         <div class="modal-content">
             <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
                 <h4 style="color: #B01657">Aviso</h4>
-                <p id="mnsErrorModal">Estimado cliente, No existen movimientos en el mes actual.</p>
+                <p id="mnsErrorModal">Estimado cliente, no existen movimientos en el mes actual.</p>
             </div>
             <div class="modal-footer text-center">
-                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="currentPage.loadMenu()">Salir</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="currentPage.loadMenu()">Aceptar</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div id="noMovimientosDespuesCorte" class="modal fade">
+    <div class="modal-dialog modal-dialog-error">
+        <div class="modal-content">
+            <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
+                <h4 style="color: #B01657">Aviso</h4>
+                <p id="mnsErrorModal">Estimado cliente, no existen movimientos despu&eacute;s del corte.</p>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="currentPage.loadMenu()">Aceptar</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div id="noMovimientosUltimoCorte" class="modal fade">
+    <div class="modal-dialog modal-dialog-error">
+        <div class="modal-content">
+            <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
+                <h4 style="color: #B01657">Aviso</h4>
+                <p id="mnsErrorModal">Estimado cliente, no existen movimientos en el &uacute;ltimo corte.</p>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="currentPage.loadMenu()">Aceptar</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -144,10 +176,10 @@
         <div class="modal-content">
             <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
                 <h4 style="color: #B01657">Aviso</h4>
-                <p id="mnsErrorModal">Estimado cliente, No existen movimientos en el mes anterior.</p>
+                <p id="mnsErrorModal">Estimado cliente, no existen movimientos en el mes anterior.</p>
             </div>
             <div class="modal-footer text-center">
-                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="currentPage.loadMenu()">Salir</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="currentPage.loadMenu()">Aceptar</button>
             </div>
         </div>
         <!-- /.modal-content -->
