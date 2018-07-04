@@ -167,6 +167,8 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   pagarTarjetaCredito() {
 
     $('#ModalTDDLogin').modal('show');
+    document.getElementById('capturaInicio').style.display = 'none';
+    document.getElementById('caputuraSesion').style.display = 'block';
     $('#_modal_please_wait').modal('show');
     this._validaNipService.validaNipTrans();
 

@@ -71,13 +71,12 @@ export class MantenimientoBenefDetailComponent implements OnInit {
         console.log(response.responseJSON);
         const DatosJSON = response.responseJSON;
         this_aux.BEN = DatosJSON.ArrayBeneficiarios;
-
-        const jsonMantenimiento = DatosJSON;
-        this_aux.detalleBeneficiarios.fechaOperacion = jsonMantenimiento.FechaOperacion;
-        this_aux.detalleBeneficiarios.horaOperacion = jsonMantenimiento.HoraOperacion;
         if (this_aux.BEN === undefined) {
           $('#errorModal').modal('show');
         } else {
+          const jsonMantenimiento = DatosJSON;
+        this_aux.detalleBeneficiarios.fechaOperacion = jsonMantenimiento.FechaOperacion;
+        this_aux.detalleBeneficiarios.horaOperacion = jsonMantenimiento.HoraOperacion;
           this_aux.BEN.forEach(function(value, key) {
             if (value.FechaNacimiento !== "00010101" && value.FechaNacimiento !== "19000101") {
               let mostrarFechaFormat = value.FechaNacimiento;
@@ -91,11 +90,11 @@ export class MantenimientoBenefDetailComponent implements OnInit {
             }                   
           });                  
         }  
-        $('#_modal_please_wait').modal('hide')      
+        $('#_modal_please_wait').modal('hide');    
       },
       function(error) {        
         console.log("Error al consultar beneficiarios");
-        $('#_modal_please_wait').modal('hide')
+        $('#_modal_please_wait').modal('hide');
       }
     );
     console.log("Salió de Response Consultar Beneficiarios");

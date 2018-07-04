@@ -378,6 +378,8 @@ limpiarFormulario () {
     const this_aux = this;
 
     $("#ModalTDDLogin").modal("show");
+    document.getElementById('capturaInicio').style.display = 'none';
+    document.getElementById('caputuraSesion').style.display = 'block';
 
     let res;
     this._validaNipService.validarDatosrespuesta().then(
@@ -445,17 +447,12 @@ limpiarFormulario () {
     });
     
   }
-  replaceSimbolo(impor) {
-    const importeAux = impor.replace('$', '');
-    return importeAux;
-  }
 
   validarSaldo(clabeBenRec, nombreBeneRec, refRec, importeRec, descripcionRec, correoRec) {
     const this_aux = this;
-    let importeOpe = importeRec;
+    let importeOpe = "";
     $('#_modal_please_wait').modal('show');
-    importeOpe = importeOpe.replace(',', "");
-    importeOpe = importeOpe.replace('$', "");
+    importeOpe = this_aux.replaceSimbolo(importeRec);
     this._validaNipService.consultaTablaYValidaSaldo(importeOpe).then(
       function(response) {
         let DatosJSON = response.responseJSON;
@@ -486,5 +483,15 @@ limpiarFormulario () {
   }
   tecladoMoverArriba () {
     $( ".cdk-visually-hidden" ).css( "margin-top", "-36%" );
+  }
+
+  replaceSimbolo(importe) {
+    const this_aux = this;
+    let importeAux = importe.replace('$', '');
+    const re = /\,/g;
+    importeAux = importeAux.replace(re, '');
+    console.log(importeAux);
+
+        return importeAux;
   }
 }

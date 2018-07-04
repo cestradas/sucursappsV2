@@ -9,6 +9,7 @@ import $ from "jquery";
 import { DOCUMENT } from "@angular/platform-browser";
 import { Session } from "protractor";
 import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
+import { consultaCatalogos } from '../../../services/consultaCatalogos/consultaCatalogos.service';
 
 declare var $: $;
 
@@ -27,8 +28,10 @@ export class MenutddComponent implements OnInit {
   contenido: any;
   urlProperty: any;
   sesionBrowser: any;
-
-  constructor(private router: Router, private http: Http, private _service: ConsultaSaldosTddService,
+  AlertasActivas = false;
+  ArrayAlertasCliente: Array<any> = [];
+  Prieba: boolean;
+  constructor(private router: Router, private http: Http, private _service: ConsultaSaldosTddService, 
     private _serviceSesion: SesionTDDService, private serviceTdd: ResponseWS) {}
 
   ngOnInit() {
@@ -37,6 +40,13 @@ export class MenutddComponent implements OnInit {
       if (sessionStorage.getItem("campania") === null)      {
         sessionStorage.setItem("campania", "activa");
       }
+    }
+  conAlertas() {
+        
+    const div4 = document.getElementById('Alertas');
+    div4.style.display = "none";
+    const div5 = document.getElementById('alertasTxt');
+    div5.style.display = "none";
   }
 
   mandarPage(id) {
@@ -102,7 +112,83 @@ export class MenutddComponent implements OnInit {
 
     $('#opciones').addClass('flipOutY fast');
     $('#regresar').addClass('flipInY slow');
+  // habilitar o desabilitar boton Alertas
+
+  const this_aux = this;
+  this_aux.consultaAlertas();
+
   }
+
+ consultaAlertas() {
+
+      const this_aux = this;
+    const operaciones: consultaCatalogos = new consultaCatalogos();
+      operaciones.mantieneAlertas().then(
+        function(detalleAlertas) {
+              const detalle = detalleAlertas.responseJSON;
+              let AlertasActivas_true = false;
+              console.log(detalle);
+              if (detalle .Id === '1') {
+
+                const alertas = detalle.AlertasXCliente;
+                this_aux.ArrayAlertasCliente = alertas;
+                alertas.forEach(alerta => {
+                    if (alerta.IndicadorServicio === 'S' ) {   AlertasActivas_true = true;
+                    }
+                });
+                this_aux.AlertasActivas = AlertasActivas_true;
+                console.log('this_aux.AlertasActivas' + this_aux.AlertasActivas);
+                if (this_aux.AlertasActivas) {
+                  
+                  this_aux.conAlertas();
+                } else {
+                  this_aux.sinAlertas();
+                }
+
+
+                
+              } else {
+                this_aux.sinAlertas();
+                this_aux.showErrorSucces(detalle);      
+              }
+              setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
+        }, function(error) {
+          this_aux.sinAlertas();
+          setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
+          this_aux.showErrorPromise(error);    }
+      );
+    }
+
+    sinAlertas() {
+      const div = document.getElementById('mantenimientoIMG');
+      div.classList.remove("espacioBotones");
+      
+      const div2 = document.getElementById('mantenimiento');
+      div2.classList.remove("espacioBotones");
+     
+     const div4 = document.getElementById('Alertas');
+     div4.style.display = "block";
+     const div5 = document.getElementById('alertasTxt');
+     div5.style.display = "block";
+    }
+    showErrorPromise(error) {
+
+      $('#errorModal').modal('show');
+      if (error.errorCode === 'API_INVOCATION_FAILURE') {
+          document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+      } else {
+        document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
+      }
+    
+    }
+
+    showErrorSucces(json) {
+
+      console.log(json.Id + json.MensajeAUsuario);
+      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+      $('#errorModal').modal('show');
+    
+    }
 
   regresar() {
     setTimeout(() => {
@@ -168,8 +254,8 @@ export class MenutddComponent implements OnInit {
     console.log("adentro encriptar sic: " + this_aux._serviceSesion.datosBreadCroms.sicUsuarioTDD);
 
     const formParameters = {
-        sic: this_aux._serviceSesion.datosBreadCroms.sicUsuarioTDD
-      //  sic: '12345'
+        //sic: this_aux._serviceSesion.datosBreadCroms.sicUsuarioTDD
+        sic: '51984872'
     };
 
     const resourceRequest = new WLResourceRequest(
@@ -218,6 +304,8 @@ export class MenutddComponent implements OnInit {
     return false;
     }
 
-
+  
 
 }
+
+

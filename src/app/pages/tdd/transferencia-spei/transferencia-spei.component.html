@@ -23,13 +23,10 @@
                             </td>
                         </tr>
                         <tr>
-                            <td align="left" style="border: 0px">Cuenta
-                                <strong>
-                                                <label> {{mostrarCuentaMascara}}
-                                                 </label>
-                                            </strong>
+                            <td align="left" style="border: 0px; font-weight: normal;">Cuenta
+                                <label> {{mostrarCuentaMascara}}</label>
                             </td>
-                            <td align="left" style="border: 0px">Saldo Disponible
+                            <td align="left" style="border: 0px; font-weight: normal">Saldo Disponible
                             </td>
                         </tr>
                     </table>
@@ -65,7 +62,7 @@
             <div class="col-sm-11 sumando-well-white">
                 <div class="row">
                     <div class="form-group col-sm-2">
-                        <label for="amount" class="col-sm-2 control-label" style="max-width: 165px;">Banco Destino</label>
+                        <label for="amount" class="col-sm-2 control-label" style="max-width: 165px;">Banco Destino:</label>
                     </div>
                     <div class="dropdown sumando-dropdown-account col-sm-9">
                         <select class="input-whidth input-lg selectModificado" name="sel1" id="selecBanco" #rSelecBanco (change)="selectBanco($event.target.value)" style="border:0px solid red; background-size: auto; width: 100%">
@@ -79,7 +76,7 @@
 
                 <div class="row">
                     <div class="form-group col-sm-2">
-                        <label for="amount" class="col-sm-2 control-label">Clabe</label>
+                        <label for="amount" class="col-sm-2 control-label">Clabe:</label>
                     </div>
                     <div class="col-sm-9">
                         <input name="clabe" id="clabe" #rClabe formControlName="numeroClabeF" [matKeyboard]="'num'" type="text" maxlength="18" class="input-whidth form-control amount input-lg" (focus)="tecladoMoverAbajo()" />
@@ -92,10 +89,10 @@
                 <br/>
                 <div class="row">
                     <div class="form-group col-sm-2">
-                        <label for="amount" class="col-sm-2 control-label">Beneficiario</label>
+                        <label for="amount" class="col-sm-2 control-label">Beneficiario:</label>
                     </div>
                     <div class="col-sm-9">
-                        <input name="beneficiario" [matKeyboard]="" id="beneficiario" #rBeneficiario formControlName="nombreBeneficiarioF" maxlength="100" class="form-control amount input-lg text-uppercase" (focus)="tecladoMoverAbajo()" />
+                        <input type="text" name="beneficiario" [matKeyboard]="" id="beneficiario" #rBeneficiario formControlName="nombreBeneficiarioF" maxlength="100" class="form-control amount input-lg text-uppercase" (focus)="tecladoMoverAbajo()" />
                         <div class="alert-danger" *ngIf="myform.get('nombreBeneficiarioF').errors && myform.get('nombreBeneficiarioF').touched">
                             <p color="danger">Ingrese Nombre de Beneficiario</p>
                         </div>
@@ -106,7 +103,7 @@
                 <br/>
                 <div class="row">
                     <div class="form-group col-sm-2">
-                        <label class="col-sm-2 control-label">Descripci&oacute;n</label>
+                        <label class="col-sm-2 control-label">Descripci&oacute;n:</label>
                     </div>
                     <div class="col-sm-9">
                         <input id="descripcion" [matKeyboard]="" #rDescripcion name="descripcion" formControlName="descripcionF" type="text" class="input-whidth form-control amount input-lg text-uppercase" maxlength="60" (focus)="tecladoMoverAbajo()" />
@@ -120,7 +117,7 @@
                 <br/>
                 <div class="row">
                     <div class="form-group col-sm-2">
-                        <label for="amount" class="col-sm-2 control-label">Importe</label>
+                        <label for="amount" class="col-sm-2 control-label">Importe:</label>
                     </div>
                     <div style="width: 654px;" class="col-sm-4">
                         <input name="importe" [matKeyboard]="'num'" id="importe" #rImporte formControlName="importeF" type="text" maxlength="10" required (blur)="transformAmount(rImporte.value)" class="form-control amount input-lg" (focus)="tecladoMoverArriba()" />
@@ -129,7 +126,7 @@
                         </div>
                     </div>
 
-                    <label class="col-sm-1 control-label">Referencia</label>
+                    <label class="col-sm-1 control-label">Referencia:</label>
 
                     <div style="margin-left: -2px; width: 656px;" class="col-sm-4">
                         <input id="referencia" [matKeyboard]="'num'" #rReferencia name="referencia" formControlName="referenciaF" type="text" maxlength="7" class="form-control amount input-lg" (focus)="tecladoMoverArriba()" />
@@ -143,7 +140,7 @@
                 <br/>
                 <div class="row">
                     <div class="form-group col-sm-2">
-                        <label for="amount" class="col-sm-5 control-label" style="max-width: 165px;">Correo a Notificar</label>
+                        <label for="amount" class="col-sm-5 control-label" style="max-width: 180px;">Correo a Notificar:</label>
                     </div>
                     <div class="col-sm-9">
                         <input name="email" id="email" [matKeyboard]="" #rEmail type="text" maxlength="120" formControlName="correoF" class="input-whidth form-control amount input-lg" (focus)="tecladoMoverArriba()" />
@@ -194,7 +191,7 @@
 <!-- Modal -->
 <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content shadowModal" style="height: 410px">
+        <div class="modal-content shadowModal" style="height: 410px; width: 550px;">
 
             <div class="modal-body" style="padding: 2rem;">
 
@@ -228,7 +225,7 @@
                         <label>Importe neto:</label>
                     </div>
                     <div class="col-lg 6">
-                        <label>${{importe}}</label>
+                        <label>{{importe | currency}}</label>
                     </div>
                 </div>
                 <!--

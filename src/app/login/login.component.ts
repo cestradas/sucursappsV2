@@ -33,7 +33,8 @@ export class LoginComponent {
                onPlasticLogin() {
                 const this_aux = this;
                  $('#ModalTDDLogin').modal('show');
-
+                 document.getElementById('capturaInicio').style.display = 'block';
+                 document.getElementById('caputuraSesion').style.display = 'none';
                  setTimeout(function() {
                  
                  const securityCheckName = 'banorteSecurityCheckSa';

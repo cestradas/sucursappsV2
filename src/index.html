@@ -80,10 +80,10 @@
                     <img src="assets/images/close-32-red.png">
                   </button>-->
 
-                <h4 class="modal-title" align="center" style="display: block; color: #eb012a;  font-weight: 700;">
+                <h4 class="modal-title" id="capturaInicio" align="center" style="display: block; color: #eb012a;  font-weight: 700;">
                     Captura tu NIP para continuar
                 </h4>
-                <h4 class="modal-title" align="center" style="display: none; color: #eb012a;  font-weight: 700;">
+                <h4 class="modal-title" id="caputuraSesion" align="center" style="display: none; color: #B01657;  font-weight: 700;">
                     Captura nuevamente <br> tu NIP para continuar
                 </h4>
             </div>
@@ -154,7 +154,7 @@
                 <br>
                 <div class="row">
                     <div class="col-lg-3">
-
+                        <img src="./assets/img/banortel.png" lt="Banortel" height="80px" />
                     </div>
                     <div class="col-lg-7">
                         <p>
@@ -192,34 +192,35 @@
 
 <!-- MODAL LIMITE DE SALDO  -->
 
-<div class="modal fade" id="modalLimiteDiario" tabindex="-1" role="dialog" aria-labelledby="ModalTDDLogin" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 15%; position: initial !important;">
-        <div class="modal-content shadowModal">
-            <h2 class="text-center padding-barToTittle deleteMargin-h2  color-letra">Aviso</h2>
-            <br>
-            <div class="modal-body modal-body-aux">
-                <p style="text-align: center; font-weight: bold">Lo sentimos, límite de saldo diario superado.</p>
+<div class="modal fade" id="modalLimiteDiario" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content shadowModal" style="height: 280px;">
+            <div class="modal-body" style="padding: 2rem; padding-top: 0px;">
+                <h4 class="padding-barToTittle deleteMargin-h2" style="color: #B01657; font-weight: 700; margin-top: -35px;">Aviso</h4>
+                <br>
+                <div class="modal-body modal-body-aux">
+                    <p style="text-align: justify;">Operación supera el monto máximo diario permitido ($7,000.00 MXN). Por su seguridad no es posible continuar.</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="aceptar" type="button" class="color-botones btn btn-lg pull-right" data-dismiss="modal" (click)="bajaBeneficiariosView()" ng-click="location.reload()" data-dismiss="modal">Aceptar</button>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button id="aceptar" type="button" class="color-botones btn btn-lg pull-right" data-dismiss="modal" (click)="bajaBeneficiariosView()" ng-click="location.reload()" data-dismiss="modal">Aceptar</button>
-            </div>
-
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="modalLimiteMensual" tabindex="-1" role="dialog" aria-labelledby="ModalTDDLogin" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 15%; position: initial !important;">
-        <div class="modal-content shadowModal">
-            <h2 class="text-center padding-barToTittle deleteMargin-h2  color-letra">Aviso</h2>
-            <br>
-            <div class="modal-body modal-body-aux">
-                <p style="text-align: center; font-weight: bold">Lo sentimos, límite de saldo mensual superado.</p>
+<div class="modal fade" id="modalLimiteMensual" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content shadowModal" style="height: 280px;">
+            <div class="modal-body" style="padding: 2rem; padding-top: 0px;">
+                <h4 class="padding-barToTittle deleteMargin-h2" style="color: #B01657; font-weight: 700; margin-top: -35px;">Aviso</h4>
+                <br>
+                <div class="modal-body modal-body-aux">
+                    <p style="text-align: justify;">Operación supera el monto máximo mensual permitido ($14,000.00 MXN). Por su seguridad no es posible continuar.</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="aceptar" type="button" class="color-botones btn btn-lg pull-right" data-dismiss="modal" (click)="bajaBeneficiariosView()" ng-click="location.reload()" data-dismiss="modal">Aceptar</button>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button id="aceptar" type="button" class="color-botones btn btn-lg pull-right" data-dismiss="modal" (click)="bajaBeneficiariosView()" ng-click="location.reload()" data-dismiss="modal">Aceptar</button>
-            </div>
-
         </div>
     </div>
 </div>

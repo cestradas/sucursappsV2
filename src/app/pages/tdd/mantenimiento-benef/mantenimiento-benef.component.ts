@@ -1000,7 +1000,8 @@ export class MantenimientoBenefComponent implements OnInit {
       this._validaNipService.validaNipTrans();
 
       $('#ModalTDDLogin').modal('show');
-
+      document.getElementById('capturaInicio').style.display = 'none';
+      document.getElementById('caputuraSesion').style.display = 'block';
       let res;
 
       this._validaNipService.validarDatosrespuesta().then(
