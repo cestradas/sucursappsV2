@@ -129,15 +129,14 @@ export class MenuBxiComponent implements OnInit {
                               this_aux.router.navigate(['/pagoTarjetaCredito_ini']);
                             
             break;
-      case 'activaAlertas': setTimeout(function() { 
-                              $('#_modal_please_wait').modal('hide');
+      case 'activaAlertas': 
+                            
                               this_aux.getDatosContacto(idOperacion);
-                            }, 500);
+                            
             break;
-      case 'actualizaDatos': setTimeout(function() { 
-                              $('#_modal_please_wait').modal('hide');
+      case 'actualizaDatos':
                               this_aux.getDatosContacto(idOperacion);
-                              }, 500);
+                            
             break;
       case 'transferBanorte': this_aux.router.navigate(['/TransferBanorte']);
             break;
@@ -226,30 +225,39 @@ export class MenuBxiComponent implements OnInit {
                     if (opc === 'activaAlertas') {  
                       setTimeout(function() { 
                           // tslint:disable-next-line:max-line-length
+                          $('#_modal_please_wait').modal('hide');
+                          // tslint:disable-next-line:max-line-length
                           document.getElementById('mnsError').innerHTML =   "Estimado cliente, es necesario que registres tu correo electrónico y número móvil para poder continuar. ";
                           $('#errorModal').modal('show');
                         }, 500);
                       }
                     } else { if (opc === 'activaAlertas') {
-                      $('#_modal_please_wait').modal('show');  
+                      
                           this_aux.router.navigate(['/activaAlertas_ini']); }
                       }
                   if (opc === 'actualizaDatos') {  
-                    $('#_modal_please_wait').modal('show');
+                    
                     this_aux.router.navigate(['/mantiene-datos-ini']); }
             } else {  
-              
-              this_aux.showErrorSucces(jsonData);       }
+                setTimeout(function() {
+                  $('#_modal_please_wait').modal('hide');
+                  this_aux.showErrorSucces(jsonData);     
+                  }, 500);
+              }
           }, function (error) { 
            
-            this_aux.showErrorPromise(error);   }
+            setTimeout(function() {
+              $('#_modal_please_wait').modal('hide');
+              this_aux.showErrorPromise(error); 
+              }, 500);
+            }
         );
     } else {
       if (opc === 'activaAlertas') {  
-        $('#_modal_please_wait').modal('show');
+        
         this_aux.router.navigate(['/activaAlertas_ini']); }
       if (opc === 'actualizaDatos') {  
-        $('#_modal_please_wait').modal('show');
+        
         this_aux.router.navigate(['/mantiene-datos-ini']); }
     }
 }

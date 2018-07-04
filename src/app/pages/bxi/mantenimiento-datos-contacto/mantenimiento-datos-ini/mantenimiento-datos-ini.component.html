@@ -9,18 +9,18 @@
               <strong>Correo electr&oacute;nico</strong>
           </div>
           <div class="col-sm-4 col-md-4">
-              <input   #correoElectronico  type="text"   class="tamimput form-control amount input-lg" (blur)="ErrorPatternCorreo('show')" (focus)="ErrorPatternCorreo('hide')"
+              <input   #correoElectronico  type="text"   class="tamimput form-control amount input-lg" 
               formControlName="fcCorreo" [matKeyboard]="" placeholder="Correo electr&oacute;nico" readonly/>
                 <div *ngIf="IsControlCorreo">
-                    <div *ngIf="(myForm.get('fcCorreo').errors  && myForm.get('fcCorreo').touched) " >
-                        <p *ngIf="myForm.get('fcCorreo').hasError('required')" class="alert alert-danger">
+                    <div *ngIf="(myForm.get('fcCorreo').errors  && myForm.get('fcCorreo').touched) " class="alert alert-danger" >
+                        <p *ngIf="myForm.get('fcCorreo').hasError('required')" >
                                 Dato obligatorio, favor de capturar.
                         </p>
-                        <div *ngIf="showCorreoError">
-                            <p *ngIf="myForm.get('fcCorreo').hasError('email') && correoElectronico.value !== '' " class="alert alert-danger">
+                        <!--<div *ngIf="showCorreoError">-->
+                            <p *ngIf="myForm.get('fcCorreo').hasError('email') && !myForm.get('fcCorreo').hasError('required') ">
                                 Los datos proporcionados son incorrectos, favor de verificar.
                             </p>
-                        </div>
+                       <!-- </div>-->
                     </div>
                 </div>
             </div>
@@ -35,7 +35,7 @@
               <strong>N&uacute;mero de celular</strong>
           </div>
           <div class="col-sm-4 col-md-4">
-              <input  #numeroCelular  type="text" class="tamimput form-control amount input-lg" (blur)="ErrorPatternCelular('show')" (focus)="ErrorPatternCelular('hide')"
+              <input  #numeroCelular  type="text" class="tamimput form-control amount input-lg" 
               formControlName="fcCelular" [matKeyboard]="'num'" placeholder="Número de celular" readonly maxlength="10"/>
               <div *ngIf="IsControlCelular">
                 <div *ngIf="myForm.get('fcCelular').errors  && myForm.get('fcCelular').touched" class="alert alert-danger">

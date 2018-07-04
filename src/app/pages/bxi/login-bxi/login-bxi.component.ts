@@ -60,7 +60,7 @@ export class LoginBxiComponent implements OnInit {
                console.log('login onSuccess');
                setTimeout(function() {
                 this_aux.getUsrPassLegacy(usuarioAgent, usuarioBxi);
-               }, 1000);
+               }, 500);
         
         }, function(error) {
             console.log(error);

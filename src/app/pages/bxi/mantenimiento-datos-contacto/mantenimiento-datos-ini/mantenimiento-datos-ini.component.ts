@@ -18,8 +18,8 @@ export class MantenimientoDatosIniComponent implements OnInit {
   myForm: FormGroup;
   IsControlCorreo = false;
   IsControlCelular = false;
-  showCorreoError = false;
-  showCelularError = false;
+ // showCorreoError = false;
+  // showCelularError = false;
 
   constructor(private service: SesionBxiService, private fb: FormBuilder, private router: Router) {
     this.myForm = this.fb.group({
@@ -109,17 +109,17 @@ export class MantenimientoDatosIniComponent implements OnInit {
 
   }
 
-  ErrorPatternCorreo(status) {
+  /*ErrorPatternCorreo(status) {
     const this_aux = this;
     if (status === 'show') {this_aux.showCorreoError = true;
     } else { this_aux.showCorreoError = false;    }
-  }
+  }*/
 
-  ErrorPatternCelular(status) {
+ /* ErrorPatternCelular(status) {
     const this_aux = this;
     if (status === 'show') {this_aux.showCelularError = true;
     } else { this_aux.showCelularError = false;    }
-  }
+  }*/
 
   showErrorPromise(error) {
 
