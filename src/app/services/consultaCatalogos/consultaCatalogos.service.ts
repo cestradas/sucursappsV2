@@ -101,6 +101,23 @@ export class consultaCatalogos {
       return resourceRequest.sendFormParameters(formParameters);
     }
 
+
+    transferenciaCuentasBanorte(cuenDestino, importe, desc, correo) {
+
+      const formParameters = {
+        cuentaDestino : cuenDestino,
+        importe: importe,
+        descripcion: desc,
+        correoNotificacion: correo
+      };
+
+        const    resourceRequest = new WLResourceRequest(
+          'adapters/AdapterBanorteSucursApps2/resource/transCuentasBanorte', WLResourceRequest.POST);
+    resourceRequest.setTimeout(30000);
+
+    return resourceRequest.sendFormParameters(formParameters);
+  }
+
     mascaraNumeroCuenta(numCtaSel) {
 
       const tamNumCta = numCtaSel.length;
