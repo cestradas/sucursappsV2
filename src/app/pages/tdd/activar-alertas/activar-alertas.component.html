@@ -5,34 +5,32 @@
 
     <fieldset class="padding-TittleToFieldset padding-fieldset-general  ">
         <div class="row sumando-form-group letranegrita">
-            <div class="col-sm-1 sumando-bg-red group-name">
-                Desde
-            </div>
-            <div class="col-sm-11 group-controls padding-left-0 padding-right-0 sumando-well-white">
+            <div class="col-sm-1 sumando-bg-orange group-name" style="border-bottom-width: 0px;height: 68px; padding-top: 24px;">Desde</div>
+            <div class="col-sm-11 group-controls padding-left-0 padding-right-0 sumando-well-white" style="margin-bottom: 30px; height: 69px; padding-top: 0px; padding-bottom: 0px;">
                 <div class="form-group ">
 
                     <div class="sumando-dropdown-account">
                         <table width="100%" class="letranegrita">
                             <tr>
                                 <td align="left" width="40%">Nombre <strong>
-                                  <label #lblAliasOrigen>
-                                      {{ nombreUsuarioTdd }}
-                                  </label>
-                          </strong>
+                                      <label #lblAliasOrigen>
+                                          {{ nombreUsuarioTdd }}
+                                      </label>
+                              </strong>
                                 </td>
                                 <td align="left" width="40%">
                                     <strong>
-                                      <label #lblSaldoOrigen>{{ saldoClienteTdd | currency }}</label>
-                          </strong>
+                                          <label #lblSaldoOrigen>{{ saldoClienteTdd | currency }}</label>
+                              </strong>
                                 </td>
                             </tr>
                             <tr>
                                 <td align="left">Cuenta
-                                    <strong>
-                                  <label #lblCuentaOrigen>
-                                      {{ cuentaClienteTdd }}
-                                  </label>
-                              </strong>
+
+                                    <label #lblCuentaOrigen>
+                                          {{ cuentaClienteTdd }}
+                                      </label>
+
                                 </td>
                                 <td align="left">Saldo Disponible
                                 </td>
@@ -48,7 +46,6 @@
                     <div class="col-lg-12" align="left">
                         <label *ngIf="!AlertasActivas">No tienes el servicio de alertas activado para esta cuenta.</label>
                         <label *ngIf="AlertasActivas">Tienes  el servicio de alertas activado  para esta cuenta. </label>
-                        <label id="cuenta">.</label>
                     </div>
                 </div>
                 <div class="row padding-InFieldset">

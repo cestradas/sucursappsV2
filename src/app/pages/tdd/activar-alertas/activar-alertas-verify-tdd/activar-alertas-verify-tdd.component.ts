@@ -18,15 +18,14 @@ export class ActivarAlertasVerifyTddComponent implements OnInit {
   constructor(private _service: ConsultaSaldosTddService, private router: Router) { }
 
   ngOnInit() {
-   
+    const operaciones: consultaCatalogos = new consultaCatalogos();
     $('#_modal_please_wait').modal('show');
     this._service.cargarSaldosTDD();
     this._service.validarDatosSaldoTdd().then(
       mensaje => {
         console.log('Saldos cargados correctamente TDD');
         // tslint:disable-next-line:no-shadowed-variable
-        const tamNumCuenta = mensaje.NumeroCuenta.length;
-        this.NumCuenta = mensaje.SaldoDisponible.substring(tamNumCuenta, tamNumCuenta - 4);
+        this.NumCuenta = operaciones.mascaraNumeroCuenta(mensaje.NumeroCuenta);
         this.consultarDatosContacto();
       }
     );    

@@ -110,6 +110,8 @@ export class PagoDeServicioDetallesComponent implements OnInit {
         this_aux.myForm.removeControl('fcDigitoVerificador');
     }
     $('#_modal_please_wait').modal('hide');
+
+    $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
   }
 
  
@@ -175,8 +177,6 @@ confirmarPago() {
 
     if (this_aux.importeAux === undefined) { this_aux.importeAux = this_aux.replaceSimbolo( this_aux.myForm.get('fcImporte').value); }
     $("#ModalTDDLogin").modal("show");
-    document.getElementById('capturaInicio').style.display = 'none';
-    document.getElementById('caputuraSesion').style.display = 'block';
   let res;
 
     this._validaNipService.validarDatosrespuesta().then(
@@ -186,7 +186,7 @@ confirmarPago() {
         console.log(res);
 
         if (res === true) {
-
+          
           this.pagoServicio();
           this._validaNipService.respuestaNip.res = "";
         } else {
@@ -232,14 +232,15 @@ operaciones.pagaServicio(this_aux.service.idFacturador, this_aux.importeAux, thi
 
 validarSaldo(myForm) {
     const this_aux = this;
-
+    if (this_aux.importeAux === undefined) { this_aux.importeAux = this_aux.replaceSimbolo( this_aux.myForm.get('fcImporte').value); }
+    this_aux.importe = this_aux.importeAux;
     this._validaNipService.consultaTablaYValidaSaldo(this_aux.importe).then(
       function(response) {
         let DatosJSON = response.responseJSON;
         console.log(response.responseText);
         if (DatosJSON.Id === "1") {
          // aqiiiiiiiii
-         this_aux.confirmarPago();
+         this_aux.showDetallePago(myForm);
         } else if ( DatosJSON.Id === "4" ) {
           $('#modalLimiteDiario').modal('show');
         } else if ( DatosJSON.Id === "5" ) {

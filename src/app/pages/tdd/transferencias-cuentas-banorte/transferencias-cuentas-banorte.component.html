@@ -1,0 +1,235 @@
+<div>
+    <script type="text/javascript">
+        $.getScript(path + "Keyboard-master/docs/js/demo.js");
+    </script>
+    <!-- 	<!-- Modal Start here-->
+
+    <div ng-cloak class="padding-barToTittle">
+        <h2 class="text-center deleteMargin-h2 color-letra letramegrita">Transferencia cuentas Banorte</h2>
+    </div><br>
+
+    <fieldset class="padding-TittleToFieldset padding-fieldset-general">
+
+        <div class="row sumando-form-group letranegrita">
+            <div class="col-sm-1 sumando-bg-orange group-name" style="border-bottom-width: 0px;height: 68px; padding-top: 24px;">Desde</div>
+            <div class="col-sm-11 group-controls padding-left-0 padding-right-0 sumando-well-white" style="margin-bottom: 30px; height: 69px; padding-top: 0px; padding-bottom: 0px;">
+                <div class="form-group ">
+
+                    <div class="sumando-dropdown-account">
+                        <table width="100%" class="letranegrita">
+                            <tr>
+                                <td align="left" width="40%">Nombre <strong>
+                              <label #lblAliasOrigen>
+                                  {{ nombreUsuarioTdd }}
+                              </label>
+                      </strong>
+                                </td>
+                                <td align="left" width="40%">
+                                    <strong>
+                                  <label #lblSaldoOrigen>{{ saldoClienteTdd | currency }}</label>
+                      </strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">Cuenta
+
+                                    <label #lblCuentaOrigen>
+                                  {{ cuentaClienteTdd }}
+                              </label>
+
+                                </td>
+                                <td align="left">Saldo Disponible
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row sumando-form-group letranegrita">
+            <div class="col-sm-1 sumando-bg-red group-name">Para</div>
+            <div class="col-lg-11 sumando-well-white">
+                <form [formGroup]="myForm" novalidate>
+
+
+                    <!-- campos a validar -->
+                    <div class="row padding-InFieldset">
+                        <div class="col-lg-2">
+                            <label>N&uacute;mero de cuenta: </label>
+                        </div>
+                        <div class="col-lg-10">
+                            <input type="text" id="iNumCuenta" class="form-control input-lg" formControlName="fcNumCuenta" #rNumCuenta [matKeyboard]="'num'" (blur)="obtenerCuentaDestino(rNumCuenta.value)" />
+                            <div *ngIf="myForm.get('fcNumCuenta').errors  && myForm.get('fcNumCuenta').touched" class="alert alert-danger">
+                                <p color="danger" *ngIf="myForm.get('fcNumCuenta').hasError('required')">Dato obligatorio, favor de capturar. </p>
+                                <p color="danger" *ngIf="myForm.get('fcNumCuenta').hasError('pattern')">No es formato solicitado</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="row padding-InFieldset">
+                        <div class="col-lg-2">
+                            <label>Importe: </label>
+                        </div>
+                        <div class="col-lg-10">
+                            <input type="text" id="idImporte" class="form-control input-lg" formControlName="fcImporte" #rImporte [matKeyboard]="'num'" (blur)="transformAmount(rImporte.value)" />
+                            <div *ngIf="myForm.get('fcImporte').errors  && myForm.get('fcImporte').touched" class="alert alert-danger">
+                                <p color="danger" *ngIf="myForm.get('fcImporte').hasError('required')">Dato obligatorio, favor de capturar. </p>
+                                <p color="danger" *ngIf="myForm.get('fcImporte').hasError('pattern')">No es formato solicitado</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row padding-InFieldset">
+                        <div class="col-lg-2">
+                            <label>Descripci&oacute;n: </label>
+                        </div>
+                        <div class="col-lg-10">
+                            <input type="text" id="idDescripcion" class="form-control input-lg" formControlName="fcDescripcion" #rDescripcion [matKeyboard]="" />
+                            <div *ngIf="myForm.get('fcDescripcion').errors  && myForm.get('fcDescripcion').touched" class="alert alert-danger">
+                                <p color="danger" *ngIf="myForm.get('fcDescripcion').hasError('required')">Dato obligatorio, favor de capturar. </p>
+                                <p color="danger" *ngIf="myForm.get('fcDescripcion').hasError('pattern')">No es formato solicitado</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row padding-InFieldset">
+                        <div class="col-lg-2">
+                            <label>Correo a notificar: </label>
+                        </div>
+                        <div class="col-lg-10">
+                            <input type="text" id="idCorreo" class="form-control input-lg" formControlName="fcCorreo" #rCorreo [matKeyboard]="" />
+                            <div *ngIf="myForm.get('fcCorreo').errors  && myForm.get('fcCorreo').touched" class="alert alert-danger">
+                                <p color="danger" *ngIf="myForm.get('fcCorreo').hasError('required')">Dato obligatorio, favor de capturar. </p>
+                                <p color="danger" *ngIf="myForm.get('fcCorreo').hasError('pattern')">No es formato solicitado</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+
+
+    </fieldset>
+    <div class="row actions-form-group" style="margin:30px 20px 0px 0px;">
+        <div class="col-lg-10"></div>
+        <div class="col-lg-2">
+            <button class="btn btn-lg" [routerLink]="['/menuTdd']">Regresar</button>
+            <button id="continuar" type="button" class="color-botones btn btn-lg " [disabled]="myForm.invalid || tamCuenta !== 1" (click)="validarSaldo(myForm.value)"> 
+                <!--  <button id="continuar" type="button" class="color-botones btn btn-lg " (click)="validarSaldo(myForm.value)"> -->
+                        Continuar
+                </button>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content shadowModal " style=" width: 110%;">
+
+                <div class="modal-body" style="padding: 2rem;">
+
+                    <h4 style="color: #B01657; font-weight: 700;">Confirmar pago</h4>
+                    <div class="row">
+                        <div class="col-lg 6">
+                            <label>Cuenta origen:</label>
+                        </div>
+                        <div class="col-lg 6">
+                            <label>{{cuentaClienteTdd}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg 6">
+                            <label>Cuenta destino:</label>
+                        </div>
+                        <div class="col-lg 6">
+                            <label>{{cuentaDestino}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg 6">
+                            <label>Importe neto:</label>
+                        </div>
+                        <div class="col-lg 6">
+                            <label>${{importe}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg 6">
+                            <label>Comision:</label>
+                        </div>
+                        <div class="col-lg 6">
+                            <label>$0.00</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg 6">
+                            <label>Descuentos:</label>
+                        </div>
+                        <div class="col-lg 6">
+                            <label>$0.00</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg 6">
+                            <label>Importe total:</label>
+                        </div>
+                        <div class="col-lg 6">
+                            <label>${{importe}}</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg 12">
+                            <div id="challenger" class="form-group">
+                                <label>N&uacute;mero de seguridad</label>
+                                <input type='text' id='numeroSeguridad' class='form-control input-lg' ng-model='challenge.rcg' readonly>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
+                        <button id="continuar2" class="color-botones btn btn-lg " (click)="confirmarPago(myForm.value)">
+                                        Confirmar
+                                      </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalErrorMessage" class="modal fade" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-error">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <p>
+                        <label id="errorMensaje"></label>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+
+</div>

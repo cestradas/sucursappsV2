@@ -97,23 +97,22 @@
                     <div class="col-md-2 col-sm-2 col-xl-1 ">
 
                     </div>
-                    <div id="espacioSPEI" class="col-md-2 col-sm-2 col-xl-2 ">
+                    <div id="espacioSPEI" class="col-md-2 col-sm-2 col-xl-2 espacioBotones" id="mantenimientoIMG">
                         <!--<div id="espacioSPEI" class="col-md-2 col-sm-2 col-xl-2 espacioBotones">-->
                         <a>
                             <img src="./assets/img/12_Mantenimiento-de-beneficiarios.png " class="sizeMenuButtons" width="200px " #imagen8 id="mantoBeneficiarios" draggable="false " (click)="mandarPage(imagen8.id)" />
                         </a>
                     </div>
-                    <div class="col-md-2 col-sm-2 col-xl-2 ">
+                    <div class="col-md-2 col-sm-2 col-xl-2 " id="datosContactoIMG">
                         <a>
                             <img src="./assets/img/13_Actualizar-datos-de-contacto.png " class="sizeMenuButtons" width="200px " #imagen9 id="actDatosContacto" draggable="false " (click)="mandarPage(imagen9.id)" />
                         </a>
                     </div>
-                    <div class="col-md-2 col-sm-2 col-xl-2 ">
+                    <div class="col-md-2 col-sm-2 col-xl-2 " id="Alertas" style="display:none">
                         <a>
-                            <img src="./assets/img/14_Activar-alertas-Banorte.png " class="sizeMenuButtons" width="200px " draggable="false " #imagen10 id="actAlertas" (click)="mandarPage(imagen10.id)" />
+                            <img src="./assets/img/14_Activar-alertas-Banorte.png " class="sizeMenuButtons stilo" width="200px " draggable="false " #imagen10 id="actAlertas" (click)="mandarPage(imagen10.id)" />
                         </a>
                     </div>
-
                 </div>
 
                 <div class="row " style="margin-top: 40px;">
@@ -132,22 +131,26 @@
                     <div class="col-md-2 col-sm-2 col-xl-1 ">
 
                     </div>
-                    <div id="espacioTextSPEI" class="col-md-2 col-sm-2 col-xl-2 ">
+                    <div id="espacioTextSPEI" class="col-md-2 col-sm-2 col-xl-2 espacioBotones" id="mantenimiento">
+
                         <!-- ACTIVAR AL QUITAR BTN ALERTAS <div id="espacioTextSPEI" class="col-md-2 col-sm-2 col-xl-2 espacioBotones">-->
                         <a>
                             <h3>Mantenimiento de beneficiarios</h3>
                         </a>
+
                     </div>
-                    <div class="col-md-2 col-sm-2 col-xl-2 ">
+                    <div class="col-md-2 col-sm-2 col-xl-2 " id="datosContacto">
                         <a>
                             <h3>Actualizar datos de contacto</h3>
                         </a>
+
                     </div>
-                    <div class="col-md-2 col-sm-2 col-xl-2 ">
+                    <div class="col-md-2 col-sm-2 col-xl-2 " id="alertasTxt" style="display:none">
                         <a>
                             <h3>Activar alertas Banorte</h3>
                         </a>
                     </div>
+
                 </div>
             </div>
             <br/>
@@ -183,10 +186,10 @@
 
 <!--MODAL CAMPAÑA-->
 <div class="modal fade" id="campaniaModal" tabindex="-1" role="dialog" aria-labelledby="ModalTDDLogin" aria-hidden="true">
-    <div id="divLargo" class="modal-dialog modal-dialog-centered" role="document" style="align-items: normal">
+    <div id="divLargo" class="modal-dialog modal-dialog-centered" role="document" style="margin-top: 16%; align-items: normal">
         <div id="divAltura" class="modal-content shadowModal">
             <!-- class="button b-close"  -->
-            <span class="btn btn-lg pull-right" (click)="send('cerrar')" style="position: absolute; top: 5px; right: 5px; color: white"><b>X</b></span>
+            <span class="color-botones btn btn-lg pull-right" (click)="send('cerrar')" style="position: absolute; top: 5px; right: 5px"><span>X</span></span>
             <iframe id="frameCampania"></iframe>
         </div>
     </div>

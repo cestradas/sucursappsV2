@@ -65,6 +65,7 @@ export class PagoServiciosComponent implements OnInit {
       }
     );
     setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
+    
 
     this.myForm = this.fb.group({
       fcFacturador: ['', [Validators.required]],
@@ -72,7 +73,7 @@ export class PagoServiciosComponent implements OnInit {
   }
 
   ngOnInit() {
-    $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
+    
     // ESTILOS Preferente
     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
     let btnContinuar = document.getElementById("continuar");
@@ -84,6 +85,7 @@ export class PagoServiciosComponent implements OnInit {
     }
 
      this.getEmpresas();
+     $( ".cdk-visually-hidden" ).css( "margin-top", "30%" );
   }
 
 

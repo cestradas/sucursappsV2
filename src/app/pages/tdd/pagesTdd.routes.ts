@@ -26,6 +26,10 @@ import { ActivarAlertasVerifyTddComponent } from './activar-alertas/activar-aler
 import { DocElectronTddComponent } from './impresion-edc-tdd/doc-electron-tdd/doc-electron-tdd.component';
 import { CancelarEnvioEdcTddComponent } from './impresion-edc-tdd/cancelar-envio-edc-tdd/cancelar-envio-edc-tdd.component';
 import { CancelarEnvioEdcFinishTddComponent } from './impresion-edc-tdd/cancelar-envio-edc-finish-tdd/cancelar-envio-edc-finish-tdd.component';
+import { TransferenciasCuentasBanorteComponent } from './transferencias-cuentas-banorte/transferencias-cuentas-banorte.component';
+// tslint:disable-next-line:max-line-length
+import { TransferenciasCuentasBanorteVerifyComponent } from './transferencias-cuentas-banorte/transferencias-cuentas-banorte-verify/transferencias-cuentas-banorte-verify.component';
+
 
 const pageRoutesTDD: Routes = [
     {
@@ -36,8 +40,8 @@ const pageRoutesTDD: Routes = [
             { path: 'movimientoSaldo', component: MovimientosaldoComponent},
             { path: 'compraTiempoAire', component: CompraTiempoAireComponent},
             { path: 'compraTiempoAireFinal', component: CompraTiempoAireFinalComponent},
-            { path: 'spei', component: TransferenciaSpeiComponent},
-            { path: 'transBanorte', component: TransferenciaTercerosComponent},
+            { path: 'transBanorte', component: TransferenciasCuentasBanorteComponent},
+            {path: 'transFinal', component: TransferenciasCuentasBanorteVerifyComponent},            { path: 'transBanorte', component: TransferenciaTercerosComponent},
             { path: 'pagoServiciosTDD', component: PagoServiciosComponent},
             { path: 'pagoCredito', component: PagoTarjetaCreditoComponent},
             { path: 'pagoCreditoFinal', component: PagoTarjetaCreditoFinalComponent},

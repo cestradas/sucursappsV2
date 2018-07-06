@@ -33,6 +33,9 @@ import { DocElectronTddComponent } from './impresion-edc-tdd/doc-electron-tdd/do
 import { ActivarAlertasVerifyTddComponent } from './activar-alertas/activar-alertas-verify-tdd/activar-alertas-verify-tdd.component';
 import { CancelarEnvioEdcTddComponent } from './impresion-edc-tdd/cancelar-envio-edc-tdd/cancelar-envio-edc-tdd.component';
 import { CancelarEnvioEdcFinishTddComponent } from './impresion-edc-tdd/cancelar-envio-edc-finish-tdd/cancelar-envio-edc-finish-tdd.component';
+import { TransferenciasCuentasBanorteComponent } from './transferencias-cuentas-banorte/transferencias-cuentas-banorte.component';
+import { TransferenciasCuentasBanorteVerifyComponent } from './transferencias-cuentas-banorte/transferencias-cuentas-banorte-verify/transferencias-cuentas-banorte-verify.component';
+
 
 
 
@@ -94,7 +97,9 @@ const customLayouts: IKeyboardLayouts = {
         DocElectronTddComponent,
         ActivarAlertasVerifyTddComponent,
         CancelarEnvioEdcTddComponent,
-        CancelarEnvioEdcFinishTddComponent
+        CancelarEnvioEdcFinishTddComponent,
+	TransferenciasCuentasBanorteComponent,
+        TransferenciasCuentasBanorteVerifyComponent
         
     ],
     exports: [],

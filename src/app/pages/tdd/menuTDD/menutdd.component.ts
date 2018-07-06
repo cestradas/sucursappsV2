@@ -9,7 +9,7 @@ import $ from "jquery";
 import { DOCUMENT } from "@angular/platform-browser";
 import { Session } from "protractor";
 import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
-import { consultaCatalogos } from '../../../services/consultaCatalogos/consultaCatalogos.service';
+import { consultaCatalogos } from "../../../services/consultaCatalogos/consultaCatalogos.service";
 
 declare var $: $;
 
