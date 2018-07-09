@@ -17,7 +17,7 @@
                                 Dato obligatorio, favor de capturar.
                         </p>
                         <!--<div *ngIf="showCorreoError">-->
-                            <p *ngIf="myForm.get('fcCorreo').hasError('email') && !myForm.get('fcCorreo').hasError('required') ">
+                            <p *ngIf="myForm.get('fcCorreo').hasError('pattern') && !myForm.get('fcCorreo').hasError('required') ">
                                 Los datos proporcionados son incorrectos, favor de verificar.
                             </p>
                        <!-- </div>-->

@@ -4,6 +4,7 @@ var AMBIENTES = ["", "", "", "", ""];
 
 $(document).ready(function() {
     $('#modal_please_wait').modal('show');
+    
     if (localStorage.getItem("Ambientes")) {
         AMBIENTES = localStorage.getItem("Ambientes").split(",");
         console.log(localStorage.getItem("Ambientes"))
@@ -78,7 +79,6 @@ function getContextRoot() {
                     localStorage.removeItem("np_serv");
                     localStorage.removeItem("res_serv");
                     localStorage.removeItem("validaNipServ");
-
                     var responseJson = response.responseJSON;
                     localStorage.setItem("TimeOut", responseJson.TimeOut);
                     localStorage.setItem("TimeOutIni", responseJson.TimeOut);
@@ -112,3 +112,6 @@ function listener() {
         $('#campaniaModal').modal('toggle');
     }, false);
 }
+
+
+
