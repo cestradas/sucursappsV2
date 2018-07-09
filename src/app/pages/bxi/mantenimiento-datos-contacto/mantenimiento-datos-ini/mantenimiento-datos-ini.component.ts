@@ -64,7 +64,8 @@ export class MantenimientoDatosIniComponent implements OnInit {
   editarCorreo(correoHTML) {
     const this_aux = this;
     correoHTML.readOnly = false;
-   const control: FormControl = new FormControl(this_aux.correoElectronico.nativeElement.value, [Validators.required,  Validators.email]);
+   // tslint:disable-next-line:max-line-length
+   const control: FormControl = new FormControl(this_aux.correoElectronico.nativeElement.value, [Validators.required,  Validators.pattern(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)]);
     this_aux.myForm.setControl('fcCorreo', control );
     this_aux.IsControlCorreo = true;
 
