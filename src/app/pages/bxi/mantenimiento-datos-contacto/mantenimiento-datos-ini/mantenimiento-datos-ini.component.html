@@ -10,7 +10,7 @@
           </div>
           <div class="col-sm-4 col-md-4">
               <input   #correoElectronico  type="text"   class="tamimput form-control amount input-lg" 
-              formControlName="fcCorreo" [matKeyboard]="" placeholder="Correo electr&oacute;nico" readonly/>
+              formControlName="fcCorreo" [matKeyboard]="" placeholder="Correo electr&oacute;nico" readonly (focus)="focusTeclado(correoElectronico)"/>
                 <div *ngIf="IsControlCorreo">
                     <div *ngIf="(myForm.get('fcCorreo').errors  && myForm.get('fcCorreo').touched) " class="alert alert-danger" >
                         <p *ngIf="myForm.get('fcCorreo').hasError('required')" >
@@ -36,7 +36,7 @@
           </div>
           <div class="col-sm-4 col-md-4">
               <input  #numeroCelular  type="text" class="tamimput form-control amount input-lg" 
-              formControlName="fcCelular" [matKeyboard]="'num'" placeholder="Número de celular" readonly maxlength="10"/>
+              formControlName="fcCelular" [matKeyboard]="'num'" placeholder="Número de celular" readonly maxlength="10"  (focus)="focusTeclado(numeroCelular)"/>
               <div *ngIf="IsControlCelular">
                 <div *ngIf="myForm.get('fcCelular').errors  && myForm.get('fcCelular').touched" class="alert alert-danger">
                     <p *ngIf="myForm.get('fcCelular').hasError('required')"  >

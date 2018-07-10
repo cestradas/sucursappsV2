@@ -155,4 +155,16 @@ export class MantenimientoDatosIniComponent implements OnInit {
     const this_aux = this;
     this_aux.router.navigate(['/menuBXI']);
   }
+
+  focusTeclado(element) {
+    console.log("Entro focus");
+    console.log(element);
+    if (element.readOnly === true) {
+      $( ".cdk-visually-hidden" ).css( "margin-top", "100%" );
+    } else {
+      $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
+    }
+
+  }
 }
+

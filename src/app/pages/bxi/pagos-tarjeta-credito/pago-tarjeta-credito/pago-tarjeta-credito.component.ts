@@ -116,34 +116,75 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
   getSaldoDeCuenta(numCuenta_seleccionada) {
 
+    console.log(numCuenta_seleccionada.length);
+    if (numCuenta_seleccionada.length === 16) {
+         this.getSaldoTDC(numCuenta_seleccionada);
+    } else {
+        this.getSaldoTDDOtras(numCuenta_seleccionada);
+    }
+  }
+
+  getSaldoTDDOtras(numCuenta_seleccionada) {
     const this_aux = this;
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     operacionesbxi.getSaldo(numCuenta_seleccionada).then(
         function(response1) {
-            console.log(response1.responseText);
-            const detalleSaldos = response1.responseJSON;
-              if ( detalleSaldos.Id === '1') {
-                setTimeout(function() {
-                  this_aux.SaldoOrigen = detalleSaldos.SaldoDisponible;
-                  $('#_modal_please_wait').modal('hide');
-                }, 500);
-              } else {
+          console.log(response1.responseText);
+          const detalleSaldos = response1.responseJSON;
+          if ( detalleSaldos.Id === '1') {
 
-                setTimeout(function() {
-
-                  this_aux.SaldoOrigen = 0;
-                  $('#_modal_please_wait').modal('hide');
-                  this_aux.showErrorSucces(detalleSaldos);
-               }, 500); 
-              }
+           setTimeout(function() {
+            
+             this_aux.SaldoOrigen = detalleSaldos.SaldoDisponible;
+              $('#_modal_please_wait').modal('hide');
+            }, 500);
+          } else {
+           this_aux.SaldoOrigen = 0;
+           setTimeout(function() { 
+           $('#_modal_please_wait').modal('hide');
+             this_aux.showErrorSucces(detalleSaldos);
+           }, 500);
+          }
         }, function(error) {
-          this_aux.SaldoOrigen = 0;
-          setTimeout(function() {
-            $('#_modal_please_wait').modal('hide');
-            this_aux.showErrorPromise(error);
-          }, 500);
+        
+        this_aux.SaldoOrigen = 0;
+         setTimeout(function() {
+           $('#_modal_please_wait').modal('hide');
+             this_aux.showErrorPromise(error);
+         }, 500);
     });
-  }
+   }
+
+   getSaldoTDC(numCuenta_seleccionada) {
+    const this_aux = this;
+    const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+    operacionesbxi.getSaldoTDC(numCuenta_seleccionada).then(
+        function(response1) {
+          console.log(response1.responseText);
+          const detalleSaldos = response1.responseJSON;
+          if ( detalleSaldos.Id === '1') {
+
+           setTimeout(function() {
+            
+             this_aux.SaldoOrigen = detalleSaldos.SaldoDisponible;
+              $('#_modal_please_wait').modal('hide');
+            }, 500);
+          } else {
+           this_aux.SaldoOrigen = 0;
+           setTimeout(function() { 
+           $('#_modal_please_wait').modal('hide');
+             this_aux.showErrorSucces(detalleSaldos);
+           }, 500);
+          }
+        }, function(error) {
+        
+        this_aux.SaldoOrigen = 0;
+         setTimeout(function() {
+           $('#_modal_please_wait').modal('hide');
+             this_aux.showErrorPromise(error);
+         }, 500);
+    });
+   }
 
 
   fillCuentasBeneficiario () {
