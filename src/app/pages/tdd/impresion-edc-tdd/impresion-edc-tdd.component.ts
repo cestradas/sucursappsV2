@@ -104,15 +104,14 @@ export class ImpresionEdcTddComponent implements OnInit {
         this_aux.numeroCuentaTitular = mensaje.NumeroCuenta;
         this.mostrarCuentaMascara = operaciones.mascaraNumeroCuenta(this.numeroCuentaTitular);
         serviceTdd.numeroCuentaTdd = this_aux.numeroCuentaTitular;
-
+        this_aux.consultaCancelacionEDCDomicilio('1');
       }
     );
     setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
-    setTimeout(() => this_aux.consultaCancelacionEDCDomicilio('1'), 500);
+    // setTimeout(() => this_aux.consultaCancelacionEDCDomicilio('1'), 500);
   }
 
   ngOnInit() {
-
     // ESTILOS Preferente
     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
 

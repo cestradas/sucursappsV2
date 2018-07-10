@@ -3,35 +3,30 @@
     Comprar tiempo aire</h2>
 
 <fieldset class="padding-TittleToFieldset padding-fieldset-general">
-    <div class="row sumando-form-group">
-        <div class="col-sm-1 sumando-bg-orange group-name letranegrita">Desde</div>
-        <div class="col-sm-11 group-controls padding-left-0 padding-right-0 sumando-well-white">
-            <div class="form-group ">
-
+    <div class="row sumando-form-group letranegrita">
+        <div class="col-sm-1 sumando-bg-red group-name" style="height: 66px;">
+            Desde
+        </div>
+        <div class="col-sm-11 group-controls padding-InFieldset" style="padding-left: 0px; padding-right:  0px;">
+            <div class="form-group">
                 <div class="sumando-dropdown-account">
                     <table width="100%" class="letranegrita">
                         <tr>
-                            <td align="left" width="40%">Nombre <strong>
-                              <label>
-                                  {{ nombreUsuarioTdd }}
-                              </label>
-                            </strong>
+                            <td align="left" width="40%" style="border: 0px">CUENTA ENLACE PERSONAL <strong>
+                                                                                </strong>
                             </td>
-                            <td align="left" width="40%">
+                            <td align="left" style="border: 0px">
                                 <strong>
-                              <label>{{ saldoClienteTdd | currency }}</label>
-                            </strong>
+                                            <label>{{saldoClienteTdd | currency}}
+                                            </label>
+                                        </strong>
                             </td>
                         </tr>
                         <tr>
-                            <td align="left">Cuenta
-                                <strong>
-                                <label>
-                                    {{ cuentaClienteTdd }}
-                                </label>
-                            </strong>
+                            <td align="left" style="border: 0px; font-weight: normal;">Cuenta
+                                <label> {{mostrarCuentaMascara}}</label>
                             </td>
-                            <td align="left">Saldo Disponible
+                            <td align="left" style="border: 0px; font-weight: normal">Saldo Disponible
                             </td>
                         </tr>
                     </table>
@@ -96,7 +91,7 @@
                     <label class="col-sm-2 control-label">Tel&eacute;fono</label>
 
                     <div class="col-sm-10">
-                        <input formControlName="telefono" id="telefono" #telefonoF name="telefono" type="text" class="input-whidth form-control amount input-lg" />
+                        <input formControlName="telefono" id="telefono" #telefonoF name="telefono" [matKeyboard]="'num'" type="text" class="input-whidth form-control amount input-lg" />
                         <div *ngIf="forma.hasError('maxlength', 'telefono') || forma.hasError('minlength', 'telefono')" class="alert alert-danger">
                             El numero telefonico debe ser a 10 digitos.
                         </div>
@@ -105,6 +100,7 @@
                         </div>
                     </div>
                 </div>
+                <!--
                 <div class="row ">
                     <label class="col-sm-2 control-label">Correo a notificar</label>
 
@@ -118,7 +114,7 @@
                         </div>
                     </div>
                     <div class="clearfix"></div>
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -137,52 +133,55 @@
 
 <!-- Modal -->
 <!--hasta aqui revise fade-->
-<div class="modal fade " id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="ModalTDDLogin" data-backdrop="static" data-keyboard="true">
-    < <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 21%; position: initial !important;">
-        <div class="modal-content shadowModal">
-            <h4 class="text-center padding-barToTittle deleteMargin-h2  color-letra" style="padding-top: 30px;">Confirma tu compra de tiempo aire</h4>
-            <div class="modal-body modal-body-aux">
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content shadowModal" style="height: 300px; width: 550px;">
+            <div class="modal-body" style="padding: 2rem;">
+                <h4 class="padding-barToTittle deleteMargin-h2" style="color: #B01657; font-weight: 700; margin-top: -50px;">Confirma tu compra de tiempo aire</h4>
+                <div class="modal-body modal-body-aux" style="left: -15px;">
 
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>Operador:</label>
+                    <div class="row">
+                        <div class="col-lg 6">
+                            <label>Operador:</label>
+                        </div>
+                        <div class="col-lg 6">
+                            <label>{{ operador}}</label>
+                        </div>
                     </div>
-                    <div class="col-lg 6">
-                        <label>{{ operador}}</label>
+                    <div class="row">
+                        <div class="col-lg 6">
+                            <label>Importe:</label>
+                        </div>
+                        <div class="col-lg 6">
+                            <label>{{ importe | currency }}</label>
+                        </div>
                     </div>
+                    <div class="row">
+                        <div class="col-lg 6">
+                            <label>N&uacute;mero de celular:</label>
+                        </div>
+                        <div class="col-lg 6">
+                            <label>{{ forma.get('telefono').value }}</label>
+                        </div>
+                    </div>
+                    <!--<div class="row">
+                        <div class="col-lg 6">
+                            <label>Correo:</label>
+                        </div>
+                        <div class="col-lg 6">
+                            <label>{{ forma.get('email').value }}</label>
+                        </div>
+                    </div> -->
                 </div>
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>Importe:</label>
-                    </div>
-                    <div class="col-lg 6">
-                        <label>{{ importe | currency }}</label>
-                    </div>
+                <div class="modal-footer ">
+                    <button type="button" class="btn btn-lg letranegrita" data-dismiss="modal">Cancelar</button>
+                    <button type="button" onclick="handlerCallPinpad()" (click)="trnasrecargaTA()" class="btn btn-danger btn-lg letranegrita" style="margin-right: -19px;" data-dismiss="modal">Confirmar</button>
                 </div>
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>N&uacute;mero de celular:</label>
-                    </div>
-                    <div class="col-lg 6">
-                        <label>{{ forma.get('telefono').value }}</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>Correo:</label>
-                    </div>
-                    <div class="col-lg 6">
-                        <label>{{ forma.get('email').value }}</label>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer ">
-                <button type="button" class="btn btn-lg letranegrita" data-dismiss="modal">Cancelar</button>
-                <button type="button" onclick="handlerCallPinpad()" (click)="trnasrecargaTA()" class="btn btn-danger btn-lg letranegrita" style="margin:0px 20px 0px 0px;" data-dismiss="modal">Confirmar</button>
             </div>
         </div>
+    </div>
 </div>
-</div>
+
 <div class="uiv-animate" ui-view></div>
 
 <div id="modalErrorMessage" class="modal fade" data-backdrop="static" data-keyboard="false">

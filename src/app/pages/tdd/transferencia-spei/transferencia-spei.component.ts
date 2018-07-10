@@ -45,6 +45,7 @@ export class TransferenciaSpeiComponent implements OnInit {
   importe: any = "";
   descripcion: any = "";
   email: any = "";
+  tamCuenta: any;
 
   myform: FormGroup;
 
@@ -202,35 +203,25 @@ limpiarFormulario () {
     );
     this_aux.myform.setControl("referenciaF", controlReferencia);
     const controlCorreo: FormControl = new FormControl(
-      this_aux.rEmail.nativeElement.value,
-      Validators.required
+      this_aux.rEmail.nativeElement.value, [
+      Validators.required, Validators.pattern(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)]
     );
     this_aux.myform.setControl("correoF", controlCorreo);
     if (operacion === "1") {
+      document.getElementById('clabeTarjeta').innerHTML = "Clabe / Número de Tarjeta:";           
       this_aux.consultaTablaCorpBancosService();
       console.log("Seleccionaste QUICK");
       const controlClabe: FormControl = new FormControl(
-        this_aux.rClabe.nativeElement.value,
-        [
-          Validators.required,
-          Validators.minLength(18),
-          Validators.maxLength(18)
-        ]
-      );
+        this_aux.rClabe.nativeElement.value, Validators.required);
       this_aux.myform.setControl("numeroClabeF", controlClabe);
     }
 
     if (operacion === "2") {
+      document.getElementById('clabeTarjeta').innerHTML = "Número de Tarjeta:";         
       this_aux.consultaBancosNacionalesService();
       console.log("Seleccionaste TEF");
       const controlClabe: FormControl = new FormControl(
-        this_aux.rClabe.nativeElement.value,
-        [
-          Validators.required,
-          Validators.minLength(16),
-          Validators.maxLength(16)
-        ]
-      );
+        this_aux.rClabe.nativeElement.value, Validators.required );
       this_aux.myform.setControl("numeroClabeF", controlClabe);
     }
   }
@@ -493,5 +484,15 @@ limpiarFormulario () {
     console.log(importeAux);
 
         return importeAux;
+  }
+
+  obtenerCuentaDestino(numCuenta) {
+    const this_aux = this;
+    if ((numCuenta.length === 16 || numCuenta.length === 18) && $( "div:contains('John')" ) ) { 
+      this_aux.tamCuenta = 1;  
+    } else {
+      this_aux.tamCuenta = 0;
+    }
+    
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { ConsultaSaldosTddService } from '../../../services/saldosTDD/consultaSaldos.service';
 import { SesionTDDService } from '../../../services/breadcrums/breadcroms.service';
@@ -7,6 +7,8 @@ import { EventEmitter } from 'events';
 import { ResponseWS } from '../../../services/response/response.service';
 import { Router } from '@angular/router';
 import { ValidaNipTransaccion } from '../../../services/validaNipTrans/validaNipTrans.service';
+import { consultaCatalogos } from '../../../services/consultaCatalogos/consultaCatalogos.service';
+import { CurrencyPipe } from "@angular/common";
 
 import $ from 'jquery';
 declare var $: $;
@@ -17,10 +19,13 @@ declare var $: $;
 })
 export class PagoTarjetaCreditoComponent implements OnInit {
 
+  @ViewChild("rImporte", { read: ElementRef })
+  rImporte: ElementRef;
+
   nombreUsuarioTdd: string;
   saldoClienteTdd: string;
   cuentaClienteTdd: string;
-
+  mostrarCuentaMascara: string;
   opcionSeleccionado = '0';
   id;
   bancos;
@@ -30,6 +35,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   noTarjeta: string;
   importe: string;
   correo: string;
+  nombreBanco: string;
 
 
   constructor(
@@ -38,7 +44,8 @@ export class PagoTarjetaCreditoComponent implements OnInit {
                private _saldosDiaMes: SaldosDiaMesService,
                private _response: ResponseWS,
                private _validaNipService: ValidaNipTransaccion,
-               private router: Router
+               private router: Router,
+               private currencyPipe: CurrencyPipe
               ) {
 
                 this._service.cargarSaldosTDD();
@@ -50,7 +57,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       'selectBanco': new FormControl('0', [Validators.required
         // , this.selectDifCero
       ]),
-      'numTarjeta': new FormControl('', [Validators.required]),
+      'numTarjeta': new FormControl('', [Validators.required, Validators.minLength(16), Validators.maxLength(16)]),
       'importe': new FormControl('', Validators.required),
       'email': new FormControl('', [Validators.required,
         Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')])
@@ -59,18 +66,19 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
     this._service.validarDatosSaldoTdd().then(
       mensaje => {
-
+        const operaciones: consultaCatalogos = new consultaCatalogos();
         console.log('Saldos cargados correctamente TDD');
         this.saldoClienteTdd = mensaje.SaldoDisponible;
         this.cuentaClienteTdd = mensaje.NumeroCuenta;
-        this.nombreUsuarioTdd = this._serviceSesion.datosBreadCroms.nombreUsuarioTDD;
-
+        this.mostrarCuentaMascara = operaciones.mascaraNumeroCuenta(this.cuentaClienteTdd);
+        this.consultaBancos();
       }
-    );
+    ); 
 
     this.forma.controls['selectBanco'].valueChanges.subscribe(
       data => {
         console.log(data);
+        this.opcionSeleccionado = data;
       });
 
     this.forma.controls['numTarjeta'].valueChanges.subscribe(
@@ -87,31 +95,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       data => {
         this.correo = data;
       });
-
-    const THIS: any = this;
-
-    const resourceRequest = new WLResourceRequest(
-      'adapters/AdapterBanorteSucursApps/resource/consultaBancosNacionales',
-      WLResourceRequest.POST);
-  resourceRequest.setTimeout(30000);
-  resourceRequest
-      .send()
-      .then(
-          function(response) {
-
-          THIS.bancos = response.responseJSON;
-
-          },
-          function(error) {
-
-            console.error("El WS respondio incorrectamente1");
-            // document.getElementById('mnsError').innerHTML = "El Ws no respondio";
-            $('#errorModal').modal('show');
-
-
-          });
-
-          setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
+   
 
    }
 
@@ -128,16 +112,47 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       btnContinuar.classList.add("color-botones_Preferente");
       btnContinuar2.classList.remove("color-botones");
       btnContinuar2.classList.add("color-botones_Preferente");
-    }
-
-
+    }    
+    $(".cdk-visually-hidden").css("margin-top", "10%");
   }
+
+
+  consultaBancos () {
+    const THIS: any = this;
+
+    const resourceRequest = new WLResourceRequest(
+      'adapters/AdapterBanorteSucursApps/resource/consultaBancosNacionales',
+      WLResourceRequest.POST);
+  resourceRequest.setTimeout(30000);
+  resourceRequest
+      .send()
+      .then(
+          function(response) {
+
+          THIS.bancos = response.responseJSON;
+          THIS.bancos.sort(THIS.sortByProperty('NombreBanco'));
+          $('#_modal_please_wait').modal('hide');
+          },
+          function(error) {
+            $('#_modal_please_wait').modal('hide');
+            // document.getElementById('mnsError').innerHTML = "El Ws no respondio";
+            $('#errorModal').modal('show');
+          });
+  }
+  
+  sortByProperty = function (property) {
+
+    return function (x, y) {
+
+        return ((x[property] === y[property]) ? 0 : ((x[property] > y[property]) ? 1 : -1));
+
+    };
+
+};
 
   cargaBancos() {
 
-    console.log(this.opcionSeleccionado);
-
-    if ( this.opcionSeleccionado === "Amex") {
+    if ( this.opcionSeleccionado === '2') {
 
       this.id = 2230;
 
@@ -147,6 +162,16 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
     }
 
+    this.pagarTarjetaCredito();
+
+  }
+
+  selectBanco(bancoSeleccionado) {
+    const this_aux = this;
+    let nombreSele: any;
+    nombreSele = document.getElementById("tipoBanco");
+    this_aux.nombreBanco = nombreSele.options[nombreSele.selectedIndex].text;
+    this_aux._response.nameBancoDestino = this_aux.nombreBanco;
   }
 
   selectDifCero(control: FormControl): {[s: string]: boolean} {
@@ -165,15 +190,13 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   }
 
   pagarTarjetaCredito() {
+    this._validaNipService.validaNipTrans();
+    const this_aux = this;
 
-    $('#ModalTDDLogin').modal('show');
+    $("#ModalTDDLogin").modal("show");
     document.getElementById('capturaInicio').style.display = 'none';
     document.getElementById('caputuraSesion').style.display = 'block';
-    $('#_modal_please_wait').modal('show');
-    this._validaNipService.validaNipTrans();
-
     let res;
-
     this._validaNipService.validarDatosrespuesta().then(
       mensaje => {
 
@@ -181,75 +204,130 @@ export class PagoTarjetaCreditoComponent implements OnInit {
         console.log(res);
 
         if (res === true) {
-
           $('#ModalTDDLogin').modal('hide');
-          setTimeout( () => $('#_modal_please_wait').modal('hide'), 500 );
-          this.pagarTarjetaCreditoTrans();
+          $('#_modal_please_wait').modal('show');
+          this_aux.pagarTarjetaCreditoTrans();
           this._validaNipService.respuestaNip.res = "";
-
         } else {
-
           console.error("Mostrar modal las tarjetas no son iguales");
-          document.getElementById('mnsError').innerHTML =   "El NIP introducido no corresponde.";
+          document.getElementById('mnsError').innerHTML =   "Los datos no corresponden";
           $('#_modal_please_wait').modal('hide');
           $('#errorModal').modal('show');
           $('#ModalTDDLogin').modal('hide');
           this._validaNipService.respuestaNip.res = "";
-
-
         }
-
-
-
       }
     );
-
   }
 
   pagarTarjetaCreditoTrans() {
 
     const THIS: any = this;
-
+    const this_aux = this;
     let pImporte = parseFloat(this.importe).toFixed(2);
     // let deImpore: number = parseFloat(pImporte).toFixed(2);
-
+    this_aux._response.numCuentaDestino = THIS.noTarjeta;
     console.log(pImporte);
-
     const formParameters = {
-
-      emisora: '2230',
-      montoPagar: pImporte,
-      referencia: THIS.noTarjeta,
-      ctaCargo: THIS.cuentaClienteTdd
-
+      tipoTarjeta: THIS.id,
+      montoAPagar: pImporte,
+      cuentaAbono: THIS.noTarjeta,
+      cuentaCargo: THIS.cuentaClienteTdd,
     };
 
     const resourceRequest = new WLResourceRequest(
-      'adapters/AdapterBanorteSucursApps/resource/pagarTarjetaCredito',
+      'adapters/AdapterBanorteSucursApps2/resource/pagoTarjetaCredito',
       WLResourceRequest.POST);
   resourceRequest.setTimeout(30000);
   resourceRequest
       .sendFormParameters(formParameters)
       .then(
-          function(response) {
-
-          THIS._response.respuesta.respuestaWS = response.responseJSON;
-          console.log("Service desde la pantalla principal: " , THIS._response.respuesta.respuestaWS);
-
-          setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
-          THIS.router.navigate(['/pagoCreditoFinal']);
-
+          function(detallePago) {
+            console.log('Pago Validado');
+            const jsonDetallePago = detallePago.responseJSON;
+            if (jsonDetallePago.Id === '1') {
+                this_aux._response.detallePagoTarjeta = detallePago.responseText;
+                this_aux._response.numeroCuentaTdd = this_aux.mostrarCuentaMascara;
+                this_aux.router.navigate(['/pagoCreditoFinal']);
+            } else {
+              $('#_modal_please_wait').modal('hide');
+              $("#errorModal").modal("show");
+            }
           },
           function(error) {
 
-            console.error("El WS respondio incorrectamente1");
+            console.error("El WS respondio incorrectamente");
             // document.getElementById('mnsError').innerHTML = "El Ws no respondio";
             $('#errorModal').modal('show');
-
+            $('#ModalTDDLogin').modal('hide');
 
           });
 
   }
 
+  validarSaldo() {
+    const this_aux = this;
+    let importeOpe = "";
+    $('#_modal_please_wait').modal('show');
+    importeOpe = this_aux.replaceSimbolo(this_aux.importe);
+    this._validaNipService.consultaTablaYValidaSaldo(importeOpe).then(
+      function(response) {
+        let DatosJSON = response.responseJSON;
+        if (DatosJSON.Id === "1") {
+          $('#confirmModal').modal('show');
+        } else if ( DatosJSON.Id === "4" ) {
+          $('#modalLimiteDiario').modal('show');
+        } else if ( DatosJSON.Id === "5" ) {
+          $('#modalLimiteMensual').modal('show');
+        } else {
+          $('#errorModal').modal('show');
+        }
+        setTimeout(function() {
+          $('#_modal_please_wait').modal('hide');
+        }, 500);
+        
+      }, function(error) {
+        setTimeout(function() {
+          $('#_modal_please_wait').modal('hide');
+          $('#errorModal').modal('show');
+        }, 500);
+       
+  });
+  }
+
+  replaceSimbolo(importe) {
+    const this_aux = this;
+    let importeAux = importe.replace('$', '');
+    const re = /\,/g;
+    importeAux = importeAux.replace(re, '');
+    console.log(importeAux);
+
+        return importeAux;
+  }
+
+  transformAmount(impor) {
+    const this_aux = this;
+    let importeAux = "";
+    if (impor !== '') {
+      const control: FormControl = new FormControl('');
+      this_aux.forma.setControl(this_aux.rImporte.nativeElement.value, control);
+      importeAux = this_aux.replaceSimbolo(impor);
+      this_aux.rImporte.nativeElement.value = this_aux.currencyPipe.transform(importeAux, 'USD');
+      importeAux = this_aux.replaceSimbolo( this_aux.rImporte.nativeElement.value) ;
+    } else {
+      if (this_aux.forma.get('importe').errors === null) {
+        const control: FormControl = new FormControl('', Validators.required);
+        this_aux.forma.setControl('importe', control );
+      }
+  }
+}
+
+showErrorSucces(json) {
+
+  $('#_modal_please_wait').modal('hide');
+    console.log(json.Id + json.MensajeAUsuario);
+    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+    $('#errorModal').modal('show');
+}
 
 }

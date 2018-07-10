@@ -11,7 +11,18 @@ declare var $: $;
 })
 export class PagoTarjetaCreditoFinalComponent implements OnInit {
 
-  res;
+  detallePago: any = {
+    institucion: '',
+    operacion: '',
+    fechaOperacion: '',
+    claveRastreo: '',
+    comisioneiva: '',
+    cuentaOrigen: '',
+    cuentaDestino: '',
+    horaOperacion: '',
+    importe: ''
+
+};
 
   constructor(private _response: ResponseWS) { }
 
@@ -26,8 +37,38 @@ export class PagoTarjetaCreditoFinalComponent implements OnInit {
       btnContinuar.classList.add("color-botones_Preferente");
     }
 
-    this.res  = this._response.respuesta.respuestaWS;
-
+    this.showData();
   }
 
+  showData() {
+
+
+    const this_aux = this;
+    const resPagoString = this_aux._response.detallePagoTarjeta;
+    const respPagoJson  = JSON.parse(resPagoString);
+    const certificadoPago = respPagoJson.CertificadoPago;
+      certificadoPago.forEach(element => {
+        if (element.FechaUno !== undefined) {
+          this_aux.detallePago.fechaOperacion = element.FechaUno;
+        }
+        if (element.ImporteTotal !== undefined) {
+          this_aux.detallePago.importe = element.ImporteTotal;
+        }
+        if (element.ClaveConfirmacion !== undefined) {
+          this_aux.detallePago.claveRastreo = element.ClaveConfirmacion;
+        }
+        if (element.ImporteComisionRespCons !== undefined) {
+          this_aux.detallePago.comisioneiva = element.ImporteComisionRespCons;
+        }
+        if (element.HoraOperacion !== undefined) {
+          this_aux.detallePago.horaOperacion = element.HoraOperacion ;
+
+        }
+    });
+
+    this_aux.detallePago.institucion = this_aux._response.nameBancoDestino;
+    this_aux.detallePago.cuentaOrigen = this_aux._response.numeroCuentaTdd;
+    this_aux.detallePago.cuentaDestino = this_aux._response.numCuentaDestino;
+    $('#_modal_please_wait').modal('hide');
+  }
 }

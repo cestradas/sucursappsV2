@@ -6,6 +6,7 @@ import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { ResponseWS } from '../../../services/response/response.service';
 import { ValidaNipTransaccion } from '../../../services/validaNipTrans/validaNipTrans.service';
 import { SaldosDiaMesService } from '../../../services/SaldosDiaMes/saldoDiaMes.service';
+import { consultaCatalogos } from '../../../services/consultaCatalogos/consultaCatalogos.service';
 import $ from 'jquery';
 declare var $: $;
 
@@ -24,7 +25,7 @@ export class CompraTiempoAireComponent implements OnInit {
   cuentaClienteTdd: string;
   cveTelefonicaF = "";
   forma: FormGroup;
-
+  mostrarCuentaMascara: string;
   recargas: any[] = [];
   operador: string;
   importe: number;
@@ -51,21 +52,22 @@ export class CompraTiempoAireComponent implements OnInit {
 
                 this._service.validarDatosSaldoTdd().then(
                   mensaje => {
-
+                    const operaciones: consultaCatalogos = new consultaCatalogos();
                     console.log('Saldos cargados correctamente TDD');
                     this.saldoClienteTdd = mensaje.SaldoDisponible;
                     this.cuentaClienteTdd = mensaje.NumeroCuenta;
                     this.nombreUsuarioTdd = this._serviceSesion.datosBreadCroms.nombreUsuarioTDD;
-
+                    this.mostrarCuentaMascara = operaciones.mascaraNumeroCuenta(mensaje.NumeroCuenta);
+                    $('#_modal_please_wait').modal('hide');
+                    this.consultarEmpresasTelefonos();
                   }
                 );
-                setTimeout( () => $('#_modal_please_wait').modal('hide'), 500 );
 
                 this.forma = new FormGroup({
 
                   'telefono': new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]),
-                  'email': new FormControl('', [Validators.required,
-                    Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
+                 // 'email': new FormControl('', [Validators.required,
+                  //  Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
                   'operador': new FormControl(),
                   'importe': new FormControl()
 
@@ -91,11 +93,13 @@ export class CompraTiempoAireComponent implements OnInit {
       btnContinuar.classList.remove("color-botones");
       btnContinuar.classList.add("color-botones_Preferente");
     }
+    $(".cdk-visually-hidden").css("margin-top", "15%");
+  }
 
-
+  consultarEmpresasTelefonos () {
 
     const THIS: any = this;
-
+    $('#_modal_please_wait').modal('show');
     const resourceRequest = new WLResourceRequest(
       'adapters/AdapterBanorteSucursApps2/resource/consultaCatalogoEmpresaTel',
       WLResourceRequest.POST);
@@ -141,19 +145,15 @@ export class CompraTiempoAireComponent implements OnInit {
 
           }
 
-
+          $('#_modal_please_wait').modal('hide');
           },
           function(error) {
 
             console.error("El WS respondio incorrectamente1");
             // document.getElementById('mnsError').innerHTML = "El Ws no respondio";
             $('#errorModal').modal('show');
-
-
+            $('#_modal_please_wait').modal('hide');
           });
-
-
-
   }
 
 
@@ -229,16 +229,12 @@ export class CompraTiempoAireComponent implements OnInit {
           console.log(response.responseText);
 
           THIS.recargas = res;
-
+          $('#_modal_please_wait').modal('hide');
           },
           function(error) {
-
-
             console.error("El WS respondio incorrectamente2");
-
+            $('#_modal_please_wait').modal('hide');
           });
-
-          setTimeout( () => $('#_modal_please_wait').modal('hide'), 500 );
 
   }
 
@@ -254,8 +250,9 @@ export class CompraTiempoAireComponent implements OnInit {
 
     const this_aux = this;
     let importeDecimal  = parseFloat(this_aux.importe.toString()).toFixed(2);
+    let numeroTarjeta = localStorage.getItem("tr2_serv").substring(0, 16);
     let formParameters = {
-      ctaO: this_aux.cuentaClienteTdd,
+      ctaO: numeroTarjeta,
       cveTelefonica: this_aux.cveTelefonicaF,
       numTel: this_aux.telefonoF.nativeElement.value,
       importeTel: importeDecimal
@@ -341,6 +338,7 @@ export class CompraTiempoAireComponent implements OnInit {
 
   validarSaldo() {
     const this_aux = this;
+    $('#_modal_please_wait').modal('show');
     let importeDecimal  = parseFloat(this_aux.importe.toString()).toFixed(2);
     this._validaNipService.consultaTablaYValidaSaldo(importeDecimal).then(
       function(response) {

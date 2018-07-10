@@ -1,63 +1,76 @@
 <div ng-cloak class="padding-barToTittle">
-    <h2 class="text-center deleteMargin-h2 color-letra">Tu pago ha sido enviado</h2>
+    <h2 class="text-center  color-letra">Pago tarjeta de cr&eacute;dito exitoso</h2>
 </div>
-
-<fieldset class="padding-TittleToFieldset padding-fieldset-general">
+<fieldset align="center" class="padding-TittleToFieldset padding-fieldset-general">
     <div class="well sumando-well-white">
-        <div class="row">
+        <div class="row ">
             <div class="col-lg-6" align="right">
-                <strong>Folio de Operaci&oacute;n:</strong>
+                <strong>Fecha de operaci&oacute;n:</strong>
             </div>
-            <div class="col-lg-6">
-                <label>{{ res.FolioDP }}</label>
+            <div class="col-lg-6 " align="left">
+                <label>{{detallePago.fechaOperacion}}</label>
             </div>
         </div>
-
-        <div class="row">
+        <div class="row ">
             <div class="col-lg-6" align="right">
-                <strong>Fecha de Operaci&oacute;n:</strong>
+                <strong>Hora de Operaci&oacute;n:</strong>
             </div>
-            <div class="col-lg-6">
-                <label>{{ res.FechaOperacion | date: 'dd-MM-yyyy' }}</label>
+            <div class="col-lg-6" align="left">
+                <label>{{detallePago.horaOperacion}}</label>
             </div>
         </div>
-        <div class="row">
+        <div class="row ">
             <div class="col-lg-6" align="right">
-                <strong>Cuenta Origen:</strong>
+                <strong>Instituci&oacute;n:</strong>
             </div>
-            <div class="col-lg-6">
-                <label>{{ res.CuentaCargo | slice:4 }}</label>
+            <div class="col-lg-6" align="left">
+                <label>{{detallePago.institucion}}</label>
             </div>
         </div>
-        <div class="row">
+        <div class="row ">
             <div class="col-lg-6" align="right">
-                <strong>N&uacute;mero de tarjeta:</strong>
+                <strong>Clave de confirmaci&oacute;n:</strong>
             </div>
-            <div class="col-lg-6">
-                <label>{{ res.DescRefeUnoContrato }}</label>
+            <div class="col-lg-6" align="left">
+                <label> {{detallePago.claveRastreo}}</label>
             </div>
         </div>
-        <div class="row">
+        <div class="row ">
             <div class="col-lg-6" align="right">
                 <strong>Comisi&oacute;n e IVA:</strong>
             </div>
-            <div class="col-lg-6">
-                <label>{{ res.ImporteIva | currency }}</label>
+            <div class="col-lg-6" align="left">
+                <label>{{detallePago.comisioneiva}}</label>
             </div>
         </div>
-        <div class="row">
+        <div class="row ">
+            <div class="col-lg-6" align="right">
+                <strong>Cuenta origen:</strong>
+            </div>
+            <div class="col-lg-6" align="left">
+                <label>{{detallePago.cuentaOrigen}}</label>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-lg-6" align="right">
+                <strong>Cuenta destino:</strong>
+            </div>
+            <div class="col-lg-6" align="left">
+                <label>{{detallePago.cuentaDestino}}</label>
+            </div>
+        </div>
+        <div class="row ">
             <div class="col-lg-6" align="right">
                 <strong>Importe:</strong>
             </div>
-            <div class="col-lg-6">
-                <label>{{ res.ImporteCert | currency }}</label>
+            <div class="col-lg-6" align="left">
+                <label>{{detallePago.importe | currency}}</label>
             </div>
         </div>
-
     </div>
     <div style="margin:30px 0px 0px 0px;" class="row">
         <div style=" padding: 0px;" class="col-sm-12">
-            <button id="terminar" class="btn color-botones pull-right btn-lg" [routerLink]="['/menuTdd']">
+            <button id="terminar" class="color-botones btn btn-lg pull-right " [routerLink]="['/menuTdd']">
       Terminar
     </button>
         </div>

@@ -138,10 +138,10 @@
                         </div>
                         <div class="col-sm-3">
                             <select class="input-whidth form-control amount input-lg selectModificado" id="selTypePersonAlta" (change)="fMSelect($event.target.value)" #RFisicaMoralSelecAlta>                            
-                        <option disabled="true" selected="true">SELECCIONE OPCIÓN</option>
-                        <option [value]="1">Persona Física</option>
-                        <option [value]="2">Persona Moral</option>
-                      </select>
+                                <option disabled="" selected value="" ng-reflect-value="">SELECCIONE OPCIÓN</option>
+                                <option [value]="1">Persona Física</option>
+                                <option [value]="2">Persona Moral</option>
+                            </select>
                         </div>
                     </div>
                     <br>
@@ -197,15 +197,16 @@
                         </div>
                     </div>
                     <br>
+
                     <div class="row">
                         <div class="form-group col-sm-1">
                             <label for="amount" class="col-sm control-label">Colonia:</label>
                         </div>
-                        <div class="col-lg-3">
+                        <div class="col-sm-3">
                             <select class="input-whidth form-control amount input-lg selectModificado" id="selColonia" (change)="seleccionColonia()" #rColonias style=" background-size: auto">
-                                <option [disabled]="true" selected="true">SELECCIONE COLONIA</option>
+                                <option disabled="" selected value="" ng-reflect-value="">SELECCIONE COLONIA</option>
                                 <option *ngFor="let colonias of CP"  [value]="colonias.Colonia">{{colonias.Colonia}}</option>                      
-                        </select>
+                            </select>
                         </div>
                         <div class="form-group col-sm-1">
                             <label for="amount" class="col-sm control-label">Calle:</label>

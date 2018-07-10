@@ -38,6 +38,7 @@ const pageRoutesTDD: Routes = [
             { path: 'movimientoSaldo', component: MovimientosaldoComponent},
             { path: 'compraTiempoAire', component: CompraTiempoAireComponent},
             { path: 'compraTiempoAireFinal', component: CompraTiempoAireFinalComponent},
+            { path: 'spei', component: TransferenciaSpeiComponent},
             { path: 'transBanorte', component: TransferenciasCuentasBanorteComponent},
             {path: 'transFinal', component: TransferenciasCuentasBanorteVerifyComponent},
             { path: 'pagoServiciosTDD', component: PagoServiciosComponent},

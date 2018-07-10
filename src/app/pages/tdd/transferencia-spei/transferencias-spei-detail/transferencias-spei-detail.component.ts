@@ -84,6 +84,9 @@ export class TransferenciasSpeiDetailComponent implements OnInit {
       this_aux.detalleTransferencia.nombreBanco =
         jsonSpeiTrans.DescBancoReceptor;
       this_aux.detalleTransferencia.concepto = jsonSpeiTrans.Concepto;
+      if (this_aux.detalleTransferencia.referenciaNumerica === "1") {
+        document.getElementById('refSpei').style.display = 'none';   
+      }
     } else if (this_aux.tipoOperacion === "TEF") {
       this_aux.detalleTransferencia.nombreTitular = this._serviceSesion.datosBreadCroms.nombreUsuarioTDD;
       this_aux.detalleTransferencia.importe = jsonSpeiTrans.CampoImporte;

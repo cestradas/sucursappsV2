@@ -60,7 +60,7 @@ function getContextRoot() {
         };
 
         WL.Client.init(wlInitOptions).then(function() {
-            console.info("VERSION: 1.4, 21/06/2018")
+            console.info("VERSION: 1.6, 09/07/2018")
 
             var formParameters = {};
             var resourceRequest = new WLResourceRequest(

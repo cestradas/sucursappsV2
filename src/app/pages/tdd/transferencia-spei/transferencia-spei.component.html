@@ -76,10 +76,10 @@
 
                 <div class="row">
                     <div class="form-group col-sm-2">
-                        <label for="amount" class="col-sm-2 control-label">Clabe:</label>
+                        <label for="amount" id="clabeTarjeta" class="col-sm-2 control-label" style="max-width: 250px;">Clabe:</label>
                     </div>
                     <div class="col-sm-9">
-                        <input name="clabe" id="clabe" #rClabe formControlName="numeroClabeF" [matKeyboard]="'num'" type="text" maxlength="18" class="input-whidth form-control amount input-lg" (focus)="tecladoMoverAbajo()" />
+                        <input name="clabe" id="clabe" #rClabe formControlName="numeroClabeF" [matKeyboard]="'num'" type="text" class="input-whidth form-control amount input-lg" (focus)="tecladoMoverAbajo()" (blur)="obtenerCuentaDestino(rClabe.value)" />
                         <div class="alert-danger" *ngIf="myform.get('numeroClabeF').errors && myform.get('numeroClabeF').touched">
                             <p color="danger">Ingrese Clabe</p>
                         </div>
@@ -150,20 +150,6 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <!--
-                <div class="row">
-                    <div class="form-group col-sm-2">
-                        <label class="col-sm-12 control-label">RFC Emisor</label>
-                    </div>
-                    <div class="col-sm-9">
-                        <input [matKeyboard]="" name="rfcEmisor" id="rfcEmisor" #rRfcEmisor formControlName="rFcEmisorF" type="text" maxlength="13" class="input-whidth form-control amount input-lg text-uppercase" />
-                        <div class="alert-danger" *ngIf="myform.get('rFcEmisorF').errors && myform.get('rFcEmisorF').touched">
-                            <p color="danger">Formato de RFC Incorrecto</p>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-
-                </div> -->
                 <div id="someDiv" name="someDiv"></div>
             </div>
         </div>
@@ -178,7 +164,7 @@
             <!-- <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
             <div class="col-sm-1">
                 <button id="continuarspei" name="continuarspei" class="btn color-botones btn-lg" [disabled]="myform.invalid || rSelecBanco.value === 'Seleccione un banco' || rSelecBanco.value === ''
-                || rTipoTransferencia.value === 'Seleccione transferencia' || rTipoTransferencia.value === ''" (click)="validarSaldo(rClabe.value, rBeneficiario.value, rReferencia.value, rImporte.value, rDescripcion.value,
+                || rTipoTransferencia.value === 'Seleccione transferencia' || rTipoTransferencia.value === '' || tamCuenta !== 1" (click)="validarSaldo(rClabe.value, rBeneficiario.value, rReferencia.value, rImporte.value, rDescripcion.value,
                     rEmail.value)" style="margin-right: -49px;">
                         Continuar</button>
             </div>
@@ -214,7 +200,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg 6">
-                        <label>Clabe Destino:</label>
+                        <label>Cuenta Destino:</label>
                     </div>
                     <div class="col-lg 6">
                         <label>{{clabe}}</label>
@@ -228,15 +214,6 @@
                         <label>{{importe | currency}}</label>
                     </div>
                 </div>
-                <!--
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>Comision:</label>
-                    </div>
-                    <div class="col-lg 6">
-                        <label>$0.00</label>
-                    </div>
-                </div> -->
                 <div class="row">
                     <div class="col-lg 6">
                         <label>Correo:</label>
@@ -245,15 +222,6 @@
                         <label>{{email}}</label>
                     </div>
                 </div>
-                <!--
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>Importe total:</label>
-                    </div>
-                    <div class="col-lg 6">
-                        <label>${{importe}}</label>
-                    </div>
-                </div> -->
                 <div class="row">
                     <div class="col-lg 6">
                         <label>Beneficiario:</label>
@@ -278,15 +246,6 @@
                         <label>{{referencia}}</label>
                     </div>
                 </div>
-                <!--
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>RFC Emisor:</label>
-                    </div>
-                    <div class="col-lg 6">
-                        <label>{{rfcEmi | uppercase}}</label>
-                    </div>
-                </div> -->
                 <div class="modal-footer">
                     <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
                     <button id="continuar" class="color-botones btn btn-lg " onclick="handlerCallPinpad()" (click)="confirmarTransaccion()" data-dismiss="modal">
@@ -319,30 +278,3 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-
-<!-- <div class="modal fade" id="modalErrorMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title" id="myModalLabel">Ocurrio un error</h4>
-            </div>
-            <div class="modal-body">
-      
-              <ul class="list-group">
-                <li class="list-group-item">
-                  <label></label>
-                  <label id="errorMensaje"></label>
-                </li>
-                
-             
-              </ul>
-            </div>
-         <div class="modal-footer">
-              <button type="button" class="btn btn-lg" data-dismiss="modal">Cerrar</button>
-         </div>
-              <div class="modal-footer">   <button type="button" class="btn btn-primary btn-lg" onClick="onTransferSPEI()">Confirmar</button>
-            </div>
-          </div>
-      
-        </div>
-      </div> -->

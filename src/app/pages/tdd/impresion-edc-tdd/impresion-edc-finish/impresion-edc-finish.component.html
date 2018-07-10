@@ -1,13 +1,13 @@
-<h2 class="text-center deleteMargin-h2 padding-barToTittle">
-    Envio de estado de cuenta</h2>
+<h2 class="text-center color-letra deleteMargin-h2 padding-barToTittle">
+    Envío de estado de cuenta</h2>
 <fieldset class="padding-fieldset-general padding-TittleToFieldset">
 
 
 
-    <form [formGroup]="forma" (ngSubmit)="showDetallePago()" class="needs-validation">
+    <form [formGroup]="forma" (ngSubmit)="enviaCorreo()" class="needs-validation">
         <div id="divisionInputs"></div>
         <div class="row sumando-form-group letranegrita">
-            <div class="col-sm-1 sumando-bg-red group-name">Envio</div>
+            <div class="col-sm-1 sumando-bg-red group-name">Envío</div>
             <div class="col-sm-11 sumando-well-white">
 
                 <div id="transferencia" style="display: block;">
@@ -18,7 +18,7 @@
                                 <label>Correo electronico: </label>
                             </div>
                             <div class="col-sm-10">
-                                <input id="correo" name="correo" formControlName="correo" type="text" class="form-control amount input-lg" maxlength="60" required />
+                                <input id="correo" name="correo" [matKeyboard]="" formControlName="correo" type="text" class="form-control amount input-lg" maxlength="60" required />
                                 <div *ngIf="forma.hasError('pattern', 'correo') || forma.hasError('max', 'correo') " style="margin-bottom: 0px; padding: 0.5rem 1.20rem;" class="alert alert-danger">
                                     Correo electronico incorrecto.
                                 </div>
@@ -34,7 +34,7 @@
                                 <label>Confirma correo electronico: </label>
                             </div>
                             <div class="col-sm-10">
-                                <input id="confCorreo" name="confCorreo" formControlName="confCorreo" type="text" class="form-control amount input-lg" maxlength="60" required />
+                                <input id="confCorreo" name="confCorreo" [matKeyboard]="" formControlName="confCorreo" type="text" class="form-control amount input-lg" maxlength="60" required />
                                 <div *ngIf="forma.hasError('pattern', 'confCorreo') || forma.hasError('max', 'correo') " style="margin-bottom: 0px; padding: 0.5rem 1.20rem;" class="alert alert-danger">
                                     Correo electronico incorrecto.
                                 </div>
@@ -51,7 +51,7 @@
                             </div>
 
                             <div class="col-sm-10">
-                                <input id="contra" name="contra" formControlName="contra" type="text" class="form-control amount input-lg" maxlength="60" required />
+                                <input id="contra" name="contra" [matKeyboard]="" formControlName="contra" type="password" class="form-control amount input-lg" maxlength="60" required />
                                 <div *ngIf="forma.hasError('min', 'contra') || forma.hasError('max', 'contra') " style="margin-bottom: 0px; padding: 0.5rem 1.20rem;" class="alert alert-danger">
                                     Limite de....
                                 </div>
@@ -74,96 +74,17 @@
         <div style="margin:30px 20px 0px 0px;" class="row actions-form-group text-right">
             <div class="col-sm-9"></div>
             <div class="col-sm-2">
-                <button class="btn btn-lg" onClick="currentPage.loadMenu();">Regresar</button>
+                <button type="button" class="btn btn-lg" routerLink="/menuTdd">Regresar</button>
             </div>
-            <!-- <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
+            <!-- <button [disabled]="!forma.valid" class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
             <div class="col-sm-1">
-                <button [disabled]="!forma.valid" id="continuarspei" name="continuarspei" class="btn btn-danger btn-lg" type="submit">
-                  Continuar</button>
+                <button disabled="disabled" id="continuarEdc" name="continuarEdc" class="btn btn-danger btn-lg" type="submit">
+                    Continuar</button>
             </div>
         </div>
     </form>
 </fieldset>
 
-
-<!-- Modal -->
-<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content shadowModal ">
-
-            <div class="modal-body" style="padding: 2rem;">
-
-                <h4 style="color: #B01657; font-weight: 700;">Confirmar pago</h4>
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>Cuenta origen:</label>
-                    </div>
-                    <div class="col-lg 6">
-                        <label>{{cuentaOrigenModal}}</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>Cuenta destino:</label>
-                    </div>
-                    <div class="col-lg 6">
-                        <label>{{CuentaDestino}}</label>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>Correo:</label>
-                    </div>
-                    <div class="col-lg 6">
-                        <label>{{correoBeneModal}}</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>Nombre:</label>
-                    </div>
-                    <div class="col-lg 6">
-                        <label>{{nombreBeneModal}}</label>
-                    </div>
-                </div>
-
-
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>Importe total:</label>
-                    </div>
-                    <div class="col-lg 6">
-                        <label>${{importeF}}</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg 12">
-                        <div id="challenger" class="form-group">
-                            <label>N&uacute;mero de seguridad</label>
-                            <input type='text' id='numeroSeguridad' class='form-control input-lg' ng-model='challenge.rcg' readonly>
-
-                        </div>
-                        <div id="divPass" class="form-group">
-                            <label>TipoAutentica</label>
-
-                            <input type="password" class="form-control input-lg" #token [matKeyboard]="">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                    <button class="color-botones btn btn-lg " (click)="confirmarPago(token.value)">
-                              Confirmar
-                            </button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="uiv-animate" ui-view></div>
 
 
 <div id="errorModal" class="modal fade" data-backdrop="static" data-keyboard="false">
@@ -175,7 +96,7 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" onClick="currentPage.loadMenu();">Cerrar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
         <!-- /.modal-content -->

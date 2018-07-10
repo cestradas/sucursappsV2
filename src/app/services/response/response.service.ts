@@ -16,11 +16,18 @@ export class ResponseWS {
     stringDocumento: string;
     numeroDocumento: string;
     fechaDocumento: string;
+    validaMail: string;
     // Compra TA
     detalleConfirmacionCTA: string;
     // Cancelacion Envio EDC Domicilio
     numeroCuentaTdd: string;
     email: string;
+    // Pago tarjeta Credito
+    detallePagoTarjeta: string;
+    nameBancoDestino: string;
+    nameOperacion: string;
+    numCuentaDestino: string;
+    
     respuesta: Respuesta = {
 
         respuestaWS: '',
