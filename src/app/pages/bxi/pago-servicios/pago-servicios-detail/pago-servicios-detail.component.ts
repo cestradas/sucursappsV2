@@ -263,10 +263,11 @@ export class PagoServiciosDetailComponent implements OnInit {
   transformAmount(importe) {
     // const expre1 = /^\$+([0-9]{1,3}\,*)+(\.)+([0-9]{2})/;
      const expre2 =  /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/;
+     const expres3 = /^\$+(([0-9]{1,}\,*)+((\.){0,1}([0-9]{0,}))$)/;
     // const expre3 =  /^([0-9])/;
     // const expre4 =  /^\.+([0-9]{2})/;
     const this_aux = this;
-    if (importe !== '' && importe !== '.' && importe !== '-' && expre2.test(importe)) {
+    if (importe !== '' && importe !== '.' && importe !== '-' && (expre2.test(importe) || expres3.test(importe))) {
       this_aux.importeAux = this_aux.replaceSimbolo(importe);
       this_aux.rImporte.nativeElement.value = this_aux.currencyPipe.transform(this_aux.importeAux, 'USD');
       this_aux.importeAux = this_aux.replaceSimbolo( this_aux.rImporte.nativeElement.value) ;
@@ -383,7 +384,7 @@ export class PagoServiciosDetailComponent implements OnInit {
           const importe = unidades + centavos;
           const digito = value.substring(19, 20);
           // tslint:disable-next-line:max-line-length
-          const controlTelefono: FormControl = new FormControl(telefono, [Validators.required, Validators.minLength(10), Validators.maxLength(1)]);
+          const controlTelefono: FormControl = new FormControl(telefono, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]);
           const controlDigito: FormControl = new FormControl(digito, [Validators.required, Validators.maxLength(1)]);
           const controlImporte: FormControl = new FormControl(importe, Validators.required);
           this_aux.myForm.setControl('fcImporte', controlImporte );
