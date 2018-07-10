@@ -1331,3 +1331,8 @@ button#buttonImageMantoBen {
     border: 1px solid transparent; 
     border-radius: .25rem; 
 }
+
+.text-li{
+    font-size: 22px;
+    padding-left: 1%;
+}

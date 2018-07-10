@@ -77,14 +77,21 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       const consultaCuentas = JSON.parse(cuentasString);
       const cuentasArray = consultaCuentas.ArrayCuentas;
         cuentasArray.forEach(cuenta => {
-          this_aux.crearListaCuentas(cuenta);
+          this_aux.filtraCtaVista(cuenta);
       });
   }
 
-  crearListaCuentas(cuenta) {
+  filtraCtaVista(cuenta) {
+    const this_aux = this;
+    if (cuenta.TipoCuenta === 1) {
+      this_aux.crearListaCuentas(cuenta);
+    } 
+  }
+  crearListaCuentas(cuenta) {   
     const this_aux = this;
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     const li =  this.renderer.createElement('li');
+    this_aux.renderer.addClass(li, 'text-li');
     const a = this.renderer.createElement('a');
     const textoCuenta = this.renderer.createText( cuenta.Alias + ' ' + operacionesbxi.mascaraNumeroCuenta(cuenta.NoCuenta) );
     this.renderer.setProperty(a, 'value', cuenta.NoCuenta);

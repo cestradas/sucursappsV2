@@ -63,6 +63,7 @@ fillSelectCuentas() {
  
     for (let i = 0; i < this_aux.cuentasArray.length; i++) {
       const li =  this.renderer.createElement('li');
+      this_aux.renderer.addClass(li, 'text-li');
       const a = this.renderer.createElement('a');
       let mascaraCuenta;
 

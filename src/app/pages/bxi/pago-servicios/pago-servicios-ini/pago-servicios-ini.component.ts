@@ -49,10 +49,6 @@ export class PagoServiciosIniComponent implements OnInit {
       btnContinuar.classList.remove("color-botones");
       btnContinuar.classList.add("color-botones_Preferente");
     }
-
-
-
-
    }
 
    saveData() {
@@ -64,22 +60,34 @@ export class PagoServiciosIniComponent implements OnInit {
    fillSelectCuentas() {
              const this_aux = this;
              const cuentasString = this_aux.service.infoCuentas;
-             const operacionesbxi: OperacionesBXI = new OperacionesBXI();
              console.log(this_aux.service.infoCuentas);
              const consultaCuentas = JSON.parse(cuentasString);
              const cuentasArray = consultaCuentas.ArrayCuentas;
                cuentasArray.forEach(cuenta => {
-                   const li =  this.renderer.createElement('li');
-                   const a = this.renderer.createElement('a');
-                   const textoCuenta = this.renderer.createText( cuenta.Alias + ' ' + operacionesbxi.mascaraNumeroCuenta(cuenta.NoCuenta));
-                   this.renderer.setProperty(a, 'value', cuenta.NoCuenta);
-                   this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target); });
-                   this.renderer.appendChild(a, textoCuenta),
-                   this.renderer.appendChild(li, a);
-                   this.renderer.appendChild(this.listaCuentas.nativeElement, li);
+                this_aux.filtraCtaVista(cuenta);
              });
+    }
 
-        }
+    filtraCtaVista(cuenta) {
+      const this_aux = this;
+      if (cuenta.TipoCuenta === 1) {
+        this_aux.crearListaCuentas(cuenta);
+      } 
+    }
+      
+     crearListaCuentas(cuenta) {
+      const this_aux = this;
+      const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+      const li =  this_aux.renderer.createElement('li');
+      this_aux.renderer.addClass(li, 'text-li');
+      const a = this_aux.renderer.createElement('a');
+      const textoCuenta = this_aux.renderer.createText( cuenta.Alias + ' ' + operacionesbxi.mascaraNumeroCuenta(cuenta.NoCuenta));
+      this.renderer.setProperty(a, 'value', cuenta.NoCuenta);
+      this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target); });
+      this.renderer.appendChild(a, textoCuenta),
+      this.renderer.appendChild(li, a);
+      this.renderer.appendChild(this_aux.listaCuentas.nativeElement, li);
+     }
 
      setDatosCuentaSeleccionada(elementHTML) {
 

@@ -160,6 +160,7 @@ export class CompraTaComponent implements OnInit {
     const cuentasArray = consultaCuentas.ArrayCuentas;
       cuentasArray.forEach(cuenta => {
           const li =  this.renderer.createElement('li');
+          this_aux.renderer.addClass(li, 'text-li');
           const a = this.renderer.createElement('a');
           const textoCuenta = this.renderer.createText( cuenta.Alias);
           this.renderer.setProperty(a, 'value', cuenta.NoCuenta);

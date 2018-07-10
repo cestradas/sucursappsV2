@@ -59,6 +59,7 @@ crearListaCuentas(cuenta) {
   const this_aux = this;
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
   const li =  this.renderer.createElement('li');
+  this_aux.renderer.addClass(li, 'text-li');
   const a = this.renderer.createElement('a');
   const textoCuenta = this.renderer.createText( cuenta.Alias + ' ' + operacionesbxi.mascaraNumeroCuenta(cuenta.NoCuenta));
   this.renderer.setProperty(a, 'value', cuenta.NoCuenta + ',' + cuenta.TipoCuenta);
