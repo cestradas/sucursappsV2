@@ -118,12 +118,12 @@
             <div class="col-lg-1 padding-labelToInput">
               <label>Importe: </label>
             </div>
-              <div class="col-lg-10">
+              <div class="col-lg-10" >
                 <input  id="txtImporte" type="text"class="form-control input-lg" #rImporte formControlName="fcImporte"
                 [matKeyboard]="'num'"  (blur)="transformAmount(rImporte.value)" />
-                <div *ngIf="(myForm.get('fcImporte').errors  && myForm.get('fcImporte').touched)||( rImporte.value === '' && myForm.get('fcImporte').errors === null)" class="alert alert-danger">
-                  <p color="danger" *ngIf="myForm.get('fcImporte').hasError('required') ">Dato obligatorio, favor de capturar. </p>
-                  <p color="danger" *ngIf="( rImporte.value === '' && myForm.get('fcImporte').errors === null)">Dato obligatorio, favor de capturar. </p>
+                <div class="alert alert-danger" *ngIf="(myForm.get('fcImporte').errors  && myForm.get('fcImporte').touched)">
+                  <p   *ngIf="myForm.get('fcImporte').hasError('required') ">Dato obligatorio, favor de capturar. </p>
+                  <p   *ngIf="myForm.get('fcImporte').hasError('pattern')">Dato incorrecto, favor de verificar. </p>
               </div>
               </div>
           </div>
@@ -135,9 +135,9 @@
       <div class="col-lg-2">
         <button class="btn btn-lg"  type="button" (click)="irMenuBXI()">Regresar</button>
       </div>
-      <div class="col-lg-1" style="padding-right: 0px;">
-            <button id="contiuar" type="button" class="btn color-botones btn-lg" (click)="confirmaOperacion(rImporte.value)"
-        [disabled]="(myForm.get('fcImporte').invalid || (lblAliasOrigen.value == '') || (lblCuentaOrigen.value == '') || (lblCuentaDestino.value == ''))" >
+        <div class="col-lg-1" style="padding-right: 0px;">
+              <button id="contiuar" type="button" class="btn color-botones btn-lg" (click)="confirmaOperacion(rImporte.value)"
+          [disabled]="(myForm.get('fcImporte').invalid || (lblAliasOrigen.textContent === '') || (lblCuentaOrigen.textContent === '') || (lblCuentaDestino.textContent === ''))" >
           Continuar
         </button>
     </div>

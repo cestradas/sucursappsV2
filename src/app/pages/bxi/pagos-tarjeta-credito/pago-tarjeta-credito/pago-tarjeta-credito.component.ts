@@ -41,7 +41,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   // tslint:disable-next-line:max-line-length
   constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2,  private fb: FormBuilder, private currencyPipe: CurrencyPipe) {
     this.myForm = this.fb.group({
-      fcImporte: ['', [Validators.required /*Validators.pattern(/^[0-9]+[0-9]*$/ )*/]],
+      fcImporte: ['', [Validators.required, Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)]],
       fcToken: []
     });
   }
@@ -420,20 +420,16 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   }
 
   transformAmount(importe) {
+    // const expre1 = /^\$+([0-9]{1,3}\,*)+(\.)+([0-9]{2})/;
+    const expre2 =  /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/;
+    // const expre3 =  /^([0-9])/;
+    // const expre4 =  /^\.+([0-9]{2})/;
     const this_aux = this;
-    if (importe !== '') {
-      const control: FormControl = new FormControl('');
-      this_aux.myForm.setControl('fcImporte', control);
+    if (importe !== '' && importe !== '.' && importe !== '-' && expre2.test(importe)) {
       this_aux.importeAux = this_aux.replaceSimbolo(importe);
       this_aux.rImporte.nativeElement.value = this_aux.currencyPipe.transform(this_aux.importeAux, 'USD');
       this_aux.importeAux = this_aux.replaceSimbolo( this_aux.rImporte.nativeElement.value) ;
-
-    } else {
-        if (this_aux.myForm.get('fcImporte').errors === null) {
-          const control: FormControl = new FormControl('', Validators.required);
-          this_aux.myForm.setControl('fcImporte', control );
-        }
-    }
+     }
   }
   replaceSimbolo(importe) {
     const this_aux = this;

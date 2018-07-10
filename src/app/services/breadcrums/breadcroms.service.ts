@@ -9,7 +9,9 @@ export class SesionTDDService {
     sicUsuarioTDD: '',
     EmailCliente: '',
     CelCliente: '',
-    numeroCliente: ''
+    numeroCliente: '',
+    repTrasferenciaCuentasBanorte: ''
+    
   };
 
   constructor(@Inject(DOCUMENT) private _document) {}
@@ -23,5 +25,7 @@ interface DatosBreadCroms {
   EmailCliente: string;
   CelCliente: string;
   numeroCliente: string;
+  repTrasferenciaCuentasBanorte: string;
+
 
 }

@@ -94,11 +94,11 @@
                             <label>Importe: </label>
                         </div>
                         <div class="col-lg-10">
-                            <input type="text" id="idImporte" class="form-control input-lg" formControlName="fcImporte" #rImporte [matKeyboard]="'num'"
+                            <input type="text" id="txtImporte" class="form-control input-lg" formControlName="fcImporte" #rImporte [matKeyboard]="'num'"
                             (blur)="transformAmount(rImporte.value)"  />
-                            <div *ngIf="(myForm.get('fcImporte').errors  && myForm.get('fcImporte').touched)||( rImporte.value === '' && myForm.get('fcImporte').errors === null)" class="alert alert-danger">
-                                <p color="danger" *ngIf="myForm.get('fcImporte').hasError('required') ">Dato obligatorio, favor de capturar. </p>
-                                <p color="danger" *ngIf=" ( rImporte.value === '' && myForm.get('fcImporte').errors === null)">Dato obligatorio, favor de capturar. </p>
+                            <div *ngIf="myForm.get('fcImporte').errors  && myForm.get('fcImporte').touched" class="alert alert-danger">
+                                    <p   *ngIf="myForm.get('fcImporte').hasError('required') ">Dato obligatorio, favor de capturar. </p>
+                                    <p   *ngIf="myForm.get('fcImporte').hasError('pattern')">Dato incorrecto, favor de verificar. </p>
                             </div>
 
                         </div>

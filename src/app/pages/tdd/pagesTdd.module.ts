@@ -5,7 +5,6 @@ import { PagesTddComponent } from './pagesTdd.component';
 import { PAGES_ROUTES_TDD } from './pagesTdd.routes';
 import { MovimientosaldoComponent } from "./movimientosaldo/movimientosaldo.component";
 import { TransferenciaSpeiComponent } from './transferencia-spei/transferencia-spei.component';
-import { TransferenciaTercerosComponent } from './transferencia-terceros/transferencia-terceros.component';
 import { CompraTiempoAireComponent } from './compra-tiempo-aire/compra-tiempo-aire.component';
 import { CommonModule } from '@angular/common';
 import { AppComponent } from "../../app.component";
@@ -18,7 +17,6 @@ import { PagoTarjetaCreditoComponent } from './pago-tarjeta-credito/pago-tarjeta
 import { CompraTiempoAireFinalComponent } from './compra-tiempo-aire/compra-tiempo-aire-final.component';
 import { PagoTarjetaCreditoFinalComponent } from './pago-tarjeta-credito/pago-tarjeta-credito-final.component';
 import { ActivarAlertasComponent } from './activar-alertas/activar-alertas.component';
-import { TransferenciaTercerosFinalComponent } from './transferencia-terceros/transferencia-terceros-final.component';
 import { MantenimientoBenefDetailComponent } from './mantenimiento-benef/mantenimiento-benef-detail/mantenimiento-benef-detail.component';
 import { ImpresionEdcTddComponent } from './impresion-edc-tdd/impresion-edc-tdd.component';
 import { TransferenciasSpeiDetailComponent } from './transferencia-spei/transferencias-spei-detail/transferencias-spei-detail.component';
@@ -80,7 +78,6 @@ const customLayouts: IKeyboardLayouts = {
         MovimientosaldoComponent,
         CompraTiempoAireComponent,
         TransferenciaSpeiComponent,
-        TransferenciaTercerosComponent,
         MantenimientoBenefComponent,
         MantenimientoBenefDetailComponent,
         MenutddComponent,
@@ -88,7 +85,6 @@ const customLayouts: IKeyboardLayouts = {
         CompraTiempoAireFinalComponent,
         PagoTarjetaCreditoFinalComponent,
         ActivarAlertasComponent,
-        TransferenciaTercerosFinalComponent,
         ImpresionEdcTddComponent,
         TransferenciasSpeiDetailComponent,
         MantenimientosDatosContactoComponent,

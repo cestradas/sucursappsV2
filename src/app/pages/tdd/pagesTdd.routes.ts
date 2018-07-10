@@ -4,7 +4,6 @@ import { MenutddComponent } from './menuTDD/menutdd.component';
 import { PagesTddComponent } from './pagesTdd.component';
 import { MovimientosaldoComponent } from './movimientosaldo/movimientosaldo.component';
 import { TransferenciaSpeiComponent } from './transferencia-spei/transferencia-spei.component';
-import { TransferenciaTercerosComponent } from './transferencia-terceros/transferencia-terceros.component';
 import { CompraTiempoAireComponent } from './compra-tiempo-aire/compra-tiempo-aire.component';
 import { CompraTiempoAireFinalComponent } from './compra-tiempo-aire/compra-tiempo-aire-final.component';
 import { MantenimientoBenefComponent } from './mantenimiento-benef/mantenimiento-benef.component';
@@ -13,7 +12,6 @@ import { PagoTarjetaCreditoFinalComponent } from './pago-tarjeta-credito/pago-ta
 import { MantenimientoBenefDetailComponent } from './mantenimiento-benef/mantenimiento-benef-detail/mantenimiento-benef-detail.component';
 import { TransferenciasSpeiDetailComponent } from './transferencia-spei/transferencias-spei-detail/transferencias-spei-detail.component';
 import { ActivarAlertasComponent } from './activar-alertas/activar-alertas.component';
-import { TransferenciaTercerosFinalComponent } from './transferencia-terceros/transferencia-terceros-final.component';
 import { ImpresionEdcTddComponent } from './impresion-edc-tdd/impresion-edc-tdd.component';
 import { ImpresionEdcFinishComponent } from './impresion-edc-tdd/impresion-edc-finish/impresion-edc-finish.component';
 import { PagoDeServicioDetallesComponent } from './pagoServiciosTDD/pago-de-servicio-detalles/pago-de-servicio-detalles.component';
@@ -41,7 +39,7 @@ const pageRoutesTDD: Routes = [
             { path: 'compraTiempoAire', component: CompraTiempoAireComponent},
             { path: 'compraTiempoAireFinal', component: CompraTiempoAireFinalComponent},
             { path: 'transBanorte', component: TransferenciasCuentasBanorteComponent},
-            {path: 'transFinal', component: TransferenciasCuentasBanorteVerifyComponent},            { path: 'transBanorte', component: TransferenciaTercerosComponent},
+            {path: 'transFinal', component: TransferenciasCuentasBanorteVerifyComponent},
             { path: 'pagoServiciosTDD', component: PagoServiciosComponent},
             { path: 'pagoCredito', component: PagoTarjetaCreditoComponent},
             { path: 'pagoCreditoFinal', component: PagoTarjetaCreditoFinalComponent},
@@ -53,7 +51,6 @@ const pageRoutesTDD: Routes = [
             { path: 'actualizarDatosContactoTDD', component: MantenimientosDatosContactoComponent},
             { path: 'activarAlertasTDD', component: ActivarAlertasComponent},
             { path: 'activarAlertasVerifyTDD', component: ActivarAlertasVerifyTddComponent},
-            { path: 'transTercerosFinal', component: TransferenciaTercerosFinalComponent},
             { path: 'impresion-edc', component: ImpresionEdcTddComponent},
             { path: 'impresion-edc-final', component: ImpresionEdcFinishComponent},
             { path: 'impresion_EDC_Tdd_Electron', component: DocElectronTddComponent},

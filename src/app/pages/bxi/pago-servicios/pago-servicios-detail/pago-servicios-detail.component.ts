@@ -37,7 +37,7 @@ export class PagoServiciosDetailComponent implements OnInit {
      fcReferencia: ['', [Validators.required]],
      fcDigitoVerificador: ['', [Validators.required, Validators.maxLength(1)]],
      fcFechaVencimiento: ['', [Validators.required , Validators.pattern(/^\d{2,4}\-\d{1,2}\-\d{1,2}$/)]],
-     fcImporte: ['', [Validators.required ]],
+     fcImporte: ['', [Validators.required, Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)]],
      fcToken: []
 
     });
@@ -261,20 +261,17 @@ export class PagoServiciosDetailComponent implements OnInit {
   }
 
   transformAmount(importe) {
+    // const expre1 = /^\$+([0-9]{1,3}\,*)+(\.)+([0-9]{2})/;
+     const expre2 =  /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/;
+    // const expre3 =  /^([0-9])/;
+    // const expre4 =  /^\.+([0-9]{2})/;
     const this_aux = this;
-    if (importe !== '') {
-      const control: FormControl = new FormControl('');
-      this_aux.myForm.setControl('fcImporte', control);
+    if (importe !== '' && importe !== '.' && importe !== '-' && expre2.test(importe)) {
       this_aux.importeAux = this_aux.replaceSimbolo(importe);
       this_aux.rImporte.nativeElement.value = this_aux.currencyPipe.transform(this_aux.importeAux, 'USD');
       this_aux.importeAux = this_aux.replaceSimbolo( this_aux.rImporte.nativeElement.value) ;
 
-    } else {
-        if (this_aux.myForm.get('fcImporte').errors === null) {
-          const control: FormControl = new FormControl('', Validators.required);
-          this_aux.myForm.setControl('fcImporte', control );
-        }
-    }
+    } 
   }
 
   replaceSimbolo(importe) {
