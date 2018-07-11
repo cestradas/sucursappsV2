@@ -4,48 +4,12 @@
     </div>
 
     <fieldset class="padding-TittleToFieldset padding-fieldset-general  ">
-        <div class="row sumando-form-group letranegrita">
-            <div class="col-sm-1 sumando-bg-orange group-name" style="border-bottom-width: 0px;height: 68px; padding-top: 24px;">Desde</div>
-            <div class="col-sm-11 group-controls padding-left-0 padding-right-0 sumando-well-white" style="margin-bottom: 30px; height: 69px; padding-top: 0px; padding-bottom: 0px;">
-                <div class="form-group ">
-
-                    <div class="sumando-dropdown-account">
-                        <table width="100%" class="letranegrita">
-                            <tr>
-                                <td align="left" width="40%">Nombre <strong>
-                                      <label #lblAliasOrigen>
-                                          {{ nombreUsuarioTdd }}
-                                      </label>
-                              </strong>
-                                </td>
-                                <td align="left" width="40%">
-                                    <strong>
-                                          <label #lblSaldoOrigen>{{ saldoClienteTdd | currency }}</label>
-                              </strong>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="left">Cuenta
-
-                                    <label #lblCuentaOrigen>
-                                          {{ cuentaClienteTdd }}
-                                      </label>
-
-                                </td>
-                                <td align="left">Saldo Disponible
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="padding-InFieldset" style="width: 1749px; margin-left: -10px;">
             <div align="center" class="well sumando-well-white col-sm-12  " style="padding: 2%">
                 <div class="row padding-InFieldset">
                     <div class="col-lg-12" align="left">
-                        <label *ngIf="!AlertasActivas">No tienes el servicio de alertas activado para esta cuenta.</label>
-                        <label *ngIf="AlertasActivas">Tienes  el servicio de alertas activado  para esta cuenta. </label>
+                        <label *ngIf="!AlertasActivas">No tienes el servicio de alertas activado para la cuenta {{ cuentaClienteTdd }}.</label>
+                        <label *ngIf="AlertasActivas">Tienes  el servicio de alertas activado  </label>
                     </div>
                 </div>
                 <div class="row padding-InFieldset">
@@ -70,7 +34,7 @@
                 <button type="button" class="btn btn-lg" (click)="irMenuTDD()">Regresar</button>
             </div>
             <div class="col-lg-1" style="padding-right: 2%;">
-                <button id="continuar" type="button" class="btn color-botones btn-lg" [disabled]="(lblAliasOrigen.textContent === '' || lblCuentaOrigen.textContent === '') || (!isChecked && !AlertasActivas)||AlertasActivas" (click)="setAltaServicioAlertas()">
+                <button id="continuar" type="button" class="btn color-botones btn-lg" [disabled]="(!isChecked && !AlertasActivas)||AlertasActivas" (click)="setAltaServicioAlertas()">
                                         Continuar
                     </button>
             </div>

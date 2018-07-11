@@ -14,13 +14,18 @@ export class MantenimientoDatosContactoFinalComponent implements OnInit {
   Sic: string;
   Celular: string;
   CorreoElectronico: string;
+  dia: any;
+  mes: any;
+  anio: any;
+  fechaMesActualFin: any;
+  hora: any;
 
   constructor(private _serviceSesion: SesionTDDService, private router: Router) {
   }
 
   ngOnInit() {
 
-    //ESTILOS Preferente
+    // ESTILOS Preferente
     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
     let btnTerminar = document.getElementById("terminar");
 
@@ -34,6 +39,18 @@ export class MantenimientoDatosContactoFinalComponent implements OnInit {
     const this_aux = this;
 
     this_aux.consultarDatos();
+    this_aux.hora = new Date().getTimezoneOffset();
+    this_aux.dia = new Date().getUTCDate();
+    this_aux.mes = (new Date().getUTCMonth() + 1);
+    this_aux.anio = new Date().getFullYear();
+
+    if (this_aux.mes < 10) {
+      this_aux.mes = "0" + this_aux.mes;
+  }
+  if (this_aux.dia < 10) {
+     this_aux.dia = "0" + this_aux.dia;
+  }
+  this_aux.fechaMesActualFin = (this_aux.dia + "-" + this_aux.mes + "-" + this_aux.anio).toString();
   }
 
   mostrarDatos() {
@@ -54,20 +71,25 @@ export class MantenimientoDatosContactoFinalComponent implements OnInit {
         const jsonRespuesta = respPago.responseJSON;
         if (jsonRespuesta.Id === '1') {
          console.log(respPago.responseText);
-         this_aux._serviceSesion.datosBreadCroms.CelCliente = jsonRespuesta.Email;
-         this_aux._serviceSesion.datosBreadCroms.EmailCliente = jsonRespuesta.Telefono;
-          console.log("Consulta de Datos Exitosa");
+         this_aux.Celular = jsonRespuesta.Telefono;
+         this_aux.CorreoElectronico = jsonRespuesta.Email;
+         this_aux.Sic = this_aux._serviceSesion.datosBreadCroms.numeroCliente;
+          
 
-          setTimeout(function() {
+         if (this_aux.CorreoElectronico !== this_aux._serviceSesion.datosBreadCroms.EmailCliente) {
+          const div = document.getElementById('correo2');
+          div.style.display = "block";
+          const div2 = document.getElementById('correo');
+          div2.style.display = "block";
+        }
+        
+        if (this_aux.Celular !== this_aux._serviceSesion.datosBreadCroms.CelCliente) {
+          const div2 = document.getElementById('celular');
+          div2.style.display = "block";
+        }
+         console.log("Consulta de Datos Exitosa");
 
-            this_aux.NombreUser = this_aux._serviceSesion.datosBreadCroms.nombreUsuarioTDD;
-            this_aux.Celular = this_aux._serviceSesion.datosBreadCroms.CelCliente;
-            this_aux.CorreoElectronico = this_aux._serviceSesion.datosBreadCroms.EmailCliente;
-            this_aux.Sic = this_aux._serviceSesion.datosBreadCroms.numeroCliente;
-            setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
-          }, 500);
-
-
+          setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
         } else {
           this_aux.showErrorSucces(jsonRespuesta);
           this_aux._serviceSesion.datosBreadCroms.CelCliente = "";

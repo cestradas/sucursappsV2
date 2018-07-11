@@ -63,7 +63,7 @@
                         <div class="col-lg-10">
                             <input type="text" id="iNumCuenta" class="form-control input-lg" formControlName="fcNumCuenta" #rNumCuenta [matKeyboard]="'num'" (blur)="obtenerCuentaDestino(rNumCuenta.value)" />
                             <div *ngIf="myForm.get('fcNumCuenta').errors  && myForm.get('fcNumCuenta').touched" class="alert alert-danger">
-                                <p color="danger" *ngIf="myForm.get('fcNumCuenta').hasError('required')">Dato obligatorio, favor de capturar. </p>
+                                <p color="danger" *ngIf="myForm.get('fcNumCuenta').hasError('required') || myForm.get('fcNumCuenta').hasError('maxlength') || myForm.get('fcNumCuenta').hasError('minlength')">Dato obligatorio, favor de capturar. </p>
                                 <p color="danger" *ngIf="myForm.get('fcNumCuenta').hasError('pattern')">No es formato solicitado</p>
                             </div>
 
@@ -127,7 +127,7 @@
         <div class="col-lg-10"></div>
         <div class="col-lg-2">
             <button class="btn btn-lg" [routerLink]="['/menuTdd']">Regresar</button>
-            <button id="continuar" type="button" class="color-botones btn btn-lg " [disabled]="myForm.invalid || tamCuenta !== 1" (click)="validarSaldo(myForm.value)"> 
+            <button id="continuar" type="button" class="color-botones btn btn-lg " [disabled]="myForm.invalid" (click)="validarSaldo(myForm.value)"> 
                 <!--  <button id="continuar" type="button" class="color-botones btn btn-lg " (click)="validarSaldo(myForm.value)"> -->
                         Continuar
                 </button>
@@ -135,7 +135,7 @@
     </div>
 
 
-    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content shadowModal " style=" width: 110%;">
 
@@ -213,7 +213,7 @@
         </div>
     </div>
 
-    <div id="modalErrorMessage" class="modal fade" data-backdrop="static" data-keyboard="false">
+    <div id="modalErrorMessage" class="modal fade" data-backdrop="static" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-dialog-error">
             <div class="modal-content">
                 <div class="modal-body text-center">

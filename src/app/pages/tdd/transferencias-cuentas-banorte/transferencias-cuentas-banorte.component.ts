@@ -14,6 +14,7 @@ declare var $: $;
 })
 export class TransferenciasCuentasBanorteComponent implements OnInit {
   @ViewChild('rImporte', { read: ElementRef}) rImporte: ElementRef ;
+  @ViewChild('rNumCuenta', { read: ElementRef}) rNumCuenta: ElementRef ;
   subscription: Subscription;
 
   nombreUsuarioTdd: string;
@@ -39,9 +40,9 @@ export class TransferenciasCuentasBanorteComponent implements OnInit {
     private router: Router) {
 
       this.myForm = this.fb.group({
-        fcNumCuenta: ['', [Validators.required, ]],
+        fcNumCuenta: ['', [Validators.required, Validators.pattern(/^(([0-9]{10}))$|^(([0-9]{16}))$/)]],
         fcDescripcion: ['', [Validators.required]],
-        fcCorreo: ['', [Validators.required, Validators.email]],
+        fcCorreo: ['', [Validators.required, Validators.pattern(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)]],
        fcImporte: ['', [Validators.required /*Validators.pattern(/^[0-9]+[0-9]*$/ )*/]],
   
       });
@@ -92,14 +93,11 @@ export class TransferenciasCuentasBanorteComponent implements OnInit {
        
   }
 
+  
+
   obtenerCuentaDestino(numCuenta) {
     const this_aux = this;
     this_aux.cuentaDestino = numCuenta;
-    if (this_aux.cuentaDestino.length === 10 || this_aux.cuentaDestino.length === 16) { 
-      this_aux.tamCuenta = 1;  
-    } else {
-      this_aux.tamCuenta = 0;
-    }
     
   }
 

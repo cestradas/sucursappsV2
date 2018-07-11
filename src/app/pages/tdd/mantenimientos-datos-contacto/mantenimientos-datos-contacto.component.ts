@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms'
 import { Router } from '@angular/router';
 import { consultaCatalogos } from '../../../services/consultaCatalogos/consultaCatalogos.service';
 import { SesionBxiService } from '../../bxi/sesion-bxi.service';
-import { SesionTDDService } from '../../../services/service.index';
+import { SesionTDDService, ValidaNipTransaccion } from '../../../services/service.index';
 import $ from 'jquery';
 
 declare var $: any;
@@ -20,11 +20,14 @@ export class MantenimientosDatosContactoComponent implements OnInit {
   IsControlCelular = false;
   showCorreoError = false;
   showCelularError = false;
+  correoActualizado: string;
+  celActualizado: string;
 
-  constructor(private router: Router, private fb: FormBuilder, private _serviceSesion: SesionTDDService) {
+  constructor(private router: Router, private fb: FormBuilder, private _serviceSesion: SesionTDDService, 
+              private _validaNipService: ValidaNipTransaccion) {
     this.myForm = this.fb.group({
-      fcCorreo: [],
-      fcCelular: []
+      fcCorreo: ['', [Validators.required, Validators.pattern(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)]],
+      fcCelular: ['', [Validators.required, ]]
     });
    }
 
@@ -34,6 +37,7 @@ export class MantenimientosDatosContactoComponent implements OnInit {
     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
     let btnGuardar = document.getElementById("guardar");
     let btnSalir = document.getElementById("salir");
+    let btnConfirmar = document.getElementById("Confirmar2");
 
     if (storageTipoClienteTar === "true") {
 
@@ -41,6 +45,9 @@ export class MantenimientosDatosContactoComponent implements OnInit {
       btnGuardar.classList.add("color-botones_Preferente");
       btnSalir.classList.remove("color-botones");
       btnSalir.classList.add("color-botones_Preferente");
+      btnConfirmar.classList.remove("color-botones");
+      btnConfirmar.classList.add("color-botones_Preferente");
+
     }
 
 
@@ -48,7 +55,20 @@ export class MantenimientosDatosContactoComponent implements OnInit {
     $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
     this.consultarDatos();
   }
-
+  contieneDatosIncorrectos(texto) {
+    const this_aux = this;
+    let letras = ".- ";
+    texto = texto.toLowerCase();
+    for ( let i = 0; i < texto.length; i++) {
+       if (letras.indexOf(texto.charAt(i) , 0) !== -1) {
+          console.log("Contiene .- o esparcio");
+          $('iNumeroCelular').value("");
+       } else {
+        console.log("esta limpio");
+       }
+    }
+    
+  }
   consultarDatos() {
     const this_aux = this;
     const operaciones: consultaCatalogos = new consultaCatalogos();
@@ -58,8 +78,8 @@ export class MantenimientosDatosContactoComponent implements OnInit {
         const jsonRespuesta = respPago.responseJSON;
         if (jsonRespuesta.Id === '1') {
          console.log(respPago.responseText);
-         this_aux._serviceSesion.datosBreadCroms.CelCliente = jsonRespuesta.Email;
-         this_aux._serviceSesion.datosBreadCroms.EmailCliente = jsonRespuesta.Telefono;
+         this_aux._serviceSesion.datosBreadCroms.CelCliente = jsonRespuesta.Telefono;
+         this_aux._serviceSesion.datosBreadCroms.EmailCliente = jsonRespuesta.Email;
           console.log("Consulta de Datos Exitosa");
 
         } else {
@@ -81,9 +101,9 @@ export class MantenimientosDatosContactoComponent implements OnInit {
    // this_aux.consultarDatos();
     setTimeout(function() { 
       $('#_modal_please_wait').modal('show');
-      const controlCorreo: FormControl = new FormControl(this_aux._serviceSesion.datosBreadCroms.CelCliente);
+      const controlCorreo: FormControl = new FormControl(this_aux._serviceSesion.datosBreadCroms.EmailCliente);
       this_aux.myForm.setControl('fcCorreo', controlCorreo );
-      const controlCelular: FormControl = new FormControl( this_aux._serviceSesion.datosBreadCroms.EmailCliente);
+      const controlCelular: FormControl = new FormControl(this_aux._serviceSesion.datosBreadCroms.CelCliente );
       this_aux.myForm.setControl('fcCelular', controlCelular );
       setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
     }, 500);
@@ -116,6 +136,41 @@ export class MantenimientosDatosContactoComponent implements OnInit {
       );
 
   }
+
+validartarjeta(correo, numero ) {
+  this._validaNipService.validaNipTrans();
+  const this_aux = this;
+
+  $("#ModalTDDLogin").modal("show");
+let res;
+
+  this._validaNipService.validarDatosrespuesta().then(
+    mensaje => {
+
+      res = this._validaNipService.respuestaNip.res;
+      console.log(res);
+
+      if (res === true) {
+
+        
+        this_aux.modificarDatos(correo, numero);
+      this._validaNipService.respuestaNip.res = "";
+      } else {
+
+        console.error("Mostrar modal las tarjetas no son iguales");
+        document.getElementById('mnsError').innerHTML =   "Las tarjetas no corresponden.";
+        $('#_modal_please_wait').modal('hide');
+        $('#errorModal').modal('show');
+        $('#ModalTDDLogin').modal('hide');
+        this._validaNipService.respuestaNip.res = "";
+
+      }
+    }
+  );
+  $('#ModalTDDLogin').modal('hide');
+}
+
+
 
   irMenuTDD() {
     const this_aux = this;
@@ -161,7 +216,8 @@ export class MantenimientosDatosContactoComponent implements OnInit {
   editarCorreo(correoHTML) {
     const this_aux = this;
     correoHTML.readOnly = false;
-   const control: FormControl = new FormControl(this_aux.correoElectronico.nativeElement.value, [Validators.required,  Validators.email]);
+   // tslint:disable-next-line:max-line-length
+   const control: FormControl = new FormControl(this_aux.correoElectronico.nativeElement.value, [Validators.required,  Validators.pattern(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)]);
     this_aux.myForm.setControl('fcCorreo', control );
     this_aux.IsControlCorreo = true;
 
@@ -170,11 +226,38 @@ export class MantenimientosDatosContactoComponent implements OnInit {
     const this_aux = this;
     numCelHTML.readOnly = false;
     // tslint:disable-next-line:max-line-length
-    const control: FormControl = new FormControl(this_aux.numeroCelular.nativeElement.value, [Validators.required, Validators.pattern(/^([0-9])*$/), Validators.minLength(10) ]);
+    const control: FormControl = new FormControl(this_aux.numeroCelular.nativeElement.value, [Validators.required, Validators.pattern(/^([0-9])*$/), Validators.minLength(10), Validators.maxLength(10) ]);
     this_aux.myForm.setControl('fcCelular', control );
     this_aux.IsControlCelular = true;
   }
+  
+  focusTeclado(element) {
+    console.log("Entro focus");
+    console.log(element);
+    if (element.readOnly === true) {
+      $( ".cdk-visually-hidden" ).css( "margin-top", "100%" );
+    } else {
+      $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
+    }
 
+  }
+
+mostrarConfirmacion(correo, celular) {
+  const this_aux = this;
+
+      if (correo !== this_aux._serviceSesion.datosBreadCroms.EmailCliente) {
+        this_aux.correoActualizado = correo;
+        const div2 = document.getElementById('correo');
+        div2.style.display = "block";
+      }
+      
+      if (celular !== this_aux._serviceSesion.datosBreadCroms.CelCliente) {
+        this_aux.celActualizado = celular;
+        const div2 = document.getElementById('numCel');
+        div2.style.display = "block";
+      }
+      $('#actualizarCorreo').modal('show');
+}
 
 
 }

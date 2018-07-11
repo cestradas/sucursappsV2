@@ -60,11 +60,11 @@ export class PagoDeServicioDetallesComponent implements OnInit {
 
 
     this.myForm = this.fb.group({
-      fcTelefono: ['', [Validators.required, Validators.minLength(10)]],
-       fcReferencia: ['', [Validators.required]],
-       fcDigitoVerificador: ['', [Validators.required]],
-      fcFechaVencimiento: ['', [Validators.required /*Validators.pattern(/^[0-9]+[0-9]*$/ )*/  ]],
-     fcImporte: ['', [Validators.required /*Validators.pattern(/^[0-9]+[0-9]*$/ )*/]],
+      fcTelefono: ['', [Validators.required, Validators.pattern(/^(([0-9]{10}))$/)]],
+       fcReferencia: ['', [Validators.required, Validators.pattern(/^(([0-9]{1,}))$/)]],
+       fcDigitoVerificador: ['', [Validators.required, Validators.pattern(/^(([0-9]{1}))$/)]],
+      fcFechaVencimiento: ['', [Validators.required , Validators.pattern(/^\d{2,4}\-\d{1,2}\-\d{1,2}$/)  ]],
+     fcImporte: ['', [Validators.required, Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)]],
 
     });
 
@@ -150,25 +150,28 @@ console.log("aquiiiiiiiiiiiii");
 
 
 transformAmount(importe) {
+  // const expre1 = /^\$+([0-9]{1,3}\,*)+(\.)+([0-9]{2})/;
+   const expre2 =  /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/;
+   const expres3 = /^\$+(([0-9]{1,}\,*)+((\.){0,1}([0-9]{0,}))$)/;
+  // const expre3 =  /^([0-9])/;
+  // const expre4 =  /^\.+([0-9]{2})/;
   const this_aux = this;
-  if (importe !== '') {
-    const control: FormControl = new FormControl('');
-    this_aux.myForm.setControl('fcImporte', control);
+  if (importe !== '' && importe !== '.' && importe !== '-' && (expre2.test(importe) || expres3.test(importe))) {
     this_aux.importeAux = this_aux.replaceSimbolo(importe);
     this_aux.rImporte.nativeElement.value = this_aux.currencyPipe.transform(this_aux.importeAux, 'USD');
     this_aux.importeAux = this_aux.replaceSimbolo( this_aux.rImporte.nativeElement.value) ;
 
-  } else {
-      if (this_aux.myForm.get('fcImporte').errors === null) {
-        const control: FormControl = new FormControl('', Validators.required);
-        this_aux.myForm.setControl('fcImporte', control );
-      }
-  }
+  } 
 }
 
 replaceSimbolo(importe) {
-  const importeAux = importe.replace('$', '');
-  return importeAux;
+  const this_aux = this;
+  let importeAux = importe.replace('$', '');
+  const re = /\,/g;
+  importeAux = importeAux.replace(re, '');
+  console.log(importeAux);
+
+      return importeAux;
 }
 
 confirmarPago() {
@@ -289,8 +292,9 @@ leeCodeBar(value) {
       const unidades = '$' + parseInt(value.substring(10, 17), 10) ;
       const importe = unidades + centavos;
       const digito = value.substring(19, 20);
-      const controlTelefono: FormControl = new FormControl(telefono, [Validators.required, Validators.minLength(10)]);
-      const controlDigito: FormControl = new FormControl(digito, Validators.required);
+      // tslint:disable-next-line:max-line-length
+      const controlTelefono: FormControl = new FormControl(telefono, [Validators.required, Validators.pattern(/^(([0-9]{10}))$/)]);
+      const controlDigito: FormControl = new FormControl(digito, [Validators.required, Validators.pattern(/^(([0-9]{1}))$/)]);
       const controlImporte: FormControl = new FormControl(importe, Validators.required);
       this_aux.myForm.setControl('fcImporte', controlImporte );
       this_aux.myForm.setControl('fcTelefono', controlTelefono );
