@@ -73,26 +73,76 @@
               </button>
   </div>
   <div style=" padding: 0px;" class="col-sm-1">
-      <button id="guardar" class="btn color-botones btn-lg letranegrita" type="button" [disabled]="((correoElectronico.readOnly === true) && (numeroCelular.readOnly === true)) || (myForm.get('fcCelular').invalid && numeroCelular.readOnly === false) || (myForm.get('fcCorreo').invalid && correoElectronico.readOnly === false)" (click)="modificarDatos(correoElectronico.value,numeroCelular.value)">
+      <button id="guardar" class="btn color-botones btn-lg letranegrita" type="button" [disabled]="((correoElectronico.readOnly === true) && (numeroCelular.readOnly === true)) || (myForm.get('fcCelular').invalid && numeroCelular.readOnly === false) || (myForm.get('fcCorreo').invalid && correoElectronico.readOnly === false)" (click)="setTipoAutenticacionOnModal(correoElectronico.value,numeroCelular.value)">
               Guardar
           </button>
   </div>
 </div>
 
-
-<div id="correoActualizado" class="modal fade">
-  <div class="modal-dialog modal-dialog-error">
-      <div class="modal-content">
-          <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
-              <h4 class="color-letra">Aviso</h4>
-              <p id="mnsErrorModal">El correo se actualizo correctamente.</p>
-          </div>
-          <div class="modal-footer text-center">
-              <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="currentPage.loadMenu()">Salir</button>
-          </div>
-      </div>
-      <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="margin-left: 650px !important;">
+            <div class="modal-content shadowModal " style=" width: 639px;">
+    
+                <div class="modal-body" style="padding: 2rem;">
+    
+                    <h4 style="color: rgb(176, 22, 87); font-weight: 700;">Confirmar cambio   </h4><br>
+                    <div class="row" *ngIf="actCel">
+                        <div class="col-lg-4" align="right"> 
+                            <label>N&uacute;mero celular:</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <label>{{Celular}}</label>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="actCorreo">
+                        <div class="col-lg-4" align="right">
+                            <label>Correo el&eacute;ctrónico:</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <label>{{Correo}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                            <div class="col-lg-12">
+                              <label style="display: block; text-align: center; line-height: 280%; 	color: #eb012a;">Por favor captura tu 
+                                  <label>{{labelTipoAutentica}}</label> 
+                                para poder continuar
+                              </label>
+                            </div>
+                        </div>
+                    <div id="challenger" class="row">
+                            <div class="col-lg-5" align="center">
+                                  <label>N&uacute;mero de seguridad:</label>
+                            </div>
+                            <div class="col-lg-7">
+                                <label  class='form-control input-lg'  >{{NumeroSeguridad}}</label>
+                            </div>
+                    </div>
+                    <div id="divPass" class="row">
+                                <div class="col-lg-5" align="center">
+                                    <label>{{labelTipoAutentica}}:</label>
+                                 </div>
+                                  <div class="col-lg-7">
+                                    <input type="password" class="form-control input-lg" #token [matKeyboard]="'num'" formControlName='fcToken'>
+                                    <div *ngIf="myForm.get('fcToken').errors  && myForm.get('fcToken').touched " class="alert alert-danger">
+                                        <p color="danger" *ngIf="myForm.get('fcToken').hasError('required')"> Dato obligatorio, favor de capturar.
+                                        </p>
+                                        <p color="danger" *ngIf="myForm.get('fcToken').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.
+                                        </p>
+                                    </div>
+                                  </div>
+                      </div>
+                      
+                      <br>
+                    <div class="modal-footer">
+                        <button class="btn btn-lg" data-dismiss="modal" (click)="ocultaModal()">Cancelar</button>
+                              <button id="confirmar" class="color-botones btn btn-lg " (click)="confirmarOperacion(token.value)" [disabled]="(myForm.get('fcToken').invalid)">
+                                Confirmar
+                              </button>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+    </div>
 </form>

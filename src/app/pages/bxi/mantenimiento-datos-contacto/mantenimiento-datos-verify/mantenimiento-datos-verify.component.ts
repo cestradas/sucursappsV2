@@ -13,21 +13,32 @@ export class MantenimientoDatosVerifyComponent implements OnInit {
   Sic: string;
   Celular: string;
   CorreoElectronico: string;
+  Fecha: string;
+  Time: string;
+  actCel = false; 
+  actCorreo = false;
 
   constructor(private service: SesionBxiService, private router: Router) { }
 
   ngOnInit() {
-
-
-      this.NombreUser = this.service.NombreUsuario;
-      this.Sic = this.service.infoUsuarioSIC;
-      this.Celular = this.service.CelCliente;
-      this.CorreoElectronico = this.service.EmailCliente;
+    this.NombreUser = this.service.NombreUsuario;
+    this.Sic = this.service.infoUsuarioSIC; 
+    this.Fecha = this.service.Fecha;
+    this.Time = this.service.Tiempo; 
+    if (this.service.cambioCel) {
+        this.actCel = true;
+        this.Celular = this.service.CelCliente;
+      } 
+       if (this.service.cambioCorreo) {
+        this.actCorreo = true;
+        this.CorreoElectronico = this.service.EmailCliente;
+      }      
   setTimeout(function() {
       $('#_modal_please_wait').modal('hide');
+      $('div').removeClass('modal-backdrop');
     }, 500);
 
-    //ESTILOS Preferente
+    // ESTILOS Preferente
     let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
     let btnContinuar = document.getElementById("terminar");
 

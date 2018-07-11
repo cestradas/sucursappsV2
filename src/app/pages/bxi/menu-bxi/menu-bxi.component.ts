@@ -212,7 +212,7 @@ export class MenuBxiComponent implements OnInit {
     const this_aux = this;
     const operaciones: OperacionesBXI = new OperacionesBXI();
       // tslint:disable-next-line:max-line-length
-      if ( this_aux.service.CelCliente === null || this_aux.service.CelCliente === '' || this_aux.service.EmailCliente === null ||  this_aux.service.EmailCliente === '' || this_aux.service.EmailCliente === undefined || this_aux.service.CelCliente === undefined) {
+      if ( this_aux.service.CelCliente === null  || this_aux.service.EmailCliente === null ||  (this_aux.service.EmailCliente === '' && this_aux.service.CelCliente === '') || this_aux.service.EmailCliente === undefined || this_aux.service.CelCliente === undefined) {
         operaciones.consultaDatosContacto(this_aux.service.infoUsuarioSIC).then(
           function(data) {
             const jsonData = data.responseJSON;

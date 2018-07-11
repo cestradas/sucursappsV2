@@ -11,10 +11,10 @@
 
       <select class="input-whidth selectModificado" #rcbFiltro (change)="setCuentasBenficiarioXTipo();" style=" width: 100%; height: 68px !important; border:0px solid red; background-size: 4.5% 98% !important;">
                 <option value="0" disabled selected> Seleccione el tipo de tarjeta ...</option>
-                <option *ngIf='existenPropias' value="5">Propias Banorte</option>
-                <option *ngIf='existenTerceros' value="9"> Terceros Banorte</option>
-                <option *ngIf='existenExternas' value="2"> Otros Bancos</option>
-                <option *ngIf='existenAMEX' value="20"> American Express</option>
+                <option *ngIf='existenPropias' value="5" class="text-li">Propias Banorte</option>
+                <option *ngIf='existenTerceros' value="9" class="text-li"> Terceros Banorte</option>
+                <option *ngIf='existenExternas' value="2" class="text-li"> Otros Bancos</option>
+                <option *ngIf='existenAMEX' value="20" class="text-li"> American Express</option>
             </select>
 
      </div>

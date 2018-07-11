@@ -117,6 +117,13 @@ export class SesionBxiService {
 
     Login: String;
 
+    // datos contacto
+
+    cambioCel = false;
+    cambioCorreo = false;
+    Fecha: string;
+    Tiempo: string;
+
 
   constructor() {  }
 
