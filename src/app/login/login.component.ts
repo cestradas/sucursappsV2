@@ -198,11 +198,23 @@ export class LoginComponent {
         resourceRequest.setTimeout(30000);
         resourceRequest.sendFormParameters(formParameters).then(
             function(response) {
-                this_aux.datosLegacy = response.responseJSON;
-                console.log( this_aux.datosLegacy);
+
+              this_aux.datosLegacy = response.responseJSON;
+              const resLegacyJson = response.responseJSON;
+              console.log( this_aux.datosLegacy);
+              if (resLegacyJson.Id === '0') {
+                  WLAuthorizationManager.logout('banorteSecurityCheckSa');
+                 
+                  setTimeout(function() {
+                    $('#errorModal').modal('show');
+                    $('#ModalTDDLogin').modal('hide');
+                  }, 500);
+                  
+              } else {
                 console.log("El servcio de informacion Legacy respondio correctamente");
                 this_aux.idSession();
                 this_aux.tokenOperacion();
+              }
               },
             function(error) {
               WLAuthorizationManager.logout('banorteSecurityCheckSa');

@@ -86,6 +86,8 @@ export class ImpresionEdcComponent implements OnInit {
   nombreDocumento = "";
   numDocumento = "";
   fechaCorteDoc = "";
+  bloquearBoton = '0';
+  itemSeleccionado: any;
 
   cuentaOrigenModal = "";
 
@@ -423,8 +425,8 @@ setDatosCuentaSeleccionada(elementHTML) {
          let elementoCal4 = document.getElementById('Itemcalendario4');
          let elementoCal5 = document.getElementById('Itemcalendario5');
 
-        elementoCal0.addEventListener("click", function(event) {
-          console.log(this.id);
+         elementoCal0.addEventListener("click", function(event) {
+          console.log(this.id);          
           if( ((this_aux.Valida_Seleccion_Calendario0 === 0) || (this_aux.Valida_Seleccion_Calendario0 === 1))
               && (this_aux.Valida_Seleccion_Calendario1 === 0)
               && (this_aux.Valida_Seleccion_Calendario2 === 0)
@@ -437,8 +439,34 @@ setDatosCuentaSeleccionada(elementHTML) {
               && (this_aux.Valida_Seleccion_Calendario9 === 0)
               && (this_aux.Valida_Seleccion_Calendario10 === 0)
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-
+                this_aux.itemSeleccionado = 0;
                 this_aux.clickCal0();
+              } else {                
+                this_aux.itemSeleccionado = 1;
+                this_aux.clickCal0();
+                if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+                  this_aux.clickCal1();                  
+                } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+                  this_aux.clickCal2();
+                } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                  this_aux.clickCal3();
+                } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                  this_aux.clickCal4();
+                } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                  this_aux.clickCal5();
+                } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                  this_aux.clickCal6();
+                } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+                  this_aux.clickCal7();
+                } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                  this_aux.clickCal8();
+                } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+                  this_aux.clickCal9();
+                } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+                  this_aux.clickCal10();
+                } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+                  this_aux.clickCal11();
+                }
               }
 
         });
@@ -456,7 +484,34 @@ setDatosCuentaSeleccionada(elementHTML) {
               && (this_aux.Valida_Seleccion_Calendario9 === 0)
               && (this_aux.Valida_Seleccion_Calendario10 === 0)
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+                this_aux.itemSeleccionado = 0;
                 this_aux.clickCal1();
+              } else {                
+                this_aux.itemSeleccionado = 1;
+                this_aux.clickCal1();
+                if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                  this_aux.clickCal0();                  
+                } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+                  this_aux.clickCal2();
+                } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                  this_aux.clickCal3();
+                } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                  this_aux.clickCal4();
+                } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                  this_aux.clickCal5();
+                } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                  this_aux.clickCal6();
+                } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+                  this_aux.clickCal7();
+                } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                  this_aux.clickCal8();
+                } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+                  this_aux.clickCal9();
+                } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+                  this_aux.clickCal10();
+                } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+                  this_aux.clickCal11();
+                }
               }
         });
         elementoCal2.addEventListener("click", function(event) {
@@ -473,7 +528,34 @@ setDatosCuentaSeleccionada(elementHTML) {
               && (this_aux.Valida_Seleccion_Calendario9 === 0)
               && (this_aux.Valida_Seleccion_Calendario10 === 0)
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-                  this_aux.clickCal2();
+                this_aux.itemSeleccionado = 0;
+                this_aux.clickCal2();
+              } else {                
+                this_aux.itemSeleccionado = 1;
+                this_aux.clickCal2();
+                if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                  this_aux.clickCal0();                  
+                } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+                  this_aux.clickCal1();
+                } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                  this_aux.clickCal3();
+                } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                  this_aux.clickCal4();
+                } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                  this_aux.clickCal5();
+                } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                  this_aux.clickCal6();
+                } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+                  this_aux.clickCal7();
+                } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                  this_aux.clickCal8();
+                } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+                  this_aux.clickCal9();
+                } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+                  this_aux.clickCal10();
+                } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+                  this_aux.clickCal11();
+                }
               }
         });
         elementoCal3.addEventListener("click", function(event) {
@@ -490,7 +572,34 @@ setDatosCuentaSeleccionada(elementHTML) {
           && (this_aux.Valida_Seleccion_Calendario9 === 0)
           && (this_aux.Valida_Seleccion_Calendario10 === 0)
           && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+            this_aux.itemSeleccionado = 0;
             this_aux.clickCal3();
+          } else {                
+            this_aux.itemSeleccionado = 1;
+            this_aux.clickCal3();
+            if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+              this_aux.clickCal0();                  
+            } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+              this_aux.clickCal1();
+            } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+              this_aux.clickCal2();
+            } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+              this_aux.clickCal4();
+            } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+              this_aux.clickCal5();
+            } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+              this_aux.clickCal6();
+            } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+              this_aux.clickCal7();
+            } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+              this_aux.clickCal8();
+            } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+              this_aux.clickCal9();
+            } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+              this_aux.clickCal10();
+            } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+              this_aux.clickCal11();
+            }
           }
         });
         elementoCal4.addEventListener("click", function(event) {
@@ -507,7 +616,34 @@ setDatosCuentaSeleccionada(elementHTML) {
           && (this_aux.Valida_Seleccion_Calendario9 === 0)
           && (this_aux.Valida_Seleccion_Calendario10 === 0)
           && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+            this_aux.itemSeleccionado = 0;
             this_aux.clickCal4();
+          } else {                
+            this_aux.itemSeleccionado = 1;
+            this_aux.clickCal4();
+            if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+              this_aux.clickCal0();                  
+            } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+              this_aux.clickCal1();
+            } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+              this_aux.clickCal2();
+            } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+              this_aux.clickCal3();
+            } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+              this_aux.clickCal5();
+            } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+              this_aux.clickCal6();
+            } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+              this_aux.clickCal7();
+            } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+              this_aux.clickCal8();
+            } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+              this_aux.clickCal9();
+            } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+              this_aux.clickCal10();
+            } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+              this_aux.clickCal11();
+            }
           }
         });
         elementoCal5.addEventListener("click", function(event) {
@@ -524,7 +660,34 @@ setDatosCuentaSeleccionada(elementHTML) {
           && (this_aux.Valida_Seleccion_Calendario9 === 0)
           && (this_aux.Valida_Seleccion_Calendario10 === 0)
           && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+            this_aux.itemSeleccionado = 0;
             this_aux.clickCal5();
+          } else {                
+            this_aux.itemSeleccionado = 1;
+            this_aux.clickCal5();
+            if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+              this_aux.clickCal0();                  
+            } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+              this_aux.clickCal1();
+            } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+              this_aux.clickCal2();
+            } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+              this_aux.clickCal3();
+            } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+              this_aux.clickCal4();
+            } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+              this_aux.clickCal6();
+            } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+              this_aux.clickCal7();
+            } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+              this_aux.clickCal8();
+            } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+              this_aux.clickCal9();
+            } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+              this_aux.clickCal10();
+            } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+              this_aux.clickCal11();
+            }
           }
         });
 
@@ -540,7 +703,7 @@ setDatosCuentaSeleccionada(elementHTML) {
               //    this.renderer.invokeElementMethod(this.calendario.nativeElement.insertAdjacentHTML('beforeend',
               // this.htmlToAdd =
               // this.calendario.insert(
-                let domContent2 = '<div value ="'+this_aux.obj['fechas'][contFechas].Documento + '"' + 'id="'+'Itemcalendario' + cont + '"' + ' class="kiosk-cec-carousel-item estilo-item-calendar" style="opacity: .5;">' +
+                let domContent2 = '<div value ="'+this_aux.obj['fechas'][contFechas].Documento + '"' + 'id="'+'Itemcalendario' + cont + '"' + ' class="kiosk-cec-carousel-item estilo-item-calendar" style="opacity: .5;" >' +
                 '<div value ="'+this_aux.obj['fechas'][contFechas].FechaDoc + '"' + 'id="'+'ItemcalendarioDoc' + cont + '"' + ' class="row no-space">' +
                     '<div class="col-xs-6">' +
                         '<div class="bg-grey-600 white vertical-align height-200 fondo-calendar" >' +
@@ -564,8 +727,6 @@ setDatosCuentaSeleccionada(elementHTML) {
            // objTo.appendChild(this_aux.calendario.nativeElement);
 
               contFechas --;
-
-
           }
 
           cont ++;
@@ -597,10 +758,35 @@ setDatosCuentaSeleccionada(elementHTML) {
               && (this_aux.Valida_Seleccion_Calendario9 === 0)
               && (this_aux.Valida_Seleccion_Calendario10 === 0)
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-
+                this_aux.itemSeleccionado = 0;
                 this_aux.clickCal6();
+              } else {                
+                this_aux.itemSeleccionado = 1;
+                this_aux.clickCal6();
+                if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                  this_aux.clickCal0();                  
+                } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+                  this_aux.clickCal1();
+                } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+                  this_aux.clickCal2();
+                } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                  this_aux.clickCal3();
+                } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                  this_aux.clickCal4();
+                } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                  this_aux.clickCal5();
+                } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+                  this_aux.clickCal7();
+                } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                  this_aux.clickCal8();
+                } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+                  this_aux.clickCal9();
+                } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+                  this_aux.clickCal10();
+                } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+                  this_aux.clickCal11();
+                }
               }
-
         });
 
         elementoCal7.addEventListener("click", function(event) {
@@ -617,8 +803,34 @@ setDatosCuentaSeleccionada(elementHTML) {
               && (this_aux.Valida_Seleccion_Calendario9 === 0)
               && (this_aux.Valida_Seleccion_Calendario10 === 0)
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-
+                this_aux.itemSeleccionado = 0;
                 this_aux.clickCal7();
+              } else {                
+                this_aux.itemSeleccionado = 1;
+                this_aux.clickCal7();
+                if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                  this_aux.clickCal0();                  
+                } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+                  this_aux.clickCal1();
+                } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+                  this_aux.clickCal2();
+                } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                  this_aux.clickCal3();
+                } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                  this_aux.clickCal4();
+                } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                  this_aux.clickCal5();
+                } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                  this_aux.clickCal6();
+                } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                  this_aux.clickCal8();
+                } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+                  this_aux.clickCal9();
+                } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+                  this_aux.clickCal10();
+                } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+                  this_aux.clickCal11();
+                }
               }
 
         });
@@ -637,8 +849,34 @@ setDatosCuentaSeleccionada(elementHTML) {
               && (this_aux.Valida_Seleccion_Calendario9 === 0)
               && (this_aux.Valida_Seleccion_Calendario10 === 0)
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-
+                this_aux.itemSeleccionado = 0;
                 this_aux.clickCal8();
+              } else {                
+                this_aux.itemSeleccionado = 1;
+                this_aux.clickCal8();
+                if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                  this_aux.clickCal0();                  
+                } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+                  this_aux.clickCal1();
+                } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+                  this_aux.clickCal2();
+                } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                  this_aux.clickCal3();
+                } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                  this_aux.clickCal4();
+                } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                  this_aux.clickCal5();
+                } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                  this_aux.clickCal6();
+                } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+                  this_aux.clickCal7();
+                } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+                  this_aux.clickCal9();
+                } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+                  this_aux.clickCal10();
+                } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+                  this_aux.clickCal11();
+                }
               }
 
         });
@@ -657,8 +895,34 @@ setDatosCuentaSeleccionada(elementHTML) {
               && (this_aux.Valida_Seleccion_Calendario8 === 0)
               && (this_aux.Valida_Seleccion_Calendario10 === 0)
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-
+                this_aux.itemSeleccionado = 0;
                 this_aux.clickCal9();
+              } else {                
+                this_aux.itemSeleccionado = 1;
+                this_aux.clickCal9();
+                if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                  this_aux.clickCal0();                  
+                } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+                  this_aux.clickCal1();
+                } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+                  this_aux.clickCal2();
+                } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                  this_aux.clickCal3();
+                } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                  this_aux.clickCal4();
+                } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                  this_aux.clickCal5();
+                } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                  this_aux.clickCal6();
+                } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+                  this_aux.clickCal7();
+                } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                  this_aux.clickCal8();
+                } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+                  this_aux.clickCal10();
+                } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+                  this_aux.clickCal11();
+                }
               }
 
         });
@@ -677,8 +941,34 @@ setDatosCuentaSeleccionada(elementHTML) {
               && (this_aux.Valida_Seleccion_Calendario8 === 0)
               && (this_aux.Valida_Seleccion_Calendario9 === 0)
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-
+                this_aux.itemSeleccionado = 0;
                 this_aux.clickCal10();
+              } else {                
+                this_aux.itemSeleccionado = 1;
+                this_aux.clickCal10();
+                if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                  this_aux.clickCal0();                  
+                } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+                  this_aux.clickCal1();
+                } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+                  this_aux.clickCal2();
+                } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                  this_aux.clickCal3();
+                } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                  this_aux.clickCal4();
+                } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                  this_aux.clickCal5();
+                } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                  this_aux.clickCal6();
+                } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+                  this_aux.clickCal7();
+                } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                  this_aux.clickCal8();
+                } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+                  this_aux.clickCal9();
+                } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+                  this_aux.clickCal11();
+                }
               }
 
         });
@@ -697,619 +987,684 @@ setDatosCuentaSeleccionada(elementHTML) {
               && (this_aux.Valida_Seleccion_Calendario8 === 0)
               && (this_aux.Valida_Seleccion_Calendario9 === 0)
               && (this_aux.Valida_Seleccion_Calendario10 === 0)) {
-
+                this_aux.itemSeleccionado = 0;
                 this_aux.clickCal11();
+              } else {                
+                this_aux.itemSeleccionado = 1;
+                this_aux.clickCal11();
+                if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                  this_aux.clickCal0();                  
+                } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+                  this_aux.clickCal1();
+                } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+                  this_aux.clickCal2();
+                } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                  this_aux.clickCal3();
+                } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                  this_aux.clickCal4();
+                } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                  this_aux.clickCal5();
+                } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                  this_aux.clickCal6();
+                } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+                  this_aux.clickCal7();
+                } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                  this_aux.clickCal8();
+                } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+                  this_aux.clickCal9();
+                } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {      
+                  this_aux.clickCal10();
+                }
               }
 
         });
 
 
-         console.log(this_aux.obj['fechas']);
-
-
-            $('#_modal_please_wait').modal('hide');
+       console.log(this_aux.obj['fechas']);
           }, 500);
-
+          $('#_modal_please_wait').modal('hide');
    }, function(error) {
-      //this_aux.showErrorPromise(error);
-});
-  }
 
+          console.error("Error");
+        
+       $('#_modal_please_wait').modal('hide');
+          $('#errorModal').modal('show');
+
+
+        });
+  }
 
   // Validar seleccion de los calendarios
-  clickCal0() {
-
-    this.cal_Click_0 = 1;
-    this.bandera0 ++;
-     console.log("val " + this.Valida_Seleccion_Calendario0);
-    if(this.bandera0 % 2 === 0  || this.bandera0 === 1 ) {
-      // set docuemto
-      this.numDocumento =  document.getElementById('Itemcalendario0').getAttribute('value');
-      this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc0').getAttribute('value');
-      this.Valida_Seleccion_Calendario0 ++;
-      this.cuadroCalendario = $("#Itemcalendario0");
-      this.cuadroCalendario.css({
-        'opacity':'10'
-      });
-      this.palomita0 = $("#palomita0");
-      this.palomita0.css({
-
-			'visibility':'visible',
-			'opacity':'10',
-	    	'position':'absolute',
-	    	'top': '1px',
-	    	'left': '0px',
-	    	'padding': '15px 21px 25px',
-	    	'margin-left': '2px',
-	    	'margin-top': '2px',
-	    	'background-image': 'url(images/check2.png)',
-	    	'background-repeat': 'no-repeat',
-	    	'display': 'inline-block'
-
-		});
-
-     console.log("b6: "+this.bandera0);
-	}else {
-
-    this.numDocumento = "";
-    this.fechaCorteDoc = "";
-		this.cal_Click_0=0;
-		this.Valida_Seleccion_Calendario0 --;
-		this.cuadroCalendario = $("#Itemcalendario0");
-		this.cuadroCalendario.css({
-	    	'opacity':'.5'
-		});
-		this.palomita0 = $("#palomita0");
-		this.palomita0.css({
-
-	    	'visibility':'hidden'
-		});
-		// palomita.remove();
-		 console.log("b6: "+ this.bandera0);
-		 console.log("val "+ this.Valida_Seleccion_Calendario1);
-	}
-
-  }
-
-  clickCal1() {
-
-    this.cal_Click_1 = 1;
-    this.bandera1 ++;
-
-    if(this.bandera1 % 2 === 0  || this.bandera1 === 1 ) {
-      // set docuemto
-      this.numDocumento =  document.getElementById('Itemcalendario1').getAttribute('value');
-      this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc1').getAttribute('value');
-      this.Valida_Seleccion_Calendario1 ++;
-      this.cuadroCalendario = $("#Itemcalendario1");
-      this.cuadroCalendario.css({
-        'opacity':'10'
-      });
-      this.palomita1 = $("#palomita1");
-      this.palomita1.css({
-
-			'visibility':'visible',
-			'opacity':'10',
-	    	'position':'absolute',
-	    	'top': '1px',
-	    	'left': '0px',
-	    	'padding': '15px 21px 25px',
-	    	'margin-left': '2px',
-	    	'margin-top': '2px',
-	    	'background-image': 'url(images/check2.png)',
-	    	'background-repeat': 'no-repeat',
-	    	'display': 'inline-block'
-
-		});
-
-	}else {
-    this.numDocumento = "";
-    this.fechaCorteDoc = "";
-		this.cal_Click_1=0;
-		this.Valida_Seleccion_Calendario1 --;
-		this.cuadroCalendario = $("#Itemcalendario1");
-		this.cuadroCalendario.css({
-	    	'opacity':'.5'
-		});
-		this.palomita1 = $("#palomita1");
-		this.palomita1.css({
-
-	    	'visibility':'hidden'
-		});
-	}
-
-  }
-
-  clickCal2() {
-
-    this.cal_Click_2 = 1;
-    this.bandera2 ++;
-
-    if(this.bandera2 % 2 === 0  || this.bandera2 === 1 ) {
-      // set docuemto
-      this.numDocumento =  document.getElementById('Itemcalendario2').getAttribute('value');
-      this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc2').getAttribute('value');
-      this.Valida_Seleccion_Calendario2 ++;
-      this.cuadroCalendario = $("#Itemcalendario2");
-      this.cuadroCalendario.css({
-        'opacity':'10'
-      });
-      this.palomita2 = $("#palomita2");
-      this.palomita2.css({
-
-			'visibility':'visible',
-			'opacity':'10',
-	    	'position':'absolute',
-	    	'top': '1px',
-	    	'left': '0px',
-	    	'padding': '15px 21px 25px',
-	    	'margin-left': '2px',
-	    	'margin-top': '2px',
-	    	'background-image': 'url(images/check2.png)',
-	    	'background-repeat': 'no-repeat',
-	    	'display': 'inline-block'
-
-		});
-
-	}else {
-    this.numDocumento = "";
-    this.fechaCorteDoc = "";
-		this.cal_Click_2=0;
-		this.Valida_Seleccion_Calendario2 --;
-		this.cuadroCalendario = $("#Itemcalendario2");
-		this.cuadroCalendario.css({
-	    	'opacity':'.5'
-		});
-		this.palomita2 = $("#palomita2");
-		this.palomita2.css({
-
-	    	'visibility':'hidden'
-		});
-	}
-
-  }
-
-  clickCal3() {
-
-    this.cal_Click_3 = 1;
-    this.bandera3 ++;
-
-    if(this.bandera3 % 2 === 0  || this.bandera3 === 1 ) {
-      // set docuemto
-      this.numDocumento =  document.getElementById('Itemcalendario3').getAttribute('value');
-      this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc3').getAttribute('value');
-      this.Valida_Seleccion_Calendario3 ++;
-      this.cuadroCalendario = $("#Itemcalendario3");
-      this.cuadroCalendario.css({
-        'opacity':'10'
-      });
-      this.palomita3 = $("#palomita3");
-      this.palomita3.css({
-
-			'visibility':'visible',
-			'opacity':'10',
-	    	'position':'absolute',
-	    	'top': '1px',
-	    	'left': '0px',
-	    	'padding': '15px 21px 25px',
-	    	'margin-left': '2px',
-	    	'margin-top': '2px',
-	    	'background-image': 'url(images/check2.png)',
-	    	'background-repeat': 'no-repeat',
-	    	'display': 'inline-block'
-
-		});
-
-	}else {
-    this.numDocumento =  "";
-    this.fechaCorteDoc = "";
-		this.cal_Click_3=0;
-		this.Valida_Seleccion_Calendario3 --;
-		this.cuadroCalendario = $("#Itemcalendario3");
-		this.cuadroCalendario.css({
-	    	'opacity':'.5'
-		});
-		this.palomita3 = $("#palomita3");
-		this.palomita3.css({
-
-	    	'visibility':'hidden'
-		});
-	}
-
-  }
-
-
-  clickCal4() {
-
-    this.cal_Click_4 = 1;
-    this.bandera4 ++;
-
-    if(this.bandera4 % 2 === 0  || this.bandera4 === 1 ) {
-      // set docuemto
-      this.numDocumento =  document.getElementById('Itemcalendario4').getAttribute('value');
-      this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc4').getAttribute('value');
-      this.Valida_Seleccion_Calendario4 ++;
-      this.cuadroCalendario = $("#Itemcalendario4");
-      this.cuadroCalendario.css({
-        'opacity':'10'
-      });
-      this.palomita4 = $("#palomita4");
-      this.palomita4.css({
-
-			'visibility':'visible',
-			'opacity':'10',
-	    	'position':'absolute',
-	    	'top': '1px',
-	    	'left': '0px',
-	    	'padding': '15px 21px 25px',
-	    	'margin-left': '2px',
-	    	'margin-top': '2px',
-	    	'background-image': 'url(images/check2.png)',
-	    	'background-repeat': 'no-repeat',
-	    	'display': 'inline-block'
-
-		});
-
-	}else {
-    this.numDocumento =  "";
-    this.fechaCorteDoc = "";
-		this.cal_Click_4=0;
-		this.Valida_Seleccion_Calendario4 --;
-		this.cuadroCalendario = $("#Itemcalendario4");
-		this.cuadroCalendario.css({
-	    	'opacity':'.5'
-		});
-		this.palomita4 = $("#palomita4");
-		this.palomita4.css({
-
-	    	'visibility':'hidden'
-		});
-	}
-
-  }
-
-  clickCal5() {
-
-    this.cal_Click_5 = 1;
-    this.bandera5 ++;
-
-    if(this.bandera5 % 2 === 0  || this.bandera5 === 1 ) {
-      // set docuemto
-      this.numDocumento =  document.getElementById('Itemcalendario5').getAttribute('value');
-      this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc5').getAttribute('value');
-      this.Valida_Seleccion_Calendario5 ++;
-      this.cuadroCalendario = $("#Itemcalendario5");
-      this.cuadroCalendario.css({
-        'opacity':'10'
-      });
-      this.palomita5 = $("#palomita5");
-      this.palomita5.css({
-
-			'visibility':'visible',
-			'opacity':'10',
-	    	'position':'absolute',
-	    	'top': '1px',
-	    	'left': '0px',
-	    	'padding': '15px 21px 25px',
-	    	'margin-left': '2px',
-	    	'margin-top': '2px',
-	    	'background-image': 'url(images/check2.png)',
-	    	'background-repeat': 'no-repeat',
-	    	'display': 'inline-block'
-
-		});
-
-	}else {
-    this.numDocumento = "";
-    this.fechaCorteDoc = "";
-		this.cal_Click_5=0;
-		this.Valida_Seleccion_Calendario5 --;
-		this.cuadroCalendario = $("#Itemcalendario5");
-		this.cuadroCalendario.css({
-	    	'opacity':'.5'
-		});
-		this.palomita5 = $("#palomita5");
-		this.palomita5.css({
-
-	    	'visibility':'hidden'
-		});
-	}
-
-  }
-
-  clickCal6() {
-
-    this.cal_Click_6 = 1;
-    this.bandera6 ++;
-
-    if(this.bandera6 % 2 === 0  || this.bandera6 === 1 ) {
-      // set docuemto
-      this.numDocumento =  document.getElementById('Itemcalendario6').getAttribute('value');
-      this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc6').getAttribute('value');
-      this.Valida_Seleccion_Calendario6 ++;
-      this.cuadroCalendario = $("#Itemcalendario6");
-      this.cuadroCalendario.css({
-        'opacity':'10'
-      });
-      this.palomita6 = $("#palomita6");
-      this.palomita6.css({
-
-			'visibility':'visible',
-			'opacity':'10',
-	    	'position':'absolute',
-	    	'top': '1px',
-	    	'left': '0px',
-	    	'padding': '15px 21px 25px',
-	    	'margin-left': '2px',
-	    	'margin-top': '2px',
-	    	'background-image': 'url(images/check2.png)',
-	    	'background-repeat': 'no-repeat',
-	    	'display': 'inline-block'
-
-		});
-
-	}else {
-    this.numDocumento = "";
-    this.fechaCorteDoc = "";
-		this.cal_Click_6=0;
-		this.Valida_Seleccion_Calendario6 --;
-		this.cuadroCalendario = $("#Itemcalendario6");
-		this.cuadroCalendario.css({
-	    	'opacity':'.5'
-		});
-		this.palomita6 = $("#palomita6");
-		this.palomita6.css({
-
-	    	'visibility':'hidden'
-		});
-	}
-
-  }
-
-  clickCal7() {
-
-    this.cal_Click_7 = 1;
-    this.bandera7 ++;
-
-    if(this.bandera7 % 2 === 0  || this.bandera7 === 1 ) {
-      // set docuemto
-      this.numDocumento =  document.getElementById('Itemcalendario7').getAttribute('value');
-      this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc7').getAttribute('value');
-      this.Valida_Seleccion_Calendario7 ++;
-      this.cuadroCalendario = $("#Itemcalendario7");
-      this.cuadroCalendario.css({
-        'opacity':'10'
-      });
-      this.palomita7 = $("#palomita7");
-      this.palomita7.css({
-
-			'visibility':'visible',
-			'opacity':'10',
-	    	'position':'absolute',
-	    	'top': '1px',
-	    	'left': '0px',
-	    	'padding': '15px 21px 25px',
-	    	'margin-left': '2px',
-	    	'margin-top': '2px',
-	    	'background-image': 'url(images/check2.png)',
-	    	'background-repeat': 'no-repeat',
-	    	'display': 'inline-block'
-
-		});
-
-	}else {
-    this.numDocumento =  "";
-    this.fechaCorteDoc = "";
-		this.cal_Click_7=0;
-		this.Valida_Seleccion_Calendario7 --;
-		this.cuadroCalendario = $("#Itemcalendario7");
-		this.cuadroCalendario.css({
-	    	'opacity':'.5'
-		});
-		this.palomita7 = $("#palomita7");
-		this.palomita7.css({
-
-	    	'visibility':'hidden'
-		});
-	}
-
-  }
-
-  clickCal8() {
-
-    this.cal_Click_8 = 1;
-    this.bandera8 ++;
-
-    if(this.bandera8 % 2 === 0  || this.bandera8 === 1 ) {
-      // set docuemto
-      this.numDocumento =  document.getElementById('Itemcalendario8').getAttribute('value');
-      this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc8').getAttribute('value');
-      this.Valida_Seleccion_Calendario8 ++;
-      this.cuadroCalendario = $("#Itemcalendario8");
-      this.cuadroCalendario.css({
-        'opacity':'10'
-      });
-      this.palomita8 = $("#palomita8");
-      this.palomita8.css({
-
-			'visibility':'visible',
-			'opacity':'10',
-	    	'position':'absolute',
-	    	'top': '1px',
-	    	'left': '0px',
-	    	'padding': '15px 21px 25px',
-	    	'margin-left': '2px',
-	    	'margin-top': '2px',
-	    	'background-image': 'url(images/check2.png)',
-	    	'background-repeat': 'no-repeat',
-	    	'display': 'inline-block'
-
-		});
-
-	}else {
-    this.numDocumento = "";
-    this.fechaCorteDoc = "";
-		this.cal_Click_8=0;
-		this.Valida_Seleccion_Calendario8 --;
-		this.cuadroCalendario = $("#Itemcalendario8");
-		this.cuadroCalendario.css({
-	    	'opacity':'.5'
-		});
-		this.palomita8 = $("#palomita8");
-		this.palomita8.css({
-
-	    	'visibility':'hidden'
-		});
-	}
-
-  }
-
-  clickCal9() {
-
-    this.cal_Click_9 = 1;
-    this.bandera9 ++;
-
-    if(this.bandera9 % 2 === 0  || this.bandera9 === 1 ) {
-      // set docuemto
-      this.numDocumento =  document.getElementById('Itemcalendario9').getAttribute('value');
-      this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc9').getAttribute('value');
-      this.Valida_Seleccion_Calendario9 ++;
-      this.cuadroCalendario = $("#Itemcalendario9");
-      this.cuadroCalendario.css({
-        'opacity':'10'
-      });
-      this.palomita9 = $("#palomita9");
-      this.palomita9.css({
-
-			'visibility':'visible',
-			'opacity':'10',
-	    	'position':'absolute',
-	    	'top': '1px',
-	    	'left': '0px',
-	    	'padding': '15px 21px 25px',
-	    	'margin-left': '2px',
-	    	'margin-top': '2px',
-	    	'background-image': 'url(images/check2.png)',
-	    	'background-repeat': 'no-repeat',
-	    	'display': 'inline-block'
-
-		});
-
-	}else {
-    this.numDocumento = "";
-    this.fechaCorteDoc = "";
-		this.cal_Click_9=0;
-		this.Valida_Seleccion_Calendario9 --;
-		this.cuadroCalendario = $("#Itemcalendario9");
-		this.cuadroCalendario.css({
-	    	'opacity':'.5'
-		});
-		this.palomita9 = $("#palomita9");
-		this.palomita9.css({
-
-	    	'visibility':'hidden'
-		});
-	}
-
-  }
-
-  clickCal10() {
-
-    this.cal_Click_10 = 1;
-    this.bandera10 ++;
-
-    if(this.bandera10 % 2 === 0  || this.bandera10 === 1 ) {
-      // set docuemto
-      this.numDocumento =  document.getElementById('Itemcalendario10').getAttribute('value');
-      this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc10').getAttribute('value');
-      this.Valida_Seleccion_Calendario10 ++;
-      this.cuadroCalendario = $("#Itemcalendario10");
-      this.cuadroCalendario.css({
-        'opacity':'10'
-      });
-      this.palomita10 = $("#palomita10");
-      this.palomita10.css({
-
-			'visibility':'visible',
-			'opacity':'10',
-	    	'position':'absolute',
-	    	'top': '1px',
-	    	'left': '0px',
-	    	'padding': '15px 21px 25px',
-	    	'margin-left': '2px',
-	    	'margin-top': '2px',
-	    	'background-image': 'url(images/check2.png)',
-	    	'background-repeat': 'no-repeat',
-	    	'display': 'inline-block'
-
-		});
-
-	}else {
-    this.numDocumento = "";
-    this.fechaCorteDoc = "";
-		this.cal_Click_10=0;
-		this.Valida_Seleccion_Calendario10 --;
-		this.cuadroCalendario = $("#Itemcalendario10");
-		this.cuadroCalendario.css({
-	    	'opacity':'.5'
-		});
-		this.palomita10 = $("#palomita10");
-		this.palomita10.css({
-
-	    	'visibility':'hidden'
-		});
-	}
-
-  }
-
-  clickCal11() {
-
-    this.cal_Click_11 = 1;
-    this.bandera11 ++;
-
-    if(this.bandera11 % 2 === 0  || this.bandera11 === 1 ) {
-      // set docuemto
-      this.numDocumento =  document.getElementById('Itemcalendario11').getAttribute('value');
-      this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc11').getAttribute('value');
-      this.Valida_Seleccion_Calendario11 ++;
-      this.cuadroCalendario = $("#Itemcalendario11");
-      this.cuadroCalendario.css({
-        'opacity':'10'
-      });
-      this.palomita11 = $("#palomita11");
-      this.palomita11.css({
-
-			'visibility':'visible',
-			'opacity':'10',
-	    	'position':'absolute',
-	    	'top': '1px',
-	    	'left': '0px',
-	    	'padding': '15px 21px 25px',
-	    	'margin-left': '2px',
-	    	'margin-top': '2px',
-	    	'background-image': 'url(images/check2.png)',
-	    	'background-repeat': 'no-repeat',
-	    	'display': 'inline-block'
-
-		});
-
-	}else {
-    this.numDocumento = "";
-    this.fechaCorteDoc = "";
-		this.cal_Click_11=0;
-		this.Valida_Seleccion_Calendario11 --;
-		this.cuadroCalendario = $("#Itemcalendario11");
-		this.cuadroCalendario.css({
-	    	'opacity':'.5'
-		});
-		this.palomita11 = $("#palomita11");
-		this.palomita11.css({
-
-	    	'visibility':'hidden'
-		});
-	}
-
-  }
+   clickCal0() {
+
+     this.cal_Click_0 = 1;
+     this.bandera0 ++;
+      console.log("val " + this.Valida_Seleccion_Calendario0);
+     if(this.bandera0 % 2 === 0  || this.bandera0 === 1 ) {
+       // set docuemto
+       this.numDocumento =  document.getElementById('Itemcalendario0').getAttribute('value');
+       this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc0').getAttribute('value');
+       this.Valida_Seleccion_Calendario0 ++;
+       this.cuadroCalendario = $("#Itemcalendario0");
+       this.cuadroCalendario.css({
+         'opacity':'10'
+       });
+       this.palomita0 = $("#palomita0");
+       this.palomita0.css({
+
+ 			'visibility':'visible',
+ 			'opacity':'10',
+ 	    	'position':'absolute',
+ 	    	'top': '1px',
+ 	    	'left': '0px',
+ 	    	'padding': '15px 21px 25px',
+ 	    	'margin-left': '2px',
+ 	    	'margin-top': '2px',
+ 	    	'background-image': 'url(images/check2.png)',
+ 	    	'background-repeat': 'no-repeat',
+ 	    	'display': 'inline-block'
+
+ 		});
+
+      console.log("b6: "+this.bandera0);
+      this.bloquearBoton = '1';
+ 	}else {
+
+     this.numDocumento = "";
+     this.fechaCorteDoc = "";
+ 		this.cal_Click_0=0;
+ 		this.Valida_Seleccion_Calendario0 --;
+ 		this.cuadroCalendario = $("#Itemcalendario0");
+ 		this.cuadroCalendario.css({
+ 	    	'opacity':'.5'
+ 		});
+ 		this.palomita0 = $("#palomita0");
+ 		this.palomita0.css({
+
+ 	    	'visibility':'hidden'
+ 		});
+ 		// palomita.remove();
+ 		 console.log("b6: "+ this.bandera0);
+      console.log("val "+ this.Valida_Seleccion_Calendario1);
+      if(this.itemSeleccionado === 0) {
+        this.bloquearBoton = '0';
+      }      
+ 	}
+
+   }
+
+   clickCal1() {
+
+     this.cal_Click_1 = 1;
+     this.bandera1 ++;
+
+     if(this.bandera1 % 2 === 0  || this.bandera1 === 1 ) {
+       // set docuemto
+       this.numDocumento =  document.getElementById('Itemcalendario1').getAttribute('value');
+       this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc1').getAttribute('value');
+       this.Valida_Seleccion_Calendario1 ++;
+       this.cuadroCalendario = $("#Itemcalendario1");
+       this.cuadroCalendario.css({
+         'opacity':'10'
+       });
+       this.palomita1 = $("#palomita1");
+       this.palomita1.css({
+
+ 			'visibility':'visible',
+ 			'opacity':'10',
+ 	    	'position':'absolute',
+ 	    	'top': '1px',
+ 	    	'left': '0px',
+ 	    	'padding': '15px 21px 25px',
+ 	    	'margin-left': '2px',
+ 	    	'margin-top': '2px',
+ 	    	'background-image': 'url(images/check2.png)',
+ 	    	'background-repeat': 'no-repeat',
+ 	    	'display': 'inline-block'
+
+ 		});
+     this.bloquearBoton = '1';
+ 	}else {
+     this.numDocumento = "";
+     this.fechaCorteDoc = "";
+ 		this.cal_Click_1=0;
+ 		this.Valida_Seleccion_Calendario1 --;
+ 		this.cuadroCalendario = $("#Itemcalendario1");
+ 		this.cuadroCalendario.css({
+ 	    	'opacity':'.5'
+ 		});
+ 		this.palomita1 = $("#palomita1");
+ 		this.palomita1.css({
+
+ 	    	'visibility':'hidden'
+     });
+     if(this.itemSeleccionado === 0) {
+      this.bloquearBoton = '0';
+    }  
+ 	}
+
+   }
+
+   clickCal2() {
+
+     this.cal_Click_2 = 1;
+     this.bandera2 ++;
+
+     if(this.bandera2 % 2 === 0  || this.bandera2 === 1 ) {
+       // set docuemto
+       this.numDocumento =  document.getElementById('Itemcalendario2').getAttribute('value');
+       this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc2').getAttribute('value');
+       this.Valida_Seleccion_Calendario2 ++;
+       this.cuadroCalendario = $("#Itemcalendario2");
+       this.cuadroCalendario.css({
+         'opacity':'10'
+       });
+       this.palomita2 = $("#palomita2");
+       this.palomita2.css({
+
+ 			'visibility':'visible',
+ 			'opacity':'10',
+ 	    	'position':'absolute',
+ 	    	'top': '1px',
+ 	    	'left': '0px',
+ 	    	'padding': '15px 21px 25px',
+ 	    	'margin-left': '2px',
+ 	    	'margin-top': '2px',
+ 	    	'background-image': 'url(images/check2.png)',
+ 	    	'background-repeat': 'no-repeat',
+ 	    	'display': 'inline-block'
+
+ 		});
+     this.bloquearBoton = '1';
+ 	}else {
+     this.numDocumento = "";
+     this.fechaCorteDoc = "";
+ 		this.cal_Click_2=0;
+ 		this.Valida_Seleccion_Calendario2 --;
+ 		this.cuadroCalendario = $("#Itemcalendario2");
+ 		this.cuadroCalendario.css({
+ 	    	'opacity':'.5'
+ 		});
+ 		this.palomita2 = $("#palomita2");
+ 		this.palomita2.css({
+
+ 	    	'visibility':'hidden'
+     });
+     if(this.itemSeleccionado === 0) {
+      this.bloquearBoton = '0';
+    }  
+ 	}
+
+   }
+
+   clickCal3() {
+
+     this.cal_Click_3 = 1;
+     this.bandera3 ++;
+
+     if(this.bandera3 % 2 === 0  || this.bandera3 === 1 ) {
+       // set docuemto
+       this.numDocumento =  document.getElementById('Itemcalendario3').getAttribute('value');
+       this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc3').getAttribute('value');
+       this.Valida_Seleccion_Calendario3 ++;
+       this.cuadroCalendario = $("#Itemcalendario3");
+       this.cuadroCalendario.css({
+         'opacity':'10'
+       });
+       this.palomita3 = $("#palomita3");
+       this.palomita3.css({
+
+ 			'visibility':'visible',
+ 			'opacity':'10',
+ 	    	'position':'absolute',
+ 	    	'top': '1px',
+ 	    	'left': '0px',
+ 	    	'padding': '15px 21px 25px',
+ 	    	'margin-left': '2px',
+ 	    	'margin-top': '2px',
+ 	    	'background-image': 'url(images/check2.png)',
+ 	    	'background-repeat': 'no-repeat',
+ 	    	'display': 'inline-block'
+
+ 		});
+     this.bloquearBoton = '1';
+ 	}else {
+     this.numDocumento =  "";
+     this.fechaCorteDoc = "";
+ 		this.cal_Click_3=0;
+ 		this.Valida_Seleccion_Calendario3 --;
+ 		this.cuadroCalendario = $("#Itemcalendario3");
+ 		this.cuadroCalendario.css({
+ 	    	'opacity':'.5'
+ 		});
+ 		this.palomita3 = $("#palomita3");
+ 		this.palomita3.css({
+
+ 	    	'visibility':'hidden'
+     });
+     if(this.itemSeleccionado === 0) {
+      this.bloquearBoton = '0';
+    } 
+ 	}
+
+   }
+
+
+   clickCal4() {
+
+     this.cal_Click_4 = 1;
+     this.bandera4 ++;
+
+     if(this.bandera4 % 2 === 0  || this.bandera4 === 1 ) {
+       // set docuemto
+       this.numDocumento =  document.getElementById('Itemcalendario4').getAttribute('value');
+       this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc4').getAttribute('value');
+       this.Valida_Seleccion_Calendario4 ++;
+       this.cuadroCalendario = $("#Itemcalendario4");
+       this.cuadroCalendario.css({
+         'opacity':'10'
+       });
+       this.palomita4 = $("#palomita4");
+       this.palomita4.css({
+
+ 			'visibility':'visible',
+ 			'opacity':'10',
+ 	    	'position':'absolute',
+ 	    	'top': '1px',
+ 	    	'left': '0px',
+ 	    	'padding': '15px 21px 25px',
+ 	    	'margin-left': '2px',
+ 	    	'margin-top': '2px',
+ 	    	'background-image': 'url(images/check2.png)',
+ 	    	'background-repeat': 'no-repeat',
+ 	    	'display': 'inline-block'
+
+ 		});
+     this.bloquearBoton = '1';
+ 	}else {
+     this.numDocumento =  "";
+     this.fechaCorteDoc = "";
+ 		this.cal_Click_4=0;
+ 		this.Valida_Seleccion_Calendario4 --;
+ 		this.cuadroCalendario = $("#Itemcalendario4");
+ 		this.cuadroCalendario.css({
+ 	    	'opacity':'.5'
+ 		});
+ 		this.palomita4 = $("#palomita4");
+ 		this.palomita4.css({
+
+ 	    	'visibility':'hidden'
+     });
+     if(this.itemSeleccionado === 0) {
+      this.bloquearBoton = '0';
+    } 
+ 	}
+
+   }
+
+   clickCal5() {
+
+     this.cal_Click_5 = 1;
+     this.bandera5 ++;
+
+     if(this.bandera5 % 2 === 0  || this.bandera5 === 1 ) {
+       // set docuemto
+       this.numDocumento =  document.getElementById('Itemcalendario5').getAttribute('value');
+       this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc5').getAttribute('value');
+       this.Valida_Seleccion_Calendario5 ++;
+       this.cuadroCalendario = $("#Itemcalendario5");
+       this.cuadroCalendario.css({
+         'opacity':'10'
+       });
+       this.palomita5 = $("#palomita5");
+       this.palomita5.css({
+
+ 			'visibility':'visible',
+ 			'opacity':'10',
+ 	    	'position':'absolute',
+ 	    	'top': '1px',
+ 	    	'left': '0px',
+ 	    	'padding': '15px 21px 25px',
+ 	    	'margin-left': '2px',
+ 	    	'margin-top': '2px',
+ 	    	'background-image': 'url(images/check2.png)',
+ 	    	'background-repeat': 'no-repeat',
+ 	    	'display': 'inline-block'
+
+ 		});
+     this.bloquearBoton = '1';
+ 	}else {
+     this.numDocumento = "";
+     this.fechaCorteDoc = "";
+ 		this.cal_Click_5=0;
+ 		this.Valida_Seleccion_Calendario5 --;
+ 		this.cuadroCalendario = $("#Itemcalendario5");
+ 		this.cuadroCalendario.css({
+ 	    	'opacity':'.5'
+ 		});
+ 		this.palomita5 = $("#palomita5");
+ 		this.palomita5.css({
+
+ 	    	'visibility':'hidden'
+     });
+     if(this.itemSeleccionado === 0) {
+      this.bloquearBoton = '0';
+    } 
+ 	}
+
+   }
+
+   clickCal6() {
+
+     this.cal_Click_6 = 1;
+     this.bandera6 ++;
+
+     if(this.bandera6 % 2 === 0  || this.bandera6 === 1 ) {
+       // set docuemto
+       this.numDocumento =  document.getElementById('Itemcalendario6').getAttribute('value');
+       this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc6').getAttribute('value');
+       this.Valida_Seleccion_Calendario6 ++;
+       this.cuadroCalendario = $("#Itemcalendario6");
+       this.cuadroCalendario.css({
+         'opacity':'10'
+       });
+       this.palomita6 = $("#palomita6");
+       this.palomita6.css({
+
+ 			'visibility':'visible',
+ 			'opacity':'10',
+ 	    	'position':'absolute',
+ 	    	'top': '1px',
+ 	    	'left': '0px',
+ 	    	'padding': '15px 21px 25px',
+ 	    	'margin-left': '2px',
+ 	    	'margin-top': '2px',
+ 	    	'background-image': 'url(images/check2.png)',
+ 	    	'background-repeat': 'no-repeat',
+ 	    	'display': 'inline-block'
+
+ 		});
+     this.bloquearBoton = '1';
+ 	}else {
+     this.numDocumento = "";
+     this.fechaCorteDoc = "";
+ 		this.cal_Click_6=0;
+ 		this.Valida_Seleccion_Calendario6 --;
+ 		this.cuadroCalendario = $("#Itemcalendario6");
+ 		this.cuadroCalendario.css({
+ 	    	'opacity':'.5'
+ 		});
+ 		this.palomita6 = $("#palomita6");
+ 		this.palomita6.css({
+
+ 	    	'visibility':'hidden'
+     });
+     if(this.itemSeleccionado === 0) {
+      this.bloquearBoton = '0';
+    } 
+ 	}
+
+   }
+
+   clickCal7() {
+
+     this.cal_Click_7 = 1;
+     this.bandera7 ++;
+
+     if(this.bandera7 % 2 === 0  || this.bandera7 === 1 ) {
+       // set docuemto
+       this.numDocumento =  document.getElementById('Itemcalendario7').getAttribute('value');
+       this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc7').getAttribute('value');
+       this.Valida_Seleccion_Calendario7 ++;
+       this.cuadroCalendario = $("#Itemcalendario7");
+       this.cuadroCalendario.css({
+         'opacity':'10'
+       });
+       this.palomita7 = $("#palomita7");
+       this.palomita7.css({
+
+ 			'visibility':'visible',
+ 			'opacity':'10',
+ 	    	'position':'absolute',
+ 	    	'top': '1px',
+ 	    	'left': '0px',
+ 	    	'padding': '15px 21px 25px',
+ 	    	'margin-left': '2px',
+ 	    	'margin-top': '2px',
+ 	    	'background-image': 'url(images/check2.png)',
+ 	    	'background-repeat': 'no-repeat',
+ 	    	'display': 'inline-block'
+
+ 		});
+     this.bloquearBoton = '1';
+ 	}else {
+     this.numDocumento =  "";
+     this.fechaCorteDoc = "";
+ 		this.cal_Click_7=0;
+ 		this.Valida_Seleccion_Calendario7 --;
+ 		this.cuadroCalendario = $("#Itemcalendario7");
+ 		this.cuadroCalendario.css({
+ 	    	'opacity':'.5'
+ 		});
+ 		this.palomita7 = $("#palomita7");
+ 		this.palomita7.css({
+
+ 	    	'visibility':'hidden'
+     });
+     if(this.itemSeleccionado === 0) {
+      this.bloquearBoton = '0';
+    } 
+ 	}
+
+   }
+
+   clickCal8() {
+
+     this.cal_Click_8 = 1;
+     this.bandera8 ++;
+
+     if(this.bandera8 % 2 === 0  || this.bandera8 === 1 ) {
+       // set docuemto
+       this.numDocumento =  document.getElementById('Itemcalendario8').getAttribute('value');
+       this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc8').getAttribute('value');
+       this.Valida_Seleccion_Calendario8 ++;
+       this.cuadroCalendario = $("#Itemcalendario8");
+       this.cuadroCalendario.css({
+         'opacity':'10'
+       });
+       this.palomita8 = $("#palomita8");
+       this.palomita8.css({
+
+ 			'visibility':'visible',
+ 			'opacity':'10',
+ 	    	'position':'absolute',
+ 	    	'top': '1px',
+ 	    	'left': '0px',
+ 	    	'padding': '15px 21px 25px',
+ 	    	'margin-left': '2px',
+ 	    	'margin-top': '2px',
+ 	    	'background-image': 'url(images/check2.png)',
+ 	    	'background-repeat': 'no-repeat',
+ 	    	'display': 'inline-block'
+
+ 		});
+     this.bloquearBoton = '1';
+ 	}else {
+     this.numDocumento = "";
+     this.fechaCorteDoc = "";
+ 		this.cal_Click_8=0;
+ 		this.Valida_Seleccion_Calendario8 --;
+ 		this.cuadroCalendario = $("#Itemcalendario8");
+ 		this.cuadroCalendario.css({
+ 	    	'opacity':'.5'
+ 		});
+ 		this.palomita8 = $("#palomita8");
+ 		this.palomita8.css({
+
+ 	    	'visibility':'hidden'
+     });
+     if(this.itemSeleccionado === 0) {
+      this.bloquearBoton = '0';
+    } 
+ 	}
+
+   }
+
+   clickCal9() {
+
+     this.cal_Click_9 = 1;
+     this.bandera9 ++;
+
+     if(this.bandera9 % 2 === 0  || this.bandera9 === 1 ) {
+       // set docuemto
+       this.numDocumento =  document.getElementById('Itemcalendario9').getAttribute('value');
+       this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc9').getAttribute('value');
+       this.Valida_Seleccion_Calendario9 ++;
+       this.cuadroCalendario = $("#Itemcalendario9");
+       this.cuadroCalendario.css({
+         'opacity':'10'
+       });
+       this.palomita9 = $("#palomita9");
+       this.palomita9.css({
+
+ 			'visibility':'visible',
+ 			'opacity':'10',
+ 	    	'position':'absolute',
+ 	    	'top': '1px',
+ 	    	'left': '0px',
+ 	    	'padding': '15px 21px 25px',
+ 	    	'margin-left': '2px',
+ 	    	'margin-top': '2px',
+ 	    	'background-image': 'url(images/check2.png)',
+ 	    	'background-repeat': 'no-repeat',
+ 	    	'display': 'inline-block'
+
+ 		});
+     this.bloquearBoton = '1';
+ 	}else {
+     this.numDocumento = "";
+     this.fechaCorteDoc = "";
+ 		this.cal_Click_9=0;
+ 		this.Valida_Seleccion_Calendario9 --;
+ 		this.cuadroCalendario = $("#Itemcalendario9");
+ 		this.cuadroCalendario.css({
+ 	    	'opacity':'.5'
+ 		});
+ 		this.palomita9 = $("#palomita9");
+ 		this.palomita9.css({
+
+ 	    	'visibility':'hidden'
+     });
+     if(this.itemSeleccionado === 0) {
+      this.bloquearBoton = '0';
+    } 
+ 	}
+
+   }
+
+   clickCal10() {
+
+     this.cal_Click_10 = 1;
+     this.bandera10 ++;
+
+     if(this.bandera10 % 2 === 0  || this.bandera10 === 1 ) {
+       // set docuemto
+       this.numDocumento =  document.getElementById('Itemcalendario10').getAttribute('value');
+       this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc10').getAttribute('value');
+       this.Valida_Seleccion_Calendario10 ++;
+       this.cuadroCalendario = $("#Itemcalendario10");
+       this.cuadroCalendario.css({
+         'opacity':'10'
+       });
+       this.palomita10 = $("#palomita10");
+       this.palomita10.css({
+
+ 			'visibility':'visible',
+ 			'opacity':'10',
+ 	    	'position':'absolute',
+ 	    	'top': '1px',
+ 	    	'left': '0px',
+ 	    	'padding': '15px 21px 25px',
+ 	    	'margin-left': '2px',
+ 	    	'margin-top': '2px',
+ 	    	'background-image': 'url(images/check2.png)',
+ 	    	'background-repeat': 'no-repeat',
+ 	    	'display': 'inline-block'
+
+ 		});
+     this.bloquearBoton = '1';
+ 	}else {
+     this.numDocumento = "";
+     this.fechaCorteDoc = "";
+ 		this.cal_Click_10=0;
+ 		this.Valida_Seleccion_Calendario10 --;
+ 		this.cuadroCalendario = $("#Itemcalendario10");
+ 		this.cuadroCalendario.css({
+ 	    	'opacity':'.5'
+ 		});
+ 		this.palomita10 = $("#palomita10");
+ 		this.palomita10.css({
+
+ 	    	'visibility':'hidden'
+     });
+     if(this.itemSeleccionado === 0) {
+      this.bloquearBoton = '0';
+    } 
+ 	}
+
+   }
+
+   clickCal11() {
+
+     this.cal_Click_11 = 1;
+     this.bandera11 ++;
+
+     if(this.bandera11 % 2 === 0  || this.bandera11 === 1 ) {
+       // set docuemto
+       this.numDocumento =  document.getElementById('Itemcalendario11').getAttribute('value');
+       this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc11').getAttribute('value');
+       this.Valida_Seleccion_Calendario11 ++;
+       this.cuadroCalendario = $("#Itemcalendario11");
+       this.cuadroCalendario.css({
+         'opacity':'10'
+       });
+       this.palomita11 = $("#palomita11");
+       this.palomita11.css({
+
+ 			'visibility':'visible',
+ 			'opacity':'10',
+ 	    	'position':'absolute',
+ 	    	'top': '1px',
+ 	    	'left': '0px',
+ 	    	'padding': '15px 21px 25px',
+ 	    	'margin-left': '2px',
+ 	    	'margin-top': '2px',
+ 	    	'background-image': 'url(images/check2.png)',
+ 	    	'background-repeat': 'no-repeat',
+ 	    	'display': 'inline-block'
+
+ 		});
+     this.bloquearBoton = '1';
+ 	}else {
+     this.numDocumento = "";
+     this.fechaCorteDoc = "";
+ 		this.cal_Click_11=0;
+ 		this.Valida_Seleccion_Calendario11 --;
+ 		this.cuadroCalendario = $("#Itemcalendario11");
+ 		this.cuadroCalendario.css({
+ 	    	'opacity':'.5'
+ 		});
+ 		this.palomita11 = $("#palomita11");
+ 		this.palomita11.css({
+
+ 	    	'visibility':'hidden'
+     });
+     if(this.itemSeleccionado === 0) {
+      this.bloquearBoton = '0';
+    } 
+ 	}
+
+   }
 
 
   operacion(id) {

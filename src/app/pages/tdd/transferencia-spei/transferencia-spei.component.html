@@ -121,8 +121,9 @@
                     </div>
                     <div style="width: 654px;" class="col-sm-4">
                         <input name="importe" [matKeyboard]="'num'" id="importe" #rImporte formControlName="importeF" type="text" maxlength="10" required (blur)="transformAmount(rImporte.value)" class="form-control amount input-lg" (focus)="tecladoMoverArriba()" />
-                        <div class="alert-danger">
-                            <p color="danger" *ngIf="myform.get('importeF').errors && myform.get('importeF').touched">Ingrese Importe</p>
+                        <div class="alert-danger" *ngIf="(myform.get('importeF').errors  && myform.get('importeF').touched)">
+                            <p color="danger" *ngIf="myform.get('importeF').hasError('required')">Ingrese Importe</p>
+                            <p color="danger" *ngIf="myform.get('importeF').hasError('pattern')">Dato incorrecto, favor de verificar.</p>
                         </div>
                     </div>
 
@@ -130,8 +131,9 @@
 
                     <div style="margin-left: -2px; width: 656px;" class="col-sm-4">
                         <input id="referencia" [matKeyboard]="'num'" #rReferencia name="referencia" formControlName="referenciaF" type="text" maxlength="7" class="form-control amount input-lg" (focus)="tecladoMoverArriba()" />
-                        <div class="alert-danger">
-                            <p color="danger" *ngIf="myform.get('referenciaF').errors && myform.get('referenciaF').touched">Ingrese Referencia</p>
+                        <div class="alert-danger" *ngIf="myform.get('referenciaF').errors && myform.get('referenciaF').touched">
+                            <p color="danger" *ngIf="myform.get('referenciaF').hasError('required')">Ingrese Referencia</p>
+                            <p color="danger" *ngIf="myform.get('referenciaF').hasError('pattern')">Dato incorrecto, favor de verificar.</p>
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -144,8 +146,9 @@
                     </div>
                     <div class="col-sm-9">
                         <input name="email" id="email" [matKeyboard]="" #rEmail type="text" maxlength="120" formControlName="correoF" class="input-whidth form-control amount input-lg" (focus)="tecladoMoverArriba()" />
-                        <div class="alert-danger" *ngIf="myform.get('correoF').errors && myform.get('correoF').touched">
-                            <p color="danger">Ingrese Correo</p>
+                        <div class="alert-danger" *ngIf="(myform.get('correoF').errors  && myform.get('correoF').touched)">
+                            <p color="danger" *ngIf="myform.get('correoF').hasError('required')">Ingrese Correo</p>
+                            <p color="danger" *ngIf="myform.get('correoF').hasError('pattern')">Dato incorrecto, favor de verificar.</p>
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -175,7 +178,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content shadowModal" style="height: 410px; width: 550px;">
 
@@ -262,7 +265,7 @@
 <!-- //////////////////////////////////////////////////////////////////////////////////////////////////// Modal End here-->
 
 
-<div id="modalErrorMessage" class="modal fade" data-backdrop="static" data-keyboard="false">
+<div id="modalErrorMessage" class="modal fade" data-backdrop="static" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-dialog-error">
         <div class="modal-content">
             <div class="modal-body text-center">

@@ -47,7 +47,7 @@
 
         <div class="container contenedor-calendar">
             <!--<div id="carouselExampleIndicators" style="height: 100%;" class="carousel slide" data-ride="carousel">-->
-            <div id="carouselExampleIndicators" style="height: 100%;" class="carousel slide" data-ride="">
+            <div id="carouselExampleIndicators" style="height: 100%;" class="carousel slide">
                 <!--<ol class="carousel-indicators">
                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                     <li data-target="#carouselExampleIndicators" data-slide-to=""></li>
@@ -124,14 +124,13 @@ calendario item -->
 
     <div class="modal-footer margin-button" style="padding-right: 200px;">
         <button type="button" class="btn btn-lg" routerLink="/menuTdd">Regresar</button>
-        <button type="button" class="color-botones btn btn-lg " (click)="operacion('1')" id="correo">
+        <button type="button" class="color-botones btn btn-lg " (click)="operacion('1')" id="correo" [disabled]="bloquearBoton === '0'">
       Enviar por correo
     </button>
-        <button style="display: none" type="button" id="cancelarEnvioDomicilio" class="color-botones btn btn-lg " (click)="cancelarEnvio()">Cancelar envío de EDC a domicilio</button>
-        <button type="button" id="imprimirDOC" class="color-botones btn btn-lg " (click)="operacion('0')">
+        <button type="button" id="imprimirDOC" class="color-botones btn btn-lg " (click)="operacion('0')" [disabled]="bloquearBoton === '0'">
       Imprimir
-
     </button>
+        <button style="display: none" type="button" id="cancelarEnvioDomicilio" class="color-botones btn btn-lg " (click)="cancelarEnvio()">Cancelar envío de EDC a domicilio</button>
 
 
 
@@ -142,7 +141,7 @@ calendario item -->
 </fieldset>
 
 
-<div id="infoPrinter" class="modal fade">
+<div id="infoPrinter" class="modal fade" data-backdrop="static">
     <div class="modal-dialog modal-dialog-error">
         <div class="modal-content">
             <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
@@ -165,7 +164,7 @@ calendario item -->
 
 
 
-<div id="ErrorPrint" class="modal fade">
+<div id="ErrorPrint" class="modal fade" data-backdrop="static">
     <div class="modal-dialog modal-dialog-error">
         <div class="modal-content">
             <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
@@ -181,7 +180,7 @@ calendario item -->
     <!-- /.modal-dialog -->
 </div>
 
-<div id="okPrint" class="modal fade">
+<div id="okPrint" class="modal fade" data-backdrop="static">
     <div class="modal-dialog modal-dialog-error">
         <div class="modal-content">
             <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
@@ -197,7 +196,7 @@ calendario item -->
     <!-- /.modal-dialog -->
 </div>
 
-<div id="imprimiendo" class="modal fade">
+<div id="imprimiendo" class="modal fade" data-backdrop="static">
     <div class="modal-dialog modal-dialog-error">
         <div class="modal-content">
             <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">

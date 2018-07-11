@@ -79,8 +79,8 @@ export class TransferenciaSpeiComponent implements OnInit {
       numeroClabeF: [""],
       nombreBeneficiarioF: [""],
       descripcionF: [""],
-      importeF: [""],
-      referenciaF: [""],
+      importeF: ["", Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)],
+      referenciaF: ["", Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})/)],
       correoF: [""]
     });
   }
@@ -417,19 +417,27 @@ limpiarFormulario () {
   transformAmount(impor) {
     const this_aux = this;
     let importeAux = "";
-    if (impor !== '') {
-      const control: FormControl = new FormControl('');
+    const expre2 =  /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/;
+
+    //if (impor !== '') {
+
+      if (impor !== '' && impor !== '.' && impor !== '-' && expre2.test(impor)) {
+        importeAux = this_aux.replaceSimbolo(impor);
+        this_aux.rImporte.nativeElement.value = this_aux.currencyPipe.transform(importeAux, 'USD');
+        importeAux = this_aux.replaceSimbolo( this_aux.rImporte.nativeElement.value) ;
+       }
+    
+    /*  const control: FormControl = new FormControl('');
       this_aux.myform.setControl(this_aux.rImporte.nativeElement.value, control);
       importeAux = this_aux.replaceSimbolo(impor);
       this_aux.rImporte.nativeElement.value = this_aux.currencyPipe.transform(importeAux, 'USD');
-      importeAux = this_aux.replaceSimbolo( this_aux.rImporte.nativeElement.value) ;
-    } else {
+      importeAux = this_aux.replaceSimbolo( this_aux.rImporte.nativeElement.value) ; */
+     /* else {
       if (this_aux.myform.get('importeF').errors === null) {
         const control: FormControl = new FormControl('', Validators.required);
         this_aux.myform.setControl('importeF', control );
       }
-  }
-  
+    } */
 
   this_aux.myform.controls['importeF'].valueChanges.subscribe(
     data => {

@@ -55,8 +55,8 @@ export class CompraTaComponent implements OnInit {
     setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
 
     this.forma = new FormGroup({
-
-      'telefono': new FormControl('', [Validators.required, Validators.maxLength(10), Validators.pattern('/^([0-9])*$/')]),
+     
+      'telefono': new FormControl('',  [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})/)]),
       // 'operador': new FormControl(),
       // 'importe': new FormControl()
 
@@ -92,6 +92,8 @@ export class CompraTaComponent implements OnInit {
      this.fillSelectCuentas();
 
      this.consultaCatEmpresas();
+
+     $( ".cdk-visually-hidden" ).css( "margin-top", "15%" );
   }
 
 

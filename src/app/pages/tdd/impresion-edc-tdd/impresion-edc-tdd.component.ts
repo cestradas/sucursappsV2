@@ -88,7 +88,8 @@ export class ImpresionEdcTddComponent implements OnInit {
   nombreDocumento = "";
   numDocumento = "";
   fechaCorteDoc = "";
-
+  bloquearBoton = '0';
+  itemSeleccionado: any;
   cuentaOrigenModal = "";
 
   constructor(private router: Router, private renderer: Renderer2, private _service: ConsultaSaldosTddService,
@@ -151,12 +152,10 @@ export class ImpresionEdcTddComponent implements OnInit {
     resourceRequest.setTimeout(30000);
     resourceRequest.sendFormParameters(formParameters).then(
       function(response) {
-        setTimeout(function() {
           console.log(response.responseText);
           const detalleMant = response.responseJSON;
         this_aux.obtenerListaDocs();
           $('#_modal_please_wait').modal('hide');
-       }, 3000);
       },
         function(error) {
           console.error("Error");
@@ -300,8 +299,7 @@ export class ImpresionEdcTddComponent implements OnInit {
            // objTo.appendChild(this_aux.calendario.nativeElement);
 
               contFechas --;
-
-
+        
           }
 
           cont ++;
@@ -319,7 +317,7 @@ export class ImpresionEdcTddComponent implements OnInit {
          let elementoCal5 = document.getElementById('Itemcalendario5');
 
         elementoCal0.addEventListener("click", function(event) {
-          console.log(this.id);
+          console.log(this.id);          
           if( ((this_aux.Valida_Seleccion_Calendario0 === 0) || (this_aux.Valida_Seleccion_Calendario0 === 1))
               && (this_aux.Valida_Seleccion_Calendario1 === 0)
               && (this_aux.Valida_Seleccion_Calendario2 === 0)
@@ -332,8 +330,34 @@ export class ImpresionEdcTddComponent implements OnInit {
               && (this_aux.Valida_Seleccion_Calendario9 === 0)
               && (this_aux.Valida_Seleccion_Calendario10 === 0)
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-
+                this_aux.itemSeleccionado = 0;
                 this_aux.clickCal0();
+              } else {                
+                this_aux.itemSeleccionado = 1;
+                this_aux.clickCal0();
+                if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+                  this_aux.clickCal1();                  
+                } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+                  this_aux.clickCal2();
+                } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                  this_aux.clickCal3();
+                } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                  this_aux.clickCal4();
+                } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                  this_aux.clickCal5();
+                } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                  this_aux.clickCal6();
+                } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+                  this_aux.clickCal7();
+                } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                  this_aux.clickCal8();
+                } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+                  this_aux.clickCal9();
+                } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+                  this_aux.clickCal10();
+                } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+                  this_aux.clickCal11();
+                }
               }
 
         });
@@ -351,7 +375,34 @@ export class ImpresionEdcTddComponent implements OnInit {
               && (this_aux.Valida_Seleccion_Calendario9 === 0)
               && (this_aux.Valida_Seleccion_Calendario10 === 0)
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+                this_aux.itemSeleccionado = 0;
                 this_aux.clickCal1();
+              } else {                
+                this_aux.itemSeleccionado = 1;
+                this_aux.clickCal1();
+                if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                  this_aux.clickCal0();                  
+                } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+                  this_aux.clickCal2();
+                } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                  this_aux.clickCal3();
+                } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                  this_aux.clickCal4();
+                } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                  this_aux.clickCal5();
+                } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                  this_aux.clickCal6();
+                } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+                  this_aux.clickCal7();
+                } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                  this_aux.clickCal8();
+                } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+                  this_aux.clickCal9();
+                } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+                  this_aux.clickCal10();
+                } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+                  this_aux.clickCal11();
+                }
               }
         });
         elementoCal2.addEventListener("click", function(event) {
@@ -368,7 +419,34 @@ export class ImpresionEdcTddComponent implements OnInit {
               && (this_aux.Valida_Seleccion_Calendario9 === 0)
               && (this_aux.Valida_Seleccion_Calendario10 === 0)
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-                  this_aux.clickCal2();
+                this_aux.itemSeleccionado = 0;
+                this_aux.clickCal2();
+              } else {                
+                this_aux.itemSeleccionado = 1;
+                this_aux.clickCal2();
+                if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                  this_aux.clickCal0();                  
+                } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+                  this_aux.clickCal1();
+                } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                  this_aux.clickCal3();
+                } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                  this_aux.clickCal4();
+                } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                  this_aux.clickCal5();
+                } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                  this_aux.clickCal6();
+                } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+                  this_aux.clickCal7();
+                } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                  this_aux.clickCal8();
+                } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+                  this_aux.clickCal9();
+                } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+                  this_aux.clickCal10();
+                } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+                  this_aux.clickCal11();
+                }
               }
         });
         elementoCal3.addEventListener("click", function(event) {
@@ -385,7 +463,34 @@ export class ImpresionEdcTddComponent implements OnInit {
           && (this_aux.Valida_Seleccion_Calendario9 === 0)
           && (this_aux.Valida_Seleccion_Calendario10 === 0)
           && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+            this_aux.itemSeleccionado = 0;
             this_aux.clickCal3();
+          } else {                
+            this_aux.itemSeleccionado = 1;
+            this_aux.clickCal3();
+            if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+              this_aux.clickCal0();                  
+            } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+              this_aux.clickCal1();
+            } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+              this_aux.clickCal2();
+            } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+              this_aux.clickCal4();
+            } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+              this_aux.clickCal5();
+            } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+              this_aux.clickCal6();
+            } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+              this_aux.clickCal7();
+            } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+              this_aux.clickCal8();
+            } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+              this_aux.clickCal9();
+            } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+              this_aux.clickCal10();
+            } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+              this_aux.clickCal11();
+            }
           }
         });
         elementoCal4.addEventListener("click", function(event) {
@@ -402,7 +507,34 @@ export class ImpresionEdcTddComponent implements OnInit {
           && (this_aux.Valida_Seleccion_Calendario9 === 0)
           && (this_aux.Valida_Seleccion_Calendario10 === 0)
           && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+            this_aux.itemSeleccionado = 0;
             this_aux.clickCal4();
+          } else {                
+            this_aux.itemSeleccionado = 1;
+            this_aux.clickCal4();
+            if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+              this_aux.clickCal0();                  
+            } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+              this_aux.clickCal1();
+            } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+              this_aux.clickCal2();
+            } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+              this_aux.clickCal3();
+            } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+              this_aux.clickCal5();
+            } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+              this_aux.clickCal6();
+            } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+              this_aux.clickCal7();
+            } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+              this_aux.clickCal8();
+            } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+              this_aux.clickCal9();
+            } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+              this_aux.clickCal10();
+            } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+              this_aux.clickCal11();
+            }
           }
         });
         elementoCal5.addEventListener("click", function(event) {
@@ -419,7 +551,34 @@ export class ImpresionEdcTddComponent implements OnInit {
           && (this_aux.Valida_Seleccion_Calendario9 === 0)
           && (this_aux.Valida_Seleccion_Calendario10 === 0)
           && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+            this_aux.itemSeleccionado = 0;
             this_aux.clickCal5();
+          } else {                
+            this_aux.itemSeleccionado = 1;
+            this_aux.clickCal5();
+            if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+              this_aux.clickCal0();                  
+            } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+              this_aux.clickCal1();
+            } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+              this_aux.clickCal2();
+            } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+              this_aux.clickCal3();
+            } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+              this_aux.clickCal4();
+            } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+              this_aux.clickCal6();
+            } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+              this_aux.clickCal7();
+            } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+              this_aux.clickCal8();
+            } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+              this_aux.clickCal9();
+            } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+              this_aux.clickCal10();
+            } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+              this_aux.clickCal11();
+            }
           }
         });
 
@@ -459,8 +618,6 @@ export class ImpresionEdcTddComponent implements OnInit {
            // objTo.appendChild(this_aux.calendario.nativeElement);
 
               contFechas --;
-
-
           }
 
           cont ++;
@@ -492,10 +649,35 @@ export class ImpresionEdcTddComponent implements OnInit {
               && (this_aux.Valida_Seleccion_Calendario9 === 0)
               && (this_aux.Valida_Seleccion_Calendario10 === 0)
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-
+                this_aux.itemSeleccionado = 0;
                 this_aux.clickCal6();
+              } else {                
+                this_aux.itemSeleccionado = 1;
+                this_aux.clickCal6();
+                if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                  this_aux.clickCal0();                  
+                } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+                  this_aux.clickCal1();
+                } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+                  this_aux.clickCal2();
+                } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                  this_aux.clickCal3();
+                } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                  this_aux.clickCal4();
+                } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                  this_aux.clickCal5();
+                } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+                  this_aux.clickCal7();
+                } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                  this_aux.clickCal8();
+                } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+                  this_aux.clickCal9();
+                } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+                  this_aux.clickCal10();
+                } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+                  this_aux.clickCal11();
+                }
               }
-
         });
 
         elementoCal7.addEventListener("click", function(event) {
@@ -512,8 +694,34 @@ export class ImpresionEdcTddComponent implements OnInit {
               && (this_aux.Valida_Seleccion_Calendario9 === 0)
               && (this_aux.Valida_Seleccion_Calendario10 === 0)
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-
+                this_aux.itemSeleccionado = 0;
                 this_aux.clickCal7();
+              } else {                
+                this_aux.itemSeleccionado = 1;
+                this_aux.clickCal7();
+                if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                  this_aux.clickCal0();                  
+                } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+                  this_aux.clickCal1();
+                } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+                  this_aux.clickCal2();
+                } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                  this_aux.clickCal3();
+                } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                  this_aux.clickCal4();
+                } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                  this_aux.clickCal5();
+                } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                  this_aux.clickCal6();
+                } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                  this_aux.clickCal8();
+                } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+                  this_aux.clickCal9();
+                } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+                  this_aux.clickCal10();
+                } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+                  this_aux.clickCal11();
+                }
               }
 
         });
@@ -532,8 +740,34 @@ export class ImpresionEdcTddComponent implements OnInit {
               && (this_aux.Valida_Seleccion_Calendario9 === 0)
               && (this_aux.Valida_Seleccion_Calendario10 === 0)
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-
+                this_aux.itemSeleccionado = 0;
                 this_aux.clickCal8();
+              } else {                
+                this_aux.itemSeleccionado = 1;
+                this_aux.clickCal8();
+                if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                  this_aux.clickCal0();                  
+                } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+                  this_aux.clickCal1();
+                } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+                  this_aux.clickCal2();
+                } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                  this_aux.clickCal3();
+                } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                  this_aux.clickCal4();
+                } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                  this_aux.clickCal5();
+                } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                  this_aux.clickCal6();
+                } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+                  this_aux.clickCal7();
+                } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+                  this_aux.clickCal9();
+                } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+                  this_aux.clickCal10();
+                } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+                  this_aux.clickCal11();
+                }
               }
 
         });
@@ -552,8 +786,34 @@ export class ImpresionEdcTddComponent implements OnInit {
               && (this_aux.Valida_Seleccion_Calendario8 === 0)
               && (this_aux.Valida_Seleccion_Calendario10 === 0)
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-
+                this_aux.itemSeleccionado = 0;
                 this_aux.clickCal9();
+              } else {                
+                this_aux.itemSeleccionado = 1;
+                this_aux.clickCal9();
+                if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                  this_aux.clickCal0();                  
+                } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+                  this_aux.clickCal1();
+                } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+                  this_aux.clickCal2();
+                } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                  this_aux.clickCal3();
+                } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                  this_aux.clickCal4();
+                } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                  this_aux.clickCal5();
+                } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                  this_aux.clickCal6();
+                } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+                  this_aux.clickCal7();
+                } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                  this_aux.clickCal8();
+                } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+                  this_aux.clickCal10();
+                } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+                  this_aux.clickCal11();
+                }
               }
 
         });
@@ -572,8 +832,34 @@ export class ImpresionEdcTddComponent implements OnInit {
               && (this_aux.Valida_Seleccion_Calendario8 === 0)
               && (this_aux.Valida_Seleccion_Calendario9 === 0)
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-
+                this_aux.itemSeleccionado = 0;
                 this_aux.clickCal10();
+              } else {                
+                this_aux.itemSeleccionado = 1;
+                this_aux.clickCal10();
+                if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                  this_aux.clickCal0();                  
+                } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+                  this_aux.clickCal1();
+                } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+                  this_aux.clickCal2();
+                } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                  this_aux.clickCal3();
+                } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                  this_aux.clickCal4();
+                } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                  this_aux.clickCal5();
+                } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                  this_aux.clickCal6();
+                } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+                  this_aux.clickCal7();
+                } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                  this_aux.clickCal8();
+                } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+                  this_aux.clickCal9();
+                } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+                  this_aux.clickCal11();
+                }
               }
 
         });
@@ -592,21 +878,47 @@ export class ImpresionEdcTddComponent implements OnInit {
               && (this_aux.Valida_Seleccion_Calendario8 === 0)
               && (this_aux.Valida_Seleccion_Calendario9 === 0)
               && (this_aux.Valida_Seleccion_Calendario10 === 0)) {
-
+                this_aux.itemSeleccionado = 0;
                 this_aux.clickCal11();
+              } else {                
+                this_aux.itemSeleccionado = 1;
+                this_aux.clickCal11();
+                if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                  this_aux.clickCal0();                  
+                } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+                  this_aux.clickCal1();
+                } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+                  this_aux.clickCal2();
+                } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                  this_aux.clickCal3();
+                } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                  this_aux.clickCal4();
+                } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                  this_aux.clickCal5();
+                } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                  this_aux.clickCal6();
+                } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+                  this_aux.clickCal7();
+                } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                  this_aux.clickCal8();
+                } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+                  this_aux.clickCal9();
+                } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {      
+                  this_aux.clickCal10();
+                }
               }
 
         });
 
 
        console.log(this_aux.obj['fechas']);
-       $('#_modal_please_wait').modal('hide');
           }, 500);
-
+          $('#_modal_please_wait').modal('hide');
    }, function(error) {
 
           console.error("Error");
-
+        
+       $('#_modal_please_wait').modal('hide');
           $('#errorModal').modal('show');
 
 
@@ -646,6 +958,7 @@ export class ImpresionEdcTddComponent implements OnInit {
  		});
 
       console.log("b6: "+this.bandera0);
+      this.bloquearBoton = '1';
  	}else {
 
      this.numDocumento = "";
@@ -663,7 +976,10 @@ export class ImpresionEdcTddComponent implements OnInit {
  		});
  		// palomita.remove();
  		 console.log("b6: "+ this.bandera0);
- 		 console.log("val "+ this.Valida_Seleccion_Calendario1);
+      console.log("val "+ this.Valida_Seleccion_Calendario1);
+      if(this.itemSeleccionado === 0) {
+        this.bloquearBoton = '0';
+      }      
  	}
 
    }
@@ -698,7 +1014,7 @@ export class ImpresionEdcTddComponent implements OnInit {
  	    	'display': 'inline-block'
 
  		});
-
+     this.bloquearBoton = '1';
  	}else {
      this.numDocumento = "";
      this.fechaCorteDoc = "";
@@ -712,7 +1028,10 @@ export class ImpresionEdcTddComponent implements OnInit {
  		this.palomita1.css({
 
  	    	'visibility':'hidden'
- 		});
+     });
+     if(this.itemSeleccionado === 0) {
+      this.bloquearBoton = '0';
+    }  
  	}
 
    }
@@ -747,7 +1066,7 @@ export class ImpresionEdcTddComponent implements OnInit {
  	    	'display': 'inline-block'
 
  		});
-
+     this.bloquearBoton = '1';
  	}else {
      this.numDocumento = "";
      this.fechaCorteDoc = "";
@@ -761,7 +1080,10 @@ export class ImpresionEdcTddComponent implements OnInit {
  		this.palomita2.css({
 
  	    	'visibility':'hidden'
- 		});
+     });
+     if(this.itemSeleccionado === 0) {
+      this.bloquearBoton = '0';
+    }  
  	}
 
    }
@@ -796,7 +1118,7 @@ export class ImpresionEdcTddComponent implements OnInit {
  	    	'display': 'inline-block'
 
  		});
-
+     this.bloquearBoton = '1';
  	}else {
      this.numDocumento =  "";
      this.fechaCorteDoc = "";
@@ -810,7 +1132,10 @@ export class ImpresionEdcTddComponent implements OnInit {
  		this.palomita3.css({
 
  	    	'visibility':'hidden'
- 		});
+     });
+     if(this.itemSeleccionado === 0) {
+      this.bloquearBoton = '0';
+    } 
  	}
 
    }
@@ -846,7 +1171,7 @@ export class ImpresionEdcTddComponent implements OnInit {
  	    	'display': 'inline-block'
 
  		});
-
+     this.bloquearBoton = '1';
  	}else {
      this.numDocumento =  "";
      this.fechaCorteDoc = "";
@@ -860,7 +1185,10 @@ export class ImpresionEdcTddComponent implements OnInit {
  		this.palomita4.css({
 
  	    	'visibility':'hidden'
- 		});
+     });
+     if(this.itemSeleccionado === 0) {
+      this.bloquearBoton = '0';
+    } 
  	}
 
    }
@@ -895,7 +1223,7 @@ export class ImpresionEdcTddComponent implements OnInit {
  	    	'display': 'inline-block'
 
  		});
-
+     this.bloquearBoton = '1';
  	}else {
      this.numDocumento = "";
      this.fechaCorteDoc = "";
@@ -909,7 +1237,10 @@ export class ImpresionEdcTddComponent implements OnInit {
  		this.palomita5.css({
 
  	    	'visibility':'hidden'
- 		});
+     });
+     if(this.itemSeleccionado === 0) {
+      this.bloquearBoton = '0';
+    } 
  	}
 
    }
@@ -944,7 +1275,7 @@ export class ImpresionEdcTddComponent implements OnInit {
  	    	'display': 'inline-block'
 
  		});
-
+     this.bloquearBoton = '1';
  	}else {
      this.numDocumento = "";
      this.fechaCorteDoc = "";
@@ -958,7 +1289,10 @@ export class ImpresionEdcTddComponent implements OnInit {
  		this.palomita6.css({
 
  	    	'visibility':'hidden'
- 		});
+     });
+     if(this.itemSeleccionado === 0) {
+      this.bloquearBoton = '0';
+    } 
  	}
 
    }
@@ -993,7 +1327,7 @@ export class ImpresionEdcTddComponent implements OnInit {
  	    	'display': 'inline-block'
 
  		});
-
+     this.bloquearBoton = '1';
  	}else {
      this.numDocumento =  "";
      this.fechaCorteDoc = "";
@@ -1007,7 +1341,10 @@ export class ImpresionEdcTddComponent implements OnInit {
  		this.palomita7.css({
 
  	    	'visibility':'hidden'
- 		});
+     });
+     if(this.itemSeleccionado === 0) {
+      this.bloquearBoton = '0';
+    } 
  	}
 
    }
@@ -1042,7 +1379,7 @@ export class ImpresionEdcTddComponent implements OnInit {
  	    	'display': 'inline-block'
 
  		});
-
+     this.bloquearBoton = '1';
  	}else {
      this.numDocumento = "";
      this.fechaCorteDoc = "";
@@ -1056,7 +1393,10 @@ export class ImpresionEdcTddComponent implements OnInit {
  		this.palomita8.css({
 
  	    	'visibility':'hidden'
- 		});
+     });
+     if(this.itemSeleccionado === 0) {
+      this.bloquearBoton = '0';
+    } 
  	}
 
    }
@@ -1091,7 +1431,7 @@ export class ImpresionEdcTddComponent implements OnInit {
  	    	'display': 'inline-block'
 
  		});
-
+     this.bloquearBoton = '1';
  	}else {
      this.numDocumento = "";
      this.fechaCorteDoc = "";
@@ -1105,7 +1445,10 @@ export class ImpresionEdcTddComponent implements OnInit {
  		this.palomita9.css({
 
  	    	'visibility':'hidden'
- 		});
+     });
+     if(this.itemSeleccionado === 0) {
+      this.bloquearBoton = '0';
+    } 
  	}
 
    }
@@ -1140,7 +1483,7 @@ export class ImpresionEdcTddComponent implements OnInit {
  	    	'display': 'inline-block'
 
  		});
-
+     this.bloquearBoton = '1';
  	}else {
      this.numDocumento = "";
      this.fechaCorteDoc = "";
@@ -1154,7 +1497,10 @@ export class ImpresionEdcTddComponent implements OnInit {
  		this.palomita10.css({
 
  	    	'visibility':'hidden'
- 		});
+     });
+     if(this.itemSeleccionado === 0) {
+      this.bloquearBoton = '0';
+    } 
  	}
 
    }
@@ -1189,7 +1535,7 @@ export class ImpresionEdcTddComponent implements OnInit {
  	    	'display': 'inline-block'
 
  		});
-
+     this.bloquearBoton = '1';
  	}else {
      this.numDocumento = "";
      this.fechaCorteDoc = "";
@@ -1203,7 +1549,10 @@ export class ImpresionEdcTddComponent implements OnInit {
  		this.palomita11.css({
 
  	    	'visibility':'hidden'
- 		});
+     });
+     if(this.itemSeleccionado === 0) {
+      this.bloquearBoton = '0';
+    } 
  	}
 
    }
