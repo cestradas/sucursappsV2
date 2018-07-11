@@ -64,7 +64,7 @@
                         <input class="form-control" id="facturador" type="text" placeholder="Facturadores" #facturador [matKeyboard]="" (focus)="muestraFacturadores()" style="height: 100%;" formControlName='fcFacturador' />
                         <div *ngIf="showOptions" class="sumando-bg-white">
                             <ul class="ul-facturadores">
-                                <li *ngFor="let empresa of listaEmpresas" style="list-style:none;background-color: white"><a (click)="setValue(empresa)">{{empresa}}</a></li>
+                                <li *ngFor="let empresa of listaEmpresas" style="list-style:none;background-color: white" class="text-li"><a (click)="setValue(empresa)">{{empresa}}</a></li>
                             </ul>
 
                         </div>

@@ -143,7 +143,7 @@
     </div>
    </div>
  </fieldset>
- <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
+ <div class="modal fade" id="confirmModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content shadowModal ">
 
@@ -192,7 +192,7 @@
                 </div>
                 <div id="challenger" class="row">
                         <div class="col-lg-6" align="center">
-                              <label>N&uacute;mero de seguridad</label>
+                              <label>N&uacute;mero de seguridad:</label>
                         </div>
                         <div class="col-lg-6">
                             <label  class='form-control input-lg'  >{{NumeroSeguridad}}</label>
@@ -200,7 +200,7 @@
                 </div>
                 <div id="divPass" class="row">
                             <div class="col-lg-6" align="center">
-                                <label>{{labelTipoAutentica}}</label>
+                                <label>{{labelTipoAutentica}}:</label>
                              </div>
                               <div class="col-lg-6">
                                 <input type="password" class="form-control input-lg" #token [matKeyboard]="'num'" formControlName='fcToken'>
