@@ -73,23 +73,6 @@
         </div>
     </div>
 
-
-
-    <div id="correoActualizado" class="modal fade" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-error">
-            <div class="modal-content">
-                <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
-                    <h4 style="color: #B01657">Aviso</h4>
-                    <p id="mnsErrorModal">El correo se actualizo correctamente.</p>
-                </div>
-                <div class="modal-footer text-center">
-                    <button id="salir" type="button" class="btn color-botones" data-dismiss="modal" onclick="currentPage.loadMenu(correoElectronico.value,numeroCelular.value)">Salir</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
 </form>
 
 
@@ -124,6 +107,23 @@
             <div class="modal-footer text-center">
                 <button id="cancelar2" type="button" class="btn" data-dismiss="modal" onclick="currentPage.loadMenu()">Cancelar</button>
                 <button id="Confirmar2" type="button" class="btn color-botones" data-dismiss="modal" (click)="validartarjeta()">Confirmar</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<div id="datosIguales" class="modal fade" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-error">
+        <div class="modal-content">
+            <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
+                <h4 style="color: #B01657">Aviso</h4>
+                <p id="mnsErrorModal">Los datos son iguales.</p>
+            </div>
+            <div class="modal-footer text-center">
+                <button id="salir" type="button" class="btn color-botones" data-dismiss="modal" onclick="currentPage.loadMenu(correoElectronico.value,numeroCelular.value)">Aceptar</button>
             </div>
         </div>
         <!-- /.modal-content -->

@@ -260,7 +260,15 @@ mostrarConfirmacion(correo, celular) {
       } else {
         this_aux.celActualizado = this_aux._serviceSesion.datosBreadCroms.CelCliente;
       }
-      $('#actualizarCorreo').modal('show');
+      
+      // tslint:disable-next-line:max-line-length
+      if ((celular === this_aux._serviceSesion.datosBreadCroms.CelCliente) && (correo === this_aux._serviceSesion.datosBreadCroms.EmailCliente)) {
+        $('#datosIguales').modal('show');
+      } else {
+        $('#actualizarCorreo').modal('show');
+      }
+
+      
 }
 
 
