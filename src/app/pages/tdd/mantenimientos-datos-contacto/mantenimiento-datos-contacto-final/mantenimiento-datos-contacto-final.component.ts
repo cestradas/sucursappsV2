@@ -39,7 +39,8 @@ export class MantenimientoDatosContactoFinalComponent implements OnInit {
     const this_aux = this;
 
     this_aux.consultarDatos();
-    this_aux.hora = new Date().getTimezoneOffset();
+    this_aux.hora = (new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()).toString();
+    
     this_aux.dia = new Date().getUTCDate();
     this_aux.mes = (new Date().getUTCMonth() + 1);
     this_aux.anio = new Date().getFullYear();
@@ -50,7 +51,11 @@ export class MantenimientoDatosContactoFinalComponent implements OnInit {
   if (this_aux.dia < 10) {
      this_aux.dia = "0" + this_aux.dia;
   }
-  this_aux.fechaMesActualFin = (this_aux.dia + "-" + this_aux.mes + "-" + this_aux.anio).toString();
+  this_aux.fechaMesActualFin = (this_aux.dia + "/" + this_aux.mes + "/" + this_aux.anio).toString();
+  
+  $('#_modal_please_wait').modal('hide');
+  setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
+
   }
 
   mostrarDatos() {
@@ -74,11 +79,9 @@ export class MantenimientoDatosContactoFinalComponent implements OnInit {
          this_aux.Celular = jsonRespuesta.Telefono;
          this_aux.CorreoElectronico = jsonRespuesta.Email;
          this_aux.Sic = this_aux._serviceSesion.datosBreadCroms.numeroCliente;
-          
+         this_aux.NombreUser = this_aux._serviceSesion.datosBreadCroms.nombreUsuarioTDD;
 
          if (this_aux.CorreoElectronico !== this_aux._serviceSesion.datosBreadCroms.EmailCliente) {
-          const div = document.getElementById('correo2');
-          div.style.display = "block";
           const div2 = document.getElementById('correo');
           div2.style.display = "block";
         }

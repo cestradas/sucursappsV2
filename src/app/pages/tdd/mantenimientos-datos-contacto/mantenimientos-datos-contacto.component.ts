@@ -137,7 +137,7 @@ export class MantenimientosDatosContactoComponent implements OnInit {
 
   }
 
-validartarjeta(correo, numero ) {
+validartarjeta() {
   this._validaNipService.validaNipTrans();
   const this_aux = this;
 
@@ -153,7 +153,7 @@ let res;
       if (res === true) {
 
         
-        this_aux.modificarDatos(correo, numero);
+        this_aux.modificarDatos(this_aux.correoActualizado, this_aux.celActualizado);
       this._validaNipService.respuestaNip.res = "";
       } else {
 
@@ -249,12 +249,16 @@ mostrarConfirmacion(correo, celular) {
         this_aux.correoActualizado = correo;
         const div2 = document.getElementById('correo');
         div2.style.display = "block";
+      } else {
+        this_aux.correoActualizado = this_aux._serviceSesion.datosBreadCroms.EmailCliente;
       }
       
       if (celular !== this_aux._serviceSesion.datosBreadCroms.CelCliente) {
         this_aux.celActualizado = celular;
         const div2 = document.getElementById('numCel');
         div2.style.display = "block";
+      } else {
+        this_aux.celActualizado = this_aux._serviceSesion.datosBreadCroms.CelCliente;
       }
       $('#actualizarCorreo').modal('show');
 }
