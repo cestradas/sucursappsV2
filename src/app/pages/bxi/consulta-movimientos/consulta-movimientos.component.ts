@@ -66,23 +66,28 @@ fillSelectCuentas() {
       this_aux.renderer.addClass(li, 'text-li');
       const a = this.renderer.createElement('a');
       let mascaraCuenta;
-
+      let tamCuenta = this_aux.cuentasArray[i].NoCuenta.length;
+      let textoCuenta;
       
       this_aux.service.noTarjetaSeleccionada = this_aux.cuentasArray[i].Plastico;
       this_aux.service.divisa = this_aux.cuentasArray[i].Divisa;
       if (this_aux.cuentasArray[i].TipoCuenta === 5) {
         mascaraCuenta = operacionesbxi.mascaraNumeroTarjeta(this_aux.cuentasArray[i].NoCuenta);
-      } else if (this_aux.cuentasArray[i].TipoCuenta = 1) {
+        textoCuenta = this.renderer.createText( this_aux.cuentasArray[i].Alias + " - " + mascaraCuenta);
+      } else if ((this_aux.cuentasArray[i].TipoCuenta === 1) && (tamCuenta === 10) ) {
         mascaraCuenta = operacionesbxi.mascaraNumeroCuenta(this_aux.cuentasArray[i].NoCuenta);
+        textoCuenta = this.renderer.createText( this_aux.cuentasArray[i].Alias + " - " + mascaraCuenta);
       }
-      const textoCuenta = this.renderer.createText( this_aux.cuentasArray[i].Alias + " - " + mascaraCuenta);
       
-      this.renderer.setProperty(a, 'value', this_aux.cuentasArray[i].NoCuenta);
-      // tslint:disable-next-line:max-line-length
-      this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target, this_aux.cuentasArray[i].TipoCuenta, this_aux.cuentasArray[i].Alias); });
-      this.renderer.appendChild(a, textoCuenta),
-      this.renderer.appendChild(li, a);
-      this.renderer.appendChild(this.listaCuentas.nativeElement, li); 
+      if (textoCuenta !== undefined) {
+        this.renderer.setProperty(a, 'value', this_aux.cuentasArray[i].NoCuenta);
+        // tslint:disable-next-line:max-line-length
+        this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target, this_aux.cuentasArray[i].TipoCuenta, this_aux.cuentasArray[i].Alias); });
+        this.renderer.appendChild(a, textoCuenta),
+        this.renderer.appendChild(li, a);
+        this.renderer.appendChild(this.listaCuentas.nativeElement, li);
+      }
+       
   } 
 }
 
