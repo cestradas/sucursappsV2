@@ -21,6 +21,7 @@ export class ImpresionEdcFinishComponent implements OnInit {
   contraZip: string;
   confirmCorreo: string;
   correo: string;
+  correosIgual = 0;
 
   constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2) {
 
@@ -45,9 +46,7 @@ export class ImpresionEdcFinishComponent implements OnInit {
         console.log('forma', this.forma);
 
         this_aux.correo = data;
-
         this_aux.validateFields();
-
       });
 
 
@@ -57,9 +56,7 @@ export class ImpresionEdcFinishComponent implements OnInit {
           console.log('forma', this.forma);
 
           this_aux.confirmCorreo = data;
-
           this_aux.validateFields();
-
         });
 
         this.forma.controls['contra'].valueChanges.subscribe(
@@ -68,9 +65,7 @@ export class ImpresionEdcFinishComponent implements OnInit {
             console.log('forma', this.forma);
 
             this_aux.contraZip = data;
-
             this_aux.validateFields();
-
           });
 
   }
@@ -79,15 +74,20 @@ export class ImpresionEdcFinishComponent implements OnInit {
 
     const this_aux = this;
 
-    if ( (this_aux.confirmCorreo !== this_aux.correo) && (this_aux.contraZip !== undefined || this_aux.contraZip !== "") ) {
+    if ( (this_aux.confirmCorreo !== this_aux.correo)) {
+      this_aux.correosIgual = 1;
       $('#continuarEdc').prop("disabled", true);
     } else {
-      $('#continuarEdc').prop("disabled", false);
+      this_aux.correosIgual = 0;
+      if (this.forma.controls['contra'].valid) {
+        $('#continuarEdc').prop("disabled", false);
+      }
     }
 
   }
 
   ngOnInit() {
+    $( ".cdk-visually-hidden" ).css( "margin-top", "15%" );
   }
 
   enviaCorreo() {

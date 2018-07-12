@@ -13,33 +13,33 @@
                     <input type="hidden">
                     <div class="dropdown sumando-dropdown-account">
                         <button class="btn btn-default btn-block dropdown-toggle btn-color-cuentas" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <table id="tableOrigen" style="display: none" width="100%">
-                          <tr>
-                            <td align="left" width="45%">
-                              <strong><label  id="lblAliasOrigen" #lblAliasOrigen></label></strong>
-                            </td>
-                            <td align="left" width="45%">
-                              <strong>$<label id ="lblSaldoOrigen"></label>
-                              </strong>
-                            </td>
-                            <td width="5%" rowspan="2" class="dropdown-caret" style="padding-left: 21px;">
-                              <img  class="select-img" src="./assets/img/bg_selectN.png" style="width: 91%; height: 181%;" >
-                            </td>
-                          </tr>
-                          <tr>
-                            <td align="left">Cuenta <label id="lblCuentaOrigen" #lblCuentaOrigen></label></td>
-                            <td align="left">Saldo Disponible</td>
-                          </tr>
-                        </table>
-                        <table  id="tableDefaultOrigen" width="100%" style="height: 100%;">
-                          <tr>
-                            <td align="left" rowspan="2">Seleccione una cuenta de origen...</td>
-                            <td width="5%" style="height: 40px;" rowspan="2" class="dropdown-caret">
-                              <img src="./assets/img/bg_selectN.png" class="select-img">
-                            </td>
-                          </tr>
-                        </table>
-                      </button>
+                            <table id="tableOrigen" style="display: none" width="100%">
+                              <tr>
+                                <td align="left" width="45%">
+                                  <strong><label  id="lblAliasOrigen" #lblAliasOrigen></label></strong>
+                                </td>
+                                <td align="left" width="45%">
+                                  <strong>$<label id ="lblSaldoOrigen"></label>
+                                  </strong>
+                                </td>
+                                <td width="5%" rowspan="2" class="dropdown-caret" style="padding-left: 21px;">
+                                  <img  class="select-img" src="./assets/img/bg_selectN.png" style="width: 91%; height: 181%;" >
+                                </td>
+                              </tr>
+                              <tr>
+                                <td align="left">Cuenta <label id="lblCuentaOrigen" #lblCuentaOrigen></label></td>
+                                <td align="left">Saldo Disponible</td>
+                              </tr>
+                            </table>
+                            <table  id="tableDefaultOrigen" width="100%" style="height: 100%;">
+                              <tr>
+                                <td align="left" rowspan="2">Seleccione una cuenta de origen...</td>
+                                <td width="5%" style="height: 40px;" rowspan="2" class="dropdown-caret">
+                                  <img src="./assets/img/bg_selectN.png" class="select-img">
+                                </td>
+                              </tr>
+                            </table>
+                          </button>
                         <div>
                             <ul id="ul_Cuentas" #listaCuentas class="dropdown-menu btn-block" aria-labelledby="dropdownMenu1" style="width: 100%; height: 200px; overflow: auto">
 
@@ -55,48 +55,49 @@
 
     <div class="padding-barToTittle">
 
-        <h4 class="text-center color-letra">Seleccione el estado de cuenta que desea imprimir</h4>
+        <!--<h4 class="text-center color-letra">Seleccione el estado de cuenta que desea imprimir</h4>-->
+        <h4 class="text-center padding-barToTittle deleteMargin-h2" style="color: #B01657; font-weight: 700;">Seleccione el estado de cuenta que desea imprimir</h4>
     </div>
 
 
-    <div class="row">
+    <div class="row" data-interval="false">
 
         <div class="container contenedor-calendar">
             <!--<div id="carouselExampleIndicators" style="height: 100%;" class="carousel slide" data-ride="carousel">-->
-            <div id="carouselExampleIndicators" style="height: 100%;" class="carousel slide" data-ride="">
+            <div id="carouselExampleIndicators" style="height: 100%;" class="carousel slide" data-interval="false">
                 <!--<ol class="carousel-indicators">
-                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to=""></li>
-
-                </ol> -->
-                <div class="carousel-inner" role="listbox" style="height: 100%">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to=""></li>
+    
+                    </ol> -->
+                <div class="carousel-inner" role="listbox" style="height: 100%" data-interval="false">
                     <!-- Primer item del carousel -->
-                    <div #calendario id="calendario" class="carousel-item active" style="height: 100%">
+                    <div #calendario id="calendario" class="carousel-item active" style="height: 100%" data-interval="false">
                         <!-- <h2 class="text-center" style="margin-top: 80px; margin-bottom: 80px;">1</h2> -->
 
 
                         <!-- calendario item
-                        <div class="kiosk-cec-carousel-item estilo-item-calendar" id="Itemcalendario0" (click)="clickCal0()">
-                            <div class="row no-space">
-                                <div class="col-xs-6">
-                                    <div class="bg-grey-600 white vertical-align height-200" style="border-radius: 50%;background-color: #ffffff;height: 98px;">
-                                        <div class="vertical-align-middle">
-                                            <span class="icon-calendar" align="center" style="align-self: center; margin-left: 74%;
-                                                                    margin-top: 27px;">12</span>
+                            <div class="kiosk-cec-carousel-item estilo-item-calendar" id="Itemcalendario0" (click)="clickCal0()">
+                                <div class="row no-space">
+                                    <div class="col-xs-6">
+                                        <div class="bg-grey-600 white vertical-align height-200" style="border-radius: 50%;background-color: #ffffff;height: 98px;">
+                                            <div class="vertical-align-middle">
+                                                <span class="icon-calendar" align="center" style="align-self: center; margin-left: 74%;
+                                                                        margin-top: 27px;">12</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="height-200 item-red-middle">
+                                            <span class="font-size-30" style="color: white;     font-weight: bold;
+                                                                font-size: 20px;">Febrero 2018</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-6">
-                                    <div class="height-200 item-red-middle">
-                                        <span class="font-size-30" style="color: white;     font-weight: bold;
-                                                            font-size: 20px;">Febrero 2018</span>
-                                    </div>
-                                </div>
+    
                             </div>
-
-                        </div>
-
-calendario item -->
+    
+    calendario item -->
 
 
 
@@ -105,7 +106,7 @@ calendario item -->
 
                     </div>
                     <!-- Segundo item del carousel -->
-                    <div id="calendario2" class="carousel-item" style="height: 100%">
+                    <div id="calendario2" class="carousel-item" style="height: 100%" data-interval="false">
                         <!-- Calendario del carousel 2 -->
 
 
@@ -119,14 +120,14 @@ calendario item -->
             </div>
         </div>
 
-        <div class="row">
-            <a id="flechasEDCI" style="opacity: 0; margin-top: 278px;" class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon arrowCarousel" aria-hidden="true" style="margin-bottom: 160px;"></span>
-                <span class="sr-only">Previous</span>
+        <div class="row" data-interval="false">
+            <a id="flechasEDCI" style="margin-top: 278px;" class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev" data-interval="false">
+                <span class="carousel-control-prev-icon arrowCarousel" aria-hidden="true" style="margin-bottom: 160px;" data-interval="false"></span>
+                <span class="sr-only" data-interval="false">Previous</span>
             </a>
-            <a id="flechasEDCD" style="opacity: 0; margin-top: 278px;" class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon arrowCarousel" aria-hidden="true" style="margin-bottom: 160px;"></span>
-                <span class="sr-only">Next</span>
+            <a id="flechasEDCD" style="margin-top: 278px;" class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next" data-interval="false">
+                <span class="carousel-control-next-icon arrowCarousel" aria-hidden="true" style="margin-bottom: 160px;" data-interval="false"></span>
+                <span class="sr-only" data-interval="false">Next</span>
             </a>
         </div>
 
@@ -142,18 +143,18 @@ calendario item -->
 
         <button type="button" class="btn btn-lg" routerLink="/menuBXI">Regresar</button>
         <button type="button" class="color-botones btn btn-lg " (click)="operacion('1')" id="correo" [disabled]="bloquearBoton === '0'">
-         Enviar por correo
-       </button>
+             Enviar por correo
+           </button>
         <button type="button" id="imprimirDOC" class="color-botones btn btn-lg " (click)="operacion('0')" [disabled]="bloquearBoton === '0'">
-           Imprimir
-     </button>
+               Imprimir
+         </button>
         <button style="display: none" type="button" id="cancelarEnvioDomicilio" class="color-botones btn btn-lg " (click)="cancelarEnvio()">Cancelar envío de EDC a domicilio</button>
     </div>
 
 </fieldset>
 
 
-<div id="infoPrinter" class="modal fade">
+<div id="infoPrinter" class="modal fade" data-backdrop="static">
     <div class="modal-dialog modal-dialog-error">
         <div class="modal-content">
             <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
@@ -176,7 +177,7 @@ calendario item -->
 
 
 
-<div id="ErrorPrint" class="modal fade">
+<div id="ErrorPrint" class="modal fade" data-backdrop="static">
     <div class="modal-dialog modal-dialog-error">
         <div class="modal-content">
             <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
@@ -192,7 +193,7 @@ calendario item -->
     <!-- /.modal-dialog -->
 </div>
 
-<div id="okPrint" class="modal fade">
+<div id="okPrint" class="modal fade" data-backdrop="static">
     <div class="modal-dialog modal-dialog-error">
         <div class="modal-content">
             <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
@@ -208,7 +209,7 @@ calendario item -->
     <!-- /.modal-dialog -->
 </div>
 
-<div id="imprimiendo" class="modal fade">
+<div id="imprimiendo" class="modal fade" data-backdrop="static">
     <div class="modal-dialog modal-dialog-error">
         <div class="modal-content">
             <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">

@@ -41,6 +41,9 @@
                                 <div *ngIf="forma.hasError('required', 'confCorreo') && forma.get('confCorreo').touched" style="margin-bottom: 0px; padding: 0.5rem 1.20rem;" class="alert alert-danger">
                                     Este dato es obligatorio.
                                 </div>
+                                <div *ngIf="correosIgual === 1" style="margin-bottom: 0px; padding: 0.5rem 1.20rem;" class="alert alert-danger">
+                                    Los correos no son iguales, favor de verificar.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -52,12 +55,17 @@
 
                             <div class="col-sm-10">
                                 <input id="contra" name="contra" [matKeyboard]="" formControlName="contra" type="password" class="form-control amount input-lg" maxlength="60" required />
-                                <div *ngIf="forma.hasError('min', 'contra') || forma.hasError('max', 'contra') " style="margin-bottom: 0px; padding: 0.5rem 1.20rem;" class="alert alert-danger">
-                                    Limite de....
+                                <div class="alert-danger" *ngIf="(forma.get('contra').errors  && forma.get('contra').touched)">
+                                    <p color="danger" *ngIf="forma.get('contra').hasError('required')">Ingrese contraseña.</p>
+                                    <p color="danger" *ngIf="forma.get('contra').hasError('pattern')">Dato incorrecto, favor de verificar.</p>
+                                    <p color="danger" *ngIf="forma.get('contra').hasError('maxlength')"> Limite de.....</p>
                                 </div>
-                                <div *ngIf="forma.hasError('required', 'contra') && forma.get('contra').touched" style="margin-bottom: 0px; padding: 0.5rem 1.20rem;" class="alert alert-danger">
-                                    Este dato es obligatorio.
-                                </div>
+                                <!-- <div *ngIf="forma.hasError('min', 'contra') || forma.hasError('max', 'contra') " style="margin-bottom: 0px; padding: 0.5rem 1.20rem;" class="alert alert-danger">
+                                        Limite de....
+                                    </div>
+                                    <div *ngIf="forma.hasError('required', 'contra') && forma.get('contra').touched" style="margin-bottom: 0px; padding: 0.5rem 1.20rem;" class="alert alert-danger">
+                                        Este dato es obligatorio.
+                                    </div> -->
                             </div>
 
                         </div>
@@ -74,12 +82,12 @@
         <div style="margin:30px 20px 0px 0px;" class="row actions-form-group text-right">
             <div class="col-sm-9"></div>
             <div class="col-sm-2">
-                <button type="button" class="btn btn-lg" routerLink="/menuTdd">Regresar</button>
+                <button type="button" class="btn btn-lg" routerLink="/impresion-edc">Regresar</button>
             </div>
             <!-- <button [disabled]="!forma.valid" class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
             <div class="col-sm-1">
-                <button disabled="disabled" id="continuarEdc" name="continuarEdc" class="btn btn-danger btn-lg" type="submit">
-                    Continuar</button>
+                <button [disabled]="!forma.valid || correosIgual === 1" id="continuarEdc" name="continuarEdc" class="btn btn-danger btn-lg" type="submit">
+                        Continuar</button>
             </div>
         </div>
     </form>

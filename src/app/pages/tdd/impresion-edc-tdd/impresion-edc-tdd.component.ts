@@ -299,7 +299,6 @@ export class ImpresionEdcTddComponent implements OnInit {
            // objTo.appendChild(this_aux.calendario.nativeElement);
 
               contFechas --;
-        
           }
 
           cont ++;

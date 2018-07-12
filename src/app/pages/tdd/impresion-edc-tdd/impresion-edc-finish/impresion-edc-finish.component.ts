@@ -16,10 +16,13 @@ export class ImpresionEdcFinishComponent implements OnInit {
   contraZip: string;
   confirmCorreo: string;
   correo: string;
+  correosIgual = 0;
 
   constructor( private router: Router, private serviceTdd: ResponseWS) { 
 
     const this_aux = this;
+    
+    setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
 
     this_aux.forma = new FormGroup({
 
@@ -37,9 +40,7 @@ export class ImpresionEdcFinishComponent implements OnInit {
         console.log('forma', this.forma);
         
         this_aux.correo = data;
-
         this_aux.validateFields();
-
       });
 
       this.forma.controls['confCorreo'].valueChanges.subscribe(
@@ -48,9 +49,7 @@ export class ImpresionEdcFinishComponent implements OnInit {
           console.log('forma', this.forma);
 
           this_aux.confirmCorreo = data;
-
           this_aux.validateFields();
-
         });
 
         this.forma.controls['contra'].valueChanges.subscribe(
@@ -59,21 +58,22 @@ export class ImpresionEdcFinishComponent implements OnInit {
             console.log('forma', this.forma);
   
             this_aux.contraZip = data;
-
             this_aux.validateFields();
-
           });
-
   }
 
   validateFields() {
 
     const this_aux = this;
 
-    if ( (this_aux.confirmCorreo !== this_aux.correo) && (this_aux.contraZip !== undefined || this_aux.contraZip !== "") ) {
+    if ( (this_aux.confirmCorreo !== this_aux.correo)) {
+      this_aux.correosIgual = 1;
       $('#continuarEdc').prop("disabled", true);
     } else {
-      $('#continuarEdc').prop("disabled", false);
+      this_aux.correosIgual = 0;
+      if (this.forma.controls['contra'].valid) {
+        $('#continuarEdc').prop("disabled", false);
+      }
     }
 
   }
