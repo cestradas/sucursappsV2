@@ -53,7 +53,7 @@
     </div>
 
 
-    <form [formGroup]="forma" (ngSubmit)="setTipoAutenticacionOnModal()">
+    <form [formGroup]="forma">
         <div id="divisionInputs"></div>
         <div class="row sumando-form-group letranegrita">
             <div class="col-sm-1 sumando-bg-red group-name">Para</div>
@@ -123,7 +123,7 @@
             </div>
             <!-- <button class="btn btn-primary [disabled]="!forma.valid" btn-lg" ng-click="onSiguiente01();"> -->
             <div class="col-sm-1">
-                <button id="continuarTA" name="continuarspei" [disabled]="!forma.valid" class="color-botones btn btn-lg " type="submit">
+                <button id="continuarTA" name="continuarspei" [disabled]="!forma.valid" class="color-botones btn btn-lg " (click)="validarSaldo()">
                   Continuar</button>
             </div>
         </div>

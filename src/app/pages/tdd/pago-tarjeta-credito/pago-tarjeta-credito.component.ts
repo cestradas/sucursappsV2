@@ -113,7 +113,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       btnContinuar2.classList.remove("color-botones");
       btnContinuar2.classList.add("color-botones_Preferente");
     }    
-    $(".cdk-visually-hidden").css("margin-top", "10%");
+    $(".cdk-visually-hidden").css("margin-top", "15%");
   }
 
 

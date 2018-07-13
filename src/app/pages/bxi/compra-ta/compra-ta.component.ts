@@ -492,5 +492,37 @@ showErrorSuccesMoney(json) {
   $('#ModalErrorTransaccion').modal('show');
 }
 
+validarSaldo() {
+  const this_aux = this;
+  importeTel = parseFloat(this_aux.importe.toString()).toFixed(2);
+  $('#_modal_please_wait').modal('show');
+  const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+  operacionesbxi.consultaTablaYValidaSaldo(this_aux.service.numCuentaCTASel, importeTel).then(
+    function(response) {
+      let DatosJSON = response.responseJSON;
+      console.log(response.responseText);
+      if (DatosJSON.Id === "1") {
+        console.log("Pago validado");
+        this_aux.setTipoAutenticacionOnModal();
+      } else if ( DatosJSON.Id === "4" ) {
+        $('#modalLimiteDiario').modal('show');
+      } else if ( DatosJSON.Id === "5" ) {
+        $('#modalLimiteMensual').modal('show');
+      } else {
+        $('#errorModal').modal('show');
+      }
+      setTimeout(function() {
+        $('#_modal_please_wait').modal('hide');
+      }, 500);
+      
+    }, function(error) {
+      setTimeout(function() {
+        $('#_modal_please_wait').modal('hide');
+     this_aux.showErrorPromise(error);
+      }, 500);
+     
+});
+}
+
 
 }

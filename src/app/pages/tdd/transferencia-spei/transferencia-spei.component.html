@@ -46,8 +46,8 @@
     
                     <option disabled="true" selected>Seleccione transferencia</option>
                    <!-- <option value="1">SPEI</option>-->
-                    <option value="1">Rapida</option>
-                    <option value="2">TEF</option>                    
+                    <option value="1" class="text-li">Rápida</option>
+                    <option value="2" class="text-li">TEF</option>                    
                 </select>
         </div>
 
@@ -67,7 +67,7 @@
                     <div class="dropdown sumando-dropdown-account col-sm-9">
                         <select class="input-whidth input-lg selectModificado" name="sel1" id="selecBanco" #rSelecBanco (change)="selectBanco($event.target.value)" style="border:0px solid red; background-size: auto; width: 100%">
                             <option disabled="true">Seleccione un banco</option>
-                            <option *ngFor="let bancos of listaBancos"  [value]="bancos.IdSecoban">{{bancos.NombreBanco}}</option>                                     
+                            <option class="text-li" *ngFor="let bancos of listaBancos"  [value]="bancos.IdSecoban">{{bancos.NombreBanco}}</option>                                     
                         </select>
                     </div>
                 </div>
@@ -106,7 +106,7 @@
                         <label class="col-sm-2 control-label">Descripci&oacute;n:</label>
                     </div>
                     <div class="col-sm-9">
-                        <input id="descripcion" [matKeyboard]="" #rDescripcion name="descripcion" formControlName="descripcionF" type="text" class="input-whidth form-control amount input-lg text-uppercase" maxlength="60" (focus)="tecladoMoverAbajo()" />
+                        <input id="descripcion" [matKeyboard]="" #rDescripcion name="descripcion" formControlName="descripcionF" type="text" class="input-whidth form-control amount input-lg text-uppercase" maxlength="60" (focus)="tecladoMoverArriba()" />
                         <div class="alert-danger" *ngIf="myform.get('descripcionF').errors && myform.get('descripcionF').touched">
                             <p color="danger">Ingrese Descripción</p>
                         </div>
