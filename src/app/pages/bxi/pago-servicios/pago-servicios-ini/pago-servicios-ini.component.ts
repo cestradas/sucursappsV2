@@ -70,7 +70,7 @@ export class PagoServiciosIniComponent implements OnInit {
 
     filtraCtaVista(cuenta) {
       const this_aux = this;
-      if (cuenta.TipoCuenta === 1) {
+      if (cuenta.TipoCuenta === 1 && cuenta.NoCuenta.length === 10) {
         this_aux.crearListaCuentas(cuenta);
       } 
     }

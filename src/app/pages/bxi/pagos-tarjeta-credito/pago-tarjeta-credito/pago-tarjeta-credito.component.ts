@@ -83,7 +83,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
   filtraCtaVista(cuenta) {
     const this_aux = this;
-    if (cuenta.TipoCuenta === 1) {
+    if (cuenta.TipoCuenta === 1 && cuenta.NoCuenta.length === 10) {
       this_aux.crearListaCuentas(cuenta);
     } 
   }
@@ -233,6 +233,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
             const this_aux = this;
             const operacionesbxi: OperacionesBXI = new OperacionesBXI();
             const li =  this.renderer.createElement('li');
+            this_aux.renderer.addClass(li, 'text-li');
             const a = this.renderer.createElement('a');
             const textoCuenta = this.renderer.createText( data.Alias + ' ' + data.NoCuenta);
             if ( isBanorte) {
