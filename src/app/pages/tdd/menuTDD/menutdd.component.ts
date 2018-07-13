@@ -36,10 +36,10 @@ export class MenutddComponent implements OnInit {
 
   ngOnInit() {
     // $('div').removeClass('modal-backdrop');
-      this.getidSesion();
       if (sessionStorage.getItem("campania") === null)      {
         sessionStorage.setItem("campania", "activa");
       }
+      this.getidSesion();
     }
   conAlertas() {
         

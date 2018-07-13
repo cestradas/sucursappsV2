@@ -56,7 +56,8 @@ export class CompraTaComponent implements OnInit {
 
     this.forma = new FormGroup({
      
-      'telefono': new FormControl('',  [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})/)]),
+      'telefono': new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10),  
+        Validators.pattern( /^([0-9]{1,})$/)]),
       // 'operador': new FormControl(),
       // 'importe': new FormControl()
 
@@ -70,10 +71,6 @@ export class CompraTaComponent implements OnInit {
         console.log('forma', this.forma);
 
         this_aux.telefonoF = data;
-        if (this_aux.telefonoF.length === 10) {
-
-          $('#continuarTA').prop("disabled", false);
-        }
 
       });
 

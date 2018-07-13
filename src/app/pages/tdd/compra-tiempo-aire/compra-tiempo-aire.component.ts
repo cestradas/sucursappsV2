@@ -65,7 +65,8 @@ export class CompraTiempoAireComponent implements OnInit {
 
                 this.forma = new FormGroup({
 
-                  'telefono': new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})/)]),
+                  'telefono': new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10),  
+                    Validators.pattern( /^([0-9]{1,})$/)]),
                  // 'email': new FormControl('', [Validators.required,
                   //  Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
                   'operador': new FormControl(),
@@ -243,7 +244,7 @@ export class CompraTiempoAireComponent implements OnInit {
     $('label').removeClass('border border-danger');
     $('#' + param.id).addClass('border border-danger');
     this.importe = param.id;
-
+    $('#telefono').prop("disabled", false);
   }
 
   recargaTiempoAire() {

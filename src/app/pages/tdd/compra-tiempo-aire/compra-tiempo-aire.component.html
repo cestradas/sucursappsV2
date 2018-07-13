@@ -91,9 +91,9 @@
                     <label class="col-sm-2 control-label">Tel&eacute;fono</label>
 
                     <div class="col-sm-10">
-                        <input formControlName="telefono" id="telefono" #telefonoF name="telefono" [matKeyboard]="'num'" type="text" class="input-whidth form-control amount input-lg" />
+                        <input formControlName="telefono" id="telefono" #telefonoF name="telefono" [matKeyboard]="'num'" type="text" class="input-whidth form-control amount input-lg" disabled="disabled" />
                         <div class="alert-danger" *ngIf="(forma.get('telefono').errors  && forma.get('telefono').touched)">
-                            <p color="danger" *ngIf="forma.get('telefono').hasError('required')">Ingrese número de teléfono.</p>
+                            <p color="danger" *ngIf="forma.get('telefono').hasError('required')">Dato obligatorio, favor de capturar.</p>
                             <p color="danger" *ngIf="forma.get('telefono').hasError('pattern')">Dato incorrecto, favor de verificar.</p>
                             <p color="danger" *ngIf="forma.get('telefono').hasError('minlength') || forma.get('telefono').hasError('maxlength')">El numero telefonico debe ser a 10 digitos.</p>
                         </div>
