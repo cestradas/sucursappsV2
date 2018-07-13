@@ -1,87 +1,90 @@
-<div ng-cloak class="padding-barToTittle">
-    <h2 class="text-center deleteMargin-h2 color-letra letramegrita">Pago de Servicios</h2>
-</div><br>
+<form [formGroup]="myForm" novalidate>
+    <div ng-cloak class="padding-barToTittle">
+        <h2 class="text-center deleteMargin-h2 color-letra letramegrita">Pago de Servicios</h2>
+    </div><br>
 
-<fieldset class="padding-TittleToFieldset padding-fieldset-general">
+    <fieldset class="padding-TittleToFieldset padding-fieldset-general">
 
-    <div class="row sumando-form-group letranegrita">
-        <div class="col-sm-1 sumando-bg-orange group-name" style="border-bottom-width: 0px;height: 68px; padding-top: 24px;">Desde</div>
-        <div class="col-sm-11 group-controls padding-left-0 padding-right-0 sumando-well-white" style="margin-bottom: 30px; height: 69px; padding-top: 0px; padding-bottom: 0px;">
-            <div class="form-group ">
+        <div class="row sumando-form-group letranegrita">
+            <div class="col-sm-1 sumando-bg-orange group-name" style="border-bottom-width: 0px;height: 68px; padding-top: 24px;">Desde</div>
+            <div class="col-sm-11 group-controls padding-left-0 padding-right-0 sumando-well-white" style="margin-bottom: 30px; height: 69px; padding-top: 0px; padding-bottom: 0px;">
+                <div class="form-group ">
 
-                <div class="sumando-dropdown-account">
-                    <table width="100%" class="letranegrita">
-                        <tr>
-                            <td align="left" width="40%">Nombre <strong>
+                    <div class="sumando-dropdown-account">
+                        <table width="100%" class="letranegrita">
+                            <tr>
+                                <td align="left" width="40%">Nombre <strong>
                               <label #lblAliasOrigen>
                                   {{ nombreUsuarioTdd }}
                               </label>
                       </strong>
-                            </td>
-                            <td align="left" width="40%">
-                                <strong>
+                                </td>
+                                <td align="left" width="40%">
+                                    <strong>
                                   <label #lblSaldoOrigen>{{ saldoClienteTdd | currency }}</label>
                       </strong>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="left">Cuenta
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">Cuenta
 
-                                <label #lblCuentaOrigen>
+                                    <label #lblCuentaOrigen>
                                   {{ cuentaClienteTdd }}
                               </label>
 
-                            </td>
-                            <td align="left">Saldo Disponible
-                            </td>
-                        </tr>
-                    </table>
+                                </td>
+                                <td align="left">Saldo Disponible
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="row sumando-form-group letranegrita padding-InFieldset">
-        <div class="col-sm-1 sumando-bg-red group-name">Para</div>
+        <div class="row sumando-form-group letranegrita padding-InFieldset">
+            <div class="col-sm-1 sumando-bg-red group-name">Para</div>
 
-        <div class="col-sm-11 ">
+            <div class="col-sm-11 ">
 
-            <div class="clearfix"></div>
-
-            <div class="row">
-
-                <div class="col-lg-12" style="padding-right: 0px; padding-left: 0px; height: 61px;">
-                    <input class="form-control" id="facturador" type="text" placeholder="Facturadores" #facturador [matKeyboard]="" (focus)="muestraFacturadores()" style="height: 100%;" formControlName='fcFacturador' />
-                    <div *ngIf="showOptions" class="sumando-bg-white">
-                        <ul class="ul-facturadores">
-                            <li *ngFor="let empresa of listaEmpresas" style="list-style:none;"><a (click)="setValue(empresa)">{{empresa}}</a></li>
-                        </ul>
-
-                    </div>
-                    <div *ngIf="myForm.get('fcFacturador').errors  && myForm.get('fcFacturador').touched" class="alert alert-danger">
-                        <p *ngIf="myForm.get('fcFacturador').hasError('required')">
-                            Dato obligatorio, favor de capturar.
-                        </p>
-                    </div>
-                </div>
                 <div class="clearfix"></div>
 
+                <div class="row">
+
+                    <div class="col-lg-12" style="padding-right: 0px; padding-left: 0px; height: 61px;">
+                        <input class="form-control" id="facturador" type="text" placeholder="Facturadores" #facturador [matKeyboard]="" (focus)="muestraFacturadores()" style="height: 100%;" formControlName='fcFacturador' />
+                        <div *ngIf="showOptions" class="sumando-bg-white">
+                            <ul class="ul-facturadores">
+                                <li *ngFor="let empresa of listaEmpresas" style="list-style:none;"><a (click)="setValue(empresa)" class="text-li">{{empresa}}</a></li>
+                            </ul>
+
+                        </div>
+                        <div *ngIf="myForm.get('fcFacturador').errors  && myForm.get('fcFacturador').touched" class="alert alert-danger">
+                            <p *ngIf="myForm.get('fcFacturador').hasError('required')">
+                                Dato obligatorio, favor de capturar.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                </div>
+
             </div>
 
         </div>
 
-    </div>
+        <div class="row actions-form-group text-right">
+            <div class="col-lg-9"></div>
+            <div class="col-lg-1 pull-right">
 
-    <div class="row actions-form-group text-right">
-        <div class="col-lg-9"></div>
-        <div class="col-lg-1 pull-right">
-
-        </div>
-        <!-- <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
-        <div class="col-lg-2" style="padding-right: 0px;">
-            <button class="btn btn-lg" type="button" (click)="irMenuTDD()">Regresar</button>
-            <button id="continuar" type="button" class="btn color-botones btn-lg" [disabled]="(facturador.value == '') || (lblCuentaOrigen.textContent == '') || (lblAliasOrigen.textContent == '') || (lblSaldoOrigen.textContent == '')" (click)="saveData()">
+            </div>
+            <!-- <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
+            <div class="col-lg-2" style="padding-right: 0px;">
+                <button class="btn btn-lg" type="button" (click)="irMenuTDD()">Regresar</button>
+                <button id="continuar" type="button" class="btn color-botones btn-lg" [disabled]="(facturador.value == '') || (lblCuentaOrigen.textContent == '') || (lblAliasOrigen.textContent == '') || (lblSaldoOrigen.textContent == '')" (click)="saveData()">
             Continuar
           </button>
+            </div>
         </div>
-    </div>
+    </fieldset>
+</form>

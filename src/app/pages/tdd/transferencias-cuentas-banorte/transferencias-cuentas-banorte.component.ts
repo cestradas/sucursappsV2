@@ -43,7 +43,7 @@ export class TransferenciasCuentasBanorteComponent implements OnInit {
         fcNumCuenta: ['', [Validators.required, Validators.pattern(/^(([0-9]{10}))$|^(([0-9]{16}))$/)]],
         fcDescripcion: ['', [Validators.required]],
         fcCorreo: ['', [Validators.required, Validators.pattern(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)]],
-       fcImporte: ['', [Validators.required /*Validators.pattern(/^[0-9]+[0-9]*$/ )*/]],
+       fcImporte: ['', [Validators.required , Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)]],
   
       });
       
@@ -89,7 +89,7 @@ export class TransferenciasCuentasBanorteComponent implements OnInit {
      );
  
      
-     $( ".cdk-visually-hidden" ).css( "margin-top", "13%" );
+     $( ".cdk-visually-hidden" ).css( "margin-top", "10%" );
        
   }
 
@@ -101,32 +101,29 @@ export class TransferenciasCuentasBanorteComponent implements OnInit {
     
   }
 
-  transformAmount(importe) {
-    const this_aux = this;
-    if (importe !== '') {
-      const control: FormControl = new FormControl('');
-      this_aux.myForm.setControl('fcImporte', control);
-      this_aux.importeAux = this_aux.replaceSimbolo(importe);
-      this_aux.rImporte.nativeElement.value = this_aux.currencyPipe.transform(this_aux.importeAux, 'USD');
-      this_aux.importeAux = this_aux.replaceSimbolo( this_aux.rImporte.nativeElement.value) ;
-  
-    } else {
-        if (this_aux.myForm.get('fcImporte').errors === null) {
-          const control: FormControl = new FormControl('', Validators.required);
-          this_aux.myForm.setControl('fcImporte', control );
-        }
-    }
-
-
-    
-      this_aux.importe = importe;
-  }
+ 
 
   replaceSimbolo(importe) {
     const importeAux = importe.replace('$', '');
     return importeAux;
   }
 
+
+
+  transformAmount(importe) {
+    // const expre1 = /^\$+([0-9]{1,3}\,*)+(\.)+([0-9]{2})/;
+     const expre2 =  /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/;
+     const expres3 = /^\$+(([0-9]{1,}\,*)+((\.){0,1}([0-9]{0,}))$)/;
+    // const expre3 =  /^([0-9])/;
+    // const expre4 =  /^\.+([0-9]{2})/;
+    const this_aux = this;
+    if (importe !== '' && importe !== '.' && importe !== '-' && (expre2.test(importe) || expres3.test(importe))) {
+      this_aux.importeAux = this_aux.replaceSimbolo(importe);
+      this_aux.rImporte.nativeElement.value = this_aux.currencyPipe.transform(this_aux.importeAux, 'USD');
+      this_aux.importeAux = this_aux.replaceSimbolo( this_aux.rImporte.nativeElement.value) ;
+  
+    } 
+  }
 
   validarSaldo(myForm) {
     const this_aux = this;
