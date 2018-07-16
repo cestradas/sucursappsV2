@@ -1,3 +1,4 @@
+
 <form [formGroup]="myForm" novalidate>
     <div ng-cloak class="padding-barToTittle">
         <h2 class="text-center color-letra">{{nombreServicio}}</h2>
@@ -211,7 +212,7 @@
 </div>
 </form>
 
-<div class="modal fade" id="ModalLectordeRecibo" (load)="iniListenScan()" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="ModalBXIError" aria-hidden="true">
+<div class="modal fade" id="ModalLectordeRecibo"  tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="ModalBXIError" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content shadowModal ">
             <div class="modal-header">
@@ -265,11 +266,11 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div class="row" >
+                   <!-- <div class="row" >
                                             <div class="col-lg-5">
                                                     <input type="text" id="txtReadCode" #rCodeBar autofocus (input)="leeCodeBar(rCodeBar.value)" class="txt-codeBar" >
                                             </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>

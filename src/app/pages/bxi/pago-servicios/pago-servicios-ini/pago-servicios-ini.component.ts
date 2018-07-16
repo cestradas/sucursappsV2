@@ -36,7 +36,7 @@ export class PagoServiciosIniComponent implements OnInit {
     });
   }
    ngOnInit() {
-    $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
+    $( ".cdk-visually-hidden" ).css( "margin-top", "30%" );
        this.fillSelectCuentas();
        this.getEmpresas();
 

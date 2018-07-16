@@ -29,6 +29,7 @@ export class PagoServiciosDetailComponent implements OnInit {
   showFocus = true;
   NumeroSeguridad: string;
   importeShow: number;
+  INTENTOS = 0;
 
   constructor( private service: SesionBxiService, private fb: FormBuilder, private router: Router, private currencyPipe: CurrencyPipe) {
 
@@ -49,6 +50,27 @@ export class PagoServiciosDetailComponent implements OnInit {
     const this_aux = this;
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
+    const ModalLectordeRecibo = $('#ModalLectordeRecibo');
+    let cadena = '';
+    ModalLectordeRecibo.on('keydown', function(event) {
+      let e;
+       e = e ||   event;
+       const code = e.key;
+       cadena = cadena + code;
+       setTimeout(function() {
+        const expreg = /(\d+)/g; 
+       // this_aux.INTENTOS = this_aux.INTENTOS + 1;
+        // if (this_aux.INTENTOS < 5) {
+            this_aux.leeCodeBar(cadena.match(expreg));
+            setTimeout(function() {
+            cadena = ''; 
+            }, 500);
+        // } else {
+          // document.getElementById('mnsError').innerHTML =  "No se puede leer tu recibo, favor de ingresar manualmente los datos.";
+          // $('#errorModal').modal('show');
+        // } 
+       }, 1000);
+    });
         const detalleEmpresa = JSON.parse(this_aux.service.detalleEmpresa_PS);
           this_aux.nombreServicio =  detalleEmpresa.empresa;
           this_aux.service.nombreServicio = this_aux.nombreServicio;
@@ -372,9 +394,12 @@ export class PagoServiciosDetailComponent implements OnInit {
   }
 
 
-  leeCodeBar(value) {
+  leeCodeBar(valor) {
+
+    if (valor !== null ) {
+
       const this_aux = this;
-      console.log(value);
+      const value = valor[0];
       console.log(value.length);
 
       if (this_aux.service.idFacturador === '1310') {
@@ -415,6 +440,7 @@ export class PagoServiciosDetailComponent implements OnInit {
           $('#ModalLectordeRecibo').modal('hide');
         }
      }
+    }
   }
 
   ocultaModal() {
@@ -426,5 +452,6 @@ export class PagoServiciosDetailComponent implements OnInit {
   iniListenScan() {
     console.log("INI SCAN");
   }
+
 }
 

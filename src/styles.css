@@ -993,11 +993,13 @@ table {
 .ul-facturadores {
     width: 100%;
     height: auto;
-    overflow: auto;
+    /*overflow: auto;*/
     position: absolute;
     z-index: 1;
     display: inline-block;
     background-color: white;
+    max-height: 300px;
+    overflow-y: auto;
 }
 
 .img-select-seleccion {
