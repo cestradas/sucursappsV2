@@ -168,7 +168,7 @@ export class MantenimientoDatosIniComponent implements OnInit {
     const this_aux = this;
     const divChallenge = document.getElementById('challenger');
     const divTokenPass = document.getElementById('divPass');
-    const control: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([0-9])*$/)]);
+    const control: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([0-9]{6})*$/)]);
     this_aux.myForm.setControl('fcToken', control );
     this_aux.Correo = correo;
     this_aux.Celular = celular;

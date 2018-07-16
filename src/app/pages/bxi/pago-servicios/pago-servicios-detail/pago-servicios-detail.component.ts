@@ -36,7 +36,9 @@ export class PagoServiciosDetailComponent implements OnInit {
      fcTelefono: ['', [Validators.required, Validators.minLength(10),  Validators.maxLength(10)]],
      fcReferencia: ['', [Validators.required]],
      fcDigitoVerificador: ['', [Validators.required, Validators.maxLength(1)]],
-     fcFechaVencimiento: ['', [Validators.required , Validators.pattern(/^\d{2,4}\-\d{1,2}\-\d{1,2}$/)]],
+     // fcFechaVencimiento: ['', [Validators.required , Validators.pattern(/^\d{2,4}\-\d{1,2}\-\d{1,2}$/)]],
+     // tslint:disable-next-line:max-line-length
+     fcFechaVencimiento: ['', [Validators.required , Validators.pattern(/^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]],
      fcImporte: ['', [Validators.required, Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)]],
      fcToken: []
 
@@ -145,7 +147,7 @@ export class PagoServiciosDetailComponent implements OnInit {
       const divChallenge = document.getElementById('challenger');
       const divTokenPass = document.getElementById('divPass');
 
-      const control: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([0-9])*$/)]);
+      const control: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([0-9]{6})*$/)]);
       this_aux.myForm.setControl('fcToken', control );
 
       if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
@@ -405,7 +407,7 @@ export class PagoServiciosDetailComponent implements OnInit {
           const fecha = anio + '-' + mes + '-' + dia;
           const controlReferencia: FormControl = new FormControl(referencia, Validators.required);
           // tslint:disable-next-line:max-line-length
-          const controlFecha: FormControl = new FormControl(fecha, [Validators.required,  Validators.pattern(/^\d{2,4}\-\d{1,2}\-\d{1,2}$/)]);
+          const controlFecha: FormControl = new FormControl(fecha, [Validators.required,  Validators.pattern(/^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]);
           const controlImporte: FormControl = new FormControl(importe, Validators.required);
           this_aux.myForm.setControl('fcImporte', controlImporte );
           this_aux.myForm.setControl('fcReferencia', controlReferencia );
@@ -420,4 +422,9 @@ export class PagoServiciosDetailComponent implements OnInit {
     const control: FormControl = new FormControl('');
     this_aux.myForm.setControl('fcToken', control );
   }
+
+  iniListenScan() {
+    console.log("INI SCAN");
+  }
 }
+
