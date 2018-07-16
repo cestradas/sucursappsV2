@@ -648,7 +648,7 @@ validarSaldo(tipoOperecionPago) {
 
           // MANDAR A LLAMAR MODAL DE CONFIRMACION
           if (tipoOperecionPago === "1") {           // Cuentas propias Banorte
-            $('#confirmModal').modal('show');
+            $('#confirmModalBanorte').modal('show');
           } else if (tipoOperecionPago === "2") {   // Cuentas a terceros Banorte
             $('#confirmModal').modal('show');
           }
@@ -722,13 +722,14 @@ confirmarPago(token) {
 
     case '1':  // Cuentas propias Banorte
 
+    /*
     autenticacion.autenticaUsuario(token, this_aux.service.metodoAutenticaMayor).then(
       function(detalleAutentica) {
             // console.log(detalleAutentica.responseJSON);
             const infoUsuarioJSON = detalleAutentica.responseJSON;
             if (infoUsuarioJSON.Id === 'SEG0001') {
                 console.log('Nivel de autenticacion alcanzado');
-
+    */
                 operacionesbxi.confirmaTransferPropTerBanorte(sic, this_aux.service.correoBeneficiario, paramMnsEmail,
                                                               this_aux.service.AliasCuentaTranPropBanorte, ctaO,
                                                               ctaDest, importe, concepto,
@@ -755,7 +756,7 @@ confirmarPago(token) {
 
                   }, function(error) { this_aux.showErrorPromise(error);  }
                 );
-            } else {
+            /*} else {
               console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
               mensajeError = this_aux.controlarError(infoUsuarioJSON);
               document.getElementById('mnsError').innerHTML =  mensajeError;
@@ -764,7 +765,7 @@ confirmarPago(token) {
             }
       }, function(error) {
         this_aux.showErrorPromise(error);
-      });
+      });*/
 
 
           break;

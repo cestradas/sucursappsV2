@@ -189,6 +189,62 @@
 
 
 <!-- Modal -->
+<div class="modal fade" id="confirmModalBanorte" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content shadowModal ">
+
+            <div class="modal-body" style="padding: 2rem;">
+
+                <h4 style="color: #B01657; font-weight: 700;">Confirmar pago</h4>
+                <div class="row">
+                    <div class="col-lg 6">
+                        <label>Cuenta origen:</label>
+                    </div>
+                    <div class="col-lg 6">
+                        <label>{{cuentaOrigenModal}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg 6">
+                        <label>Cuenta destino:</label>
+                    </div>
+                    <div class="col-lg 6">
+                        <label>{{CuentaDestino}}</label>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-lg 6">
+                        <label>Nombre:</label>
+                    </div>
+                    <div class="col-lg 6">
+                        <label>{{nombreBeneModal}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg 6">
+                        <label>Importe total:</label>
+                    </div>
+                    <div class="col-lg 6">
+                        <label>${{importeF}}</label>
+                    </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
+                    <button class="color-botones btn btn-lg " (click)="confirmarPago(token.value)">
+                              Confirmar
+                            </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
 <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content shadowModal ">
@@ -213,7 +269,7 @@
                     </div>
                 </div>
 
-                
+
                 <div class="row">
                     <div class="col-lg 6">
                         <label>Nombre:</label>
