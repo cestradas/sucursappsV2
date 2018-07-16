@@ -64,7 +64,7 @@
                             <input type="text" id="iNumCuenta" class="form-control input-lg" formControlName="fcNumCuenta" #rNumCuenta [matKeyboard]="'num'" (blur)="obtenerCuentaDestino(rNumCuenta.value)" />
                             <div *ngIf="myForm.get('fcNumCuenta').errors  && myForm.get('fcNumCuenta').touched" class="alert alert-danger">
                                 <p color="danger" *ngIf="myForm.get('fcNumCuenta').hasError('required') || myForm.get('fcNumCuenta').hasError('maxlength') || myForm.get('fcNumCuenta').hasError('minlength')">Dato obligatorio, favor de capturar. </p>
-                                <p color="danger" *ngIf="myForm.get('fcNumCuenta').hasError('pattern')">No es formato solicitado</p>
+                                <p color="danger" *ngIf="myForm.get('fcNumCuenta').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
                             </div>
 
                         </div>
@@ -80,7 +80,7 @@
                             <input type="text" id="idImporte" class="form-control input-lg" formControlName="fcImporte" #rImporte [matKeyboard]="'num'" (blur)="transformAmount(rImporte.value)" />
                             <div *ngIf="myForm.get('fcImporte').errors  && myForm.get('fcImporte').touched" class="alert alert-danger">
                                 <p color="danger" *ngIf="myForm.get('fcImporte').hasError('required')">Dato obligatorio, favor de capturar. </p>
-                                <p color="danger" *ngIf="myForm.get('fcImporte').hasError('pattern')">No es formato solicitado</p>
+                                <p color="danger" *ngIf="myForm.get('fcImporte').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
                             </div>
 
                         </div>
@@ -94,7 +94,7 @@
                             <input type="text" id="idDescripcion" class="form-control input-lg" formControlName="fcDescripcion" #rDescripcion [matKeyboard]="" />
                             <div *ngIf="myForm.get('fcDescripcion').errors  && myForm.get('fcDescripcion').touched" class="alert alert-danger">
                                 <p color="danger" *ngIf="myForm.get('fcDescripcion').hasError('required')">Dato obligatorio, favor de capturar. </p>
-                                <p color="danger" *ngIf="myForm.get('fcDescripcion').hasError('pattern')">No es formato solicitado</p>
+                                <p color="danger" *ngIf="myForm.get('fcDescripcion').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
                             </div>
 
                         </div>
@@ -108,7 +108,7 @@
                             <input type="text" id="idCorreo" class="form-control input-lg" formControlName="fcCorreo" #rCorreo [matKeyboard]="" />
                             <div *ngIf="myForm.get('fcCorreo').errors  && myForm.get('fcCorreo').touched" class="alert alert-danger">
                                 <p color="danger" *ngIf="myForm.get('fcCorreo').hasError('required')">Dato obligatorio, favor de capturar. </p>
-                                <p color="danger" *ngIf="myForm.get('fcCorreo').hasError('pattern')">No es formato solicitado</p>
+                                <p color="danger" *ngIf="myForm.get('fcCorreo').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
                             </div>
 
                         </div>
@@ -168,7 +168,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg 6">
-                            <label>Comision:</label>
+                            <label>Comisi&oacute;n:</label>
                         </div>
                         <div class="col-lg 6">
                             <label>$0.00</label>

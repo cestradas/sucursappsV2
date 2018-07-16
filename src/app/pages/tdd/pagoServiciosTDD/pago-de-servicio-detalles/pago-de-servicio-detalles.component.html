@@ -66,7 +66,7 @@
                                                         Dato obligatorio, favor de capturar.
                                                     </p>
                                                     <p *ngIf="myForm.get('fcReferencia').hasError('pattern')">
-                                                        No es formato solicitado
+                                                        Los datos proporcionados son incorrectos, favor de verificar.
                                                     </p>
                                                 </div>
                                             </div>
@@ -84,7 +84,7 @@
                                 <div *ngIf="myForm.get('fcFechaVencimiento').errors && myForm.get('fcFechaVencimiento').touched" class="alert alert-danger">
 
                                     <p color="danger" *ngIf="myForm.get('fcFechaVencimiento').hasError('required')"> Dato obligatorio, favor de capturar.</p>
-                                    <p color="danger" *ngIf="myForm.get('fcFechaVencimiento').hasError('pattern')">No es formato solicitado</p>
+                                    <p color="danger" *ngIf="myForm.get('fcFechaVencimiento').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
                                 </div>
                             </div>
                         </div>
@@ -96,7 +96,7 @@
                                 <input type="text" id="idImporte" (click)="espacioTeclado();" class="form-control input-lg" formControlName="fcImporte" #rImporte [matKeyboard]="'num'" (blur)="transformAmount(rImporte.value)" />
                                 <div *ngIf="myForm.get('fcImporte').errors  && myForm.get('fcImporte').touched" class="alert alert-danger">
                                     <p color="danger" *ngIf="myForm.get('fcImporte').hasError('required')">Dato obligatorio, favor de capturar. </p>
-                                    <p color="danger" *ngIf="myForm.get('fcImporte').hasError('pattern')">No es formato solicitado</p>
+                                    <p color="danger" *ngIf="myForm.get('fcImporte').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
                                 </div>
 
                             </div>
@@ -157,7 +157,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg 6">
-                            <label>Comision:</label>
+                            <label>Comisi&oacute;n:</label>
                         </div>
                         <div class="col-lg 6">
                             <label>$0.00</label>
