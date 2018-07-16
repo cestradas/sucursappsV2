@@ -497,7 +497,7 @@ validarSaldo() {
   importeTel = parseFloat(this_aux.importe.toString()).toFixed(2);
   $('#_modal_please_wait').modal('show');
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
-  operacionesbxi.consultaTablaYValidaSaldo(this_aux.service.numCuentaCTASel, importeTel).then(
+  operacionesbxi.consultaTablaYValidaSaldo(this_aux.service.numCuentaCTASel, this_aux.importe).then(
     function(response) {
       let DatosJSON = response.responseJSON;
       console.log(response.responseText);
