@@ -179,6 +179,8 @@ confirmarPago() {
     const this_aux = this;
 
     if (this_aux.importeAux === undefined) { this_aux.importeAux = this_aux.replaceSimbolo( this_aux.myForm.get('fcImporte').value); }
+    document.getElementById('capturaInicio').style.display = 'none';
+    document.getElementById('caputuraSesion').style.display = 'block';
     $("#ModalTDDLogin").modal("show");
   let res;
 

@@ -168,7 +168,8 @@ export class TransferenciasCuentasBanorteComponent implements OnInit {
   confirmarPago(myForm) {
     this._validaNipService.validaNipTrans();
       const this_aux = this;
-
+      document.getElementById('capturaInicio').style.display = 'none';
+      document.getElementById('caputuraSesion').style.display = 'block';
       $("#ModalTDDLogin").modal("show");
     let res;
   

@@ -192,10 +192,9 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   pagarTarjetaCredito() {
     this._validaNipService.validaNipTrans();
     const this_aux = this;
-
-    $("#ModalTDDLogin").modal("show");
     document.getElementById('capturaInicio').style.display = 'none';
     document.getElementById('caputuraSesion').style.display = 'block';
+    $("#ModalTDDLogin").modal("show");
     let res;
     this._validaNipService.validarDatosrespuesta().then(
       mensaje => {

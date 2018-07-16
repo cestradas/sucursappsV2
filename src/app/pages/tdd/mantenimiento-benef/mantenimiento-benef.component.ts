@@ -998,10 +998,9 @@ export class MantenimientoBenefComponent implements OnInit {
     
     if (this_aux.sumaPorcentajes(this_aux.porcentajeGuardado) && porcentajeVacio) {
       this._validaNipService.validaNipTrans();
-
-      $('#ModalTDDLogin').modal('show');
       document.getElementById('capturaInicio').style.display = 'none';
       document.getElementById('caputuraSesion').style.display = 'block';
+      $('#ModalTDDLogin').modal('show');
       let res;
 
       this._validaNipService.validarDatosrespuesta().then(
