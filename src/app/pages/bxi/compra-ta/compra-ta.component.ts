@@ -17,7 +17,6 @@ let importeTel = "";
 let numeroTelefono = "";
 let CveTelefonica = "";
 
-
 @Component({
   selector: 'app-compra-ta',
   templateUrl: './compra-ta.component.html',
@@ -37,7 +36,7 @@ export class CompraTaComponent implements OnInit {
   importeF = "";
   telefonoF = "";
   cveTelefonicaF = "";
-
+  numeroTarjeta: string;
   NumeroSeguridad: string;
 
   recargas: any[] = [];
@@ -50,6 +49,7 @@ export class CompraTaComponent implements OnInit {
   blnStyle: false;
   SaldoOrigen: number;
 
+  // tslint:disable-next-line:max-line-length
   constructor( private _http: Http, private router: Router, public service: SesionBxiService, private renderer: Renderer2, private currencyPipe: CurrencyPipe ) {
 
     const this_aux = this;
@@ -160,31 +160,31 @@ export class CompraTaComponent implements OnInit {
     const consultaCuentas = JSON.parse(cuentasString);
     const cuentasArray = consultaCuentas.ArrayCuentas;
       cuentasArray.forEach(cuenta => {
-        this_aux.filtraCtaVista(cuenta);
+       this_aux.filtraCtaVista(cuenta);
     });
-
 }
 
 filtraCtaVista(cuenta) {
-  const this_aux = this;
-  if (cuenta.TipoCuenta === 1 && cuenta.NoCuenta.length === 10) {
-    this_aux.crearListaCuentas(cuenta);
-  }
+const this_aux = this;
+if (cuenta.TipoCuenta === 1 && cuenta.NoCuenta.length === 10) {
+this_aux.crearListaCuentas(cuenta);
+} 
 }
 
 crearListaCuentas(cuenta) {
   const this_aux = this;
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
-  const li =  this.renderer.createElement('li');
+  const li =  this_aux.renderer.createElement('li');
   this_aux.renderer.addClass(li, 'text-li');
-  const a = this.renderer.createElement('a');
-  const textoCuenta = this.renderer.createText( cuenta.Alias + ' ' + operacionesbxi.mascaraNumeroCuenta(cuenta.NoCuenta) );
+  const a = this_aux.renderer.createElement('a');
+  const textoCuenta = this_aux.renderer.createText( cuenta.Alias + ' ' + operacionesbxi.mascaraNumeroCuenta(cuenta.NoCuenta));
   this.renderer.setProperty(a, 'value', cuenta.NoCuenta);
-  this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target); });
+  this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target);
+  this_aux.numeroTarjeta = cuenta.Plastico; });
   this.renderer.appendChild(a, textoCuenta),
   this.renderer.appendChild(li, a);
   this.renderer.appendChild(this_aux.listaCuentas.nativeElement, li);
-}
+ }
 
 setDatosCuentaSeleccionada(elementHTML) {
 
@@ -211,16 +211,6 @@ setDatosCuentaSeleccionada(elementHTML) {
 }
 
 getSaldoDeCuenta(numCuenta_seleccionada) {
-
-  console.log(numCuenta_seleccionada.length);
-  if (numCuenta_seleccionada.length === 16) {
-       this.getSaldoTDC(numCuenta_seleccionada);
-  } else {
-      this.getSaldoTDDOtras(numCuenta_seleccionada);
-  }
-}
-
-getSaldoTDDOtras(numCuenta_seleccionada) {
   const this_aux = this;
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
   operacionesbxi.getSaldo(numCuenta_seleccionada).then(
@@ -228,61 +218,17 @@ getSaldoTDDOtras(numCuenta_seleccionada) {
         console.log(response1.responseText);
         const detalleSaldos = response1.responseJSON;
         if ( detalleSaldos.Id === '1') {
-
-         setTimeout(function() {
-          //const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
-          //lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
           this_aux.SaldoOrigen = detalleSaldos.SaldoDisponible;
-            $('#_modal_please_wait').modal('hide');
-          }, 500);
+          setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
         } else {
-         this_aux.SaldoOrigen = 0;
-         setTimeout(function() {
-         $('#_modal_please_wait').modal('hide');
-           this_aux.showErrorSucces(detalleSaldos);
-         }, 500);
+          console.log(detalleSaldos.MensajeAUsuario);
+          document.getElementById('mnsError').innerHTML = detalleSaldos.MensajeAUsuario;
+          $('#errorModal').modal('show');
+          setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
         }
       }, function(error) {
-
-      this_aux.SaldoOrigen = 0;
-       setTimeout(function() {
-         $('#_modal_please_wait').modal('hide');
-           this_aux.showErrorPromise(error);
-       }, 500);
   });
- }
-
- getSaldoTDC(numCuenta_seleccionada) {
-  const this_aux = this;
-  const operacionesbxi: OperacionesBXI = new OperacionesBXI();
-  operacionesbxi.getSaldoTDC(numCuenta_seleccionada).then(
-      function(response1) {
-        console.log(response1.responseText);
-        const detalleSaldos = response1.responseJSON;
-        if ( detalleSaldos.Id === '1') {
-
-         setTimeout(function() {
-          //const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
-          //lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
-           this_aux.SaldoOrigen = detalleSaldos.SaldoDisponible;
-            $('#_modal_please_wait').modal('hide');
-          }, 500);
-        } else {
-         this_aux.SaldoOrigen = 0;
-         setTimeout(function() {
-         $('#_modal_please_wait').modal('hide');
-           this_aux.showErrorSucces(detalleSaldos);
-         }, 500);
-        }
-      }, function(error) {
-
-      this_aux.SaldoOrigen = 0;
-       setTimeout(function() {
-         $('#_modal_please_wait').modal('hide');
-           this_aux.showErrorPromise(error);
-       }, 500);
-  });
- }
+}
 
 
   insertaSaldo(id) {
@@ -377,7 +323,7 @@ getSaldoTDDOtras(numCuenta_seleccionada) {
   setTipoAutenticacionOnModal() {
 
     $('#inputToken').val('');
-
+    
     const this_aux = this;
     const divChallenge = document.getElementById('challenger');
     const divTokenPass = document.getElementById('divPass');
@@ -439,7 +385,8 @@ getSaldoTDDOtras(numCuenta_seleccionada) {
     const this_aux = this;
     let mensajeError;
 
-    ctaO = this_aux.service.numCuentaCTASel;
+   // ctaO = this_aux.service.numCuentaCTASel;
+   ctaO = this_aux.numeroTarjeta;
     importeTel = parseFloat(this_aux.importe.toString()).toFixed(2);
     numeroTelefono = this_aux.telefonoF;
     CveTelefonica = this_aux.cveTelefonicaF;
@@ -582,13 +529,13 @@ validarSaldo() {
       setTimeout(function() {
         $('#_modal_please_wait').modal('hide');
       }, 500);
-
+      
     }, function(error) {
       setTimeout(function() {
         $('#_modal_please_wait').modal('hide');
      this_aux.showErrorPromise(error);
       }, 500);
-
+     
 });
 }
 
