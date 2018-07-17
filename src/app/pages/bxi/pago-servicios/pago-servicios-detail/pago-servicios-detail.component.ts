@@ -30,6 +30,8 @@ export class PagoServiciosDetailComponent implements OnInit {
   NumeroSeguridad: string;
   importeShow: number;
   INTENTOS = 0;
+  TAMCADENA = 0;
+  COUNTCHAR = 0;
 
   constructor( private service: SesionBxiService, private fb: FormBuilder, private router: Router, private currencyPipe: CurrencyPipe) {
 
@@ -53,23 +55,23 @@ export class PagoServiciosDetailComponent implements OnInit {
     const ModalLectordeRecibo = $('#ModalLectordeRecibo');
     let cadena = '';
     ModalLectordeRecibo.on('keydown', function(event) {
-      let e;
-       e = e ||   event;
-       const code = e.key;
-       cadena = cadena + code;
-       setTimeout(function() {
-        const expreg = /(\d+)/g; 
-       // this_aux.INTENTOS = this_aux.INTENTOS + 1;
-        // if (this_aux.INTENTOS < 5) {
-            this_aux.leeCodeBar(cadena.match(expreg));
-            setTimeout(function() {
-            cadena = ''; 
-            }, 500);
-        // } else {
-          // document.getElementById('mnsError').innerHTML =  "No se puede leer tu recibo, favor de ingresar manualmente los datos.";
-          // $('#errorModal').modal('show');
-        // } 
-       }, 1000);
+
+        let e;
+        e = e ||   event;
+        const code = e.key;
+        cadena = cadena + code;
+        setTimeout(function() {
+         
+         if (this_aux.COUNTCHAR < 1 || this_aux.COUNTCHAR === this_aux.TAMCADENA) {
+           const expreg = /(\d+)/g; 
+             this_aux.leeCodeBar(cadena.match(expreg));
+             setTimeout(function() {
+             cadena = ''; 
+             }, 500);
+            } else {
+           this_aux.COUNTCHAR = this_aux.COUNTCHAR + 1;  
+         } }, 1000);
+      
     });
         const detalleEmpresa = JSON.parse(this_aux.service.detalleEmpresa_PS);
           this_aux.nombreServicio =  detalleEmpresa.empresa;
@@ -395,13 +397,10 @@ export class PagoServiciosDetailComponent implements OnInit {
 
 
   leeCodeBar(valor) {
-
+    const this_aux = this;    
     if (valor !== null ) {
 
-      const this_aux = this;
       const value = valor[0];
-      console.log(value.length);
-
       if (this_aux.service.idFacturador === '1310') {
 
         if (value.length === 20) {
@@ -420,6 +419,8 @@ export class PagoServiciosDetailComponent implements OnInit {
 
           $('#ModalLectordeRecibo').modal('hide');
 
+        } else {
+            this_aux.validaIntentos(value);
         }
       } else {
         if (value.length === 30) {
@@ -438,6 +439,8 @@ export class PagoServiciosDetailComponent implements OnInit {
           this_aux.myForm.setControl('fcReferencia', controlReferencia );
           this_aux.myForm.setControl('fcFechaVencimiento', controlFecha );
           $('#ModalLectordeRecibo').modal('hide');
+        } else {
+            this_aux.validaIntentos(value);
         }
      }
     }
@@ -449,9 +452,23 @@ export class PagoServiciosDetailComponent implements OnInit {
     this_aux.myForm.setControl('fcToken', control );
   }
 
-  iniListenScan() {
-    console.log("INI SCAN");
-  }
+ validaIntentos(value) {
+  const this_aux = this;
+  if (this_aux.COUNTCHAR < 1) {
+    this_aux.TAMCADENA = value.length;
+    this_aux.COUNTCHAR = this_aux.COUNTCHAR + 1;
+ }
+ if (this_aux.COUNTCHAR === this_aux.TAMCADENA) {
+    this_aux.COUNTCHAR = 0;
+    this_aux.INTENTOS = this_aux.INTENTOS + 1;
+    if (this_aux.INTENTOS === 5) {
+      $('#ModalLectordeRecibo').modal('hide');
+      document.getElementById('mnsError').innerHTML = 'Lo sentimos, no pudimos escanear tu recibo, ingresa tus datos manualmente.';
+                    $('#errorModal').modal('show');
+      
+    } 
+ }
+ }
 
 }
 
