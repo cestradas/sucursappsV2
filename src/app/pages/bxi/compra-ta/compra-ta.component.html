@@ -107,7 +107,7 @@
                                 <div class="alert-danger" *ngIf="(forma.get('telefono').errors  && forma.get('telefono').touched)">
                                     <p color="danger" *ngIf="forma.get('telefono').hasError('required')">Dato obligatorio, favor de capturar.</p>
                                     <p color="danger" *ngIf="forma.get('telefono').hasError('pattern')">Dato incorrecto, favor de verificar.</p>
-                                    <p color="danger" *ngIf="forma.get('telefono').hasError('minlength') || forma.get('telefono').hasError('maxlength')">El numero telefonico debe ser a 10 digitos.</p>
+                                    <p color="danger" *ngIf="forma.get('telefono').hasError('minlength') || forma.get('telefono').hasError('maxlength')">Los datos proporcionados son incorrectos, favor de verificar.</p>
                                 </div>
                             </div>
                         </div>
