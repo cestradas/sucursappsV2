@@ -80,9 +80,10 @@ export class MenuBxiComponent implements OnInit {
 
     const tamArrayBeneficiarios = this_aux.countCuentasBene();
     const tamArrayCuentas = this_aux.countCuentasUsuario();
+    const tamCuentasCredito = this_aux.ConsultaTDCBene();
+    const tamTDCPropias = this_aux.ConsultaTDCPropias();
 
-
-    if (tamArrayCuentas === 0) {
+    if (tamArrayCuentas === 0 ) {
 
       if (idOperacion === 'actualizaDatos') {
         setTimeout(function() { 
@@ -98,20 +99,23 @@ export class MenuBxiComponent implements OnInit {
         }, 500);
       }
       
-    } else if (tamArrayBeneficiarios === 0) {
-      
-        if (idOperacion === 'actualizaDatos') {
-          setTimeout(function() { 
-            $('#_modal_please_wait').modal('hide');
-            this_aux.getDatosContacto(idOperacion);
-            }, 500);
-        } else {
-        setTimeout(function() { 
-          $('#_modal_please_wait').modal('hide');
-          document.getElementById('mnsError').innerHTML =   "Lo sentimos, no tienes beneficiarios relacionados a tu usuario.";
-          $('#errorModal').modal('show');
-        }, 500);
-      }
+    // tslint:disable-next-line:max-line-length
+    } else if ((idOperacion === 'trnasfSPEI' || idOperacion === 'transferBanorte' ) && ( tamArrayBeneficiarios === 0)) { 
+     
+      setTimeout(function() { 
+        $('#_modal_please_wait').modal('hide');
+        document.getElementById('mnsError').innerHTML =   "Lo sentimos, no tienes beneficiarios  relacionados a tu usuario.";
+        $('#errorModal').modal('show');
+      }, 500);
+     
+    } else if ((idOperacion === 'pagotar' ) && ((tamCuentasCredito === 0 && tamTDCPropias === 0 ) || tamArrayBeneficiarios === 0)) { 
+     
+      setTimeout(function() { 
+        $('#_modal_please_wait').modal('hide');
+        document.getElementById('mnsError').innerHTML =   "Lo sentimos, no tienes beneficiarios con TDC relacionados a tu usuario.";
+        $('#errorModal').modal('show');
+      }, 500);
+     
     } else {
 
     switch (idOperacion) {
@@ -124,15 +128,11 @@ export class MenuBxiComponent implements OnInit {
             break;
       case 'compraTA': this_aux.router.navigate(['/CompraTaComponent']);
             break;
-      case 'pagotar': 
-                            
-                              this_aux.router.navigate(['/pagoTarjetaCredito_ini']);
-                            
+      case 'pagotar':    
+                              this_aux.router.navigate(['/pagoTarjetaCredito_ini']);      
             break;
       case 'activaAlertas': 
-                            
                               this_aux.getDatosContacto(idOperacion);
-                            
             break;
       case 'actualizaDatos':
                               this_aux.getDatosContacto(idOperacion);
@@ -392,6 +392,44 @@ send(msg) {
     });
     return tamCuentasUsr;
   }
+
+  ConsultaTDCBene() {
+    const this_aux = this;
+    const arrayCuentasXBeneficiario = JSON.parse(this_aux.service.infoCuentasBeneficiarios); // JSON CON CUENTAS DE BENEFICIARIOS
+    let cuenta;
+    let tamTDCBene = 0;
+    arrayCuentasXBeneficiario.forEach(element1 => {
+      if (element1.Cuenta !== undefined ) {
+        cuenta = element1.Cuenta;
+        cuenta.forEach(data => {
+
+          if ( data.TipoCuenta === '9' ) {
+            tamTDCBene = tamTDCBene + 1;
+          }
+          if (  data.TipoCuenta === '2'  ) {
+            tamTDCBene = tamTDCBene + 1;
+          }
+        });
+      }
+    });
+    return tamTDCBene;
+  }
+
+  ConsultaTDCPropias() {
+
+    const this_aux = this;
+    const cuentasString = this_aux.service.infoCuentas;
+    const consultaCuentas = JSON.parse(cuentasString);
+    const cuentasArray = consultaCuentas.ArrayCuentas;
+    let tamTDCPropias = 0;
+    cuentasArray.forEach(cuenta => {
+      if (cuenta.TipoCuenta.toString() === '5') {
+        tamTDCPropias = tamTDCPropias + 1;
+       }
+    });
+    return tamTDCPropias;
+  }
+
 }
 
 
