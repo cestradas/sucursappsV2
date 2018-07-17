@@ -86,6 +86,7 @@ export class TransferenciaSpeiComponent implements OnInit {
   listaBancos: any;
 
   NumeroSeguridad: string;
+  SaldoOrigen: number;
 
 
   constructor(private _http: Http, private router: Router, public service: SesionBxiService, private renderer: Renderer2, private currencyPipe: CurrencyPipe) {
@@ -480,16 +481,32 @@ validarSaldo(tipoOperecionPago) {
     const consultaCuentas = JSON.parse(cuentasString);
     const cuentasArray = consultaCuentas.ArrayCuentas;
       cuentasArray.forEach(cuenta => {
-          const li =  this.renderer.createElement('li');
-          const a = this.renderer.createElement('a');
-          const textoCuenta = this.renderer.createText( cuenta.Alias);
-          this.renderer.setProperty(a, 'value', cuenta.NoCuenta);
-          this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target); });
-          this.renderer.appendChild(a, textoCuenta),
-          this.renderer.appendChild(li, a);
-          this.renderer.appendChild(this.listaCuentas.nativeElement, li);
+
+        this_aux.filtraCtaVista(cuenta);
+
     });
 
+}
+
+filtraCtaVista(cuenta) {
+  const this_aux = this;
+  if (cuenta.TipoCuenta === 1 && cuenta.NoCuenta.length === 10) {
+    this_aux.crearListaCuentas(cuenta);
+  }
+}
+
+crearListaCuentas(cuenta) {
+  const this_aux = this;
+  const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+  const li =  this.renderer.createElement('li');
+  this_aux.renderer.addClass(li, 'text-li');
+  const a = this.renderer.createElement('a');
+  const textoCuenta = this.renderer.createText( cuenta.Alias + ' ' + operacionesbxi.mascaraNumeroCuenta(cuenta.NoCuenta) );
+  this.renderer.setProperty(a, 'value', cuenta.NoCuenta);
+  this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target); });
+  this.renderer.appendChild(a, textoCuenta),
+  this.renderer.appendChild(li, a);
+  this.renderer.appendChild(this_aux.listaCuentas.nativeElement, li);
 }
 
 setDatosCuentaSeleccionada(elementHTML) {
@@ -525,25 +542,78 @@ setDatosCuentaSeleccionada(elementHTML) {
 
 getSaldoDeCuenta(numCuenta_seleccionada) {
 
+  console.log(numCuenta_seleccionada.length);
+  if (numCuenta_seleccionada.length === 16) {
+       this.getSaldoTDC(numCuenta_seleccionada);
+  } else {
+      this.getSaldoTDDOtras(numCuenta_seleccionada);
+  }
+}
+
+
+getSaldoTDDOtras(numCuenta_seleccionada) {
+  const this_aux = this;
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
   operacionesbxi.getSaldo(numCuenta_seleccionada).then(
       function(response1) {
         console.log(response1.responseText);
         const detalleSaldos = response1.responseJSON;
         if ( detalleSaldos.Id === '1') {
-          const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
-          lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
-          setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
 
+         setTimeout(function() {
+          //const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
+          //lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
+          this_aux.SaldoOrigen = detalleSaldos.SaldoDisponible;
+            $('#_modal_please_wait').modal('hide');
+          }, 500);
         } else {
-          console.log(detalleSaldos.MensajeAUsuario);
-          document.getElementById('mnsError').innerHTML = detalleSaldos.MensajeAUsuario;
-          $('#errorModal').modal('show');
-          setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
+         this_aux.SaldoOrigen = 0;
+         setTimeout(function() {
+         $('#_modal_please_wait').modal('hide');
+           this_aux.showErrorSucces(detalleSaldos);
+         }, 500);
         }
       }, function(error) {
+
+      this_aux.SaldoOrigen = 0;
+       setTimeout(function() {
+         $('#_modal_please_wait').modal('hide');
+           this_aux.showErrorPromise(error);
+       }, 500);
   });
-}
+ }
+
+ getSaldoTDC(numCuenta_seleccionada) {
+  const this_aux = this;
+  const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+  operacionesbxi.getSaldoTDC(numCuenta_seleccionada).then(
+      function(response1) {
+        console.log(response1.responseText);
+        const detalleSaldos = response1.responseJSON;
+        if ( detalleSaldos.Id === '1') {
+
+         setTimeout(function() {
+          //const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
+          //lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
+           this_aux.SaldoOrigen = detalleSaldos.SaldoDisponible;
+            $('#_modal_please_wait').modal('hide');
+          }, 500);
+        } else {
+         this_aux.SaldoOrigen = 0;
+         setTimeout(function() {
+         $('#_modal_please_wait').modal('hide');
+           this_aux.showErrorSucces(detalleSaldos);
+         }, 500);
+        }
+      }, function(error) {
+
+      this_aux.SaldoOrigen = 0;
+       setTimeout(function() {
+         $('#_modal_please_wait').modal('hide');
+           this_aux.showErrorPromise(error);
+       }, 500);
+  });
+ }
 
 
 fillCuentasBeneficiario () {
@@ -603,9 +673,12 @@ fillCuentasBeneficiario () {
 crearListaBeneficiarios(data) {
 
   const this_aux = this;
+  const operacionesbxi: OperacionesBXI = new OperacionesBXI();
   const li =  this.renderer.createElement('li');
+  this_aux.renderer.addClass(li, 'text-li');
   const a = this.renderer.createElement('a');
-  const textoCuenta = this.renderer.createText( data.Alias);
+  //const textoCuenta = this.renderer.createText( data.Alias);
+  const textoCuenta = this.renderer.createText( data.Alias );
   this.renderer.setProperty(a, 'value', data.NoCuenta);
   this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaBeneficiario(event.target); });
   this.renderer.appendChild(a, textoCuenta),
@@ -750,8 +823,10 @@ setCuentasBenficiarioXTipo() {
       if (auxcuenta.AplicaSPEI.toString() === "true") {
 
         const li =  this.renderer.createElement('li');
+        this_aux.renderer.addClass(li, 'text-li');
         const a = this.renderer.createElement('a');
-        const textoCuenta = this.renderer.createText( auxcuenta.DescripcionTipoCuenta);
+
+        const textoCuenta = this.renderer.createText( auxcuenta.DescripcionTipoCuenta + ' ' + auxcuenta.NoCuenta);
         this.renderer.setProperty(a, 'value', auxcuenta.NoCuenta + ','
                                             + auxcuenta.ClaveBanco + ','
                                             + auxcuenta.DescripcionTipoCuenta + ','
@@ -784,8 +859,9 @@ setCuentasBenficiarioXTipo() {
       if (auxcuenta.AplicaTEF.toString() === "true") {
 
         const li =  this.renderer.createElement('li');
+        this_aux.renderer.addClass(li, 'text-li');
         const a = this.renderer.createElement('a');
-        const textoCuenta = this.renderer.createText( auxcuenta.DescripcionTipoCuenta);
+        const textoCuenta = this.renderer.createText( auxcuenta.DescripcionTipoCuenta  + ' ' + auxcuenta.NoCuenta);
         this.renderer.setProperty(a, 'value', auxcuenta.Alias + ','
                                             + auxcuenta.NoCuenta + ','
                                             + auxcuenta.ClaveBanco + ','
