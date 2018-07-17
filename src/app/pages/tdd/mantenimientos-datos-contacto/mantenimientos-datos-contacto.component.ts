@@ -131,8 +131,10 @@ export class MantenimientosDatosContactoComponent implements OnInit {
           } else {
             this_aux.showErrorSucces(jsonRespuesta);
             console.log("Datos no Actualizados");
+            $('#ModalTDDLogin').modal('hide');
           }
-        }, function(error) { this_aux.showErrorPromise(error); }
+        }, function(error) { this_aux.showErrorPromise(error);
+          $('#ModalTDDLogin').modal('hide'); }
       );
 
   }

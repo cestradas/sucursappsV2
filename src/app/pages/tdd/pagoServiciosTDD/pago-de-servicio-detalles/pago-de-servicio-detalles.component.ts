@@ -228,9 +228,11 @@ operaciones.pagaServicio(this_aux.service.idFacturador, this_aux.importeAux, thi
         console.log("ya page");
       } else {
         this_aux.showErrorSucces(jsonDetallePago);
+        $('#ModalTDDLogin').modal('hide');
         console.log("no page");
       }
-    }, function(error) { this_aux.showErrorPromiseMoney(error); }
+    }, function(error) { this_aux.showErrorPromiseMoney(error);
+      $('#ModalTDDLogin').modal('hide'); }
   );
 
 }
