@@ -36,7 +36,7 @@ export class LoginComponent {
                  document.getElementById('capturaInicio').style.display = 'block';
                  document.getElementById('caputuraSesion').style.display = 'none';
                  setTimeout(function() {
-                 
+
                  const securityCheckName = 'banorteSecurityCheckSa';
                  const userLoginChallengeHandler = WL.Client
                      .createSecurityCheckChallengeHandler(securityCheckName);
@@ -60,11 +60,11 @@ export class LoginComponent {
                          console.log(error);
                          $('#ModalTDDLogin').modal('hide');
                          setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
-                     });                     
+                     });
                    }, 30000);
                }
 
-               
+
 
 
 
@@ -113,11 +113,11 @@ export class LoginComponent {
               THIS._service.datosBreadCroms.nombreUsuarioTDD = res.Tran_NombrePersona;
               THIS._service.datosBreadCroms.sicUsuarioTDD = res.Tran_NumeroCliente;
               // setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
- 
+
               let tipoPreferencia = res.DetalleClave;
               let validaPreferencia = true;
                this_aux.comienzaContador();
- 
+
                if (this_aux.includesL(validaPreferencia, "PREFERENTE")) {
                  // PREFERENTE
                  validaPreferencia = false;
@@ -126,15 +126,15 @@ export class LoginComponent {
                  // NORMAL
                  localStorage.setItem("tipoClienteTar", validaPreferencia.toString()  );
                }
- 
+
                $('#ModalTDDLogin').modal('hide');
               THIS.router.navigate(['/menuTdd']);
               //    this_aux.consultaTablaCorpBancosService();
               localStorage.setItem("validaNipServ", "1");
 
              } else {
-              
-              
+
+
               localStorage.removeItem("des");
               localStorage.removeItem("np");
               localStorage.removeItem("res");
@@ -142,7 +142,7 @@ export class LoginComponent {
               localStorage.removeItem("tr2_serv");
               localStorage.removeItem("np_serv");
               localStorage.removeItem("res_serv");
-              
+
               setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
 
 
@@ -150,8 +150,8 @@ export class LoginComponent {
               document.getElementById('mnsError').innerHTML = "Por el momento este servicio no est&aacute; disponible, favor de intentar de nuevo m&aacute;s tarde.";
               $('#errorModal').modal('show');
              }
-             
-        
+
+
       },
       function(error) {
 
@@ -204,12 +204,12 @@ export class LoginComponent {
               console.log( this_aux.datosLegacy);
               if (resLegacyJson.Id === '0') {
                   WLAuthorizationManager.logout('banorteSecurityCheckSa');
-                 
+
                   setTimeout(function() {
                     $('#errorModal').modal('show');
                     $('#ModalTDDLogin').modal('hide');
                   }, 500);
-                  
+
               } else {
                 console.log("El servcio de informacion Legacy respondio correctamente");
                 this_aux.idSession();
@@ -304,6 +304,13 @@ resourceRequest.send().then(
 
   }
 
+  encuesta() {
+    console.log("Encuesta de satisfaccion");
+    $("#frame").attr("src", "https://internetunix.unix.banorte.com:8443/encuesta/preview.html?nameCampaign=CAMP_EXP_CLIENTE");
+    $('#ModalEncuesta').modal('show');
+
+  }
+
   //TODO
 includesL(container, value) {
  let returnValue = false;
@@ -332,12 +339,12 @@ includesL(container, value) {
       .then(
           function(response) {
               let resp = response.responseJSON;
-              console.log(response.responseText);              
+              console.log(response.responseText);
               this_aux.onPlasticLoginafterSecurity();
           } ,
           function(error) {
               console.log(error.responseText);
-  
+
           });
   }
 
