@@ -11,6 +11,7 @@ import { DOCUMENT } from '@angular/platform-browser';
 declare var $: $;
 
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './login.component.html',
