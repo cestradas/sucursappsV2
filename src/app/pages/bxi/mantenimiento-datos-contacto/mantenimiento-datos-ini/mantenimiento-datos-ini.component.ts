@@ -182,52 +182,58 @@ export class MantenimientoDatosIniComponent implements OnInit {
         this_aux.service.cambioCel = true;
     } 
 
-    if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
-      $('#_modal_please_wait').modal('show');
-      this_aux.labelTipoAutentica = 'Token Celular';
-        divTokenPass.setAttribute('style', 'display: flex');
-        const operacionesbxi: OperacionesBXI = new OperacionesBXI();
-        operacionesbxi.preparaAutenticacion().then(
-          function(response) {
-            const detallePrepara = response.responseJSON;
-            console.log(detallePrepara);
-            if (detallePrepara.Id === 'SEG0001') {
-              divChallenge.setAttribute('style', 'display: flex');
-              this_aux.NumeroSeguridad = detallePrepara.MensajeUsuarioUno;
-              setTimeout(() => {
+    if ( this_aux.actCel === true || this_aux.actCorreo === true) {
+      if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
+        $('#_modal_please_wait').modal('show');
+        this_aux.labelTipoAutentica = 'Token Celular';
+          divTokenPass.setAttribute('style', 'display: flex');
+          const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+          operacionesbxi.preparaAutenticacion().then(
+            function(response) {
+              const detallePrepara = response.responseJSON;
+              console.log(detallePrepara);
+              if (detallePrepara.Id === 'SEG0001') {
+                divChallenge.setAttribute('style', 'display: flex');
+                this_aux.NumeroSeguridad = detallePrepara.MensajeUsuarioUno;
+                setTimeout(() => {
+                  $('#_modal_please_wait').modal('hide');
+               }, 500);
+              } else {
                 $('#_modal_please_wait').modal('hide');
-             }, 500);
-            } else {
+                setTimeout(function() {
+                  this_aux.showErrorSucces(detallePrepara);
+                }, 1000);
+              }
+            }, function(error) {
               $('#_modal_please_wait').modal('hide');
-              setTimeout(function() {
-                this_aux.showErrorSucces(detallePrepara);
-              }, 1000);
-            }
-          }, function(error) {
-            $('#_modal_please_wait').modal('hide');
-            setTimeout(() => {
-              this_aux.showErrorPromise(error);
-           }, 1000);
+              setTimeout(() => {
+                this_aux.showErrorPromise(error);
+             }, 1000);
+  
+            });
+  
+        } else if (this_aux.service.metodoAutenticaMayor.toString()  === '0') {
+    
+          divChallenge.setAttribute('style', 'display: none');
+          divTokenPass.setAttribute('style', 'display: flex');
+          this_aux.labelTipoAutentica = 'Contrase&atilde;a';
+        } else if (this_aux.service.metodoAutenticaMayor.toString()  === '1') {
+    
+          
+          divChallenge.setAttribute('style', 'display: none');
+          divTokenPass.setAttribute('style', 'display: flex');
+          this_aux.labelTipoAutentica = 'Token Fisico';
+        }
+          setTimeout(function() {
+              $( ".cdk-visually-hidden" ).css( "margin-top", "23%" );
+              $('#confirmModal').modal('show');
+          }, 500);
+    } else {
 
-          });
-
-    } else if (this_aux.service.metodoAutenticaMayor.toString()  === '0') {
-
-      divChallenge.setAttribute('style', 'display: none');
-      divTokenPass.setAttribute('style', 'display: flex');
-      this_aux.labelTipoAutentica = 'Contrase&atilde;a';
-    } else if (this_aux.service.metodoAutenticaMayor.toString()  === '1') {
-
-      
-      divChallenge.setAttribute('style', 'display: none');
-      divTokenPass.setAttribute('style', 'display: flex');
-      this_aux.labelTipoAutentica = 'Token Fisico';
+      document.getElementById('mnsError').innerHTML =  "No hay cambios en datos contacto, no es posible continuar";
+      $('#errorModal').modal('show');
     }
-   setTimeout(function() {
-       $( ".cdk-visually-hidden" ).css( "margin-top", "23%" );
-       console.log(23);
-      $('#confirmModal').modal('show');
-   }, 500);
+    
   }
 
   confirmarOperacion(token) {
