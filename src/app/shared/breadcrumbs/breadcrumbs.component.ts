@@ -78,17 +78,7 @@ export class BreadcrumbsComponent implements OnInit {
 
   }
 
-  depedida() {
-    const this_aux = this;  
-    this_aux.router.navigate(['/final']) ;
 
-    setTimeout( function() {
-      this_aux.cerrarSessionBEL();
-    } 
-    , 3000);
-    
-    
-  }
 
   cerrarSessionBEL() {
     const this_aux = this;
@@ -107,16 +97,16 @@ export class BreadcrumbsComponent implements OnInit {
               WLAuthorizationManager.logout('banorteSecurityCheckSa');
               localStorage.removeItem('TimeOut');
               localStorage.removeItem('TimeOutIni');
-              location.reload(true);
-              this_aux.router.navigate(['/login']);
+              this_aux.router.navigate(['/final']);
             } else {
               console.log("BEL error cerrar sesion", responseJson.Id  + responseJson.MensajeAUsuario);
+              this_aux.router.navigate(['/final']);
               document.getElementById('msgError').innerHTML =   "Error en cerrar sesión";
               $('#ModalErrorTransaccion').modal('show');
             }
           },
           function(error) {
-
+            this_aux.router.navigate(['/final']);
             console.log(error);
             document.getElementById('msgError').innerHTML =   "Error en cerrar sesión";
             console.log("BEL error cerrar sesion", error.errorCode  + error.errorMsg);
@@ -156,9 +146,9 @@ export class BreadcrumbsComponent implements OnInit {
             console.log(response);
 
             WLAuthorizationManager.logout('banorteSecurityCheckSa');
-            location.reload(true);
+           
             // setTimeout( () => THIS.router.navigate(['/login']), 500 );
-            THIS.router.navigate(['/login']);
+            THIS.router.navigate(['/final']);
 
 
           },
@@ -166,7 +156,7 @@ export class BreadcrumbsComponent implements OnInit {
 
             WLAuthorizationManager.logout('banorteSecurityCheckSa');
             console.log(error);
-            THIS.router.navigate(['/login']);
+            THIS.router.navigate(['/final']);
 
           });
 
