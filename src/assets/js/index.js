@@ -82,9 +82,9 @@ function getContextRoot() {
                     var responseJson = response.responseJSON;
                     localStorage.setItem("TimeOut", responseJson.TimeOut);
                     localStorage.setItem("TimeOutIni", responseJson.TimeOut);
-                    setTimeout(function(responseJson) {
+                   
                         $('#modal_please_wait').modal('hide');
-                    }, 500);
+                   
                 },
                 function(error) {
                     console.log(error);
