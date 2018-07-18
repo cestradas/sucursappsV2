@@ -56,6 +56,8 @@ export class TransferenciasBanorteComponent implements OnInit {
 
   NumeroSeguridad: string;
 
+    SaldoOrigen: number;
+
   constructor(private _http: Http, private router: Router, public service: SesionBxiService, private renderer: Renderer2, private currencyPipe: CurrencyPipe) {
 
     const this_aux = this;
@@ -104,23 +106,46 @@ export class TransferenciasBanorteComponent implements OnInit {
 
 
   fillSelectCuentas() {
+
     const this_aux = this;
     const cuentasString = this_aux.service.infoCuentas;
     console.log(this_aux.service.infoCuentas);
     const consultaCuentas = JSON.parse(cuentasString);
     const cuentasArray = consultaCuentas.ArrayCuentas;
       cuentasArray.forEach(cuenta => {
-          const li =  this.renderer.createElement('li');
-          const a = this.renderer.createElement('a');
-          const textoCuenta = this.renderer.createText( cuenta.Alias);
-          this.renderer.setProperty(a, 'value', cuenta.NoCuenta);
-          this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target); });
-          this.renderer.appendChild(a, textoCuenta),
-          this.renderer.appendChild(li, a);
-          this.renderer.appendChild(this.listaCuentas.nativeElement, li);
+
+        this_aux.filtraCtaVista(cuenta);
+
     });
 
+
 }
+
+
+filtraCtaVista(cuenta) {
+  const this_aux = this;
+  if (cuenta.TipoCuenta === 1 && cuenta.NoCuenta.length === 10) {
+    this_aux.crearListaCuentas(cuenta);
+  }
+}
+
+
+crearListaCuentas(cuenta) {
+  const this_aux = this;
+  const cuentasString = this_aux.service.infoCuentas;
+  console.log(this_aux.service.infoCuentas);
+  const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+  const li =  this.renderer.createElement('li');
+  this_aux.renderer.addClass(li, 'text-li');
+  const a = this.renderer.createElement('a');
+  const textoCuenta = this.renderer.createText( cuenta.Alias  + ' ' +operacionesbxi.mascaraNumeroCuenta(cuenta.NoCuenta));
+  this.renderer.setProperty(a, 'value', cuenta.NoCuenta);
+  this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target); });
+  this.renderer.appendChild(a, textoCuenta),
+  this.renderer.appendChild(li, a);
+  this.renderer.appendChild(this_aux.listaCuentas.nativeElement, li);
+}
+
 
 setDatosCuentaSeleccionada(elementHTML) {
 
@@ -138,7 +163,7 @@ setDatosCuentaSeleccionada(elementHTML) {
   tableOrigen.setAttribute('style', 'display: block');
   tableDefaultOrigen.setAttribute('style', 'display: none');
 
-  lblAliasOrigen.innerHTML = elementHTML.textContent;
+  //lblAliasOrigen.innerHTML = elementHTML.textContent;
   lblAliasOrigen.innerHTML = AliasCuenta_seleccionada.toString();
   lblCuentaOrigen.innerHTML = operacionesbxi.mascaraNumeroCuenta(numCuenta_seleccionada.toString());
   this_aux.service.numCuentaTranPropBanorte = numCuenta_seleccionada;
@@ -153,24 +178,77 @@ setDatosCuentaSeleccionada(elementHTML) {
 
 getSaldoDeCuenta(numCuenta_seleccionada) {
 
+  console.log(numCuenta_seleccionada.length);
+  if (numCuenta_seleccionada.length === 16) {
+       this.getSaldoTDC(numCuenta_seleccionada);
+  } else {
+      this.getSaldoTDDOtras(numCuenta_seleccionada);
+  }
+}
+
+getSaldoTDDOtras(numCuenta_seleccionada) {
+  const this_aux = this;
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
   operacionesbxi.getSaldo(numCuenta_seleccionada).then(
       function(response1) {
         console.log(response1.responseText);
         const detalleSaldos = response1.responseJSON;
         if ( detalleSaldos.Id === '1') {
-          const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
-          lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
-          setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
+
+         setTimeout(function() {
+          //const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
+          //lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
+          this_aux.SaldoOrigen = detalleSaldos.SaldoDisponible;
+            $('#_modal_please_wait').modal('hide');
+          }, 500);
         } else {
-          console.log(detalleSaldos.MensajeAUsuario);
-          document.getElementById('mnsError').innerHTML = detalleSaldos.MensajeAUsuario;
-          $('#errorModal').modal('show');
-          setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
+         this_aux.SaldoOrigen = 0;
+         setTimeout(function() {
+         $('#_modal_please_wait').modal('hide');
+           this_aux.showErrorSucces(detalleSaldos);
+         }, 500);
         }
       }, function(error) {
+
+      this_aux.SaldoOrigen = 0;
+       setTimeout(function() {
+         $('#_modal_please_wait').modal('hide');
+           this_aux.showErrorPromise(error);
+       }, 500);
   });
-}
+ }
+
+ getSaldoTDC(numCuenta_seleccionada) {
+  const this_aux = this;
+  const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+  operacionesbxi.getSaldoTDC(numCuenta_seleccionada).then(
+      function(response1) {
+        console.log(response1.responseText);
+        const detalleSaldos = response1.responseJSON;
+        if ( detalleSaldos.Id === '1') {
+
+         setTimeout(function() {
+          //const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
+          //lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
+           this_aux.SaldoOrigen = detalleSaldos.SaldoDisponible;
+            $('#_modal_please_wait').modal('hide');
+          }, 500);
+        } else {
+         this_aux.SaldoOrigen = 0;
+         setTimeout(function() {
+         $('#_modal_please_wait').modal('hide');
+           this_aux.showErrorSucces(detalleSaldos);
+         }, 500);
+        }
+      }, function(error) {
+
+      this_aux.SaldoOrigen = 0;
+       setTimeout(function() {
+         $('#_modal_please_wait').modal('hide');
+           this_aux.showErrorPromise(error);
+       }, 500);
+  });
+ }
 
 
 fillCuentasBeneficiario () {
@@ -258,7 +336,9 @@ defineFiltros() {
 setCuentasBenficiarioXTipo() {
 
   const this_aux = this;
+  $( ".cdk-visually-hidden" ).css( "margin-top", "15%" );
 
+  // selleciono cta propias
   if (this_aux.selectTipo.nativeElement.value.toString() === "1") {
     console.log('setCuentasUsuario');
     console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
@@ -267,8 +347,10 @@ setCuentasBenficiarioXTipo() {
     while (node.firstChild) {
       node.removeChild(node.firstChild);
      }
+
   }
 
+  // selleciono cta terceros
   if (this_aux.selectTipo.nativeElement.value.toString() === "2") {
     console.log('setCuentasBenficiarioXTipo');
     console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
@@ -277,6 +359,7 @@ setCuentasBenficiarioXTipo() {
     while (node.firstChild) {
       node.removeChild(node.firstChild);
      }
+
   }
 
   // CUENTAS DEL USUSARIO
@@ -289,27 +372,31 @@ setCuentasBenficiarioXTipo() {
       node.removeChild(node.firstChild);
      }
 
+
   this_aux.listaCuentasUsr.forEach(auxcuenta => {
 
-    // VALIDAR TIPOS DE CUENTA BANORTE PROPIAS
+    // VALIDAR TIPOS DE CUENTA (CUENTAS USUARIO)
           if (auxcuenta.TipoCuenta.toString() === "1") {
 
 
 
           const cuentasString = this_aux.service.infoCuentas;
           console.log(this_aux.service.infoCuentas);
+          const operacionesbxi: OperacionesBXI = new OperacionesBXI();
           const consultaCuentas = JSON.parse(cuentasString);
         //  const cuentasArray = consultaCuentas.ArrayCuentas;
         //  cuentasArray.forEach(cuenta => {
               const li =  this.renderer.createElement('li');
+              this_aux.renderer.addClass(li, 'text-li');
               const a = this.renderer.createElement('a');
-              const textoCuenta = this.renderer.createText( auxcuenta.Alias);
+              const textoCuenta = this.renderer.createText( auxcuenta.Alias + ' ' +operacionesbxi.mascaraNumeroCuenta(auxcuenta.NoCuenta));
               this.renderer.setProperty(a, 'value', auxcuenta.NoCuenta);
               this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target); });
               this.renderer.appendChild(a, textoCuenta),
               this.renderer.appendChild(li, a);
               this.renderer.appendChild(this.listaCuentas.nativeElement, li);
           //  });
+
 
            }
 
@@ -336,8 +423,9 @@ setCuentasBenficiarioXTipo() {
      // const cuentasArray = consultaCuentas.ArrayCuentas;
      // cuentasArray.forEach(cuenta => {
           const li =  this.renderer.createElement('li');
+          this_aux.renderer.addClass(li, 'text-li');
           const a = this.renderer.createElement('a');
-          const textoCuenta = this.renderer.createText( auxcuenta.Alias);
+          const textoCuenta = this.renderer.createText( auxcuenta.Alias + ' ' + auxcuenta.NoCuenta);
           this.renderer.setProperty(a, 'value', auxcuenta.NoCuenta);
           this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaBeneficiario(event.target); });
           this.renderer.appendChild(a, textoCuenta),
@@ -362,11 +450,13 @@ setCuentasBenficiarioXTipo() {
       this_aux.listaCuentasBen.forEach(auxcuenta => {
 
 // VALIDAR TIPOS DE CUENTA BANORTE TERCEROS
-      if (auxcuenta.ClaveBanco.toString() !== "40072") {
+// auxcuenta.ClaveBanco.toString() !== "40072"  cve BANORTE
+      if (auxcuenta.TipoCuenta.toString() === "9" ) {
 
         const li =  this.renderer.createElement('li');
+        this_aux.renderer.addClass(li, 'text-li');
         const a = this.renderer.createElement('a');
-        const textoCuenta = this.renderer.createText( auxcuenta.DescripcionTipoCuenta);
+        const textoCuenta = this.renderer.createText( auxcuenta.DescripcionTipoCuenta + ' ' + auxcuenta.NoCuenta);
         this.renderer.setProperty(a, 'value', auxcuenta.Alias + ','
                                             + auxcuenta.NoCuenta + ','
                                             + auxcuenta.ClaveBanco + ','
