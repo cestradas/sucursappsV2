@@ -32,6 +32,10 @@ export class PagoDeServicioDetallesComponent implements OnInit {
   fechaVencimiento: string;
   labelTipoAutentica: string;
 
+  INTENTOS = 0;
+  TAMCADENA = 0;
+  COUNTCHAR = 0;
+
   postResp;
 
   constructor(private _serviceSesion: SesionTDDService,
@@ -86,7 +90,31 @@ export class PagoDeServicioDetallesComponent implements OnInit {
       btnContinuar2.classList.add("color-botones_Preferente");
     }
 
+
+
     const this_aux = this;
+    const ModalLectordeRecibo = $('#ModalLectordeRecibo');
+    let cadena = '';
+    ModalLectordeRecibo.on('keydown', function(event) {
+
+        let e;
+        e = e ||   event;
+        const code = e.key;
+        cadena = cadena + code;
+        setTimeout(function() {
+         
+         if (this_aux.COUNTCHAR < 1 || this_aux.COUNTCHAR === this_aux.TAMCADENA) {
+           const expreg = /(\d+)/g; 
+             this_aux.leeCodeBar(cadena.match(expreg));
+             setTimeout(function() {
+             cadena = ''; 
+             }, 500);
+            } else {
+           this_aux.COUNTCHAR = this_aux.COUNTCHAR + 1;  
+         } }, 1000);
+      
+    });
+
     const detalleEmpresa = JSON.parse(this_aux.service.detalleEmpresa_PS);
 
     this_aux.nombreServicio =  detalleEmpresa.empresa;
@@ -283,48 +311,54 @@ showErrorPromise(error) {
   $('#errorModal').modal('show');
 }
 
-leeCodeBar(value) {
-  const this_aux = this;
-  console.log(value);
-  console.log(value.length);
+leeCodeBar(valor) {
+  const this_aux = this;    
+  if (valor !== null ) {
 
-  if (this_aux.service.idFacturador === '1310') {
+    const value = valor[0];
+    if (this_aux.service.idFacturador === '1310') {
 
-    if (value.length === 20) {
-      const telefono = value.substring(0, 10);
-      const centavos = '.' + value.substring(17, 19);
-      const unidades = '$' + parseInt(value.substring(10, 17), 10) ;
-      const importe = unidades + centavos;
-      const digito = value.substring(19, 20);
-      // tslint:disable-next-line:max-line-length
-      const controlTelefono: FormControl = new FormControl(telefono, [Validators.required, Validators.pattern(/^(([0-9]{10}))$/)]);
-      const controlDigito: FormControl = new FormControl(digito, [Validators.required, Validators.pattern(/^(([0-9]{1}))$/)]);
-      const controlImporte: FormControl = new FormControl(importe, Validators.required);
-      this_aux.myForm.setControl('fcImporte', controlImporte );
-      this_aux.myForm.setControl('fcTelefono', controlTelefono );
-      this_aux.myForm.setControl('fcDigitoVerificador', controlDigito );
+      if (value.length === 20) {
+        const telefono = value.substring(0, 10);
+        const centavos = '.' + value.substring(17, 19);
+        const unidades = '$' + parseInt(value.substring(10, 17), 10) ;
+        const importe = unidades + centavos;
+        const digito = value.substring(19, 20);
+        // tslint:disable-next-line:max-line-length
+        const controlTelefono: FormControl = new FormControl(telefono, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]);
+        const controlDigito: FormControl = new FormControl(digito, [Validators.required, Validators.maxLength(1)]);
+        const controlImporte: FormControl = new FormControl(importe, Validators.required);
+        this_aux.myForm.setControl('fcImporte', controlImporte );
+        this_aux.myForm.setControl('fcTelefono', controlTelefono );
+        this_aux.myForm.setControl('fcDigitoVerificador', controlDigito );
 
-      $('#ModalLectordeRecibo').modal('hide');
+        $('#ModalLectordeRecibo').modal('hide');
 
-    }
-  } else {
-    if (value.length === 30) {
+      } else {
+          this_aux.validaIntentos(value);
+      }
+    } else {
+      if (value.length === 30) {
 
-      const referencia = value.substring(2, 14);
-      const importe = '$' + parseInt(value.substring(20, 29), 10) + '.00';
-      const anio = '20' + value.substring(14, 16);
-      const mes = value.substring(16, 18);
-      const dia = value.substring(18, 20);
-      const fecha = anio + '-' + mes + '-' + dia;
-      const controlReferencia: FormControl = new FormControl(referencia, Validators.required);
-      const controlFecha: FormControl = new FormControl(fecha, [Validators.required,  Validators.pattern(/^\d{2,4}\-\d{1,2}\-\d{1,2}$/)]);
-      const controlImporte: FormControl = new FormControl(importe, Validators.required);
-      this_aux.myForm.setControl('fcImporte', controlImporte );
-      this_aux.myForm.setControl('fcReferencia', controlReferencia );
-      this_aux.myForm.setControl('fcFechaVencimiento', controlFecha );
-      $('#ModalLectordeRecibo').modal('hide');
-    }
- }
+        const referencia = value.substring(2, 14);
+        const importe = '$' + parseInt(value.substring(20, 29), 10) + '.00';
+        const anio = '20' + value.substring(14, 16);
+        const mes = value.substring(16, 18);
+        const dia = value.substring(18, 20);
+        const fecha = anio + '-' + mes + '-' + dia;
+        const controlReferencia: FormControl = new FormControl(referencia, Validators.required);
+        // tslint:disable-next-line:max-line-length
+        const controlFecha: FormControl = new FormControl(fecha, [Validators.required,  Validators.pattern(/^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]);
+        const controlImporte: FormControl = new FormControl(importe, Validators.required);
+        this_aux.myForm.setControl('fcImporte', controlImporte );
+        this_aux.myForm.setControl('fcReferencia', controlReferencia );
+        this_aux.myForm.setControl('fcFechaVencimiento', controlFecha );
+        $('#ModalLectordeRecibo').modal('hide');
+      } else {
+          this_aux.validaIntentos(value);
+      }
+   }
+  }
 }
 
 irAtras() {
@@ -350,5 +384,23 @@ showErrorSucces(json) {
   document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
   $('#errorModal').modal('show');
 }
+
+validaIntentos(value) {
+  const this_aux = this;
+  if (this_aux.COUNTCHAR < 1) {
+    this_aux.TAMCADENA = value.length;
+    this_aux.COUNTCHAR = this_aux.COUNTCHAR + 1;
+ }
+ if (this_aux.COUNTCHAR === this_aux.TAMCADENA) {
+    this_aux.COUNTCHAR = 0;
+    this_aux.INTENTOS = this_aux.INTENTOS + 1;
+    if (this_aux.INTENTOS === 5) {
+      $('#ModalLectordeRecibo').modal('hide');
+      document.getElementById('mnsError').innerHTML = 'Lo sentimos, no pudimos escanear tu recibo, ingresa tus datos manualmente.';
+                    $('#errorModal').modal('show');
+      
+    } 
+ }
+ }
 
 }

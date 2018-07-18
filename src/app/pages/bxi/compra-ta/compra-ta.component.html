@@ -17,7 +17,7 @@
                           <table id="tableOrigen" style="display: none" width="100%">
                             <tr>
                               <td align="left" width="45%">
-                                <strong><label  id="lblAliasOrigen" #lblAliasOrigen></label></strong>
+                                <strong><label  id="lblAliasOrigen" #lblAliasOrigen>{{nombreCuenta}}</label></strong>
                               </td>
                               <td align="left" width="45%">
                                 <strong><label id ="lblSaldoOrigen">{{ SaldoOrigen | currency }}</label>
@@ -116,21 +116,28 @@
             </div>
         </div>
 
-        <div style="margin:30px 20px 0px 0px;" class="row actions-form-group text-right">
-            <div class="col-sm-9"></div>
-            <div class="col-sm-2">
-                <button type="button" class="btn btn-lg" routerLink="/menuBXI">Regresar</button>
-            </div>
-            <!-- <button class="btn btn-primary [disabled]="!forma.valid" btn-lg" ng-click="onSiguiente01();"> -->
-            <div class="col-sm-1">
-                <button id="continuarTA" name="continuarspei" [disabled]="!forma.valid" class="color-botones btn btn-lg " (click)="validarSaldo()">
-                  Continuar</button>
-            </div>
-        </div>
+
     </form>
 
 </fieldset>
 <!-- </form> -->
+
+<div style="margin:30px 0px 0px 0px;" class="row">
+    <div class="col-lg-10"></div>
+    <div class="col-lg-2">
+        <div class="row">
+            <div style=" padding: 0px;" class="col-lg-3">
+                <button type="button" class="btn btn-lg" routerLink="/menuBXI">Regresar</button>
+            </div>
+            <div style=" padding: 0px;" class="col-lg-6 text-right">
+                <button id="continuarTA" name="continuarspei" [disabled]="!forma.valid" class="color-botones btn btn-lg " (click)="validarSaldo()">
+                                Continuar</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
 
 
 <!-- Modal -->
@@ -151,7 +158,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg 6">
-                        <label>telefon:</label>
+                        <label>telefono:</label>
                     </div>
                     <div class="col-lg 6">
                         <label>{{telefonoF}}</label>
@@ -165,7 +172,7 @@
                         <label>Importe total:</label>
                     </div>
                     <div class="col-lg 6">
-                        <label>${{importe}}</label>
+                        <label>{{importe | currency}}</label>
                     </div>
                 </div>
                 <div class="row">

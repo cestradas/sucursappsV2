@@ -37,6 +37,7 @@ export class CompraTaComponent implements OnInit {
   telefonoF = "";
   cveTelefonicaF = "";
   numeroTarjeta: string;
+  nombreCuenta: string;
   NumeroSeguridad: string;
 
   recargas: any[] = [];
@@ -180,7 +181,9 @@ crearListaCuentas(cuenta) {
   const textoCuenta = this_aux.renderer.createText( cuenta.Alias + ' ' + operacionesbxi.mascaraNumeroCuenta(cuenta.NoCuenta));
   this.renderer.setProperty(a, 'value', cuenta.NoCuenta);
   this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target);
-  this_aux.numeroTarjeta = cuenta.Plastico; });
+  this_aux.numeroTarjeta = cuenta.Plastico;
+  this_aux.nombreCuenta = cuenta.Alias;
+   });
   this.renderer.appendChild(a, textoCuenta),
   this.renderer.appendChild(li, a);
   this.renderer.appendChild(this_aux.listaCuentas.nativeElement, li);
@@ -195,16 +198,16 @@ setDatosCuentaSeleccionada(elementHTML) {
   const tableOrigen = document.getElementById('tableOrigen');
   const tableDefaultOrigen = document.getElementById('tableDefaultOrigen');
   const lblCuentaOrigen = document.getElementById('lblCuentaOrigen');
-  const lblAliasOrigen = document.getElementById('lblAliasOrigen');
+  // const lblAliasOrigen = document.getElementById('lblAliasOrigen');
   const numCuenta_seleccionada = elementHTML.value;
 
   tableOrigen.setAttribute('style', 'display: block');
   tableDefaultOrigen.setAttribute('style', 'display: none');
 
-  lblAliasOrigen.innerHTML = elementHTML.textContent;
+  // lblAliasOrigen.innerHTML = elementHTML.textContent;
   lblCuentaOrigen.innerHTML = operacionesbxi.mascaraNumeroCuenta(numCuenta_seleccionada.toString());
   this_aux.service.numCuentaCTASel = numCuenta_seleccionada;
-  this_aux.cuentaSeleccionada = numCuenta_seleccionada;
+  this_aux.cuentaSeleccionada = operacionesbxi.mascaraNumeroCuenta(numCuenta_seleccionada.toString());
   this_aux.getSaldoDeCuenta(numCuenta_seleccionada);
 
 
@@ -420,11 +423,11 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
                        this.router.navigate(['/CompraTaFinish']);
 
                      } else {
-                      this_aux.showErrorSuccesMoney(compraTAResp);
+                      this_aux.showErrorSucces(compraTAResp);
 
                      }
 
-                  }, function(error) { this_aux.showErrorPromise(error); }
+                  }, function(error) { this_aux.showErrorPromiseMoney(error); }
                 );
             } else {
               console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
@@ -500,11 +503,16 @@ showErrorSucces(json) {
   $('#errorModal').modal('show');
 }
 
-showErrorSuccesMoney(json) {
-  console.log(json.Id + json.MensajeAUsuario);
-  document.getElementById('msgError').innerHTML =   json.MensajeAUsuario;
-  $('#_modal_please_wait').modal('hide');
-  $('#ModalErrorTransaccion').modal('show');
+showErrorPromiseMoney(error) {
+
+
+  if (error.errorCode === 'API_INVOCATION_FAILURE') {
+    $('#errorModal').modal('show');
+    document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+  } else {
+    document.getElementById('msgError').innerHTML =   "Se presenta falla en el servicio MCA / Time Out de operación monetaria.";
+    $('#ModalErrorTransaccion').modal('show');
+  }
 }
 
 validarSaldo() {
