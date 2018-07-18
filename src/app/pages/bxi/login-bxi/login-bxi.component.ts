@@ -399,7 +399,9 @@ export class LoginBxiComponent implements OnInit {
                       break;
         case 'SEGAM84': mensajeError = "Token no activado, favor de marcar a Banortel.";
                       break;
-        case '2'      : mensajeError = mensajeUsuario;
+        case '2'      : mensajeError = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
+                        console.log("Id: 2 Mensaje:" + mensajeUsuario);
+                      break;
       }
 
       return mensajeError;
@@ -414,10 +416,14 @@ export class LoginBxiComponent implements OnInit {
     }
 
     showErrorSucces(json) {
-      console.log(json.Id + json.MensajeAUsuario);
-      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
-      $('#_modal_please_wait').modal('hide');
-      $('#errorModal').modal('show');
+        $('#_modal_please_wait').modal('hide');
+        console.log(json.Id + json.MensajeAUsuario);
+        if (json.Id === '2') {
+          document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
+        } else {
+          document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+        }
+        $('#errorModal').modal('show');
     }
 
   }

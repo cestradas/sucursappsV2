@@ -356,12 +356,14 @@ getEmpresas() {
 
   showErrorSucces(json) {
 
-
-      console.log(json.Id + json.MensajeAUsuario);
+    console.log(json.Id + json.MensajeAUsuario);
+    if (json.Id === '2') {
+      document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
+    } else {
       document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
-      $('#errorModal').modal('show');
-
-  }
+    }
+    $('#errorModal').modal('show');
+}
 
   irMenuBXI() {
     this.router.navigate(['/menuBXI']);

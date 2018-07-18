@@ -568,7 +568,9 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
       case 'SEGTK03': mensajeError = "Token desincronizado."; // Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
                     break;
-      case '2'      : mensajeError = mensajeUsuario;
+      case '2'      : mensajeError = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
+                    console.log("Id: 2 Mensaje:" + mensajeUsuario);
+                  break;
     }
 
     return mensajeError;
@@ -588,10 +590,14 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
   showErrorSucces(json) {
 
-      console.log(json.Id + json.MensajeAUsuario);
+    console.log(json.Id + json.MensajeAUsuario);
+    if (json.Id === '2') {
+      document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
+    } else {
       document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
-      $('#errorModal').modal('show');
-  }
+    }
+    $('#errorModal').modal('show');
+}
 
   showErrorPromiseMoney(error) {
 
