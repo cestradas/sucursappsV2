@@ -37,44 +37,52 @@ export class MenuBxiComponent implements OnInit {
 
   setNombreUsuario() {
     const this_aux = this;
-    const autenticacion: Autenticacion = new Autenticacion();
-    const operaciones: OperacionesBXI = new OperacionesBXI();
-    autenticacion.consultaCuentasUsuario(this_aux.service.usuarioLogin).then(
-      function(response) {
-          const getCuentasJSON = response.responseJSON;
-            if (getCuentasJSON.Id === '1') {
-                const getCuentas = response.responseText;
-                this_aux.service.infoCuentas = getCuentas;
-                operaciones.consultaCuentasBeneficiarios(this_aux.service.usuarioLogin).then(
-                  function(cuentasBeneficiario) {
-                  console.log(cuentasBeneficiario.responseJSON);
-                  const resCuentasXBeneficiario = cuentasBeneficiario.responseJSON;
-                  if (resCuentasXBeneficiario.Id === '1') {
+    // tslint:disable-next-line:max-line-length
+    if (this_aux.service.infoCuentas === undefined || this_aux.service.infoCuentasBeneficiarios === undefined || this_aux.service.infoDatosDeBeneficiarios === undefined) {
+ 
+        const autenticacion: Autenticacion = new Autenticacion();
+        const operaciones: OperacionesBXI = new OperacionesBXI();
+        autenticacion.consultaCuentasUsuario(this_aux.service.usuarioLogin).then(
+          function(response) {
+              const getCuentasJSON = response.responseJSON;
+                if (getCuentasJSON.Id === '1') {
+                    const getCuentas = response.responseText;
+                    this_aux.service.infoCuentas = getCuentas;
+                    operaciones.consultaCuentasBeneficiarios(this_aux.service.usuarioLogin).then(
+                      function(cuentasBeneficiario) {
+                      console.log(cuentasBeneficiario.responseJSON);
+                      const resCuentasXBeneficiario = cuentasBeneficiario.responseJSON;
+                      if (resCuentasXBeneficiario.Id === '1') {
 
-                      this_aux.service.infoCuentasBeneficiarios = JSON.stringify(resCuentasXBeneficiario.arrayCuentasXBeneficiario);
-                      this_aux.service.infoDatosDeBeneficiarios = JSON.stringify(resCuentasXBeneficiario.Beneficiarios);
-                      console.log(this_aux.service.infoCuentasBeneficiarios);
-                      console.log(this_aux.service.infoDatosDeBeneficiarios);
-                      $('#_modal_please_wait').modal('hide');
+                          this_aux.service.infoCuentasBeneficiarios = JSON.stringify(resCuentasXBeneficiario.arrayCuentasXBeneficiario);
+                          this_aux.service.infoDatosDeBeneficiarios = JSON.stringify(resCuentasXBeneficiario.Beneficiarios);
+                          console.log(this_aux.service.infoCuentasBeneficiarios);
+                          console.log(this_aux.service.infoDatosDeBeneficiarios);
+                          $('#_modal_please_wait').modal('hide');
+                          $('div').removeClass('modal-backdrop');
+
+                      } else {
+                        $('div').removeClass('modal-backdrop');
+                        this_aux.showErrorSucces(resCuentasXBeneficiario);
+                      }
+                    }, function(error) {
                       $('div').removeClass('modal-backdrop');
-
-                  } else {
-                    $('div').removeClass('modal-backdrop');
-                    this_aux.showErrorSucces(resCuentasXBeneficiario);
-                  }
-                }, function(error) {
+                      this_aux.showErrorPromise(error);
+                    });
+                } else {
                   $('div').removeClass('modal-backdrop');
-                  this_aux.showErrorPromise(error);
-                });
-            } else {
-              $('div').removeClass('modal-backdrop');
-              this_aux.showErrorSucces(getCuentasJSON);
-            }
-      }, function(error) {
-        $('div').removeClass('modal-backdrop');
-        this_aux.showErrorPromise(error);
-      }
-    );
+                  this_aux.showErrorSucces(getCuentasJSON);
+                }
+          }, function(error) {
+            $('div').removeClass('modal-backdrop');
+            this_aux.showErrorPromise(error);
+          }
+        );
+    } else {
+      console.log(this_aux.service.infoCuentasBeneficiarios);
+      console.log(this_aux.service.infoDatosDeBeneficiarios);
+      console.log( this_aux.service.infoCuentas);
+    }
   }
 
   comenzarOperacion(idOperacion) {
