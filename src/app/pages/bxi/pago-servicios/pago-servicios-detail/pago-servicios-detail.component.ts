@@ -250,15 +250,24 @@ export class PagoServiciosDetailComponent implements OnInit {
 
                       const jsonDetallePago = respPago.responseJSON;
                       if (jsonDetallePago.Id === '1') {
+                        console.log('Pago Realizado');
                         this_aux.service.detalleConfirmacionPS = respPago.responseText;
                         $('div').removeClass('modal-backdrop');
                         this_aux.router.navigate(['/pagoservicios_verify']);
                       } else {
 
-                        setTimeout(function() {
-                          $('#_modal_please_wait').modal('hide');
-                          this_aux.showErrorSucces(jsonDetallePago);
-                        }, 500);
+                        // tslint:disable-next-line:max-line-length
+                        if (jsonDetallePago.Id === "2" && jsonDetallePago.MensajeAUsuario === "Error IIB: El Broker no proporcionó una respuesta dentro del intervalo de tiempo especificado" ) {
+                            setTimeout(() => {
+                              $('#_modal_please_wait').modal('hide');
+                              this_aux.showErrorPromiseMoney(jsonDetallePago);
+                          }, 500);
+                        } else {
+                              setTimeout(function() {
+                                $('#_modal_please_wait').modal('hide');
+                                this_aux.showErrorSucces(jsonDetallePago);
+                              }, 500);
+                        }
                       }
                     }, function(error) {
                          setTimeout(function() {

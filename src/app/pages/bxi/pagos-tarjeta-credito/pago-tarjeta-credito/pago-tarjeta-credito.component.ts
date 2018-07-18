@@ -339,6 +339,9 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     const this_aux = this;
     const divChallenge = document.getElementById('challenger');
     const divTokenPass = document.getElementById('divPass');
+    const divMjeTipoAutentica = document.getElementById('mensajeTipoAutentica');
+
+  if (this_aux.rcbFiltro.nativeElement.value.toString() !== "5" ) {
 
     const control: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([0-9]{6})*$/)]);
     this_aux.myForm.setControl('fcToken', control );
@@ -347,6 +350,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       $('#_modal_please_wait').modal('show');
       this_aux.labelTipoAutentica = 'Token Celular';
         divTokenPass.setAttribute('style', 'display: flex');
+        divMjeTipoAutentica.setAttribute('style', 'display: flex');
         const operacionesbxi: OperacionesBXI = new OperacionesBXI();
         operacionesbxi.preparaAutenticacion().then(
           function(response) {
@@ -359,31 +363,38 @@ export class PagoTarjetaCreditoComponent implements OnInit {
                 $('#_modal_please_wait').modal('hide');
              }, 500);
             } else {
-              $('#_modal_please_wait').modal('hide');
               setTimeout(function() {
+                $('#_modal_please_wait').modal('hide');
                 this_aux.showErrorSucces(detallePrepara);
               }, 1000);
             }
           }, function(error) {
-            $('#_modal_please_wait').modal('hide');
+           
             setTimeout(() => {
+              $('#_modal_please_wait').modal('hide');
               this_aux.showErrorPromise(error);
            }, 1000);
 
           });
 
     } else if (this_aux.service.metodoAutenticaMayor.toString()  === '0') {
-
+     
+      divMjeTipoAutentica.setAttribute('style', 'display: flex');
       divChallenge.setAttribute('style', 'display: none');
       divTokenPass.setAttribute('style', 'display: flex');
       this_aux.labelTipoAutentica = 'Contrase&atilde;a';
     } else if (this_aux.service.metodoAutenticaMayor.toString()  === '1') {
 
-      
+      divMjeTipoAutentica.setAttribute('style', 'display: flex');
       divChallenge.setAttribute('style', 'display: none');
       divTokenPass.setAttribute('style', 'display: flex');
       this_aux.labelTipoAutentica = 'Token Fisico';
     }
+  } else {
+    divMjeTipoAutentica.setAttribute('style', 'display: none');
+    divChallenge.setAttribute('style', 'display: none');
+    divTokenPass.setAttribute('style', 'display: none');
+  } 
    setTimeout(function() {
        $( ".cdk-visually-hidden" ).css( "margin-top", "16%" );
       $('#confirmModal').modal('show');
@@ -393,9 +404,12 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   confirmarPago(token) {
     const this_aux = this;
     $('#_modal_please_wait').modal('show');
-    let mensajeError;
+    if (this_aux.rcbFiltro.nativeElement.value.toString() === "5") {
+        this_aux.doPagoTDC();
+    } else {
+
+      let mensajeError;
       const autenticacion: Autenticacion = new Autenticacion();
-      const operacionesbxi: OperacionesBXI = new OperacionesBXI();
       autenticacion.autenticaUsuario(token, this_aux.service.metodoAutenticaMayor).then(
         function(detalleAutentica) {
               // console.log(detalleAutentica.responseJSON);
@@ -403,40 +417,61 @@ export class PagoTarjetaCreditoComponent implements OnInit {
               if (infoUsuarioJSON.Id === 'SEG0001') {
                   console.log('Pago validado');
                   // tslint:disable-next-line:max-line-length
-                  operacionesbxi.pagoTarjetaCredito(this_aux.tipoTarjeta, this_aux.Importe, this_aux.CuentaDestino, this_aux.service.numCuentaSeleccionado).then(
-                      function(detallePago) {
-                          console.log('Pago Validado');
-                          const jsonDetallePago = detallePago.responseJSON;
-                          if (jsonDetallePago.Id === '1') {
-                              this_aux.service.detallePagoTarjeta = detallePago.responseText;
-                              $('div').removeClass('modal-backdrop');
-                              this_aux.router.navigate(['/pagoTarjetaCredito_verify']);
-                          } else {
-                            $('#_modal_please_wait').modal('hide');
-                            setTimeout(() => {
-                              this_aux.showErrorSucces(jsonDetallePago);
-                            }, 300);
-                          }
-                      }, function(error) {
-                        $('#_modal_please_wait').modal('hide');
-                        setTimeout(() => {
-                          this_aux.showErrorPromiseMoney(error);
-                       }, 300);
-                       }
-                  );
+                  this_aux.doPagoTDC();
               } else {
-
-                $('#_modal_please_wait').modal('hide');
-                  console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
-                  mensajeError = this_aux.controlarError(infoUsuarioJSON);
-                  document.getElementById('mnsError').innerHTML =  mensajeError;
-                  $('#errorModal').modal('show');
-
+                  setTimeout(function() { 
+                    $('#_modal_please_wait').modal('hide');
+                    console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
+                    mensajeError = this_aux.controlarError(infoUsuarioJSON);
+                    document.getElementById('mnsError').innerHTML =  mensajeError;
+                    $('#errorModal').modal('show');
+                  }, 500);
               }
         }, function(error) {
-          $('#_modal_please_wait').modal('hide');
-           this_aux.showErrorPromiseMoney(error);
+          setTimeout(function() { 
+            $('#_modal_please_wait').modal('hide');
+            this_aux.showErrorPromiseMoney(error);  
+          }, 500);
         });
+     }
+     
+  }
+
+  doPagoTDC() {
+    const this_aux = this;
+    const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+    // tslint:disable-next-line:max-line-length
+    operacionesbxi.pagoTarjetaCredito(this_aux.tipoTarjeta, this_aux.Importe, this_aux.CuentaDestino, this_aux.service.numCuentaSeleccionado).then(
+      function(detallePago) {
+          const jsonDetallePago = detallePago.responseJSON;
+          if (jsonDetallePago.Id === '1') {
+              console.log('Pago Realizado');
+              this_aux.service.detallePagoTarjeta = detallePago.responseText;
+              $('div').removeClass('modal-backdrop');
+              this_aux.router.navigate(['/pagoTarjetaCredito_verify']);
+          } else {
+
+            // tslint:disable-next-line:max-line-length
+            if (jsonDetallePago.Id === "2" && jsonDetallePago.MensajeAUsuario === "Error IIB: El Broker no proporcionó una respuesta dentro del intervalo de tiempo especificado" ) {
+                setTimeout(() => {
+                  $('#_modal_please_wait').modal('hide');
+                  this_aux.showErrorPromiseMoney(jsonDetallePago);
+              }, 500);
+            } else {
+              setTimeout(() => {
+                $('#_modal_please_wait').modal('hide');
+                this_aux.showErrorSucces(jsonDetallePago);
+              }, 500);
+            }
+          }
+      }, function(error) {
+       
+            setTimeout(() => {
+              $('#_modal_please_wait').modal('hide');
+              this_aux.showErrorPromiseMoney(error);
+          }, 500);
+       }
+    );
   }
 
   getNumeroCuentaDestino(text) {
@@ -553,7 +588,6 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
   showErrorSucces(json) {
 
-    $('#_modal_please_wait').modal('hide');
       console.log(json.Id + json.MensajeAUsuario);
       document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
       $('#errorModal').modal('show');

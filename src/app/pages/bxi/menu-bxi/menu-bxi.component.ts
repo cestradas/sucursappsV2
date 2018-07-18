@@ -59,15 +59,19 @@ export class MenuBxiComponent implements OnInit {
                       $('div').removeClass('modal-backdrop');
 
                   } else {
+                    $('div').removeClass('modal-backdrop');
                     this_aux.showErrorSucces(resCuentasXBeneficiario);
                   }
                 }, function(error) {
+                  $('div').removeClass('modal-backdrop');
                   this_aux.showErrorPromise(error);
                 });
             } else {
+              $('div').removeClass('modal-backdrop');
               this_aux.showErrorSucces(getCuentasJSON);
             }
       }, function(error) {
+        $('div').removeClass('modal-backdrop');
         this_aux.showErrorPromise(error);
       }
     );
