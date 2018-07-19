@@ -171,6 +171,18 @@ export class MenutddComponent implements OnInit {
      const div5 = document.getElementById('alertasTxt');
      div5.style.display = "block";
     }
+    
+    showErrorSucces(json) {
+
+      console.log(json.Id + json.MensajeAUsuario);
+      if (json.Id === '2') {
+        document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
+      } else {
+        document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+      }
+      $('#errorModal').modal('show');
+  }
+
     showErrorPromise(error) {
 
       $('#errorModal').modal('show');
@@ -179,16 +191,7 @@ export class MenutddComponent implements OnInit {
       } else {
         document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
       }
-    
-    }
-
-    showErrorSucces(json) {
-
-      console.log(json.Id + json.MensajeAUsuario);
-      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
-      $('#errorModal').modal('show');
-    
-    }
+  }
 
   regresar() {
     setTimeout(() => {

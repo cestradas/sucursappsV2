@@ -238,22 +238,35 @@ export class TransferenciasCuentasBanorteComponent implements OnInit {
 
   showErrorPromiseMoney(error) {
 
-
+   
     if (error.errorCode === 'API_INVOCATION_FAILURE') {
-      $('#errorModal').modal('show');
+      $('#errorModal').modal('show'); 
       document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
     } else {
-      document.getElementById('msgError').innerHTML =   "Se presenta falla en el servicio MCA / Time Out de operación monetaria.";
+      document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tu saldo.";
       $('#ModalErrorTransaccion').modal('show');
     }
-  }
+}
 
+showErrorSucces(json) {
 
-  showErrorSucces(json) {
-    console.log(json.Id + json.MensajeAUsuario);
-    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
-    $('#errorModal').modal('show');
-  }
+        console.log(json.Id + json.MensajeAUsuario);
+        if (json.Id === '2') {
+          document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
+        } else {
+          document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+        }
+        $('#errorModal').modal('show');
+    }
+
+      showErrorPromise(error) {
+        $('#errorModal').modal('show');
+        if (error.errorCode === 'API_INVOCATION_FAILURE') {
+            document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+        } else {
+          document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
+        }
+    }
 
   showDetallePago( myForm) {
     const this_aux = this;

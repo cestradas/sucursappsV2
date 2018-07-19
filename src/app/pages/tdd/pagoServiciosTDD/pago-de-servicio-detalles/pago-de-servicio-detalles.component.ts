@@ -296,20 +296,37 @@ validarSaldo(myForm) {
   });
   }
 
-showErrorSuccesMoney(json) {
-  console.log(json.Id + json.MensajeAUsuario);
-  document.getElementById('msgError').innerHTML =   json.MensajeAUsuario;
-  $('#_modal_please_wait').modal('hide');
-  $('#ModalErrorTransaccion').modal('show');
+  showErrorPromiseMoney(error) {
+
+   
+    if (error.errorCode === 'API_INVOCATION_FAILURE') {
+      $('#errorModal').modal('show'); 
+      document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+    } else {
+      document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tu saldo.";
+      $('#ModalErrorTransaccion').modal('show');
+    }
 }
 
-showErrorPromise(error) {
-  console.log(error);
-  // tslint:disable-next-line:max-line-length
-  document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
-  $('#_modal_please_wait').modal('hide');
-  $('#errorModal').modal('show');
-}
+showErrorSucces(json) {
+
+        console.log(json.Id + json.MensajeAUsuario);
+        if (json.Id === '2') {
+          document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
+        } else {
+          document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+        }
+        $('#errorModal').modal('show');
+    }
+
+      showErrorPromise(error) {
+        $('#errorModal').modal('show');
+        if (error.errorCode === 'API_INVOCATION_FAILURE') {
+            document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+        } else {
+          document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
+        }
+    }
 
 leeCodeBar(valor) {
   const this_aux = this;    
@@ -366,24 +383,6 @@ irAtras() {
   this_aux.router.navigate(['/pagoServiciosTDD']);
 }
 
-
-showErrorPromiseMoney(error) {
-
-
-  if (error.errorCode === 'API_INVOCATION_FAILURE') {
-    $('#errorModal').modal('show');
-    document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
-  } else {
-    document.getElementById('msgError').innerHTML =   "Se presenta falla en el servicio MCA / Time Out de operación monetaria.";
-    $('#ModalErrorTransaccion').modal('show');
-  }
-}
-
-showErrorSucces(json) {
-  console.log(json.Id + json.MensajeAUsuario);
-  document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
-  $('#errorModal').modal('show');
-}
 
 validaIntentos(value) {
   const this_aux = this;

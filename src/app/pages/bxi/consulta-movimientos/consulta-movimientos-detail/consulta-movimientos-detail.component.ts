@@ -280,18 +280,23 @@ consultaMovimientosTDC(numeroCue) {
 }
 
 showErrorSucces(json) {
+
   console.log(json.Id + json.MensajeAUsuario);
-  document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario; 
-  setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
+  if (json.Id === '2') {
+    document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
+  } else {
+    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+  }
   $('#errorModal').modal('show');
 }
 
 showErrorPromise(error) {
-  console.log(error);
-  // tslint:disable-next-line:max-line-length
-  document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde."; 
-  setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
   $('#errorModal').modal('show');
+  if (error.errorCode === 'API_INVOCATION_FAILURE') {
+      document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+  } else {
+    document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
+  }
 }
 
 
@@ -363,7 +368,12 @@ mostrarSaldoCredito() {
              }
           } else {
             console.log(detalleCuenta.MensajeAUsuario);
-            this_aux.sinMovimientos(this_aux.par);
+            if (detalleCuenta.Id === '2') {
+              this_aux.showErrorSucces(detalleCuenta);
+            } else {
+              this_aux.sinMovimientos(this_aux.par);
+            }
+            
             
           }
           if (this_aux.options === 0) {

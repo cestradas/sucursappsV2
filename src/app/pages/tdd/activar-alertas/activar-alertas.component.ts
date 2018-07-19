@@ -140,19 +140,20 @@ setAltaServicioAlertas() {
 showErrorSucces(json) {
 
   console.log(json.Id + json.MensajeAUsuario);
-  document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+  if (json.Id === '2') {
+    document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
+  } else {
+    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+  }
   $('#errorModal').modal('show');
-
 }
 
 showErrorPromise(error) {
-
   $('#errorModal').modal('show');
   if (error.errorCode === 'API_INVOCATION_FAILURE') {
       document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
   } else {
     document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
   }
-
 }
 }

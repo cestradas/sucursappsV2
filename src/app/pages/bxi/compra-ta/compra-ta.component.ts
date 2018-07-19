@@ -225,8 +225,7 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
           setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
         } else {
           console.log(detalleSaldos.MensajeAUsuario);
-          document.getElementById('mnsError').innerHTML = detalleSaldos.MensajeAUsuario;
-          $('#errorModal').modal('show');
+          this_aux.showErrorSucces(detalleSaldos);
           setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
         }
       }, function(error) {
@@ -292,10 +291,12 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
         console.log(response1.responseText);
         let detalleSaldos = response1.responseJSON;
         // if ( detalleSaldos[0].Id === '1') {
-
+          if (detalleSaldos.Id = '1') {
           this_aux.recargas = detalleSaldos;
           setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
-
+        } else {
+          this_aux.showErrorSucces(detalleSaldos);
+        }
         // }
 
       }, function(error) {
@@ -436,10 +437,13 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
                   }, function(error) { this_aux.showErrorPromiseMoney(error); }
                 );
             } else {
-              console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
-              mensajeError = this_aux.controlarError(infoUsuarioJSON);
-              document.getElementById('mnsError').innerHTML =  mensajeError;
-              $('#errorModal').modal('show');
+              setTimeout(() => {
+                $('#_modal_please_wait').modal('hide');
+                console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
+                            mensajeError = this_aux.controlarError(infoUsuarioJSON);
+                            document.getElementById('mnsError').innerHTML =  mensajeError;
+                            $('#errorModal').modal('show');
+             }, 1000);
             }
       }, function(error) {
 
@@ -495,32 +499,37 @@ controlarError(json) {
   return mensajeError;
 }
 
-showErrorPromise(error) {
-  console.log(error);
-  // tslint:disable-next-line:max-line-length
-  document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
-  $('#_modal_please_wait').modal('hide');
-  $('#errorModal').modal('show');
-}
-
-showErrorSucces(json) {
-  console.log(json.Id + json.MensajeAUsuario);
-  document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
-  $('#_modal_please_wait').modal('hide');
-  $('#errorModal').modal('show');
-}
-
 showErrorPromiseMoney(error) {
 
-
+   
   if (error.errorCode === 'API_INVOCATION_FAILURE') {
-    $('#errorModal').modal('show');
+    $('#errorModal').modal('show'); 
     document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
   } else {
-    document.getElementById('msgError').innerHTML =   "Se presenta falla en el servicio MCA / Time Out de operación monetaria.";
+    document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tu saldo.";
     $('#ModalErrorTransaccion').modal('show');
   }
 }
+
+showErrorSucces(json) {
+
+      console.log(json.Id + json.MensajeAUsuario);
+      if (json.Id === '2') {
+        document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
+      } else {
+        document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+      }
+      $('#errorModal').modal('show');
+  }
+
+    showErrorPromise(error) {
+      $('#errorModal').modal('show');
+      if (error.errorCode === 'API_INVOCATION_FAILURE') {
+          document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+      } else {
+        document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
+      }
+  }
 
 validarSaldo() {
   const this_aux = this;

@@ -41,12 +41,14 @@ export class MovimientosaldoComponent implements OnInit {
   fechaMesActualFin: String;
   fechaMesActualIni: String;
   diaMesAnterior: any;
+  
 
 constructor( private _service: ConsultaSaldosTddService,
              private _serviceSesion: SesionTDDService) {
 
 
     const this_aux = this;
+    
     this_aux.dia = new Date().getUTCDate();
     this_aux.mes = (new Date().getUTCMonth() + 1);
     this_aux.anio = new Date().getFullYear();
@@ -215,7 +217,10 @@ llamarMovimientos () {
                 div2.style.display = "none";
                }
             } else {
-              console.log(detalleCuenta.MensajeAUsuario);
+              console.log( detalleCuenta.Id + "  " + detalleCuenta.MensajeAUsuario);
+              if (detalleCuenta.Id === '2' ) {
+                  this_aux.showErrorSucces(detalleCuenta);
+              }
               this_aux.sinMovimientos(this_aux.par);
 
             }
@@ -274,11 +279,23 @@ llamarMovimientos () {
       div2.style.display = "block";
     }
 
-    showErrorPromise(error) {
-      console.log(error);
-      // tslint:disable-next-line:max-line-length
-      document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
-      $('#_modal_please_wait').modal('hide');
+    showErrorSucces(json) {
+
+      console.log(json.Id + json.MensajeAUsuario);
+      if (json.Id === '2') {
+        document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
+      } else {
+        document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+      }
       $('#errorModal').modal('show');
-    }
+  }
+
+    showErrorPromise(error) {
+      $('#errorModal').modal('show');
+      if (error.errorCode === 'API_INVOCATION_FAILURE') {
+          document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+      } else {
+        document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
+      }
+  }
 }

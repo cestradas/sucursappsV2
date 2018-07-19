@@ -133,7 +133,7 @@ export class MantenimientosDatosContactoComponent implements OnInit {
             console.log("Datos no Actualizados");
             $('#ModalTDDLogin').modal('hide');
           }
-        }, function(error) { this_aux.showErrorPromise(error);
+        }, function(error) { this_aux.showErrorPromiseMoney(error);
           $('#ModalTDDLogin').modal('hide'); }
       );
 
@@ -182,27 +182,24 @@ let res;
 
 
   showErrorSucces(json) {
-    setTimeout(function() {
-      console.log(json.Id + json.MensajeAUsuario);
-      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
-      $('#_modal_please_wait').modal('hide');
-      $('#errorModal').modal('show');
-    }, 500);
-  }
 
+    console.log(json.Id + json.MensajeAUsuario);
+    if (json.Id === '2') {
+      document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
+    } else {
+      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+    }
+    $('#errorModal').modal('show');
+}
 
   showErrorPromise(error) {
-
-    setTimeout(function() {
-      $('#modal_please_wait').modal('hide');
-      $('#errorModal').modal('show');
-      if (error.errorCode === 'API_INVOCATION_FAILURE') {
-          document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
-      } else {
-        document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
-      }
-    }, 500);
-  }
+    $('#errorModal').modal('show');
+    if (error.errorCode === 'API_INVOCATION_FAILURE') {
+        document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+    } else {
+      document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
+    }
+}
 
   ErrorPatternCorreo(status) {
     const this_aux = this;
@@ -273,6 +270,16 @@ mostrarConfirmacion(correo, celular) {
 
       
 }
+showErrorPromiseMoney(error) {
 
+   
+  if (error.errorCode === 'API_INVOCATION_FAILURE') {
+    $('#errorModal').modal('show'); 
+    document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+  } else {
+    document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tu saldo.";
+    $('#ModalErrorTransaccion').modal('show');
+  }
+}
 
 }
