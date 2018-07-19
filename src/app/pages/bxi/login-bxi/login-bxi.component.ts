@@ -406,9 +406,9 @@ export class LoginBxiComponent implements OnInit {
         case '2'      : mensajeError = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
                         console.log("Id: 2 Mensaje:" + mensajeUsuario);
                       break;
-                      
+
         default:    mensajeError = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
-        console.log("Id: 2 Mensaje:" + mensajeUsuario);
+        console.log("Id: 0 Mensaje:" + mensajeUsuario);
       }
 
       return mensajeError;
