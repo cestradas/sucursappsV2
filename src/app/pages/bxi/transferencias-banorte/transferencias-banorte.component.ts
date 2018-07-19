@@ -124,7 +124,7 @@ export class TransferenciasBanorteComponent implements OnInit {
 
 filtraCtaVista(cuenta) {
   const this_aux = this;
-  if (cuenta.TipoCuenta === 1 && cuenta.NoCuenta.length === 10) {
+  if ((cuenta.TipoCuenta === 1 && cuenta.NoCuenta.length === 10) || (cuenta.TipoCuenta === 4 && cuenta.NoCuenta.length === 10)) {
     this_aux.crearListaCuentas(cuenta);
   }
 }
@@ -408,7 +408,7 @@ setCuentasBenficiarioXTipo() {
 
 
     if (this_aux.selectTipo.nativeElement.value.toString() === "1") {  // PROPIAS
-
+      let contCtas = 0;
       // document.getElementById('tranTEF').style.display = 'none';
       this_aux.listaCuentasUsr.forEach(auxcuenta => {
 
@@ -416,7 +416,7 @@ setCuentasBenficiarioXTipo() {
       if (auxcuenta.TipoCuenta.toString() === "1") {
 
 
-
+        contCtas ++;
       const cuentasString = this_aux.service.infoCuentas;
       console.log(this_aux.service.infoCuentas);
       const consultaCuentas = JSON.parse(cuentasString);
@@ -435,7 +435,16 @@ setCuentasBenficiarioXTipo() {
 
        }
 
-       $('#dropdownMenu1').prop("disabled", false);
+
+       if (contCtas >= 1) {
+        $('#dropdownMenu1').prop("disabled", false);
+       } else {
+        document.getElementById('mnsError').innerHTML = "No tienes cuentas registradas";
+        $('#errorModal').modal('show');
+        $('#dropdownMenu2').prop("disabled", true);
+        $('#amount').prop("disabled", true);
+        $('#concepto').prop("disabled", true);
+       }
 
       });
 
@@ -445,14 +454,15 @@ setCuentasBenficiarioXTipo() {
 
 
     if (this_aux.selectTipo.nativeElement.value.toString() === "2") { // TERCEROS
-
+      let contCtasTer = 0;
       // document.getElementById('tranSPEI').style.display = 'none';
       this_aux.listaCuentasBen.forEach(auxcuenta => {
 
 // VALIDAR TIPOS DE CUENTA BANORTE TERCEROS
-// auxcuenta.ClaveBanco.toString() !== "40072"  cve BANORTE
-      if (auxcuenta.TipoCuenta.toString() === "9" ) {
+// auxcuenta.ClaveBanco.toString() == "40072"  cve BANORTE
+      if ( ((auxcuenta.TipoCuenta.toString() === "1") && (auxcuenta.ClaveBanco.toString() == "40072") ) || ((auxcuenta.TipoCuenta.toString() === "4") && (auxcuenta.ClaveBanco.toString() == "40072") )) {
 
+        contCtasTer ++;
         const li =  this.renderer.createElement('li');
         this_aux.renderer.addClass(li, 'text-li');
         const a = this.renderer.createElement('a');
@@ -469,7 +479,15 @@ setCuentasBenficiarioXTipo() {
        }
 
        // desbloquea CUENTAS ORIGEN
-       $('#dropdownMenu1').prop("disabled", false);
+       if (contCtasTer >= 1) {
+        $('#dropdownMenu1').prop("disabled", false);
+       } else {
+        document.getElementById('mnsError').innerHTML = "No tienes cuentas registradas";
+        $('#errorModal').modal('show');
+        $('#dropdownMenu2').prop("disabled", true);
+        $('#amount').prop("disabled", true);
+        $('#concepto').prop("disabled", true);
+       }
 
 
 
@@ -526,7 +544,7 @@ setDatosCuentaBeneficiario(elementHTML) {
 getNumeroCuentaDestino(text) {
   const  separador = ',';
   const  arregloDeSubCadenas = text.split(separador);
-  const numCuentaDestino = arregloDeSubCadenas[0];
+  const numCuentaDestino = arregloDeSubCadenas[1];
   console.log(arregloDeSubCadenas);
   console.log(numCuentaDestino);
 
@@ -536,7 +554,7 @@ getNumeroCuentaDestino(text) {
 getNameInstitucion(text) {
   const  separador = ',';
   const  arregloDeSubCadenas = text.split(separador);
-  const nameInstitucion = arregloDeSubCadenas[1];
+  const nameInstitucion = arregloDeSubCadenas[3];
   console.log(arregloDeSubCadenas);
   console.log(nameInstitucion);
 
@@ -546,7 +564,7 @@ getNameInstitucion(text) {
 getNameAliasCuenta(text) {
   const  separador = ',';
   const  arregloDeSubCadenas = text.split(separador);
-  const nameAliasCuenta = arregloDeSubCadenas[2];
+  const nameAliasCuenta = arregloDeSubCadenas[0];
   console.log(arregloDeSubCadenas);
   console.log(nameAliasCuenta);
 
@@ -556,7 +574,7 @@ getNameAliasCuenta(text) {
 getNumBeneficiario(text) {
   const  separador = ',';
   const  arregloDeSubCadenas = text.split(separador);
-  const numBeneCta = arregloDeSubCadenas[3];
+  const numBeneCta = arregloDeSubCadenas[4];
   console.log(arregloDeSubCadenas);
   console.log(numBeneCta);
 
