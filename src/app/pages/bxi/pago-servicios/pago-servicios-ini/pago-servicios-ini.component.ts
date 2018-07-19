@@ -70,7 +70,8 @@ export class PagoServiciosIniComponent implements OnInit {
 
     filtraCtaVista(cuenta) {
       const this_aux = this;
-      if (cuenta.TipoCuenta === 1 && cuenta.NoCuenta.length === 10) {
+      // tslint:disable-next-line:max-line-length
+      if ((cuenta.TipoCuenta === 1  && cuenta.NoCuenta.length === 10) || (cuenta.TipoCuenta === 4 &&  cuenta.NoCuenta.length === 10) || (cuenta.TipoCuenta === 5 &&  cuenta.NoCuenta.length === 16 )) {  
         this_aux.crearListaCuentas(cuenta);
       } 
     }
@@ -396,7 +397,7 @@ getEmpresas() {
           });
           console.log(this_aux.listaEmpresas);
           this_aux.listaEmpresasAux = this_aux.listaEmpresas;
-      } else if (tipoCuenta === 1) {
+      } else if (tipoCuenta === 1 || tipoCuenta === 4) {
 
           this_aux.arrayEmpresas.forEach(empresa => {
            const tipoPago = empresa.TipoPago; 
