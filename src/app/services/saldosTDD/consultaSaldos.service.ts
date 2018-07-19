@@ -1,7 +1,8 @@
 import { Injectable, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import { Observable } from 'rxjs/Observable';
-
+import $ from 'jquery';
+declare var $: $;
 
 @Injectable()
 export class ConsultaSaldosTddService {
@@ -20,10 +21,30 @@ export class ConsultaSaldosTddService {
 
     constructor() {}
 
+    showErrorSucces(json) {
+
+        console.log(json.Id + json.MensajeAUsuario);
+        if (json.Id === '2') {
+          document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
+        } else {
+          document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+        }
+        $('#errorModal').modal('show');
+    }
+
+      showErrorPromise(error) {
+        $('#errorModal').modal('show');
+        if (error.errorCode === 'API_INVOCATION_FAILURE') {
+            document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+        } else {
+          document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
+        }
+    }
+
     cargarSaldosTDD() {
 
         const THIS: any = this;
-
+        const this_aux = this;
         const resourceRequest = new WLResourceRequest(
             'adapters/AdapterBanorteSucursApps/resource/consultaClabesSaldos',
             WLResourceRequest.POST);
@@ -34,7 +55,7 @@ export class ConsultaSaldosTddService {
                 function(response) {
                   
                     let resp = response.responseJSON;
-
+                    if (resp.Id === '1' ) {
                     THIS.datosSaldosTDD.Id = resp.Id;
                     THIS.datosSaldosTDD.NumeroCuenta = resp.NumeroCuenta;
                     THIS.datosSaldosTDD.ClabeCuenta = resp.ClabeCuenta;
@@ -42,11 +63,13 @@ export class ConsultaSaldosTddService {
                     THIS.datosSaldosTDD.SaldoDisponible = resp.SaldoDisponible;
                     THIS.datosSaldosTDD.SaldoRetenido = resp.SaldoRetenido;
                     THIS.datosSaldosTDD.SaldoMesAnterior = resp.SaldoMesAnterior;
-        
+                    }  else {
+                        this_aux.showErrorSucces(resp);
+                    }
                 } ,
 
                 function(error) {
-        
+                    this_aux.showErrorSucces(error);
                     console.log(error.responseText);
         
                 });
