@@ -74,7 +74,8 @@ fillSelectCuentas() {
       if (this_aux.cuentasArray[i].TipoCuenta === 5) {
         mascaraCuenta = operacionesbxi.mascaraNumeroTarjeta(this_aux.cuentasArray[i].NoCuenta);
         textoCuenta = this.renderer.createText( this_aux.cuentasArray[i].Alias + " - " + mascaraCuenta);
-      } else if ((this_aux.cuentasArray[i].TipoCuenta === 1) && (tamCuenta === 10) ) {
+      // tslint:disable-next-line:max-line-length
+      } else if (((this_aux.cuentasArray[i].TipoCuenta === 1) && (tamCuenta === 10) ) || ((this_aux.cuentasArray[i].TipoCuenta === 4) && (tamCuenta === 10)) ) {
         mascaraCuenta = operacionesbxi.mascaraNumeroCuenta(this_aux.cuentasArray[i].NoCuenta);
         textoCuenta = this.renderer.createText( this_aux.cuentasArray[i].Alias + " - " + mascaraCuenta);
       }
@@ -129,8 +130,12 @@ resetLista() {
     this_aux.getSaldoDeCuentaTDD(this_aux.service.numCuentaSeleccionado);
 
     console.log("llego el saldo tdd");
+  } else if (tipoCuenta === 4) {
+    this_aux.service.tipoCuenta = "1";
+    console.log("setDatosCuentaSeleccionada if cuando 1  " + tipoCuenta);
+    this_aux.getSaldoDeCuentaTDD(this_aux.service.numCuentaSeleccionado);
   } else {
-     this_aux.service.tipoCuenta = "5";
+    this_aux.service.tipoCuenta = "5";
 
     console.log("setDatosCuentaSeleccionada if cuando 2  " + tipoCuenta);
     this_aux.getSaldoDeCuentaTDC(this_aux.service.numCuentaSeleccionado);

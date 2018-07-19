@@ -167,7 +167,7 @@ export class CompraTaComponent implements OnInit {
 
 filtraCtaVista(cuenta) {
 const this_aux = this;
-if (cuenta.TipoCuenta === 1 && cuenta.NoCuenta.length === 10) {
+if ((cuenta.TipoCuenta === 1 && cuenta.NoCuenta.length === 10) || (cuenta.TipoCuenta === 4 && cuenta.NoCuenta.length === 10)) {
 this_aux.crearListaCuentas(cuenta);
 } 
 }
@@ -230,6 +230,8 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
           setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
         }
       }, function(error) {
+        this_aux.showErrorPromise(error);
+        setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
   });
 }
 
@@ -298,7 +300,7 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
 
       }, function(error) {
         console.error("Error");
-
+          this_aux.showErrorPromise(error);
           $('#errorModal').modal('show');
   });
 
@@ -328,6 +330,7 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
     $('#inputToken').val('');
     
     const this_aux = this;
+    let mensajeError;
     const divChallenge = document.getElementById('challenger');
     const divTokenPass = document.getElementById('divPass');
     if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
@@ -350,7 +353,10 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
 
             setTimeout(() => {
               $('#_modal_please_wait').modal('hide');
-              this_aux.showErrorSucces(detallePrepara);
+              console.log(detallePrepara.Id + detallePrepara.MensajeAUsuario);
+                          mensajeError = this_aux.controlarError(detallePrepara);
+                          document.getElementById('mnsError').innerHTML =  mensajeError;
+                          $('#errorModal').modal('show');
            }, 1000);
           }
         }, function(error) {
@@ -431,12 +437,13 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
                 );
             } else {
               console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
-                mensajeError = this_aux.controlarError(infoUsuarioJSON);
-                document.getElementById('mnsError').innerHTML =   infoUsuarioJSON.MensajeAUsuario;
-                $('#_modal_please_wait').modal('hide');
-                $('#errorModal').modal('show');
+              mensajeError = this_aux.controlarError(infoUsuarioJSON);
+              document.getElementById('mnsError').innerHTML =  mensajeError;
+              $('#errorModal').modal('show');
             }
       }, function(error) {
+
+        // error controlar error
         this_aux.showErrorPromise(error);
       });
 
