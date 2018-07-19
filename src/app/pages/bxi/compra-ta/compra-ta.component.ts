@@ -56,11 +56,14 @@ export class CompraTaComponent implements OnInit {
     const this_aux = this;
 
     setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
+   
 
     this.forma = new FormGroup({
 
       'telefono': new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(10),
         Validators.pattern( /^([0-9]{1,})$/)]),
+
+        'fcToken': new FormControl(),
       // 'operador': new FormControl(),
       // 'importe': new FormControl()
 
@@ -334,6 +337,8 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
     let mensajeError;
     const divChallenge = document.getElementById('challenger');
     const divTokenPass = document.getElementById('divPass');
+    const control: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([0-9]{6})*$/)]);
+      this_aux.forma.setControl('fcToken', control );
     if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
       $('#_modal_please_wait').modal('show');
       this_aux.labelTipoAutentica = 'Token Celular';
@@ -396,15 +401,11 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
     let mensajeError;
 
    // ctaO = this_aux.service.numCuentaCTASel;
-   ctaO = this_aux.numeroTarjeta;
-    importeTel = parseFloat(this_aux.importe.toString()).toFixed(2);
-    numeroTelefono = this_aux.telefonoF;
-    CveTelefonica = this_aux.cveTelefonicaF;
-
+   
     console.log(importeTel);
 
     const autenticacion: Autenticacion = new Autenticacion();
-    const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+    
 
     autenticacion.autenticaUsuario(token, this_aux.service.metodoAutenticaMayor).then(
       function(detalleAutentica) {
@@ -412,33 +413,12 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
             const infoUsuarioJSON = detalleAutentica.responseJSON;
             if (infoUsuarioJSON.Id === 'SEG0001') {
                 console.log('Nivel de autenticacion alcanzado');
-
-                operacionesbxi.compraTA(ctaO, CveTelefonica, numeroTelefono, importeTel)
-                .then(
-
-                  function(response) {
-                    console.log(response.responseJSON);
-
-                    const compraTAResp = response.responseJSON;
-
-
-                     if ( compraTAResp.Id === '1') {
-
-                       console.log(compraTAResp);
-                       this_aux.service.detalleConfirmacionCTA = response.responseText;
-                       console.log(this_aux.service.detalleConfirmacionCTA);
-                       this.router.navigate(['/CompraTaFinish']);
-
-                     } else {
-                      this_aux.showErrorSucces(compraTAResp);
-
-                     }
-
-                  }, function(error) { this_aux.showErrorPromiseMoney(error); }
-                );
+                 this_aux.compraTA();
+                
             } else {
               setTimeout(() => {
                 $('#_modal_please_wait').modal('hide');
+                console.log("llego respuesta con error");
                 console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
                             mensajeError = this_aux.controlarError(infoUsuarioJSON);
                             document.getElementById('mnsError').innerHTML =  mensajeError;
@@ -446,12 +426,46 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
              }, 1000);
             }
       }, function(error) {
-
-        // error controlar error
+        console.log("No llego respuesta");
         this_aux.showErrorPromise(error);
       });
 
 
+}
+
+compraTA() {
+  console.log("Entro a pagar");
+  const this_aux = this;
+  const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+  ctaO = this_aux.numeroTarjeta;
+    importeTel = parseFloat(this_aux.importe.toString()).toFixed(2);
+    numeroTelefono = this_aux.telefonoF;
+    CveTelefonica = this_aux.cveTelefonicaF;
+
+
+  operacionesbxi.compraTA(ctaO, CveTelefonica, numeroTelefono, importeTel)
+  .then(
+
+    function(response) {
+      console.log(response.responseJSON);
+
+      const compraTAResp = response.responseJSON;
+
+
+       if ( compraTAResp.Id === '1') {
+
+         console.log(compraTAResp);
+         this_aux.service.detalleConfirmacionCTA = response.responseText;
+         console.log(this_aux.service.detalleConfirmacionCTA);
+         this.router.navigate(['/CompraTaFinish']);
+
+       } else {
+        this_aux.showErrorSucces(compraTAResp);
+
+       }
+
+    }, function(error) { this_aux.showErrorPromiseMoney(error); }
+  );
 }
 
 
@@ -493,7 +507,11 @@ controlarError(json) {
                   break;
     case 'SEGAM84': mensajeError = "Token no activado, favor de marcar a Banortel.";
                   break;
-    case '2'      : mensajeError = mensajeUsuario;
+    case '2'      : mensajeError = 'El servicio no esta disponible, favor de intentar mas tarde';
+
+    // tslint:disable-next-line:no-switch-case-fall-through
+    default:    mensajeError = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
+                  console.log("Id: 0 Mensaje:" + mensajeUsuario);
   }
 
   return mensajeError;
