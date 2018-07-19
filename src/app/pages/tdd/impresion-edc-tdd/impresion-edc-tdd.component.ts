@@ -154,13 +154,25 @@ export class ImpresionEdcTddComponent implements OnInit {
       function(response) {
           console.log(response.responseText);
           const detalleMant = response.responseJSON;
-        this_aux.obtenerListaDocs();
+          if (detalleMant.Id === '1') {
+            this_aux.obtenerListaDocs();
+          } else if (detalleMant.Id === '2') {
+            setTimeout(() => {
+              $('#_modal_please_wait').modal('hide');
+              this_aux.showErrorPromise(detalleMant);
+          }, 500);              
+           }  else {
+            setTimeout(function() {
+              $('#_modal_please_wait').modal('hide');
+              this_aux.showErrorSucces(detalleMant);
+            }, 500);
+           }       
           $('#_modal_please_wait').modal('hide');
       },
         function(error) {
           console.error("Error");
         $('#_modal_please_wait').modal('hide');
-          $('#errorModal').modal('show');
+        this_aux.showErrorSuccesMoney(error);
         });
   }
 
@@ -1610,12 +1622,19 @@ operacion(id) {
                   $('#_modal_please_wait').modal('hide');
                   setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
 
-              } else {
-                this_aux.showErrorSucces(documento);
-                setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
-             }
+              } else if (documento.Id === '2') {
+                setTimeout(() => {
+                  $('#_modal_please_wait').modal('hide');
+                  this_aux.showErrorPromise(documento);
+              }, 500);              
+               }  else {
+                setTimeout(function() {
+                  $('#_modal_please_wait').modal('hide');
+                  this_aux.showErrorSucces(documento);
+                }, 500);
+               }
            }, function(error) {
-              //this_aux.showErrorPromise(error);
+            this_aux.showErrorSuccesMoney(error);
        });
       }
     }
@@ -1627,15 +1646,6 @@ operacion(id) {
  //
      this_aux.router.navigate(['/impresion_EDC_Tdd_Electron']);
   }
-
-  showErrorSucces(json) {
-
-
-    console.log(json.Id + json.MensajeAUsuario);
-    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
-    $('#errorModal').modal('show');
-
-}
 
 cancelarEnvio() {
   const this_aux = this;
@@ -1666,18 +1676,49 @@ consultaCancelacionEDCDomicilio(opcion) {
               } else {
                 btnCancelarEnvio.style.display = 'none';
               }
-            } else {
-              btnCancelarEnvio.style.display = 'none';
-            }
+            } else if (detalleMant.Id === '2') {
+              setTimeout(() => {
+                $('#_modal_please_wait').modal('hide');
+                this_aux.showErrorPromise(detalleMant);
+                btnCancelarEnvio.style.display = 'none';
+            }, 500);              
+             }  else {
+              setTimeout(function() {
+                $('#_modal_please_wait').modal('hide');
+                this_aux.showErrorSucces(detalleMant);
+                btnCancelarEnvio.style.display = 'none';
+              }, 500);
+             }
             this_aux.mantenimientoEDC();
          }, 3000);
         },
           function(error) {
             console.error("Error");
-            $('#errorModal').modal('show');
+            this_aux.showErrorSuccesMoney(error);
             this_aux.mantenimientoEDC();
           });
 
+}
+
+showErrorPromise(error) {
+  console.log(error);
+  // tslint:disable-next-line:max-line-length
+  document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
+  $('#_modal_please_wait').modal('hide');
+  $('#errorModal').modal('show');
+}
+
+showErrorSuccesMoney(json) {
+  console.log(json.Id + json.MensajeAUsuario);
+  document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tu saldo";
+  $('#_modal_please_wait').modal('hide');
+  $('#ModalErrorTransaccion').modal('show');
+}
+
+showErrorSucces(json) {
+  console.log(json.Id + json.MensajeAUsuario);
+  document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+  $('#errorModal').modal('show');
 }
 
 }

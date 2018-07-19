@@ -1,0 +1,84 @@
+<form novalidate>
+    <div class="padding-barToTittle">
+        <h2 class="text-center deleteMargin-h2 color-letra">Activar alertas Banorte</h2>
+    </div>
+
+    <fieldset class="padding-TittleToFieldset padding-fieldset-general  ">
+        <!--<div class="row sumando-form-group letranegrita">
+            <div class="col-sm-1 sumando-bg-red group-name">
+                Desde
+            </div>
+            <div class="col-sm-11 group-controls padding-left-0 padding-right-0 sumando-well-white">
+                <div class="form-group ">
+
+                    <div class="sumando-dropdown-account">
+                        <table width="100%" class="letranegrita">
+                            <tr>
+                                <td align="left" width="40%">Nombre : <strong>
+                                  <label #lblAliasOrigen>
+                                      {{ nombreUsuarioTdc }}
+                                  </label>
+                          </strong>
+                                </td>
+                                <td align="left" width="40%">
+                                    <strong>
+                                      <label #lblSaldoOrigen>{{ saldoDispoinible | currency }}</label>
+                          </strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-weight: normal;">Cuenta :
+                                    <strong style="font-weight: normal;">
+                                  <label #lblCuentaOrigen>
+                                      <!--{{ NumeroTarjeta }}-->
+                <!--                      {{numCuenta_show}}
+                                  </label>
+                              </strong>
+                                </td>
+                                <td align="left" style="font-weight: normal">Saldo Disponible
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <div class="padding-InFieldset" style="width: 1749px; margin-left: -10px;">
+            <div align="center" class="well sumando-well-white col-sm-12  " style="padding: 2%">
+                <div class="row padding-InFieldset">
+                    <div class="col-lg-12" align="left">
+                        <label *ngIf="!AlertasActivas">No tienes el servicio de alertas activado para la tarjeta {{numCuenta_show}}</label>
+                        <label *ngIf="AlertasActivas">Tienes  el servicio de alertas activado  para la tarjeta  {{numCuenta_show}}</label>
+                        <label id="cuenta">.</label>
+                    </div>
+                </div>
+                <div class="row padding-InFieldset">
+                    <div class="col-lg-12" align="left">
+                        <label *ngIf="!AlertasActivas">¿Deseas activar el servicio de alertas?</label>
+                    </div>
+                </div>
+                <div class="row" *ngIf="!AlertasActivas">
+                    <div class="col-lg-1" align="left" class="checkbox" style="padding-left: 1%">
+                        <label style="padding-left: 0px !important;"><input type='checkbox'  (change)="estaSeleccionado()"  name='thing' value='valuable' id="thing" #rcheck />
+                                <label for="thing"></label></label>
+                    </div>
+                    <div class="col-lg-11" align="left">
+                        <label>Si</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row actions-form-group text-right" style="width: 1769px;">
+            <div class="col-lg-9"></div>
+            <div class="col-lg-2">
+                <button type="button" class="btn btn-lg" (click)="irMenuTDC()">Regresar</button>
+            </div>
+            <div class="col-lg-1" style="padding-right: 2%;">
+                  <!--<button id="continuar" type="button" class="btn color-botones btn-lg" [disabled]="(lblAliasOrigen.textContent === '' || lblCuentaOrigen.textContent === '') || (!isChecked && !AlertasActivas)||AlertasActivas" (click)="setAltaServicioAlertas()">-->
+                        <button id="continuar" type="button" class="btn color-botones btn-lg" [disabled]="(!isChecked && !AlertasActivas)||AlertasActivas" (click)="setAltaServicioAlertas()">
+                                        Continuar
+                    </button>
+            </div>
+        </div>
+    </fieldset>
+</form>

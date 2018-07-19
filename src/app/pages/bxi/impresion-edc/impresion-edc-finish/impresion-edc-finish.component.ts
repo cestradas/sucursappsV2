@@ -22,6 +22,7 @@ export class ImpresionEdcFinishComponent implements OnInit {
   confirmCorreo: string;
   correo: string;
   correosIgual = 0;
+  correoIgualAux = 0;
 
   constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2) {
 
@@ -46,7 +47,7 @@ export class ImpresionEdcFinishComponent implements OnInit {
         console.log('forma', this.forma);
 
         this_aux.correo = data;
-        this_aux.validateFields();
+       // this_aux.validateFields();
       });
 
 
@@ -56,7 +57,8 @@ export class ImpresionEdcFinishComponent implements OnInit {
           console.log('forma', this.forma);
 
           this_aux.confirmCorreo = data;
-          this_aux.validateFields();
+          this_aux.correosIgual = 0;
+          
         });
 
         this.forma.controls['contra'].valueChanges.subscribe(
@@ -64,8 +66,9 @@ export class ImpresionEdcFinishComponent implements OnInit {
             console.log('contra', data);
             console.log('forma', this.forma);
 
-            this_aux.contraZip = data;
-            this_aux.validateFields();
+            this_aux.contraZip = data; 
+           // this_aux.validateFields();
+            this_aux.correoIgualAux = 1;
           });
 
   }
@@ -76,11 +79,12 @@ export class ImpresionEdcFinishComponent implements OnInit {
 
     if ( (this_aux.confirmCorreo !== this_aux.correo)) {
       this_aux.correosIgual = 1;
-      $('#continuarEdc').prop("disabled", true);
+    //  $('#continuarEdc').prop("disabled", true);
     } else {
       this_aux.correosIgual = 0;
       if (this.forma.controls['contra'].valid) {
-        $('#continuarEdc').prop("disabled", false);
+        this_aux.enviaCorreo();
+      //  $('#continuarEdc').prop("disabled", false);
       }
     }
 

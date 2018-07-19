@@ -17,6 +17,7 @@ export class ImpresionEdcFinishComponent implements OnInit {
   confirmCorreo: string;
   correo: string;
   correosIgual = 0;
+  correoIgualAux = 0;
 
   constructor( private router: Router, private serviceTdd: ResponseWS) { 
 
@@ -40,7 +41,7 @@ export class ImpresionEdcFinishComponent implements OnInit {
         console.log('forma', this.forma);
         
         this_aux.correo = data;
-        this_aux.validateFields();
+       // this_aux.validateFields();
       });
 
       this.forma.controls['confCorreo'].valueChanges.subscribe(
@@ -49,16 +50,18 @@ export class ImpresionEdcFinishComponent implements OnInit {
           console.log('forma', this.forma);
 
           this_aux.confirmCorreo = data;
-          this_aux.validateFields();
+          this_aux.correosIgual = 0;
+          
         });
 
         this.forma.controls['contra'].valueChanges.subscribe(
           data => {
             console.log('contra', data);
             console.log('forma', this.forma);
-  
-            this_aux.contraZip = data;
-            this_aux.validateFields();
+
+            this_aux.contraZip = data; 
+           // this_aux.validateFields();
+            this_aux.correoIgualAux = 1;
           });
   }
 
@@ -68,11 +71,12 @@ export class ImpresionEdcFinishComponent implements OnInit {
 
     if ( (this_aux.confirmCorreo !== this_aux.correo)) {
       this_aux.correosIgual = 1;
-      $('#continuarEdc').prop("disabled", true);
+    //  $('#continuarEdc').prop("disabled", true);
     } else {
       this_aux.correosIgual = 0;
       if (this.forma.controls['contra'].valid) {
-        $('#continuarEdc').prop("disabled", false);
+        this_aux.enviaCorreo();
+      //  $('#continuarEdc').prop("disabled", false);
       }
     }
 
@@ -99,7 +103,7 @@ const resourceRequest = new WLResourceRequest(
   'adapters/AdapterBanorteSucursApps2/resource/envioDoc',
   WLResourceRequest.POST
 );
-resourceRequest.setTimeout(30000);
+resourceRequest.setTimeout(100000);
 resourceRequest.sendFormParameters(formParameters).then(
   function(response) {
     console.log(response.responseText);
@@ -110,15 +114,22 @@ resourceRequest.sendFormParameters(formParameters).then(
         $('#_modal_please_wait').modal('hide');
         setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
         this_aux.finishPagePrint();
-    } else {
-      this_aux.showErrorSucces(respNotificador);
-      setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
-   }
+    } else if (respNotificador.Id === '2') {
+      setTimeout(() => {
+        $('#_modal_please_wait').modal('hide');
+        this_aux.showErrorPromise(respNotificador);
+    }, 500);              
+     }  else {
+      setTimeout(function() {
+        $('#_modal_please_wait').modal('hide');
+        this_aux.showErrorSucces(respNotificador);
+      }, 500);
+     }
   },
     function(error) {
       $('#_modal_please_wait').modal('hide');
       console.error("Error");
-      $('#errorModal').modal('show');
+      this_aux.showErrorSuccesMoney(error);
     });
 
   }
@@ -133,13 +144,25 @@ resourceRequest.sendFormParameters(formParameters).then(
   }
 
 
+  showErrorPromise(error) {
+    console.log(error);
+    // tslint:disable-next-line:max-line-length
+    document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
+    $('#_modal_please_wait').modal('hide');
+    $('#errorModal').modal('show');
+  }
+
+  showErrorSuccesMoney(json) {
+    console.log(json.Id + json.MensajeAUsuario);
+    document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tu saldo";
+    $('#_modal_please_wait').modal('hide');
+    $('#ModalErrorTransaccion').modal('show');
+  }
+
   showErrorSucces(json) {
-
-
     console.log(json.Id + json.MensajeAUsuario);
     document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
     $('#errorModal').modal('show');
-
-}
+  }
 
 }

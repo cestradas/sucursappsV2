@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ResponseWS } from '../../../../services/response/response.service';
 import { ConsultaSaldosTddService } from '../../../../services/saldosTDD/consultaSaldos.service';
+import { consultaCatalogos } from '../../../../services/consultaCatalogos/consultaCatalogos.service';
 declare var $: any;
 
 @Component({
@@ -10,7 +11,7 @@ declare var $: any;
 export class MantenimientoBenefDetailComponent implements OnInit {
 
   BEN: any;
-  numeroCuentaTitular: string;
+  numeroCuentaTitular: any;
 
   detalleBeneficiarios: any = {
     fechaOperacion: '',
@@ -21,10 +22,9 @@ export class MantenimientoBenefDetailComponent implements OnInit {
     $('#_modal_please_wait').modal('show');
     this._service.validarDatosSaldoTdd().then(
       mensaje => {
-
+        const operaciones: consultaCatalogos = new consultaCatalogos();
         console.log('Saldos cargados correctamente TDD');
         this.numeroCuentaTitular = mensaje.NumeroCuenta;
-        this.consultaBeneficiarios();
       }
     ); 
   }
@@ -50,6 +50,7 @@ export class MantenimientoBenefDetailComponent implements OnInit {
 
   
   consultaBeneficiarios() {
+    $('#_modal_please_wait').modal('show');
     const this_aux = this;
     const THIS: any = this;
     console.log("adentro consultarBeneficiarios");
@@ -57,8 +58,9 @@ export class MantenimientoBenefDetailComponent implements OnInit {
     let anio: any = "";
     let mes: any = "";
     let dia: any = "";
+
     const formParameters = {
-      numeroCuenta: this_aux.numeroCuentaTitular
+      numeroCuenta: ''
     };
 
     const resourceRequest = new WLResourceRequest(
@@ -94,6 +96,7 @@ export class MantenimientoBenefDetailComponent implements OnInit {
       },
       function(error) {        
         console.log("Error al consultar beneficiarios");
+        $('#errorModal').modal('show');
         $('#_modal_please_wait').modal('hide');
       }
     );

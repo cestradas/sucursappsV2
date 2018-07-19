@@ -4,7 +4,7 @@ var AMBIENTES = ["", "", "", "", ""];
 
 $(document).ready(function() {
     $('#modal_please_wait').modal('show');
-    
+
     if (localStorage.getItem("Ambientes")) {
         AMBIENTES = localStorage.getItem("Ambientes").split(",");
         console.log(localStorage.getItem("Ambientes"))
@@ -54,13 +54,13 @@ function getContextRoot() {
         console.log(AMBIENTES[0]);
 
         var wlInitOptions = {
-           // mfpContextRoot: AMBIENTES[0],
-           mfpContextRoot: AMBIENTES[0],
+            // mfpContextRoot: AMBIENTES[0],
+            mfpContextRoot: AMBIENTES[0],
             applicationId: 'com.banorte.sucursapps',
         };
 
         WL.Client.init(wlInitOptions).then(function() {
-            console.info("VERSION: 1.7, 11/07/2018")
+            console.info("VERSION: 2.0, 19/07/2018")
 
             var formParameters = {};
             var resourceRequest = new WLResourceRequest(
@@ -82,9 +82,9 @@ function getContextRoot() {
                     var responseJson = response.responseJSON;
                     localStorage.setItem("TimeOut", responseJson.TimeOut);
                     localStorage.setItem("TimeOutIni", responseJson.TimeOut);
-                   
-                        $('#modal_please_wait').modal('hide');
-                   
+
+                    $('#modal_please_wait').modal('hide');
+
                 },
                 function(error) {
                     console.log(error);
@@ -112,6 +112,3 @@ function listener() {
         $('#campaniaModal').modal('toggle');
     }, false);
 }
-
-
-

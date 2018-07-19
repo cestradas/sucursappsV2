@@ -1,0 +1,79 @@
+<form>
+    <h2 class="text-center padding-barToTittle deleteMargin-h2  color-letra">Cancelar envío de estado de cuenta a domicilio</h2>
+    <fieldset class="padding-TittleToFieldset padding-fieldset-general">
+        <div style="background-color: white; padding-left: 20px; padding-right: 20px; padding-top: 20px">
+            <div style="padding-top: 20px;">
+                <label> El estado de cuenta con terminación {{terminacionTarjeta}} está configurado para ser entregado en tu domicilio</label>
+            </div>
+            <div style="padding-top: 20px;">
+                <strong><label>¿Deseas cancelar este servicio?</label></strong>
+            </div>
+            <div style=" padding-top: 20px">
+                <button id="buttonAceptar" type="button" style="background-color: white; border: none">
+                  <img id="imageAcept"src="./assets/img/cancelacionEDC.png" 
+                  alt="Aceptar Cancelacion EDC" (click)="checkBox(1)"/></button>
+                <label>Sí</label>
+            </div>
+            <div style=" padding-top: 20px; padding-bottom: 20px;">
+                <button id="buttonTerminos" type="button" (click)="checkBox(2)" style="background-color: white; border: none;">
+                  <img id="imageTerminos" src="./assets/img/cancelacionEDC.png" alt="Aceptar Cancelacion EDC" /></button>
+                <label>He leído y acepto los <strong><u (click)="mostrarTerminos()">Términos y condiciones</u></strong></label>
+            </div>
+        </div>
+        <div style="margin:30px 20px 0px 0px; margin-top: 10px" class="row actions-form-group text-right">
+            <div class="col-sm-9"></div>
+            <div class="col-sm-2">
+                <button class="btn btn-lg" routerLink="/impresion-edc" style="margin-right: -34px; ">Regresar</button>
+            </div>
+            <!-- <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
+            <div class="col-sm-1">
+                <button id="continuarCancelacion" [disabled]="botonAceptar == 0 || botonTerminos == 0" name="continuarCancelacion" class="btn btn-danger btn-lg" style="margin-right: -34px;" (click)="activarCancelacion()">Continuar</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+<!-- Modal Aviso de Registrar Correo -->
+
+<div class="modal fade" id="registraCorreo" tabindex="-1" role="dialog" aria-labelledby="ModalTDDLogin" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 21%; position: initial !important;">
+        <div class="modal-content shadowModal">
+            <!--<h2 class="text-center padding-barToTittle deleteMargin-h2  color-letra">Aviso</h2> -->
+            <h2 class="text-center padding-barToTittle deleteMargin-h2" style="color: #B01657; font-weight: 700;">Aviso</h2>
+            <div class="modal-body modal-body-aux">
+                <p style="text-align: justify">Estimado cliente, es necesario que registres tu correo electrónico poder continuar. Puedes realizar el alta tu correo electrónico en la opción <strong>Actualizar datos de contacto.</strong>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="color-botones btn btn-lg pull-right" routerLink="/menuTdd">Terminar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal Terminos y Condiciones -->
+
+<div class="modal fade" id="modalTerminos" tabindex="-1" role="dialog" aria-labelledby="ModalTDDLogin" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 32%; position: initial !important;">
+        <div class="modal-content shadowModal">
+            <!--<span class="color-botones btn btn-lg pull-right" data-dismiss="modal" style="position: absolute; top: 5px; right: 5px"><span>X</span></span>-->
+            <!--<h2 class="text-center padding-barToTittle deleteMargin-h2">Términos y Condiciones</h2> -->
+            <h2 class="text-center padding-barToTittle deleteMargin-h2" style="color: #B01657; font-weight: 700;">Términos y Condiciones</h2>
+            <div class="modal-body modal-body-aux">
+                <p>Estimado Cliente: </p>
+                <br>
+                <p style="text-align: justify">Te agradecemos haber seleccionado la opción de NO envío del estado de cuenta de tu tarjeta de crédito, cuenta de cheques/débito, Contrato de Sociedades de Inversión, Contrato de Casa de Bolsa o Crediactivo, lo cual implica que estás de
+                    acuerdo en no recibirlo en papel a través del correo tradicional a partir del siguiente corte de tu cuenta.</p>
+                <br>
+                <p style="text-align: justify">En caso de que requieras nuevamente el envío en papel de tu estado de cuenta a través del correo tradicional, es necesario configures nuevamente la opción para recibirlo a domicilio. Si requieres una copia en papel podrás imprimirla en
+                    la consulta de Estado de Cuenta.</p>
+                <br>
+                <p style="text-align: justify">Te recordamos que el hecho de que no recibas tu estado de cuenta no constituye una excepción a tu obligación de pago de tu cuenta de tarjeta de crédito.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="color-botones btn btn-lg pull-right" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

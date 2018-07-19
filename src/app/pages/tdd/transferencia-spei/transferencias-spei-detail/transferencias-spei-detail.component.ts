@@ -84,9 +84,6 @@ export class TransferenciasSpeiDetailComponent implements OnInit {
       this_aux.detalleTransferencia.nombreBanco =
         jsonSpeiTrans.DescBancoReceptor;
       this_aux.detalleTransferencia.concepto = jsonSpeiTrans.Concepto;
-      if (this_aux.detalleTransferencia.referenciaNumerica === "1") {
-        document.getElementById('refSpei').style.display = 'none';   
-      }
     } else if (this_aux.tipoOperacion === "TEF") {
       this_aux.detalleTransferencia.nombreTitular = this._serviceSesion.datosBreadCroms.nombreUsuarioTDD;
       this_aux.detalleTransferencia.importe = jsonSpeiTrans.CampoImporte;
@@ -96,18 +93,17 @@ export class TransferenciasSpeiDetailComponent implements OnInit {
       this_aux.detalleTransferencia.referenciaNumerica =
         jsonSpeiTrans.CampReferencia;
       this_aux.detalleTransferencia.numeroReferencia =
-        jsonSpeiTrans.NumReferencia;
+        jsonSpeiTrans.NumReferencia;        
     }
 
     this_aux.formatoFecha = new Date(
       this_aux.detalleTransferencia.fechaOperacion
     );
-
-    $("#_modal_please_wait").modal("hide");
   }
 
   ngOnInit() {
 
+    const this_aux = this;
     //ESTILOS Preferente
     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
     let btnContinuar = document.getElementById("terminar");
@@ -117,7 +113,6 @@ export class TransferenciasSpeiDetailComponent implements OnInit {
       btnContinuar.classList.remove("color-botones");
       btnContinuar.classList.add("color-botones_Preferente");
     }
-
-
+    $("#_modal_please_wait").modal("hide");
   }
 }

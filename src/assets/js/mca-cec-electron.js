@@ -83,9 +83,56 @@ function callPinPad() {
     });
 
     //}, 3000);
+}
+
+function callPinPadtdc() {
+
+    var url = 'http://localhost:8083/sucursappsdevices/pinpad/read';
+
+    // fetch(url).then((resp) => { return resp.text() }).then((text) => { console.log(text) });
+
+    setTimeout(function() {
+
+        fetch(url).then(function(response) {
+            // Convert to JSON
+            return response.json();
+        }).then(function(res) {
+
+            console.log(res);
+
+            var respuesta = JSON.parse(res);
+
+
+            if (respuesta.res != "NO_OK") {
+                if ((localStorage.getItem("validaNipServ") === null) || (localStorage.getItem("validaNipServ") === "")) {
+
+                    localStorage.setItem("tr2", respuesta.tr2);
+                    localStorage.setItem("np", respuesta.np);
+                    localStorage.setItem("res", respuesta.res);
+
+                } else {
+
+                    localStorage.setItem("tr2_serv", respuesta.tr2);
+                    localStorage.setItem("np_serv", respuesta.np);
+                    localStorage.setItem("res_serv", respuesta.res);
+                }
+
+            } else {
+                localStorage.setItem("res", respuesta.res);
+                localStorage.setItem("des", respuesta.des);
+            }
 
 
 
+
+        }, function(err) {
+            if (err) {
+                return console.log(err);
+            }
+
+        });
+
+    }, 3000);
 }
 
 function callPrinter(nombremDoc) {

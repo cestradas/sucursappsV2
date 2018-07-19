@@ -81,7 +81,8 @@
                     <div class="col-sm-9">
                         <input name="clabe" id="clabe" #rClabe formControlName="numeroClabeF" [matKeyboard]="'num'" type="text" class="input-whidth form-control amount input-lg" (focus)="tecladoMoverAbajo()" (blur)="obtenerCuentaDestino(rClabe.value)" />
                         <div class="alert-danger" *ngIf="myform.get('numeroClabeF').errors && myform.get('numeroClabeF').touched">
-                            <p color="danger">Ingrese Clabe</p>
+                            <p color="danger" *ngIf="myform.get('numeroClabeF').hasError('required')">Ingrese cuenta.</p>
+                            <p color="danger" *ngIf="myform.get('numeroClabeF').hasError('minlength') || myform.get('numeroClabeF').hasError('maxlength')">Dato incorrecto, favor de verificar.</p>
                         </div>
                     </div>
                     <div class="clearfix"></div>

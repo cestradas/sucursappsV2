@@ -58,9 +58,9 @@ export class PagoTarjetaCreditoComponent implements OnInit {
         // , this.selectDifCero
       ]),
       'numTarjeta': new FormControl('', [Validators.required, Validators.minLength(16), Validators.maxLength(16)]),
-      'importe': new FormControl('', Validators.required),
-      'email': new FormControl('', [Validators.required,
-        Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')])
+      'importe': new FormControl('', Validators.required)
+ //     'email': new FormControl('', [Validators.required,
+   //     Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')])
 
     });
 
@@ -90,12 +90,12 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       data => {
         this.importe = data;
       });
-
+/*
     this.forma.controls['email'].valueChanges.subscribe(
       data => {
         this.correo = data;
-      });
-   
+      }); */
+    
 
    }
 

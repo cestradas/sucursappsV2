@@ -1,0 +1,133 @@
+<div id="contenedorPrincipal" align="center">
+    <div class="row menu-mca-container">
+
+        <div class="row menu-mca-grid" style="width: 100%;">
+            <!--<div align="center" style="width: 100%; margin-top: 20px;">
+                    <h2 class="text-center">Operaciones</h2>
+                    <label id="sessionCuenta">----</label>
+                </div>-->
+
+
+            <div id="operacionesFrecuentes" class="" style="display: block; width: 100%;">
+                <div>
+                    <h1 class=" text-center " style="margin-top: 220px; margin-bottom: 50px;">Operaciones frecuentes</h1>
+
+                </div>
+                <div class="row ">
+                    <!--<div class="col-md-2 col-sm-2 col-xl-2 " style="margin-left: 120px;">-->
+                    <div class="col-md-2 col-sm-2 col-xl-2 " style="margin-left: 375px;">
+                        <a>
+                            <img src="./assets/img/4_Saldos-y-movimientos.png " width="200px " class="styleMenuButton" #imagen1 id="saldosMovtdc" draggable="false " (click)="mandarPage(imagen1.id)" />
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xl-2 ">
+                        <a id="loadPage2Button ">
+                            <img src="./assets/img/9_Impresión-de-EDC.png " width="200px " class="styleMenuButton" #imagen2 id="edc-tdc" draggable="false " (click)="mandarPage(imagen2.id)" />
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xl-2 ">
+                        <a>
+                            <img src="./assets/img/10_Pago-de-servicios.png " width="200px " class="styleMenuButton" #imagen3 id="pagoServicios" draggable="false " (click)="mandarPage(imagen3.id)" />
+                        </a>
+                    </div>
+
+                </div>
+
+
+                <div class="row " style="margin-top: 40px;">
+                    <div class="col-md-2 col-sm-2 col-xl-2 " style="margin-left: 375px;">
+                        <a>
+                            <h3>Saldos y Movimientos</h3>
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xl-2 ">
+                        <a>
+                            <h3>Impresión de EDC</h3>
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xl-2 ">
+                        <a>
+                            <h3>Pago de Servicios</h3>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div id="masOpciones" class="" style="display: none; width: 100%; ">
+                <div class="row " style="margin-top: 220px; margin-bottom: 50px;margin-left: 500px">
+                    <div>
+                        <h1>Configuracion de la cuenta</h1>
+                    </div>
+
+                </div>
+                <div class="row ">
+                    <div class="col-md-2 col-sm-2 col-xl-2 "  id="imgdatoscontacto">
+                        <a>
+                            <img src="./assets/img/13_Actualizar-datos-de-contacto.png " class="sizeMenuButtons" width="200px " #imagen9 id="actDatosContactotdc" draggable="false " (click)="mandarPage(imagen9.id)" />
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xl-2 " id="Alertas" style="display:none">
+                        <a>
+                            <img src="./assets/img/14_Activar-alertas-Banorte.png " class="sizeMenuButtons" width="200px " #imagen13 id="activarAlertas" draggable="false " (click)="mandarPage(imagen13.id)" />
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="row " style="margin-top: 40px;">
+                    <div class="col-md-2 col-sm-2 col-xl-2 "  id="txtdatoscontacto">
+                        <a>
+                            <h3>Actualizar datos de contacto</h3>
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xl-2 " id="alertasTxt" style="display:none">
+                        <a>
+                            <h3>Activar alertas Banorte</h3>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <br/>
+        </div>
+    </div>
+</div>
+
+
+<div id="opciones" class="row " style="display: block; float: right; margin-right: 140px; margin-top: 120px;">
+    <div class="col-md-3 col-sm-3 col-xl-12">
+        <a>
+            <img (click)="moreOptions()" src="./assets/img/8_Más-operaciones.png " width="170px " draggable="false " />
+        </a>
+    </div>
+    <br>
+    <div align="center">
+        <h3>Más operaciones</h3>
+    </div>
+</div>
+
+<div id="regresar" class="row " style="display: none; float: right; margin-right: 140px; margin-top: 120px;">
+    <div class="col-md-3 col-sm-3 col-xl-12">
+        <a>
+            <img (click)="regresar()" src="./assets/img/15_Regresar.png " width="170px " draggable="false " />
+        </a>
+    </div>
+    <br>
+    <div align="center">
+        <h3>Regresar</h3>
+    </div>
+</div>
+
+
+<!--MODAL CAMPAÑA-->
+<div class="modal fade" id="campaniaModal" tabindex="-1" role="dialog" aria-labelledby="ModalTDDLogin" aria-hidden="true">
+    <div id="divLargo" class="modal-dialog modal-dialog-centered" role="document" style="margin-top: 16%; align-items: normal">
+        <div id="divAltura" class="modal-content shadowModal">
+            <!-- class="button b-close"  -->
+            <!-- <span class="color-botones btn btn-lg pull-right" (click)="send('cerrar')" style="position: absolute; top: 5px; right: 5px"><span>X</span></span> -->
+            <span class="color-botones btn btn-lg pull-right" style="position: absolute; top: 5px; right: 5px"><span>X</span></span>
+            <iframe id="frameCampania"></iframe>
+        </div>
+    </div>
+</div>

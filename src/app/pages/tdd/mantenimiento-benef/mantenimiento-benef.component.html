@@ -35,38 +35,44 @@
         <div style="background-color: white; padding-left: 20px; padding-right: 20px; padding-top: 20px">
             <label style="font-size: 18px;">Beneficiarios de la Cuenta</label>
             <table width="100%" id="tablaMantoBen">
-                <tr id="trBeneficiary" style="background-color: #e6e5e5">
-                    <th>No. Cliente</th>
-                    <th>Nombre o Razón Social</th>
-                    <th>Parentesco</th>
-                    <th>RFC</th>
-                    <th>Fecha de Nacimiento</th>
-                    <th>(%)</th>
-                    <th>Modificar</th>
-                    <th>Eliminar</th>
-                </tr>
-                <tr *ngFor="let beneficiario of BEN, let i = index" id={{beneficiario.RazonSocial}}{{beneficiario.NombreBeneficia}}{{beneficiario.ApPaternoBenef}}{{beneficiario.ApMaternoBenef}} style="border-bottom: 1px solid black; border-top: 1px solid black; height: 45px;">
-                    <td *ngIf="(beneficiario.Opcion != 'B')" style="text-align: center">{{beneficiario.NumeroCliente}}</td>
-                    <td *ngIf="(beneficiario.Opcion != 'B')" style="text-align: center">{{beneficiario.RazonSocial | uppercase}}{{beneficiario.NombreBeneficia | uppercase}} {{beneficiario.ApPaternoBenef | uppercase}} {{beneficiario.ApMaternoBenef | uppercase}}</td>
-                    <td *ngIf="(beneficiario.Opcion != 'B')" style="text-align: center">{{beneficiario.Parentesco | uppercase}}</td>
-                    <td *ngIf="(beneficiario.Opcion != 'B')" style="text-align: center">{{beneficiario.RegistroFederal | uppercase}}</td>
-                    <td *ngIf="(beneficiario.Opcion != 'B')" style="text-align: center">{{beneficiario.NuevaFecha}}</td>
-                    <td *ngIf="(beneficiario.Opcion != 'B')" style="text-align: center">{{beneficiario.PorcentajeBenef}}</td>
-                    <td *ngIf="(beneficiario.Opcion != 'B')" align=center>
-                        <button id="buttonImageMantoBen" type="button"><img src="./assets/img/edit.png" 
-                                                alt="Modificar Beneficiario" (click)="modificacionBeneficiarioModal(beneficiario)" width="30px" height="30px" /></button>
-                    </td>
-                    <td *ngIf="(beneficiario.Opcion != 'B')" align=center>
-                        <button id="buttonImageMantoBen" type="button"><img src="./assets/img/trash.png" 
-                                                (click)="bajaBeneficiarioModal(beneficiario)" alt="Eliminar Beneficiario" width="30px" height="30px" /></button>
-                    </td>
-                </tr>
+                <tbody id="tBodyBenef">
+                    <tr id="trBeneficiary" style="background-color: #e6e5e5">
+                        <th>No. Cliente</th>
+                        <th>Nombre o Razón Social</th>
+                        <th>Parentesco</th>
+                        <th>RFC</th>
+                        <th>Fecha de Nacimiento</th>
+                        <th>(%)</th>
+                        <th>Modificar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                    <ng-container *ngFor="let beneficiario of BEN, let i = index">
+                        <tr *ngIf="(beneficiario.Opcion !== 'B')" id={{beneficiario.RazonSocial}}{{beneficiario.NombreBeneficia}}{{beneficiario.ApPaternoBenef}}{{beneficiario.ApMaternoBenef}} style="border-bottom: 1px solid black; border-top: 1px solid black; height: 45px;"
+                            name="filasTablaBen">
+                            <td *ngIf="(beneficiario.Opcion !== 'B')" style="text-align: center">{{beneficiario.NumeroCliente}}</td>
+                            <td *ngIf="(beneficiario.Opcion !== 'B')" style="text-align: center">{{beneficiario.RazonSocial | uppercase}}{{beneficiario.NombreBeneficia | uppercase}} {{beneficiario.ApPaternoBenef | uppercase}} {{beneficiario.ApMaternoBenef | uppercase}}</td>
+                            <td *ngIf="(beneficiario.Opcion !== 'B')" style="text-align: center">{{beneficiario.Parentesco | uppercase}}</td>
+                            <td *ngIf="(beneficiario.Opcion !== 'B')" style="text-align: center">{{beneficiario.RegistroFederal | uppercase}}</td>
+                            <td *ngIf="(beneficiario.Opcion !== 'B')" style="text-align: center">{{beneficiario.NuevaFecha}}</td>
+                            <td *ngIf="(beneficiario.Opcion !== 'B')" style="text-align: center">{{beneficiario.PorcentajeBenef}}</td>
+                            <td *ngIf="(beneficiario.Opcion !== 'B')" align=center>
+                                <button id="buttonImageMantoBen" type="button"><img src="./assets/img/edit.png" 
+                                                    alt="Modificar Beneficiario" (click)="modificacionBeneficiarioModal(beneficiario)" width="30px" height="30px" /></button>
+                            </td>
+                            <td *ngIf="(beneficiario.Opcion !== 'B')" align=center>
+                                <button id="buttonImageMantoBen" type="button"><img src="./assets/img/trash.png" 
+                                                    (click)="bajaBeneficiarioModal(beneficiario)" alt="Eliminar Beneficiario" width="30px" height="30px" /></button>
+                            </td>
+                        </tr>
+                    </ng-container>
+
+                </tbody>
             </table>
             <br>
             <br>
             <div class="row">
                 <div class="col-lg-10">
-                    <button id="alta" type="button" class="color-botones btn btn-lg" [disabled]="tamRegistrosBenef == 10 || bloquearAlta || ultimoRegistroGuardado == 10 || contadorAltas == 10" (click)="altaBeneficiario()" style="margin-bottom: 20px; float: inherit; width: 110px;">Alta</button>
+                    <button id="alta" type="button" class="color-botones btn btn-lg" [disabled]="tamRegistrosBenef == 10" (click)="altaBeneficiario()" style="margin-bottom: 20px; float: inherit; width: 110px;">Alta</button>
                 </div>
                 <div class="col-lg-2">
                     <button id="gardar" type="button" class="color-botones btn btn-lg pull-right" [disabled]="contadorModificaciones.length == 0 && contadorAltas == 0  && arrayBajas.length == 0" onclick="handlerCallPinpad()" (click)="finalizaProcesoGuardarDatos()" style="margin-left: 40px">Guardar Cambios</button>
@@ -139,8 +145,8 @@
                         <div class="col-sm-3">
                             <select class="input-whidth form-control amount input-lg selectModificado" id="selTypePersonAlta" (change)="fMSelect($event.target.value)" #RFisicaMoralSelecAlta>                            
                                 <option disabled="" selected value="" ng-reflect-value="">SELECCIONE OPCIÓN</option>
-                                <option [value]="1">Persona Física</option>
-                                <option [value]="2">Persona Moral</option>
+                                <option [value]="1" class="text-li">Persona Física</option>
+                                <option [value]="2" class="text-li">Persona Moral</option>
                             </select>
                         </div>
                     </div>
@@ -205,7 +211,7 @@
                         <div class="col-sm-3">
                             <select class="input-whidth form-control amount input-lg selectModificado" id="selColonia" (change)="seleccionColonia()" #rColonias style=" background-size: auto">
                                 <option disabled="" selected value="" ng-reflect-value="">SELECCIONE COLONIA</option>
-                                <option *ngFor="let colonias of CP"  [value]="colonias.Colonia">{{colonias.Colonia}}</option>                      
+                                <option *ngFor="let colonias of CP"  [value]="colonias.Colonia" class="text-li">{{colonias.Colonia}}</option>                      
                             </select>
                         </div>
                         <div class="form-group col-sm-1">
@@ -246,7 +252,7 @@
 
 
     <!-- Modal Modificación de Beneficiarios-->
-    <div class="modal fade" id="modalModificacionBeneficiarios" tabindex="-1" role="dialog" aria-labelledby="ModalTDDLogin" aria-hidden="true" ata-backdrop="static">
+    <div class="modal fade" id="modalModificacionBeneficiarios" tabindex="-1" role="dialog" aria-labelledby="ModalTDDLogin" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 85%; position: initial !important; margin-top: -41px;">
             <div class="modal-content shadowModal">
                 <h2 class="text-center padding-barToTittle deleteMargin-h2  color-letra">Modificación de Beneficiario</h2>
@@ -367,9 +373,9 @@
                         </div>
                         <div class="col-sm-3">
                             <select class="input-whidth form-control amount input-lg selectModificado" id="selColonia" (change)="seleccionColonia()" #RColoniasM style="text-align: center; background-size: auto">
-                                            <option *ngIf="descripcionColonia !== ''">{{descripcionColonia}}</option>
+                                            <option *ngIf="descripcionColonia !== ''" class="text-li">{{descripcionColonia}}</option>
                                             <option disabled="true">SELECCIONE COLONIA</option>
-                                            <option  *ngFor="let colonias of CP" [value]="colonias.Colonia">{{colonias.Colonia}}</option>
+                                            <option  *ngFor="let colonias of CP" [value]="colonias.Colonia" class="text-li">{{colonias.Colonia}}</option>
                                   </select>
                         </div>
                         <div class="form-group col-sm-1">
@@ -422,7 +428,7 @@
                         </div>
                     </div>
                     <br>
-                    <p style="text-align: center; font-weight: bold">{{razonSocial}} {{nombreBeneficiario}} {{apellidoPat}} {{apellidoMat}}</p>
+                    <p class="text-uppercase" style="text-align: center; font-weight: bold">{{razonSocial}} {{nombreBeneficiario}} {{apellidoPat}} {{apellidoMat}}</p>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-lg" data-dismiss="modal">Cancelar</button>
                         <button id="aceptar" type="button" class="color-botones btn btn-lg" data-dismiss="modal" (click)="bajaBeneficiariosView()" ng-click="location.reload()" style="margin-right: -16px;" data-dismiss="modal">Confirmar</button>

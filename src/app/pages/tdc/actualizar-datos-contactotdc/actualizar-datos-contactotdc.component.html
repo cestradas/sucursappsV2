@@ -1,0 +1,132 @@
+<form novalidate [formGroup]="myForm">
+    <div class="padding-barToTittle">
+      <h2 class="text-center deleteMargin-h2 color-letra">Actualizar datos de contacto</h2>
+    </div>
+    <fieldset class="padding-TittleToFieldset padding-fieldset-general">
+      <div align="center" class="well sumando-well-white col-sm-12">
+          <div class="row">
+              <div class="col-sm-5 col-md-5" align="right">
+                  <strong>Correo electr&oacute;nico :</strong>
+              </div>
+              <div class="col-sm-4 col-md-4">
+                  <input   #correoElectronico  type="text"   class="tamimput form-control amount input-lg" (blur)="ErrorPatternCorreo('show')" (focus)="ErrorPatternCorreo('hide')"
+                  formControlName="fcCorreo" [matKeyboard]="" placeholder="Correo electr&oacute;nico" readonly/>
+                    <div *ngIf="IsControlCorreo">
+                        <div *ngIf="(myForm.get('fcCorreo').errors  && myForm.get('fcCorreo').touched) " >
+                            <p *ngIf="myForm.get('fcCorreo').hasError('required')" class="alert alert-danger">
+                                    Dato obligatorio, favor de capturar.
+                            </p>
+                            <div *ngIf="showCorreoError">
+                                <p *ngIf="myForm.get('fcCorreo').hasError('email') && correoElectronico.value !== '' " class="alert alert-danger">
+                                    Los datos proporcionados son incorrectos, favor de verificar.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              <div class="col-sm-1 col-md-1" align="left">
+                  <a>  <img src="./assets/img/edit.png" type="image/png" width="30" height="30" (click)="editarCorreo(correoElectronico)"> </a>
+              </div>
+          </div>
+          <br>
+          <br>
+          <div class="row">
+              <div class="col-sm-5 col-md-5" align="right">
+                  <strong>N&uacute;mero de celular :</strong>
+              </div>
+              <div class="col-sm-4 col-md-4">
+                  <input  #numeroCelular  type="text" class="tamimput form-control amount input-lg" (blur)="ErrorPatternCelular('show')" (focus)="ErrorPatternCelular('hide')"
+                  formControlName="fcCelular" [matKeyboard]="'num'" placeholder="Número de celular" readonly maxlength="10"/>
+                  <div *ngIf="IsControlCelular">
+                    <div *ngIf="myForm.get('fcCelular').errors  && myForm.get('fcCelular').touched">
+                        <p *ngIf="myForm.get('fcCelular').hasError('required')"  class="alert alert-danger">
+                                Dato obligatorio, favor de capturar.
+                        </p>
+                        <div *ngIf="showCelularError">
+                            <p *ngIf="(myForm.get('fcCelular').hasError('pattern') && numeroCelular.value !== '')||(myForm.get('fcCelular').hasError('minlength') && numeroCelular.value !== '') " class="alert alert-danger">
+                                Los datos proporcionados son incorrectos, favor de verificar.
+                            </p>
+                        </div>
+                    </div>
+                  </div>
+             </div>
+              <div class="col-sm-1 col-md-1" align="left">
+                  <a> <img src="./assets/img/edit.png" type="image/png" width="30" height="30" (click)='editarNumCel(numeroCelular)'> </a>
+              </div>
+          </div>
+    
+      </div>
+    </fieldset>
+    
+    
+    <div style="margin:30px -142px 0px 0px;" class="row">
+      <div class="col-sm-10">
+          <button class="btn pull-right btn-lg letranegrita" (click)="irMenuTDC()">
+                      Regresar
+                  </button>
+      </div>
+      <div style=" padding: 0px;" class="col-sm-1">
+          <!--<button id="guardar" class="btn color-botones btn-lg letranegrita" type="button" [disabled]="((correoElectronico.readOnly === true) && (numeroCelular.readOnly === true)) || (myForm.get('fcCelular').invalid && numeroCelular.readOnly === false) || (myForm.get('fcCorreo').invalid && correoElectronico.readOnly === false)" (click)="modificarDatos(correoElectronico.value,numeroCelular.value)">-->
+                <button id="guardar" class="btn color-botones btn-lg letranegrita" type="button" [disabled]="myForm.invalid" (click)="mostrarConfirmacion(correoElectronico.value,numeroCelular.value)">
+                  Guardar
+              </button>
+      </div>
+    </div>
+    
+  
+    </form>
+    <div id="actualizarCorreo" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-error" role="document">
+                <div class="modal-content">
+                    <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
+                        <h4 style="color: #B01657">Confirmar cambio</h4>
+                        <div style="display:none" id="numCel">
+                            <div class="row">
+                                <div class="col-lg 6">
+                                    <label>N&uacute;mero celular:</label>
+                                </div>
+                                <div class="col-lg 6">
+                                    <label>{{celActualizado}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display:none" id="correo">
+                            <div class="row">
+                                <div class="col-lg 6">
+                                    <label>Correo electr&oacute;nico:</label>
+                                </div>
+                                <div class="col-lg 6">
+                                    <label>{{correoActualizado}}</label>
+                                </div>
+                            </div>
+                        </div>
+        
+        
+                    </div>
+                    <div class="modal-footer text-center">
+                        <button id="cancelar2" type="button" class="btn" data-dismiss="modal" onclick="currentPage.loadMenu()">Cancelar</button>
+                        <button id="Confirmar2" type="button" class="btn color-botones" data-dismiss="modal" (click)="validartarjeta()">Confirmar</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        
+        
+        <div id="datosIguales" class="modal fade" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-error">
+                <div class="modal-content">
+                    <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
+                        <h4 style="color: #B01657">Aviso</h4>
+                        <p id="mnsErrorModal">Los datos son iguales.</p>
+                    </div>
+                    <div class="modal-footer text-center">
+                        <button id="salir" type="button" class="btn color-botones" data-dismiss="modal" onclick="currentPage.loadMenu(correoElectronico.value,numeroCelular.value)">Aceptar</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>    
+    

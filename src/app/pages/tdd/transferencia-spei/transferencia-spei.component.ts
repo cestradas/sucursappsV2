@@ -46,7 +46,7 @@ export class TransferenciaSpeiComponent implements OnInit {
   descripcion: any = "";
   email: any = "";
   tamCuenta: any;
-
+  auxTamCuenta: any = 1;
   myform: FormGroup;
 
   listaBancos: any;
@@ -212,7 +212,7 @@ limpiarFormulario () {
       this_aux.consultaTablaCorpBancosService();
       console.log("Seleccionaste QUICK");
       const controlClabe: FormControl = new FormControl(
-        this_aux.rClabe.nativeElement.value, Validators.required);
+        this_aux.rClabe.nativeElement.value, [Validators.required, Validators.minLength(16), Validators.maxLength(18)]);
       this_aux.myform.setControl("numeroClabeF", controlClabe);
     }
 
@@ -221,7 +221,7 @@ limpiarFormulario () {
       this_aux.consultaBancosNacionalesService();
       console.log("Seleccionaste TEF");
       const controlClabe: FormControl = new FormControl(
-        this_aux.rClabe.nativeElement.value, Validators.required );
+        this_aux.rClabe.nativeElement.value, [Validators.required, Validators.minLength(16), Validators.maxLength(16)]);
       this_aux.myform.setControl("numeroClabeF", controlClabe);
     }
   }
@@ -496,11 +496,22 @@ limpiarFormulario () {
 
   obtenerCuentaDestino(numCuenta) {
     const this_aux = this;
-    if ((numCuenta.length === 16 || numCuenta.length === 18) && $( "div:contains('John')" ) ) { 
-      this_aux.tamCuenta = 1;  
-    } else {
-      this_aux.tamCuenta = 0;
+    if (this_aux.nombreOperacion === "1") {
+      if ((numCuenta.length === 16 || numCuenta.length === 18) ) { 
+        this_aux.tamCuenta = 1;  
+        this_aux.auxTamCuenta = 1;        
+      } else {
+        this_aux.tamCuenta = 0;
+        this_aux.auxTamCuenta = 0;
+      }
+    } else if (this_aux.nombreOperacion === "2") {
+      if (numCuenta.length === 16 ) { 
+        this_aux.tamCuenta = 1;  
+        this_aux.auxTamCuenta = 1;
+      } else {
+        this_aux.tamCuenta = 0;
+        this_aux.auxTamCuenta = 0;
+      }
     }
-    
   }
 }

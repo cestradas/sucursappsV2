@@ -84,6 +84,7 @@ export class BreadcrumbsComponent implements OnInit {
     const this_aux = this;
     if (this_aux.service.Login === "1" ) {
       sessionStorage.removeItem("campania");
+      sessionStorage.removeItem("idSesion");
     const THIS: any = this;
       this_aux.service.Login = "0";
       const operacionesbxi: OperacionesBXI = new OperacionesBXI();

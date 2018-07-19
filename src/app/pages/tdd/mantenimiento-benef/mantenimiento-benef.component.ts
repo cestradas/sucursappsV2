@@ -53,6 +53,8 @@ export class MantenimientoBenefComponent implements OnInit {
   contadorModificaciones: any = [];
   contadorAltas: any = 0;
   arrayBajas: any = [];
+  numeroModificaciones: any = 0;
+  numeroBajas: any = 0;
   consecutivoSeleccionado: any = "";
   mostrarFechaFormat: any;
   porcentajeGuardado: any = 0;
@@ -193,7 +195,7 @@ export class MantenimientoBenefComponent implements OnInit {
     if (datosBeneficiario.FisicaMoral === "M") {
       this.razonSocial = datosBeneficiario.RazonSocial;
     }   
-    this.idEliminarTabla =  this.razonSocial + this.nombreBeneficiario + this.apellidoPat +this.apellidoMat;
+    this.idEliminarTabla =  this.razonSocial + this.nombreBeneficiario + this.apellidoPat + this.apellidoMat;
     $("#modalBajaBeneficiarios").modal("show");
   }
 
@@ -316,11 +318,7 @@ export class MantenimientoBenefComponent implements OnInit {
       function(response) {
         console.log(response.responseJSON);
         this_aux.DatosJSON = response.responseJSON;
-/*
-        if (this_aux.BEN === undefined) {
-          $('#errorModal').modal('show');          
-          this_aux.bloquearAlta = true;
-        }*/ if (this_aux.DatosJSON.MensajeAUsuario === "Sin datos") {
+         if (this_aux.DatosJSON.MensajeAUsuario === "Sin datos") {
           this_aux.BEN = new Array();
         } else {
           this_aux.BEN = this_aux.DatosJSON.ArrayBeneficiarios;
@@ -341,10 +339,9 @@ export class MantenimientoBenefComponent implements OnInit {
           });
           console.log("PORCENTAJE EN CONSULTA: " + this_aux.porcentajeGuardado);
           const stringDatosBen = JSON.stringify(this_aux.DatosJSON);
-          this_aux.serviceMantenimiento.datosBeneficiarios = stringDatosBen;
-          $('#_modal_please_wait').modal('hide');
+          this_aux.serviceMantenimiento.datosBeneficiarios = stringDatosBen;          
         }
-        
+        $('#_modal_please_wait').modal('hide');
       },
       function(error) {
         $('#errorModal').modal('show');
@@ -372,9 +369,6 @@ export class MantenimientoBenefComponent implements OnInit {
         value.PorcentajeBenef = "0";
       }
     });
-    
-    let tr = document.getElementById(this_aux.idEliminarTabla);
-    tr.remove();
     console.log("PORCENTAJE EN BAJA: " + this_aux.porcentajeGuardado);
   }
 
@@ -382,6 +376,7 @@ export class MantenimientoBenefComponent implements OnInit {
     const this_aux = this;
     this_aux.BEN.forEach(function(value, key) {
       if (value.Opcion === "B") {
+        value.Opcion = "BajaRealizada";
         this_aux.bajaBeneficiariosSoap(value.NumeroConsecutiv);
       }
     });
@@ -411,14 +406,25 @@ export class MantenimientoBenefComponent implements OnInit {
         if (respuestaBaja.Id === "1") {
           const stringDetalleMantenimiento = JSON.stringify(this_aux.DatosJSON);
           this_aux.serviceMantenimiento.detalleMantenimiento = stringDetalleMantenimiento;
-          this_aux.B = false;
+          if ( this_aux.numeroBajas === 0) {
+            this_aux.B = false;
+          }
           this_aux.verificaTransacciones();
           
-        } else {
-          $('#ModalErrorOperacion').modal('show');
-        }
+        }  else if (respuestaBaja.Id === "2") {
+          setTimeout(() => {
+            $('#_modal_please_wait').modal('hide');
+            this_aux.showErrorPromise(respuestaBaja);
+        }, 500);              
+         }  else {
+          setTimeout(function() {
+            $('#_modal_please_wait').modal('hide');
+            this_aux.showErrorSucces(respuestaBaja);
+          }, 500);
+         }  
       }, function(error) {
         THIS.loading = false;
+        this_aux.showErrorSuccesMoney(error);
         console.log("Error al dar de baja beneficiario");
       }
     );
@@ -481,8 +487,7 @@ export class MantenimientoBenefComponent implements OnInit {
           'NumeroConsecutiv': this_aux.ultimoRegistroGuardado
           });
       }
-      this_aux.contadorAltas = ++this_aux.contadorAltas;
-      this_aux.tamRegistrosBenef = this_aux.tamRegistrosBenef + this_aux.contadorAltas;
+     this_aux.tamRegistrosBenef ++;
       console.log('ULTIMOS REGISTROS' + this_aux.ultimoRegistroGuardado);
       this.reiniciarInput();
       this.reiniciarValidaciones(); 
@@ -493,6 +498,7 @@ export class MantenimientoBenefComponent implements OnInit {
     const this_aux = this;
     this_aux.BEN.forEach(function(value, key) {
       if (value.Opcion === 'A') {
+        value.Opcion = "AltaRealizada";
         if (value.FisicaMoral === 'F') {
           this_aux.capturaDatosAltaBeneficiarioFisico(value.NombreBeneficia.toUpperCase(), value.ApPaternoBenef.toUpperCase(),
           value.ApMaternoBenef.toUpperCase(), value.FechaNacimiento, value.Parentesco.toUpperCase(), value.RegistroFederal.toUpperCase(),
@@ -552,7 +558,9 @@ export class MantenimientoBenefComponent implements OnInit {
         if (respuestaAlta.Id === "1") {
           const stringDetalleMantenimiento = JSON.stringify(this_aux.DatosJSON);
           this_aux.serviceMantenimiento.detalleMantenimiento = stringDetalleMantenimiento;
-          this_aux.A = false;
+          if (this_aux.contadorAltas === 0) {
+            this_aux.A = false;
+          }
           this_aux.verificaTransacciones();
           
         } else {
@@ -608,7 +616,9 @@ export class MantenimientoBenefComponent implements OnInit {
         if (respuestaAltaF.Id === "1") {
           const stringDetalleMantenimiento = JSON.stringify(this_aux.DatosJSON);
           this_aux.serviceMantenimiento.detalleMantenimiento = stringDetalleMantenimiento;
-          this_aux.A = false;
+          if (this_aux.contadorAltas === 0) {
+            this_aux.A = false;
+          }
           this_aux.verificaTransacciones();          
         } else {
           $('#ModalErrorOperacion').modal('show');
@@ -829,7 +839,9 @@ export class MantenimientoBenefComponent implements OnInit {
         value.RegistroFederal = myform.registroFC;
         value.CodigoDelegacion = this_aux.codigoDelegacion;
         value.CodigoEstado = this_aux.codigoEstado;
-
+        if (this_aux.opcion !== 'A') {
+          value.Opcion = 'Modificacion';
+        }        
         if (value.FisicaMoral === "F") {
           value.NombreBeneficia =  myform.nombreBenef;
           value.ApPaternoBenef =  myform.apPatBenef;
@@ -868,12 +880,13 @@ export class MantenimientoBenefComponent implements OnInit {
     let consecutivoModifi: any = "";
 
     let encontrar: any = "";
-    if (this_aux.contadorModificaciones.length !== 0) {
+   // if (this_aux.contadorModificaciones.length !== 0) {
         this_aux.BEN.forEach(function(value, key) {
           encontrar = this_aux.contadorModificaciones.find(function(element) {
             return element === value.NumeroConsecutiv;
           });
-          if (encontrar !== undefined) {
+          if (encontrar !== undefined && value.Opcion === 'Modificacion') {
+            value.Opcion = 'ModificacionRealizada';
             console.log("Valor modificado: " + value.NumeroConsecutiv);
             codigoPostalModif = value.CodigoPostal;
             codigoDelegacionModif = value.CodigoDelegacion;
@@ -906,7 +919,7 @@ export class MantenimientoBenefComponent implements OnInit {
               numeroDepartamentoModif, parentescoModif, porcentajeModif);
           }
         });
-    }
+    // }
   }
 
   modificarBeneficiariosSoap(consecutvoModif, nombreBeneficiarioModif, apellidoPatModif, apellidoMatModif, rFCModif,
@@ -963,7 +976,9 @@ export class MantenimientoBenefComponent implements OnInit {
         if (respuestaModif.Id === "1") {
           const stringDetalleMantenimiento = JSON.stringify(this_aux.DatosJSON);
           this_aux.serviceMantenimiento.detalleMantenimiento = stringDetalleMantenimiento;
-          this_aux.C = false;
+          if ( this_aux.numeroModificaciones === 0) {
+            this_aux.C = false;
+          }
           this_aux.verificaTransacciones();
           
         } else {
@@ -1010,8 +1025,8 @@ export class MantenimientoBenefComponent implements OnInit {
           console.log(res);
   
           if (res === true) {  
-            $('#ModalTDDLogin').modal('hide');
-            setTimeout( () => $('#_modal_please_wait').modal('hide'), 500 );
+            $('#ModalTDDLogin').modal('hide');            
+            $('#_modal_please_wait').modal('show');
             this_aux.verificaServicios();  
             this._validaNipService.respuestaNip.res = "";
           } else {  
@@ -1038,12 +1053,14 @@ export class MantenimientoBenefComponent implements OnInit {
 
     if (this_aux.contadorModificaciones.length !== 0) {
       this_aux.C = true;
+      this_aux.numeroModificaciones = this_aux.contadorModificaciones.length;
     }
     if (this_aux.contadorAltas !== 0) {
       this_aux.A = true;
     } 
     if (this_aux.arrayBajas.length !== 0) {
       this_aux.B = true;
+      this_aux.numeroBajas = this_aux.arrayBajas.length;
     }
 
     this_aux.realizaAccion();
@@ -1051,22 +1068,33 @@ export class MantenimientoBenefComponent implements OnInit {
 
   realizaAccion() {
     const this_aux = this;
-    if ( this_aux.A ) { 
-         this_aux.altaBeneficiariosSoap();
+    if (this_aux.B) {
+      this_aux.numeroBajas--;
+      this_aux.bajaBeneficiarios();
     } else {
-        if (this_aux.B) {
-          this_aux.bajaBeneficiarios();
-        } else {
-              
-          if (this_aux.C) {
-             this_aux.guardarCambios();
-          }
+        if (this_aux.C) {
+          this_aux.numeroModificaciones--;
+          this_aux.guardarCambios();
+        } else {              
+            if (this_aux.A ) { 
+            this_aux.contadorAltas--;
+            this_aux.altaBeneficiariosSoap();
         }
     }
+}
   }
 
   verificaTransacciones() {
     const this_aux = this;
+    if (this_aux.numeroModificaciones !== 0) {
+      this_aux.C = true;
+    }
+    if (this_aux.contadorAltas !== 0) {
+      this_aux.A = true;
+    } 
+    if (this_aux.numeroBajas !== 0) {
+      this_aux.B = true;
+    }
     if ( this_aux.B === false && this_aux.C === false && this_aux.A === false ) {      
       $('#_modal_please_wait').modal('show');
       this_aux.router.navigate(['/detalleBeneficiarios']);
@@ -1076,9 +1104,29 @@ export class MantenimientoBenefComponent implements OnInit {
     }
   }
   tecladoMoverAbajo () {
-    $( ".cdk-visually-hidden" ).css( "margin-top", "15%" );
+    $( ".cdk-visually-hidden" ).css( "margin-top", "18%" );
   }
   tecladoMoverArriba () {
     $( ".cdk-visually-hidden" ).css( "margin-top", "-19%" );
   }
+  showErrorPromise(error) {
+    console.log(error);
+    // tslint:disable-next-line:max-line-length
+    document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
+    $('#_modal_please_wait').modal('hide');
+    $('#errorModal').modal('show');
+  }
+
+  showErrorSuccesMoney(json) {
+    console.log(json.Id + json.MensajeAUsuario);
+    document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tu saldo";
+    $('#_modal_please_wait').modal('hide');
+    $('#ModalErrorTransaccion').modal('show');
+  }
+
+  showErrorSucces(json) {
+    console.log(json.Id + json.MensajeAUsuario);
+    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+    $('#errorModal').modal('show');
+}
 }

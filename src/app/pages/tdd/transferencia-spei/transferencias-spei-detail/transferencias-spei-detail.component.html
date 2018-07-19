@@ -1,11 +1,12 @@
 <div ng-cloak class="padding-barToTittle">
-    <h2 class="text-center  color-letra">Operaci&oacute;n exitosa</h2>
+    <h2 id="tituloQuick" class="text-center  color-letra" *ngIf="(operacionType == 'SPEI')">Transferencia Quick exitosa</h2>
+    <h2 id="tituloTef" class="text-center  color-letra" *ngIf="(operacionType == 'TEF')">Transferencia TEF exitosa</h2>
 </div>
 
 <fieldset align="center" class="padding-TittleToFieldset padding-fieldset-general">
     <div class="well sumando-well-white">
         <div id="divSpei" *ngIf="(operacionType == 'SPEI')">
-            <div class="row" id="refSpei">
+            <div class="row" id="refSpei" *ngIf="(detalleTransferencia.referenciaNumerica !== '1')">
                 <div class="col-lg-6" align="right">
                     <strong>Referencia:</strong>
                 </div>

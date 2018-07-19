@@ -28,11 +28,14 @@ export class MenuBxiComponent implements OnInit {
   ngOnInit() {
     const body = $('body');
     // body.off('click');
-    this.setNombreUsuario();
-    this.getidSesion(); 
-      if (sessionStorage.getItem("campania") === null)      {
+    this.setNombreUsuario();    
+      if (sessionStorage.getItem("campania") === null){
         sessionStorage.setItem("campania", "activa");
-      }
+        this.getidSesion(); 
+      } 
+      if (sessionStorage.getItem("campania") === "activa") {
+        this.encriptarSic();
+      } 
   }
 
   setNombreUsuario() {
@@ -159,7 +162,7 @@ export class MenuBxiComponent implements OnInit {
   }
 
   moreOptions() {
- 
+
 
     setTimeout(() => {
 
@@ -281,7 +284,7 @@ export class MenuBxiComponent implements OnInit {
 getidSesion() {
   const this_aux = this;
   const resourceRequest = new WLResourceRequest(
-      'adapters/AdapterBanorteSucursApps/resource/getSessionId',
+      'adapters/AdapterBanorteSucursAppsBEL/resource/getSessionId',
       WLResourceRequest.POST);
   resourceRequest.setTimeout(30000);
   resourceRequest.send().then(
@@ -290,9 +293,8 @@ getidSesion() {
           console.log(this_aux.sesionBrowser);
           console.log("El servcio de id sesion respondio correctamente");
           console.log("SIC BEL: " + this_aux.service.infoUsuarioSIC);
-                if (sessionStorage.getItem("campania") === "activa") {
-                  this_aux.encriptarSic();
-                }      
+          sessionStorage.setItem("idSesion", this_aux.sesionBrowser);  
+          this_aux.encriptarSic();   
       },
       function(error) {
           console.error("Ocurrio un error con el servcio de id sesion");
@@ -304,7 +306,7 @@ cargarcampanias() {
   let params: URLSearchParams = new URLSearchParams();
   params.set("param1", decodeURIComponent(this_aux.sicCifrado));
   params.set("param2", "SUCA");
-  params.set("sesion", this_aux.sesionBrowser);
+  params.set("sesion", sessionStorage.getItem("idSesion"));
   params.set("param3", "1003");
 
   // Http request-
@@ -326,7 +328,7 @@ cargarcampanias() {
 
      document.getElementById("frameCampania").setAttribute("src", 
      this_aux.urlProperty + "/ade-front/ade.htm?param1=" + this_aux.sicCifrado + 
-    "&param2=SUCA&sesion=" + this_aux.sesionBrowser + "&param3=" + this_aux.idSucursal);
+    "&param2=SUCA&sesion=" + sessionStorage.getItem("idSesion") + "&param3=" + this_aux.idSucursal);
      document.getElementById("frameCampania").style.height = "100%";
      document.getElementById("divLargo").style.maxWidth = ancho.toString() + "px";
      document.getElementById("divAltura").style.maxHeight = alto.toString() + "px";

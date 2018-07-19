@@ -36,10 +36,13 @@ export class MenutddComponent implements OnInit {
 
   ngOnInit() {
     // $('div').removeClass('modal-backdrop');
-      if (sessionStorage.getItem("campania") === null)      {
-        sessionStorage.setItem("campania", "activa");
-      }
-      this.getidSesion();
+    if (sessionStorage.getItem("campania") === null)      {
+      sessionStorage.setItem("campania", "activa");
+      this.getidSesion(); 
+    } 
+    if (sessionStorage.getItem("campania") === "activa") {
+      this.encriptarSic();
+    } 
     }
   conAlertas() {
         
@@ -219,14 +222,14 @@ export class MenutddComponent implements OnInit {
     let params: URLSearchParams = new URLSearchParams();
     params.set("param1", decodeURIComponent(this_aux.sicCifrado));
     params.set("param2", "SUCA");
-    params.set("sesion", this_aux.sesionBrowser);
+    params.set("sesion", sessionStorage.getItem("idSesion"));
     params.set("param3", "1003");
-
+  
     // Http request-
     // this_aux.stringUrl = this_aux.urlProperty + "/ade-front/existeEvento.json?param1=cGP7ZYTkSjuaCtabUn%2BA2Q%3D%3D";
      this_aux.stringUrl = this_aux.urlProperty + "/ade-front/existeEvento.json";
     // this_aux.urlProperty + "/ade-front/existeEvento.json";
-
+       
     this.http
       .get(this_aux.stringUrl, {
         search: params
@@ -238,15 +241,15 @@ export class MenutddComponent implements OnInit {
         let val2 = cadena.indexOf(",", val1 + 1);
         let ancho = cadena.substring(val1 + 1, val2);
         let alto = cadena.substring(val2 + 1);
-
-       document.getElementById("frameCampania").setAttribute("src",
-      this_aux.urlProperty + "/ade-front/ade.htm?param1=" + this_aux.sicCifrado +
-      "&param2=SUCA&sesion=" + this_aux.sesionBrowser + "&param3=" + this_aux.idSucursal);
+  
+       document.getElementById("frameCampania").setAttribute("src", 
+       this_aux.urlProperty + "/ade-front/ade.htm?param1=" + this_aux.sicCifrado + 
+      "&param2=SUCA&sesion=" + sessionStorage.getItem("idSesion") + "&param3=" + this_aux.idSucursal);
        document.getElementById("frameCampania").style.height = "100%";
        document.getElementById("divLargo").style.maxWidth = ancho.toString() + "px";
        document.getElementById("divAltura").style.maxHeight = alto.toString() + "px";
        document.getElementById("divAltura").style.height = alto.toString() + "px";
-       $("#campaniaModal").modal("show");
+       $("#campaniaModal").modal("show");   
     }
   }
 
@@ -290,10 +293,8 @@ export class MenutddComponent implements OnInit {
     const this_aux = this;
     this_aux.sesionBrowser = this_aux.serviceTdd.sesionTdd;
     console.log(this_aux.sesionBrowser);
-
-    if (sessionStorage.getItem("campania") === "activa") {
-      this_aux.encriptarSic();
-    }
+    sessionStorage.setItem("idSesion", this_aux.sesionBrowser);  
+    this_aux.encriptarSic(); 
 }
 
 

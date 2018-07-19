@@ -152,8 +152,8 @@ export class CompraTiempoAireComponent implements OnInit {
 
             console.error("El WS respondio incorrectamente1");
             // document.getElementById('mnsError').innerHTML = "El Ws no respondio";
-            $('#errorModal').modal('show');
             $('#_modal_please_wait').modal('hide');
+            this.showErrorSuccesMoney(error);
           });
   }
 
@@ -225,16 +225,28 @@ export class CompraTiempoAireComponent implements OnInit {
       .then(
           function(response) {
 
-          let res = response.responseJSON;
+            let res = response.responseJSON;
 
-          console.log(response.responseText);
-
-          THIS.recargas = res;
+          if (res.Id === '1') {
+            console.log(response.responseText);  
+            THIS.recargas = res;
+          } else if (res.Id === '2') {
+            setTimeout(() => {
+              $('#_modal_please_wait').modal('hide');
+              this_aux.showErrorPromise(res);
+          }, 500);              
+           }  else {
+            setTimeout(function() {
+              $('#_modal_please_wait').modal('hide');
+              this_aux.showErrorSucces(res);
+            }, 500);
+           }
           $('#_modal_please_wait').modal('hide');
           },
           function(error) {
             console.error("El WS respondio incorrectamente2");
             $('#_modal_please_wait').modal('hide');
+            this_aux.showErrorSuccesMoney(error);
           });
 
   }
@@ -279,16 +291,21 @@ export class CompraTiempoAireComponent implements OnInit {
                console.log(this_aux.serviceResponse.detalleConfirmacionCTA);
                this.router.navigate(['/compraTiempoAireFinal']);
 
-             } else {
-              this_aux.showErrorSuccesMoney(compraTAResp);
-
+             } else if (compraTAResp.Id === '2') {
+              setTimeout(() => {
+                $('#_modal_please_wait').modal('hide');
+                this_aux.showErrorPromise(compraTAResp);
+            }, 500);              
+             }  else {
+              setTimeout(function() {
+                $('#_modal_please_wait').modal('hide');
+                this_aux.showErrorSucces(compraTAResp);
+              }, 500);
              }
           },
           function(error) {
-
-
-            console.error("El WS respondio incorrectamente2");
-            this_aux.showErrorPromise(error);
+            console.error("El WS respondio incorrectamente");
+            this_aux.showErrorSuccesMoney(error);
           });
 
 
@@ -350,9 +367,17 @@ export class CompraTiempoAireComponent implements OnInit {
           $('#modalLimiteDiario').modal('show');
         } else if ( DatosJSON.Id === "5" ) {
           $('#modalLimiteMensual').modal('show');
-        } else {
-          $('#errorModal').modal('show');
-        }
+        } else if (DatosJSON.Id === '2') {
+          setTimeout(() => {
+            $('#_modal_please_wait').modal('hide');
+            this_aux.showErrorPromise(DatosJSON);
+        }, 500);              
+         }  else {
+          setTimeout(function() {
+            $('#_modal_please_wait').modal('hide');
+            this_aux.showErrorSucces(DatosJSON);
+          }, 500);
+         }
         setTimeout(function() {
           $('#_modal_please_wait').modal('hide');
         }, 500);
@@ -360,7 +385,7 @@ export class CompraTiempoAireComponent implements OnInit {
       }, function(error) {
         setTimeout(function() {
           $('#_modal_please_wait').modal('hide');
-          $('#errorModal').modal('show');
+          this_aux.showErrorSuccesMoney(error);
         }, 500);
        
   });
@@ -374,19 +399,18 @@ export class CompraTiempoAireComponent implements OnInit {
     $('#errorModal').modal('show');
   }
 
-  showErrorSucces(json) {
-    console.log(json.Id + json.MensajeAUsuario);
-    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
-    $('#_modal_please_wait').modal('hide');
-    $('#errorModal').modal('show');
-  }
-
   showErrorSuccesMoney(json) {
     console.log(json.Id + json.MensajeAUsuario);
-    document.getElementById('msgError').innerHTML =   json.MensajeAUsuario;
+    document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tu saldo";
     $('#_modal_please_wait').modal('hide');
     $('#ModalErrorTransaccion').modal('show');
   }
+
+  showErrorSucces(json) {
+    console.log(json.Id + json.MensajeAUsuario);
+    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+    $('#errorModal').modal('show');
+}
 
 
 }

@@ -1,0 +1,155 @@
+<div class="padding-barToTittle">
+    <h2 class="text-center deleteMargin-h2 color-letra">Movimientos de cuenta</h2>
+</div>
+
+<div id="contenedor" class="padding-fieldset-general ">
+    <div ui-view="navbar">
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="row padding-TittleToFieldset padding-InFieldset">
+                    <div style="width: 300px" class="col-lg-6 ">
+                        <h4 class="color-letra">Selecciona una opci&oacute;n</h4>
+                    </div>
+                    <div style="width: 980px" class="col-lg-6 text-right" id="selectTDC">
+                        <select class="form-control input-lg selectModificado selColonia" id="selecttdc" (change)="llamarMovimientosTDC()" [(ngModel)]="opcionSeleccionado" ng-selected="1">
+                            <option value="0" #mes >Despu&eacute;s del corte</option>
+                            <option value="1" #mes >&Uacute;ltimo corte</option> 
+                        </select>
+                    </div>
+                </div>
+                <div class="row padding-top-15">
+                    <div class="col-lg-12">
+                        <div id="paginador" id="tblDatos" style="display:none">
+                            <table class="table table-striped accounts-table">
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Descripci&oacute;n</th>
+                                    <th>Import</th>
+                                </tr>
+                                <tr *ngFor="let movimiento of movimientosCue; let i = index">
+                                    <td *ngIf="(i>=numeroDatoInicial) && (i < numeroDatoFinal)">{{movimiento.FechaOperacion|date:'dd/MM/yyyy'}}</td>
+                                    <td *ngIf="(i>=numeroDatoInicial) && (i < numeroDatoFinal)">{{movimiento.DescripVariableUno}}</td>
+                                    <ng-template [ngIf]="(i>=numeroDatoInicial) && (i < numeroDatoFinal) &&(movimiento.TipoTransaccion != 'D')" [ngIfElse]="negativo">
+                                        <td>{{movimiento.Importe| currency}}</td>
+                                    </ng-template>
+                                    <ng-template #negativo>
+                                        <td style="color:red">-{{movimiento.Importe| currency}}</td>
+                                    </ng-template>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4" style="display:none" id="Navegador">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+
+                                    </ul>
+                                </nav>
+                            </div>
+
+                        </div>
+                        <div class="row text-center accounts-pager" id="navPag">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 panel-account-detail-mca margin-panelAccount" id="Datos">
+                <h4 class="color-letra">Tu cuenta</h4>
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item1">
+                        <strong>Titular:</strong>
+                        <samp id="txtTitular">{{nombreUsuarioTdc}}</samp>
+                    </li>
+                    <li class="list-group-item list-group-item1">
+                        <strong>Número de tarjeta:</strong>
+                        <samp id="txtTarjeta">{{numCuenta_show}}</samp>
+                    </li>
+                    <li class="list-group-item list-group-item1">
+                        <strong>Pago mínimo:</strong>
+                        <samp id="txtPminimo">{{PagoMinimo | currency}}</samp>
+                    </li>
+                    <li class="list-group-item list-group-item1">
+                        <strong>Saldo disponible:</strong>
+                        <samp id="txtSaldoDisponible">{{saldoDispoinible | currency}}</samp>
+                    </li>
+                    <li class="list-group-item list-group-item1" id="cuentaCredito">
+                        <strong>Saldo Actual:</strong>
+                        <samp id="txtSaldoDisponible">{{SaldoActual | currency}}</samp>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="margin:30px 0px 0px 0px;" class="row">
+    <div class="col-lg-10"></div>
+    <div class="col-lg-2">
+        <div class="row">
+            <div style=" padding: 0px; margin-right:0" class="col-lg-9">
+                <button class="btn btn-lg  pull-right" routerLink="/menuTDC">
+                    Regresar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div id="noMovimientosMesActual" class="modal fade">
+    <div class="modal-dialog modal-dialog-error">
+        <div class="modal-content">
+            <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
+                <!--<h4 class="color-letra">Aviso</h4>-->
+                <h4 style="color: rgb(176, 22, 87)">Aviso</h4>
+                <p id="mnsErrorModal">No existen movimientos después del corte</p>
+            </div>
+            <div class="modal-footer text-center">
+                <!--<button type="button" class="btn btn-danger" data-dismiss="modal" onclick="currentPage.loadMenu()">Salir</button>-->
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div id="noMovimientosMesAnterior" class="modal fade">
+    <div class="modal-dialog modal-dialog-error">
+        <div class="modal-content">
+            <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
+                <!-- <h4 class="color-letra">Aviso</h4>-->
+                <h4 style="color: rgb(176, 22, 87)">Aviso</h4>
+                <p id="mnsErrorModal">No existen movimientos en el último corte</p>
+            </div>
+            <div class="modal-footer text-center">
+                <!--<button type="button" class="btn btn-danger" data-dismiss="modal" onclick="currentPage.loadMenu()">Salir</button>-->
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div id="timeOut" class="modal fade">
+    <div class="modal-dialog modal-dialog-error">
+        <div class="modal-content">
+            <div class="modal-body" style="margin-left: 25px; margin-right: 25px;">
+                <!--<h4 class="color-letra">Aviso</h4>-->
+                <h4 style="color: rgb(176, 22, 87)">Aviso</h4>
+                <p id="mnsErrorModal">Estimado cliente, Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.</p>
+            </div>
+            <div class="modal-footer text-center">
+                <!-- <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="currentPage.loadMenu()">Salir</button>-->
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

@@ -30,12 +30,12 @@
 <br>
 
 <div class="row" style="margin-top: 40px; width: 1920px; height: 310px; margin-right: 0px;margin-left: 0px;">
-    <div class="col-sm-4 text-center animated fadeIn fast" (click)="BxiLogin()">
+    <div class="col-sm-3 text-center animated fadeIn fast" (click)="BxiLogin()">
         <a data-toggle="modal">
             <img class="styleMenuButton sizeMenuBtn" src="./assets/img/btn_acc_bxi.png">
         </a>
     </div>
-    <div class="col-sm-4  text-center animated fadeIn fast" onclick="handlerCallPinpad()" (click)="onPlasticLogin()">
+    <div class="col-sm-3  text-center animated fadeIn fast" onclick="handlerCallPinpad()" (click)="onPlasticLogin()">
         <!-- <a ng-click="onPlasticLogin()" class="home-menu-item"> -->
         <!-- <a data-toggle="modal" data-target="#ModalTDDLogin" class="">
             <a onClick="pantallaInicio()" class="home-menu-item"> -->
@@ -44,34 +44,41 @@
         </a>
         <!-- </a> -->
     </div>
-    <div class="col-sm-4  text-center animated fadeIn fast">
+    <!--TDC-->
+    <div class="col-sm-3 text-center animated fadeIn fast" onclick="handlerCallPinpadtdc()" (click)="onPlasticLogintdc()">
+        <a data-toggle="modal" class="">
+            <img class="styleMenuButton sizeMenuBtn" src="./assets/img/btn_acc_tar.png">
+        </a>
+    </div>
+    <div class="col-sm-3  text-center animated fadeIn fast">
         <a class="home-menu-item" (click)="encuesta()">
             <!-- <a class="home-menu-item" ng-click=""> -->
             <img class="styleMenuButton sizeMenuBtn" src="./assets/img/btn_acc_eva.png">
         </a>
     </div>
-
-
 </div>
 
 <div class="row" style="width: 1920px; margin-top: 20px; margin-right: 0px;margin-left: 0px;">
-    <div class="col-sm-4 text-center animated fadeIn fast" (click)="BxiLogin()">
+    <div class="col-sm-3 text-center animated fadeIn fast" (click)="BxiLogin()">
         <a>
             <h2>Iniciar sesión de <br> banca por internet</h2>
         </a>
     </div>
-    <div class="col-sm-4  text-center animated fadeIn fast" (click)="onPlasticLogin()">
+    <div class="col-sm-3  text-center animated fadeIn fast" (click)="onPlasticLogin()">
         <a>
-            <h2>Iniciar con tarjeta <br> de debito o crédito</h2>
+            <h2>Iniciar con tarjeta <br> de debito</h2>
         </a>
     </div>
-    <div class="col-sm-4  text-center animated fadeIn fast" (click)="encuesta()">
+    <div class="col-sm-3 text-center animated fadeIn fast" onclick="handlerCallPinpadtdc()" (click)="onPlasticLogintdc()">
+        <a>
+            <h2>Iniciar con tarjeta <br> de cr&eacute;dito</h2>
+        </a>
+    </div>
+    <div class="col-sm-3  text-center animated fadeIn fast" (click)="encuesta()">
         <a>
             <h2>Evaluar</h2>
         </a>
     </div>
-
-
 </div>
 
 <!-- Modal -->

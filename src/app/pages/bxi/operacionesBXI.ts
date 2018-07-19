@@ -199,7 +199,7 @@ export class OperacionesBXI {
 
          }
 
-         confirmaTransferQUICK(ctaO, ctaDest, sic, bancoRecep, // clabe,
+         confirmaTransferQUICK(ctaO, ctaDest, sic, bancoRecep, //clabe,
              nombreBene, ref, importe, descripcion, correo,
              rfcEmi): any {
 
@@ -209,7 +209,7 @@ export class OperacionesBXI {
              ctaDest: ctaDest,
              sic: sic,
              bancoRecep:  bancoRecep,
-             // clabe: clabe,
+             //clabe: clabe,
              nombreBene: nombreBene,
              ref: ref,
              importe: importe,
@@ -450,7 +450,7 @@ export class OperacionesBXI {
             };
 
             const    resourceRequest = new WLResourceRequest(
-                'adapters/AdapterBanorteSucursAppsBEL/resource/envioDoc', WLResourceRequest.POST);
+                'adapters/AdapterBanorteSucursAppsBEL2/resource/envioDoc', WLResourceRequest.POST);
           resourceRequest.setTimeout(100000);
 
           return resourceRequest.sendFormParameters(formParameters);
@@ -498,4 +498,6 @@ export class OperacionesBXI {
 
         return numCuenta_show;
     }
+
+
 }

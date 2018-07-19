@@ -5,6 +5,7 @@ import { PagesComponent } from './pages.component';
 import { PAGES_ROUTES } from './pages.routes';
 import { PagesTddModule } from './tdd/pagesTdd.module';
 import { PagesBxiModule } from "./bxi/pagesBxi.module";
+import { PagesTdcModule } from './tdc/pagesTdc.module';
 import { BreadcrumbsComponent } from '../shared/breadcrumbs/breadcrumbs.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -67,6 +68,7 @@ const customLayouts: IKeyboardLayouts = {
         BrowserAnimationsModule,
         MatButtonModule,
         MatKeyboardModule,
+        PagesTdcModule
     ],
     providers: [SesionBxiService, { provide: MAT_KEYBOARD_LAYOUTS, useValue: customLayouts}],
  
