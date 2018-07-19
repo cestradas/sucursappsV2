@@ -2,9 +2,7 @@
 import { OperacionesBXI } from './../../operacionesBXI';
 import { SesionBxiService } from './../../sesion-bxi.service';
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-import { FUNCTION_TYPE } from '@angular/compiler/src/output/output_ast';
+import { Router } from '@angular/router';
 
 declare var jquery: any; // jquery
 declare var $: any;
@@ -81,12 +79,15 @@ setDatosCuentaSeleccionada(elementHTML) {
   const this_aux = this;
   console.log(elementHTML);
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+  const divBlockAlerta = document.getElementById("blockAlertas");
   const tableOrigen = document.getElementById('tableOrigen');
   const tableDefaultOrigen = document.getElementById('tableDefaultOrigen');
   const lblCuentaOrigen = document.getElementById('lblCuentaOrigen');
   const lblAliasOrigen = document.getElementById('lblAliasOrigen');
   const value = elementHTML.value;
 
+  divBlockAlerta.removeAttribute('style');
+  divBlockAlerta.setAttribute('style', 'width: 1749px; margin-left: -10px;display: block');
   tableOrigen.setAttribute('style', 'display: block');
   tableDefaultOrigen.setAttribute('style', 'display: none');
   lblAliasOrigen.innerHTML = this_aux.getCtaFromTextContet( elementHTML.textContent);

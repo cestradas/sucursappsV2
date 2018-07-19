@@ -399,9 +399,16 @@ export class LoginBxiComponent implements OnInit {
                       break;
         case 'SEGAM84': mensajeError = "Token no activado, favor de marcar a Banortel.";
                       break;
+        // tslint:disable-next-line:max-line-length
+        case 'SEGTK03': mensajeError = "Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones"; // Token desincronizado."; 
+                      break;
+       
         case '2'      : mensajeError = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
                         console.log("Id: 2 Mensaje:" + mensajeUsuario);
                       break;
+                      
+        default:    mensajeError = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
+        console.log("Id: 2 Mensaje:" + mensajeUsuario);
       }
 
       return mensajeError;

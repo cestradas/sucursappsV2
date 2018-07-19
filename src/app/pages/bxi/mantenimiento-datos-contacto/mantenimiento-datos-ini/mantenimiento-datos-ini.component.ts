@@ -306,11 +306,13 @@ showErrorSucces(json) {
                     break;
 
       // tslint:disable-next-line:max-line-length
-      case 'SEGTK03': mensajeError = "Token desincronizado."; // Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
+      case 'SEGTK03': mensajeError = "Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones"; // Token desincronizado."; 
                     break;
       case '2'      : mensajeError = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
                     console.log("Id: 2 Mensaje:" + mensajeUsuario);
                   break;
+      default:    mensajeError = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
+                  console.log("Id: 0 Mensaje:" + mensajeUsuario);
     }
  
     return mensajeError;
