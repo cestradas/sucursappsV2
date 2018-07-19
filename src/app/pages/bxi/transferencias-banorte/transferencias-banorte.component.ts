@@ -413,7 +413,7 @@ setCuentasBenficiarioXTipo() {
       this_aux.listaCuentasUsr.forEach(auxcuenta => {
 
 // VALIDAR TIPOS DE CUENTA BANORTE PROPIAS
-      if (auxcuenta.TipoCuenta.toString() === "1") {
+      if (((auxcuenta.TipoCuenta.toString() === "1") && (auxcuenta.NoCuenta.length === 10)) || ((auxcuenta.TipoCuenta.toString() === "4") && (auxcuenta.NoCuenta.length === 10)) ) {
 
 
         contCtas ++;
