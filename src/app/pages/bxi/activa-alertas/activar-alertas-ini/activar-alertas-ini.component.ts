@@ -48,12 +48,20 @@ export class ActivarAlertasIniComponent implements OnInit {
     const consultaCuentas = JSON.parse(cuentasString);
     const cuentasArray = consultaCuentas.ArrayCuentas;
       cuentasArray.forEach(cuenta => {
-        this_aux.crearListaCuentas(cuenta);
+        this_aux.filtraCtaVista(cuenta);
     });
     setTimeout(function() {
       $('#_modal_please_wait').modal('hide');
       $('div').removeClass('modal-backdrop');
     }, 500);
+}
+
+filtraCtaVista(cuenta) {
+  const this_aux = this;
+  // tslint:disable-next-line:max-line-length
+  if ((cuenta.TipoCuenta === 1  && cuenta.NoCuenta.length === 10) || (cuenta.TipoCuenta === 4 &&  cuenta.NoCuenta.length === 10) || (cuenta.TipoCuenta === 5 &&  cuenta.NoCuenta.length === 16)) {
+    this_aux.crearListaCuentas(cuenta);
+  } 
 }
 crearListaCuentas(cuenta) {
   const this_aux = this;
@@ -285,9 +293,12 @@ getNumeroCuentaOrigen(text) {
   showErrorSucces(json) {
 
       console.log(json.Id + json.MensajeAUsuario);
-      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+      if (json.Id === '2') {
+        document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
+      } else {
+        document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+      }
       $('#errorModal').modal('show');
-
   }
 
   estaSeleccionado() {

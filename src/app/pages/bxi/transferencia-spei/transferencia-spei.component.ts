@@ -490,7 +490,7 @@ validarSaldo(tipoOperecionPago) {
 
 filtraCtaVista(cuenta) {
   const this_aux = this;
-  if (cuenta.TipoCuenta === 1 && cuenta.NoCuenta.length === 10) {
+  if ((cuenta.TipoCuenta === 1 && cuenta.NoCuenta.length === 10) || (cuenta.TipoCuenta === 4 && cuenta.NoCuenta.length === 10)) {
     this_aux.crearListaCuentas(cuenta);
   }
 }
@@ -719,7 +719,7 @@ setDatosCuentaBeneficiario(elementHTML) {
 getNumeroCuentaDestino(text) {
   const  separador = ',';
   const  arregloDeSubCadenas = text.split(separador);
-  const numCuentaDestino = arregloDeSubCadenas[0];
+  const numCuentaDestino = arregloDeSubCadenas[1];
   console.log(arregloDeSubCadenas);
   console.log(numCuentaDestino);
 
@@ -729,7 +729,7 @@ getNumeroCuentaDestino(text) {
 getNameInstitucion(text) {
   const  separador = ',';
   const  arregloDeSubCadenas = text.split(separador);
-  const nameInstitucion = arregloDeSubCadenas[1];
+  const nameInstitucion = arregloDeSubCadenas[3];
   console.log(arregloDeSubCadenas);
   console.log(nameInstitucion);
 
@@ -739,7 +739,7 @@ getNameInstitucion(text) {
 getNameAliasCuenta(text) {
   const  separador = ',';
   const  arregloDeSubCadenas = text.split(separador);
-  const nameAliasCuenta = arregloDeSubCadenas[2];
+  const nameAliasCuenta = arregloDeSubCadenas[0];
   console.log(arregloDeSubCadenas);
   console.log(nameAliasCuenta);
 
@@ -749,7 +749,7 @@ getNameAliasCuenta(text) {
 getNumBeneficiario(text) {
   const  separador = ',';
   const  arregloDeSubCadenas = text.split(separador);
-  const numBeneCta = arregloDeSubCadenas[3];
+  const numBeneCta = arregloDeSubCadenas[4];
   console.log(arregloDeSubCadenas);
   console.log(numBeneCta);
 
@@ -790,6 +790,7 @@ defineFiltros() {
 
 setCuentasBenficiarioXTipo() {
   $('#_modal_please_wait').modal('show');
+  $( ".cdk-visually-hidden" ).css( "margin-top", "15%" );
   const this_aux = this;
   console.log('setCuentasBenficiarioXTipo');
   console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
@@ -810,6 +811,7 @@ setCuentasBenficiarioXTipo() {
       desactivaCtaOri.removeAttribute("disabled");
       const desactivaCtaDest = document.getElementById("dropdownMenu2");
       desactivaCtaDest.removeAttribute("disabled");
+      const operacionesbxi: OperacionesBXI = new OperacionesBXI();
 
 
       document.getElementById('tranTEF').style.display = 'none';
@@ -822,11 +824,13 @@ setCuentasBenficiarioXTipo() {
 
       if (auxcuenta.AplicaSPEI.toString() === "true") {
 
+        if ((auxcuenta.TipoCuenta.toString() === "1") || (auxcuenta.TipoCuenta.toString() === "4") ) {
+
         const li =  this.renderer.createElement('li');
         this_aux.renderer.addClass(li, 'text-li');
         const a = this.renderer.createElement('a');
 
-        const textoCuenta = this.renderer.createText( auxcuenta.DescripcionTipoCuenta + ' ' + auxcuenta.NoCuenta);
+        const textoCuenta = this.renderer.createText( auxcuenta.Alias + ' ' + operacionesbxi.mascaraNumeroCuenta(auxcuenta.NoCuenta));
         this.renderer.setProperty(a, 'value', auxcuenta.NoCuenta + ','
                                             + auxcuenta.ClaveBanco + ','
                                             + auxcuenta.DescripcionTipoCuenta + ','
@@ -835,6 +839,10 @@ setCuentasBenficiarioXTipo() {
         this.renderer.appendChild(a, textoCuenta),
         this.renderer.appendChild(li, a);
         this.renderer.appendChild(this_aux.listaCuentasBeneficiario.nativeElement, li);
+
+        }
+
+
        }
 
     }
@@ -845,6 +853,7 @@ setCuentasBenficiarioXTipo() {
       desactivaCtaOri.removeAttribute("disabled");
       const desactivaCtaDest = document.getElementById("dropdownMenu2");
       desactivaCtaDest.removeAttribute("disabled");
+      const operacionesbxi: OperacionesBXI = new OperacionesBXI();
 
       setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
 
@@ -858,19 +867,25 @@ setCuentasBenficiarioXTipo() {
 
       if (auxcuenta.AplicaTEF.toString() === "true") {
 
-        const li =  this.renderer.createElement('li');
-        this_aux.renderer.addClass(li, 'text-li');
-        const a = this.renderer.createElement('a');
-        const textoCuenta = this.renderer.createText( auxcuenta.DescripcionTipoCuenta  + ' ' + auxcuenta.NoCuenta);
-        this.renderer.setProperty(a, 'value', auxcuenta.Alias + ','
-                                            + auxcuenta.NoCuenta + ','
-                                            + auxcuenta.ClaveBanco + ','
-                                            + auxcuenta.DescripcionTipoCuenta + ','
-                                            + auxcuenta.NumBenef );
-        this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaBeneficiario(event.target); });
-        this.renderer.appendChild(a, textoCuenta),
-        this.renderer.appendChild(li, a);
-        this.renderer.appendChild(this_aux.listaCuentasBeneficiario.nativeElement, li);
+        if ((auxcuenta.TipoCuenta.toString() === "1") || (auxcuenta.TipoCuenta.toString() === "4") ) {
+
+          const li =  this.renderer.createElement('li');
+          this_aux.renderer.addClass(li, 'text-li');
+          const a = this.renderer.createElement('a');
+          const textoCuenta = this.renderer.createText( auxcuenta.Alias  + ' ' + operacionesbxi.mascaraNumeroCuenta(auxcuenta.NoCuenta));
+          this.renderer.setProperty(a, 'value',
+                                              + auxcuenta.NoCuenta + ','
+                                              + auxcuenta.ClaveBanco + ','
+                                              + auxcuenta.DescripcionTipoCuenta + ','
+                                              + auxcuenta.NumBenef );
+          this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaBeneficiario(event.target); });
+          this.renderer.appendChild(a, textoCuenta),
+          this.renderer.appendChild(li, a);
+          this.renderer.appendChild(this_aux.listaCuentasBeneficiario.nativeElement, li);
+
+         }
+
+
        }
 
     }
