@@ -54,7 +54,7 @@ export class PagoTarjetaCreditoVerifyComponent implements OnInit {
     const resPagoString = this_aux.service.detallePagoTarjeta;
     const respPagoJson  = JSON.parse(resPagoString);
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
-
+ 
     const certificadoPago = respPagoJson.CertificadoPago;
       certificadoPago.forEach(element => {
         if (element.FechaUno !== undefined) {

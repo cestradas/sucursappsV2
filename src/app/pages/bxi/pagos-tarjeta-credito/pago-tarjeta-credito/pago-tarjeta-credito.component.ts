@@ -348,7 +348,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     const divChallenge = document.getElementById('challenger');
     const divTokenPass = document.getElementById('divPass');
     const divMjeTipoAutentica = document.getElementById('mensajeTipoAutentica');
-
+ 
   if (this_aux.rcbFiltro.nativeElement.value.toString() !== "5" ) {
 
     const control: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([0-9]{6})*$/)]);

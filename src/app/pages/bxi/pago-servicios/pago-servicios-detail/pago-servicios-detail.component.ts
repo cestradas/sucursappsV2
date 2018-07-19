@@ -15,7 +15,7 @@ declare var $: any;
   styleUrls: []
 })
 export class PagoServiciosDetailComponent implements OnInit {
-
+ 
  @ViewChild('rImporte', { read: ElementRef}) rImporte: ElementRef ;
 
   myForm: FormGroup;

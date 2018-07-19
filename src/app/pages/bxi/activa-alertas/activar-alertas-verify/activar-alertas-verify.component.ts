@@ -36,8 +36,6 @@ export class ActivarAlertasVerifyComponent implements OnInit {
     }
 
 
-    
-
   }
 
   irMenuBXI() {

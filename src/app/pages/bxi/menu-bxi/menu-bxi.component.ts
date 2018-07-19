@@ -159,7 +159,7 @@ export class MenuBxiComponent implements OnInit {
   }
 
   moreOptions() {
-
+ 
 
     setTimeout(() => {
 

@@ -52,7 +52,6 @@ export class PagoServiciosVerifyComponent implements OnInit {
           }
           if (element.HoraOperacion !== undefined) {
             this_aux.detallePago.horaOperacion = element.HoraOperacion ;
-
           }
       });
 

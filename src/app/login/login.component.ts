@@ -155,7 +155,6 @@ export class LoginComponent {
       },
       function(error) {
 
-
              setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
 
 

@@ -362,7 +362,7 @@ export class LoginBxiComponent implements OnInit {
       }
 
     controlarError(json) {
-
+ 
       const id = json.Id ;
       const mensajeUsuario = json.MensajeAUsuario;
       let mensajeError;

@@ -312,7 +312,7 @@ showErrorSucces(json) {
                     console.log("Id: 2 Mensaje:" + mensajeUsuario);
                   break;
     }
-
+ 
     return mensajeError;
   }
 

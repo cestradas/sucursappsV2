@@ -55,7 +55,6 @@ export class ActivarAlertasIniComponent implements OnInit {
       $('div').removeClass('modal-backdrop');
     }, 500);
 }
-
 filtraCtaVista(cuenta) {
   const this_aux = this;
   // tslint:disable-next-line:max-line-length
