@@ -490,7 +490,7 @@ validarSaldo(tipoOperecionPago) {
 
 filtraCtaVista(cuenta) {
   const this_aux = this;
-  if ((cuenta.TipoCuenta === 1 ) || (cuenta.TipoCuenta === 4 )) {
+  if ((cuenta.TipoCuenta === 1  && cuenta.NoCuenta.length === 10)  || (cuenta.TipoCuenta === 4  && cuenta.NoCuenta.length === 10) ) {
     this_aux.crearListaCuentas(cuenta);
   }
 }
