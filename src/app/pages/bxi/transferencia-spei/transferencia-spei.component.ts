@@ -719,7 +719,7 @@ setDatosCuentaBeneficiario(elementHTML) {
 getNumeroCuentaDestino(text) {
   const  separador = ',';
   const  arregloDeSubCadenas = text.split(separador);
-  const numCuentaDestino = arregloDeSubCadenas[1];
+  const numCuentaDestino = arregloDeSubCadenas[0];
   console.log(arregloDeSubCadenas);
   console.log(numCuentaDestino);
 
@@ -729,7 +729,7 @@ getNumeroCuentaDestino(text) {
 getNameInstitucion(text) {
   const  separador = ',';
   const  arregloDeSubCadenas = text.split(separador);
-  const nameInstitucion = arregloDeSubCadenas[3];
+  const nameInstitucion = arregloDeSubCadenas[1];
   console.log(arregloDeSubCadenas);
   console.log(nameInstitucion);
 
@@ -739,7 +739,7 @@ getNameInstitucion(text) {
 getNameAliasCuenta(text) {
   const  separador = ',';
   const  arregloDeSubCadenas = text.split(separador);
-  const nameAliasCuenta = arregloDeSubCadenas[0];
+  const nameAliasCuenta = arregloDeSubCadenas[2];
   console.log(arregloDeSubCadenas);
   console.log(nameAliasCuenta);
 
@@ -749,7 +749,7 @@ getNameAliasCuenta(text) {
 getNumBeneficiario(text) {
   const  separador = ',';
   const  arregloDeSubCadenas = text.split(separador);
-  const numBeneCta = arregloDeSubCadenas[4];
+  const numBeneCta = arregloDeSubCadenas[3];
   console.log(arregloDeSubCadenas);
   console.log(numBeneCta);
 
@@ -790,7 +790,7 @@ defineFiltros() {
 
 setCuentasBenficiarioXTipo() {
   $('#_modal_please_wait').modal('show');
-  $( ".cdk-visually-hidden" ).css( "margin-top", "15%" );
+  $( ".cdk-visually-hidden" ).css( "margin-top", "18%" );
   const this_aux = this;
   console.log('setCuentasBenficiarioXTipo');
   console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());

@@ -426,7 +426,8 @@ setCuentasBenficiarioXTipo() {
           this_aux.renderer.addClass(li, 'text-li');
           const a = this.renderer.createElement('a');
           const textoCuenta = this.renderer.createText( auxcuenta.Alias + ' ' + auxcuenta.NoCuenta);
-          this.renderer.setProperty(a, 'value', auxcuenta.NoCuenta);
+          this.renderer.setProperty(a, 'value', auxcuenta.Alias + ','
+                                              + auxcuenta.NoCuenta);
           this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaBeneficiario(event.target); });
           this.renderer.appendChild(a, textoCuenta),
           this.renderer.appendChild(li, a);

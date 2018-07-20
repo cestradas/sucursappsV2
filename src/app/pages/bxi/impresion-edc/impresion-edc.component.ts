@@ -137,32 +137,52 @@ export class ImpresionEdcComponent implements OnInit {
   }
 
   fillSelectCuentas() {
+
     const this_aux = this;
     const cuentasString = this_aux.service.infoCuentas;
     console.log(this_aux.service.infoCuentas);
     const consultaCuentas = JSON.parse(cuentasString);
     const cuentasArray = consultaCuentas.ArrayCuentas;
       cuentasArray.forEach(cuenta => {
-          const li =  this.renderer.createElement('li');
-          const a = this.renderer.createElement('a');
-          const textoCuenta = this.renderer.createText( cuenta.Alias);
-          this.renderer.setProperty(a, 'value', cuenta.NoCuenta);
 
-          this. renderer.listen(a, 'click', (event) => {
-            this_aux.service.numeroCuentaEDCSel = cuenta.NoCuenta;
-            this_aux.service.aliasCuentaEDCSel = cuenta.Alias;
-            if (cuenta.TipoCuenta !== 5) {
-              this_aux.service.opcionEDCSel = '1';
-            } else {
-              this_aux.service.opcionEDCSel = '2';
-            }
-            this_aux.setDatosCuentaSeleccionada(event.target); });
-          this.renderer.appendChild(a, textoCuenta),
-          this.renderer.appendChild(li, a);
-          this.renderer.appendChild(this.listaCuentas.nativeElement, li);
+        this_aux.filtraCtaVista(cuenta);
+
     });
 
   }
+
+  filtraCtaVista(cuenta) {
+    const this_aux = this;
+    if ((cuenta.TipoCuenta === 1 && cuenta.NoCuenta.length === 10) || (cuenta.TipoCuenta === 4 && cuenta.NoCuenta.length === 10) || (cuenta.TipoCuenta === 5 && cuenta.NoCuenta.length === 16) ) {
+      this_aux.crearListaCuentas(cuenta);
+    }
+  }
+
+
+  crearListaCuentas(cuenta) {
+    const this_aux = this;
+    const cuentasString = this_aux.service.infoCuentas;
+    console.log(this_aux.service.infoCuentas);
+    const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+    const li =  this.renderer.createElement('li');
+    this_aux.renderer.addClass(li, 'text-li');
+    const a = this.renderer.createElement('a');
+    const textoCuenta = this.renderer.createText( cuenta.Alias  + ' ' +operacionesbxi.mascaraNumeroCuenta(cuenta.NoCuenta));
+    this.renderer.setProperty(a, 'value', cuenta.NoCuenta);
+    this. renderer.listen(a, 'click', (event) => {
+      this_aux.service.numeroCuentaEDCSel = cuenta.NoCuenta;
+      this_aux.service.aliasCuentaEDCSel = cuenta.Alias;
+      if (cuenta.TipoCuenta !== 5) {
+        this_aux.service.opcionEDCSel = '1';
+      } else {
+        this_aux.service.opcionEDCSel = '2';
+      }
+    this_aux.setDatosCuentaSeleccionada(event.target); });
+    this.renderer.appendChild(a, textoCuenta),
+    this.renderer.appendChild(li, a);
+    this.renderer.appendChild(this_aux.listaCuentas.nativeElement, li);
+  }
+
 
 
 setDatosCuentaSeleccionada(elementHTML) {
@@ -426,7 +446,7 @@ setDatosCuentaSeleccionada(elementHTML) {
          let elementoCal5 = document.getElementById('Itemcalendario5');
 
          elementoCal0.addEventListener("click", function(event) {
-          console.log(this.id);          
+          console.log(this.id);
           if( ((this_aux.Valida_Seleccion_Calendario0 === 0) || (this_aux.Valida_Seleccion_Calendario0 === 1))
               && (this_aux.Valida_Seleccion_Calendario1 === 0)
               && (this_aux.Valida_Seleccion_Calendario2 === 0)
@@ -441,11 +461,11 @@ setDatosCuentaSeleccionada(elementHTML) {
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
                 this_aux.itemSeleccionado = 0;
                 this_aux.clickCal0();
-              } else {                
+              } else {
                 this_aux.itemSeleccionado = 1;
                 this_aux.clickCal0();
                 if (this_aux.Valida_Seleccion_Calendario1 === 1) {
-                  this_aux.clickCal1();                  
+                  this_aux.clickCal1();
                 } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
                   this_aux.clickCal2();
                 } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
@@ -486,11 +506,11 @@ setDatosCuentaSeleccionada(elementHTML) {
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
                 this_aux.itemSeleccionado = 0;
                 this_aux.clickCal1();
-              } else {                
+              } else {
                 this_aux.itemSeleccionado = 1;
                 this_aux.clickCal1();
                 if (this_aux.Valida_Seleccion_Calendario0 === 1) {
-                  this_aux.clickCal0();                  
+                  this_aux.clickCal0();
                 } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
                   this_aux.clickCal2();
                 } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
@@ -530,11 +550,11 @@ setDatosCuentaSeleccionada(elementHTML) {
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
                 this_aux.itemSeleccionado = 0;
                 this_aux.clickCal2();
-              } else {                
+              } else {
                 this_aux.itemSeleccionado = 1;
                 this_aux.clickCal2();
                 if (this_aux.Valida_Seleccion_Calendario0 === 1) {
-                  this_aux.clickCal0();                  
+                  this_aux.clickCal0();
                 } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
                   this_aux.clickCal1();
                 } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
@@ -574,11 +594,11 @@ setDatosCuentaSeleccionada(elementHTML) {
           && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
             this_aux.itemSeleccionado = 0;
             this_aux.clickCal3();
-          } else {                
+          } else {
             this_aux.itemSeleccionado = 1;
             this_aux.clickCal3();
             if (this_aux.Valida_Seleccion_Calendario0 === 1) {
-              this_aux.clickCal0();                  
+              this_aux.clickCal0();
             } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
               this_aux.clickCal1();
             } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
@@ -618,11 +638,11 @@ setDatosCuentaSeleccionada(elementHTML) {
           && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
             this_aux.itemSeleccionado = 0;
             this_aux.clickCal4();
-          } else {                
+          } else {
             this_aux.itemSeleccionado = 1;
             this_aux.clickCal4();
             if (this_aux.Valida_Seleccion_Calendario0 === 1) {
-              this_aux.clickCal0();                  
+              this_aux.clickCal0();
             } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
               this_aux.clickCal1();
             } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
@@ -662,11 +682,11 @@ setDatosCuentaSeleccionada(elementHTML) {
           && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
             this_aux.itemSeleccionado = 0;
             this_aux.clickCal5();
-          } else {                
+          } else {
             this_aux.itemSeleccionado = 1;
             this_aux.clickCal5();
             if (this_aux.Valida_Seleccion_Calendario0 === 1) {
-              this_aux.clickCal0();                  
+              this_aux.clickCal0();
             } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
               this_aux.clickCal1();
             } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
@@ -760,11 +780,11 @@ setDatosCuentaSeleccionada(elementHTML) {
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
                 this_aux.itemSeleccionado = 0;
                 this_aux.clickCal6();
-              } else {                
+              } else {
                 this_aux.itemSeleccionado = 1;
                 this_aux.clickCal6();
                 if (this_aux.Valida_Seleccion_Calendario0 === 1) {
-                  this_aux.clickCal0();                  
+                  this_aux.clickCal0();
                 } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
                   this_aux.clickCal1();
                 } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
@@ -805,11 +825,11 @@ setDatosCuentaSeleccionada(elementHTML) {
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
                 this_aux.itemSeleccionado = 0;
                 this_aux.clickCal7();
-              } else {                
+              } else {
                 this_aux.itemSeleccionado = 1;
                 this_aux.clickCal7();
                 if (this_aux.Valida_Seleccion_Calendario0 === 1) {
-                  this_aux.clickCal0();                  
+                  this_aux.clickCal0();
                 } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
                   this_aux.clickCal1();
                 } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
@@ -851,11 +871,11 @@ setDatosCuentaSeleccionada(elementHTML) {
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
                 this_aux.itemSeleccionado = 0;
                 this_aux.clickCal8();
-              } else {                
+              } else {
                 this_aux.itemSeleccionado = 1;
                 this_aux.clickCal8();
                 if (this_aux.Valida_Seleccion_Calendario0 === 1) {
-                  this_aux.clickCal0();                  
+                  this_aux.clickCal0();
                 } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
                   this_aux.clickCal1();
                 } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
@@ -897,11 +917,11 @@ setDatosCuentaSeleccionada(elementHTML) {
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
                 this_aux.itemSeleccionado = 0;
                 this_aux.clickCal9();
-              } else {                
+              } else {
                 this_aux.itemSeleccionado = 1;
                 this_aux.clickCal9();
                 if (this_aux.Valida_Seleccion_Calendario0 === 1) {
-                  this_aux.clickCal0();                  
+                  this_aux.clickCal0();
                 } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
                   this_aux.clickCal1();
                 } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
@@ -943,11 +963,11 @@ setDatosCuentaSeleccionada(elementHTML) {
               && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
                 this_aux.itemSeleccionado = 0;
                 this_aux.clickCal10();
-              } else {                
+              } else {
                 this_aux.itemSeleccionado = 1;
                 this_aux.clickCal10();
                 if (this_aux.Valida_Seleccion_Calendario0 === 1) {
-                  this_aux.clickCal0();                  
+                  this_aux.clickCal0();
                 } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
                   this_aux.clickCal1();
                 } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
@@ -989,11 +1009,11 @@ setDatosCuentaSeleccionada(elementHTML) {
               && (this_aux.Valida_Seleccion_Calendario10 === 0)) {
                 this_aux.itemSeleccionado = 0;
                 this_aux.clickCal11();
-              } else {                
+              } else {
                 this_aux.itemSeleccionado = 1;
                 this_aux.clickCal11();
                 if (this_aux.Valida_Seleccion_Calendario0 === 1) {
-                  this_aux.clickCal0();                  
+                  this_aux.clickCal0();
                 } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
                   this_aux.clickCal1();
                 } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
@@ -1012,7 +1032,7 @@ setDatosCuentaSeleccionada(elementHTML) {
                   this_aux.clickCal8();
                 } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
                   this_aux.clickCal9();
-                } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {      
+                } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
                   this_aux.clickCal10();
                 }
               }
@@ -1026,7 +1046,7 @@ setDatosCuentaSeleccionada(elementHTML) {
    }, function(error) {
 
           console.error("Error");
-        
+
        $('#_modal_please_wait').modal('hide');
           $('#errorModal').modal('show');
 
@@ -1088,7 +1108,7 @@ setDatosCuentaSeleccionada(elementHTML) {
       console.log("val "+ this.Valida_Seleccion_Calendario1);
       if(this.itemSeleccionado === 0) {
         this.bloquearBoton = '0';
-      }      
+      }
  	}
 
    }
@@ -1140,7 +1160,7 @@ setDatosCuentaSeleccionada(elementHTML) {
      });
      if(this.itemSeleccionado === 0) {
       this.bloquearBoton = '0';
-    }  
+    }
  	}
 
    }
@@ -1192,7 +1212,7 @@ setDatosCuentaSeleccionada(elementHTML) {
      });
      if(this.itemSeleccionado === 0) {
       this.bloquearBoton = '0';
-    }  
+    }
  	}
 
    }
@@ -1244,7 +1264,7 @@ setDatosCuentaSeleccionada(elementHTML) {
      });
      if(this.itemSeleccionado === 0) {
       this.bloquearBoton = '0';
-    } 
+    }
  	}
 
    }
@@ -1297,7 +1317,7 @@ setDatosCuentaSeleccionada(elementHTML) {
      });
      if(this.itemSeleccionado === 0) {
       this.bloquearBoton = '0';
-    } 
+    }
  	}
 
    }
@@ -1349,7 +1369,7 @@ setDatosCuentaSeleccionada(elementHTML) {
      });
      if(this.itemSeleccionado === 0) {
       this.bloquearBoton = '0';
-    } 
+    }
  	}
 
    }
@@ -1401,7 +1421,7 @@ setDatosCuentaSeleccionada(elementHTML) {
      });
      if(this.itemSeleccionado === 0) {
       this.bloquearBoton = '0';
-    } 
+    }
  	}
 
    }
@@ -1453,7 +1473,7 @@ setDatosCuentaSeleccionada(elementHTML) {
      });
      if(this.itemSeleccionado === 0) {
       this.bloquearBoton = '0';
-    } 
+    }
  	}
 
    }
@@ -1505,7 +1525,7 @@ setDatosCuentaSeleccionada(elementHTML) {
      });
      if(this.itemSeleccionado === 0) {
       this.bloquearBoton = '0';
-    } 
+    }
  	}
 
    }
@@ -1557,7 +1577,7 @@ setDatosCuentaSeleccionada(elementHTML) {
      });
      if(this.itemSeleccionado === 0) {
       this.bloquearBoton = '0';
-    } 
+    }
  	}
 
    }
@@ -1609,7 +1629,7 @@ setDatosCuentaSeleccionada(elementHTML) {
      });
      if(this.itemSeleccionado === 0) {
       this.bloquearBoton = '0';
-    } 
+    }
  	}
 
    }
@@ -1661,7 +1681,7 @@ setDatosCuentaSeleccionada(elementHTML) {
      });
      if(this.itemSeleccionado === 0) {
       this.bloquearBoton = '0';
-    } 
+    }
  	}
 
    }
