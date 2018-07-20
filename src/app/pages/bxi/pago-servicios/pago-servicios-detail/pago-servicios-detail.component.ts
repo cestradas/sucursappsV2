@@ -38,7 +38,7 @@ export class PagoServiciosDetailComponent implements OnInit {
     this.myForm = this.fb.group({
      fcTelefono: ['', [Validators.required, Validators.minLength(10),  Validators.maxLength(10)]],
      fcReferencia: ['', [Validators.required]],
-     fcDigitoVerificador: ['', [Validators.required, Validators.maxLength(1)]],
+     fcDigitoVerificador: ['', [Validators.required, Validators.pattern( /^([0-9]{1})$/) ]],
      // fcFechaVencimiento: ['', [Validators.required , Validators.pattern(/^\d{2,4}\-\d{1,2}\-\d{1,2}$/)]],
      // tslint:disable-next-line:max-line-length
      fcFechaVencimiento: ['', [Validators.required , Validators.pattern(/^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]],
@@ -434,7 +434,7 @@ showErrorSucces(json) {
           const digito = value.substring(19, 20);
           // tslint:disable-next-line:max-line-length
           const controlTelefono: FormControl = new FormControl(telefono, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]);
-          const controlDigito: FormControl = new FormControl(digito, [Validators.required, Validators.maxLength(1)]);
+          const controlDigito: FormControl = new FormControl(digito, [Validators.required, Validators.pattern( /^([0-9]{1})$/)]);
           const controlImporte: FormControl = new FormControl(importe, Validators.required);
           this_aux.myForm.setControl('fcImporte', controlImporte );
           this_aux.myForm.setControl('fcTelefono', controlTelefono );
