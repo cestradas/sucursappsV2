@@ -31,7 +31,15 @@ export class ActivarAlertasVerifyTddComponent implements OnInit {
     );    
     
 
+// ESTILOS Preferente
+let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
+let btnTerminar = document.getElementById("TerminarTerminar");
 
+if (storageTipoClienteTar === "true") {
+
+  btnTerminar.classList.remove("color-botones");
+  btnTerminar.classList.add("color-botones_Preferente");
+}
 
 
   }
