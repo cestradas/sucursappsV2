@@ -367,10 +367,10 @@ export class PagoServiciosDetailComponent implements OnInit {
       case 'SEGTK03': mensajeError = "Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones"; // Token desincronizado."; 
                     break;
      
-      case '2'      : mensajeError = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
+      case '2'      : mensajeError = "El servicio no esta disponible, favor de intentar mas tarde";
                     console.log("Id: 2 Mensaje:" + mensajeUsuario);
                   break;
-      default:    mensajeError = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
+      default:    mensajeError = "El servicio no esta disponible, favor de intentar mas tarde";
                   console.log("Id: 0 Mensaje:" + mensajeUsuario);
     }
 
