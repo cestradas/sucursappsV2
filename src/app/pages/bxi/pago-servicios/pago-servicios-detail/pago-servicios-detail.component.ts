@@ -244,7 +244,8 @@ export class PagoServiciosDetailComponent implements OnInit {
 
                 console.log('Pago validado');
 
-                  operacionesbxi.pagaServicio(this_aux.service.idFacturador, this_aux.importeAux, this_aux.referenciaPago
+                  // tslint:disable-next-line:max-line-length
+                  operacionesbxi.pagaServicio(this_aux.service.formaPago, this_aux.service.idFacturador, this_aux.importeAux, this_aux.referenciaPago
                   , this_aux.service.numCuentaSeleccionado, this_aux.fechaVencimiento).then(
                     function(respPago) {
 

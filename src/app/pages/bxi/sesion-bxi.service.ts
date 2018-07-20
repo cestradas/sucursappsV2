@@ -31,6 +31,7 @@ export class SesionBxiService {
      idFacturador: string;
      numCuentaSeleccionado: string;
      nombreServicio: string;
+     formaPago: string;
     // Respuesta Servicios
       detalleConfirmacionPS: string;
 

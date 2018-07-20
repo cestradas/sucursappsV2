@@ -389,7 +389,7 @@ getEmpresas() {
       this_aux.arrayEmpresas = JSON.parse(facturadores);
       if (tipoCuenta === 5) {
           // filtro empresas con 
-
+          this_aux.service.formaPago = "6";
           this_aux.arrayEmpresas.forEach(empresa => {
             const tipoPago = empresa.TipoPago; 
             if ( tipoPago.includes("06")) {
@@ -398,8 +398,8 @@ getEmpresas() {
           });
           console.log(this_aux.listaEmpresas);
           this_aux.listaEmpresasAux = this_aux.listaEmpresas;
-      } else if (tipoCuenta === 1 || tipoCuenta === 4) {
-
+      } else if ( tipoCuenta === 4 || tipoCuenta === 1) {
+          this_aux.service.formaPago = "4";
           this_aux.arrayEmpresas.forEach(empresa => {
            const tipoPago = empresa.TipoPago; 
             if ( tipoPago.includes("04")) {
@@ -408,8 +408,8 @@ getEmpresas() {
           });
           console.log(this_aux.listaEmpresas);
           this_aux.listaEmpresasAux = this_aux.listaEmpresas;
-      } else {
-
+      }  else {
+        this_aux.service.formaPago = "4";
         this_aux.arrayEmpresas.forEach(empresa => {
           const tipoPago = empresa.TipoPago; 
              this_aux.listaEmpresas.push(empresa.Descripcion);

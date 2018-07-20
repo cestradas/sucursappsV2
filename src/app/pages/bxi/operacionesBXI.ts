@@ -75,13 +75,14 @@ export class OperacionesBXI {
          return  resourceRequest.sendFormParameters(formParameters);
     }
 
-    pagaServicio(idFacturador, montoAPagar, referencia, cuentaCargo, fechaVencimiento): any {
+    pagaServicio(tipoPago, idFacturador, montoAPagar, referencia, cuentaCargo, fechaVencimiento): any {
         const formParameters = {
             idFacturador: idFacturador,
             montoAPagar: montoAPagar,
             referencia: referencia,
             cuentaCargo: cuentaCargo,
-            fechaVencimiento: fechaVencimiento
+            fechaVencimiento: fechaVencimiento,
+            tipoPago: tipoPago
           };
           let resourceRequest;
           if (idFacturador === '1310' || idFacturador === '88924') {
@@ -199,7 +200,7 @@ export class OperacionesBXI {
 
          }
 
-         confirmaTransferQUICK(ctaO, ctaDest, sic, bancoRecep, //clabe,
+         confirmaTransferQUICK(ctaO, ctaDest, sic, bancoRecep, // clabe,
              nombreBene, ref, importe, descripcion, correo,
              rfcEmi): any {
 
@@ -209,7 +210,7 @@ export class OperacionesBXI {
              ctaDest: ctaDest,
              sic: sic,
              bancoRecep:  bancoRecep,
-             //clabe: clabe,
+             // clabe: clabe,
              nombreBene: nombreBene,
              ref: ref,
              importe: importe,

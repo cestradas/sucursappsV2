@@ -29,7 +29,7 @@ export class MenuBxiComponent implements OnInit {
     const body = $('body');
     // body.off('click');
     this.setNombreUsuario();    
-      if (sessionStorage.getItem("campania") === null){
+      if (sessionStorage.getItem("campania") === null) {
         sessionStorage.setItem("campania", "activa");
         this.getidSesion(); 
       } 
@@ -92,12 +92,19 @@ export class MenuBxiComponent implements OnInit {
     // $('div').removeClass('modal-backdrop');
     const this_aux = this;
     $('#_modal_please_wait').modal('show');
+    let tamArrayBeneficiarios = 0;
+    let tamArrayCuentas = 0;
+   let  tamCuentasCredito = 0;
+    let tamTDCPropias = 0;
 
-    const tamArrayBeneficiarios = this_aux.countCuentasBene();
-    const tamArrayCuentas = this_aux.countCuentasUsuario();
-    const tamCuentasCredito = this_aux.ConsultaTDCBene();
-    const tamTDCPropias = this_aux.ConsultaTDCPropias();
-
+    if (this_aux.service.infoCuentas !== undefined) {
+      tamArrayCuentas = this_aux.countCuentasUsuario();
+    } 
+    if (this_aux.service.infoCuentasBeneficiarios !== undefined ) {
+    tamArrayBeneficiarios = this_aux.countCuentasBene();
+     tamCuentasCredito = this_aux.ConsultaTDCBene();
+     tamTDCPropias = this_aux.ConsultaTDCPropias();
+    }
     if (tamArrayCuentas === 0 ) {
 
       if (idOperacion === 'actualizaDatos') {
