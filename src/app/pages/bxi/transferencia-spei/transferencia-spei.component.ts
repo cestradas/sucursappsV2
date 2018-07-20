@@ -608,14 +608,16 @@ getSaldoTDDOtras(numCuenta_seleccionada) {
         console.log(response1.responseText);
         const detalleSaldos = response1.responseJSON;
         if ( detalleSaldos.Id === '1') {
-
+          this_aux.service.clabeDestinatario = detalleSaldos.ClabeCuenta;
          setTimeout(function() {
           //const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
           //lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
+
           this_aux.SaldoOrigen = detalleSaldos.SaldoDisponible;
             $('#_modal_please_wait').modal('hide');
           }, 500);
         } else {
+          this_aux.service.clabeDestinatario = null;
          this_aux.SaldoOrigen = 0;
          setTimeout(function() {
          $('#_modal_please_wait').modal('hide');
@@ -641,6 +643,7 @@ getSaldoTDDOtras(numCuenta_seleccionada) {
         const detalleSaldos = response1.responseJSON;
         if ( detalleSaldos.Id === '1') {
 
+          this_aux.service.clabeDestinatario = detalleSaldos.ClabeCuenta;
          setTimeout(function() {
           //const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
           //lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
@@ -648,6 +651,7 @@ getSaldoTDDOtras(numCuenta_seleccionada) {
             $('#_modal_please_wait').modal('hide');
           }, 500);
         } else {
+         this_aux.service.clabeDestinatario = null;
          this_aux.SaldoOrigen = 0;
          setTimeout(function() {
          $('#_modal_please_wait').modal('hide');
@@ -979,7 +983,7 @@ consultaClabeSaldos(numCuentaDestinario_seleccionada) {
         const detalleSaldos = response1.responseJSON;
         if ( detalleSaldos.Id === '1') {
 
-          this_aux.service.clabeDestinatario = detalleSaldos.ClabeCuenta;
+          //this_aux.service.clabeDestinatario = detalleSaldos.ClabeCuenta;
 
           $('#amountSPEI').prop("disabled", false);
           $('#descriptionSPEI').prop("disabled", false);
@@ -991,7 +995,7 @@ consultaClabeSaldos(numCuentaDestinario_seleccionada) {
           document.getElementById('errorMensaje').innerHTML = detalleSaldos.MensajeAUsuario;
           $('#modalErrorMessage').modal('show');
 
-          this_aux.service.clabeDestinatario = null;
+          //this_aux.service.clabeDestinatario = null;
           // Mostrar modal de error
 
           // Bloquear campos
