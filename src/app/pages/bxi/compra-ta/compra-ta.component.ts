@@ -507,10 +507,10 @@ controlarError(json) {
                   break;
     case 'SEGAM84': mensajeError = "Token no activado, favor de marcar a Banortel.";
                   break;
-    case '2'      : mensajeError = 'El servicio no esta disponible, favor de intentar mas tarde';
+    case '2'      : mensajeError = 'El servicio no esta disponible, favor de intentar mas tarde.';
 
     // tslint:disable-next-line:no-switch-case-fall-through
-    default:    mensajeError = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
+    default:    mensajeError = "El servicio no esta disponible, favor de intentar mas tarde.";
                   console.log("Id: 0 Mensaje:" + mensajeUsuario);
   }
 
