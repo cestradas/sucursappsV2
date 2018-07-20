@@ -397,7 +397,10 @@ setCuentasBenficiarioXTipo() {
               const a = this.renderer.createElement('a');
               const textoCuenta = this.renderer.createText( auxcuenta.Alias + ' ' +operacionesbxi.mascaraNumeroCuenta(auxcuenta.NoCuenta));
               this.renderer.setProperty(a, 'value', auxcuenta.NoCuenta);
-              this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target); });
+              this.renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target);
+                this_aux.numeroTarjeta = auxcuenta.Plastico;
+                this_aux.nombreCuenta = auxcuenta.Alias;
+                 });
               this.renderer.appendChild(a, textoCuenta),
               this.renderer.appendChild(li, a);
               this.renderer.appendChild(this.listaCuentas.nativeElement, li);
@@ -434,7 +437,10 @@ setCuentasBenficiarioXTipo() {
           const textoCuenta = this.renderer.createText( auxcuenta.Alias + ' ' + auxcuenta.NoCuenta);
           this.renderer.setProperty(a, 'value', auxcuenta.Alias + ','
                                               + auxcuenta.NoCuenta);
-          this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaBeneficiario(event.target); });
+          this.renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target);
+                this_aux.numeroTarjeta = auxcuenta.Plastico;
+                this_aux.nombreCuenta = auxcuenta.Alias;
+                 });
           this.renderer.appendChild(a, textoCuenta),
           this.renderer.appendChild(li, a);
           this.renderer.appendChild(this.listaCuentasBeneficiario.nativeElement, li);
@@ -479,7 +485,10 @@ setCuentasBenficiarioXTipo() {
                                             + auxcuenta.ClaveBanco + ','
                                             + auxcuenta.DescripcionTipoCuenta + ','
                                             + auxcuenta.NumBenef );
-        this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaBeneficiario(event.target); });
+        this.renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target);
+                this_aux.numeroTarjeta = auxcuenta.Plastico;
+                this_aux.nombreCuenta = auxcuenta.Alias;
+                 });
         this.renderer.appendChild(a, textoCuenta),
         this.renderer.appendChild(li, a);
         this.renderer.appendChild(this_aux.listaCuentasBeneficiario.nativeElement, li);

@@ -29,33 +29,33 @@
                     <input type="hidden">
                     <div class="dropdown sumando-dropdown-account">
                         <button class="btn btn-default btn-block dropdown-toggle btn-color-cuentas" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" disabled="true" aria-expanded="true">
-                      <table id="tableOrigen" style="display: none" width="99%">
-                        <tr>
-                          <td align="left" width="45%">
-                            <strong><label  id="lblAliasOrigen" #lblAliasOrigen></label>{{nombreCuenta}}</strong>
-                          </td>
-                          <td align="left" width="45%">
-                            <strong><label id ="lblSaldoOrigen">{{ SaldoOrigen | currency }}</label>
-                            </strong>
-                          </td>
-                          <td width="5%" rowspan="2" class="dropdown-caret" style="padding-left: 21px; width:5%; ">
-                            <img  class="select-img" src="./assets/img/bg_selectN.png" style="width: 90%; height: 190%;" >
-                          </td>
-                        </tr>
-                        <tr>
-                          <td align="left">Cuenta <label id="lblCuentaOrigen" #lblCuentaOrigen></label></td>
-                          <td align="left">Saldo Disponible</td>
-                        </tr>
-                      </table>
-                      <table  id="tableDefaultOrigen" width="100%" style="height: 100%;">
-                        <tr>
-                          <td align="left" rowspan="2">Seleccione una cuenta de origen...</td>
-                          <td width="5%" style="height: 40px;" rowspan="2" class="dropdown-caret">
-                            <img src="./assets/img/bg_selectN.png" class="select-img">
-                          </td>
-                        </tr>
-                      </table>
-                    </button>
+                <table id="tableOrigen" style="display: none" width="99%">
+                  <tr>
+                    <td align="left" width="45%">
+                      <strong><label  id="lblAliasOrigen" #lblAliasOrigen></label>{{nombreCuenta}}</strong>
+                    </td>
+                    <td align="left" width="45%">
+                      <strong><label id ="lblSaldoOrigen">{{ SaldoOrigen | currency }}</label>
+                      </strong>
+                    </td>
+                    <td width="5%" rowspan="2" class="dropdown-caret" style="padding-left: 21px; width:5%; ">
+                      <img  class="select-img" src="./assets/img/bg_selectN.png" style="width: 90%; height: 190%;" >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="left">Cuenta <label id="lblCuentaOrigen" #lblCuentaOrigen></label></td>
+                    <td align="left">Saldo Disponible</td>
+                  </tr>
+                </table>
+                <table  id="tableDefaultOrigen" width="100%" style="height: 100%;">
+                  <tr>
+                    <td align="left" rowspan="2">Seleccione una cuenta de origen...</td>
+                    <td width="5%" style="height: 40px;" rowspan="2" class="dropdown-caret">
+                      <img src="./assets/img/bg_selectN.png" class="select-img">
+                    </td>
+                  </tr>
+                </table>
+              </button>
                         <div>
                             <ul id="ul_Cuentas" #listaCuentas class="dropdown-menu btn-block" aria-labelledby="dropdownMenu1" style="width: 100%; height: 200px; overflow: auto">
 

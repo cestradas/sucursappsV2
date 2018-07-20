@@ -354,19 +354,42 @@ export class TransferenciaSpeiComponent implements OnInit {
 
   setTipoAutenticacionOnModal() {
     const this_aux = this;
-    const divChallenge = document.getElementById('challenger');
-    const divTokenPass = document.getElementById('divPass');
+    const operacion = this_aux.selectTipo.nativeElement.value.toString();
+
+    const divChallengeSPEI = document.getElementById('challengerSPEI');
+    const divTokenPassSPEI = document.getElementById('divPassSPEI');
+    const divChallengeTEF = document.getElementById('challengerTEF');
+    const divTokenPassTEF = document.getElementById('divPassTEF');
+    const divChallengeQUICK = document.getElementById('challengerQUICK');
+    const divTokenPassQUICK = document.getElementById('divPassQUICK');
     if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
       $('#_modal_please_wait').modal('show');
       this_aux.labelTipoAutentica = 'Token Celular';
-      divTokenPass.setAttribute('style', 'display: flex');
+
+       if (operacion === "1") {
+        divTokenPassSPEI.setAttribute('style', 'display: flex');
+       } else if (operacion === "2") {
+        divTokenPassTEF.setAttribute('style', 'display: flex');
+       } else if (operacion === "3") {
+        divTokenPassQUICK.setAttribute('style', 'display: flex');
+       }
+
       const operacionesbxi: OperacionesBXI = new OperacionesBXI();
       operacionesbxi.preparaAutenticacion().then(
         function(response) {
           const detallePrepara = response.responseJSON;
           console.log(detallePrepara);
           if (detallePrepara.Id === 'SEG0001') {
-            divChallenge.setAttribute('style', 'display: flex');
+
+            if (operacion === "1") {
+              divChallengeSPEI.setAttribute('style', 'display: flex');
+             } else if (operacion === "2") {
+              divChallengeTEF.setAttribute('style', 'display: flex');
+             } else if (operacion === "3") {
+              divChallengeQUICK.setAttribute('style', 'display: flex');
+             }
+
+
             this_aux.NumeroSeguridad = detallePrepara.MensajeUsuarioUno;
             setTimeout(() => {
               $('#_modal_please_wait').modal('hide');
@@ -390,13 +413,31 @@ export class TransferenciaSpeiComponent implements OnInit {
 
     } else if (this_aux.service.metodoAutenticaMayor.toString()  === '0') {
 
-      divChallenge.setAttribute('style', 'display: none');
-      divTokenPass.setAttribute('style', 'display: flex');
+      if (operacion === "1") {
+        divChallengeSPEI.setAttribute('style', 'display: none');
+        divTokenPassSPEI.setAttribute('style', 'display: flex');
+       } else if (operacion === "2") {
+        divChallengeTEF.setAttribute('style', 'display: none');
+        divTokenPassTEF.setAttribute('style', 'display: flex');
+       } else if (operacion === "3") {
+        divChallengeQUICK.setAttribute('style', 'display: none');
+        divTokenPassQUICK.setAttribute('style', 'display: flex');
+       }
+
       this_aux.labelTipoAutentica = 'Contrase&atilde;a';
     } else if (this_aux.service.metodoAutenticaMayor.toString()  === '1') {
 
-      divChallenge.setAttribute('style', 'display: none');
-      divTokenPass.setAttribute('style', 'display: flex');
+      if (operacion === "1") {
+        divChallengeSPEI.setAttribute('style', 'display: none');
+        divTokenPassSPEI.setAttribute('style', 'display: flex');
+       } else if (operacion === "2") {
+        divChallengeTEF.setAttribute('style', 'display: none');
+        divTokenPassTEF.setAttribute('style', 'display: flex');
+       } else if (operacion === "3") {
+        divChallengeQUICK.setAttribute('style', 'display: none');
+        divTokenPassQUICK.setAttribute('style', 'display: flex');
+       }
+
       this_aux.labelTipoAutentica = 'Token Fisico';
     }
 
@@ -471,7 +512,7 @@ validarSaldo(tipoOperecionPago) {
         } else if ( DatosJSON.Id === "5" ) {
           $('#modalLimiteMensual').modal('show');
         } else {
-          $('#errorModal').modal('show');
+          $('#modalErrorMessage').modal('show');
         }
         $('#_modal_please_wait').modal('hide');
       }, function(error) {
@@ -947,8 +988,8 @@ consultaClabeSaldos(numCuentaDestinario_seleccionada) {
         } else {
           console.log(detalleSaldos.MensajeAUsuario);
 
-          document.getElementById('mnsError').innerHTML = detalleSaldos.MensajeAUsuario;
-          $('#errorModal').modal('show');
+          document.getElementById('errorMensaje').innerHTML = detalleSaldos.MensajeAUsuario;
+          $('#modalErrorMessage').modal('show');
 
           this_aux.service.clabeDestinatario = null;
           // Mostrar modal de error
@@ -1006,7 +1047,10 @@ validaDatosBen() {
     sic = this_aux.service.infoUsuarioSIC;
     bancoRecep = this_aux.service.claveBancoDestino;
     aliasCta = this_aux.service.claveAliasCuenta;
-    clabeTEF_SPEI = this_aux.replaceSpaces(this_aux.service.clabeDestinatario);
+    if (this_aux.service.clabeDestinatario !== undefined) {
+      clabeTEF_SPEI = this_aux.replaceSpaces(this_aux.service.clabeDestinatario);
+    }
+
 
     /*
     if (clabe === null || clabe === "" || clabe === undefined) {
@@ -1057,6 +1101,7 @@ validaDatosBen() {
                                                       descripcionFront, correo, rfcEmi, aliasCta)
                   .then(
 
+
                     function(response) {
                       console.log(response.responseJSON);
 
@@ -1080,9 +1125,9 @@ validaDatosBen() {
               } else {
                 console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
                 mensajeError = this_aux.controlarError(infoUsuarioJSON);
-                document.getElementById('mnsError').innerHTML =  mensajeError;
+                document.getElementById('errorMensaje').innerHTML =  mensajeError;
                 $('#_modal_please_wait').modal('hide');
-                $('#errorModal').modal('show');
+                $('#modalErrorMessage').modal('show');
               }
         }, function(error) {
           this_aux.showErrorPromise(error);
@@ -1130,9 +1175,9 @@ validaDatosBen() {
               } else {
                 console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
                 mensajeError = this_aux.controlarError(infoUsuarioJSON);
-                document.getElementById('mnsError').innerHTML =  mensajeError;
+                document.getElementById('errorMensaje').innerHTML =  mensajeError;
                 $('#_modal_please_wait').modal('hide');
-                $('#errorModal').modal('show');
+                $('#modalErrorMessage').modal('show');
               }
         }, function(error) {
           this_aux.showErrorPromise(error);
@@ -1180,9 +1225,9 @@ validaDatosBen() {
               } else {
                 console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
                 mensajeError = this_aux.controlarError(infoUsuarioJSON);
-                document.getElementById('mnsError').innerHTML =  infoUsuarioJSON.MensajeAUsuario;
+                document.getElementById('errorMensaje').innerHTML =  infoUsuarioJSON.MensajeAUsuario;
                 $('#_modal_please_wait').modal('hide');
-                $('#errorModal').modal('show');
+                $('#modalErrorMessage').modal('show');
               }
         }, function(error) {
           this_aux.showErrorPromise(error);
@@ -1220,7 +1265,7 @@ consultaTablaCorpBancosService() {
     }, function(error) {
       console.error("El WS respondio incorrectamente");
       $("#_modal_please_wait").modal("hide");
-      $("#errorModal").modal("show");
+      $("#modalErrorMessage").modal("show");
 });
 
 
@@ -1361,21 +1406,21 @@ controlarError(json) {
 showErrorPromise(error) {
   console.log(error);
   // tslint:disable-next-line:max-line-length
-  document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
+  document.getElementById('errorMensaje').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
   $('#_modal_please_wait').modal('hide');
-  $('#errorModal').modal('show');
+  $('#modalErrorMessage').modal('show');
 }
 
 showErrorSucces(json) {
   console.log(json.Id + json.MensajeAUsuario);
-  document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+  document.getElementById('errorMensaje').innerHTML =   json.MensajeAUsuario;
   $('#_modal_please_wait').modal('hide');
-  $('#errorModal').modal('show');
+  $('#modalErrorMessage').modal('show');
 }
 
 showErrorSuccesMoney(json) {
   console.log(json.Id + json.MensajeAUsuario);
-  document.getElementById('msgError').innerHTML =   json.MensajeAUsuario;
+  document.getElementById('errorMensaje').innerHTML =   json.MensajeAUsuario;
   $('#_modal_please_wait').modal('hide');
   $('#ModalErrorTransaccion').modal('show');
 }
