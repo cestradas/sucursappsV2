@@ -56,7 +56,10 @@ export class TransferenciasBanorteComponent implements OnInit {
 
   NumeroSeguridad: string;
 
-    SaldoOrigen: number;
+  SaldoOrigen: number;
+
+  nombreCuenta: string;
+  numeroTarjeta: string;
 
   constructor(private _http: Http, private router: Router, public service: SesionBxiService, private renderer: Renderer2, private currencyPipe: CurrencyPipe) {
 
@@ -140,7 +143,10 @@ crearListaCuentas(cuenta) {
   const a = this.renderer.createElement('a');
   const textoCuenta = this.renderer.createText( cuenta.Alias  + ' ' +operacionesbxi.mascaraNumeroCuenta(cuenta.NoCuenta));
   this.renderer.setProperty(a, 'value', cuenta.NoCuenta);
-  this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target); });
+  this.renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target);
+    this_aux.numeroTarjeta = cuenta.Plastico;
+    this_aux.nombreCuenta = cuenta.Alias;
+     });
   this.renderer.appendChild(a, textoCuenta),
   this.renderer.appendChild(li, a);
   this.renderer.appendChild(this_aux.listaCuentas.nativeElement, li);
@@ -156,7 +162,7 @@ setDatosCuentaSeleccionada(elementHTML) {
   const tableOrigen = document.getElementById('tableOrigen');
   const tableDefaultOrigen = document.getElementById('tableDefaultOrigen');
   const lblCuentaOrigen = document.getElementById('lblCuentaOrigen');
-  const lblAliasOrigen = document.getElementById('lblAliasOrigen');
+  //const lblAliasOrigen = document.getElementById('lblAliasOrigen');
   const numCuenta_seleccionada = elementHTML.value;
   const AliasCuenta_seleccionada = elementHTML.text;
 
@@ -164,7 +170,7 @@ setDatosCuentaSeleccionada(elementHTML) {
   tableDefaultOrigen.setAttribute('style', 'display: none');
 
   //lblAliasOrigen.innerHTML = elementHTML.textContent;
-  lblAliasOrigen.innerHTML = AliasCuenta_seleccionada.toString();
+  //lblAliasOrigen.innerHTML = AliasCuenta_seleccionada.toString();
   lblCuentaOrigen.innerHTML = operacionesbxi.mascaraNumeroCuenta(numCuenta_seleccionada.toString());
   this_aux.service.numCuentaTranPropBanorte = numCuenta_seleccionada;
   this_aux.service.AliasCuentaTranPropBanorte  = AliasCuenta_seleccionada;

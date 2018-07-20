@@ -91,6 +91,9 @@ export class ImpresionEdcComponent implements OnInit {
 
   cuentaOrigenModal = "";
 
+  nombreCuenta: string;
+  numeroTarjeta: string;
+
   cssUrl: string;
 
   constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2) {
@@ -172,6 +175,7 @@ export class ImpresionEdcComponent implements OnInit {
     this. renderer.listen(a, 'click', (event) => {
       this_aux.service.numeroCuentaEDCSel = cuenta.NoCuenta;
       this_aux.service.aliasCuentaEDCSel = cuenta.Alias;
+      this_aux.nombreCuenta = cuenta.Alias;
       if (cuenta.TipoCuenta !== 5) {
         this_aux.service.opcionEDCSel = '1';
       } else {
@@ -197,15 +201,15 @@ setDatosCuentaSeleccionada(elementHTML) {
   const tableOrigen = document.getElementById('tableOrigen');
   const tableDefaultOrigen = document.getElementById('tableDefaultOrigen');
   const lblCuentaOrigen = document.getElementById('lblCuentaOrigen');
-  const lblAliasOrigen = document.getElementById('lblAliasOrigen');
+  //const lblAliasOrigen = document.getElementById('lblAliasOrigen');
   const numCuenta_seleccionada = elementHTML.value;
   const AliasCuenta_seleccionada = elementHTML.text;
 
   tableOrigen.setAttribute('style', 'display: block');
   tableDefaultOrigen.setAttribute('style', 'display: none');
 
-  lblAliasOrigen.innerHTML = elementHTML.textContent;
-  lblAliasOrigen.innerHTML = AliasCuenta_seleccionada.toString();
+  //lblAliasOrigen.innerHTML = elementHTML.textContent;
+  //lblAliasOrigen.innerHTML = AliasCuenta_seleccionada.toString();
   lblCuentaOrigen.innerHTML = operacionesbxi.mascaraNumeroCuenta(numCuenta_seleccionada.toString());
   this_aux.service.numCuentaTranPropBanorte = numCuenta_seleccionada;
   this_aux.service.AliasCuentaTranPropBanorte  = AliasCuenta_seleccionada;
