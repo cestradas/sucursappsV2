@@ -29,12 +29,15 @@
                                                 <p *ngIf="myForm.get('fcTelefono').hasError('required')">
                                                         Dato obligatorio, favor de capturar.
                                                 </p>
-                                                <p *ngIf="myForm.get('fcTelefono').hasError('minlength')">
+                                               <!-- <p *ngIf="myForm.get('fcTelefono').hasError('minlength')">
                                                         Los datos proporcionados son incorrectos, favor de verificar.
                                                 </p>
                                                 <p *ngIf="myForm.get('fcTelefono').hasError('maxlength')">
                                                         Los datos proporcionados son incorrectos, favor de verificar.
-                                            </p>
+                                            </p>-->
+                                                <p *ngIf="myForm.get('fcTelefono').hasError('pattern')">
+                                                        Los datos proporcionados son incorrectos, favor de verificar.
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="col-lg-1">
@@ -65,10 +68,13 @@
                                             <label> Referencia:</label>
                                         </div>
                                         <div class="col-lg-10">
-                                            <input type="text" id="idReferencia"  class="form-control input-lg" formControlName="fcReferencia" #rReferencia [matKeyboard]="'num'" />
+                                            <input type="text" id="idReferencia"  class="form-control input-lg" formControlName="fcReferencia" #rReferencia [matKeyboard]="" />
                                             <div *ngIf="myForm.get('fcReferencia').errors  && myForm.get('fcReferencia').touched" class="alert alert-danger">
                                                 <p *ngIf="myForm.get('fcReferencia').hasError('required')">
                                                         Dato obligatorio, favor de capturar.
+                                                </p>
+                                                <p *ngIf="myForm.get('fcReferencia').hasError('pattern')">
+                                                    Los datos proporcionados son incorrectos, favor de verificar.
                                                 </p>
                                             </div>
                                         </div>

@@ -351,7 +351,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
  
   if (this_aux.rcbFiltro.nativeElement.value.toString() !== "5" ) {
 
-    const control: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([0-9]{6})*$/)]);
+    const control: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([0-9]{6})$/)]);
     this_aux.myForm.setControl('fcToken', control );
     let mensajeError;
     if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
@@ -579,10 +579,10 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
       case 'SEGTK03': mensajeError = "Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones"; // Token desincronizado."; 
       break;
-      case '2'      : mensajeError = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
+      case '2'      : mensajeError = "El servicio no esta disponible, favor de intentar mas tarde.";
                     console.log("Id: 2 Mensaje:" + mensajeUsuario);
                   break;
-      default:    mensajeError = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
+      default:    mensajeError = "El servicio no esta disponible, favor de intentar mas tarde.";
                   console.log("Id: 0 Mensaje:" + mensajeUsuario);
     }
 

@@ -36,8 +36,8 @@ export class PagoServiciosDetailComponent implements OnInit {
   constructor( private service: SesionBxiService, private fb: FormBuilder, private router: Router, private currencyPipe: CurrencyPipe) {
 
     this.myForm = this.fb.group({
-     fcTelefono: ['', [Validators.required, Validators.minLength(10),  Validators.maxLength(10)]],
-     fcReferencia: ['', [Validators.required]],
+     fcTelefono: ['', [Validators.required, Validators.pattern( /^([0-9]{10})$/)/*Validators.minLength(10),  Validators.maxLength(10)*/]],
+     fcReferencia: ['', [Validators.required, Validators.pattern(/^([a0-zA9-Z]{1,30})$/)]],
      fcDigitoVerificador: ['', [Validators.required, Validators.pattern( /^([0-9]{1})$/) ]],
      // fcFechaVencimiento: ['', [Validators.required , Validators.pattern(/^\d{2,4}\-\d{1,2}\-\d{1,2}$/)]],
      // tslint:disable-next-line:max-line-length
@@ -171,7 +171,7 @@ export class PagoServiciosDetailComponent implements OnInit {
       const divChallenge = document.getElementById('challenger');
       const divTokenPass = document.getElementById('divPass');
 
-      const control: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([0-9]{6})*$/)]);
+      const control: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([0-9]{6})$/)]);
       this_aux.myForm.setControl('fcToken', control );
 
       if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
@@ -433,7 +433,7 @@ showErrorSucces(json) {
           const importe = unidades + centavos;
           const digito = value.substring(19, 20);
           // tslint:disable-next-line:max-line-length
-          const controlTelefono: FormControl = new FormControl(telefono, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]);
+          const controlTelefono: FormControl = new FormControl(telefono, [Validators.required, Validators.pattern( /^([0-9]{10})$/)/*Validators.minLength(10), Validators.maxLength(10)*/]);
           const controlDigito: FormControl = new FormControl(digito, [Validators.required, Validators.pattern( /^([0-9]{1})$/)]);
           const controlImporte: FormControl = new FormControl(importe, Validators.required);
           this_aux.myForm.setControl('fcImporte', controlImporte );
@@ -454,7 +454,8 @@ showErrorSucces(json) {
           const mes = value.substring(16, 18);
           const dia = value.substring(18, 20);
           const fecha = anio + '-' + mes + '-' + dia;
-          const controlReferencia: FormControl = new FormControl(referencia, Validators.required);
+          // tslint:disable-next-line:max-line-length
+          const controlReferencia: FormControl = new FormControl(referencia, [Validators.required, Validators.pattern(/^([a0-zA9-Z]{1,30})$/)]);
           // tslint:disable-next-line:max-line-length
           const controlFecha: FormControl = new FormControl(fecha, [Validators.required,  Validators.pattern(/^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]);
           const controlImporte: FormControl = new FormControl(importe, Validators.required);
