@@ -362,7 +362,8 @@ leeCodeBar(valor) {
         const mes = value.substring(16, 18);
         const dia = value.substring(18, 20);
         const fecha = anio + '-' + mes + '-' + dia;
-        const controlReferencia: FormControl = new FormControl(referencia, Validators.required);
+        // tslint:disable-next-line:max-line-length
+        const controlReferencia: FormControl = new FormControl(referencia, [ Validators.required, Validators.pattern(/^([a0-zA9-Z]{1,30})$/)]);
         // tslint:disable-next-line:max-line-length
         const controlFecha: FormControl = new FormControl(fecha, [Validators.required,  Validators.pattern(/^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]);
         const controlImporte: FormControl = new FormControl(importe, Validators.required);
