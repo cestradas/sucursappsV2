@@ -72,7 +72,9 @@ export class TransferenciasBanorteComponent implements OnInit {
 
 
       'amount': new FormControl('', [Validators.required, Validators.min(0), Validators.max(7000)]),
-      'concepto': new FormControl('', [Validators.required, Validators.maxLength(60)])
+      'concepto': new FormControl('', [Validators.required, Validators.maxLength(60)]),
+
+      'fcToken': new FormControl()
 
     });
 
@@ -109,7 +111,6 @@ export class TransferenciasBanorteComponent implements OnInit {
 
 
   fillSelectCuentas() {
-
     const this_aux = this;
     const cuentasString = this_aux.service.infoCuentas;
     console.log(this_aux.service.infoCuentas);
@@ -152,7 +153,6 @@ crearListaCuentas(cuenta) {
   this.renderer.appendChild(this_aux.listaCuentas.nativeElement, li);
 }
 
-
 setDatosCuentaSeleccionada(elementHTML) {
 
   $('#_modal_please_wait').modal('show');
@@ -172,10 +172,23 @@ setDatosCuentaSeleccionada(elementHTML) {
   //lblAliasOrigen.innerHTML = elementHTML.textContent;
   //lblAliasOrigen.innerHTML = AliasCuenta_seleccionada.toString();
   lblCuentaOrigen.innerHTML = operacionesbxi.mascaraNumeroCuenta(numCuenta_seleccionada.toString());
-  this_aux.service.numCuentaTranPropBanorte = numCuenta_seleccionada;
-  this_aux.service.AliasCuentaTranPropBanorte  = AliasCuenta_seleccionada;
-  this_aux.cuentaOrigenModal = this_aux.service.numCuentaTranPropBanorte;
-  this_aux.getSaldoDeCuenta(numCuenta_seleccionada);
+
+  if (this_aux.includesL(numCuenta_seleccionada, ","))  {
+
+    this_aux.service.numCuentaTranPropBanorte = this_aux.getNumeroCuentaDestino(numCuenta_seleccionada);
+    this_aux.service.AliasCuentaTranPropBanorte  = this_aux.getNameAliasCuenta(numCuenta_seleccionada);
+    this_aux.cuentaOrigenModal = this_aux.service.numCuentaTranPropBanorte;
+    this_aux.getSaldoDeCuenta(this_aux.getNumeroCuentaDestino(numCuenta_seleccionada));
+
+  } else {
+
+    this_aux.service.numCuentaTranPropBanorte = numCuenta_seleccionada;
+    this_aux.service.AliasCuentaTranPropBanorte  = AliasCuenta_seleccionada;
+    this_aux.cuentaOrigenModal = this_aux.service.numCuentaTranPropBanorte;
+    this_aux.getSaldoDeCuenta(numCuenta_seleccionada);
+
+  }
+
 
   // desactiva combo cuentas usuario
   $('#dropdownMenu2').prop("disabled", false);
@@ -254,7 +267,7 @@ getSaldoTDDOtras(numCuenta_seleccionada) {
            this_aux.showErrorPromise(error);
        }, 500);
   });
- }
+}
 
 
 fillCuentasBeneficiario () {
@@ -406,7 +419,6 @@ setCuentasBenficiarioXTipo() {
               this.renderer.appendChild(this.listaCuentas.nativeElement, li);
           //  });
 
-
            }
 
            $('#dropdownMenu1').prop("disabled", false);
@@ -437,7 +449,7 @@ setCuentasBenficiarioXTipo() {
           const textoCuenta = this.renderer.createText( auxcuenta.Alias + ' ' + auxcuenta.NoCuenta);
           this.renderer.setProperty(a, 'value', auxcuenta.Alias + ','
                                               + auxcuenta.NoCuenta);
-          this.renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target);
+          this.renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaBeneficiario(event.target);
                 this_aux.numeroTarjeta = auxcuenta.Plastico;
                 this_aux.nombreCuenta = auxcuenta.Alias;
                  });
@@ -485,7 +497,7 @@ setCuentasBenficiarioXTipo() {
                                             + auxcuenta.ClaveBanco + ','
                                             + auxcuenta.DescripcionTipoCuenta + ','
                                             + auxcuenta.NumBenef );
-        this.renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target);
+        this.renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaBeneficiario(event.target);
                 this_aux.numeroTarjeta = auxcuenta.Plastico;
                 this_aux.nombreCuenta = auxcuenta.Alias;
                  });
@@ -570,7 +582,7 @@ getNumeroCuentaDestino(text) {
 getNameInstitucion(text) {
   const  separador = ',';
   const  arregloDeSubCadenas = text.split(separador);
-  const nameInstitucion = arregloDeSubCadenas[3];
+  const nameInstitucion = arregloDeSubCadenas[2];
   console.log(arregloDeSubCadenas);
   console.log(nameInstitucion);
 
@@ -590,7 +602,7 @@ getNameAliasCuenta(text) {
 getNumBeneficiario(text) {
   const  separador = ',';
   const  arregloDeSubCadenas = text.split(separador);
-  const numBeneCta = arregloDeSubCadenas[4];
+  const numBeneCta = arregloDeSubCadenas[3];
   console.log(arregloDeSubCadenas);
   console.log(numBeneCta);
 
@@ -649,7 +661,7 @@ showDetallePago() {
 
     case '1':  // Cuentas propias Banorte
 
-    importe = this_aux.importeF;
+    importe = this_aux.importeAux;
     concepto = this_aux.conceptoF;
 
 
@@ -657,7 +669,7 @@ showDetallePago() {
 
     case '2':  // Cuentas a terceros Banorte
 
-    importe = this_aux.importeF;
+    importe = this_aux.importeAux;
     concepto = this_aux.conceptoF;
 
 
@@ -674,8 +686,11 @@ showDetallePago() {
 
 setTipoAutenticacionOnModal() {
   const this_aux = this;
+  let mensajeError;
   const divChallenge = document.getElementById('challenger');
   const divTokenPass = document.getElementById('divPass');
+  const control: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([0-9]{6})*$/)]);
+      this_aux.forma.setControl('fcToken', control );
   if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
     $('#_modal_please_wait').modal('show');
     this_aux.labelTipoAutentica = 'Token Celular';
@@ -696,7 +711,10 @@ setTipoAutenticacionOnModal() {
 
           setTimeout(() => {
             $('#_modal_please_wait').modal('hide');
-            this_aux.showErrorSucces(detallePrepara);
+            console.log(detallePrepara.Id + detallePrepara.MensajeAUsuario);
+                        mensajeError = this_aux.controlarError(detallePrepara);
+                        document.getElementById('mnsError').innerHTML =  mensajeError;
+                        $('#errorModal').modal('show');
          }, 1000);
         }
       }, function(error) {
@@ -733,7 +751,7 @@ setTipoAutenticacionOnModal() {
     case '1':  // Cuentas propias Banorte
 
         setTimeout(function() {
-          $( ".cdk-visually-hidden" ).css( "margin-top", "19%" );
+
           this_aux.validarSaldo("1");
           //$('#confirmModal').modal('show');
         }, 500);
@@ -744,7 +762,7 @@ setTipoAutenticacionOnModal() {
 
 
           setTimeout(function() {
-            $( ".cdk-visually-hidden" ).css( "margin-top", "19%" );
+
             this_aux.validarSaldo("2");
             //$('#confirmModal').modal('show');
           }, 500);
@@ -755,11 +773,20 @@ setTipoAutenticacionOnModal() {
 
 }
 
+includesL(container, value) {
+  let returnValue = false;
+  let pos = String(container).indexOf(value);
+  if (pos >= 0) {
+    returnValue = true;
+  }
+  return returnValue;
+}
+
 validarSaldo(tipoOperecionPago) {
     const this_aux = this;
     $('#_modal_please_wait').modal('show');
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
-    let importeOpe = this_aux.importeF;
+    let importeOpe = this_aux.importeAux;
     importeOpe.replace(',', "");
     operacionesbxi.consultaTablaYValidaSaldo(this_aux.service.numCuentaTranPropBanorte, importeOpe).then(
       function(response) {
@@ -772,8 +799,10 @@ validarSaldo(tipoOperecionPago) {
 
           // MANDAR A LLAMAR MODAL DE CONFIRMACION
           if (tipoOperecionPago === "1") {           // Cuentas propias Banorte
+            $( ".cdk-visually-hidden" ).css( "margin-top", "16%" );
             $('#confirmModalBanorte').modal('show');
           } else if (tipoOperecionPago === "2") {   // Cuentas a terceros Banorte
+            $( ".cdk-visually-hidden" ).css( "margin-top", "16%" );
             $('#confirmModal').modal('show');
           }
 
@@ -875,10 +904,10 @@ confirmarPago(token) {
                        this_aux.router.navigate(['/TransferFinishBanorte']);
 
                      } else {
-                        this_aux.showErrorSuccesMoney(transferPropTer);
+                        this_aux.showErrorSucces(transferPropTer);
                      }
 
-                  }, function(error) { this_aux.showErrorPromise(error);  }
+                  }, function(error) { this_aux.showErrorPromiseMoney(error);  }
                 );
             /*} else {
               console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
@@ -924,10 +953,10 @@ confirmarPago(token) {
                        this_aux.router.navigate(['/TransferFinishBanorte']);
 
                      } else {
-                        this_aux.showErrorSuccesMoney(transferPropTer);
+                        this_aux.showErrorSucces(transferPropTer);
                      }
 
-                  }, function(error) { this_aux.showErrorPromise(error);  }
+                  }, function(error) { this_aux.showErrorPromiseMoney(error);  }
                 );
             } else {
               console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
@@ -945,6 +974,18 @@ confirmarPago(token) {
 
 
         }
+}
+
+showErrorPromiseMoney(error) {
+
+
+  if (error.errorCode === 'API_INVOCATION_FAILURE') {
+    $('#errorModal').modal('show');
+    document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+  } else {
+    document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tu saldo.";
+    $('#ModalErrorTransaccion').modal('show');
+  }
 }
 
 transformAmount(impor) {

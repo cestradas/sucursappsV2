@@ -9,12 +9,12 @@
         <div class="dropdown sumando-dropdown-account col-sm-11" style="padding-left: 0px; padding-right: 0px;">
 
             <select class="input-whidth selectModificado" #selectTipo id="tipoTransfer" (change)="setCuentasBenficiarioXTipo();" style=" width: 100%; height: 60px; border:0px solid red;">
-               <!-- <img src="./assets/img/bg_selectN.png" align="right" style="width: 3.8%; float: right; position: absolute;     margin-left: 1549px;"> -->
+             <!-- <img src="./assets/img/bg_selectN.png" align="right" style="width: 3.8%; float: right; position: absolute;     margin-left: 1549px;"> -->
 
-            <option value="0" disabled selected>Seleccione tipo de transferencia...</option>
-            <option value="1" class="text-li">Entre cuentas propias</option>
-            <option value="2" class="text-li">A terceros banorte</option>
-        </select>
+          <option value="0" disabled selected>Seleccione tipo de transferencia...</option>
+          <option value="1" class="text-li">Entre cuentas propias</option>
+          <option value="2" class="text-li">A terceros banorte</option>
+      </select>
         </div>
 
     </div>
@@ -29,33 +29,33 @@
                     <input type="hidden">
                     <div class="dropdown sumando-dropdown-account">
                         <button class="btn btn-default btn-block dropdown-toggle btn-color-cuentas" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" disabled="true" aria-expanded="true">
-                <table id="tableOrigen" style="display: none" width="99%">
-                  <tr>
-                    <td align="left" width="45%">
-                      <strong><label  id="lblAliasOrigen" #lblAliasOrigen></label>{{nombreCuenta}}</strong>
-                    </td>
-                    <td align="left" width="45%">
-                      <strong><label id ="lblSaldoOrigen">{{ SaldoOrigen | currency }}</label>
-                      </strong>
-                    </td>
-                    <td width="5%" rowspan="2" class="dropdown-caret" style="padding-left: 21px; width:5%; ">
-                      <img  class="select-img" src="./assets/img/bg_selectN.png" style="width: 90%; height: 190%;" >
-                    </td>
-                  </tr>
-                  <tr>
-                    <td align="left">Cuenta <label id="lblCuentaOrigen" #lblCuentaOrigen></label></td>
-                    <td align="left">Saldo Disponible</td>
-                  </tr>
-                </table>
-                <table  id="tableDefaultOrigen" width="100%" style="height: 100%;">
-                  <tr>
-                    <td align="left" rowspan="2">Seleccione una cuenta de origen...</td>
-                    <td width="5%" style="height: 40px;" rowspan="2" class="dropdown-caret">
-                      <img src="./assets/img/bg_selectN.png" class="select-img">
-                    </td>
-                  </tr>
-                </table>
-              </button>
+              <table id="tableOrigen" style="display: none" width="99%">
+                <tr>
+                  <td align="left" width="45%">
+                    <strong><label  id="lblAliasOrigen" #lblAliasOrigen></label>{{nombreCuenta}}</strong>
+                  </td>
+                  <td align="left" width="45%">
+                    <strong><label id ="lblSaldoOrigen">{{ SaldoOrigen | currency }}</label>
+                    </strong>
+                  </td>
+                  <td width="5%" rowspan="2" class="dropdown-caret" style="padding-left: 21px; width:5%; ">
+                    <img  class="select-img" src="./assets/img/bg_selectN.png" style="width: 90%; height: 190%;" >
+                  </td>
+                </tr>
+                <tr>
+                  <td align="left">Cuenta <label id="lblCuentaOrigen" #lblCuentaOrigen></label></td>
+                  <td align="left">Saldo Disponible</td>
+                </tr>
+              </table>
+              <table  id="tableDefaultOrigen" width="100%" style="height: 100%;">
+                <tr>
+                  <td align="left" rowspan="2">Seleccione una cuenta de origen...</td>
+                  <td width="5%" style="height: 40px;" rowspan="2" class="dropdown-caret">
+                    <img src="./assets/img/bg_selectN.png" class="select-img">
+                  </td>
+                </tr>
+              </table>
+            </button>
                         <div>
                             <ul id="ul_Cuentas" #listaCuentas class="dropdown-menu btn-block" aria-labelledby="dropdownMenu1" style="width: 100%; height: 200px; overflow: auto">
 
@@ -80,33 +80,33 @@
                         <input type="hidden">
                         <div class="dropdown sumando-dropdown-account">
                             <button disabled="true" class="btn btn-default btn-block dropdown-toggle btn-color-cuentas" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                          <table id="tableBeneficiarios" style="display: none" width="97%">
-                            <tr>
-                              <td align="left" width="50%" style="width: 0px;">
-                                <strong><label  id="lbDescripcionCtaBen" #lbDescripcionCtaBen></label></strong>
-                              </td>
-                              <!-- <td align="left" width="45%">
-                               <strong>$<label id ="lblSaldoOrigen"></label>
-                               </strong>
-                             </td>-->
-                              <td width="5%" rowspan="2" class="dropdown-caret" style="">
-                                <img  class="select-img" src="./assets/img/bg_selectN.png" style="width: 75%; height: 190%; margin-left: 68px;">
-                              </td>
+                        <table id="tableBeneficiarios" style="display: none" width="97%">
+                          <tr>
+                            <td align="left" width="50%" style="width: 0px;">
+                              <strong><label  id="lbDescripcionCtaBen" #lbDescripcionCtaBen></label></strong>
+                            </td>
+                            <!-- <td align="left" width="45%">
+                             <strong>$<label id ="lblSaldoOrigen"></label>
+                             </strong>
+                           </td>-->
+                            <td width="5%" rowspan="2" class="dropdown-caret" style="">
+                              <img  class="select-img" src="./assets/img/bg_selectN.png" style="width: 75%; height: 190%; margin-left: 68px;">
+                            </td>
+                          </tr>
+                          <tr>
+                              <td align="left">Cuenta <label id="lblCuentaDestino" #lblCuentaDestino></label></td>
+                              <!--<td align="left">Saldo Disponible</td-->
                             </tr>
-                            <tr>
-                                <td align="left">Cuenta <label id="lblCuentaDestino" #lblCuentaDestino></label></td>
-                                <!--<td align="left">Saldo Disponible</td-->
-                              </tr>
-                          </table>
-                          <table  id="tableDefaultBeneficiarios" width="100%" style="height: 100%;">
-                            <tr>
-                                <td align="left" rowspan="2">Seleccione una cuenta destino...</td>
-                              <td width="5%" style="height: 40px;" rowspan="2" class="dropdown-caret">
-                                <img src="./assets/img/bg_selectN.png" class="select-img">
-                              </td>
-                            </tr>
-                          </table>
-                        </button>
+                        </table>
+                        <table  id="tableDefaultBeneficiarios" width="100%" style="height: 100%;">
+                          <tr>
+                              <td align="left" rowspan="2">Seleccione una cuenta destino...</td>
+                            <td width="5%" style="height: 40px;" rowspan="2" class="dropdown-caret">
+                              <img src="./assets/img/bg_selectN.png" class="select-img">
+                            </td>
+                          </tr>
+                        </table>
+                      </button>
                             <div>
                                 <ul id="ul_CuentasBen" #listaCuentasBeneficiario class="dropdown-menu btn-block" aria-labelledby="dropdownMenu2" style="width: 100%; height: 200px; overflow: auto">
 
@@ -124,9 +124,7 @@
     <form [formGroup]="forma" (ngSubmit)="showDetallePago()" class="needs-validation">
         <div id="divisionInputs"></div>
         <div class="row sumando-form-group letranegrita">
-            <div class="col-sm-1 sumando-bg-red group-name" style="background-color: #ff000000;">
-                Para
-            </div>
+            <div class="col-sm-1 sumando-bg-red group-name" style="background-color: #ff000000;"></div>
             <div class="col-sm-11 sumando-well-white">
 
                 <div id="transferencia" style="display: block;">
@@ -139,10 +137,10 @@
                             <div class="col-sm-10">
                                 <input id="amount" #rImporte [matKeyboard]="'num'" name="amount" formControlName="amount" type="text" class="form-control amount input-lg" maxlength="60" required (blur)="transformAmount(rImporte.value)" />
                                 <div *ngIf="forma.hasError('min', 'amount') || forma.hasError('max', 'amount') " class="alert alert-danger">
-                                    Los datos proporcionados son incorrectos, favor de verificar.
+                                    Limite de....
                                 </div>
                                 <div *ngIf="forma.hasError('required', 'amount') && forma.get('amount').touched" style="margin-bottom: 0px; padding: 0.5rem 1.20rem;" class="alert alert-danger">
-                                    Dato obligatorio, favor de capturar.
+                                    Este dato es obligatorio.
                                 </div>
                             </div>
                         </div>
@@ -155,10 +153,10 @@
                             <div class="col-sm-10">
                                 <input aria-describedby="validationTooltipUsernamePrepend" [matKeyboard]="" id="concepto" name="concepto" formControlName="concepto" type="text" maxlength="7" class="form-control amount" required (blur)="desabilitaBtn()" />
                                 <div *ngIf="forma.hasError('maxlength', 'concepto')" class="alert alert-danger">
-                                    Los datos proporcionados son incorrectos, favor de verificar.
+                                    Limite de descripcion debe ser de....
                                 </div>
                                 <div *ngIf="forma.hasError('required', 'concepto') && forma.get('concepto').touched" class="invalid-tooltip">
-                                    Dato obligatorio, favor de capturar.
+                                    Este dato es obligatorio.
                                 </div>
 
                             </div>
@@ -183,7 +181,7 @@
             <!-- <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
             <div class="col-sm-1">
                 <button [disabled]="!forma.valid" id="continuarspei" name="continuarspei" class="btn btn-danger btn-lg" type="submit">
-                    Continuar</button>
+                  Continuar</button>
             </div>
         </div>
     </form>
@@ -229,7 +227,7 @@
                         <label>Importe total:</label>
                     </div>
                     <div class="col-lg 6">
-                        <label>${{importeF}}</label>
+                        <label>${{importeAux}}</label>
                     </div>
                 </div>
 
@@ -237,8 +235,8 @@
                 <div class="modal-footer">
                     <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
                     <button class="color-botones btn btn-lg " (click)="confirmarPago(token.value)">
-                              Confirmar
-                            </button>
+                            Confirmar
+                          </button>
                 </div>
 
             </div>
@@ -287,7 +285,7 @@
                         <label>Importe total:</label>
                     </div>
                     <div class="col-lg 6">
-                        <label>${{importeF}}</label>
+                        <label>${{importeAux}}</label>
                     </div>
                 </div>
                 <div class="row">
@@ -312,11 +310,11 @@
                             </div>
                             <div class="col-lg 6">
                                 <label>
-                                <input  id="inputToken" type="password" class="form-control input-lg" #token [matKeyboard]="'num'">
-                                <div *ngIf="(token.value == '')  && token.touched" class="alert alert-danger">
-                                    <p color="danger" *ngIf="(token.value == '')">Dato obligatorio, favor de capturar. </p>
-                                </div>
-                                </label>
+                              <input  id="inputToken" type="password" class="form-control input-lg" #token [matKeyboard]="'num'">
+                              <div *ngIf="(token.value == '')  && token.touched" class="alert alert-danger">
+                                  <p color="danger" *ngIf="(token.value == '')">Dato obligatorio, favor de capturar. </p>
+                              </div>
+                              </label>
                             </div>
 
                         </div>
@@ -325,8 +323,8 @@
                 <div class="modal-footer">
                     <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
                     <button class="color-botones btn btn-lg " (click)="confirmarPago(token.value)">
-                                Confirmar
-                              </button>
+                              Confirmar
+                            </button>
                 </div>
 
             </div>

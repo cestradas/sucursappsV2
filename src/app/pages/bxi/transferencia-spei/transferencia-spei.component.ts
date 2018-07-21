@@ -69,6 +69,7 @@ export class TransferenciaSpeiComponent implements OnInit {
   nombreBeneModal = "";
 
   forma: FormGroup;
+  formaT: FormGroup;
   importeAux: string;
 
   importeF = "";
@@ -120,7 +121,17 @@ export class TransferenciaSpeiComponent implements OnInit {
       'sel1': new FormControl('', [Validators.required]),
       //'clabe': new FormControl('', [Validators.required, Validators.maxLength(16)]),
       'ammountQUICK': new FormControl('', [Validators.required, Validators.min(0), Validators.max(7000)]),
-      'referenceQuick': new FormControl('', [Validators.required, Validators.maxLength(7)])
+      'referenceQuick': new FormControl('', [Validators.required, Validators.maxLength(7)]),
+
+      'fcToken': new FormControl()
+
+    });
+
+    this.formaT = new FormGroup({
+
+
+      'fcTokenT': new FormControl()
+
     });
 
     console.log(this.forma);
@@ -355,23 +366,31 @@ export class TransferenciaSpeiComponent implements OnInit {
   setTipoAutenticacionOnModal() {
     const this_aux = this;
     const operacion = this_aux.selectTipo.nativeElement.value.toString();
-
+    let mensajeError;
     const divChallengeSPEI = document.getElementById('challengerSPEI');
     const divTokenPassSPEI = document.getElementById('divPassSPEI');
     const divChallengeTEF = document.getElementById('challengerTEF');
     const divTokenPassTEF = document.getElementById('divPassTEF');
     const divChallengeQUICK = document.getElementById('challengerQUICK');
     const divTokenPassQUICK = document.getElementById('divPassQUICK');
+    const control: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([0-9]{6})*$/)]);
+
     if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
       $('#_modal_please_wait').modal('show');
       this_aux.labelTipoAutentica = 'Token Celular';
 
        if (operacion === "1") {
         divTokenPassSPEI.setAttribute('style', 'display: flex');
+        this_aux.formaT.setControl('fcTokenT', control );
+        $( ".cdk-visually-hidden" ).css( "margin-top", "19%" );
        } else if (operacion === "2") {
         divTokenPassTEF.setAttribute('style', 'display: flex');
+        $( ".cdk-visually-hidden" ).css( "margin-top", "19%" );
+        this_aux.forma.setControl('fcToken', control );
        } else if (operacion === "3") {
         divTokenPassQUICK.setAttribute('style', 'display: flex');
+        $( ".cdk-visually-hidden" ).css( "margin-top", "19%" );
+        this_aux.forma.setControl('fcToken', control );
        }
 
       const operacionesbxi: OperacionesBXI = new OperacionesBXI();
@@ -399,7 +418,10 @@ export class TransferenciaSpeiComponent implements OnInit {
 
             setTimeout(() => {
               $('#_modal_please_wait').modal('hide');
-              this_aux.showErrorSucces(detallePrepara);
+              console.log(detallePrepara.Id + detallePrepara.MensajeAUsuario);
+                          mensajeError = this_aux.controlarError(detallePrepara);
+                          document.getElementById('mnsError').innerHTML =  mensajeError;
+                          $('#errorModal').modal('show');
            }, 1000);
           }
         }, function(error) {
@@ -455,7 +477,7 @@ export class TransferenciaSpeiComponent implements OnInit {
 
 
             setTimeout(function() {
-              $( ".cdk-visually-hidden" ).css( "margin-top", "19%" );
+
               this_aux.validarSaldo("1");
               //$('#confirmModalSPEI').modal('show');
             }, 500);
@@ -466,7 +488,7 @@ export class TransferenciaSpeiComponent implements OnInit {
 
 
             setTimeout(function() {
-              $( ".cdk-visually-hidden" ).css( "margin-top", "19%" );
+
               this_aux.validarSaldo("2");
               //$('#confirmModalTEF').modal('show');
             }, 500);
@@ -475,7 +497,7 @@ export class TransferenciaSpeiComponent implements OnInit {
       case '3':  // QUICK
 
             setTimeout(function() {
-              $( ".cdk-visually-hidden" ).css( "margin-top", "19%" );
+
               this_aux.validarSaldo("3");
               //$('#confirmModalQUICK').modal('show');
             }, 500);
@@ -500,10 +522,13 @@ validarSaldo(tipoOperecionPago) {
 
           console.log("Pago validado");
           if (tipoOperecionPago === "1") {          // SPEI
+            $( ".cdk-visually-hidden" ).css( "margin-top", "14%" );
             $('#confirmModalSPEI').modal('show');
           } else if (tipoOperecionPago === "2") {   //TEF
+            $( ".cdk-visually-hidden" ).css( "margin-top", "14%" );
             $('#confirmModalTEF').modal('show');
           } else if (tipoOperecionPago === "3") {   //QUICK
+            $( ".cdk-visually-hidden" ).css( "margin-top", "14%" );
             $('#confirmModalQUICK').modal('show');
           }
 
@@ -578,7 +603,7 @@ setDatosCuentaSeleccionada(elementHTML) {
   //lblAliasOrigen.innerHTML = AliasCuenta_seleccionada.toString();
   lblCuentaOrigen.innerHTML = operacionesbxi.mascaraNumeroCuenta(numCuenta_seleccionada.toString());
   this_aux.service.numCuentaSPEISel = numCuenta_seleccionada;
-  this_aux.service.AliasCuentaSPEISel = AliasCuenta_seleccionada;
+  this_aux.service.AliasCuentaSPEISel = this_aux.nombreCuenta;
   this_aux.cuentaOrigenModal = operacionesbxi.mascaraNumeroCuenta(this_aux.service.numCuentaSPEISel);
 
 
@@ -1121,10 +1146,10 @@ validaDatosBen() {
                          this_aux.router.navigate(['/TransferFinishSpei']);
 
                        } else {
-                        this_aux.showErrorSuccesMoney(transferSPEI);
+                        this_aux.showErrorSucces(transferSPEI);
                        }
 
-                    }, function(error) { this_aux.showErrorPromise(error); }
+                    }, function(error) { this_aux.showErrorPromiseMoney(error); }
                   );
               } else {
                 console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
@@ -1171,10 +1196,10 @@ validaDatosBen() {
                          this_aux.router.navigate(['/TransferFinishSpei']);
 
                        } else {
-                        this_aux.showErrorSuccesMoney(transferTEF);
+                        this_aux.showErrorSucces(transferTEF);
                        }
 
-                    }, function(error) { this_aux.showErrorPromise(error); }
+                    }, function(error) { this_aux.showErrorPromiseMoney(error); }
                   );
               } else {
                 console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
@@ -1221,10 +1246,10 @@ validaDatosBen() {
                          this_aux.router.navigate(['/TransferFinishSpei']);
 
                        } else {
-                        this_aux.showErrorSuccesMoney(transferQUICK);
+                        this_aux.showErrorSucces(transferQUICK);
                        }
 
-                    }, function(error) { this_aux.showErrorPromise(error); }
+                    }, function(error) { this_aux.showErrorPromiseMoney(error); }
                   );
               } else {
                 console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
@@ -1240,6 +1265,18 @@ validaDatosBen() {
             break;
 
           }
+}
+
+showErrorPromiseMoney(error) {
+
+
+  if (error.errorCode === 'API_INVOCATION_FAILURE') {
+    $('#errorModal').modal('show');
+    document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+  } else {
+    document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tu saldo.";
+    $('#ModalErrorTransaccion').modal('show');
+  }
 }
 
 selectBanco(bancoSeleccionado) {
@@ -1417,9 +1454,16 @@ showErrorPromise(error) {
 
 showErrorSucces(json) {
   console.log(json.Id + json.MensajeAUsuario);
-  document.getElementById('errorMensaje').innerHTML =   json.MensajeAUsuario;
-  $('#_modal_please_wait').modal('hide');
-  $('#modalErrorMessage').modal('show');
+  if ( json.Id === "2") {
+    document.getElementById('errorMensaje').innerHTML =   json.ErrorMsg;
+    $('#_modal_please_wait').modal('hide');
+    $('#modalErrorMessage').modal('show');
+  } else {
+    document.getElementById('errorMensaje').innerHTML =   json.MensajeAUsuario;
+    $('#_modal_please_wait').modal('hide');
+    $('#modalErrorMessage').modal('show');
+  }
+
 }
 
 showErrorSuccesMoney(json) {
