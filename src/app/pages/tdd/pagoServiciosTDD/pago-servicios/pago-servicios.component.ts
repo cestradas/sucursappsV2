@@ -171,8 +171,6 @@ getDetalleEmpresa(idFacturador) {
          const detalleEmpresa = response.responseJSON;
          const body = $('body');
          if (detalleEmpresa.Id === '1') {
-
-           body.off('click');
            this_aux.service.detalleEmpresa_PS = response.responseText;
            this_aux.router.navigate(['/pagoServicioDetailTdd']);
 

@@ -27,7 +27,7 @@ export class MantenimientosDatosContactoComponent implements OnInit {
               private _validaNipService: ValidaNipTransaccion) {
     this.myForm = this.fb.group({
       fcCorreo: ['', [Validators.required, Validators.pattern(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)]],
-      fcCelular: ['', [Validators.required, ]]
+      fcCelular: ['', [Validators.required, Validators.pattern(/^([0-9])*$/), Validators.minLength(10), Validators.maxLength(10) ]]
     });
    }
 

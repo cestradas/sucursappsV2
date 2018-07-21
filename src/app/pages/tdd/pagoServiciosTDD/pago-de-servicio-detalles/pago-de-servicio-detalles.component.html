@@ -27,7 +27,7 @@
                                                     <p *ngIf="myForm.get('fcTelefono').hasError('required')">
                                                         Dato obligatorio, favor de capturar.
                                                     </p>
-                                                    <p *ngIf="myForm.get('fcTelefono').hasError('minlength') || myForm.get('fcTelefono').hasError('maxlength')  ">
+                                                    <p *ngIf="myForm.get('fcTelefono').hasError('pattern')">
                                                         Los datos proporcionados son incorrectos, favor de verificar.
                                                     </p>
                                                 </div>
@@ -41,7 +41,8 @@
                                                     <p *ngIf="myForm.get('fcDigitoVerificador').hasError('required')">
                                                         Dato obligatorio, favor de capturar.
                                                     </p>
-                                                    <p *ngIf="myForm.get('fcDigitoVerificador').hasError('maxlength')">
+
+                                                    <p *ngIf="myForm.get('fcDigitoVerificador').hasError('pattern')">
                                                         Los datos proporcionados son incorrectos, favor de verificar.
                                                     </p>
                                                 </div>

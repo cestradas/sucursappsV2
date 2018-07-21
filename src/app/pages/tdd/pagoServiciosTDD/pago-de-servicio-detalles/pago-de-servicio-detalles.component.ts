@@ -65,7 +65,7 @@ export class PagoDeServicioDetallesComponent implements OnInit {
 
     this.myForm = this.fb.group({
       fcTelefono: ['', [Validators.required, Validators.pattern(/^(([0-9]{10}))$/)]],
-       fcReferencia: ['', [Validators.required, Validators.pattern(/^(([0-9]{1,}))$/)]],
+       fcReferencia: ['', [Validators.required, Validators.pattern(/^(([0-9]{1,30}))$/)]],
        fcDigitoVerificador: ['', [Validators.required, Validators.pattern(/^(([0-9]{1}))$/)]],
       fcFechaVencimiento: ['', [Validators.required , Validators.pattern(/^\d{2,4}\-\d{1,2}\-\d{1,2}$/)  ]],
      fcImporte: ['', [Validators.required, Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)]],
@@ -139,7 +139,7 @@ export class PagoDeServicioDetallesComponent implements OnInit {
     }
     $('#_modal_please_wait').modal('hide');
 
-    $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
+    $( ".cdk-visually-hidden" ).css( "margin-top", "9%" );
   }
 
  
@@ -147,8 +147,7 @@ export class PagoDeServicioDetallesComponent implements OnInit {
   espacioTeclado() {
     // ESTILO TECLADO (QUITAR ESTILO AL SALIR DE PAGINA PARA EVITAR QUE BAJE MAS EN OTRAS PANTALLAS)
 console.log("aquiiiiiiiiiiiii");
-    $( ".cdk-overlay-container" ).css( "margin-top", "20%" );
-    $( ".cdk-visually-hidden" ).css( "margin-bottom", "0%" );
+    $( ".cdk-overlay-container" ).css( "margin-top", "9%" );
   }
 
   showDetallePago( myForm) {
@@ -342,9 +341,9 @@ leeCodeBar(valor) {
         const importe = unidades + centavos;
         const digito = value.substring(19, 20);
         // tslint:disable-next-line:max-line-length
-        const controlTelefono: FormControl = new FormControl(telefono, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]);
-        const controlDigito: FormControl = new FormControl(digito, [Validators.required, Validators.maxLength(1)]);
-        const controlImporte: FormControl = new FormControl(importe, Validators.required);
+        const controlTelefono: FormControl = new FormControl(telefono, [Validators.required, Validators.pattern(/^(([0-9]{10}))$/)]);
+        const controlDigito: FormControl = new FormControl(digito, [Validators.required, Validators.pattern(/^(([0-9]{1}))$/)]);
+        const controlImporte: FormControl = new FormControl(importe, [ Validators.required]);
         this_aux.myForm.setControl('fcImporte', controlImporte );
         this_aux.myForm.setControl('fcTelefono', controlTelefono );
         this_aux.myForm.setControl('fcDigitoVerificador', controlDigito );

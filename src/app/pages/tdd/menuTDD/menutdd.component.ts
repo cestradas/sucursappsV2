@@ -150,15 +150,20 @@ export class MenutddComponent implements OnInit {
 
 
                 
+              } else if (detalle.Id === '0' && detalle.MensajeAUsuario === 'NUMERO DE CLIENTE INEXISTENTE.') {
+                this_aux.conAlertas();
+                console.log(detalle);
+                // this_aux.showErrorSucces(detalle);      
               } else {
-                this_aux.sinAlertas();
-                this_aux.showErrorSucces(detalle);      
+                this_aux.conAlertas();
               }
               setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
         }, function(error) {
-          this_aux.sinAlertas();
+          this_aux.conAlertas();
+          console.log(error);
           setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
-          this_aux.showErrorPromise(error);    }
+          // this_aux.showErrorPromise(error);    
+        }
       );
     }
 
