@@ -68,9 +68,13 @@
                         </div>
                         <div class="col-lg-10">
                             <input type="text" [matKeyboard]="'num'" class="input-whidth form-control amount input-lg" formControlName="numTarjeta" />
-                            <div *ngIf="forma.hasError('required', 'numTarjeta') && forma.get('numTarjeta').touched" class="alert alert-danger">
-                                Este dato es obligatorio.
+                            <div class="alert-danger" *ngIf="forma.get('numTarjeta').errors && forma.get('numTarjeta').touched">
+                                <p color="danger" *ngIf="forma.get('numTarjeta').hasError('required')" style="margin-bottom: 0;">Dato obligatorio, favor de capturar.</p>
+                                <p color="danger" *ngIf="forma.get('numTarjeta').hasError('pattern') || forma.get('numTarjeta').hasError('minlength') || forma.get('numTarjeta').hasError('maxlength')" style="margin-bottom: 0;">Los datos proporcionados son incorrectos, favor de verificar.</p>
                             </div>
+                            <!--    <div *ngIf="forma.hasError('required', 'numTarjeta') && forma.get('numTarjeta').touched" class="alert alert-danger">
+                                Este dato es obligatorio.
+                            </div> -->
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -81,8 +85,9 @@
 
                         <div class="col-sm-10">
                             <input formControlName="importe" name="importe" #rImporte (blur)="transformAmount(rImporte.value)" id="importe" [matKeyboard]="'num'" type="text" class="input-whidth form-control amount input-lg" />
-                            <div *ngIf="forma.hasError('required', 'importe') && forma.get('importe').touched" class="alert alert-danger">
-                                Este dato es obligatorio.
+                            <div class="alert-danger" *ngIf="(forma.get('importe').errors  && forma.get('importe').touched)">
+                                <p color="danger" *ngIf="forma.get('importe').hasError('required')">Dato obligatorio, favor de capturar.</p>
+                                <p color="danger" *ngIf="forma.get('importe').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
                             </div>
                         </div>
                         <div class="clearfix "></div>

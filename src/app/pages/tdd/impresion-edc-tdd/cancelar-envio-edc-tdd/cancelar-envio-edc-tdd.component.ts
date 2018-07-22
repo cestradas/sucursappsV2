@@ -38,13 +38,7 @@ export class CancelarEnvioEdcTddComponent implements OnInit {
           } else {
             this_aux.serviceTdd.email = jsonRespuesta.Email;
           }
-        } else if (jsonRespuesta.Id === '2') {
-          setTimeout(() => {
-            $('#_modal_please_wait').modal('hide');
-            this_aux.showErrorPromise(jsonRespuesta);           
-        }, 500);   
-        btnContinuar.style.display = 'none';           
-         }  else {
+        } else {
           setTimeout(function() {
             $('#_modal_please_wait').modal('hide');
             this_aux.showErrorSucces(jsonRespuesta);
@@ -54,7 +48,7 @@ export class CancelarEnvioEdcTddComponent implements OnInit {
 
         setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
       }, function(error) { 
-        this_aux.showErrorSuccesMoney(error);
+        this_aux.showErrorPromise(error);
         btnContinuar.style.display = 'none';
         $('#_modal_please_wait').modal('hide');
       });
@@ -108,24 +102,19 @@ export class CancelarEnvioEdcTddComponent implements OnInit {
           const detalleMant = response.responseJSON;
           if (detalleMant.Id === "1") {
           this_aux.router.navigate(['/cancelarEnvioEDCDomicilioFinish']);
-          } else if (detalleMant.Id === '2') {
-            setTimeout(() => {
-              $('#_modal_please_wait').modal('hide');
-              this_aux.showErrorPromise(detalleMant);
-          }, 500);              
-           }  else {
+          } else {
             setTimeout(function() {
-              $('#_modal_please_wait').modal('hide');
+              $("#_modal_please_wait").modal("hide");
               this_aux.showErrorSucces(detalleMant);
             }, 500);
-           }
+          }
           $('#_modal_please_wait').modal('hide');
        }, 3000); 
       },
         function(error) {
           $('#_modal_please_wait').modal('hide');
           console.error("Error");
-          this_aux.showErrorSuccesMoney(error);
+          this_aux.showErrorPromise(error);
         });
   }
 
@@ -133,22 +122,28 @@ export class CancelarEnvioEdcTddComponent implements OnInit {
   showErrorPromise(error) {
     console.log(error);
     // tslint:disable-next-line:max-line-length
-    document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
+    document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar mas tarde";
     $('#_modal_please_wait').modal('hide');
     $('#errorModal').modal('show');
   }
 
-  showErrorSuccesMoney(json) {
+  showErrorPromiseMoney(json) {
     console.log(json.Id + json.MensajeAUsuario);
-    document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tu saldo";
+    document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tus datos.";
     $('#_modal_please_wait').modal('hide');
     $('#ModalErrorTransaccion').modal('show');
   }
 
   showErrorSucces(json) {
     console.log(json.Id + json.MensajeAUsuario);
-    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
-    $('#errorModal').modal('show');
-}
+    if (json.Id === "2") {
+      document.getElementById("mnsError").innerHTML =
+        "El servicio no esta disponible, favor de intentar mas tarde";
+    } else {
+      document.getElementById("mnsError").innerHTML = json.MensajeAUsuario;
+    }
+    $('#_modal_please_wait').modal('hide');
+    $("#errorModal").modal("show");
+  }
 
 }

@@ -57,8 +57,9 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       'selectBanco': new FormControl('0', [Validators.required
         // , this.selectDifCero
       ]),
-      'numTarjeta': new FormControl('', [Validators.required, Validators.minLength(16), Validators.maxLength(16)]),
-      'importe': new FormControl('', Validators.required)
+      // tslint:disable-next-line:max-line-length
+      'numTarjeta': new FormControl('', [Validators.required, Validators.pattern(/^([0-9]{1,})$/), Validators.minLength(16), Validators.maxLength(16)]),
+      'importe': new FormControl('', [Validators.required, Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)])
  //     'email': new FormControl('', [Validators.required,
    //     Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')])
 
@@ -100,6 +101,15 @@ export class PagoTarjetaCreditoComponent implements OnInit {
    }
 
   ngOnInit() {
+    $( ".cdk-visually-hidden" ).css( "margin-top", "15%" );      
+    $( ".cdk-visually-hidden" ).css("margin-bottom", "0px !important");
+    localStorage.removeItem("des");
+    localStorage.removeItem("np");
+    localStorage.removeItem("res");
+    localStorage.removeItem("tr2");
+    localStorage.removeItem("tr2_serv");
+    localStorage.removeItem("np_serv");
+    localStorage.removeItem("res_serv");
 
     //ESTILOS Preferente
     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
@@ -112,8 +122,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       btnContinuar.classList.add("color-botones_Preferente");
       btnContinuar2.classList.remove("color-botones");
       btnContinuar2.classList.add("color-botones_Preferente");
-    }    
-    $(".cdk-visually-hidden").css("margin-top", "15%");
+    }        
   }
 
 
@@ -134,9 +143,10 @@ export class PagoTarjetaCreditoComponent implements OnInit {
           $('#_modal_please_wait').modal('hide');
           },
           function(error) {
-            $('#_modal_please_wait').modal('hide');
-            // document.getElementById('mnsError').innerHTML = "El Ws no respondio";
-            $('#errorModal').modal('show');
+            setTimeout(function() {
+              THIS
+              .showErrorPromise(error);
+            }, 500);
           });
   }
   
@@ -248,20 +258,20 @@ export class PagoTarjetaCreditoComponent implements OnInit {
                 this_aux._response.detallePagoTarjeta = detallePago.responseText;
                 this_aux._response.numeroCuentaTdd = this_aux.mostrarCuentaMascara;
                 this_aux.router.navigate(['/pagoCreditoFinal']);
-            } else {
-              $('#_modal_please_wait').modal('hide');
-              $("#errorModal").modal("show");
+            }  else {
+              setTimeout(function() {
+                this_aux.showErrorSucces(jsonDetallePago);
+              }, 500);
             }
           },
           function(error) {
-
             console.error("El WS respondio incorrectamente");
             // document.getElementById('mnsError').innerHTML = "El Ws no respondio";
-            $('#errorModal').modal('show');
+            setTimeout(function() {
+              this_aux.showErrorPromiseMoney(error);
+            }, 500);
             $('#ModalTDDLogin').modal('hide');
-
           });
-
   }
 
   validarSaldo() {
@@ -279,7 +289,10 @@ export class PagoTarjetaCreditoComponent implements OnInit {
         } else if ( DatosJSON.Id === "5" ) {
           $('#modalLimiteMensual').modal('show');
         } else {
-          $('#errorModal').modal('show');
+          setTimeout(function() {
+            $("#_modal_please_wait").modal("hide");
+            this_aux.showErrorSucces(DatosJSON);
+          }, 500);
         }
         setTimeout(function() {
           $('#_modal_please_wait').modal('hide');
@@ -287,8 +300,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
         
       }, function(error) {
         setTimeout(function() {
-          $('#_modal_please_wait').modal('hide');
-          $('#errorModal').modal('show');
+          this_aux.showErrorPromise(error);
         }, 500);
        
   });
@@ -304,29 +316,43 @@ export class PagoTarjetaCreditoComponent implements OnInit {
         return importeAux;
   }
 
+
   transformAmount(impor) {
     const this_aux = this;
     let importeAux = "";
-    if (impor !== '') {
-      const control: FormControl = new FormControl('');
-      this_aux.forma.setControl(this_aux.rImporte.nativeElement.value, control);
+    const expre2 =  /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/;
+    if (impor !== '' && impor !== '.' && impor !== '-' && expre2.test(impor)) {
       importeAux = this_aux.replaceSimbolo(impor);
-      this_aux.rImporte.nativeElement.value = this_aux.currencyPipe.transform(importeAux, 'USD');
-      importeAux = this_aux.replaceSimbolo( this_aux.rImporte.nativeElement.value) ;
-    } else {
-      if (this_aux.forma.get('importe').errors === null) {
-        const control: FormControl = new FormControl('', Validators.required);
-        this_aux.forma.setControl('importe', control );
-      }
-  }
+        this_aux.rImporte.nativeElement.value = this_aux.currencyPipe.transform(importeAux, 'USD');
+        importeAux = this_aux.replaceSimbolo( this_aux.rImporte.nativeElement.value) ;
+    }
+}
+
+showErrorPromise(error) {
+  console.log(error);
+  // tslint:disable-next-line:max-line-length
+  document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar mas tarde";
+  $('#_modal_please_wait').modal('hide');
+  $('#errorModal').modal('show');
+}
+
+showErrorPromiseMoney(json) {
+  console.log(json.Id + json.MensajeAUsuario);
+  document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tu saldo.";
+  $('#_modal_please_wait').modal('hide');
+  $('#ModalErrorTransaccion').modal('show');
 }
 
 showErrorSucces(json) {
-
+  console.log(json.Id + json.MensajeAUsuario);
+  if (json.Id === "2") {
+    document.getElementById("mnsError").innerHTML =
+      "El servicio no esta disponible, favor de intentar mas tarde";
+  } else {
+    document.getElementById("mnsError").innerHTML = json.MensajeAUsuario;
+  }
   $('#_modal_please_wait').modal('hide');
-    console.log(json.Id + json.MensajeAUsuario);
-    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
-    $('#errorModal').modal('show');
+  $("#errorModal").modal("show");
 }
 
 }

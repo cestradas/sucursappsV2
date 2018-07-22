@@ -1,5 +1,5 @@
 <div ng-cloak class="padding-barToTittle">
-    <h2 id="tituloQuick" class="text-center  color-letra" *ngIf="(operacionType == 'SPEI')">Transferencia Quick exitosa</h2>
+    <h2 id="tituloQuick" class="text-center  color-letra" *ngIf="(operacionType == 'SPEI')">Transferencia Rápida exitosa</h2>
     <h2 id="tituloTef" class="text-center  color-letra" *ngIf="(operacionType == 'TEF')">Transferencia TEF exitosa</h2>
 </div>
 
@@ -39,6 +39,15 @@
                 </div>
                 <div class="col-lg-6" align="left">
                     <label>{{detalleTransferencia.horaOperacion}}</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6" align="right">
+                    <strong>Cargo total:</strong>
+                </div>
+                <div class="col-lg-6" align="left">
+                    <label>{{detalleTransferencia.totalCargo | currency}}</label>
                 </div>
             </div>
 
@@ -103,15 +112,6 @@
                     <label>{{detalleTransferencia.concepto}}</label>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-lg-6" align="right">
-                    <strong>Importe:</strong>
-                </div>
-                <div class="col-lg-6" align="left">
-                    <label>{{detalleTransferencia.totalCargo | currency}}</label>
-                </div>
-            </div>
         </div>
 
         <!------------------------------------------>
@@ -145,7 +145,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-6" align="right">
-                    <strong>Importe:</strong>
+                    <strong>Cargo total:</strong>
                 </div>
                 <div class="col-lg-6" align="left">
                     <label>{{detalleTransferencia.importe | currency}}</label>

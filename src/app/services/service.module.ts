@@ -5,6 +5,7 @@ import { ConsultaSaldosTddService } from './saldosTDD/consultaSaldos.service';
 import { SaldosDiaMesService } from './SaldosDiaMes/saldoDiaMes.service';
 import { ResponseWS } from './response/response.service';
 import { ValidaNipTransaccion } from './validaNipTrans/validaNipTrans.service';
+import { ValidaNipTransaccionTdcService } from './validaNipTrans/valida-nip-transaccion-tdc.service';
 
 @NgModule({
     
@@ -16,7 +17,8 @@ import { ValidaNipTransaccion } from './validaNipTrans/validaNipTrans.service';
         ConsultaSaldosTddService,
         SaldosDiaMesService,
         ValidaNipTransaccion,
-        ResponseWS
+        ResponseWS,
+        ValidaNipTransaccionTdcService
         
     ],
     declarations: []

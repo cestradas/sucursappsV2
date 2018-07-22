@@ -114,22 +114,17 @@ resourceRequest.sendFormParameters(formParameters).then(
         $('#_modal_please_wait').modal('hide');
         setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
         this_aux.finishPagePrint();
-    } else if (respNotificador.Id === '2') {
-      setTimeout(() => {
-        $('#_modal_please_wait').modal('hide');
-        this_aux.showErrorPromise(respNotificador);
-    }, 500);              
-     }  else {
+    } else {
       setTimeout(function() {
-        $('#_modal_please_wait').modal('hide');
+        $("#_modal_please_wait").modal("hide");
         this_aux.showErrorSucces(respNotificador);
       }, 500);
-     }
+    }
   },
     function(error) {
       $('#_modal_please_wait').modal('hide');
       console.error("Error");
-      this_aux.showErrorSuccesMoney(error);
+      this_aux.showErrorPromiseMoney(error);
     });
 
   }
@@ -143,26 +138,31 @@ resourceRequest.sendFormParameters(formParameters).then(
      this_aux.router.navigate(['/impresion_EDC_Tdd_Electron']);
   }
 
-
   showErrorPromise(error) {
     console.log(error);
     // tslint:disable-next-line:max-line-length
-    document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
+    document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar mas tarde";
     $('#_modal_please_wait').modal('hide');
     $('#errorModal').modal('show');
   }
 
-  showErrorSuccesMoney(json) {
+  showErrorPromiseMoney(json) {
     console.log(json.Id + json.MensajeAUsuario);
-    document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tu saldo";
+    document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tus datos.";
     $('#_modal_please_wait').modal('hide');
     $('#ModalErrorTransaccion').modal('show');
   }
 
   showErrorSucces(json) {
     console.log(json.Id + json.MensajeAUsuario);
-    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
-    $('#errorModal').modal('show');
+    if (json.Id === "2") {
+      document.getElementById("mnsError").innerHTML =
+        "El servicio no esta disponible, favor de intentar mas tarde";
+    } else {
+      document.getElementById("mnsError").innerHTML = json.MensajeAUsuario;
+    }
+    $('#_modal_please_wait').modal('hide');
+    $("#errorModal").modal("show");
   }
 
 }

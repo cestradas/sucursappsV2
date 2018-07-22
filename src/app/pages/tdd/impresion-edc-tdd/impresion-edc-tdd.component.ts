@@ -156,23 +156,18 @@ export class ImpresionEdcTddComponent implements OnInit {
           const detalleMant = response.responseJSON;
           if (detalleMant.Id === '1') {
             this_aux.obtenerListaDocs();
-          } else if (detalleMant.Id === '2') {
-            setTimeout(() => {
-              $('#_modal_please_wait').modal('hide');
-              this_aux.showErrorPromise(detalleMant);
-          }, 500);              
-           }  else {
+          } else {
             setTimeout(function() {
-              $('#_modal_please_wait').modal('hide');
+              $("#_modal_please_wait").modal("hide");
               this_aux.showErrorSucces(detalleMant);
             }, 500);
-           }       
+          }    
           $('#_modal_please_wait').modal('hide');
       },
         function(error) {
           console.error("Error");
         $('#_modal_please_wait').modal('hide');
-        this_aux.showErrorSuccesMoney(error);
+        this_aux.showErrorPromise(error);
         });
   }
 
@@ -928,9 +923,10 @@ export class ImpresionEdcTddComponent implements OnInit {
    }, function(error) {
 
           console.error("Error");
-        
-       $('#_modal_please_wait').modal('hide');
-          $('#errorModal').modal('show');
+          setTimeout(function() {
+            $("#_modal_please_wait").modal("hide");
+            this_aux.showErrorPromise(error);
+          }, 500);
 
 
         });
@@ -1622,19 +1618,14 @@ operacion(id) {
                   $('#_modal_please_wait').modal('hide');
                   setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
 
-              } else if (documento.Id === '2') {
-                setTimeout(() => {
-                  $('#_modal_please_wait').modal('hide');
-                  this_aux.showErrorPromise(documento);
-              }, 500);              
-               }  else {
+              } else {
                 setTimeout(function() {
-                  $('#_modal_please_wait').modal('hide');
+                  $("#_modal_please_wait").modal("hide");
                   this_aux.showErrorSucces(documento);
                 }, 500);
-               }
+              }
            }, function(error) {
-            this_aux.showErrorSuccesMoney(error);
+            this_aux.showErrorPromise(error);
        });
       }
     }
@@ -1676,25 +1667,18 @@ consultaCancelacionEDCDomicilio(opcion) {
               } else {
                 btnCancelarEnvio.style.display = 'none';
               }
-            } else if (detalleMant.Id === '2') {
-              setTimeout(() => {
-                $('#_modal_please_wait').modal('hide');
-                this_aux.showErrorPromise(detalleMant);
-                btnCancelarEnvio.style.display = 'none';
-            }, 500);              
-             }  else {
+            } else {
               setTimeout(function() {
-                $('#_modal_please_wait').modal('hide');
+                $("#_modal_please_wait").modal("hide");
                 this_aux.showErrorSucces(detalleMant);
-                btnCancelarEnvio.style.display = 'none';
               }, 500);
-             }
+            }
             this_aux.mantenimientoEDC();
          }, 3000);
         },
           function(error) {
             console.error("Error");
-            this_aux.showErrorSuccesMoney(error);
+            this_aux.showErrorPromise(error);
             this_aux.mantenimientoEDC();
           });
 
@@ -1703,22 +1687,27 @@ consultaCancelacionEDCDomicilio(opcion) {
 showErrorPromise(error) {
   console.log(error);
   // tslint:disable-next-line:max-line-length
-  document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
+  document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar mas tarde";
   $('#_modal_please_wait').modal('hide');
   $('#errorModal').modal('show');
 }
 
-showErrorSuccesMoney(json) {
+showErrorPromiseMoney(json) {
   console.log(json.Id + json.MensajeAUsuario);
-  document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tu saldo";
+  document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tus datos.";
   $('#_modal_please_wait').modal('hide');
   $('#ModalErrorTransaccion').modal('show');
 }
 
 showErrorSucces(json) {
   console.log(json.Id + json.MensajeAUsuario);
-  document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
-  $('#errorModal').modal('show');
+  if (json.Id === "2") {
+    document.getElementById("mnsError").innerHTML =
+      "El servicio no esta disponible, favor de intentar mas tarde";
+  } else {
+    document.getElementById("mnsError").innerHTML = json.MensajeAUsuario;
+  }
+  $('#_modal_please_wait').modal('hide');
+  $("#errorModal").modal("show");
 }
-
 }

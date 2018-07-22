@@ -50,6 +50,8 @@ export class MantenimientoBenefComponent implements OnInit {
   
   
   tamRegistrosBenef: any = 0;
+  personasFisica: any = 0;
+  personasMoral: any = 0;
   contadorModificaciones: any = [];
   contadorAltas: any = 0;
   arrayBajas: any = [];
@@ -100,16 +102,18 @@ export class MantenimientoBenefComponent implements OnInit {
     this.myform = this.fb.group({
       nombreBenef: [''],
       apPatBenef: [''],
+      apMatBenef: [''],
       fechaNacBenef: [''],
       nomCalleBenef: [''],
       parentescoBenef: [''],
       registroFC: [''],
-      porcentajeBenef: ['']
+      porcentajeBenef: [''],
+      numExterior: [''],
+      numInterior: ['']
     });
 
     this.myformCP = this.fb.group({
-      CodPBenef: ['', [Validators.required, Validators.minLength(5),
-        Validators.maxLength(5)]]
+      CodPBenef: ['']
     });
 
     this.myformCPMod = this.fb.group({
@@ -127,6 +131,12 @@ export class MantenimientoBenefComponent implements OnInit {
         this.consultaBeneficiarios();
       }
     ); 
+
+    this.myformCP.controls['CodPBenef'].valueChanges.subscribe(
+      data => {
+        console.log(data);
+        this.tamañoCP(data);
+      });
   }
 
   ngOnInit() {
@@ -170,7 +180,15 @@ export class MantenimientoBenefComponent implements OnInit {
       btnAceptar2.classList.add("color-botones_Preferente");
     }
 
-    $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
+    $( ".cdk-visually-hidden" ).css( "margin-top", "20%" );
+    $( ".cdk-overlay-container" ).css( "z-index", "1050 !important;" );  
+  }
+
+  tamañoCP(data) {
+    const this_aux = this;
+  if (data.length === 0) {
+    this_aux.codigoPvacio = 0;
+  }
   }
 
   altaBeneficiario() {
@@ -237,12 +255,14 @@ export class MantenimientoBenefComponent implements OnInit {
   reiniciarValidaciones() {
     const this_aux = this;
 
-    const nombreBen: FormControl = new FormControl('', Validators.required);
+    const nombreBen: FormControl = new FormControl('', [Validators.required, Validators.maxLength(20)]);
     this_aux.myform.setControl('nombreBenef', nombreBen);
     const nombreCalle: FormControl = new FormControl('');
     this_aux.myform.setControl('nomCalleBenef', nombreCalle);
     const controlApellido: FormControl = new FormControl('');
     this_aux.myform.setControl('apPatBenef', controlApellido);
+    const controlApellidoMat: FormControl = new FormControl('');
+    this_aux.myform.setControl('apMatBenef', controlApellidoMat);
     const controlFisicoFecha: FormControl = new FormControl('');
     this_aux.myform.setControl('fechaNacBenef', controlFisicoFecha);
     const controlFisicoPar: FormControl = new FormControl('');
@@ -251,6 +271,10 @@ export class MantenimientoBenefComponent implements OnInit {
     this_aux.myform.setControl('registroFC', controlrFc);
     const controlCP: FormControl = new FormControl('');
     this_aux.myformCP.setControl('CodPBenef', controlCP);
+    const controlnumExt: FormControl = new FormControl('');
+    this_aux.myform.setControl('numExterior', controlnumExt);
+    const controlnumInt: FormControl = new FormControl('');
+    this_aux.myform.setControl('numInterior', controlnumInt);
 
       
   }
@@ -258,6 +282,7 @@ export class MantenimientoBenefComponent implements OnInit {
     const this_aux = this;
     this_aux.myform.get('nombreBenef').setValue('', '');
     this_aux.myform.get('apPatBenef').setValue('', '');
+    this_aux.myform.get('apMatBenef').setValue('', '');
     this_aux.myform.get('fechaNacBenef').setValue('', '');
     this_aux.myform.get('nomCalleBenef').setValue('', '');
     this_aux.myform.get('parentescoBenef').setValue('', '');
@@ -265,7 +290,7 @@ export class MantenimientoBenefComponent implements OnInit {
     this_aux.myformCP.get('CodPBenef').setValue('', '');
     
     this_aux.RFisicaMoralSelecAlta.nativeElement.value = "";
-    this_aux.RApellidoMatAlta.nativeElement.value = "";
+    // this_aux.RApellidoMatAlta.nativeElement.value = "";
     this_aux.RPorcentajeAlta.nativeElement.value = "";
     this_aux.RDescripcionEstadoAlta.nativeElement.value = "";
     this_aux.RDescripcionDelegacionAlta.nativeElement.value = "";
@@ -318,34 +343,40 @@ export class MantenimientoBenefComponent implements OnInit {
       function(response) {
         console.log(response.responseJSON);
         this_aux.DatosJSON = response.responseJSON;
-         if (this_aux.DatosJSON.MensajeAUsuario === "Sin datos") {
-          this_aux.BEN = new Array();
+        if (this_aux.DatosJSON.Id === "1") {
+          if (this_aux.DatosJSON.MensajeAUsuario === "Sin datos") {
+            this_aux.BEN = new Array();
+          } else {
+            this_aux.BEN = this_aux.DatosJSON.ArrayBeneficiarios;
+            this_aux.BEN.forEach(function(value, key) {
+              this_aux.tamRegistrosBenef = ++this_aux.tamRegistrosBenef;
+              if (value.FechaNacimiento !== "00010101" && value.FechaNacimiento !== "19000101") {
+                this_aux.mostrarFechaFormat = value.FechaNacimiento;
+                anio = this_aux.mostrarFechaFormat.substring(0, 4);
+                mes = this_aux.mostrarFechaFormat.substring(4, 6);
+                dia = this_aux.mostrarFechaFormat.substring(6, 8);
+                this_aux.mostrarFechaFormat = anio + "-" + mes + "-" + dia;
+                value.NuevaFecha = this_aux.mostrarFechaFormat;
+              } else {
+                value.NuevaFecha = "";
+              }
+              this_aux.porcentajeGuardado = this_aux.porcentajeGuardado + Number(value.PorcentajeBenef);
+              this_aux.ultimoRegistroGuardado = Number(value.NumeroConsecutiv);
+            });
+            console.log("PORCENTAJE EN CONSULTA: " + this_aux.porcentajeGuardado);
+            const stringDatosBen = JSON.stringify(this_aux.DatosJSON);
+            this_aux.serviceMantenimiento.datosBeneficiarios = stringDatosBen;          
+          } 
         } else {
-          this_aux.BEN = this_aux.DatosJSON.ArrayBeneficiarios;
-          this_aux.BEN.forEach(function(value, key) {
-            this_aux.tamRegistrosBenef = ++this_aux.tamRegistrosBenef;
-            if (value.FechaNacimiento !== "00010101" && value.FechaNacimiento !== "19000101") {
-              this_aux.mostrarFechaFormat = value.FechaNacimiento;
-              anio = this_aux.mostrarFechaFormat.substring(0, 4);
-              mes = this_aux.mostrarFechaFormat.substring(4, 6);
-              dia = this_aux.mostrarFechaFormat.substring(6, 8);
-              this_aux.mostrarFechaFormat = anio + "-" + mes + "-" + dia;
-              value.NuevaFecha = this_aux.mostrarFechaFormat;
-            } else {
-              value.NuevaFecha = "";
-            }
-            this_aux.porcentajeGuardado = this_aux.porcentajeGuardado + Number(value.PorcentajeBenef);
-            this_aux.ultimoRegistroGuardado = Number(value.NumeroConsecutiv);
-          });
-          console.log("PORCENTAJE EN CONSULTA: " + this_aux.porcentajeGuardado);
-          const stringDatosBen = JSON.stringify(this_aux.DatosJSON);
-          this_aux.serviceMantenimiento.datosBeneficiarios = stringDatosBen;          
+          setTimeout(function() {
+            this_aux.showErrorSucces(this_aux.DatosJSON);
+          }, 500);
         }
+         
         $('#_modal_please_wait').modal('hide');
       },
       function(error) {
-        $('#errorModal').modal('show');
-        $('#_modal_please_wait').modal('hide');
+        this_aux.showErrorPromise(error);
         THIS.loading = false;
         this_aux.bloquearAlta = true;
         console.log("Error al consultar beneficiarios");
@@ -411,20 +442,14 @@ export class MantenimientoBenefComponent implements OnInit {
           }
           this_aux.verificaTransacciones();
           
-        }  else if (respuestaBaja.Id === "2") {
-          setTimeout(() => {
-            $('#_modal_please_wait').modal('hide');
-            this_aux.showErrorPromise(respuestaBaja);
-        }, 500);              
-         }  else {
+        } else {
           setTimeout(function() {
-            $('#_modal_please_wait').modal('hide');
             this_aux.showErrorSucces(respuestaBaja);
           }, 500);
          }  
       }, function(error) {
         THIS.loading = false;
-        this_aux.showErrorSuccesMoney(error);
+        this_aux.showErrorPromiseMoney(error);
         console.log("Error al dar de baja beneficiario");
       }
     );
@@ -446,7 +471,8 @@ export class MantenimientoBenefComponent implements OnInit {
         this_aux.BEN.push({
           'NombreBeneficia': myform1.nombreBenef,
           'ApPaternoBenef': myform1.apPatBenef,
-          'ApMaternoBenef': this_aux.RApellidoMatAlta.nativeElement.value,
+          'ApMaternoBenef': myform1.apMatBenef,
+          // 'ApMaternoBenef': this_aux.RApellidoMatAlta.nativeElement.value,
           'CodigoPostal': this_aux.codigoPostal,
           'DescripDelegacion': this_aux.descripcionDelegacion,
           'DescripcionColonia': this_aux.rColonias.nativeElement.value,
@@ -465,6 +491,7 @@ export class MantenimientoBenefComponent implements OnInit {
           'NuevaFecha':  myform1.fechaNacBenef,
           'NumeroConsecutiv': this_aux.ultimoRegistroGuardado 
           });
+          this_aux.personasFisica++;
       } else {
         this_aux.BEN.push({
           'RazonSocial': myform1.nombreBenef,
@@ -486,7 +513,9 @@ export class MantenimientoBenefComponent implements OnInit {
           'NuevaFecha':  myform1.fechaNacBenef,
           'NumeroConsecutiv': this_aux.ultimoRegistroGuardado
           });
+          this_aux.personasMoral++;
       }
+      this_aux.contadorAltas++;
      this_aux.tamRegistrosBenef ++;
       console.log('ULTIMOS REGISTROS' + this_aux.ultimoRegistroGuardado);
       this.reiniciarInput();
@@ -564,10 +593,15 @@ export class MantenimientoBenefComponent implements OnInit {
           this_aux.verificaTransacciones();
           
         } else {
-          $('#ModalErrorOperacion').modal('show');
+          setTimeout(function() {
+            this_aux.showErrorSucces(respuestaAlta);
+          }, 500);
         }
       },
       function(error) {
+        setTimeout(function() {
+          this_aux.showErrorPromiseMoney(error);
+        }, 500);
         THIS.loading = false;
         console.log("Error al dar de alta beneficiario moral");
       }
@@ -621,11 +655,16 @@ export class MantenimientoBenefComponent implements OnInit {
           }
           this_aux.verificaTransacciones();          
         } else {
-          $('#ModalErrorOperacion').modal('show');
+          setTimeout(function() {
+            this_aux.showErrorSucces(respuestaAltaF);
+          }, 500);
         }
       },
       function(error) {
         THIS.loading = false;
+        setTimeout(function() {
+          this_aux.showErrorPromiseMoney(error);
+        }, 500);
         console.log("Error al dar de alta beneficiario fisico");
       }
     );
@@ -643,11 +682,16 @@ export class MantenimientoBenefComponent implements OnInit {
         ) );
       this_aux.myform.setControl('registroFC', controlrFcMF);
 
-      const controlFisicoAp: FormControl = new FormControl(this_aux.RApellidoPatAlta.nativeElement.value, Validators.required);
+      // tslint:disable-next-line:max-line-length
+      const controlFisicoAp: FormControl = new FormControl(this_aux.RApellidoPatAlta.nativeElement.value, [Validators.required, Validators.maxLength(20)]);
+      // tslint:disable-next-line:max-line-length
+      const controlFisicoAm: FormControl = new FormControl(this_aux.RApellidoMatAlta.nativeElement.value, [Validators.maxLength(20)]);
       const controlFisicoFecha: FormControl = new FormControl(this_aux.RFechaNacimientoAlta.nativeElement.value,  [Validators.required, 
         Validators.pattern(/^\d{4}\-\d{2}\-\d{2}$/)]);
-      const controlFisicoPar: FormControl = new FormControl(this_aux.RParentescoAlta.nativeElement.value, Validators.required);
+      // tslint:disable-next-line:max-line-length
+      const controlFisicoPar: FormControl = new FormControl(this_aux.RParentescoAlta.nativeElement.value, [Validators.required, Validators.maxLength(20)]);
       this_aux.myform.setControl('apPatBenef', controlFisicoAp);
+      this_aux.myform.setControl('apMatBenef', controlFisicoAm);
       this_aux.myform.setControl('fechaNacBenef', controlFisicoFecha);
       this_aux.myform.setControl('parentescoBenef', controlFisicoPar);
     } else {
@@ -657,17 +701,26 @@ export class MantenimientoBenefComponent implements OnInit {
       )]);
       this_aux.myform.setControl('registroFC', controlrFcMM);
 
+      const controlApP: FormControl = new FormControl('');
       const controlApM: FormControl = new FormControl('');
       const controlFechaM: FormControl = new FormControl('', Validators.pattern(/^\d{4}\-\d{2}\-\d{2}$/));
-      const controlParM: FormControl = new FormControl(this_aux.RParentescoAlta.nativeElement.value);      
-      this_aux.myform.setControl('apPatBenef', controlApM);
+      const controlParM: FormControl = new FormControl(this_aux.RParentescoAlta.nativeElement.value, Validators.maxLength(20));      
+      this_aux.myform.setControl('apPatBenef', controlApP);
+      this_aux.myform.setControl('apMatBenef', controlApM);
       this_aux.myform.setControl('fechaNacBenef', controlFechaM);
       this_aux.myform.setControl('parentescoBenef', controlParM);   
       this_aux.RApellidoMatAlta.nativeElement.value = "";
     }
      
-    const controlNomCalle: FormControl = new FormControl('', Validators.required);
+    const controlNomCalle: FormControl = new FormControl('', [Validators.required, Validators.maxLength(24)]);
     this_aux.myform.setControl('nomCalleBenef', controlNomCalle);
+    const controlnumExt: FormControl = new FormControl('', [Validators.maxLength(7), Validators.pattern(/^([0-9]{1,})$/)]);
+    this_aux.myform.setControl('numExterior', controlnumExt);
+    const controlnumInt: FormControl = new FormControl('', [Validators.maxLength(4), Validators.pattern(/^([0-9]{1,})$/)]);
+    this_aux.myform.setControl('numInterior', controlnumInt);
+    const controlCPA: FormControl = new FormControl('', [Validators.required, Validators.minLength(5),
+      Validators.maxLength(5), Validators.pattern(/^([0-9]{1,})$/)]);
+      this_aux.myformCP.setControl('CodPBenef', controlCPA);  
   }
 
   fMModificacion() {
@@ -675,24 +728,26 @@ export class MantenimientoBenefComponent implements OnInit {
     console.log("Persona: " + this_aux.fisicaMoralSeleccionada);
     if (this_aux.fisicaMoralSeleccionada === "PERSONA FÍSICA") {
       console.log("Se elimina rfc");
-      const nombreBen: FormControl = new FormControl(this_aux.nombreBeneficiario, Validators.required);
+      const nombreBen: FormControl = new FormControl(this_aux.nombreBeneficiario, [Validators.required, Validators.maxLength(20)]);
       this_aux.myform.setControl('nombreBenef', nombreBen);
       const controlrFcMF: FormControl = new FormControl(this_aux.registroFederal,        
         Validators.pattern(/^([A-ZÑ&, a-zñ&]{4})(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01]))([A-Z\d, a-z\d]{2})([A\d])$/
         ) );
       this_aux.myform.setControl('registroFC', controlrFcMF);
 
-      const controlFisicoAp: FormControl = new FormControl(this_aux.apellidoPat, Validators.required);
+      const controlFisicoAp: FormControl = new FormControl(this_aux.apellidoPat, [Validators.required, Validators.maxLength(20)]);
+      const controlFisicoAm: FormControl = new FormControl(this_aux.apellidoPat, [Validators.maxLength(20)]);
       const controlFisicoFecha: FormControl = new FormControl(this_aux.fechaNacimiento, [Validators.required,
         Validators.pattern(/^\d{4}\-\d{2}\-\d{2}$/)]);
       const controlFisicoPar: FormControl = new FormControl(this_aux.parentesco, Validators.required);
       this_aux.myform.setControl('apPatBenef', controlFisicoAp);
+      this_aux.myform.setControl('apMatBenef', controlFisicoAm);
       this_aux.myform.setControl('fechaNacBenef', controlFisicoFecha);
       this_aux.myform.setControl('parentescoBenef', controlFisicoPar);
       this_aux.RApellidoMat.nativeElement.value = this_aux.apellidoMat;
     } else {
       console.log("Se elimina apellido, fechaN y parentesco");
-      const nombreBen: FormControl = new FormControl(this_aux.razonSocial, Validators.required);
+      const nombreBen: FormControl = new FormControl(this_aux.razonSocial, [Validators.required, Validators.maxLength(20)]);
       this_aux.myform.setControl('nombreBenef', nombreBen);
       const controlrFcMM: FormControl = new FormControl(this_aux.registroFederal, [Validators.required, Validators.pattern(
         /^([A-ZÑ&, a-zñ&]{3})(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01]))([A-Z\d, a-z\d]{2})([A\d])$/
@@ -705,11 +760,15 @@ export class MantenimientoBenefComponent implements OnInit {
       this_aux.myform.setControl('fechaNacBenef', controlFisicoFecha);
     }
 
-    const controlNomCalle: FormControl = new FormControl(this_aux.nombreCalle, Validators.required);
+    const controlNomCalle: FormControl = new FormControl(this_aux.nombreCalle, [Validators.required, Validators.maxLength(24)]);
     this_aux.myform.setControl('nomCalleBenef', controlNomCalle);
     const codigoP: FormControl = new FormControl(this_aux.codigoPostal, [Validators.required, Validators.minLength(5),
-      Validators.maxLength(5)]);
+      Validators.maxLength(5), Validators.pattern(/^([0-9]{1,})$/)]);
     this_aux.myformCPMod.setControl('CodPBenefMod', codigoP);
+    const controlnumExt: FormControl = new FormControl('', [Validators.maxLength(7), Validators.pattern(/^([0-9]{1,})$/)]);
+    this_aux.myform.setControl('numExterior', controlnumExt);
+    const controlnumInt: FormControl = new FormControl('', [Validators.maxLength(4), Validators.pattern(/^([0-9]{1,})$/)]);
+    this_aux.myform.setControl('numInterior', controlnumInt);
     this_aux.RDescripcionEstado.nativeElement.value = this_aux.descripcionEstado;
     this_aux.RDescripcionDelegacion.nativeElement.value = this_aux.descripcionDelegacion;
     this_aux.RColoniasM.nativeElement.value = this_aux.descripcionColonia;
@@ -747,46 +806,50 @@ export class MantenimientoBenefComponent implements OnInit {
     resourceRequest.sendFormParameters(formParameters).then(
       function(response) {
         console.log("CODIGOS POSTALES: " + response.responseJSON);
-        this_aux.DatosJSONCP = response.responseJSON;
-        this_aux.CP = this_aux.DatosJSONCP.ArrayCP;
-        let delegacion: string;
-        let estado: string;
-        let claveEdo: string;
-        let claveDel: string;
-
-        if (this_aux.CP !== undefined) {
-          if (this_aux.CP !== "") {
-            this_aux.codigoPvacio = 0;
-            this_aux.CP.forEach(function(value, key) {
-              delegacion = value.Delegacion;
-              estado = value.Estado;
-              claveEdo = value.ClaveEstado;
-              claveDel = value.Delegacionmpio;
-            });
-            this_aux.descripcionDelegacion = delegacion;
-            this_aux.descripcionEstado = estado;
-            this_aux.codigoPostal = codigoP;
-            this_aux.codigoEstado = claveEdo;
-            this_aux.codigoDelegacion = claveDel;
-          } else {
-            this_aux.CP = null;
-            this_aux.codigoPvacio = 1;
-            this_aux.descripcionDelegacion = "";
-            this_aux.descripcionEstado = "";
-            this_aux.codigoPostal = "";
-            this_aux.codigoEstado = "";
-            this_aux.codigoDelegacion = "";
-            this.descripcionColonia = "";
+        this_aux.DatosJSONCP = response.responseJSON;        
+        if (this_aux.DatosJSONCP.Id === "1") { 
+          this_aux.CP = this_aux.DatosJSONCP.ArrayCP;
+          let delegacion: string;
+          let estado: string;
+          let claveEdo: string;
+          let claveDel: string;
+          if (this_aux.CP !== undefined) {
+            if (this_aux.CP !== "") {
+              this_aux.codigoPvacio = 0;
+              this_aux.CP.forEach(function(value, key) {
+                delegacion = value.Delegacion;
+                estado = value.Estado;
+                claveEdo = value.ClaveEstado;
+                claveDel = value.Delegacionmpio;
+              });
+              this_aux.descripcionDelegacion = delegacion;
+              this_aux.descripcionEstado = estado;
+              this_aux.codigoPostal = codigoP;
+              this_aux.codigoEstado = claveEdo;
+              this_aux.codigoDelegacion = claveDel;
+            } else {
+              this_aux.CP = null;
+              this_aux.codigoPvacio = 1;
+              this_aux.descripcionDelegacion = "";
+              this_aux.descripcionEstado = "";
+              this_aux.codigoPostal = "";
+              this_aux.codigoEstado = "";
+              this_aux.codigoDelegacion = "";
+              this.descripcionColonia = "";
+            }            
           }
-          
         } else {
-          $('#errorModal').modal('show');
+          setTimeout(function() {
+            this_aux.showErrorSucces(this_aux.DatosJSONCP);
+          }, 500);
         }
         $('#_modal_please_wait').modal('hide');
       },
       function(error) {
         THIS.loading = false;
-        $('#_modal_please_wait').modal('hide');
+        setTimeout(function() {
+          this_aux.showErrorPromise(error);
+        }, 500);
         console.log("Error al consultar CP");
       }
     );
@@ -845,7 +908,8 @@ export class MantenimientoBenefComponent implements OnInit {
         if (value.FisicaMoral === "F") {
           value.NombreBeneficia =  myform.nombreBenef;
           value.ApPaternoBenef =  myform.apPatBenef;
-          value.ApMaternoBenef = this_aux.RApellidoMat.nativeElement.value;
+          value.ApMaternoBenef = myform.apMatBenef;
+         // value.ApMaternoBenef = this_aux.RApellidoMat.nativeElement.value;
         } else {
           value.RazonSocial =  myform.nombreBenef;
         }
@@ -981,13 +1045,18 @@ export class MantenimientoBenefComponent implements OnInit {
           }
           this_aux.verificaTransacciones();
           
-        } else {
-          $('#ModalErrorOperacion').modal('show');
+        }  else {
+          setTimeout(function() {
+            this_aux.showErrorSucces(respuestaModif);
+          }, 500);
         }
         
       },
       function(error) {
         THIS.loading = false;
+        setTimeout(function() {
+          this_aux.showErrorPromise(error);
+        }, 500);
         console.log("Error al modificar beneficiarios");
       }
     );
@@ -995,7 +1064,7 @@ export class MantenimientoBenefComponent implements OnInit {
     console.log("Salió de Response Modificar Beneficiarios");
   }
 
-  finalizaProcesoGuardarDatos() {
+  checkPorcentaje() {
     const this_aux = this;
     let totalPorcentaje: any = 0;
     let porcentajeVacio: any = true;
@@ -1010,35 +1079,8 @@ export class MantenimientoBenefComponent implements OnInit {
       this_aux.porcentajeGuardado = this_aux.porcentajeGuardado + conversion;
     });
     console.log("PORCENTAJE GUARDADO: " + this_aux.porcentajeGuardado);
-    
     if (this_aux.sumaPorcentajes(this_aux.porcentajeGuardado) && porcentajeVacio) {
-      this._validaNipService.validaNipTrans();
-      document.getElementById('capturaInicio').style.display = 'none';
-      document.getElementById('caputuraSesion').style.display = 'block';
-      $('#ModalTDDLogin').modal('show');
-      let res;
-
-      this._validaNipService.validarDatosrespuesta().then(
-        mensaje => {
-  
-          res = this._validaNipService.respuestaNip.res;
-          console.log(res);
-  
-          if (res === true) {  
-            $('#ModalTDDLogin').modal('hide');            
-            $('#_modal_please_wait').modal('show');
-            this_aux.verificaServicios();  
-            this._validaNipService.respuestaNip.res = "";
-          } else {  
-            console.error("Mostrar modal las tarjetas no son iguales");
-            document.getElementById('mnsError').innerHTML =   "El NIP introducido no corresponde.";
-            $('#_modal_please_wait').modal('hide');
-            $('#errorModal').modal('show');
-            $('#ModalTDDLogin').modal('hide');
-            this._validaNipService.respuestaNip.res = "";  
-          }
-        }
-      ); 
+      $('#modalAceptarGuardar').modal('show');
     } else {
       this_aux.abrirModalPorcentaje();
     }  
@@ -1078,7 +1120,13 @@ export class MantenimientoBenefComponent implements OnInit {
         } else {              
             if (this_aux.A ) { 
             this_aux.contadorAltas--;
-            this_aux.altaBeneficiariosSoap();
+            if (this_aux.personasFisica !== 0) {
+              this_aux.personasFisica--;
+              this_aux.altaBeneficiariosSoap();
+            } else if (this_aux.personasMoral !== 0) {
+              this_aux.personasMoral--;
+              this_aux.altaBeneficiariosSoap();
+            }
         }
     }
 }
@@ -1103,30 +1151,62 @@ export class MantenimientoBenefComponent implements OnInit {
         this_aux.realizaAccion();
     }
   }
-  tecladoMoverAbajo () {
-    $( ".cdk-visually-hidden" ).css( "margin-top", "18%" );
+  
+  finalizaProcesoGuardarDatos() {
+    const this_aux = this;
+    this._validaNipService.validaNipTrans();
+    document.getElementById('capturaInicio').style.display = 'none';
+    document.getElementById('caputuraSesion').style.display = 'block';
+    $('#ModalTDDLogin').modal('show');
+    let res;
+
+    this._validaNipService.validarDatosrespuesta().then(
+      mensaje => {
+
+        res = this._validaNipService.respuestaNip.res;
+        console.log(res);
+
+        if (res === true) {  
+          $('#ModalTDDLogin').modal('hide');            
+          $('#_modal_please_wait').modal('show');
+          this_aux.verificaServicios();  
+          this._validaNipService.respuestaNip.res = "";
+        } else {  
+          console.error("Mostrar modal las tarjetas no son iguales");
+          document.getElementById('mnsError').innerHTML =   "El NIP introducido no corresponde.";
+          $('#_modal_please_wait').modal('hide');
+          $('#errorModal').modal('show');
+          $('#ModalTDDLogin').modal('hide');
+          this._validaNipService.respuestaNip.res = "";  
+        }
+      }
+    ); 
   }
-  tecladoMoverArriba () {
-    $( ".cdk-visually-hidden" ).css( "margin-top", "-19%" );
-  }
+
   showErrorPromise(error) {
     console.log(error);
     // tslint:disable-next-line:max-line-length
-    document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
+    document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar mas tarde";
     $('#_modal_please_wait').modal('hide');
     $('#errorModal').modal('show');
   }
-
-  showErrorSuccesMoney(json) {
+  
+  showErrorPromiseMoney(json) {
     console.log(json.Id + json.MensajeAUsuario);
-    document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tu saldo";
+    document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tus datos.";
     $('#_modal_please_wait').modal('hide');
     $('#ModalErrorTransaccion').modal('show');
   }
-
+  
   showErrorSucces(json) {
     console.log(json.Id + json.MensajeAUsuario);
-    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
-    $('#errorModal').modal('show');
-}
+    if (json.Id === "2") {
+      document.getElementById("mnsError").innerHTML =
+        "El servicio no esta disponible, favor de intentar mas tarde";
+    } else {
+      document.getElementById("mnsError").innerHTML = json.MensajeAUsuario;
+    }
+    $('#_modal_please_wait').modal('hide');
+    $("#errorModal").modal("show");
+  }
 }

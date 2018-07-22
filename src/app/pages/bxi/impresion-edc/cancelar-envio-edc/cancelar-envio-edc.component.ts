@@ -78,7 +78,10 @@ export class CancelarEnvioEdcComponent implements OnInit {
           if (detalleMant.Id === "1") {
           this_aux.router.navigate(['/cancelarEnvioEDC_DomicilioFinish']);
           } else {
-            $('#errorModal').modal('show');
+            setTimeout(function() {
+              $("#_modal_please_wait").modal("hide");
+              this_aux.showErrorSucces(detalleMant);
+            }, 500);
           }
           $('#_modal_please_wait').modal('hide');
        }, 3000); 
@@ -86,8 +89,35 @@ export class CancelarEnvioEdcComponent implements OnInit {
         function(error) {
           $('#_modal_please_wait').modal('hide');
           console.error("Error");
-          $('#errorModal').modal('show');
+          this_aux.showErrorPromise(error);
         });
+  }
+
+  showErrorPromise(error) {
+    console.log(error);
+    // tslint:disable-next-line:max-line-length
+    document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar mas tarde";
+    $('#_modal_please_wait').modal('hide');
+    $('#errorModal').modal('show');
+  }
+
+  showErrorPromiseMoney(json) {
+    console.log(json.Id + json.MensajeAUsuario);
+    document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tus datos.";
+    $('#_modal_please_wait').modal('hide');
+    $('#ModalErrorTransaccion').modal('show');
+  }
+
+  showErrorSucces(json) {
+    console.log(json.Id + json.MensajeAUsuario);
+    if (json.Id === "2") {
+      document.getElementById("mnsError").innerHTML =
+        "El servicio no esta disponible, favor de intentar mas tarde";
+    } else {
+      document.getElementById("mnsError").innerHTML = json.MensajeAUsuario;
+    }
+    $('#_modal_please_wait').modal('hide');
+    $("#errorModal").modal("show");
   }
 
 }
