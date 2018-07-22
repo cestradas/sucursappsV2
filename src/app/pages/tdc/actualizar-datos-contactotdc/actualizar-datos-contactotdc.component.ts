@@ -25,8 +25,8 @@ export class ActualizarDatosContactotdcComponent implements OnInit {
 
   constructor(private router: Router, private fb: FormBuilder, private _serviceSesion: SesionTDDService,private _validaNipService: ValidaNipTransaccion) {
     this.myForm = this.fb.group({
-      fcCorreo: [],
-      fcCelular: []
+      fcCorreo: ['', [Validators.required, Validators.pattern(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)]],
+      fcCelular: ['', [Validators.required, ]]
     });
    }
 
@@ -59,8 +59,8 @@ export class ActualizarDatosContactotdcComponent implements OnInit {
         const jsonRespuesta = respPago.responseJSON;
         if (jsonRespuesta.Id === '1') {
          console.log(respPago.responseText);
-         this_aux._serviceSesion.datosBreadCroms.CelCliente = jsonRespuesta.Email;
-         this_aux._serviceSesion.datosBreadCroms.EmailCliente = jsonRespuesta.Telefono;
+         this_aux._serviceSesion.datosBreadCroms.CelCliente = jsonRespuesta.Telefono;
+         this_aux._serviceSesion.datosBreadCroms.EmailCliente = jsonRespuesta.Email;
          /* const controlCorreo: FormControl = new FormControl(this_aux._serviceSesion.datosBreadCroms.CelCliente);
          this_aux.myForm.setControl('fcCorreo', controlCorreo );
          const controlCelular: FormControl = new FormControl( this_aux._serviceSesion.datosBreadCroms.EmailCliente);
@@ -87,9 +87,10 @@ export class ActualizarDatosContactotdcComponent implements OnInit {
     // this_aux.consultarDatos();
     setTimeout(function() { 
       $('#_modal_please_wait').modal('show');
-      const controlCorreo: FormControl = new FormControl(this_aux._serviceSesion.datosBreadCroms.CelCliente);
+      const controlCorreo: FormControl = new FormControl(this_aux._serviceSesion.datosBreadCroms.EmailCliente);
       this_aux.myForm.setControl('fcCorreo', controlCorreo );
-      const controlCelular: FormControl = new FormControl( this_aux._serviceSesion.datosBreadCroms.EmailCliente);
+      
+      const controlCelular: FormControl = new FormControl( this_aux._serviceSesion.datosBreadCroms.CelCliente);
       this_aux.myForm.setControl('fcCelular', controlCelular );
       setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
     }, 500);
@@ -129,12 +130,14 @@ export class ActualizarDatosContactotdcComponent implements OnInit {
   }
 
   showErrorSucces(json) {
-    setTimeout(function() {
-      console.log(json.Id + json.MensajeAUsuario);
-      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
-      $('#_modal_please_wait').modal('hide');
-      $('#errorModal').modal('show');
-    }, 500);
+    
+  console.log(json.Id + json.MensajeAUsuario);
+  if (json.Id === '2') {
+    document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
+  } else {
+    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+  }
+  $('#errorModal').modal('show');
   }
 
 
@@ -204,6 +207,7 @@ export class ActualizarDatosContactotdcComponent implements OnInit {
         } else {
           $('#actualizarCorreo').modal('show');
         }
+        
   
         
   }
@@ -240,6 +244,16 @@ export class ActualizarDatosContactotdcComponent implements OnInit {
       }
     );
     $('#ModalTDDLogin').modal('hide');*/
+  }
+  focusTeclado(element) {
+    console.log("Entro focus");
+    console.log(element);
+    if (element.readOnly === true) {
+      $( ".cdk-visually-hidden" ).css( "margin-top", "100%" );
+    } else {
+      $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
+    }
+
   }
 
 }

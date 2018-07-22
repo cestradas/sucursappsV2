@@ -119,7 +119,7 @@ resourceRequest.sendFormParameters(formParameters).then(
     function(error) {
       $('#_modal_please_wait').modal('hide');
       console.error("Error");
-      $('#errorModal').modal('show');
+      $('#errorModal').modal('show').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde PR';
     });
 
   }

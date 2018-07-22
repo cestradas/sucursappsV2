@@ -121,7 +121,11 @@ AlertasActivas = false;
 
 
               
-            } else {
+            }
+            if(detalle .Id === '0') {
+                this_aux.conAlertas();
+            }
+            else {
               this_aux.sinAlertas();
               this_aux.showErrorSucces(detalle);      
             }
@@ -169,10 +173,4 @@ AlertasActivas = false;
     $('#errorModal').modal('show');
   
   }
-
-  
-
-   
-
 }
-

@@ -78,7 +78,7 @@ export class PagoServiciosTdcComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    $( ".cdk-visually-hidden" ).css( "margin-top", "30%" );
     // ESTILOS Preferente
     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
     let btnContinuar = document.getElementById("continuar");
@@ -173,7 +173,7 @@ getDetalleEmpresa(idFacturador) {
          const body = $('body');
          if (detalleEmpresa.Id === '1') {
 
-           body.off('click');
+           // body.off('click');
            this_aux.service.detalleEmpresa_PS = response.responseText;
            this_aux.router.navigate(['/pagoServicioDetailTdc']);
 

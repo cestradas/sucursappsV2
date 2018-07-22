@@ -11,8 +11,6 @@ import { ConsultaCatalogosTdcService } from '../../../../services/consultaCatalo
 import { Http } from '@angular/http';
 import { ValidaNipTransaccionTdcService } from '../../../../services/validaNipTrans/valida-nip-transaccion-tdc.service';
 
-
-
 declare var $: any;
 
 @Component({
@@ -78,7 +76,7 @@ export class PagoServicioDetailTdcComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
     // ESTILOS Preferente
     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
     let btnContinuar = document.getElementById("continuar");
@@ -116,18 +114,13 @@ export class PagoServicioDetailTdcComponent implements OnInit {
         this_aux.myForm.removeControl('fcDigitoVerificador');
     }
     $('#_modal_please_wait').modal('hide');
-
-    $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
+    
+   
   }
 
  
 
-  espacioTeclado() {
-    // ESTILO TECLADO (QUITAR ESTILO AL SALIR DE PAGINA PARA EVITAR QUE BAJE MAS EN OTRAS PANTALLAS)
-console.log("aquiiiiiiiiiiiii");
-    $( ".cdk-overlay-container" ).css( "margin-top", "20%" );
-    $( ".cdk-visually-hidden" ).css( "margin-bottom", "0%" );
-  }
+
 
   showDetallePago( myForm) {
     const this_aux = this;
@@ -220,7 +213,7 @@ pagoServicio() {
 console.log("si entre");
 const this_aux = this;
 const operaciones: ConsultaCatalogosTdcService = new ConsultaCatalogosTdcService();
-console.log(this_aux.service.idFacturador, this_aux.importeAux, this_aux.referenciaPago,this_aux.cuentaClienteTdd, this_aux.fechaVencimiento);
+console.log(this_aux.service.idFacturador, this_aux.importeAux, this_aux.referenciaPago,this_aux.NumeroTarjeta, this_aux.fechaVencimiento);
 operaciones.pagaServicio(this_aux.service.idFacturador, this_aux.importeAux, this_aux.referenciaPago,this_aux.fechaVencimiento).then(
     function(respPago) {
 
@@ -351,7 +344,11 @@ showErrorPromiseMoney(error) {
 
 showErrorSucces(json) {
   console.log(json.Id + json.MensajeAUsuario);
-  document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+  if (json.Id === '2') {
+    document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
+  } else {
+    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+  }
   $('#errorModal').modal('show');
 }
 
