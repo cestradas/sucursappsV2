@@ -157,8 +157,15 @@ getIdEmpresa(empresaSeleccionada: string) {
           valueFacturador = empresa.IdFacturador;
     }
   });
-  this_aux.service.idFacturador = valueFacturador;
-  this_aux.getDetalleEmpresa(valueFacturador);
+  if (valueFacturador === undefined) {
+
+    document.getElementById('mnsError').innerHTML = "Servicio invalidado, verifica tu elección.";
+    $('#errorModal').modal('show');
+
+   } else {
+    this_aux.service.idFacturador = valueFacturador;
+    this_aux.getDetalleEmpresa(valueFacturador);
+   }
 }
 
 getDetalleEmpresa(idFacturador) {

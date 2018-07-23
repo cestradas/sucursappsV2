@@ -65,9 +65,10 @@ export class PagoDeServicioDetallesComponent implements OnInit {
 
     this.myForm = this.fb.group({
       fcTelefono: ['', [Validators.required, Validators.pattern(/^(([0-9]{10}))$/)]],
-       fcReferencia: ['', [Validators.required, Validators.pattern(/^(([0-9]{1,30}))$/)]],
+       fcReferencia: ['', [Validators.required, Validators.pattern(/^([a0-zA9-Z]{1,30})$/)]],
        fcDigitoVerificador: ['', [Validators.required, Validators.pattern(/^(([0-9]{1}))$/)]],
-      fcFechaVencimiento: ['', [Validators.required , Validators.pattern(/^\d{2,4}\-\d{1,2}\-\d{1,2}$/)  ]],
+      // tslint:disable-next-line:max-line-length
+      fcFechaVencimiento: ['', [Validators.required , Validators.pattern(/^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]],
      fcImporte: ['', [Validators.required, Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)]],
 
     });

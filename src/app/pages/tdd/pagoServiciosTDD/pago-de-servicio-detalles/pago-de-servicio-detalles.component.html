@@ -61,7 +61,7 @@
                                                 <label> Referencia:</label>
                                             </div>
                                             <div class="col-lg-10">
-                                                <input type="text" id="idReferencia" (click)="espacioTeclado();" class="form-control input-lg" formControlName="fcReferencia" #rReferencia [matKeyboard]="'num'" />
+                                                <input type="text" id="idReferencia" (click)="espacioTeclado();" class="form-control input-lg" formControlName="fcReferencia" #rReferencia [matKeyboard]="" />
                                                 <div *ngIf="myForm.get('fcReferencia').errors && myForm.get('fcReferencia').touched" class="alert alert-danger">
                                                     <p *ngIf="myForm.get('fcReferencia').hasError('required')">
                                                         Dato obligatorio, favor de capturar.
