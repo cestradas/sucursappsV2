@@ -305,14 +305,14 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
       if (this_aux.rcbFiltro.nativeElement.value.toString() === "20") {
         this_aux.tipoTarjeta = '2230';
-        this_aux.service.nameOperacion = "Pago tarjeta de credito American Express";
+        this_aux.service.nameOperacion = "Pago tarjeta de crédito American Express";
         if ( auxcuenta.TipoCuenta.toString() === "2" && auxcuenta.ClaveBanco.toString() === "40103") {
           this_aux.crearListaBeneficiarios(auxcuenta, false);
         }
       }
       if (this_aux.rcbFiltro.nativeElement.value.toString() === "2") {
         this_aux.tipoTarjeta = '165';
-        this_aux.service.nameOperacion = "Pago tarjeta de credito Otros Bancos";
+        this_aux.service.nameOperacion = "Pago tarjeta de crédito Otros Bancos";
         if ( auxcuenta.TipoCuenta.toString() === "2" && auxcuenta.ClaveBanco.toString() !== "40103") {
           this_aux.crearListaBeneficiarios(auxcuenta, false);
         }
@@ -320,9 +320,9 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       if (this_aux.rcbFiltro.nativeElement.value.toString() === "5" || this_aux.rcbFiltro.nativeElement.value.toString() === "9"  ) {
         this_aux.tipoTarjeta = '165';
         if (this_aux.rcbFiltro.nativeElement.value.toString() === "5") {
-          this_aux.service.nameOperacion = "Pago tarjeta de credito Propias Banorte";
+          this_aux.service.nameOperacion = "Pago tarjeta de crédito Propias Banorte";
         } else {
-          this_aux.service.nameOperacion = "Pago tarjeta de credito Terceros Banorte";
+          this_aux.service.nameOperacion = "Pago tarjeta de crédito Terceros Banorte";
         }
         if (auxcuenta.TipoCuenta.toString() === this_aux.rcbFiltro.nativeElement.value.toString()) {
             this_aux.crearListaBeneficiarios(auxcuenta, true);
