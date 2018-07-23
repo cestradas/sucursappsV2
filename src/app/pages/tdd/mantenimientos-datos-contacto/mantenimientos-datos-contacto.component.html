@@ -39,11 +39,12 @@
                             Dato obligatorio, favor de capturar.
                         </p>
 
-                        <p *ngIf="myForm.get('fcCelular').hasError('maxlength') || myForm.get('fcCelular').hasError('minlength')" class="alert alert-danger">
-                            Los datos proporcionados son incorrectos, favor de verificar.
+                        <p *ngIf="(!myForm.get('fcCelular').hasError('pattern') && !myForm.get('fcCelular').hasError('maxlength') && myForm.get('fcCelular').hasError('minlength')) || (!myForm.get('fcCelular').hasError('pattern') && myForm.get('fcCelular').hasError('maxlength') && !myForm.get('fcCelular').hasError('minlength'))"
+                            class="alert alert-danger">
+                            El n&uacute;mero celular debe ser de 10 d&iacute;gitos.
                         </p>
 
-                        <p *ngIf="myForm.get('fcCelular').hasError('pattern') && !myForm.get('fcCelular').hasError('maxlength')  && !myForm.get('fcCelular').hasError('minlength') " class="alert alert-danger">
+                        <p *ngIf="myForm.get('fcCelular').hasError('pattern')" class="alert alert-danger">
                             Los datos proporcionados son incorrectos, favor de verificar.
                         </p>
 
