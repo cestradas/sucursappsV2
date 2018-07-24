@@ -1179,7 +1179,7 @@ validaDatosBen() {
               if (infoUsuarioJSON.Id === 'SEG0001') {
                   console.log('Nivel de autenticacion alcanzado');
 
-                  operacionesbxi.confirmaTransferTEF(this_aux.service.AliasCuentaSPEISel, ctaO, sic, this_aux.service.userRfc, bancoRecep,
+                  operacionesbxi.confirmaTransferTEF(this_aux.nombreCuenta, ctaO, sic, this_aux.service.userRfc, bancoRecep,
                                                      this_aux.service.claveAliasCuenta ,
                                                     // this_aux.service.claveNumBenefi,
                                                     ctaDest, this_aux.nombreBeneModal,
