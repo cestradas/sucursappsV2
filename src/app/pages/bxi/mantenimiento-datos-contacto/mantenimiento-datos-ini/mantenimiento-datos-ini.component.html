@@ -39,21 +39,36 @@
               formControlName="fcCelular" [matKeyboard]="'num'" placeholder="Número de celular" readonly maxlength="10"  (focus)="focusTeclado(numeroCelular)"/>
               <div *ngIf="IsControlCelular">
                 <div *ngIf="myForm.get('fcCelular').errors  && myForm.get('fcCelular').touched" class="alert alert-danger">
-                    <p *ngIf="myForm.get('fcCelular').hasError('required')"  >
+                    <!--<p *ngIf="myForm.get('fcCelular').hasError('required')"  >
                             Dato obligatorio, favor de capturar.
                     </p>
-                    <!--<div *ngIf="showCelularError">-->
+                    <div *ngIf="showCelularError">
                         <p *ngIf="myForm.get('fcCelular').hasError('minlength') " >
-                            Los datos proporcionados son incorrectos, favor de verificar.
+                            El n&uacute;mero celular debe ser de 10 d&iacute;gitos.
                         </p>
                         <p *ngIf="myForm.get('fcCelular').hasError('maxlength')  " >
-                            Los datos proporcionados son incorrectos, favor de verificar.
+                            El n&uacute;mero celular debe ser de 10 d&iacute;gitos.
                         </p>
                         <p *ngIf="myForm.get('fcCelular').hasError('pattern') && !myForm.get('fcCelular').hasError('maxlength')  && !myForm.get('fcCelular').hasError('minlength') " >
                                 Los datos proporcionados son incorrectos, favor de verificar.
                         </p>
 
-                    <!--</div>-->
+                    </div>-->
+                    
+                        <p *ngIf="myForm.get('fcCelular').hasError('required')" >
+                            Dato obligatorio, favor de capturar.
+                        </p>
+
+                        <p *ngIf="(!myForm.get('fcCelular').hasError('pattern') && !myForm.get('fcCelular').hasError('maxlength') && myForm.get('fcCelular').hasError('minlength')) || (!myForm.get('fcCelular').hasError('pattern') && myForm.get('fcCelular').hasError('maxlength') && !myForm.get('fcCelular').hasError('minlength'))"
+                           >
+                            El n&uacute;mero celular debe ser de 10 d&iacute;gitos.
+                        </p>
+
+                        <p *ngIf="myForm.get('fcCelular').hasError('pattern')" >
+                            Los datos proporcionados son incorrectos, favor de verificar.
+                        </p>
+
+                    
                 </div>
               </div>
          </div>
