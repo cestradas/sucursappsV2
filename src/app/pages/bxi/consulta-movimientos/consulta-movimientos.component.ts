@@ -3,6 +3,7 @@ import $ from 'jquery';
 import { Router } from '@angular/router';
 import { SesionBxiService } from '../sesion-bxi.service';
 import { OperacionesBXI } from '../operacionesBXI';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 declare var jquery: any; // jquery
 declare var $: any;
@@ -18,15 +19,13 @@ export class ConsultaMovimientosComponent implements OnInit {
   cuentasArray: Array<any>;
   saldoSeleccionado: string;
   aliasSeleccionado: String;
-  
+  Cuenta = false;
   @ViewChild('listaCuentas', { read: ElementRef}) listaCuentas: ElementRef ;
   
   constructor(private router: Router,
               private service: SesionBxiService,
-              private renderer: Renderer2) {
-
-
-               }
+              private renderer: Renderer2,
+              ) { }
 
   ngOnInit() {
     $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
@@ -156,13 +155,15 @@ getSaldoDeCuentaTDD(numCuenta_seleccionada) {
           // lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
           this_aux.saldoSeleccionado = detalleSaldos.SaldoDisponible;
           this_aux.service.saldoSeleccionado = this_aux.saldoSeleccionado;
-          
+          this_aux.Cuenta = true;
 
         } else {
+          this_aux.Cuenta = false;
            this_aux.showErrorSucces(detalleSaldos);
         }
         setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
       }, function(error) {
+        this_aux.Cuenta = false;
         this_aux.saldoSeleccionado = "";
           this_aux.service.saldoSeleccionado = this_aux.saldoSeleccionado;
          this_aux.showErrorPromise(error);
@@ -183,14 +184,16 @@ getSaldoDeCuentaTDC(numCuenta_seleccionada) {
           this_aux.saldoSeleccionado = detalleSaldos.SaldoDisponible;
           this_aux.service.saldoSeleccionado = this_aux.saldoSeleccionado;
           this_aux.service.SaldoActual = detalleSaldos.SaldoActual;
-          
+          this_aux.Cuenta = true;
 
         } else {
+          this_aux.Cuenta = false;
            this_aux.showErrorSucces(detalleSaldos);
         }
 
         setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
       }, function(error) {
+        this_aux.Cuenta = false;
         this_aux.saldoSeleccionado = "";
           this_aux.service.saldoSeleccionado = this_aux.saldoSeleccionado;
          this_aux.showErrorPromise(error);

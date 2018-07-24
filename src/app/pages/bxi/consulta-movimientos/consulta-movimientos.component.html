@@ -26,11 +26,11 @@
                                 <button class="btn btn-default btn-block dropdown-toggle btn-color-cuentas " type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="padding-right: 0px;padding-top: 0px;padding-bottom: 0px">
                             <table id="tableOrigen" style="display: none" width="100%">
                               <tr>
-                                <td align="left" width="45%">
-                                  <strong><label  id="lblAliasOrigen" #lblAliasOrigen>{{aliasSeleccionado}}</label></strong>
+                                <td align="left" width="45%" >
+                                  <strong><label  id="lblAliasOrigen"   #lblAliasOrigen>{{aliasSeleccionado}}</label></strong>
                                 </td>
-                                <td align="left" width="45%">
-                                  <strong><label id ="lblSaldoOrigen" #lblSaldoOrigen>{{saldoSeleccionado | currency}}</label>
+                                <td align="left" width="45%" >
+                                  <strong><label id ="lblSaldoOrigen"  #lblSaldoOrigen>{{saldoSeleccionado | currency}}</label>
                                   </strong>
                                 </td>
                                 <td width="5%" rowspan="2" class="dropdown-caret">
@@ -38,7 +38,7 @@
                                 </td>
                               </tr>
                               <tr>
-                                <td align="left">Cuenta <label id="lblCuentaOrigen" #lblCuentaOrigen></label></td>
+                                <td align="left"  >Cuenta <label id="lblCuentaOrigen"  #lblCuentaOrigen></label></td>
                                 <td align="left">Saldo Disponible</td>
                               </tr>
                             </table>
@@ -77,7 +77,7 @@
                     </button>
                     </div>
                     <div style=" padding: 0px;" class="col-lg-6">
-                        <button id="verDetalle" class="btn color-botones  btn-lg letranegrita pull-right" (click)="consultarSaldos()">
+                        <button id="verDetalle" class="btn color-botones  btn-lg letranegrita pull-right" [disabled]="!Cuenta" (click)="consultarSaldos()">
                         Ver detalle
                     </button>
                     </div>
@@ -86,3 +86,4 @@
 
         </div>
     </div>
+</div>
