@@ -67,7 +67,7 @@ export class MantenimientoBenefComponent implements OnInit {
   numeroCuentaTitular: string;
   mostrarCuentaMascara: string;
   saldoDisponibleClienteTdd: string;
-
+  contadorSoapAltas: any = 0;
   registroFederal: any = "";
   fisicaMoralSeleccionada: any = "";
   fechaNacimiento: any = "";
@@ -95,6 +95,8 @@ export class MantenimientoBenefComponent implements OnInit {
  A = false;
  B = false;
  C = false;
+
+ contForEach: any = 0;
 
   constructor(public fb: FormBuilder, private router: Router, private serviceMantenimiento: ResponseWS,
      private _validaNipService: ValidaNipTransaccion, private _service: ConsultaSaldosTddService) {
@@ -141,6 +143,8 @@ export class MantenimientoBenefComponent implements OnInit {
 
   ngOnInit() {
 
+    $( ".cdk-visually-hidden" ).css( "margin-top", "13%" );
+    $( ".cdk-overlay-container" ).css( "z-index", "1050 !important;" );  
     localStorage.removeItem("des");
     localStorage.removeItem("np");
     localStorage.removeItem("res");
@@ -179,9 +183,6 @@ export class MantenimientoBenefComponent implements OnInit {
       btnAceptar2.classList.remove("color-botones");
       btnAceptar2.classList.add("color-botones_Preferente");
     }
-
-    $( ".cdk-visually-hidden" ).css( "margin-top", "20%" );
-    $( ".cdk-overlay-container" ).css( "z-index", "1050 !important;" );  
   }
 
   tamañoCP(data) {
@@ -437,10 +438,11 @@ export class MantenimientoBenefComponent implements OnInit {
         if (respuestaBaja.Id === "1") {
           const stringDetalleMantenimiento = JSON.stringify(this_aux.DatosJSON);
           this_aux.serviceMantenimiento.detalleMantenimiento = stringDetalleMantenimiento;
+          this_aux.numeroBajas --;
           if ( this_aux.numeroBajas === 0) {
             this_aux.B = false;
           }
-          this_aux.verificaTransacciones();
+          this_aux.realizaAccion1();
           
         } else {
           setTimeout(function() {
@@ -480,7 +482,7 @@ export class MantenimientoBenefComponent implements OnInit {
           'FechaNacimiento': fechaFormato,
           'NombreCalle': myform1.nomCalleBenef,
           'NumeroCalle': this_aux.RNumeroCalleAlta.nativeElement.value,
-          'NumeroDepartamento': this_aux.RNumeroDepartamentoAlta.nativeElement.value,
+          'NumeroDepartamen': this_aux.RNumeroDepartamentoAlta.nativeElement.value,
           'Parentesco': myform1.parentescoBenef,
           'RegistroFederal': myform1.registroFC,
           'CodigoDelegacion': this_aux.codigoDelegacion,
@@ -502,7 +504,7 @@ export class MantenimientoBenefComponent implements OnInit {
           'FechaNacimiento': fechaFormato,
           'NombreCalle': myform1.nomCalleBenef,
           'NumeroCalle': this_aux.RNumeroCalleAlta.nativeElement.value,
-          'NumeroDepartamento': this_aux.RNumeroDepartamentoAlta.nativeElement.value,
+          'NumeroDepartamen': this_aux.RNumeroDepartamentoAlta.nativeElement.value,
           'Parentesco': myform1.parentescoBenef,
           'RegistroFederal': myform1.registroFC,
           'CodigoDelegacion': this_aux.codigoDelegacion,
@@ -524,32 +526,45 @@ export class MantenimientoBenefComponent implements OnInit {
 
   altaBeneficiariosSoap() {
 
-    const this_aux = this;
+    const this_aux = this;   
+    let valueAux: any;
+   
     this_aux.BEN.forEach(function(value, key) {
-      if (value.Opcion === 'A') {
-        value.Opcion = "AltaRealizada";
-        if (value.FisicaMoral === 'F') {
-          this_aux.capturaDatosAltaBeneficiarioFisico(value.NombreBeneficia.toUpperCase(), value.ApPaternoBenef.toUpperCase(),
-          value.ApMaternoBenef.toUpperCase(), value.FechaNacimiento, value.Parentesco.toUpperCase(), value.RegistroFederal.toUpperCase(),
-          value.PorcentajeBenef, value.NombreCalle.toUpperCase(), value.NumeroCalle, value.NumeroDepartamento,
-          value.DescripcionColonia.toUpperCase(), value.CodigoPostal, value.CodigoDelegacion, value.DescripDelegacion.toUpperCase(),
-          value.CodigoEstado, value.DescripcionEdo.toUpperCase());
-        } else {
-          this_aux.capturaDatosAltaBeneficiarioMoral(
-            value.RazonSocial.toUpperCase(), value.FechaNacimiento, value.Parentesco.toUpperCase(), value.RegistroFederal.toUpperCase(),
-            value.PorcentajeBenef, value.NombreCalle.toUpperCase(),
-            value.NumeroCalle, value.NumeroDepartamento,
-            value.DescripcionColonia.toUpperCase(), value.CodigoPostal, value.CodigoDelegacion, value.DescripDelegacion.toUpperCase(),
-            value.CodigoEstado, value.DescripcionEdo.toUpperCase()
-          );
+      if (value.Opcion === 'A' ) {
+        this_aux.contForEach++;
+        if (this_aux.contForEach === 1) {
+          value.Opcion = "AltaRealizada";
+          valueAux = value;
         }
+        
       }
     });
+    if (valueAux.FisicaMoral === 'F') {
+  
+      this_aux.capturaDatosAltaBeneficiarioFisico(valueAux.NombreBeneficia.toUpperCase(), valueAux.ApPaternoBenef.toUpperCase(),
+      // tslint:disable-next-line:max-line-length
+      valueAux.ApMaternoBenef.toUpperCase(), valueAux.FechaNacimiento, valueAux.Parentesco.toUpperCase(), valueAux.RegistroFederal.toUpperCase(),
+      valueAux.PorcentajeBenef, valueAux.NombreCalle.toUpperCase(), valueAux.NumeroCalle, valueAux.NumeroDepartamen,
+      valueAux.DescripcionColonia.toUpperCase(), valueAux.CodigoPostal, valueAux.CodigoDelegacion, valueAux.DescripDelegacion.toUpperCase(),
+      valueAux.CodigoEstado, valueAux.DescripcionEdo.toUpperCase());
+    } else {
+      this_aux.capturaDatosAltaBeneficiarioMoral(
+        // tslint:disable-next-line:max-line-length
+        valueAux.RazonSocial.toUpperCase(), valueAux.FechaNacimiento, valueAux.Parentesco.toUpperCase(), valueAux.RegistroFederal.toUpperCase(),
+        valueAux.PorcentajeBenef, valueAux.NombreCalle.toUpperCase(),
+        valueAux.NumeroCalle, valueAux.NumeroDepartamen,
+        // tslint:disable-next-line:max-line-length
+        valueAux.DescripcionColonia.toUpperCase(), valueAux.CodigoPostal, valueAux.CodigoDelegacion, valueAux.DescripDelegacion.toUpperCase(),
+        valueAux.CodigoEstado, valueAux.DescripcionEdo.toUpperCase()
+      );
+    }
   }
+
 
   capturaDatosAltaBeneficiarioMoral(nomBenRec, fechaFormato,  parenRec, rFcRec, porcenRec, nomCRec, numCRec, 
     numDepRec, descripColoniaRec, codigoPRec, codigoDelRec, descripDelRec, codigoEdoRec, descripEdoRec) {
     const this_aux = this;
+    this_aux.contadorSoapAltas = 1;
     console.log("adentro AltaBeneficiarioMoral");
   
     const THIS: any = this;
@@ -587,10 +602,12 @@ export class MantenimientoBenefComponent implements OnInit {
         if (respuestaAlta.Id === "1") {
           const stringDetalleMantenimiento = JSON.stringify(this_aux.DatosJSON);
           this_aux.serviceMantenimiento.detalleMantenimiento = stringDetalleMantenimiento;
+          this_aux.contadorAltas--;
           if (this_aux.contadorAltas === 0) {
             this_aux.A = false;
           }
-          this_aux.verificaTransacciones();
+          this_aux.contForEach = 0;  
+          this_aux.realizaAccion1();
           
         } else {
           setTimeout(function() {
@@ -613,8 +630,8 @@ export class MantenimientoBenefComponent implements OnInit {
     nomCRec, numCRec, numDepRec, descripColoniaRec, codigoPRec, codigoDelRec, descripDelRec, codigoEdoRec,
     descripEdoRec) {
     const this_aux = this;
+    this_aux.contadorSoapAltas = 1;
     console.log("adentro AltaBeneficiarioFisico");
-
     const THIS: any = this;
     let respuestaAltaF: any;
     const formParameters = {
@@ -650,10 +667,13 @@ export class MantenimientoBenefComponent implements OnInit {
         if (respuestaAltaF.Id === "1") {
           const stringDetalleMantenimiento = JSON.stringify(this_aux.DatosJSON);
           this_aux.serviceMantenimiento.detalleMantenimiento = stringDetalleMantenimiento;
+          this_aux.contadorAltas--;
           if (this_aux.contadorAltas === 0) {
             this_aux.A = false;
           }
-          this_aux.verificaTransacciones();          
+
+          this_aux.contForEach = 0;  
+          this_aux.realizaAccion1();          
         } else {
           setTimeout(function() {
             this_aux.showErrorSucces(respuestaAltaF);
@@ -687,7 +707,7 @@ export class MantenimientoBenefComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
       const controlFisicoAm: FormControl = new FormControl(this_aux.RApellidoMatAlta.nativeElement.value, [Validators.maxLength(20)]);
       const controlFisicoFecha: FormControl = new FormControl(this_aux.RFechaNacimientoAlta.nativeElement.value,  [Validators.required, 
-        Validators.pattern(/^\d{4}\-\d{2}\-\d{2}$/)]);
+        Validators.pattern(/^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]);
       // tslint:disable-next-line:max-line-length
       const controlFisicoPar: FormControl = new FormControl(this_aux.RParentescoAlta.nativeElement.value, [Validators.required, Validators.maxLength(20)]);
       this_aux.myform.setControl('apPatBenef', controlFisicoAp);
@@ -703,7 +723,7 @@ export class MantenimientoBenefComponent implements OnInit {
 
       const controlApP: FormControl = new FormControl('');
       const controlApM: FormControl = new FormControl('');
-      const controlFechaM: FormControl = new FormControl('', Validators.pattern(/^\d{4}\-\d{2}\-\d{2}$/));
+      const controlFechaM: FormControl = new FormControl('', Validators.pattern(/^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/));
       const controlParM: FormControl = new FormControl(this_aux.RParentescoAlta.nativeElement.value, Validators.maxLength(20));      
       this_aux.myform.setControl('apPatBenef', controlApP);
       this_aux.myform.setControl('apMatBenef', controlApM);
@@ -714,9 +734,9 @@ export class MantenimientoBenefComponent implements OnInit {
      
     const controlNomCalle: FormControl = new FormControl('', [Validators.required, Validators.maxLength(24)]);
     this_aux.myform.setControl('nomCalleBenef', controlNomCalle);
-    const controlnumExt: FormControl = new FormControl('', [Validators.maxLength(7), Validators.pattern(/^([0-9]{1,})$/)]);
+    const controlnumExt: FormControl = new FormControl('', [Validators.maxLength(7)]);
     this_aux.myform.setControl('numExterior', controlnumExt);
-    const controlnumInt: FormControl = new FormControl('', [Validators.maxLength(4), Validators.pattern(/^([0-9]{1,})$/)]);
+    const controlnumInt: FormControl = new FormControl('', [Validators.maxLength(4)]);
     this_aux.myform.setControl('numInterior', controlnumInt);
     const controlCPA: FormControl = new FormControl('', [Validators.required, Validators.minLength(5),
       Validators.maxLength(5), Validators.pattern(/^([0-9]{1,})$/)]);
@@ -736,7 +756,7 @@ export class MantenimientoBenefComponent implements OnInit {
       this_aux.myform.setControl('registroFC', controlrFcMF);
 
       const controlFisicoAp: FormControl = new FormControl(this_aux.apellidoPat, [Validators.required, Validators.maxLength(20)]);
-      const controlFisicoAm: FormControl = new FormControl(this_aux.apellidoPat, [Validators.maxLength(20)]);
+      const controlFisicoAm: FormControl = new FormControl(this_aux.apellidoMat, [Validators.maxLength(20)]);
       const controlFisicoFecha: FormControl = new FormControl(this_aux.fechaNacimiento, [Validators.required,
         Validators.pattern(/^\d{4}\-\d{2}\-\d{2}$/)]);
       const controlFisicoPar: FormControl = new FormControl(this_aux.parentesco, Validators.required);
@@ -1040,10 +1060,11 @@ export class MantenimientoBenefComponent implements OnInit {
         if (respuestaModif.Id === "1") {
           const stringDetalleMantenimiento = JSON.stringify(this_aux.DatosJSON);
           this_aux.serviceMantenimiento.detalleMantenimiento = stringDetalleMantenimiento;
+          this_aux.numeroModificaciones--;
           if ( this_aux.numeroModificaciones === 0) {
             this_aux.C = false;
           }
-          this_aux.verificaTransacciones();
+          this_aux.realizaAccion1();
           
         }  else {
           setTimeout(function() {
@@ -1105,31 +1126,57 @@ export class MantenimientoBenefComponent implements OnInit {
       this_aux.numeroBajas = this_aux.arrayBajas.length;
     }
 
-    this_aux.realizaAccion();
+    this_aux.realizaAccion1();
   }
 
   realizaAccion() {
     const this_aux = this;
     if (this_aux.B) {
-      this_aux.numeroBajas--;
+      //this_aux.numeroBajas--;
       this_aux.bajaBeneficiarios();
     } else {
         if (this_aux.C) {
           this_aux.numeroModificaciones--;
           this_aux.guardarCambios();
         } else {              
-            if (this_aux.A ) { 
-            this_aux.contadorAltas--;
-            if (this_aux.personasFisica !== 0) {
+            if (this_aux.A ) {   
+              this_aux.contadorAltas--;    
+              this_aux.contadorSoapAltas = 0;
+              this_aux.altaBeneficiariosSoap();      
+          /*  if (this_aux.personasFisica !== 0) {
               this_aux.personasFisica--;
-              this_aux.altaBeneficiariosSoap();
+                this_aux.altaBeneficiariosSoap();
             } else if (this_aux.personasMoral !== 0) {
               this_aux.personasMoral--;
-              this_aux.altaBeneficiariosSoap();
-            }
+                this_aux.altaBeneficiariosSoap();
+            } */
         }
     }
 }
+  }
+
+  realizaAccion1() {
+    const this_aux = this;
+      if (!this_aux.A && !this_aux.B && !this_aux.C  ) {
+        //this_aux.numeroBajas--;
+     //   this_aux.bajaBeneficiarios();
+      
+    } else if (!this_aux.A && !this_aux.B && this_aux.C ) {
+      this_aux.guardarCambios();
+    }  else if (!this_aux.A && this_aux.B && !this_aux.C ) {
+      this_aux.bajaBeneficiarios();
+    } else if (!this_aux.A && this_aux.B && this_aux.C ) {
+      this_aux.bajaBeneficiarios();
+    }  else if (this_aux.A && !this_aux.B && !this_aux.C ) {
+      this_aux.altaBeneficiariosSoap();
+    }  else if (this_aux.A && !this_aux.B && this_aux.C ) {
+      this_aux.guardarCambios();
+    }  else if (this_aux.A && this_aux.B && !this_aux.C ) {
+      this_aux.bajaBeneficiarios();
+    }  else if (this_aux.A && this_aux.B && this_aux.C ) {
+      this_aux.bajaBeneficiarios();
+    }
+    this_aux.verificaTransacciones();
   }
 
   verificaTransacciones() {
@@ -1147,8 +1194,6 @@ export class MantenimientoBenefComponent implements OnInit {
       $('#_modal_please_wait').modal('show');
       this_aux.router.navigate(['/detalleBeneficiarios']);
 
-    } else {
-        this_aux.realizaAccion();
     }
   }
   

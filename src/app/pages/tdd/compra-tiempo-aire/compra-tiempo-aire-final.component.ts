@@ -12,12 +12,22 @@ export class CompraTiempoAireFinalComponent implements OnInit {
     fechaOperacion: '',
     cuentaOrdenante: '',
     telefono: '',
-    importe: ''
-
+    importe: '',
+    operadorTelefono: '',
+    hora: ''
 };
   constructor(private service: ResponseWS) { }
 
   ngOnInit() {
+      // ESTILOS Preferente
+      let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
+      let btnContinuar = document.getElementById("terminar");
+  
+      if (storageTipoClienteTar === "true") {
+  
+        btnContinuar.classList.remove("color-botones");
+        btnContinuar.classList.add("color-botones_Preferente");
+      }
     const this_aux = this;
     const respPago = this_aux.service.detalleConfirmacionCTA;
     const respPagoJson = JSON.parse(respPago);
@@ -25,10 +35,26 @@ export class CompraTiempoAireFinalComponent implements OnInit {
 
     this_aux.detallePago.referenciaNumerica = respPagoJson.NumReferencia;
     
-    this_aux.detallePago.fechaOperacion  = respPagoJson.FechaHoraOperacion;
+    this_aux.detallePago.fechaOperacion  = this.convertDate(respPagoJson.FechaHoraOperacion);
     // this_aux.detallePago.cuentaOrdenante = this_aux.service.numCuentaCTASel;
     this_aux.detallePago.telefono = respPagoJson.NumeroTelefono;
     this_aux.detallePago.importe = respPagoJson.ImporteCompra;
+    this_aux.detallePago.operadorTelefono = this.service.operadorTelefono;
+    this_aux.detallePago.hora  = this.convertTime(respPagoJson.FechaHoraOperacion);
+  }
+
+  convertDate (fecha) {
+  const this_aux = this;
+    const d = new Date(fecha);
+    const date = d.getFullYear()  + '-' + d.getMonth() + '-' + d.getDate();
+    console.log(date);
+    return date;
+  }
+
+  convertTime (hora) {
+    const d = new Date(hora);
+    const time = d.getHours() + ':' + d.getMinutes() + ':' + d.getMilliseconds();
+    return time;
   }
 
 }

@@ -43,7 +43,6 @@
         </div>
 
         <form [formGroup]="forma">
-
             <div class="row sumando-form-group letranegrita">
                 <div class="col-sm-1 sumando-bg-red group-name">Para</div>
                 <div class="col-lg-11 sumando-well-white">
@@ -54,7 +53,7 @@
                         <div class="dropdown sumando-dropdown-account col-lg-10">
                             <select formControlName="selectBanco" #rSelecBanco class="input-whidth input-lg selectModificado" id="tipoBanco" (change)="selectBanco($event.target.value)" style=" width: 100%; border:  0px">
                             <option disabled="" selected value="0" ng-reflect-value="0">SELECCIONE BANCO</option>
-                            <option *ngFor="let banco of bancos; let i = index" [value]="banco.IdBanco">{{ banco.NombreBanco }}</option>
+                            <option *ngFor="let banco of bancos; let i = index" [value]="banco.IdBanco" class="text-li">{{ banco.NombreBanco }}</option>
 
 
                         </select>

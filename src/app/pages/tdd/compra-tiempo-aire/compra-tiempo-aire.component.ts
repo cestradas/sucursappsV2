@@ -7,6 +7,8 @@ import { ResponseWS } from '../../../services/response/response.service';
 import { ValidaNipTransaccion } from '../../../services/validaNipTrans/validaNipTrans.service';
 import { SaldosDiaMesService } from '../../../services/SaldosDiaMes/saldoDiaMes.service';
 import { consultaCatalogos } from '../../../services/consultaCatalogos/consultaCatalogos.service';
+import { validateConfig } from "@angular/router/src/config";
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import $ from 'jquery';
 declare var $: $;
 
@@ -43,7 +45,8 @@ export class CompraTiempoAireComponent implements OnInit {
     private _serviceSesion: SesionTDDService,
     private _saldosDiaMes: SaldosDiaMesService,
     private _validaNipService: ValidaNipTransaccion,
-    private serviceResponse: ResponseWS
+    private serviceResponse: ResponseWS,
+    private router: Router
   ) {
     this._service.cargarSaldosTDD();
 
@@ -142,7 +145,9 @@ export class CompraTiempoAireComponent implements OnInit {
           }
         }
 
-        $("#_modal_please_wait").modal("hide");
+        setTimeout(() => {
+          $("#_modal_please_wait").modal("hide");
+        }, 3000);
       },
       function(error) {
         console.error("El WS respondio incorrectamente1");
@@ -246,6 +251,7 @@ export class CompraTiempoAireComponent implements OnInit {
     const this_aux = this;
     let importeDecimal = parseFloat(this_aux.importe.toString()).toFixed(2);
     let numeroTarjeta = localStorage.getItem("tr2_serv").substring(0, 16);
+    this_aux.serviceResponse.operadorTelefono = this_aux.operador;
     let formParameters = {
       ctaO: numeroTarjeta,
       cveTelefonica: this_aux.cveTelefonicaF,
@@ -268,7 +274,7 @@ export class CompraTiempoAireComponent implements OnInit {
           this_aux.serviceResponse.detalleConfirmacionCTA =
             response.responseText;
           console.log(this_aux.serviceResponse.detalleConfirmacionCTA);
-          this.router.navigate(["/compraTiempoAireFinal"]);
+          this_aux.router.navigate(["/compraTiempoAireFinal"]);
         } else {
           this_aux.showErrorSucces(compraTAResp);
         }

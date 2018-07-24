@@ -19,6 +19,7 @@ export class ResponseWS {
     validaMail: string;
     // Compra TA
     detalleConfirmacionCTA: string;
+    operadorTelefono: string;
     // Cancelacion Envio EDC Domicilio
     numeroCuentaTdd: string;
     email: string;

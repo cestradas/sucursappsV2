@@ -240,19 +240,21 @@
                             <label for="amount" class="col-sm control-label">No. Ext.:</label>
                         </div>
                         <div class="col-sm-1">
-                            <input class="input-whidth form-control amount input-lg" type="text" id=NumExtInputText formControlName="numExterior" #RNumeroCalleAlta [matKeyboard]="'num'" style=" text-align: center" maxlength="6" placeholder="No. Ext">
-                            <div class="alert-danger" *ngIf="myform.get('numExterior').errors && myform.get('numExterior').touched">
-                                <p color="danger" style="margin: 0px" *ngIf="myform.get('numExterior').hasError('maxlength') || myform.get('numExterior').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
-                            </div>
+                            <input class="input-whidth form-control amount input-lg" type="text" id=NumExtInputText formControlName="numExterior" #RNumeroCalleAlta [matKeyboard]="" style=" text-align: center" maxlength="6" placeholder="No. Ext">
                         </div>
                         <div class="form-group col-sm-1">
                             <label for="amount" class="col-sm control-label">No. Int.:</label>
                         </div>
                         <div class="col-sm-1">
-                            <input class="input-whidth form-control amount input-lg" type="text" id=DepaInputText formControlName="numInterior" #RNumeroDepartamentoAlta [matKeyboard]="'num'" style="text-align: center" maxlength="4" placeholder="Dpto">
-                            <div class="alert-danger" *ngIf="myform.get('numInterior').errors && myform.get('numInterior').touched">
-                                <p color="danger" style="margin: 0px" *ngIf="myform.get('numInterior').hasError('maxlength')  || myform.get('numInterior').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
-                            </div>
+                            <input class="input-whidth form-control amount input-lg" type="text" id=DepaInputText formControlName="numInterior" #RNumeroDepartamentoAlta [matKeyboard]="" style="text-align: center" maxlength="4" placeholder="Dpto">
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="(myform.get('numExterior').errors && myform.get('numExterior').touched) || (myform.get('numInterior').errors && myform.get('numInterior').touched)">
+                        <div class="col-sm-2">
+                            <p class="alert-danger" color="danger" style="margin: 0px" *ngIf="myform.get('numExterior').hasError('maxlength') || myform.get('numExterior').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
+                        </div>
+                        <div class="col-sm-2">
+                            <p class="alert-danger" color="danger" style="margin: 0px" *ngIf="myform.get('numInterior').hasError('maxlength') || myform.get('numInterior').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
                         </div>
                     </div>
                 </div>
@@ -422,19 +424,21 @@
                             <label for="amount" class="col-sm control-label">No. Ext.:</label>
                         </div>
                         <div class="col-sm-1">
-                            <input class="input-whidth form-control amount input-lg" type="text" id=NumExtInputText [matKeyboard]="'num'" formControlName="numExterior" #RNumeroCalle style="text-align: center" maxlength="6" placeholder="No. Ext">
-                            <div class="alert-danger" *ngIf="myform.get('numExterior').errors && myform.get('numExterior').touched">
-                                <p color="danger" style="margin: 0px" *ngIf="myform.get('numExterior').hasError('maxlength') || myform.get('numExterior').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
-                            </div>
+                            <input class="input-whidth form-control amount input-lg" type="text" id=NumExtInputText [matKeyboard]="" formControlName="numExterior" #RNumeroCalle style="text-align: center" maxlength="6" placeholder="No. Ext">
                         </div>
                         <div class="form-group col-sm-1">
                             <label for="amount" class="col-sm control-label">No. Int.:</label>
                         </div>
                         <div class="col-sm-1">
-                            <input class="input-whidth form-control amount input-lg" type="text" id=DepaInputText [matKeyboard]="'num'" formControlName="numInterior" #RNumeroDepartamento style="text-align: center" maxlength="4" placeholder="Dpto">
-                            <div class="alert-danger" *ngIf="myform.get('numInterior').errors && myform.get('numInterior').touched">
-                                <p color="danger" style="margin: 0px" *ngIf="myform.get('numInterior').hasError('maxlength') || myform.get('numInterior').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
-                            </div>
+                            <input class="input-whidth form-control amount input-lg" type="text" id=DepaInputText [matKeyboard]="" formControlName="numInterior" #RNumeroDepartamento style="text-align: center" maxlength="4" placeholder="Dpto">
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="(myform.get('numExterior').errors && myform.get('numExterior').touched) || (myform.get('numInterior').errors && myform.get('numInterior').touched)">
+                        <div class="col-sm-2">
+                            <p class="alert-danger" color="danger" style="margin: 0px" *ngIf="myform.get('numExterior').hasError('maxlength') || myform.get('numExterior').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
+                        </div>
+                        <div class="col-sm-2">
+                            <p class="alert-danger" color="danger" style="margin: 0px" *ngIf="myform.get('numInterior').hasError('maxlength') || myform.get('numInterior').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
                         </div>
                     </div>
                     <div class="modal-footer">

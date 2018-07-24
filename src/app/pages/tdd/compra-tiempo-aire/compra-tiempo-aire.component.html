@@ -1,4 +1,4 @@
-<h2 class="text-center deleteMargin-h2 color-letra">
+<h2 class="text-center padding-barToTittle deleteMargin-h2  color-letra">
 
     Comprar tiempo aire</h2>
 
@@ -45,7 +45,7 @@
             <div class="col-sm-11 sumando-well-white">
                 <div class="row form-group">
                     <div class="col-sm-3">
-                        <label class="control-label">Selecciona un operador de telefon&iacute;a celular</label>
+                        <label class="control-label">Selecciona un operador de telefon&iacute;a celular:</label>
                     </div>
                     <!-- <div id="atributo" class="col-lg-2 "> -->
                     <div id="carriersDiv" class="row col-sm-8" style="height:60px; width:1200px;">
@@ -75,7 +75,7 @@
                 </div>
 
                 <div class="row padding-InFieldset">
-                    <label style="width: 8.3%;" class="col-sm-2 control-label">Monto</label>
+                    <label style="width: 8.3%;" class="col-sm-2 control-label">Monto:</label>
                     <div class="col-sm-1 amount-list" *ngFor="let recarga of recargas; let i = index">
 
                         <label formControlName="importe" ngDefaultControl #importe id="{{recarga.ImporteTiempoAire}}" (click)="cargaImporte(importe)">{{recarga.ImporteTiempoAire | currency}}</label>
@@ -88,7 +88,7 @@
                 </div>
 
                 <div class="row padding-InFieldset amount-list">
-                    <label class="col-sm-2 control-label">Tel&eacute;fono</label>
+                    <label class="col-sm-2 control-label">Tel&eacute;fono:</label>
 
                     <div class="col-sm-10">
                         <input disabled="disabled" [matKeyboard]="'num'" maxlength="50" #telefonoF formControlName="telefono" id="telefono" name="telefono" type="text" class="input-whidth form-control amount input-lg" />

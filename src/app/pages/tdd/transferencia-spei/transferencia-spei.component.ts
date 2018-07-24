@@ -81,7 +81,7 @@ export class TransferenciaSpeiComponent implements OnInit {
       descripcionF: [""],
       importeF: ["", Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)],
       // referenciaF: ["", Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})/)],
-      referenciaF: ["", Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)],
+      referenciaF: ["",  Validators.pattern(/^([0-9]{1,})$/)],
       correoF: [""]
     });
   }
@@ -203,7 +203,7 @@ limpiarFormulario () {
 
     const controlReferencia: FormControl = new FormControl(
       this_aux.rReferencia.nativeElement.value,
-      [Validators.maxLength(7), Validators.required]
+      [Validators.maxLength(7), Validators.required, Validators.pattern(/^([0-9]{1,})$/)]
     );
     this_aux.myform.setControl("referenciaF", controlReferencia);
     const controlCorreo: FormControl = new FormControl(
