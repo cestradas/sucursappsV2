@@ -4,33 +4,33 @@
 <form [formGroup]="forma" (ngSubmit)="showDetallePago()" class="needs-validation">
     <fieldset class="padding-fieldset-general padding-TittleToFieldset">
 
-    <div class="row sumando-form-group letranegrita padding-InFieldset">
-        <div class="col-sm-1 sumando-bg-red group-name">
-            Tipo
-        </div>
-        <div class="dropdown sumando-dropdown-account col-sm-11" style="padding-left: 0px; padding-right: 0px;">
+        <div class="row sumando-form-group letranegrita padding-InFieldset">
+            <div class="col-sm-1 sumando-bg-red group-name">
+                Tipo
+            </div>
+            <div class="dropdown sumando-dropdown-account col-sm-11" style="padding-left: 0px; padding-right: 0px;">
 
-            <select class="input-whidth selectModificado" #selectTipo id="tipoTransfer" (change)="setCuentasBenficiarioXTipo();" style=" width: 100%; height: 60px; border:0px solid red;">
+                <select class="input-whidth selectModificado" #selectTipo id="tipoTransfer" (change)="setCuentasBenficiarioXTipo();" style=" width: 100%; height: 60px; border:0px solid red;">
              <!-- <img src="./assets/img/bg_selectN.png" align="right" style="width: 3.8%; float: right; position: absolute;     margin-left: 1549px;"> -->
 
           <option value="0" disabled selected>Seleccione tipo de transferencia...</option>
           <option value="1" class="text-li">Entre cuentas propias</option>
           <option value="2" class="text-li">A terceros banorte</option>
       </select>
+            </div>
+
         </div>
 
-    </div>
-
-    <div class="row sumando-form-group letranegrita">
-        <div class="col-sm-1 sumando-bg-red group-name">
-            Desde
-        </div>
-        <div class="col-sm-11 group-controls  padding-InFieldset" style="padding-left: 0px; padding-right:  0px;">
-            <div class="form-group">
-                <div class="sumando-bg-white">
-                    <input type="hidden">
-                    <div class="dropdown sumando-dropdown-account">
-                        <button class="btn btn-default btn-block dropdown-toggle btn-color-cuentas" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" disabled="true" aria-expanded="true">
+        <div class="row sumando-form-group letranegrita">
+            <div class="col-sm-1 sumando-bg-red group-name">
+                Desde
+            </div>
+            <div class="col-sm-11 group-controls  padding-InFieldset" style="padding-left: 0px; padding-right:  0px;">
+                <div class="form-group">
+                    <div class="sumando-bg-white">
+                        <input type="hidden">
+                        <div class="dropdown sumando-dropdown-account">
+                            <button class="btn btn-default btn-block dropdown-toggle btn-color-cuentas" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" disabled="true" aria-expanded="true">
               <table id="tableOrigen" style="display: none" width="99%">
                 <tr>
                   <td align="left" width="45%">
@@ -58,30 +58,30 @@
                 </tr>
               </table>
             </button>
-                        <div>
-                            <ul id="ul_Cuentas" #listaCuentas class="dropdown-menu btn-block" aria-labelledby="dropdownMenu1" style="width: 100%; height: 200px; overflow: auto">
+                            <div>
+                                <ul id="ul_Cuentas" #listaCuentas class="dropdown-menu btn-block" aria-labelledby="dropdownMenu1" style="width: 100%; height: 200px; overflow: auto">
 
-                            </ul>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
 
-    <div id="beneficiarios">
-        <div class="row sumando-form-group letranegrita">
-            <div class="col-sm-1 sumando-bg-red group-name">
-                Para
-            </div>
-            <div class="col-sm-11 group-controls  padding-InFieldset" style="padding-left: 0px; padding-right:  0px;">
-                <div class="form-group">
-                    <div class="sumando-bg-white">
-                        <input type="hidden">
-                        <div class="dropdown sumando-dropdown-account">
-                            <button disabled="true" class="btn btn-default btn-block dropdown-toggle btn-color-cuentas" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <div id="beneficiarios">
+            <div class="row sumando-form-group letranegrita">
+                <div class="col-sm-1 sumando-bg-red group-name">
+                    Para
+                </div>
+                <div class="col-sm-11 group-controls  padding-InFieldset" style="padding-left: 0px; padding-right:  0px;">
+                    <div class="form-group">
+                        <div class="sumando-bg-white">
+                            <input type="hidden">
+                            <div class="dropdown sumando-dropdown-account">
+                                <button disabled="true" class="btn btn-default btn-block dropdown-toggle btn-color-cuentas" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         <table id="tableBeneficiarios" style="display: none" width="97%">
                           <tr>
                             <td align="left" width="50%" style="width: 0px;">
@@ -109,17 +109,17 @@
                           </tr>
                         </table>
                       </button>
-                            <div>
-                                <ul id="ul_CuentasBen" #listaCuentasBeneficiario class="dropdown-menu btn-block" aria-labelledby="dropdownMenu2" style="width: 100%; height: 200px; overflow: auto">
+                                <div>
+                                    <ul id="ul_CuentasBen" #listaCuentasBeneficiario class="dropdown-menu btn-block" aria-labelledby="dropdownMenu2" style="width: 100%; height: 200px; overflow: auto">
 
-                                </ul>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
 
@@ -139,7 +139,7 @@
                             <div class="col-sm-10">
                                 <input id="amount" #rImporte [matKeyboard]="'num'" name="amount" formControlName="amount" type="text" class="form-control amount input-lg" maxlength="60" required (blur)="transformAmount(rImporte.value)" />
                                 <div *ngIf="forma.hasError('min', 'amount') || forma.hasError('max', 'amount') " class="alert alert-danger">
-                                     Los datos proporcionados son incorrectos, favor de verificar.
+                                    Los datos proporcionados son incorrectos, favor de verificar.
                                 </div>
                                 <div *ngIf="forma.hasError('required', 'amount') && forma.get('amount').touched" style="margin-bottom: 0px; padding: 0.5rem 1.20rem;" class="alert alert-danger">
                                     Este dato es obligatorio.
@@ -155,7 +155,7 @@
                             <div class="col-sm-10">
                                 <input aria-describedby="validationTooltipUsernamePrepend" [matKeyboard]="" id="concepto" name="concepto" formControlName="concepto" type="text" maxlength="7" class="form-control amount" required (blur)="desabilitaBtn()" />
                                 <div *ngIf="forma.hasError('maxlength', 'concepto')" class="alert alert-danger">
-                                     Los datos proporcionados son incorrectos, favor de verificar.
+                                    Los datos proporcionados son incorrectos, favor de verificar.
                                 </div>
                                 <div *ngIf="forma.hasError('required', 'concepto') && forma.get('concepto').touched" class="invalid-tooltip">
                                     Este dato es obligatorio.
@@ -190,120 +190,123 @@
     </fieldset>
 
 
-<!-- Modal -->
-<div class="modal fade" id="confirmModalBanorte" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content shadowModal ">
+    <!-- Modal -->
 
-            <div class="modal-body" style="padding: 2rem;">
+    <div class="modal fade" id="confirmModalBanorte" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content shadowModal ">
 
-                <h4 style="color: #B01657; font-weight: 700;">Confirmar pago</h4>
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>Cuenta origen:</label>
-                    </div>
-                    <div class="col-lg 6">
-                        <label>{{cuentaOrigenModal}}</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>Cuenta destino:</label>
-                    </div>
-                    <div class="col-lg 6">
-                        <label>{{CuentaDestino}}</label>
-                    </div>
-                </div>
+                <div class="modal-body" style="padding: 2rem;">
 
-
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>Nombre:</label>
+                    <h4 style="color: #B01657; font-weight: 700;">Confirmar pago</h4>
+                    <div class="row">
+                        <div class="col-lg 6">
+                            <label>Cuenta origen:</label>
+                        </div>
+                        <div class="col-lg 6">
+                            <label>{{cuentaOrigenModal}}</label>
+                        </div>
                     </div>
-                    <div class="col-lg 6">
-                        <label>{{nombreBeneModal}}</label>
+                    <div class="row">
+                        <div class="col-lg 6">
+                            <label>Cuenta destino:</label>
+                        </div>
+                        <div class="col-lg 6">
+                            <label>{{CuentaDestino}}</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>Importe total:</label>
-                    </div>
-                    <div class="col-lg 6">
-                        <label>${{importeAux}}</label>
-                    </div>
-                </div>
 
 
-                <div class="modal-footer">
-                    <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                    <button class="color-botones btn btn-lg " (click)="confirmarPago(token.value)">
+                    <div class="row">
+                        <div class="col-lg 6">
+                            <label>Nombre:</label>
+                        </div>
+                        <div class="col-lg 6">
+                            <label>{{nombreBeneModal}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg 6">
+                            <label>Importe total:</label>
+                        </div>
+                        <div class="col-lg 6">
+                            <label>${{importeAux}}</label>
+                        </div>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
+                        <button class="color-botones btn btn-lg " (click)="confirmarPago('')">
                             Confirmar
                           </button>
-                </div>
+                    </div>
 
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content shadowModal ">
-
-            <div class="modal-body" style="padding: 2rem;">
-
-                <h4 style="color: #B01657; font-weight: 700;">Confirmar pago</h4>
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>Cuenta origen:</label>
-                    </div>
-                    <div class="col-lg 6">
-                        <label>{{cuentaOrigenModal}}</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>Cuenta destino:</label>
-                    </div>
-                    <div class="col-lg 6">
-                        <label>{{CuentaDestino}}</label>
-                    </div>
-                </div>
 
 
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>Nombre:</label>
+    <!-- Modal -->
+
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content shadowModal ">
+
+                <div class="modal-body" style="padding: 2rem;">
+
+                    <h4 style="color: #B01657; font-weight: 700;">Confirmar pago</h4>
+                    <div class="row">
+                        <div class="col-lg 6">
+                            <label>Cuenta origen:</label>
+                        </div>
+                        <div class="col-lg 6">
+                            <label>{{cuentaOrigenModal}}</label>
+                        </div>
                     </div>
-                    <div class="col-lg 6">
-                        <label>{{nombreBeneModal}}</label>
+                    <div class="row">
+                        <div class="col-lg 6">
+                            <label>Cuenta destino:</label>
+                        </div>
+                        <div class="col-lg 6">
+                            <label>{{CuentaDestino}}</label>
+                        </div>
                     </div>
-                </div>
 
 
-                <div class="row">
-                    <div class="col-lg 6">
-                        <label>Importe total:</label>
+                    <div class="row">
+                        <div class="col-lg 6">
+                            <label>Nombre:</label>
+                        </div>
+                        <div class="col-lg 6">
+                            <label>{{nombreBeneModal}}</label>
+                        </div>
                     </div>
-                    <div class="col-lg 6">
-                        <label>${{importeAux}}</label>
+
+
+                    <div class="row">
+                        <div class="col-lg 6">
+                            <label>Importe total:</label>
+                        </div>
+                        <div class="col-lg 6">
+                            <label>${{importeAux}}</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <label style="display: block; text-align: center; line-height: 280%; color: #eb012a;">Por favor captura tu <label>{{labelTipoAutentica}}</label> para poder continuar</label>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label style="display: block; text-align: center; line-height: 280%; color: #eb012a;">Por favor captura tu <label>{{labelTipoAutentica}}</label> para poder continuar</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg 12">
-                        <div id="challenger" class="row">
-                            <div class="col-lg 6">
-                                <label>N&uacute;mero de seguridad</label>
-                            </div>
-                            <div class="col-lg 6">
-                                <label class='form-control input-lg'>{{NumeroSeguridad}}</label>
-                            </div>
+                    <div class="row">
+                        <div class="col-lg 12">
+                            <div id="challenger" class="row">
+                                <div class="col-lg 6">
+                                    <label>N&uacute;mero de seguridad</label>
+                                </div>
+                                <div class="col-lg 6">
+                                    <label class='form-control input-lg'>{{NumeroSeguridad}}</label>
+                                </div>
 
                             </div>
                             <div id="divPass" class="row">
@@ -322,34 +325,35 @@
                               </label>
                                 </div>
 
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                    <button class="color-botones btn btn-lg " (click)="confirmarPago(tokenTr.value)">
+                    <div class="modal-footer">
+                        <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
+                        <button class="color-botones btn btn-lg "  id="ValToken" (click)="confirmarPago(fcTokenTr.value)">
                               Confirmar
                             </button>
-                </div>
+                    </div>
 
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-<div class="uiv-animate" ui-view></div>
 
 
-<div id="errorModal" class="modal fade" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-dialog-error">
-        <div class="modal-content">
-            <div class="modal-body text-center">
-                <p>
-                    <label id="mnsError"></label>
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button id="cerrar" class="color-botones btn btn-lg" data-dismiss="modal" type="button" tabindex="0">Cerrar</button>
+    <div class="uiv-animate" ui-view></div>
+
+
+    <div id="errorModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-error">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <p>
+                        <label id="mnsError"></label>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button id="cerrar" class="color-botones btn btn-lg" data-dismiss="modal" type="button" tabindex="0">Cerrar</button>
 
                 </div>
             </div>

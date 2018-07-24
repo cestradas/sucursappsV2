@@ -45,11 +45,12 @@ export class TransferenciasBanorteComponent implements OnInit {
   CuentaDestino: string;
 
   forma: FormGroup;
+
   importeAux: string;
 
   importeF = "";
   conceptoF = "";
-  tokenTr = "";
+  fcTokenTr = "";
 
   cuentaOrigenModal = "";
   correoBeneModal = "";
@@ -65,6 +66,7 @@ export class TransferenciasBanorteComponent implements OnInit {
   constructor(private _http: Http, private router: Router, private fb: FormBuilder, public service: SesionBxiService, private renderer: Renderer2, private currencyPipe: CurrencyPipe) {
 
     const this_aux = this;
+
 
     setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
 
@@ -102,8 +104,8 @@ export class TransferenciasBanorteComponent implements OnInit {
             console.log('fcTokenTr', data2);
             console.log('forma', this.forma);
 
-            this_aux.tokenTr = data2;
-            if (this_aux.tokenTr !== " ") {
+            this_aux.fcTokenTr = data2;
+            if (this_aux.fcTokenTr !== " ") {
 
                 $('#ValToken').prop("disabled", false);
             }
@@ -913,6 +915,7 @@ confirmarPago(token) {
 
                        console.log(transferPropTer);
                        this_aux.service.validaFinishTipoTransfer = "1";
+                       $('#_modal_please_wait').modal('show');
                        this_aux.service.detalleConfirmacionTranPropBanorte = response.responseText;
                        console.log(this_aux.service.detalleConfirmacionTranPropBanorte);
                        this_aux.router.navigate(['/TransferFinishBanorte']);
@@ -962,6 +965,7 @@ confirmarPago(token) {
 
                        console.log(transferPropTer);
                        this_aux.service.validaFinishTipoTransfer = "1";
+                       $('#_modal_please_wait').modal('show');
                        this_aux.service.detalleConfirmacionTranPropBanorte = response.responseText;
                        console.log(this_aux.service.detalleConfirmacionTranPropBanorte);
                        this_aux.router.navigate(['/TransferFinishBanorte']);

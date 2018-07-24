@@ -70,7 +70,9 @@ export class TransferenciaSpeiComponent implements OnInit {
 
   forma: FormGroup;
   formaT: FormGroup;
-  importeAux: string;
+  importeAuxSPEI: string;
+  importeAuxTEF: string;
+  importeAuxQUICK: string;
 
   importeF = "";
   descripcionF = "";
@@ -957,7 +959,7 @@ setCuentasBenficiarioXTipo() {
           const textoCuenta = this.renderer.createText( auxcuenta.Alias  + ' ' + operacionesbxi.mascaraNumeroCuenta(auxcuenta.NoCuenta));
           this.renderer.setProperty(a, 'value',
                                               + auxcuenta.NoCuenta + ','
-                                              + auxcuenta.ClaveBanco + ','
+                                              + auxcuenta.IdSecovan + ','
                                               + auxcuenta.DescripcionTipoCuenta + ','
                                               + auxcuenta.NumBenef );
           this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaBeneficiario(event.target); });
@@ -1078,11 +1080,14 @@ validaDatosBen() {
     ctaO = this_aux.service.numCuentaSPEISel;
     ctaDest = this_aux.service.numCuentaDestinario;
     sic = this_aux.service.infoUsuarioSIC;
-    bancoRecep = this_aux.service.claveBancoDestino;
+    if (this_aux.service.claveBancoDestino !== undefined) {
+      bancoRecep = this_aux.replaceSpaces(this_aux.service.claveBancoDestino);
+    }
     aliasCta = this_aux.service.claveAliasCuenta;
     if (this_aux.service.clabeDestinatario !== undefined) {
       clabeTEF_SPEI = this_aux.replaceSpaces(this_aux.service.clabeDestinatario);
     }
+
 
 
     /*
@@ -1101,7 +1106,7 @@ validaDatosBen() {
     // correo = "miguel.garcia_softtek@banorte.com";
     correo = this_aux.service.correoBeneficiario;
     // rfcEmi
-    rfcEmi = "no capturado";
+    rfcEmi = "xxxx111111xxx";
 
 
 
@@ -1145,6 +1150,7 @@ validaDatosBen() {
 
                          console.log(transferSPEI);
                          this_aux.service.validaFinishTipoTransfer = "1";
+                         $("#_modal_please_wait").modal("show");
                          this_aux.service.detalleConfirmacionSPEI = response.responseText;
                          console.log(this_aux.service.detalleConfirmacionSPEI);
                          this_aux.router.navigate(['/TransferFinishSpei']);
@@ -1196,6 +1202,7 @@ validaDatosBen() {
                        if ( transferTEF.Id === '1') {
 
                          console.log(transferTEF);
+                         $("#_modal_please_wait").modal("show");
                          this_aux.service.validaFinishTipoTransfer = "2";
                          this_aux.service.detalleConfirmacionTEF = response.responseText;
                          console.log(this_aux.service.detalleConfirmacionTEF);
@@ -1206,12 +1213,13 @@ validaDatosBen() {
                        }
 
                     }, function(error) {
-                      this_aux.showErrorSucces(error);
+                      this_aux.showErrorPromiseMoney(error);
                     }
                   );
               } else {
                 console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
                 mensajeError = this_aux.controlarError(infoUsuarioJSON);
+
                 document.getElementById('errorMensaje').innerHTML =  mensajeError;
                 $('#_modal_please_wait').modal('hide');
                 $('#modalErrorMessage').modal('show');
@@ -1236,7 +1244,7 @@ validaDatosBen() {
                   operacionesbxi.confirmaTransferQUICK(ctaO, this_aux.tipoCuentaF, sic, this_aux.bancoRecep.trim(),
                                                       //this_aux.clabeF,
                                                        nombreBene, this_aux.refF , importeFront,
-                                                      descripcionFront, correo, rfcEmi)
+                                                      "Transferencia Quick", correo, this_aux.service.userRfc)
                   .then(
 
                     function(response) {
@@ -1248,6 +1256,7 @@ validaDatosBen() {
                        if ( transferQUICK.Id === '1') {
 
                          console.log(transferQUICK);
+                         $("#_modal_please_wait").modal("show");
                          this_aux.service.validaFinishTipoTransfer = "3";
                          this_aux.service.detalleConfirmacionQUICK = response.responseText;
                          console.log(this_aux.service.detalleConfirmacionQUICK);
@@ -1344,9 +1353,9 @@ transformAmount(impor) {
       if (impor !== '') {
         const control: FormControl = new FormControl('');
         this_aux.forma.setControl('amountSPEI', control);
-        this_aux.importeAux = this_aux.replaceSimbolo(impor);
-        this_aux.rImporteSPEI.nativeElement.value = this_aux.currencyPipe.transform(this_aux.importeAux, 'USD');
-        this_aux.importeAux = this_aux.replaceSimbolo( this_aux.rImporteSPEI.nativeElement.value) ;
+        this_aux.importeAuxSPEI = this_aux.replaceSimbolo(impor);
+        this_aux.rImporteSPEI.nativeElement.value = this_aux.currencyPipe.transform(this_aux.importeAuxSPEI, 'USD');
+        this_aux.importeAuxSPEI = this_aux.replaceSimbolo( this_aux.rImporteSPEI.nativeElement.value) ;
 
       } else {
           if (this_aux.forma.get('amountSPEI').errors === null) {
@@ -1363,9 +1372,9 @@ transformAmount(impor) {
       if (impor !== '') {
         const control: FormControl = new FormControl('');
         this_aux.forma.setControl('amountTEF', control);
-        this_aux.importeAux = this_aux.replaceSimbolo(impor);
-        this_aux.rImporteTEF.nativeElement.value = this_aux.currencyPipe.transform(this_aux.importeAux, 'USD');
-        this_aux.importeAux = this_aux.replaceSimbolo( this_aux.rImporteTEF.nativeElement.value) ;
+        this_aux.importeAuxTEF = this_aux.replaceSimbolo(impor);
+        this_aux.rImporteTEF.nativeElement.value = this_aux.currencyPipe.transform(this_aux.importeAuxTEF, 'USD');
+        this_aux.importeAuxTEF = this_aux.replaceSimbolo( this_aux.rImporteTEF.nativeElement.value) ;
 
       } else {
           if (this_aux.forma.get('amountTEF').errors === null) {
@@ -1380,9 +1389,10 @@ transformAmount(impor) {
         if (impor !== '') {
           const control: FormControl = new FormControl('');
           this_aux.forma.setControl('ammountQUICK', control);
-          this_aux.importeAux = this_aux.replaceSimbolo(impor);
-          this_aux.rImporteQUICK.nativeElement.value = this_aux.currencyPipe.transform(this_aux.importeAux, 'USD');
-          this_aux.importeAux = this_aux.replaceSimbolo( this_aux.rImporteQUICK.nativeElement.value) ;
+          this_aux.importeAuxQUICK = this_aux.replaceSimbolo(impor);
+          this_aux.rImporteQUICK.nativeElement.value = this_aux.currencyPipe.transform(this_aux.importeAuxQUICK, 'USD');
+          this_aux.importeAuxQUICK = this_aux.replaceSimbolo( this_aux.rImporteQUICK.nativeElement.value) ;
+
 
         } else {
             if (this_aux.forma.get('ammountQUICK').errors === null) {
