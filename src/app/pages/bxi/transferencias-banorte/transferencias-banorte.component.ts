@@ -61,6 +61,7 @@ export class TransferenciasBanorteComponent implements OnInit {
   SaldoOrigen: number;
 
   nombreCuenta: string;
+  nombreCuentaTer: string;
   numeroTarjeta: string;
 
   constructor(private _http: Http, private router: Router, private fb: FormBuilder, public service: SesionBxiService, private renderer: Renderer2, private currencyPipe: CurrencyPipe) {
@@ -514,7 +515,7 @@ setCuentasBenficiarioXTipo() {
                                             + auxcuenta.NumBenef );
         this.renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaBeneficiario(event.target);
                 this_aux.numeroTarjeta = auxcuenta.Plastico;
-                this_aux.nombreCuenta = auxcuenta.Alias;
+                this_aux.nombreCuentaTer = auxcuenta.Alias;
                  });
         this.renderer.appendChild(a, textoCuenta),
         this.renderer.appendChild(li, a);

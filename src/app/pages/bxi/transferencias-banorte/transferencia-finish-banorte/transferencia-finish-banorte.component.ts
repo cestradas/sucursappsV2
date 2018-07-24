@@ -45,6 +45,7 @@ export class TransferenciaFinishBanorteComponent implements OnInit {
       const respPagoPropias = this_aux.service.detalleConfirmacionTranPropBanorte;
       const respPagoJsonPropias = JSON.parse(respPagoPropias);
       console.log(respPagoJsonPropias);
+      setTimeout(() => $('#_modal_please_wait').modal('hide'), 5000);
 
 
       this_aux.detallePago.referenciaNumerica = respPagoJsonPropias.NumReferencia;
@@ -65,7 +66,7 @@ export class TransferenciaFinishBanorteComponent implements OnInit {
       const respPagoTerceros = this_aux.service.detalleConfirmacionTranPropBanorte;
       const respPagoJsonTerceros = JSON.parse(respPagoTerceros);
       console.log(respPagoJsonTerceros);
-
+      setTimeout(() => $('#_modal_please_wait').modal('hide'), 5000);
 
       this_aux.detallePago.referenciaNumerica = respPagoJsonTerceros.NumReferencia;
 
