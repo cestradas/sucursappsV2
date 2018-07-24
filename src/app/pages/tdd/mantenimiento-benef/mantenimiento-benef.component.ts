@@ -143,7 +143,6 @@ export class MantenimientoBenefComponent implements OnInit {
 
   ngOnInit() {
 
-    $( ".cdk-visually-hidden" ).css( "margin-top", "13%" );
     $( ".cdk-overlay-container" ).css( "z-index", "1050 !important;" );  
     localStorage.removeItem("des");
     localStorage.removeItem("np");
@@ -193,8 +192,10 @@ export class MantenimientoBenefComponent implements OnInit {
   }
 
   altaBeneficiario() {
-    this.reiniciarInput();
-    this.reiniciarValidaciones();
+    const this_aux = this;
+    this_aux.reiniciarInput();
+    this_aux.reiniciarValidaciones();
+    this_aux.positionKeyboard(this_aux.tamRegistrosBenef);
     $("#altaBenefModal").modal("show");
   }
 
@@ -222,7 +223,7 @@ export class MantenimientoBenefComponent implements OnInit {
     const this_aux = this;
     this_aux.reiniciarInput();
     this_aux.reiniciarValidaciones();
-
+    this_aux.positionKeyboard(this_aux.tamRegistrosBenef);
     this_aux.codigoPostal = datosBeneficiario.CodigoPostal; 
     this_aux.consultaCodigoPostalSoap(this_aux.codigoPostal);
     this_aux.consecutivoSeleccionado = datosBeneficiario.NumeroConsecutiv;
@@ -363,7 +364,7 @@ export class MantenimientoBenefComponent implements OnInit {
               }
               this_aux.porcentajeGuardado = this_aux.porcentajeGuardado + Number(value.PorcentajeBenef);
               this_aux.ultimoRegistroGuardado = Number(value.NumeroConsecutiv);
-            });
+            });            
             console.log("PORCENTAJE EN CONSULTA: " + this_aux.porcentajeGuardado);
             const stringDatosBen = JSON.stringify(this_aux.DatosJSON);
             this_aux.serviceMantenimiento.datosBeneficiarios = stringDatosBen;          
@@ -460,8 +461,7 @@ export class MantenimientoBenefComponent implements OnInit {
 
   altaBeneficiarioView( myform1, myform2) {
 
-    $('#altaBenefModal').modal('toggle');
-
+    $('#altaBenefModal').modal('toggle');    
     const this_aux = this;
       let patron = /-/g;
       let fechaFormato: any = "";
@@ -1226,6 +1226,32 @@ export class MantenimientoBenefComponent implements OnInit {
         }
       }
     ); 
+  }
+
+  positionKeyboard (registros) {
+    if (registros === 0) {
+      $( ".cdk-visually-hidden" ).css( "margin-top", "25%" );
+    } else if (registros === 1) {
+      $( ".cdk-visually-hidden" ).css( "margin-top", "23%" );
+    } else if (registros === 2) {
+      $( ".cdk-visually-hidden" ).css( "margin-top", "20%" );
+    } else if (registros === 3) {
+      $( ".cdk-visually-hidden" ).css( "margin-top", "18%" );
+    } else if (registros === 4) {
+      $( ".cdk-visually-hidden" ).css( "margin-top", "15%" );
+    } else if (registros === 5) {
+      $( ".cdk-visually-hidden" ).css( "margin-top", "13%" );
+    } else if (registros === 6) {
+      $( ".cdk-visually-hidden" ).css( "margin-top", "11%" );
+    } else if (registros === 7) {
+      $( ".cdk-visually-hidden" ).css( "margin-top", "9%" );
+    } else if (registros === 8) {
+      $( ".cdk-visually-hidden" ).css( "margin-top", "6%" );
+    } else if (registros === 9) {
+      $( ".cdk-visually-hidden" ).css( "margin-top", "4%" );
+    } else if (registros === 10) {
+      $( ".cdk-visually-hidden" ).css( "margin-top", "2%" );
+    }
   }
 
   showErrorPromise(error) {
