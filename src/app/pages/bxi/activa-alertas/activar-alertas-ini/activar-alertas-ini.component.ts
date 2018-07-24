@@ -79,15 +79,15 @@ setDatosCuentaSeleccionada(elementHTML) {
   const this_aux = this;
   console.log(elementHTML);
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
-  const divBlockAlerta = document.getElementById("blockAlertas");
+ // const divBlockAlerta = document.getElementById("blockAlertas");
   const tableOrigen = document.getElementById('tableOrigen');
   const tableDefaultOrigen = document.getElementById('tableDefaultOrigen');
   const lblCuentaOrigen = document.getElementById('lblCuentaOrigen');
   const lblAliasOrigen = document.getElementById('lblAliasOrigen');
   const value = elementHTML.value;
 
-  divBlockAlerta.removeAttribute('style');
-  divBlockAlerta.setAttribute('style', 'width: 1749px; margin-left: -10px;display: block');
+  // divBlockAlerta.removeAttribute('style');
+  // divBlockAlerta.setAttribute('style', 'width: 1749px; margin-left: -10px;display: block');
   tableOrigen.setAttribute('style', 'display: block');
   tableDefaultOrigen.setAttribute('style', 'display: none');
   lblAliasOrigen.innerHTML = this_aux.getCtaFromTextContet( elementHTML.textContent);
@@ -129,6 +129,7 @@ consultaAlertas(I, TDD , TDC , numeroCuenta) {
   const this_aux = this;
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
   $('#_modal_please_wait').modal('show');
+  const divBlockAlerta = document.getElementById("blockAlertas");
   operacionesbxi.mantieneAlertas('C', this_aux.service.infoUsuarioSIC, I, TDD, TDC, numeroCuenta).then(
     function(detalleAlertas) {
           const detalle = detalleAlertas.responseJSON;
@@ -136,6 +137,9 @@ consultaAlertas(I, TDD , TDC , numeroCuenta) {
           console.log(detalle);
           if (detalle .Id === '1') {
 
+                
+                divBlockAlerta.removeAttribute('style');
+                divBlockAlerta.setAttribute('style', 'width: 1749px; margin-left: -10px;display: block');
 
                 const alertas = detalle.AlertasXCliente;
                 this_aux.ArrayAlertasCliente = alertas;
@@ -148,6 +152,10 @@ consultaAlertas(I, TDD , TDC , numeroCuenta) {
                 if (this_aux.AlertasActivas) {
                   
                   setTimeout(function() { 
+                   
+                    // divBlockAlerta.removeAttribute('style');
+                    // divBlockAlerta.setAttribute('style', 'width: 1749px; margin-left: -10px;display: none');
+
                     $('#_modal_please_wait').modal('hide');
                     document.getElementById('mnsError').innerHTML =  "Ya tienes alertas activas para esta cuenta";
                     $('#errorModal').modal('show');
@@ -156,6 +164,9 @@ consultaAlertas(I, TDD , TDC , numeroCuenta) {
                 this_aux.getSaldoDeCuenta(numeroCuenta);
 
           } else {
+           
+            divBlockAlerta.removeAttribute('style');
+            divBlockAlerta.setAttribute('style', 'width: 1749px; margin-left: -10px;display: none');
 
             setTimeout(function() {
               $('#_modal_please_wait').modal('hide');
@@ -164,6 +175,8 @@ consultaAlertas(I, TDD , TDC , numeroCuenta) {
           }
     }, function(error) {
 
+      divBlockAlerta.removeAttribute('style');
+      divBlockAlerta.setAttribute('style', 'width: 1749px; margin-left: -10px;display: none');
       setTimeout(function() {
         $('#_modal_please_wait').modal('hide');
         this_aux.showErrorPromise(error);             

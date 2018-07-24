@@ -37,7 +37,7 @@ export class MantenimientoDatosIniComponent implements OnInit {
 
   ngOnInit() {
     const this_aux = this;
-    $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
+    $( ".cdk-visually-hidden" ).css( "margin-top", "20%" );
     this_aux.service.cambioCel = false;
     this_aux.service.cambioCorreo = false;
     this_aux.getDatosContacto();
