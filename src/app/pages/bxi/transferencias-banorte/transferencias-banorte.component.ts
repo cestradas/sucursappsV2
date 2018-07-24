@@ -62,6 +62,7 @@ export class TransferenciasBanorteComponent implements OnInit {
 
   nombreCuenta: string;
   nombreCuentaTer: string;
+  nombreCuentaProp: string;
   numeroTarjeta: string;
 
   constructor(private _http: Http, private router: Router, private fb: FormBuilder, public service: SesionBxiService, private renderer: Renderer2, private currencyPipe: CurrencyPipe) {
@@ -76,7 +77,7 @@ export class TransferenciasBanorteComponent implements OnInit {
 
 
       'amount': new FormControl('', [Validators.required, Validators.min(0), Validators.max(7000), Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)]),
-      'concepto': new FormControl('', [Validators.required, Validators.maxLength(60)]),
+      'concepto': new FormControl('', [Validators.required, Validators.maxLength(40)]),
 
       'fcTokenTr': new FormControl('')
 
@@ -118,7 +119,7 @@ export class TransferenciasBanorteComponent implements OnInit {
 
   ngOnInit() {
 
-
+    this.resetLista();
     this.fillSelectCuentas();
     // this.consultaCuentas();
     this.fillCuentasBeneficiario();
@@ -372,6 +373,17 @@ setCuentasBenficiarioXTipo() {
 
   const this_aux = this;
   $( ".cdk-visually-hidden" ).css( "margin-top", "15%" );
+  const tableBeneficiarios = document.getElementById('tableBeneficiarios');
+  const tableDefaultBeneficiarios = document.getElementById('tableDefaultBeneficiarios');
+  const lblCuentaDestino = document.getElementById('lblCuentaDestino');
+  const lbDescripcionCtaBen = document.getElementById('lbDescripcionCtaBen');
+  this_aux.resetLista();
+  lblCuentaDestino.innerHTML = "";
+  lbDescripcionCtaBen.innerHTML = "";
+  tableBeneficiarios.setAttribute('style', 'display: none;');
+  tableDefaultBeneficiarios.setAttribute('style', 'display: block;height: 68px !important;');
+  tableDefaultBeneficiarios.removeAttribute('style');
+  tableDefaultBeneficiarios.setAttribute('style', 'height: 68px !important;');
 
   // selleciono cta propias
   if (this_aux.selectTipo.nativeElement.value.toString() === "1") {
@@ -467,7 +479,7 @@ setCuentasBenficiarioXTipo() {
                                               + auxcuenta.NoCuenta);
           this.renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaBeneficiario(event.target);
                 this_aux.numeroTarjeta = auxcuenta.Plastico;
-                this_aux.nombreCuenta = auxcuenta.Alias;
+                this_aux.nombreCuentaProp = auxcuenta.Alias;
                  });
           this.renderer.appendChild(a, textoCuenta),
           this.renderer.appendChild(li, a);
@@ -582,6 +594,14 @@ setDatosCuentaBeneficiario(elementHTML) {
 
   console.log(this_aux.service.claveBancoDestino + this_aux.service.claveAliasCuenta + this_aux.service.claveNumBenefi);
 
+}
+
+resetLista() {
+  const node = document.getElementById("ul_CuentasBen");
+  console.log(node);
+  while (node.firstChild) {
+    node.removeChild(node.firstChild);
+   }
 }
 
 
@@ -751,7 +771,7 @@ setTipoAutenticacionOnModal() {
 
     divChallenge.setAttribute('style', 'display: none');
     divTokenPass.setAttribute('style', 'display: flex');
-    this_aux.labelTipoAutentica = 'Token Fisico';
+    this_aux.labelTipoAutentica = 'Token Físico';
   }
 
 
@@ -812,7 +832,7 @@ validarSaldo(tipoOperecionPago) {
         if (DatosJSON.Id === "1") {
 
           console.log("Pago validado");
-          setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
+          //setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
 
           // MANDAR A LLAMAR MODAL DE CONFIRMACION
           if (tipoOperecionPago === "1") {           // Cuentas propias Banorte
@@ -867,7 +887,7 @@ validaDatosBen() {
 confirmarPago(token) {
 
 
-
+  $('#_modal_please_wait').modal('show');
   const this_aux = this;
   let mensajeError;
   // this.validaDatosBen();
@@ -891,6 +911,7 @@ confirmarPago(token) {
   switch (operacionSelect) {
 
     case '1':  // Cuentas propias Banorte
+    $('#_modal_please_wait').modal('show');
 
     /*
     autenticacion.autenticaUsuario(token, this_aux.service.metodoAutenticaMayor).then(
@@ -906,7 +927,9 @@ confirmarPago(token) {
                                                               this_aux.service.NombreUsuario)
                 .then(
 
+
                   function(response) {
+                    $('#_modal_please_wait').modal('show');
                     console.log(response.responseJSON);
 
                     const transferPropTer = response.responseJSON;
@@ -923,9 +946,13 @@ confirmarPago(token) {
 
                      } else {
                         this_aux.showErrorSucces(transferPropTer);
+                        setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
                      }
 
-                  }, function(error) { this_aux.showErrorPromiseMoney(error);  }
+                  }, function(error) {
+                    this_aux.showErrorPromiseMoney(error);
+                    setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
+                  }
                 );
             /*} else {
               console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
@@ -941,6 +968,7 @@ confirmarPago(token) {
 
           break;
     case '2':  // Cuentas a terceros Banorte
+    $('#_modal_please_wait').modal('show');
 
 
     autenticacion.autenticaUsuario(token, this_aux.service.metodoAutenticaMayor).then(
@@ -973,9 +1001,13 @@ confirmarPago(token) {
 
                      } else {
                         this_aux.showErrorSucces(transferPropTer);
+                        setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
                      }
 
-                  }, function(error) { this_aux.showErrorPromiseMoney(error);  }
+                  }, function(error) {
+                    this_aux.showErrorPromiseMoney(error);
+                    setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
+                  }
                 );
             } else {
               console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);

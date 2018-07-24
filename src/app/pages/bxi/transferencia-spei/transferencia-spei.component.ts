@@ -233,7 +233,7 @@ export class TransferenciaSpeiComponent implements OnInit {
   ngOnInit() {
 
 
-
+      this.resetLista();
       //ESTILOS Preferente
       let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
       let btnContinuar = document.getElementById("continuarspei");
@@ -462,7 +462,7 @@ export class TransferenciaSpeiComponent implements OnInit {
         divTokenPassQUICK.setAttribute('style', 'display: flex');
        }
 
-      this_aux.labelTipoAutentica = 'Token Fisico';
+      this_aux.labelTipoAutentica = 'Token Físico';
     }
 
 
@@ -876,6 +876,18 @@ setCuentasBenficiarioXTipo() {
   $('#_modal_please_wait').modal('show');
   $( ".cdk-visually-hidden" ).css( "margin-top", "14%" );
   const this_aux = this;
+  const tableBeneficiarios = document.getElementById('tableBeneficiarios');
+    const tableDefaultBeneficiarios = document.getElementById('tableDefaultBeneficiarios');
+    const lblCuentaDestino = document.getElementById('lblCuentaDestino');
+    const lbDescripcionCtaBen = document.getElementById('lbDescripcionCtaBen');
+    this_aux.resetLista();
+    lblCuentaDestino.innerHTML = "";
+    lbDescripcionCtaBen.innerHTML = "";
+    tableBeneficiarios.setAttribute('style', 'display: none;');
+    tableDefaultBeneficiarios.setAttribute('style', 'display: block;height: 68px !important;');
+    tableDefaultBeneficiarios.removeAttribute('style');
+    tableDefaultBeneficiarios.setAttribute('style', 'height: 68px !important;');
+
   console.log('setCuentasBenficiarioXTipo');
   console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
   const node = document.getElementById("ul_CuentasBen");
@@ -1004,6 +1016,14 @@ setCuentasBenficiarioXTipo() {
 
 }
 
+resetLista() {
+  const node = document.getElementById("ul_CuentasBen");
+  console.log(node);
+  while (node.firstChild) {
+    node.removeChild(node.firstChild);
+   }
+}
+
 
 consultaClabeSaldos(numCuentaDestinario_seleccionada) {
   const this_aux =  this;
@@ -1072,7 +1092,7 @@ validaDatosBen() {
   confirmarPago(token, tokenTef, tokenQuick) {
 
 
-
+    $('#_modal_please_wait').modal('hide');
     const this_aux = this;
     let mensajeError;
     // this.validaDatosBen();
@@ -1123,9 +1143,11 @@ validaDatosBen() {
 
     switch (operacionSelect) {
 
+
       case '1':  // SPEI
 
       //this_aux.consultaTablaCorpBancosService();
+      $('#_modal_please_wait').modal('show');
 
       autenticacion.autenticaUsuario(token, this_aux.service.metodoAutenticaMayor).then(
         function(detalleAutentica) {
@@ -1157,9 +1179,13 @@ validaDatosBen() {
 
                        } else {
                         this_aux.showErrorSucces(transferSPEI);
+                        setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
                        }
 
-                    }, function(error) { this_aux.showErrorPromiseMoney(error); }
+                    }, function(error) {
+                      this_aux.showErrorPromiseMoney(error);
+                      setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
+                    }
                   );
               } else {
                 console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
@@ -1177,6 +1203,7 @@ validaDatosBen() {
       case '2':  // TEF
 
       this_aux.consultaTablaCorpBancosService();
+      $('#_modal_please_wait').modal('show');
 
       autenticacion.autenticaUsuario(tokenTef, this_aux.service.metodoAutenticaMayor).then(
         function(detalleAutentica) {
@@ -1231,6 +1258,7 @@ validaDatosBen() {
 
             break;
       case '3':  // QUICK
+      $('#_modal_please_wait').modal('show');
 
 
 
