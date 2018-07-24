@@ -45,8 +45,12 @@ export class CompraFinishTaComponent implements OnInit {
       btnContinuar.classList.add("color-botones_Preferente");
     }
 
-
-    setTimeout(function() {$('#_modal_please_wait').modal('hide'); }, 500);
+    
+    setTimeout(function() {
+      $('#_modal_please_wait').modal('hide'); 
+      $('div').removeClass('modal-backdrop');
+            }, 500);
+    
     // this_aux.detallePago.nombreBeneficario = respPagoJson.NombreBeneficario;
 
   }

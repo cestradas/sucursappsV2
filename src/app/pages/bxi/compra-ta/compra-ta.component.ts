@@ -401,7 +401,7 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
     let mensajeError;
 
    // ctaO = this_aux.service.numCuentaCTASel;
-   
+   $('#_modal_please_wait').modal('show');
     console.log(importeTel);
 
     const autenticacion: Autenticacion = new Autenticacion();

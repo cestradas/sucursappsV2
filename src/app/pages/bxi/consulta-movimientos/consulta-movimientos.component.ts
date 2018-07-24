@@ -15,7 +15,6 @@ declare var $: any;
 })
 export class ConsultaMovimientosComponent implements OnInit {
   
-
   cuentasArray: Array<any>;
   saldoSeleccionado: string;
   aliasSeleccionado: String;
