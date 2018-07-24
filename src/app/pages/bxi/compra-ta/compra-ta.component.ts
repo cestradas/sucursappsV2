@@ -426,11 +426,19 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
              }, 1000);
             }
       }, function(error) {
+        setTimeout(() => {
+          $('#_modal_please_wait').modal('hide'); } , 1000);
         console.log("No llego respuesta");
         this_aux.showErrorPromise(error);
       });
 
 
+}
+
+ocultaModal() {
+  const this_aux = this;
+  const control: FormControl = new FormControl('');
+  this_aux.forma.setControl('fcToken', control );
 }
 
 compraTA() {
@@ -457,14 +465,21 @@ compraTA() {
          console.log(compraTAResp);
          this_aux.service.detalleConfirmacionCTA = response.responseText;
          console.log(this_aux.service.detalleConfirmacionCTA);
-         this.router.navigate(['/CompraTaFinish']);
+         setTimeout(() => {$('#confirmModal').modal('hide'); } , 1000);
+         this_aux.service.operador = this_aux.operador;
+         this_aux.router.navigate(['/CompraTaFinish']);
 
        } else {
+        setTimeout(() => {
+          $('#_modal_please_wait').modal('hide'); } , 1000);
         this_aux.showErrorSucces(compraTAResp);
 
        }
 
-    }, function(error) { this_aux.showErrorPromiseMoney(error); }
+    }, function(error) {
+      setTimeout(() => {
+        $('#_modal_please_wait').modal('hide'); } , 1000);
+       this_aux.showErrorPromiseMoney(error); }
   );
 }
 

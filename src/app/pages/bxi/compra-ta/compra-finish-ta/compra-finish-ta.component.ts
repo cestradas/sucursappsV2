@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SesionBxiService } from './../../sesion-bxi.service';
-
+import $ from 'jquery';
+declare var $: $;
 @Component({
   selector: 'app-compra-finish-ta',
   templateUrl: './compra-finish-ta.component.html',
@@ -13,8 +14,9 @@ export class CompraFinishTaComponent implements OnInit {
     fechaOperacion: '',
     cuentaOrdenante: '',
     telefono: '',
-    importe: ''
-
+    importe: '',
+    hora: '',
+    operadorTelefono: ''
 };
 
   constructor(private service: SesionBxiService) { }
@@ -25,15 +27,15 @@ export class CompraFinishTaComponent implements OnInit {
     const respPago = this_aux.service.detalleConfirmacionCTA;
     const respPagoJson = JSON.parse(respPago);
     console.log(respPagoJson);
-
+    this_aux.detallePago.operadorTelefono = this_aux.service.operador;
     this_aux.detallePago.referenciaNumerica = respPagoJson.NumReferencia;
-
+    this_aux.detallePago.hora = respPagoJson.FechaHoraOperacion;
     this_aux.detallePago.fechaOperacion  = respPagoJson.FechaHoraOperacion;
     this_aux.detallePago.cuentaOrdenante = this_aux.service.numCuentaCTASel;
     this_aux.detallePago.telefono = respPagoJson.NumeroTelefono;
     this_aux.detallePago.importe = respPagoJson.ImporteCompra;
 
-    //ESTILOS Preferente
+    // ESTILOS Preferente
     let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
     let btnContinuar = document.getElementById("terminarA");
 
@@ -44,7 +46,7 @@ export class CompraFinishTaComponent implements OnInit {
     }
 
 
-
+    setTimeout(function() {$('#_modal_please_wait').modal('hide'); }, 500);
     // this_aux.detallePago.nombreBeneficario = respPagoJson.NombreBeneficario;
 
   }

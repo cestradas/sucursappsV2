@@ -213,8 +213,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
+                    <div class="modal-footer" style="padding-right: 0px !important;">
+                        <button class="btn btn-lg" data-dismiss="modal" (click)="ocultaModal()">Cancelar</button>
                         <button class="color-botones btn btn-lg " [disabled]="!forma.valid" (click)="confirmarPago(token.value)">
                                 Confirmar
                               </button>

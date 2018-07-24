@@ -1,5 +1,5 @@
 <div ng-cloak class="padding-barToTittle">
-    <h2 class="text-center">Recarga exitosa</h2>
+    <h2 class="text-center  color-letra">Compra de tiempo aire exitosa</h2>
 </div>
 
 <fieldset align="center" class="padding-TittleToFieldset padding-fieldset-general">
@@ -8,7 +8,7 @@
             <div class="col-lg-6" align="right">
                 <strong>Referencia:</strong>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6" align="left">
                 <label>{{detallePago.referenciaNumerica}}</label>
             </div>
         </div>
@@ -18,26 +18,44 @@
             <div class="col-lg-6" align="right">
                 <strong>Fecha de operaci&oacute;n:</strong>
             </div>
-            <div class="col-lg-6">
-                <label>{{detallePago.fechaOperacion}}</label>
+            <div class="col-lg-6" align="left">
+                <label>{{detallePago.fechaOperacion |date:'dd-MM-yyyy'}}</label>
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-lg-6" align="right">
+                <strong>Hora de operaci&oacute;n:</strong>
+            </div>
+            <div class="col-lg-6" align="left">
+                <label>{{detallePago.hora |date:'hh:mm:ss'}}</label>
+            </div>
+        </div>
 
+        <div class="row">
+            <div class="col-lg-6" align="right">
+                <strong>Operador:</strong>
+            </div>
+            <div class="col-lg-6" align="left">
+                <label>{{detallePago.operadorTelefono}}</label>
+            </div>
+        </div>
+
+        <!--
         <div class="row">
             <div class="col-lg-6" align="right">
                 <strong>Cuenta origen:</strong>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6" align="left">
                 <label>{{detallePago.cuentaOrdenante}}</label>
             </div>
-        </div>
+        </div> -->
 
         <div class="row">
             <div class="col-lg-6" align="right">
                 <strong>Telefono:</strong>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6" align="left">
                 <label>{{detallePago.telefono}}</label>
             </div>
         </div>
@@ -46,17 +64,17 @@
             <div class="col-lg-6" align="right">
                 <strong>Importe:</strong>
             </div>
-            <div class="col-lg-6">
-                <label>{{detallePago.importe}}</label>
+            <div class="col-lg-6" align="left">
+                <label>{{detallePago.importe | currency}}</label>
             </div>
         </div>
 
     </div>
     <div style="margin:30px 0px 0px 0px;" class="row">
         <div style=" padding: 0px;" class="col-sm-12">
-            <button id="terminarA" class="btn color-botones pull-right btn-lg" onClick="currentPage.loadMenu();">
-      Terminar
-    </button>
+            <button id="terminar" class="color-botones btn btn-lg pull-right" routerLink="/menuTdd">
+    Terminar
+  </button>
         </div>
     </div>
 

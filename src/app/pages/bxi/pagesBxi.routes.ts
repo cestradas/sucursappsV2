@@ -23,7 +23,7 @@ import { ConsultaMovimientosComponent } from './consulta-movimientos/consulta-mo
 import { ConsultaMovimientosDetailComponent } from './consulta-movimientos/consulta-movimientos-detail/consulta-movimientos-detail.component';
 import { CancelarEnvioEdcComponent } from './impresion-edc/cancelar-envio-edc/cancelar-envio-edc.component';
 import { CancelarEnvioEdcFinishComponent } from './impresion-edc/cancelar-envio-edc-finish/cancelar-envio-edc-finish.component';
-import { DocElectronComponent } from './impresion-edc/doc-electron/doc-electron.component';
+import { CompraFinishTaComponent } from './compra-ta/compra-finish-ta/compra-finish-ta.component';
 
 const pageRoutesBXI: Routes = [
     {
@@ -32,6 +32,7 @@ const pageRoutesBXI: Routes = [
             { path: 'saldosDetailBXI', component: ConsultaMovimientosDetailComponent},
             { path: 'saldosBXI', component: ConsultaMovimientosComponent},
             { path: 'CompraTaComponent', component: CompraTaComponent},
+            { path: 'CompraTaFinish', component: CompraFinishTaComponent},
             { path: 'speiBXI', component: TransferenciaSpeiComponent},
             { path: 'pagoservicios_ini', component: PagoServiciosIniComponent},
             { path: 'pagoservicios_detail', component: PagoServiciosDetailComponent},

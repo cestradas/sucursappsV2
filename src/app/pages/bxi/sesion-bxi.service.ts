@@ -86,6 +86,7 @@ export class SesionBxiService {
      // Compra TA
      Importerecargas: string;
      numCuentaCTASel: string;
+     operador: string;
      // Respuesta Servicios
      detalleConfirmacionCTA: string;
 
