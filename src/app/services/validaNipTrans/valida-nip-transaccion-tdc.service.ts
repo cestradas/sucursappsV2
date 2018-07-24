@@ -51,7 +51,7 @@ export class ValidaNipTransaccionTdcService {
             };
 
             const resourceRequest = new WLResourceRequest(
-                'adapters/AdapterBanorteSucursApps/resource/validaNipTrans',
+                'adapters/AdapterBanorteSucursAppsTdc/resource/validaNipTrans',
                 WLResourceRequest.POST);
             resourceRequest.setTimeout(30000);
             resourceRequest
@@ -108,7 +108,7 @@ export class ValidaNipTransaccionTdcService {
     }
 
     getPosts() {
-        return this._http.get('http://localhost:8081/sucursappsdevices/pinpad/read')
+        return this._http.get('http://localhost:8083/sucursappsdevices/pinpad/read')
                                 .map(res => res.json());
       }
 
@@ -117,7 +117,7 @@ export class ValidaNipTransaccionTdcService {
             importe: importe
         };
       const resourceRequest = new WLResourceRequest(
-        "adapters/AdapterBanorteSucursApps2/resource/consultaMontosMaximos",
+        "adapters/AdapterBanorteSucursAppsTdc/resource/consultaMontosMaximos",
         WLResourceRequest.POST
       );
       resourceRequest.setTimeout(30000);
