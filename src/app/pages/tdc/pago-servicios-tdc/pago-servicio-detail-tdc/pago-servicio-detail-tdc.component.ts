@@ -11,6 +11,8 @@ import { ConsultaCatalogosTdcService } from '../../../../services/consultaCatalo
 import { Http } from '@angular/http';
 import { ValidaNipTransaccionTdcService } from '../../../../services/validaNipTrans/valida-nip-transaccion-tdc.service';
 
+
+
 declare var $: any;
 
 @Component({
@@ -18,7 +20,6 @@ declare var $: any;
   templateUrl: './pago-servicio-detail-tdc.component.html',
 })
 export class PagoServicioDetailTdcComponent implements OnInit {
-
   @ViewChild('rImporte', { read: ElementRef}) rImporte: ElementRef ;
 
   myForm: FormGroup;
@@ -30,12 +31,14 @@ export class PagoServicioDetailTdcComponent implements OnInit {
   fechaVencimiento: string;
   labelTipoAutentica: string;
 
-  numCuenta_show: string;
-  saldoDispoinible: string;
-  SaldoActual: string;
-  NumeroTarjeta: string;
+  INTENTOS = 0;
+  TAMCADENA = 0;
+  COUNTCHAR = 0;
 
   postResp;
+
+  numCuenta_show: string;
+  NumeroTarjeta: string;
 
   constructor(private _serviceSesion: SesionTDDService,
               private _service: ConsultaSaldosTddService,
@@ -46,12 +49,11 @@ export class PagoServicioDetailTdcComponent implements OnInit {
               private fb: FormBuilder,
               private _http: Http) {
 
-               // this._service.cargarSaldosTDD();
+    /*this._service.cargarSaldosTDD();
 
     $('#_modal_please_wait').modal('show');
     const operaciones: ConsultaCatalogosTdcService = new ConsultaCatalogosTdcService();
-    this.consultaSaldosTarjetas();
-    /*this._service.validarDatosSaldoTdd().then(
+    this._service.validarDatosSaldoTdd().then(
       mensaje => {
 
         console.log('Saldos cargados correctamente TDD');
@@ -59,16 +61,16 @@ export class PagoServicioDetailTdcComponent implements OnInit {
 
       }
     );*/
-
+    this.consultaSaldosTarjetas();
     setTimeout( () => $('#_modal_please_wait').modal('hide'), 500 );
 
 
     this.myForm = this.fb.group({
       fcTelefono: ['', [Validators.required, Validators.pattern(/^(([0-9]{10}))$/)]],
-       fcReferencia: ['', [Validators.required, Validators.pattern(/^(([0-9]{1,}))$/)]],
+       fcReferencia: ['', [Validators.required, Validators.pattern(/^(([0-9]{1,30}))$/)]],
        fcDigitoVerificador: ['', [Validators.required, Validators.pattern(/^(([0-9]{1}))$/)]],
-      fcFechaVencimiento: ['', [Validators.required , Validators.pattern(/^\d{2,4}\-\d{1,2}\-\d{1,2}$/)  ]],
-     fcImporte: ['', [Validators.required, Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)]],
+      fcFechaVencimiento: ['', [Validators.required , Validators.pattern(/^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]],
+      fcImporte: ['', [Validators.required, Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)]],
 
     });
 
@@ -76,7 +78,14 @@ export class PagoServicioDetailTdcComponent implements OnInit {
   }
 
   ngOnInit() {
-    $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
+    localStorage.removeItem("des");
+    localStorage.removeItem("np");
+    localStorage.removeItem("res");
+    localStorage.removeItem("tr2");
+    localStorage.removeItem("tr2_serv");
+    localStorage.removeItem("np_serv");
+    localStorage.removeItem("res_serv");
+
     // ESTILOS Preferente
     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
     let btnContinuar = document.getElementById("continuar");
@@ -90,7 +99,31 @@ export class PagoServicioDetailTdcComponent implements OnInit {
       btnContinuar2.classList.add("color-botones_Preferente");
     }
 
+
+
     const this_aux = this;
+    const ModalLectordeRecibo = $('#ModalLectordeRecibo');
+    let cadena = '';
+    ModalLectordeRecibo.on('keydown', function(event) {
+
+        let e;
+        e = e ||   event;
+        const code = e.key;
+        cadena = cadena + code;
+        setTimeout(function() {
+         
+         if (this_aux.COUNTCHAR < 1 || this_aux.COUNTCHAR === this_aux.TAMCADENA) {
+           const expreg = /(\d+)/g; 
+             this_aux.leeCodeBar(cadena.match(expreg));
+             setTimeout(function() {
+             cadena = ''; 
+             }, 500);
+            } else {
+           this_aux.COUNTCHAR = this_aux.COUNTCHAR + 1;  
+         } }, 1000);
+      
+    });
+
     const detalleEmpresa = JSON.parse(this_aux.service.detalleEmpresa_PS);
 
     this_aux.nombreServicio =  detalleEmpresa.empresa;
@@ -114,13 +147,17 @@ export class PagoServicioDetailTdcComponent implements OnInit {
         this_aux.myForm.removeControl('fcDigitoVerificador');
     }
     $('#_modal_please_wait').modal('hide');
-    
-   
+
+    $( ".cdk-visually-hidden" ).css( "margin-top", "9%" );
   }
 
  
 
-
+  espacioTeclado() {
+    // ESTILO TECLADO (QUITAR ESTILO AL SALIR DE PAGINA PARA EVITAR QUE BAJE MAS EN OTRAS PANTALLAS)
+console.log("aquiiiiiiiiiiiii");
+    $( ".cdk-overlay-container" ).css( "margin-top", "9%" );
+  }
 
   showDetallePago( myForm) {
     const this_aux = this;
@@ -213,8 +250,10 @@ pagoServicio() {
 console.log("si entre");
 const this_aux = this;
 const operaciones: ConsultaCatalogosTdcService = new ConsultaCatalogosTdcService();
-console.log(this_aux.service.idFacturador, this_aux.importeAux, this_aux.referenciaPago,this_aux.NumeroTarjeta, this_aux.fechaVencimiento);
-operaciones.pagaServicio(this_aux.service.idFacturador, this_aux.importeAux, this_aux.referenciaPago,this_aux.fechaVencimiento).then(
+console.log(this_aux.service.idFacturador, this_aux.importeAux, this_aux.referenciaPago
+  , this_aux.cuentaClienteTdd, this_aux.fechaVencimiento);
+operaciones.pagaServicio(this_aux.service.idFacturador, this_aux.importeAux, this_aux.referenciaPago
+  , this_aux.fechaVencimiento).then(
     function(respPago) {
 
       const jsonDetallePago = respPago.responseJSON;
@@ -265,63 +304,88 @@ validarSaldo(myForm) {
   });
   }
 
-showErrorSuccesMoney(json) {
+  showErrorPromiseMoney(error) {
+
+   
+    if (error.errorCode === 'API_INVOCATION_FAILURE') {
+      $('#errorModal').modal('show'); 
+      document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+    } else {
+      document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tu saldo.";
+      $('#ModalErrorTransaccion').modal('show');
+    }
+}
+
+showErrorSucces(json) {
+
   console.log(json.Id + json.MensajeAUsuario);
-  document.getElementById('msgError').innerHTML =   json.MensajeAUsuario;
-  $('#_modal_please_wait').modal('hide');
-  $('#ModalErrorTransaccion').modal('show');
+  if (json.Id === '2') {
+    document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
+  } else {
+    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+  }
+  $('#errorModal').modal('show');
+       
 }
 
 showErrorPromise(error) {
-  console.log(error);
-  // tslint:disable-next-line:max-line-length
-  document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
-  $('#_modal_please_wait').modal('hide');
-  $('#errorModal').modal('show');
-}
-
-leeCodeBar(value) {
-  const this_aux = this;
-  console.log(value);
-  console.log(value.length);
-
-  if (this_aux.service.idFacturador === '1310') {
-
-    if (value.length === 20) {
-      const telefono = value.substring(0, 10);
-      const centavos = '.' + value.substring(17, 19);
-      const unidades = '$' + parseInt(value.substring(10, 17), 10) ;
-      const importe = unidades + centavos;
-      const digito = value.substring(19, 20);
-      // tslint:disable-next-line:max-line-length
-      const controlTelefono: FormControl = new FormControl(telefono, [Validators.required, Validators.pattern(/^(([0-9]{10}))$/)]);
-      const controlDigito: FormControl = new FormControl(digito, [Validators.required, Validators.pattern(/^(([0-9]{1}))$/)]);
-      const controlImporte: FormControl = new FormControl(importe, Validators.required);
-      this_aux.myForm.setControl('fcImporte', controlImporte );
-      this_aux.myForm.setControl('fcTelefono', controlTelefono );
-      this_aux.myForm.setControl('fcDigitoVerificador', controlDigito );
-
-      $('#ModalLectordeRecibo').modal('hide');
-
+        $('#errorModal').modal('show');
+        if (error.errorCode === 'API_INVOCATION_FAILURE') {
+            document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+        } else {
+          document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
+        }
     }
-  } else {
-    if (value.length === 30) {
 
-      const referencia = value.substring(2, 14);
-      const importe = '$' + parseInt(value.substring(20, 29), 10) + '.00';
-      const anio = '20' + value.substring(14, 16);
-      const mes = value.substring(16, 18);
-      const dia = value.substring(18, 20);
-      const fecha = anio + '-' + mes + '-' + dia;
-      const controlReferencia: FormControl = new FormControl(referencia, Validators.required);
-      const controlFecha: FormControl = new FormControl(fecha, [Validators.required,  Validators.pattern(/^\d{2,4}\-\d{1,2}\-\d{1,2}$/)]);
-      const controlImporte: FormControl = new FormControl(importe, Validators.required);
-      this_aux.myForm.setControl('fcImporte', controlImporte );
-      this_aux.myForm.setControl('fcReferencia', controlReferencia );
-      this_aux.myForm.setControl('fcFechaVencimiento', controlFecha );
-      $('#ModalLectordeRecibo').modal('hide');
-    }
- }
+leeCodeBar(valor) {
+  const this_aux = this;    
+  if (valor !== null ) {
+
+    const value = valor[0];
+    if (this_aux.service.idFacturador === '1310') {
+
+      if (value.length === 20) {
+        const telefono = value.substring(0, 10);
+        const centavos = '.' + value.substring(17, 19);
+        const unidades = '$' + parseInt(value.substring(10, 17), 10) ;
+        const importe = unidades + centavos;
+        const digito = value.substring(19, 20);
+        // tslint:disable-next-line:max-line-length
+        const controlTelefono: FormControl = new FormControl(telefono, [Validators.required, Validators.pattern(/^(([0-9]{10}))$/)]);
+        const controlDigito: FormControl = new FormControl(digito, [Validators.required, Validators.pattern(/^(([0-9]{1}))$/)]);
+        const controlImporte: FormControl = new FormControl(importe, [ Validators.required]);
+        this_aux.myForm.setControl('fcImporte', controlImporte );
+        this_aux.myForm.setControl('fcTelefono', controlTelefono );
+        this_aux.myForm.setControl('fcDigitoVerificador', controlDigito );
+
+        $('#ModalLectordeRecibo').modal('hide');
+
+      } else {
+          this_aux.validaIntentos(value);
+      }
+    } else {
+      if (value.length === 30) {
+
+        const referencia = value.substring(2, 14);
+        const importe = '$' + parseInt(value.substring(20, 29), 10) + '.00';
+        const anio = '20' + value.substring(14, 16);
+        const mes = value.substring(16, 18);
+        const dia = value.substring(18, 20);
+        const fecha = anio + '-' + mes + '-' + dia;
+        // tslint:disable-next-line:max-line-length
+        const controlReferencia: FormControl = new FormControl(referencia, [ Validators.required, Validators.pattern(/^([a0-zA9-Z]{1,30})$/)]);
+        // tslint:disable-next-line:max-line-length
+        const controlFecha: FormControl = new FormControl(fecha, [Validators.required,  Validators.pattern(/^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]);
+        const controlImporte: FormControl = new FormControl(importe, Validators.required);
+        this_aux.myForm.setControl('fcImporte', controlImporte );
+        this_aux.myForm.setControl('fcReferencia', controlReferencia );
+        this_aux.myForm.setControl('fcFechaVencimiento', controlFecha );
+        $('#ModalLectordeRecibo').modal('hide');
+      } else {
+          this_aux.validaIntentos(value);
+      }
+   }
+  }
 }
 
 irAtras() {
@@ -330,28 +394,23 @@ irAtras() {
 }
 
 
-showErrorPromiseMoney(error) {
-
-
-  if (error.errorCode === 'API_INVOCATION_FAILURE') {
-    $('#errorModal').modal('show');
-    document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
-  } else {
-    document.getElementById('msgError').innerHTML =   "Se presenta falla en el servicio MCA / Time Out de operación monetaria.";
-    $('#ModalErrorTransaccion').modal('show');
-  }
-}
-
-showErrorSucces(json) {
-  console.log(json.Id + json.MensajeAUsuario);
-  if (json.Id === '2') {
-    document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
-  } else {
-    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
-  }
-  $('#errorModal').modal('show');
-}
-
+validaIntentos(value) {
+  const this_aux = this;
+  if (this_aux.COUNTCHAR < 1) {
+    this_aux.TAMCADENA = value.length;
+    this_aux.COUNTCHAR = this_aux.COUNTCHAR + 1;
+ }
+ if (this_aux.COUNTCHAR === this_aux.TAMCADENA) {
+    this_aux.COUNTCHAR = 0;
+    this_aux.INTENTOS = this_aux.INTENTOS + 1;
+    if (this_aux.INTENTOS === 5) {
+      $('#ModalLectordeRecibo').modal('hide');
+      document.getElementById('mnsError').innerHTML = 'Lo sentimos, no pudimos escanear tu recibo, ingresa tus datos manualmente.';
+                    $('#errorModal').modal('show');
+      
+    } 
+ }
+ }
 
 // consulta TDC
 consultaSaldosTarjetas() {
@@ -372,9 +431,6 @@ consultaSaldosTarjetas() {
         const detalleSaldos = response1.responseJSON;
         $('#_modal_please_wait').modal('hide');
         if ( detalleSaldos.Id === '1') {
-          this_aux.saldoDispoinible = detalleSaldos.SaldoDisponible;
-          this_aux.saldoDispoinible = this_aux.saldoDispoinible;
-          this_aux.SaldoActual = detalleSaldos.SaldoActual;
           this_aux.NumeroTarjeta = detalleSaldos.NumeroTarjeta;
           this_aux.mascaraNumeroCuenta(this_aux.NumeroTarjeta);
           $('#_modal_please_wait').modal('hide');
@@ -393,5 +449,7 @@ mascaraNumeroCuenta(numCtaSel) {
   this.numCuenta_show = '******' + numCta_aux;
   return this.numCuenta_show;
 }
+
+
 
 }

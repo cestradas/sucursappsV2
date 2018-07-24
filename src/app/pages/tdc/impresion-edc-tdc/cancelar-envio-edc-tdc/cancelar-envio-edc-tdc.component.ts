@@ -118,12 +118,13 @@ export class CancelarEnvioEdcTdcComponent implements OnInit {
 
 
   showErrorSucces(json) {
-    setTimeout(function() {
-      console.log(json.Id + json.MensajeAUsuario);
-      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
-      $('#_modal_please_wait').modal('hide');
-      $('#errorModal').modal('show');
-    }, 500);
+  console.log(json.Id + json.MensajeAUsuario);
+  if (json.Id === '2') {
+    document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
+  } else {
+    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+  }
+  $('#errorModal').modal('show');
   }
 
   showErrorPromise(error) {

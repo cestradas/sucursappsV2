@@ -58,7 +58,7 @@ export class MovimientosaldotdcComponent implements OnInit {
   ngOnInit() {
     this.consultaMovimientosCreditom();
     this.consultaSaldosTarjetasm();
-    // this.llamarMovimientosTDC();
+    this.llamarMovimientosTDC();
     $('#_modal_please_wait').modal('show');
   
   }
@@ -329,8 +329,11 @@ export class MovimientosaldotdcComponent implements OnInit {
     }
     showErrorSucces(json) {
       console.log(json.Id + json.MensajeAUsuario);
-      document.getElementById('mnsError').innerHTML = json.MensajeAUsuario; 
-      setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
+      if (json.Id === '2') {
+        document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
+      } else {
+        document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+      }
       $('#errorModal').modal('show');
       }
       

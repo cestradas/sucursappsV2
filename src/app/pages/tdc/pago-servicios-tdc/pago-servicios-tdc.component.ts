@@ -22,12 +22,6 @@ export class PagoServiciosTdcComponent implements OnInit {
   saldoClienteTdd: string;
   cuentaClienteTdd: string;
 
-  saldoDispoinible: string;
-  SaldoActual: string;
-  NumeroTarjeta: string;
-
-  numCuenta_show: string;
-
   forma: FormGroup;
   myForm: FormGroup;
   showOptions: Boolean = false;
@@ -35,7 +29,13 @@ export class PagoServiciosTdcComponent implements OnInit {
   arrayEmpresas: Array<any> = [];
   listaEmpresas:  Array<any> = [];
   listaEmpresasAux: Array<any> = [];
-
+  empresaSelect: Boolean = false ;
+  nombreEmpresaSelect: string;
+ 
+  numCuenta_show: string;
+  saldoDispoinible: string;
+  SaldoActual: string;
+  NumeroTarjeta: string;  
 
   constructor(  private _service: ConsultaSaldosTddService,
                 private _serviceSesion: SesionTDDService,
@@ -57,20 +57,21 @@ export class PagoServiciosTdcComponent implements OnInit {
         Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')])
 
     });
-    // this._service.cargarSaldosTDD();
-    /*this._service.validarDatosSaldoTdd().then(
+    /*const operaciones: consultaCatalogos = new consultaCatalogos();
+    this._service.cargarSaldosTDD();
+    this._service.validarDatosSaldoTdd().then(
       mensaje => {
 
         console.log('Saldos cargados correctamente TDD');
         this.saldoClienteTdd = mensaje.SaldoDisponible;
-        this.cuentaClienteTdd = mensaje.NumeroCuenta;
+        this.cuentaClienteTdd = operaciones.mascaraNumeroCuenta(mensaje.NumeroCuenta);
         this.nombreUsuarioTdd = this._serviceSesion.datosBreadCroms.nombreUsuarioTDD;
 
       }
     );*/
-    // agragadas
     this.consultaSaldosTarjetas();
     setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
+    
 
     this.myForm = this.fb.group({
       fcFacturador: ['', [Validators.required]],
@@ -78,7 +79,7 @@ export class PagoServiciosTdcComponent implements OnInit {
   }
 
   ngOnInit() {
-    $( ".cdk-visually-hidden" ).css( "margin-top", "30%" );
+    
     // ESTILOS Preferente
     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
     let btnContinuar = document.getElementById("continuar");
@@ -90,6 +91,7 @@ export class PagoServiciosTdcComponent implements OnInit {
     }
 
      this.getEmpresas();
+     $( ".cdk-visually-hidden" ).css( "margin-top", "30%" );
   }
 
 
@@ -103,7 +105,8 @@ export class PagoServiciosTdcComponent implements OnInit {
 
     const this_aux = this;
    if (localStorage.getItem('Facturadores') !== null) {
-
+    
+    setTimeout(function() {
          const facturadores =  localStorage.getItem('Facturadores').toString();
          this_aux.arrayEmpresas = JSON.parse(facturadores);
 
@@ -114,8 +117,10 @@ export class PagoServiciosTdcComponent implements OnInit {
            });
          console.log(this_aux.listaEmpresas);
          this_aux.listaEmpresasAux = this_aux.listaEmpresas;
-         $('#_modal_please_wait').modal('hide');
-
+         this_aux.actualizaEmpresasXtipoPago();
+         setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
+        
+        }, 500);
 
    } else {
 
@@ -125,6 +130,7 @@ export class PagoServiciosTdcComponent implements OnInit {
              console.log(response.responseJSON);
              const consultaEmpresas = response.responseJSON;
              if (consultaEmpresas.Id === '1') {
+
                this_aux.arrayEmpresas = consultaEmpresas.Facturadores;
                localStorage.setItem('Facturadores', JSON.stringify(this_aux.arrayEmpresas ));
                this_aux.arrayEmpresas.forEach(empresa => {
@@ -134,13 +140,14 @@ export class PagoServiciosTdcComponent implements OnInit {
                  });
                console.log(this_aux.listaEmpresas);
                this_aux.listaEmpresasAux = this_aux.listaEmpresas;
-               $('#_modal_please_wait').modal('hide');
+               setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
 
                } else {
                  this_aux.showErrorSucces(consultaEmpresas);
              }
-
+                 this_aux.actualizaEmpresasXtipoPago();
            }, function(error) {
+            setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
                  this_aux.showErrorPromise(error);
            });
    }
@@ -158,8 +165,14 @@ getIdEmpresa(empresaSeleccionada: string) {
           valueFacturador = empresa.IdFacturador;
     }
   });
+  if (valueFacturador === undefined) {
+      document.getElementById('mnsError').innerHTML = "Servicio invalidado, verifica tu elección.";
+     $('#errorModal').modal('show');
+  }
+  else{
   this_aux.service.idFacturador = valueFacturador;
   this_aux.getDetalleEmpresa(valueFacturador);
+  }
 }
 
 getDetalleEmpresa(idFacturador) {
@@ -172,35 +185,33 @@ getDetalleEmpresa(idFacturador) {
          const detalleEmpresa = response.responseJSON;
          const body = $('body');
          if (detalleEmpresa.Id === '1') {
-
-           // body.off('click');
            this_aux.service.detalleEmpresa_PS = response.responseText;
            this_aux.router.navigate(['/pagoServicioDetailTdc']);
 
          } else {
               this_aux.showErrorSucces(detalleEmpresa);
          }
+            setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
        }, function(error) {
+            setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
             this_aux.showErrorPromise(error);
        });
  }
 
  muestraFacturadores() {
-
-  // ESTILO TECLADO (QUITAR ESTILO AL SALIR DE PAGINA PARA EVITAR QUE BAJE MAS EN OTRAS PANTALLAS)
-  // $( ".cdk-overlay-container" ).css( "margin-top", "19 %" );
-
   const this_aux = this;
   console.log('muestraFacturadores');
   this_aux.setClickOnBody();
 }
   setValue(value) {
 
-    const aux_this = this;
-    const body = $('body');
-    body.off('click');
-    aux_this.facturador.nativeElement.value = value ;
-    aux_this.showOptions = false;
+    const this_aux = this;
+    this_aux.facturador.nativeElement.value = value ;
+    const control: FormControl = new FormControl(value, Validators.required);
+    this_aux.myForm.setControl('fcFacturador', control );
+    this_aux.nombreEmpresaSelect = value;
+    this_aux.showOptions = false;
+    this_aux.empresaSelect = true;
    }
 
 
@@ -215,46 +226,78 @@ getDetalleEmpresa(idFacturador) {
    const auxOption = [];
    const valueInput = this_aux.facturador.nativeElement.value;
 
-           if (valueInput.toUpperCase() === '') {
-             this_aux.showOptions = false;
+          if (valueInput.toUpperCase() === '') {
+              this_aux.showOptions = false;
 
-           } else {
+          } else {
+              if (  this_aux.empresaSelect) {
+                    this_aux.showOptions = false; 
+        
+              if (this_aux.nombreEmpresaSelect !== valueInput) {
+                  this_aux.empresaSelect = false;
+                  } 
+              } else {
+                  this_aux.showOptions = true;
+              }
+    
+                this_aux.listaEmpresas = this_aux.listaEmpresasAux;
+                this_aux.listaEmpresas.forEach(element => {
+            if (element.includes(valueInput.toUpperCase())) {
+                  auxOption.push(element);
+                } });
 
-             this_aux.showOptions = true;
-             this_aux.listaEmpresas = this_aux.listaEmpresasAux;
-             this_aux.listaEmpresas.forEach(element => {
-               if (element.includes(valueInput.toUpperCase())) {
-                 auxOption.push(element);
-               } });
+            this_aux.listaEmpresas = auxOption;
+          }
 
-                 this_aux.listaEmpresas = auxOption;
-                 }
-
-  });
+      });
 }
 
- showErrorSucces(json) {
+
+
+showErrorSucces(json) {
+
   console.log(json.Id + json.MensajeAUsuario);
-  document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
-  $('#_modal_please_wait').modal('hide');
+  if (json.Id === '2') {
+    document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
+  } else {
+    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+  }
   $('#errorModal').modal('show');
 }
 
 showErrorPromise(error) {
-  console.log(error);
-  // tslint:disable-next-line:max-line-length
-  document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
-  $('#_modal_please_wait').modal('hide');
   $('#errorModal').modal('show');
+  if (error.errorCode === 'API_INVOCATION_FAILURE') {
+      document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+  } else {
+    document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
+  }
 }
 
 
 irMenuTDC() {
   const this_aux = this;
   this_aux.router.navigate(['/menuTDC']);
-} 
+}
 
-// consulta TDC
+actualizaEmpresasXtipoPago() {
+  const this_aux = this;
+
+  this_aux.listaEmpresas = [];
+  const facturadores =  localStorage.getItem('Facturadores').toString();
+  this_aux.arrayEmpresas = JSON.parse(facturadores);
+
+      this_aux.arrayEmpresas.forEach(empresa => {
+       const tipoPago = empresa.TipoPago; 
+        if ( tipoPago.includes("06")) {
+          this_aux.listaEmpresas.push(empresa.Descripcion);
+        }
+      });
+      console.log(this_aux.listaEmpresas);
+      this_aux.listaEmpresasAux = this_aux.listaEmpresas;
+  
+  }
+  // consulta TDC
 consultaSaldosTarjetas() {
   const this_aux = this;
   const formParameters = { 
@@ -294,6 +337,5 @@ mascaraNumeroCuenta(numCtaSel) {
   this.numCuenta_show = '******' + numCta_aux;
   return this.numCuenta_show;
 }
-
 
 }
