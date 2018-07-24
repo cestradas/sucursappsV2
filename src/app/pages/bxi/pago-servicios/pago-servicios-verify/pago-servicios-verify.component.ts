@@ -34,7 +34,7 @@ export class PagoServiciosVerifyComponent implements OnInit {
     console.log(respPagoJson);
     this_aux.detallePago.nombreServicio = this_aux.service.nombreServicio;
     this_aux.detallePago.cuentaCargo = operacionesbxi.mascaraNumeroCuenta( this_aux.service.numCuentaSeleccionado);
-    if (this.service.idFacturador === '1310') {
+    if (this.service.idFacturador === '1310' || this.service.idFacturador === '88924' ) {
 
       const certificadoPago = respPagoJson.CertificadoPago;
       certificadoPago.forEach(element => {
@@ -57,7 +57,7 @@ export class PagoServiciosVerifyComponent implements OnInit {
 
     } else {
 
-      this_aux.detallePago.fechaOperacion = respPagoJson.FechaUno;
+      this_aux.detallePago.fechaOperacion = this.getFecha(respPagoJson.FechaUno);
       this_aux.detallePago.horaOperacion = respPagoJson.HoraOperacion;
       const certificadoPago = respPagoJson.CertificadoPago;
         certificadoPago.forEach(element => {
@@ -93,6 +93,12 @@ export class PagoServiciosVerifyComponent implements OnInit {
   irMenuBXI() {
     const this_aux = this;
     this_aux.router.navigate(['/menuBXI']);
+  }
+
+  getFecha(date) {
+    const  cadDate = date.split(" ");
+    const fecha = cadDate[0];
+    return fecha;
   }
 
 }
