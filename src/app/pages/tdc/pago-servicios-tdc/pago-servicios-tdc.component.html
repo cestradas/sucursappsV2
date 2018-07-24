@@ -6,40 +6,35 @@
     <fieldset class="padding-TittleToFieldset padding-fieldset-general">
 
         <div class="row sumando-form-group letranegrita">
-            <div class="col-sm-1 sumando-bg-orange group-name" style="border-bottom-width: 0px;height: 68px; padding-top: 24px;">Desde</div>
-            <div class="col-sm-11 group-controls padding-left-0 padding-right-0 sumando-well-white" style="margin-bottom: 30px; height: 69px; padding-top: 0px; padding-bottom: 0px;">
-                <div class="form-group ">
-
-                    <div class="sumando-dropdown-account">
-                        <table width="100%" class="letranegrita">
-                            <tr>
-                                <td align="left" width="40%">Nombre <strong>
-                              <label #lblAliasOrigen>
-                                  {{ nombreUsuarioTdd }}
-                              </label>
-                      </strong>
-                                </td>
-                                <td align="left" width="40%">
-                                    <strong>
-                                  <label #lblSaldoOrigen>{{ saldoDispoinible | currency }}</label>
-                      </strong>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="left">Cuenta
-
-                                    <label #lblCuentaOrigen>
-                                  {{ numCuenta_show }}
-                              </label>
-
-                                </td>
-                                <td align="left">Saldo Disponible
-                                </td>
-                            </tr>
-                        </table>
+            <div class="col-sm-1 sumando-bg-orange group-name" style="border-bottom-width: 0px;height: 68px; padding-top: 24px;">
+              Desde
+            </div>
+            <div class="col-sm-11 group-controls padding-InFieldset" style="padding-left: 0px; padding-right:  0px;">
+                    <div class="form-group">
+                        <div class="sumando-dropdown-account">
+                            <table width="100%" class="letranegrita">
+                                <tr>
+                                    <td align="left" width="40%" style="border: 0px">CUENTA ENLACE PERSONAL <strong>
+                                                                                </strong>
+                                    </td>
+                                    <td align="left" style="border: 0px">
+                                        <strong>
+                                            <label>{{saldoDispoinible | currency}}
+                                            </label>
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" style="border: 0px; font-weight: normal;">Cuenta
+                                        <label> {{numCuenta_show}}</label>
+                                    </td>
+                                    <td align="left" style="border: 0px; font-weight: normal">Saldo Disponible
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
         </div>
 
         <div class="row sumando-form-group letranegrita padding-InFieldset">
@@ -81,7 +76,7 @@
             <!-- <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
             <div class="col-lg-2" style="padding-right: 0px;">
                 <button class="btn btn-lg" type="button" (click)="irMenuTDC()">Regresar</button>
-                <button id="continuar" type="button" class="btn color-botones btn-lg" [disabled]="(facturador.value == '') || (lblCuentaOrigen.textContent == '') || (lblAliasOrigen.textContent == '') || (lblSaldoOrigen.textContent == '')" (click)="saveData()">
+                <button id="continuar" type="button" class="btn color-botones btn-lg" [disabled]="(facturador.value == '')" (click)="saveData()">
             Continuar
           </button>
             </div>

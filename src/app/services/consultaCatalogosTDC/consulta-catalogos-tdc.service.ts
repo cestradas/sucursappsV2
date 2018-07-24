@@ -36,11 +36,10 @@ consultaEmpresas() {
             
           };
           let resourceRequest;
-          if (idFacturador === '1310') {
+          if (idFacturador === '1310' || idFacturador === '88924') {
              resourceRequest = new WLResourceRequest(
                 'adapters/AdapterBanorteSucursAppsTdc/resource/pagoDisposicionCredito', WLResourceRequest.POST);
-          } 
-          else {
+          } else {
              resourceRequest = new WLResourceRequest(
                 'adapters/AdapterBanorteSucursAppsTdc/resource/pagoConcentracionEmpresarial', WLResourceRequest.POST);
           }

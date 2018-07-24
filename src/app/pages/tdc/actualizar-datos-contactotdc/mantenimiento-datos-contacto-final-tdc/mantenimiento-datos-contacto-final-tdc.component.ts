@@ -79,6 +79,7 @@ export class MantenimientoDatosContactoFinalTdcComponent implements OnInit {
           console.log(respPago.responseText);
           this_aux.Celular = jsonRespuesta.Telefono;
           this_aux.CorreoElectronico = jsonRespuesta.Email;
+          
           this_aux.Sic = this_aux._serviceSesion.datosBreadCroms.numeroCliente;
           this_aux.NombreUser = this_aux._serviceSesion.datosBreadCroms.nombreUsuarioTDD;
  

@@ -76,18 +76,22 @@ export class ActualizarDatosContactotdcComponent implements OnInit {
       function(respPago) {
 
         const jsonRespuesta = respPago.responseJSON;
-        if (jsonRespuesta.Id === '1') {
+      if (jsonRespuesta.Id === '1') {
          console.log(respPago.responseText);
-         this_aux._serviceSesion.datosBreadCroms.CelCliente = jsonRespuesta.Telefono;
-         this_aux._serviceSesion.datosBreadCroms.EmailCliente = jsonRespuesta.Email;
-          console.log("Consulta de Datos Exitosa");
-
-        } else {
-          this_aux.showErrorSucces(jsonRespuesta);
+         if(jsonRespuesta.Telefono !="" && jsonRespuesta.Email!=""){
+          this_aux._serviceSesion.datosBreadCroms.CelCliente = jsonRespuesta.Telefono;
+          this_aux._serviceSesion.datosBreadCroms.EmailCliente = jsonRespuesta.Email;
+         }
+         else{
           this_aux._serviceSesion.datosBreadCroms.CelCliente = "";
           this_aux._serviceSesion.datosBreadCroms.EmailCliente = "";
+         }
+         console.log("Consulta de Datos Exitosa");
+      } 
+      else {
+          this_aux.showErrorSucces(jsonRespuesta);
           console.log("No hay Datos");
-        }
+      }
         this_aux.getDatosContacto();
         setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
       }, function(error) { this_aux.showErrorPromise(error); }
