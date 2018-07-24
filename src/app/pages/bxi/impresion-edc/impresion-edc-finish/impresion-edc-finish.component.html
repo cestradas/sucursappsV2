@@ -37,7 +37,7 @@
                                 <input id="confCorreo" name="confCorreo" [matKeyboard]="" formControlName="confCorreo" type="text" class="form-control amount input-lg" maxlength="60" required />
                                 <div class="alert-danger" *ngIf="(forma.get('confCorreo').errors  && forma.get('confCorreo').touched)">
                                     <p color="danger" *ngIf="forma.get('confCorreo').hasError('required')">Este dato es obligatorio.</p>
-                                    <p color="danger" *ngIf="correosIgual === 1">Los datos proporcionados son incorrectos, favor de verificar.</p>
+                                    <p color="danger" *ngIf="correosIgual === 1 || forma.get('confCorreo').hasError('pattern') ">Los datos proporcionados son incorrectos, favor de verificar.</p>
                                 </div>
                                 <div class="alert-danger">
                                     <p color="danger" *ngIf="correosIgual === 1">Los datos proporcionados son incorrectos, favor de verificar.</p>

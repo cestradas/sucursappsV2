@@ -124,7 +124,7 @@ resourceRequest.sendFormParameters(formParameters).then(
     function(error) {
       $('#_modal_please_wait').modal('hide');
       console.error("Error");
-      this_aux.showErrorPromiseMoney(error);
+      this_aux.showErrorPromise(error);
     });
 
   }

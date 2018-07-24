@@ -97,6 +97,7 @@ export class ImpresionEdcFinishComponent implements OnInit {
   enviaCorreo() {
 
     const this_aux = this;
+    $('#_modal_please_wait').modal('show');
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     const autenticacion: Autenticacion = new Autenticacion();
 
@@ -124,7 +125,8 @@ export class ImpresionEdcFinishComponent implements OnInit {
           setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
        }
      }, function(error) {
-        //this_aux.showErrorPromise(error);
+      $('#_modal_please_wait').modal('hide');
+        this_aux.showErrorPromise(error);
  });
 
   }
@@ -143,10 +145,18 @@ export class ImpresionEdcFinishComponent implements OnInit {
   showErrorSucces(json) {
 
 
-    console.log(json.Id + json.MensajeAUsuario);
+    console.log(json.Id + json.MensajeAUsuario);    
     document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
     $('#errorModal').modal('show');
 
+}
+
+showErrorPromise(error) {
+  console.log(error);
+  // tslint:disable-next-line:max-line-length
+  document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar mas tarde";
+  $('#_modal_please_wait').modal('hide');
+  $('#errorModal').modal('show');
 }
 
 }

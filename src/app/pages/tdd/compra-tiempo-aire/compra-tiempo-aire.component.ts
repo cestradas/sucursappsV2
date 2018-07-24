@@ -61,7 +61,6 @@ export class CompraTiempoAireComponent implements OnInit {
       this.mostrarCuentaMascara = operaciones.mascaraNumeroCuenta(
         mensaje.NumeroCuenta
       );
-      $("#_modal_please_wait").modal("hide");
       this.consultarEmpresasTelefonos();
     });
 
@@ -144,10 +143,11 @@ export class CompraTiempoAireComponent implements OnInit {
             }
           }
         }
-
+        $("#_modal_please_wait").modal("hide");
+/*
         setTimeout(() => {
           $("#_modal_please_wait").modal("hide");
-        }, 3000);
+        }, 4000); */
       },
       function(error) {
         console.error("El WS respondio incorrectamente1");
@@ -207,7 +207,7 @@ export class CompraTiempoAireComponent implements OnInit {
       }
     }
 
-    console.log("Params img telefonos: ", id.name);
+    console.log("Params img telefonos: " + id.name + " Id: " + id.id);
 
     const formParameters = {
       paramIdCatEmpresa: id.id

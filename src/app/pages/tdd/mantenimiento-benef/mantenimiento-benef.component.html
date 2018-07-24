@@ -230,6 +230,7 @@
                         <div class="col-sm-5">
                             <input class="input-whidth form-control amount input-lg text-uppercase" type="text" id=CalleInputText formControlName="nomCalleBenef" #RNombreCalleAlta [matKeyboard]="" style="text-align: center" maxlength="23" placeholder="Ingrese Calle">
                             <div class="alert-danger" *ngIf="myform.get('nomCalleBenef').errors && myform.get('nomCalleBenef').touched">
+                                <p color="danger" style="margin: 0px" *ngIf="myform.get('nomCalleBenef').hasError('required')">Dato obligatorio, favor de capturar.</p>
                                 <p color="danger" style="margin: 0px" *ngIf="myform.get('nomCalleBenef').hasError('maxlength')">Los datos proporcionados son incorrectos, favor de verificar.</p>
                             </div>
                         </div>
@@ -414,6 +415,7 @@
                         <div class="col-sm-5">
                             <input type="text" class="input-whidth form-control amount input-lg text-uppercase" id=CalleInputText [matKeyboard]="" formControlName="nomCalleBenef" #RNombreCalle style="text-align: center" maxlength="23" placeholder="Ingrese Calle">
                             <div class="alert-danger" *ngIf="myform.get('nomCalleBenef').errors && myform.get('nomCalleBenef').touched">
+                                <p color="danger" style="margin: 0px" *ngIf="myform.get('nomCalleBenef').hasError('required')">Dato obligatorio, favor de capturar.</p>
                                 <p color="danger" style="margin: 0px" *ngIf="myform.get('nomCalleBenef').hasError('maxlength')">Los datos proporcionados son incorrectos, favor de verificar.</p>
                             </div>
                         </div>

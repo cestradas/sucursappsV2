@@ -454,7 +454,7 @@ export class OperacionesBXI {
 
             const    resourceRequest = new WLResourceRequest(
                 'adapters/AdapterBanorteSucursAppsBEL2/resource/envioDoc', WLResourceRequest.POST);
-          resourceRequest.setTimeout(100000);
+          resourceRequest.setTimeout(10000);
 
           return resourceRequest.sendFormParameters(formParameters);
 

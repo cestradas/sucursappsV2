@@ -365,7 +365,7 @@ encriptarSic() {
       let DatosJSON = response.responseJSON;
       if (DatosJSON.Id === "1") {
           this_aux.sicCifrado = DatosJSON.SicEncriptado;
-          this_aux.idSucursal = DatosJSON.idSucuarsal;
+          this_aux.idSucursal = DatosJSON.idSucursal;
           this_aux.urlProperty = DatosJSON.urlCampania;
           this_aux.cargarcampanias();
       } else {
