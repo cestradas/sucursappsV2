@@ -104,13 +104,13 @@ export class TransferenciaSpeiComponent implements OnInit {
     this.forma = new FormGroup({
 
       // SPEI
-      'amountSPEI': new FormControl('', [Validators.required, Validators.min(0), Validators.max(7000)]),
+      'amountSPEI': new FormControl('', [Validators.required, Validators.min(0), Validators.max(7000), Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)]),
       'descriptionSPEI': new FormControl('', [Validators.required, Validators.maxLength(60)]),
       'referenceSPEI': new FormControl('', [Validators.required, Validators.maxLength(7)]),
 
       // TEF
 
-      'amountTEF': new FormControl('', [Validators.required, Validators.min(0), Validators.max(7000)]),
+      'amountTEF': new FormControl('', [Validators.required, Validators.min(0), Validators.max(7000), Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)]),
       'descriptionTEF': new FormControl('', [Validators.required, Validators.maxLength(60)]),
       'referenceTEF': new FormControl('', [Validators.required, Validators.maxLength(7)]),
 
@@ -120,7 +120,7 @@ export class TransferenciaSpeiComponent implements OnInit {
       'cuenta': new FormControl('', [Validators.required, Validators.maxLength(20)]),
       'sel1': new FormControl('', [Validators.required]),
       //'clabe': new FormControl('', [Validators.required, Validators.maxLength(16)]),
-      'ammountQUICK': new FormControl('', [Validators.required, Validators.min(0), Validators.max(7000)]),
+      'ammountQUICK': new FormControl('', [Validators.required, Validators.min(0), Validators.max(7000), Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)]),
       'referenceQuick': new FormControl('', [Validators.required, Validators.maxLength(7)]),
 
       'fcToken': new FormControl()
@@ -592,7 +592,7 @@ setDatosCuentaSeleccionada(elementHTML) {
   const tableOrigen = document.getElementById('tableOrigen');
   const tableDefaultOrigen = document.getElementById('tableDefaultOrigen');
   const lblCuentaOrigen = document.getElementById('lblCuentaOrigen');
-  //const lblAliasOrigen = document.getElementById('lblAliasOrigen');
+  const lblAliasOrigen = document.getElementById('lblAliasOrigen');
   const numCuenta_seleccionada = elementHTML.value;
   const AliasCuenta_seleccionada = elementHTML.text;
 
@@ -603,7 +603,7 @@ setDatosCuentaSeleccionada(elementHTML) {
   //lblAliasOrigen.innerHTML = AliasCuenta_seleccionada.toString();
   lblCuentaOrigen.innerHTML = operacionesbxi.mascaraNumeroCuenta(numCuenta_seleccionada.toString());
   this_aux.service.numCuentaSPEISel = numCuenta_seleccionada;
-  this_aux.service.AliasCuentaSPEISel = this_aux.nombreCuenta;
+  this_aux.service.AliasCuentaSPEISel = AliasCuenta_seleccionada;
   this_aux.cuentaOrigenModal = operacionesbxi.mascaraNumeroCuenta(this_aux.service.numCuentaSPEISel);
 
 
@@ -788,7 +788,11 @@ setDatosCuentaBeneficiario(elementHTML) {
   this_aux.service.claveAliasCuenta = this_aux.getNameAliasCuenta(valueElement);
   this_aux.service.claveNumBenefi = this_aux.getNumBeneficiario(valueElement);
 
-  this_aux.consultaClabeSaldos(this_aux.service.numCuentaDestinario);
+  //this_aux.consultaClabeSaldos(this_aux.service.numCuentaDestinario);
+  $('#amountSPEI').prop("disabled", false);
+  $('#descriptionSPEI').prop("disabled", false);
+  $('#referenceSPEI').prop("disabled", false);
+
 
   console.log(this_aux.service.claveBancoDestino+this_aux.service.claveAliasCuenta+this_aux.service.claveNumBenefi);
 
@@ -902,7 +906,7 @@ setCuentasBenficiarioXTipo() {
 
       if (auxcuenta.AplicaSPEI.toString() === "true") {
 
-        if ((auxcuenta.TipoCuenta.toString() === "1") || (auxcuenta.TipoCuenta.toString() === "4") ) {
+        if ( ((auxcuenta.TipoCuenta.toString() === "1") && (auxcuenta.ClaveBanco.toString() !== "40072") ) || ((auxcuenta.TipoCuenta.toString() === "4") && (auxcuenta.ClaveBanco.toString() !== "40072") )) {
 
         const li =  this.renderer.createElement('li');
         this_aux.renderer.addClass(li, 'text-li');
@@ -1127,7 +1131,7 @@ validaDatosBen() {
 
                   operacionesbxi.confirmaTransferSPEI(ctaO, ctaDest, sic, bancoRecep, clabeTEF_SPEI,
                                                       nombreBene, refFront, importeFront,
-                                                      descripcionFront, correo, rfcEmi, aliasCta)
+                                                      descripcionFront, correo, this_aux.service.userRfc, aliasCta)
                   .then(
 
 
@@ -1175,8 +1179,10 @@ validaDatosBen() {
               if (infoUsuarioJSON.Id === 'SEG0001') {
                   console.log('Nivel de autenticacion alcanzado');
 
-                  operacionesbxi.confirmaTransferTEF(this_aux.service.AliasCuentaSPEISel, ctaO, sic, rfcEmi,
-                                                     this_aux.service.claveAliasCuenta , this_aux.service.claveNumBenefi, clabeTEF_SPEI,
+                  operacionesbxi.confirmaTransferTEF(this_aux.service.AliasCuentaSPEISel, ctaO, sic, this_aux.service.userRfc, bancoRecep,
+                                                     this_aux.service.claveAliasCuenta ,
+                                                    // this_aux.service.claveNumBenefi,
+                                                    ctaDest, this_aux.nombreBeneModal,
                                                      this_aux.service.NombreUsuario, importeFront, descripcionFront, refFront)
 
                   .then(
@@ -1199,7 +1205,9 @@ validaDatosBen() {
                         this_aux.showErrorSucces(transferTEF);
                        }
 
-                    }, function(error) { this_aux.showErrorPromiseMoney(error); }
+                    }, function(error) {
+                      this_aux.showErrorSucces(error);
+                    }
                   );
               } else {
                 console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);

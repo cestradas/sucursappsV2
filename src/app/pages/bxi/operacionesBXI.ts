@@ -171,23 +171,25 @@ export class OperacionesBXI {
 
        }
 
-       confirmaTransferTEF(sic, aliasCtaOrigen, cuentaCargo ,
+
+       confirmaTransferTEF(aliasCtaOrigen, cuentaCargo , claveCliente,
                            rfcOrdenante, bancReceptor, aliasCuentaDestino,
-                           clabe, nombreUsuario, importe, descripcion, referencia): any {
+                           clabe, nombreBene, nombreUsuario, importe, descripcion, referencia): any {
 
 
            let formParameters = {
-               sic: sic,
-               aliasCtaOrigen: aliasCtaOrigen,
-               cuentaCargo: cuentaCargo,
-               rfcOrdenante:  rfcOrdenante,
-               bancReceptor: bancReceptor,
-               aliasCuentaDestino: aliasCuentaDestino,
-               clabe: clabe,
-               nombreUsuario: nombreUsuario,
-               importe: importe,
-               descripcion: descripcion,
-               referencia: referencia
+              aliasCtaOrigen: aliasCtaOrigen,
+              cuentaCargo: cuentaCargo,
+              claveCliente: claveCliente,
+              rfcOrdenante:  rfcOrdenante,
+              bancReceptor: bancReceptor,
+              aliasCuentaDestino: aliasCuentaDestino,
+              clabe: clabe,
+              nombreBene: nombreBene,
+              nombreUsuario: nombreUsuario,
+              importe: importe,
+              descripcion: descripcion,
+              referencia: referencia
            };
 
 

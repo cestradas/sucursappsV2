@@ -1,6 +1,8 @@
 <h2 class="text-center deleteMargin-h2 padding-barToTittle color-letra">
     Transferencias Banorte</h2>
-<fieldset class="padding-fieldset-general padding-TittleToFieldset">
+
+<form [formGroup]="forma" (ngSubmit)="showDetallePago()" class="needs-validation">
+    <fieldset class="padding-fieldset-general padding-TittleToFieldset">
 
     <div class="row sumando-form-group letranegrita padding-InFieldset">
         <div class="col-sm-1 sumando-bg-red group-name">
@@ -121,7 +123,7 @@
 
 
 
-    <form [formGroup]="forma" (ngSubmit)="showDetallePago()" class="needs-validation">
+
         <div id="divisionInputs"></div>
         <div class="row sumando-form-group letranegrita">
             <div class="col-sm-1 sumando-bg-red group-name" style="background-color: #ff000000;"></div>
@@ -184,8 +186,8 @@
                   Continuar</button>
             </div>
         </div>
-    </form>
-</fieldset>
+
+    </fieldset>
 
 
 <!-- Modal -->
@@ -303,26 +305,29 @@
                                 <label class='form-control input-lg'>{{NumeroSeguridad}}</label>
                             </div>
 
-                        </div>
-                        <div id="divPass" class="row">
-                            <div class="col-lg 6">
-                                <label>{{labelTipoAutentica}}</label>
                             </div>
-                            <div class="col-lg 6">
-                                <label>
-                              <input  id="inputToken" type="password" class="form-control input-lg" #token [matKeyboard]="'num'">
-                              <div *ngIf="(token.value == '')  && token.touched" class="alert alert-danger">
-                                  <p color="danger" *ngIf="(token.value == '')">Dato obligatorio, favor de capturar. </p>
-                              </div>
+                            <div id="divPass" class="row">
+                                <div class="col-lg 6">
+                                    <label>{{labelTipoAutentica}}</label>
+                                </div>
+                                <div class="col-lg 6">
+                                    <label>
+                              <input  id="inputToken" type="password" class="form-control input-lg" #tokenTr formControlName='fcTokenTr' [matKeyboard]="'num'">
+                              <div *ngIf="forma.get('fcTokenTr').errors  && forma.get('fcTokenTr').touched " class="alert alert-danger">
+                                <p color="danger" *ngIf="forma.get('fcTokenTr').hasError('required')"> Dato obligatorio, favor de capturar.
+                                </p>
+                                <p color="danger" *ngIf="forma.get('fcTokenTr').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.
+                                </p>
+                            </div>
                               </label>
-                            </div>
+                                </div>
 
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                    <button class="color-botones btn btn-lg " (click)="confirmarPago(token.value)">
+                    <button class="color-botones btn btn-lg " (click)="confirmarPago(tokenTr.value)">
                               Confirmar
                             </button>
                 </div>
@@ -346,9 +351,11 @@
             <div class="modal-footer">
                 <button id="cerrar" class="color-botones btn btn-lg" data-dismiss="modal" type="button" tabindex="0">Cerrar</button>
 
+                </div>
             </div>
+            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-content -->
+        <!-- /.modal-dialog -->
     </div>
-    <!-- /.modal-dialog -->
-</div>
+
+</form>

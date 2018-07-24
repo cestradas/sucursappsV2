@@ -285,6 +285,7 @@ export class LoginBxiComponent implements OnInit {
             if (jsonDatosUsuario.Id === '1') {
               console.log(jsonDatosUsuario);
               this_aux.service.isPreferente = jsonDatosUsuario.Preferente;
+              this_aux.service.userRfc = jsonDatosUsuario.Rfc;
               // $( ".nav-img-banorte" ).css( "background-image", "");
               this_aux.comienzaContador();
               if (this_aux.service.isPreferente  === true) {

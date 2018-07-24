@@ -8,7 +8,7 @@ import { Autenticacion } from '../autenticacion';
 
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
 
 
 
@@ -49,6 +49,7 @@ export class TransferenciasBanorteComponent implements OnInit {
 
   importeF = "";
   conceptoF = "";
+  tokenTr = "";
 
   cuentaOrigenModal = "";
   correoBeneModal = "";
@@ -61,7 +62,7 @@ export class TransferenciasBanorteComponent implements OnInit {
   nombreCuenta: string;
   numeroTarjeta: string;
 
-  constructor(private _http: Http, private router: Router, public service: SesionBxiService, private renderer: Renderer2, private currencyPipe: CurrencyPipe) {
+  constructor(private _http: Http, private router: Router, private fb: FormBuilder, public service: SesionBxiService, private renderer: Renderer2, private currencyPipe: CurrencyPipe) {
 
     const this_aux = this;
 
@@ -71,10 +72,10 @@ export class TransferenciasBanorteComponent implements OnInit {
     this.forma = new FormGroup({
 
 
-      'amount': new FormControl('', [Validators.required, Validators.min(0), Validators.max(7000)]),
+      'amount': new FormControl('', [Validators.required, Validators.min(0), Validators.max(7000), Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)]),
       'concepto': new FormControl('', [Validators.required, Validators.maxLength(60)]),
 
-      'fcToken': new FormControl()
+      'fcTokenTr': new FormControl('')
 
     });
 
@@ -95,6 +96,18 @@ export class TransferenciasBanorteComponent implements OnInit {
 
           this_aux.conceptoF = data;
         });
+
+        this.forma.controls['fcTokenTr'].valueChanges.subscribe(
+          data2 => {
+            console.log('fcTokenTr', data2);
+            console.log('forma', this.forma);
+
+            this_aux.tokenTr = data2;
+            if (this_aux.tokenTr !== " ") {
+
+                $('#ValToken').prop("disabled", false);
+            }
+          });
 
   }
 
@@ -485,7 +498,7 @@ setCuentasBenficiarioXTipo() {
 
 // VALIDAR TIPOS DE CUENTA BANORTE TERCEROS
 // auxcuenta.ClaveBanco.toString() == "40072"  cve BANORTE
-      if ( ((auxcuenta.TipoCuenta.toString() === "1") && (auxcuenta.ClaveBanco.toString() == "40072") ) || ((auxcuenta.TipoCuenta.toString() === "4") && (auxcuenta.ClaveBanco.toString() == "40072") )) {
+      if ( ((auxcuenta.TipoCuenta.toString() === "1") && (auxcuenta.ClaveBanco.toString() === "40072") ) || ((auxcuenta.TipoCuenta.toString() === "4") && (auxcuenta.ClaveBanco.toString() === "40072") )) {
 
         contCtasTer ++;
         const li =  this.renderer.createElement('li');
@@ -690,7 +703,7 @@ setTipoAutenticacionOnModal() {
   const divChallenge = document.getElementById('challenger');
   const divTokenPass = document.getElementById('divPass');
   const control: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([0-9]{6})*$/)]);
-      this_aux.forma.setControl('fcToken', control );
+      this_aux.forma.setControl('fcTokenTr', control );
   if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
     $('#_modal_please_wait').modal('show');
     this_aux.labelTipoAutentica = 'Token Celular';
@@ -796,6 +809,7 @@ validarSaldo(tipoOperecionPago) {
         if (DatosJSON.Id === "1") {
 
           console.log("Pago validado");
+          setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
 
           // MANDAR A LLAMAR MODAL DE CONFIRMACION
           if (tipoOperecionPago === "1") {           // Cuentas propias Banorte

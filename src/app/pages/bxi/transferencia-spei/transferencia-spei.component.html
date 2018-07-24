@@ -139,7 +139,7 @@
                             <div class="col-lg-10">
                                 <input formControlName="amountSPEI" [matKeyboard]="'num'" name="amountSPEI" #rImporteSPEI id="amountSPEI" type="text" step="0.01" currency required class="form-control amount input-lg" (blur)="transformAmount(rImporteSPEI.value)" />
 
-                                <div *ngIf="forma.hasError('min', 'amountSPEI') || forma.hasError('max', 'amountSPEI') " class="alert alert-danger">
+                                <div *ngIf="forma.hasError('min', 'amountSPEI') || forma.hasError('max', 'amountSPEI') || forma.get('amountSPEI').hasError('pattern') " class="alert alert-danger">
                                     Los datos proporcionados son incorrectos, favor de verificar.
                                 </div>
                                 <div *ngIf="forma.hasError('required', 'amountSPEI') && forma.get('amountSPEI').touched" class="alert alert-danger">
@@ -192,7 +192,7 @@
                             </div>
                             <div class="col-sm-10">
                                 <input id="amountTEF" #rImporteTEF [matKeyboard]="'num'" name="amountTEF" formControlName="amountTEF" type="text" class="form-control amount input-lg" maxlength="60" required (blur)="transformAmount(rImporteTEF.value)" />
-                                <div *ngIf="forma.hasError('min', 'amountTEF') || forma.hasError('max', 'amountTEF') " class="alert alert-danger">
+                                <div *ngIf="forma.hasError('min', 'amountTEF') || forma.hasError('max', 'amountTEF') || forma.get('amountTEF').hasError('pattern')" class="alert alert-danger">
                                     Los datos proporcionados son incorrectos, favor de verificar.
                                 </div>
                                 <div *ngIf="forma.hasError('required', 'amountTEF') && forma.get('amountTEF').touched" class="alert alert-danger">
@@ -294,7 +294,7 @@
                             </div>
                             <div class="col-sm-10">
                                 <input id="ammountQUICK" #rImporteQUICK [matKeyboard]="'num'" name="ammountQUICK" formControlName="ammountQUICK" type="text" maxlength="7" class="form-control amount input-lg" required (blur)="transformAmount(rImporteQUICK.value)" />
-                                <div *ngIf="forma.hasError('min', 'ammountQUICK') || forma.hasError('max', 'ammountQUICK') " class="alert alert-danger">
+                                <div *ngIf="forma.hasError('min', 'ammountQUICK') || forma.hasError('max', 'ammountQUICK') || forma.get('ammountQUICK').hasError('pattern')" class="alert alert-danger">
                                     Los datos proporcionados son incorrectos, favor de verificar.
                                 </div>
                                 <div *ngIf="forma.hasError('required', 'ammountQUICK') && forma.get('ammountQUICK').touched" class="alert alert-danger">
