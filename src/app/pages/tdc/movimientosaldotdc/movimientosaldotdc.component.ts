@@ -56,6 +56,23 @@ export class MovimientosaldotdcComponent implements OnInit {
   }
 
   ngOnInit() {
+     // ESTILOS Preferente
+     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
+     let btnGuardar = document.getElementById("guardar");
+     let btnSalir = document.getElementById("salir");
+     let btnConfirmar = document.getElementById("Confirmar2");
+ 
+     if (storageTipoClienteTar === "true") {
+ 
+       btnGuardar.classList.remove("color-botones");
+       btnGuardar.classList.add("color-botones_Preferente");
+       btnSalir.classList.remove("color-botones");
+       btnSalir.classList.add("color-botones_Preferente");
+       btnConfirmar.classList.remove("color-botones");
+       btnConfirmar.classList.add("color-botones_Preferente");
+ 
+     }
+     
     this.consultaMovimientosCreditom();
     this.consultaSaldosTarjetasm();
     this.llamarMovimientosTDC();

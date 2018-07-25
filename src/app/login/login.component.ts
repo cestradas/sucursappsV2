@@ -265,12 +265,12 @@ export class LoginComponent {
               // setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
   
               let tipoPreferencia = res.DetalleClave;
-              let validaPreferencia = true;
+              let validaPreferencia = false;
                this_aux.comienzaContador();
   
-               if (this_aux.includesL(validaPreferencia, "PREFERENTE")) {
+               if (this_aux.includesL(tipoPreferencia, "PREFERENTE")) {
                  // PREFERENTE
-                 validaPreferencia = false;
+                 validaPreferencia = true;
                  localStorage.setItem("tipoClienteTar", validaPreferencia.toString() );
                } else {
                  // NORMAL
