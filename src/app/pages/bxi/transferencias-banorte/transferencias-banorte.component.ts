@@ -91,6 +91,7 @@ export class TransferenciasBanorteComponent implements OnInit {
         console.log('forma', this.forma);
 
         this_aux.importeF = data;
+        this_aux.desabilitaBtn();
       });
 
       this.forma.controls['concepto'].valueChanges.subscribe(
@@ -99,6 +100,7 @@ export class TransferenciasBanorteComponent implements OnInit {
           console.log('forma', this.forma);
 
           this_aux.conceptoF = data;
+          this_aux.desabilitaBtn();
         });
 
         this.forma.controls['fcTokenTr'].valueChanges.subscribe(
@@ -1070,13 +1072,24 @@ transformAmount(impor) {
 
 desabilitaBtn() {
 
+  const this_aux = this;
   let importeTran = $('#amount').val();
   let conceptoTran = $('#concepto').val();
+  let expreg = new RegExp(" /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/");
 
-  if ((importeTran !== "") && (conceptoTran !== "")) {
+  if ((this_aux.replaceSimbolo(importeTran) !== "") && (conceptoTran !== "")) {
+    if ( expreg.test(importeTran)) {
+        console.log("correcto");
+        //document.getElementById('valdaAmmount').style.display = 'none';
+        $('#continuarspei').prop("disabled", false); //false desbloquea
+    } else {
+      console.log("incorrecto");
+      //document.getElementById('valdaAmmount').style.display = 'flex';
+    }
 
-    $('#continuarspei').prop("disabled", false);
 
+  } else {
+    $('#continuarspei').prop("disabled", true);
   }
 }
 

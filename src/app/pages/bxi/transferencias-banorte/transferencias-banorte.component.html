@@ -137,12 +137,11 @@
                                 <label>Importe: </label>
                             </div>
                             <div class="col-sm-10">
-                                <input id="amount" #rImporte [matKeyboard]="'num'" name="amount" formControlName="amount" type="text" class="form-control amount input-lg" maxlength="60" required (blur)="transformAmount(rImporte.value)" />
-                                <div *ngIf="forma.hasError('min', 'amount') || forma.hasError('max', 'amount') " class="alert alert-danger">
-                                    Los datos proporcionados son incorrectos, favor de verificar.
-                                </div>
-                                <div *ngIf="forma.hasError('required', 'amount') && forma.get('amount').touched" style="margin-bottom: 0px; padding: 0.5rem 1.20rem;" class="alert alert-danger">
-                                    Este dato es obligatorio.
+                                <input disabled="disabled" id="amount" #rImporte [matKeyboard]="'num'" name="amount" formControlName="amount" type="text" class="form-control amount input-lg" maxlength="40" required (blur)="transformAmount(rImporte.value)" />
+                                <div class="alert-danger" *ngIf="(forma.get('amount').errors  && forma.get('amount').touched)">
+                                    <p color="danger" *ngIf="forma.get('amount').hasError('required')">Dato obligatorio, favor de capturar.</p>
+                                    <p color="danger" *ngIf="forma.get('amount').hasError('pattern')">Dato incorrecto, favor de verificar.</p>
+                                    <p color="danger" *ngIf="forma.get('amount').hasError('minlength') || forma.get('amount').hasError('maxlength')">Los datos proporcionados son incorrectos, favor de verificar.</p>
                                 </div>
                             </div>
                         </div>
@@ -153,8 +152,8 @@
                                 <label>Concepto: </label>
                             </div>
                             <div class="col-sm-10">
-                                <input aria-describedby="validationTooltipUsernamePrepend" [matKeyboard]="" id="concepto" name="concepto" formControlName="concepto" type="text" maxlength="40" class="form-control amount" required (blur)="desabilitaBtn()" />
-                                <div *ngIf="forma.hasError('maxlength', 'concepto')" class="alert alert-danger">
+                                <input disabled="disabled" aria-describedby="validationTooltipUsernamePrepend" [matKeyboard]="" id="concepto" name="concepto" formControlName="concepto" type="text" maxlength="40" class="form-control amount" required (blur)="desabilitaBtn()" />
+                                <div id="valdaAmmount" style="display: none;" class="alert alert-danger">
                                     Los datos proporcionados son incorrectos, favor de verificar.
                                 </div>
                                 <div *ngIf="forma.hasError('required', 'concepto') && forma.get('concepto').touched" class="invalid-tooltip">
@@ -182,7 +181,7 @@
             </div>
             <!-- <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
             <div class="col-sm-1">
-                <button [disabled]="!forma.valid" id="continuarspei" name="continuarspei" class="btn btn-danger btn-lg" type="submit">
+                <button disabled="disabled" id="continuarspei" name="continuarspei" class="btn btn-danger btn-lg" type="submit">
                   Continuar</button>
             </div>
         </div>
