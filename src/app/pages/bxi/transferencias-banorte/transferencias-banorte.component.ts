@@ -1075,19 +1075,20 @@ desabilitaBtn() {
   const this_aux = this;
   let importeTran = $('#amount').val();
   let conceptoTran = $('#concepto').val();
-  let expreg = new RegExp(" /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/");
+  let expreg = new RegExp("/^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/");
 
   if ((this_aux.replaceSimbolo(importeTran) !== "") && (conceptoTran !== "")) {
-    if ( expreg.test(importeTran)) {
+    /*
+    if ( expreg.test( this_aux.replaceSimbolo(importeTran) )) {
         console.log("correcto");
-        //document.getElementById('valdaAmmount').style.display = 'none';
+        document.getElementById('valdaAmmount').style.display = 'none';
         $('#continuarspei').prop("disabled", false); //false desbloquea
     } else {
       console.log("incorrecto");
-      //document.getElementById('valdaAmmount').style.display = 'flex';
+      document.getElementById('valdaAmmount').style.display = 'flex';
     }
-
-
+*/
+$('#continuarspei').prop("disabled", false); //false desbloquea
   } else {
     $('#continuarspei').prop("disabled", true);
   }
