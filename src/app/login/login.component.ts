@@ -168,7 +168,11 @@ export class LoginComponent {
               localStorage.setItem("validaNipServ", "1");
 
              } else {
-              
+              if (this_aux.includesL(res.MensajeDetallado, "QGE2456")) {
+					document.getElementById('mnsError').innerHTML = res.MensajeAUsuario ;
+						$('#errorModal').modal('show');
+				} else {
+
               
               localStorage.removeItem("des");
               localStorage.removeItem("np");
@@ -184,23 +188,20 @@ export class LoginComponent {
               // tslint:disable-next-line:max-line-length
               document.getElementById('mnsError').innerHTML = "Por el momento este servicio no est&aacute; disponible, favor de intentar de nuevo m&aacute;s tarde.";
               $('#errorModal').modal('show');
+				}
              }
              
         
       },
       function(error) {
-				if (his_aux.includesL(error.MensajeDetallado, "QGE2456")) {
-					document.getElementById('mnsError').innerHTML = error.MensajeAUsuario ;
-						$('#errorModal').modal('show');
-				} else {
-
+				
 					setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
 
 
 						// tslint:disable-next-line:max-line-length
 						document.getElementById('mnsError').innerHTML = "Por el momento este servicio no est&aacute; disponible, favor de intentar de nuevo m&aacute;s tarde.";
 						$('#errorModal').modal('show');
-				}
+				
            });
 
          } else {
