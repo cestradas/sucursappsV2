@@ -54,7 +54,7 @@ export class MantenimientosDatosContactoComponent implements OnInit {
 
     const this_aux = this;
     $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
-    this.consultarDatos();
+    this_aux.getDatosContacto();
   }
   contieneDatosIncorrectos(texto) {
     const this_aux = this;
@@ -70,31 +70,7 @@ export class MantenimientosDatosContactoComponent implements OnInit {
     }
     
   }
-  consultarDatos() {
-    const this_aux = this;
-    const operaciones: consultaCatalogos = new consultaCatalogos();
-    operaciones.consultarDatosContacto().then(
-      function(respPago) {
-
-        const jsonRespuesta = respPago.responseJSON;
-        if (jsonRespuesta.Id === '1') {
-         console.log(respPago.responseText);
-         this_aux._serviceSesion.datosBreadCroms.CelCliente = jsonRespuesta.Telefono;
-         this_aux._serviceSesion.datosBreadCroms.EmailCliente = jsonRespuesta.Email;
-          console.log("Consulta de Datos Exitosa");
-
-        } else {
-          this_aux.showErrorSucces(jsonRespuesta);
-          this_aux._serviceSesion.datosBreadCroms.CelCliente = "";
-          this_aux._serviceSesion.datosBreadCroms.EmailCliente = "";
-          console.log("No hay Datos");
-        }
-        this_aux.getDatosContacto();
-        setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
-      }, function(error) { this_aux.showErrorPromise(error); }
-    );
-    
-  }
+  
 
   getDatosContacto() {
     const this_aux = this;

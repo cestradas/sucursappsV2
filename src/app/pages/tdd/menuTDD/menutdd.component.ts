@@ -81,10 +81,12 @@ export class MenutddComponent implements OnInit {
         this.router.navigate(["/pagoCredito"]);
         break;
       case "actDatosContacto":
-        this.router.navigate(["/actualizarDatosContactoTDD"]);
+          this.consultaDatoscontacto(id);
+        // this.router.navigate(["/actualizarDatosContactoTDD"]);
         break;
         case "actAlertas":
-        this.router.navigate(["/activarAlertasTDD"]);
+        this.consultaDatoscontacto(id);
+        // this.router.navigate(["/activarAlertasTDD"]);
         break;
 
       default:
@@ -121,6 +123,49 @@ export class MenutddComponent implements OnInit {
   this_aux.consultaAlertas();
 
   }
+
+ consultaDatoscontacto(id) {
+  const this_aux = this;
+  const operaciones: consultaCatalogos = new consultaCatalogos();
+  operaciones.consultarDatosContacto().then(
+    function(respPago) {
+
+      const jsonRespuesta = respPago.responseJSON;
+      if (jsonRespuesta.Id === '1') {
+       console.log(respPago.responseText);
+       this_aux._serviceSesion.datosBreadCroms.CelCliente = jsonRespuesta.Telefono;
+       this_aux._serviceSesion.datosBreadCroms.EmailCliente = jsonRespuesta.Email;
+       // tslint:disable-next-line:max-line-length
+       if (jsonRespuesta.Email === undefined || jsonRespuesta.Email === '' || jsonRespuesta.Telefono === undefined || jsonRespuesta.Telefono === '') {
+        if (id === 'actAlertas') {  
+          setTimeout(function() { 
+              // tslint:disable-next-line:max-line-length
+              document.getElementById('mnsError').innerHTML =   "Estimado cliente, es necesario que registres tu correo electrónico y número móvil poder continuar. ";
+              $('#errorModal').modal('show');
+            }, 1000);
+          }
+      } else {
+        if (id === 'actAlertas') {
+          $('#_modal_please_wait').modal('show');  
+              this_aux.router.navigate(['/activarAlertasTDD']); }
+      }
+
+      if (id === 'actDatosContacto') {  
+        $('#_modal_please_wait').modal('show');
+        this_aux.router.navigate(['/actualizarDatosContactoTDD']); }
+        console.log("Consulta de Datos Exitosa");
+
+
+      } else {
+        this_aux.showErrorSucces(jsonRespuesta);
+        this_aux._serviceSesion.datosBreadCroms.CelCliente = "";
+        this_aux._serviceSesion.datosBreadCroms.EmailCliente = "";
+        console.log("No hay Datos");
+      }
+      setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
+    }, function(error) { this_aux.showErrorPromise(error); }
+  );
+ }
 
  consultaAlertas() {
 
