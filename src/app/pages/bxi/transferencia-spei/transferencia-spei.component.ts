@@ -1357,7 +1357,7 @@ validaDatosBen() {
                 console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
                 mensajeError = this_aux.controlarError(infoUsuarioJSON);
                 document.getElementById('errorMensaje').innerHTML =  infoUsuarioJSON.MensajeAUsuario;
-                $('#_modal_please_wait').modal('hide');
+                setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
                 $('#modalErrorMessage').modal('show');
               }
         }, function(error) {

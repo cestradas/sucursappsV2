@@ -1015,7 +1015,7 @@ confirmarPago(token) {
               console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
               mensajeError = this_aux.controlarError(infoUsuarioJSON);
               document.getElementById('mnsError').innerHTML =  mensajeError;
-              $('#_modal_please_wait').modal('hide');
+              setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
               $('#errorModal').modal('show');
             }
       }, function(error) {

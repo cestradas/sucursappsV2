@@ -96,7 +96,9 @@ export class ImpresionEdcComponent implements OnInit {
 
   cssUrl: string;
 
-  constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2) {
+  SaldoOrigen: number;
+
+  constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2, private currencyPipe: CurrencyPipe) {
 
 
     setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
@@ -222,6 +224,17 @@ setDatosCuentaSeleccionada(elementHTML) {
 
   getSaldoDeCuenta(numCuenta_seleccionada) {
 
+    console.log(numCuenta_seleccionada.length);
+  if (numCuenta_seleccionada.length === 16) {
+       this.getSaldoTDC(numCuenta_seleccionada);
+  } else {
+      this.getSaldoTDDOtras(numCuenta_seleccionada);
+  }
+
+
+}
+
+  getSaldoTDDOtras(numCuenta_seleccionada) {
     const this_aux = this;
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     operacionesbxi.getSaldo(numCuenta_seleccionada).then(
@@ -230,16 +243,63 @@ setDatosCuentaSeleccionada(elementHTML) {
           const detalleSaldos = response1.responseJSON;
           if ( detalleSaldos.Id === '1') {
             setTimeout(function() {
-                const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
-                lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
+                this_aux.SaldoOrigen = detalleSaldos.SaldoDisponible;
+                //const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
+                //lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
                  $('#_modal_please_wait').modal('hide');
                }, 500);
              } else {
+              this_aux.SaldoOrigen = 0;
+              setTimeout(function() {
+              $('#_modal_please_wait').modal('hide');
                 this_aux.showErrorSucces(detalleSaldos);
+              }, 500);
+             }
+
+             this_aux.mantenimientoEDC(this_aux.service.opcionEDCSel, this_aux.service.numeroCuentaEDCSel);
+
+        }, function(error) {
+
+        this_aux.SaldoOrigen = 0;
+         setTimeout(function() {
+           $('#_modal_please_wait').modal('hide');
+             this_aux.showErrorPromise(error);
+         }, 500);
+    });
+   }
+
+   getSaldoTDC(numCuenta_seleccionada) {
+    const this_aux = this;
+    const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+    operacionesbxi.getSaldoTDC(numCuenta_seleccionada).then(
+        function(response1) {
+          console.log(response1.responseText);
+          const detalleSaldos = response1.responseJSON;
+          if ( detalleSaldos.Id === '1') {
+
+           setTimeout(function() {
+            //const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
+            //lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
+             this_aux.SaldoOrigen = detalleSaldos.SaldoDisponible;
+              $('#_modal_please_wait').modal('hide');
+            }, 500);
+          } else {
+           this_aux.SaldoOrigen = 0;
+           setTimeout(function() {
+           $('#_modal_please_wait').modal('hide');
+             this_aux.showErrorSucces(detalleSaldos);
+           }, 500);
           }
 
-        this_aux.mantenimientoEDC(this_aux.service.opcionEDCSel, this_aux.service.numeroCuentaEDCSel);
+          this_aux.mantenimientoEDC(this_aux.service.opcionEDCSel, this_aux.service.numeroCuentaEDCSel);
+
         }, function(error) {
+
+        this_aux.SaldoOrigen = 0;
+         setTimeout(function() {
+           $('#_modal_please_wait').modal('hide');
+             this_aux.showErrorPromise(error);
+         }, 500);
     });
   }
 
@@ -295,7 +355,7 @@ setDatosCuentaSeleccionada(elementHTML) {
               $("#_modal_please_wait").modal("hide");
               this_aux.showErrorSucces(detalleMant);
             }, 500);
-          }   
+          }
        }, 3000);
       },
         function(error) {
@@ -324,22 +384,22 @@ setDatosCuentaSeleccionada(elementHTML) {
               console.log(res);
               this_aux.consultaCancelacionEDCDomicilio(opcion, cuenta);
               this_aux.obj = JSON.parse(this_aux.fechas);
-    
+
               for (let i = 1 ; i < res.length; i++) {
-    
-    
+
+
                 let temp = res[i].Fecha.split("-");
                 // Asigna numero de documento y fecha para escribir e imprimir el documento
                 let tempCtaDoc = res[i].Documento;
                 let fechaDoc = res[i].FechaObtenerDoc;
                 let fechaDocPDF = res[i].Fecha;
-    
+
                 for (let k = 0; k < temp.length; k++) {
-    
+
                   if ( k === 0 || k === 1 || k === 2 ) {
-    
+
                     let strA = temp[k];
-    
+
                     let strM = temp[k + 1];
                     if ( strM === "01") {strM = "Enero"; }
                     if ( strM === "02") {strM = "Febrero"; }
@@ -353,10 +413,10 @@ setDatosCuentaSeleccionada(elementHTML) {
                     if ( strM === "10") {strM = "Octubre"; }
                     if ( strM === "11") {strM = "Noviembre"; }
                     if ( strM === "12") {strM = "Diciembre"; }
-    
+
                     let strD = temp[k + 2];
-    
-    
+
+
                     this_aux.obj['fechas'].push({
                       "Anio" : strA,
                       "Mes" : strM,
@@ -365,41 +425,41 @@ setDatosCuentaSeleccionada(elementHTML) {
                       "FechaDoc": fechaDoc,
                       "fechaDocPDF": fechaDocPDF
                     });
-    
+
                     break;
                   }
-    
-    
+
+
                 }
-    
-    
+
+
              }
              // remover todos hijos del contenedor de los calendarios antes de insertar
              $("#calendario").empty();
              $("#calendario2").empty();
-    
-    
+
+
              let cont = 0;
              let contFechas = this_aux.obj.fechas.length - 1;
              let creaElement = document.createElement('div');
              let objCalendario1 = document.getElementById('calendario');
              let objCalendario2 = document.getElementById('calendario2');
              // let domString = '<div class="container"><span class="intro">Hello</span> <span id="name"> World!</span></div>';
-    
+
              // validar que existan **********
              //if (existe) {
              // let getItenCal = document.getElementById('Itemcalendario0');
              // objCalendario1.removeChild(getItenCal);
              //}
-    
-    
+
+
              for (let i = res.length; i >= 1; i--) {
-    
+
               // if ( (res.length <= 12) && (res.length >= 7)) {
-    
+
                 if ( cont <= 5) {
-    
-    
+
+
                   // $("#calendario").append(
                   //  this.calendario.nativeElement.insertAdjacentHTML(
                   //    this.renderer.invokeElementMethod(this.calendario.nativeElement.insertAdjacentHTML('beforeend',
@@ -421,9 +481,9 @@ setDatosCuentaSeleccionada(elementHTML) {
                             '</div>' +
                         '</div>' +
                     '</div>' +
-    
+
                 '</div>' ;
-    
+
                 creaElement.innerHTML = domContent;
             //    objCalendario1.addEventListener("click", function(event) {
             //      console.log(event.target);
@@ -432,14 +492,14 @@ setDatosCuentaSeleccionada(elementHTML) {
                 objCalendario1.appendChild(creaElement.firstChild);
                //  document.body.appendChild(creaElement.firstChild);
                // objTo.appendChild(this_aux.calendario.nativeElement);
-    
+
                   contFechas --;
-    
-    
+
+
               }
-    
+
               cont ++;
-    
+
               if (cont === 6) {
                 break;
               }
@@ -451,7 +511,7 @@ setDatosCuentaSeleccionada(elementHTML) {
              let elementoCal3 = document.getElementById('Itemcalendario3');
              let elementoCal4 = document.getElementById('Itemcalendario4');
              let elementoCal5 = document.getElementById('Itemcalendario5');
-    
+
              elementoCal0.addEventListener("click", function(event) {
               console.log(this.id);
               if( ((this_aux.Valida_Seleccion_Calendario0 === 0) || (this_aux.Valida_Seleccion_Calendario0 === 1))
@@ -495,7 +555,7 @@ setDatosCuentaSeleccionada(elementHTML) {
                       this_aux.clickCal11();
                     }
                   }
-    
+
             });
             elementoCal1.addEventListener("click", function(event) {
               console.log(this.id);
@@ -717,14 +777,14 @@ setDatosCuentaSeleccionada(elementHTML) {
                 }
               }
             });
-    
+
              for (let i = res.length; i >= 1; i--) {
-    
+
               // if ( (res.length <= 12) && (res.length >= 7)) {
-    
+
                 if ( cont >= 6) {
-    
-    
+
+
                   // $("#calendario").append(
                   //  this.calendario.nativeElement.insertAdjacentHTML(
                   //    this.renderer.invokeElementMethod(this.calendario.nativeElement.insertAdjacentHTML('beforeend',
@@ -745,24 +805,24 @@ setDatosCuentaSeleccionada(elementHTML) {
                             '</div>' +
                         '</div>' +
                     '</div>' +
-    
+
                 '</div>' ;
-    
+
                 creaElement.innerHTML = domContent2;
                 objCalendario2.appendChild(creaElement.firstChild);
                //  document.body.appendChild(creaElement.firstChild);
                // objTo.appendChild(this_aux.calendario.nativeElement);
-    
+
                   contFechas --;
               }
-    
+
               cont ++;
-    
+
               if (cont === 12) {
                 break;
               }
              }
-    
+
              // Validar seleecion de cada calendario (segundo elemnto carousel)
              let elementoCal6 = document.getElementById('Itemcalendario6');
              let elementoCal7 = document.getElementById('Itemcalendario7');
@@ -770,7 +830,7 @@ setDatosCuentaSeleccionada(elementHTML) {
              let elementoCal9 = document.getElementById('Itemcalendario9');
              let elementoCal10 = document.getElementById('Itemcalendario10');
              let elementoCal11 = document.getElementById('Itemcalendario11');
-    
+
             elementoCal6.addEventListener("click", function(event) {
               console.log(this.id);
               if( ((this_aux.Valida_Seleccion_Calendario6 === 0) || (this_aux.Valida_Seleccion_Calendario6 === 1))
@@ -815,7 +875,7 @@ setDatosCuentaSeleccionada(elementHTML) {
                     }
                   }
             });
-    
+
             elementoCal7.addEventListener("click", function(event) {
               console.log(this.id);
               if( ((this_aux.Valida_Seleccion_Calendario7 === 0) || (this_aux.Valida_Seleccion_Calendario7 === 1))
@@ -859,9 +919,9 @@ setDatosCuentaSeleccionada(elementHTML) {
                       this_aux.clickCal11();
                     }
                   }
-    
+
             });
-    
+
             elementoCal8.addEventListener("click", function(event) {
               console.log(this.id);
               if( ((this_aux.Valida_Seleccion_Calendario8 === 0) || (this_aux.Valida_Seleccion_Calendario8 === 1))
@@ -905,9 +965,9 @@ setDatosCuentaSeleccionada(elementHTML) {
                       this_aux.clickCal11();
                     }
                   }
-    
+
             });
-    
+
             elementoCal9.addEventListener("click", function(event) {
               console.log(this.id);
               if( ((this_aux.Valida_Seleccion_Calendario9 === 0) || (this_aux.Valida_Seleccion_Calendario9 === 1))
@@ -951,9 +1011,9 @@ setDatosCuentaSeleccionada(elementHTML) {
                       this_aux.clickCal11();
                     }
                   }
-    
+
             });
-    
+
             elementoCal10.addEventListener("click", function(event) {
               console.log(this.id);
               if( ((this_aux.Valida_Seleccion_Calendario10 === 0) || (this_aux.Valida_Seleccion_Calendario10 === 1))
@@ -997,9 +1057,9 @@ setDatosCuentaSeleccionada(elementHTML) {
                       this_aux.clickCal11();
                     }
                   }
-    
+
             });
-    
+
             elementoCal11.addEventListener("click", function(event) {
               console.log(this.id);
               if( ((this_aux.Valida_Seleccion_Calendario11 === 0) || (this_aux.Valida_Seleccion_Calendario11 === 1))
@@ -1043,21 +1103,21 @@ setDatosCuentaSeleccionada(elementHTML) {
                       this_aux.clickCal10();
                     }
                   }
-    
+
             });
-    
-    
+
+
            console.log(this_aux.obj['fechas']);
               }, 500);
           }  else {
             document.getElementById('mnsError').innerHTML = res[0].MensajeAUsuario;
             $("#errorModal").modal("show");
           }
-          
+
         } else {
           this_aux.showErrorSucces(res);
         }
- 
+
           $('#_modal_please_wait').modal('hide');
    }, function(error) {
 
