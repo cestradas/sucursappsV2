@@ -189,15 +189,18 @@ export class LoginComponent {
         
       },
       function(error) {
+				if (his_aux.includesL(error.MensajeDetallado, "QGE2456")) {
+					document.getElementById('mnsError').innerHTML = error.MensajeAUsuario ;
+						$('#errorModal').modal('show');
+				} else {
+
+					setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
 
 
-             setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
-
-
-               // tslint:disable-next-line:max-line-length
-               document.getElementById('mnsError').innerHTML = "Por el momento este servicio no est&aacute; disponible, favor de intentar de nuevo m&aacute;s tarde.";
-               $('#errorModal').modal('show');
-
+						// tslint:disable-next-line:max-line-length
+						document.getElementById('mnsError').innerHTML = "Por el momento este servicio no est&aacute; disponible, favor de intentar de nuevo m&aacute;s tarde.";
+						$('#errorModal').modal('show');
+				}
            });
 
          } else {
