@@ -22,6 +22,7 @@ export class MantenimientosDatosContactoComponent implements OnInit {
   showCelularError = false;
   correoActualizado: string;
   celActualizado: string;
+  validar = false;
 
   constructor(private router: Router, private fb: FormBuilder, private _serviceSesion: SesionTDDService, 
               private _validaNipService: ValidaNipTransaccion) {
@@ -215,6 +216,7 @@ let res;
 
   editarCorreo(correoHTML) {
     const this_aux = this;
+    this_aux.validar = true;
     correoHTML.readOnly = false;
    // tslint:disable-next-line:max-line-length
    const control: FormControl = new FormControl(this_aux.correoElectronico.nativeElement.value, [Validators.required,  Validators.pattern(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)]);
@@ -224,6 +226,7 @@ let res;
   }
   editarNumCel(numCelHTML) {
     const this_aux = this;
+    this_aux.validar = true;
     numCelHTML.readOnly = false;
     // tslint:disable-next-line:max-line-length
     const control: FormControl = new FormControl(this_aux.numeroCelular.nativeElement.value, [Validators.required, Validators.pattern(/^([0-9])*$/), Validators.minLength(10), Validators.maxLength(10) ]);

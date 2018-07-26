@@ -68,7 +68,7 @@
             <button class="btn  btn-lg letranegrita" (click)="irMenuTDD()">
                                         Regresar
                                     </button>
-            <button id="guardar" class="btn color-botones btn-lg letranegrita" type="button" [disabled]="myForm.invalid" (click)="mostrarConfirmacion(correoElectronico.value,numeroCelular.value)">
+            <button id="guardar" class="btn color-botones btn-lg letranegrita" type="button" [disabled]="myForm.invalid || !validar" (click)="mostrarConfirmacion(correoElectronico.value,numeroCelular.value)">
                                 Guardar
                             </button>
         </div>
