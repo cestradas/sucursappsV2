@@ -941,7 +941,7 @@ confirmarPago(token) {
 
                        console.log(transferPropTer);
                        this_aux.service.validaFinishTipoTransfer = "1";
-                       $('#_modal_please_wait').modal('show');
+
                        this_aux.service.detalleConfirmacionTranPropBanorte = response.responseText;
                        console.log(this_aux.service.detalleConfirmacionTranPropBanorte);
                        this_aux.router.navigate(['/TransferFinishBanorte']);
@@ -996,7 +996,7 @@ confirmarPago(token) {
 
                        console.log(transferPropTer);
                        this_aux.service.validaFinishTipoTransfer = "1";
-                       $('#_modal_please_wait').modal('show');
+
                        this_aux.service.detalleConfirmacionTranPropBanorte = response.responseText;
                        console.log(this_aux.service.detalleConfirmacionTranPropBanorte);
                        this_aux.router.navigate(['/TransferFinishBanorte']);

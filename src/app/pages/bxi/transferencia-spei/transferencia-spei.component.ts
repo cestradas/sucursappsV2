@@ -69,7 +69,7 @@ export class TransferenciaSpeiComponent implements OnInit {
   nombreBeneModal = "";
 
   forma: FormGroup;
-  formaT: FormGroup;
+
   importeAuxSPEI: string;
   importeAuxTEF: string;
   importeAuxQUICK: string;
@@ -129,12 +129,7 @@ export class TransferenciaSpeiComponent implements OnInit {
 
     });
 
-    this.formaT = new FormGroup({
 
-
-      'fcTokenT': new FormControl()
-
-    });
 
     console.log(this.forma);
 
@@ -144,6 +139,7 @@ export class TransferenciaSpeiComponent implements OnInit {
         console.log('forma', this.forma);
 
         this_aux.importeF = data;
+        this_aux.desabilitaBtn();
       });
 
       this.forma.controls['descriptionSPEI'].valueChanges.subscribe(
@@ -152,6 +148,7 @@ export class TransferenciaSpeiComponent implements OnInit {
           console.log('forma', this.forma);
 
           this_aux.descripcionF = data;
+          this_aux.desabilitaBtn();
         });
 
         this.forma.controls['referenceSPEI'].valueChanges.subscribe(
@@ -160,6 +157,7 @@ export class TransferenciaSpeiComponent implements OnInit {
             console.log('forma', this.forma);
 
             this_aux.refF = data;
+            this_aux.desabilitaBtn();
           });
 
             this.forma.controls['amountTEF'].valueChanges.subscribe(
@@ -168,6 +166,7 @@ export class TransferenciaSpeiComponent implements OnInit {
                 console.log('forma', this.forma);
 
                 this_aux.importeF = data;
+                this_aux.desabilitaBtn();
               });
 
               this.forma.controls['descriptionTEF'].valueChanges.subscribe(
@@ -176,6 +175,7 @@ export class TransferenciaSpeiComponent implements OnInit {
                   console.log('forma', this.forma);
 
                   this_aux.descripcionF = data;
+                  this_aux.desabilitaBtn();
                 });
 
                 this.forma.controls['referenceTEF'].valueChanges.subscribe(
@@ -184,6 +184,7 @@ export class TransferenciaSpeiComponent implements OnInit {
                     console.log('forma', this.forma);
 
                     this_aux.refF = data;
+                    this_aux.desabilitaBtn();
                   });
 
                   this.forma.controls['cuenta'].valueChanges.subscribe(
@@ -192,6 +193,7 @@ export class TransferenciaSpeiComponent implements OnInit {
                       console.log('forma', this.forma);
 
                       this_aux.tipoCuentaF = data;
+                      this_aux.desabilitaBtn();
                     });
 
                     this.forma.controls['sel1'].valueChanges.subscribe(
@@ -200,6 +202,7 @@ export class TransferenciaSpeiComponent implements OnInit {
                         console.log('forma', this.forma);
 
                         this_aux.bancoReceptF = data;
+                        this_aux.desabilitaBtn();
                       });
 
                       /*
@@ -217,6 +220,7 @@ export class TransferenciaSpeiComponent implements OnInit {
                             console.log('forma', this.forma);
 
                             this_aux.importeF = data;
+                            this_aux.desabilitaBtn();
                           });
 
                           this.forma.controls['referenceQuick'].valueChanges.subscribe(
@@ -225,6 +229,7 @@ export class TransferenciaSpeiComponent implements OnInit {
                               console.log('forma', this.forma);
 
                               this_aux.refF = data;
+                              this_aux.desabilitaBtn();
                             });
 
 
@@ -383,7 +388,7 @@ export class TransferenciaSpeiComponent implements OnInit {
 
        if (operacion === "1") {
         divTokenPassSPEI.setAttribute('style', 'display: flex');
-        this_aux.formaT.setControl('fcTokenT', control );
+        this_aux.forma.setControl('fcTokenT', control );
         $( ".cdk-visually-hidden" ).css( "margin-top", "19%" );
        } else if (operacion === "2") {
         divTokenPassTEF.setAttribute('style', 'display: flex');
@@ -1022,6 +1027,58 @@ resetLista() {
   while (node.firstChild) {
     node.removeChild(node.firstChild);
    }
+}
+
+desabilitaBtn() {
+
+  const this_aux = this;
+  let importeTranSPEI = $('#amountSPEI').val();
+  let conceptoTranSPEI = $('#descriptionSPEI').val();
+  let referenciaTranSPEI = $('#referenceSPEI').val();
+  let importeTranTEF = $('#amountTEF').val();
+  let conceptoTranTEF = $('#descriptionTEF').val();
+  let referenciaTranTEF = $('#referenceTEF').val();
+  let ctaTranQUICK = $('#cuenta').val();
+  let bancoTranQUICK = $('#selecBanco').val();
+  let importeTranQUICK = $('#ammountQUICK').val();
+  let referenciaTranQUICK = $('#referenceQuick').val();
+
+  let expreg = new RegExp("/^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/");
+
+  if (this_aux.selectTipo.nativeElement.value.toString() === "1") {  // SPEI
+
+    if ((this_aux.replaceSimbolo(importeTranSPEI) !== "") && (conceptoTranSPEI !== "") && (referenciaTranSPEI !== "")) {
+
+      $('#continuarspei').prop("disabled", false); //false desbloquea
+    } else {
+      $('#continuarspei').prop("disabled", true);
+    }
+
+  }
+
+  if (this_aux.selectTipo.nativeElement.value.toString() === "2") { // TEF
+
+    if ((this_aux.replaceSimbolo(importeTranTEF) !== "") && (conceptoTranTEF !== "") && (referenciaTranTEF !== "")) {
+
+      $('#continuarspei').prop("disabled", false); //false desbloquea
+    } else {
+      $('#continuarspei').prop("disabled", true);
+    }
+
+  }
+
+  if (this_aux.selectTipo.nativeElement.value.toString() === "3") {  // Quick
+
+    if ((this_aux.replaceSimbolo(importeTranQUICK) !== "") && (ctaTranQUICK !== "") && (bancoTranQUICK !== "") && (referenciaTranQUICK !== "")) {
+
+      $('#continuarspei').prop("disabled", false); //false desbloquea
+    } else {
+      $('#continuarspei').prop("disabled", true);
+    }
+
+  }
+
+
 }
 
 

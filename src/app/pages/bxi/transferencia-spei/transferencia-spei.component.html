@@ -260,7 +260,7 @@
                             </div>
                             <div class="dropdown sumando-dropdown-account col-sm-9">
                                 <select class="input-whidth input-lg selectModificado" name="sel1" id="selecBanco" #rSelecBanco (change)="selectBanco($event.target.value)" style="border:0px solid red; background-size: auto; width: 111%">
-                                    <option disabled="true">Seleccione un banco</option>
+                                    <option disabled="true" value="">Seleccione un banco</option>
                                     <option *ngFor="let bancos of listaBancos"  [value]="bancos.IdSecoban">{{bancos.NombreBanco}}</option>
                                 </select>
                                 <div *ngIf="forma.hasError('required', 'sel1') && forma.get('sel1').touched" class="alert alert-danger">
@@ -335,7 +335,7 @@
             </div>
             <!-- <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
             <div class="col-sm-1">
-                <button id="continuarspei" name="continuarspei" class="btn color-botones btn-lg" type="submit">
+                <button disabled="disabled" id="continuarspei" name="continuarspei" class="btn color-botones btn-lg" type="submit">
                 Continuar</button>
             </div>
         </div>
@@ -345,7 +345,7 @@
 
 
 <!-- Modal -->
-<form [formGroup]="formaT" novalidate>
+<form [formGroup]="forma" novalidate>
     <div class="modal fade" id="confirmModalSPEI" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content shadowModal ">
