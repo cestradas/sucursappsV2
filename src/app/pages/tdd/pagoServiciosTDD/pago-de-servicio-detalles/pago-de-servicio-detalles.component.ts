@@ -225,7 +225,7 @@ confirmarPago() {
         } else {
 
           console.error("Mostrar modal las tarjetas no son iguales");
-          document.getElementById('mnsError').innerHTML =   "Las tarjetas no corresponden.";
+          document.getElementById('mnsError').innerHTML =   "Los datos proporcionados son incorrectos, favor de verificar.";
           $('#_modal_please_wait').modal('hide');
           $('#errorModal').modal('show');
           $('#ModalTDDLogin').modal('hide');

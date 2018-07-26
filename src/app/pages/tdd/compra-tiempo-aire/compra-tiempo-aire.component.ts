@@ -307,7 +307,7 @@ export class CompraTiempoAireComponent implements OnInit {
       } else {
         console.error("Mostrar modal el nip no es igual");
         document.getElementById("mnsError").innerHTML =
-          "El NIP introducido no corresponde.";
+          "Los datos proporcionados son incorrectos, favor de verificar.";
         $("#_modal_please_wait").modal("hide");
         $("#errorModal").modal("show");
         $("#ModalTDDLogin").modal("hide");

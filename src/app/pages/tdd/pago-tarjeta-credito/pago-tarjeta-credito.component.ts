@@ -219,7 +219,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
           this._validaNipService.respuestaNip.res = "";
         } else {
           console.error("Mostrar modal las tarjetas no son iguales");
-          document.getElementById('mnsError').innerHTML =   "Los datos no corresponden";
+          document.getElementById('mnsError').innerHTML =   "Los datos proporcionados son incorrectos, favor de verificar.";
           $('#_modal_please_wait').modal('hide');
           $('#errorModal').modal('show');
           $('#ModalTDDLogin').modal('hide');
