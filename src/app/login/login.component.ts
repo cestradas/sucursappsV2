@@ -204,12 +204,20 @@ export class LoginComponent {
 
            setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
 
-
+				if (descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos"){
+					// tslint:disable-next-line:max-line-length
+               console.log("Pinpad respondio con " + this.respuestaTrjeta);
+               // tslint:disable-next-line:max-line-length
+               document.getElementById('mnsError').innerHTML = "Inicio de sesi&oacuete;n fall&oacuete;.";
+				$('#errorModal').modal('show');
+					
+				}else{
                // tslint:disable-next-line:max-line-length
                console.log("Pinpad respondio con " + this.respuestaTrjeta);
                // tslint:disable-next-line:max-line-length
                document.getElementById('mnsError').innerHTML = "Por el momento este servicio no est&aacute; disponible, favor de intentar de nuevo m&aacute;s tarde.";
-               $('#errorModal').modal('show');
+				$('#errorModal').modal('show');
+				}
 
          }
 
