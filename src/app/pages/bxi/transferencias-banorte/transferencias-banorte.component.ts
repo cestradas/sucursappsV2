@@ -724,57 +724,67 @@ showDetallePago() {
 
 setTipoAutenticacionOnModal() {
   const this_aux = this;
-  let mensajeError;
   const divChallenge = document.getElementById('challenger');
   const divTokenPass = document.getElementById('divPass');
-  const control: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([0-9]{6})*$/)]);
-      this_aux.forma.setControl('fcTokenTr', control );
-  if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
-    $('#_modal_please_wait').modal('show');
-    this_aux.labelTipoAutentica = 'Token Celular';
-    divTokenPass.setAttribute('style', 'display: flex');
-    const operacionesbxi: OperacionesBXI = new OperacionesBXI();
-    operacionesbxi.preparaAutenticacion().then(
-      function(response) {
-        const detallePrepara = response.responseJSON;
-        console.log(detallePrepara);
-        if (detallePrepara.Id === 'SEG0001') {
-          divChallenge.setAttribute('style', 'display: flex');
-          this_aux.NumeroSeguridad = detallePrepara.MensajeUsuarioUno;
-          setTimeout(() => {
-            $('#_modal_please_wait').modal('hide');
-         }, 500);
+  const divMjeTipoAutentica = document.getElementById('mensajeTipoAutentica');
 
-        } else {
 
-          setTimeout(() => {
-            $('#_modal_please_wait').modal('hide');
-            console.log(detallePrepara.Id + detallePrepara.MensajeAUsuario);
-                        mensajeError = this_aux.controlarError(detallePrepara);
-                        document.getElementById('mnsError').innerHTML =  mensajeError;
-                        $('#errorModal').modal('show');
-         }, 1000);
-        }
-      }, function(error) {
-
+  const control: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([0-9]{6})$/)]);
+    this_aux.forma.setControl('fcTokenTr', control );
+  let mensajeError;
+if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
+  $('#_modal_please_wait').modal('show');
+  this_aux.labelTipoAutentica = 'Token Celular';
+  divTokenPass.setAttribute('style', 'display: flex');
+      divMjeTipoAutentica.setAttribute('style', 'display: flex');
+  const operacionesbxi: OperacionesBXI = new OperacionesBXI();
+  operacionesbxi.preparaAutenticacion().then(
+    function(response) {
+      const detallePrepara = response.responseJSON;
+      console.log(detallePrepara);
+      if (detallePrepara.Id === 'SEG0001') {
+        divChallenge.setAttribute('style', 'display: flex');
+        this_aux.NumeroSeguridad = detallePrepara.MensajeUsuarioUno;
         setTimeout(() => {
           $('#_modal_please_wait').modal('hide');
-          this_aux.showErrorPromise(error);
-       }, 1000);
+       }, 500);
 
-      });
+          } else {
+            setTimeout(function() {
+              $('#_modal_please_wait').modal('hide');
+              console.log(detallePrepara.Id + detallePrepara.MensajeAUsuario);
+              mensajeError = this_aux.controlarError(detallePrepara);
+              document.getElementById('mnsError').innerHTML =  mensajeError;
+              $('#errorModal').modal('show');
+            }, 500);
+          }
+        }, function(error) {
+
+          setTimeout(() => {
+            $('#_modal_please_wait').modal('hide');
+            this_aux.showErrorPromise(error);
+         }, 500);
+
+        });
 
   } else if (this_aux.service.metodoAutenticaMayor.toString()  === '0') {
 
+    divMjeTipoAutentica.setAttribute('style', 'display: flex');
     divChallenge.setAttribute('style', 'display: none');
     divTokenPass.setAttribute('style', 'display: flex');
     this_aux.labelTipoAutentica = 'Contrase&atilde;a';
   } else if (this_aux.service.metodoAutenticaMayor.toString()  === '1') {
 
+    divMjeTipoAutentica.setAttribute('style', 'display: flex');
     divChallenge.setAttribute('style', 'display: none');
     divTokenPass.setAttribute('style', 'display: flex');
-    this_aux.labelTipoAutentica = 'Token Físico';
+    this_aux.labelTipoAutentica = 'Token Fisíco';
   }
+
+ setTimeout(function() {
+     $( ".cdk-visually-hidden" ).css( "margin-top", "16%" );
+    $('#confirmModal').modal('show');
+ }, 500);
 
 
   this.validaDatosBen();

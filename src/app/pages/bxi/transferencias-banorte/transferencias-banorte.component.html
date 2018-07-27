@@ -293,44 +293,40 @@
                             <label>${{importeAux}}</label>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" id="mensajeTipoAutentica">
                         <div class="col-lg-12">
-                            <label style="display: block; text-align: center; line-height: 280%; color: #eb012a;">Por favor captura tu <label>{{labelTipoAutentica}}</label> para poder continuar</label>
+                            <label style="display: block; text-align: center; line-height: 280%; 	color: #eb012a;">Por favor captura tu
+                            <label>{{labelTipoAutentica}}</label> para poder continuar
+                            </label>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg 12">
-                            <div id="challenger" class="row">
-                                <div class="col-lg 6">
-                                    <label>N&uacute;mero de seguridad</label>
-                                </div>
-                                <div class="col-lg 6">
-                                    <label class='form-control input-lg'>{{NumeroSeguridad}}</label>
-                                </div>
-
-                            </div>
-                            <div id="divPass" class="row">
-                                <div class="col-lg 6">
-                                    <label>{{labelTipoAutentica}}</label>
-                                </div>
-                                <div class="col-lg 6">
-                                    <label>
-                              <input  id="inputToken" type="password" class="form-control input-lg" #tokenTr formControlName='fcTokenTr' [matKeyboard]="'num'">
-                              <div *ngIf="forma.get('fcTokenTr').errors  && forma.get('fcTokenTr').touched " class="alert alert-danger">
+                    <div id="challenger" class="row">
+                        <div class="col-lg-6" align="center">
+                            <label>N&uacute;mero de seguridad:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class='form-control input-lg'>{{NumeroSeguridad}}</label>
+                        </div>
+                    </div>
+                    <div id="divPass" class="row">
+                        <div class="col-lg-6" align="center">
+                            <label>{{labelTipoAutentica}}:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <input type="password" class="form-control input-lg" #tokenTr [matKeyboard]="'num'" formControlName='fcTokenTr'>
+                            <div *ngIf="forma.get('fcTokenTr').errors  && forma.get('fcTokenTr').touched " class="alert alert-danger">
                                 <p color="danger" *ngIf="forma.get('fcTokenTr').hasError('required')"> Dato obligatorio, favor de capturar.
                                 </p>
                                 <p color="danger" *ngIf="forma.get('fcTokenTr').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.
                                 </p>
                             </div>
-                              </label>
-                                </div>
-
-                            </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
+
+                    <br>
+                    <div class="modal-footer" style="padding-right: 0px !important;">
                         <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                        <button class="color-botones btn btn-lg " id="ValToken" (click)="confirmarPago(tokenTr.value)">
+                        <button class="color-botones btn btn-lg " id="ValToken" (click)="confirmarPago(tokenTr.value)" [disabled]="(forma.get('fcTokenTr').invalid)">
                               Confirmar
                             </button>
                     </div>
