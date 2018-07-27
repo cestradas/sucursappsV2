@@ -168,7 +168,16 @@ export class LoginComponent {
               localStorage.setItem("validaNipServ", "1");
 
              } else {
-              if (this_aux.includesL(res.MensajeDetallado, "QGE2456")) {
+				 
+				 if (this_aux.includesL(res.MensajeDetallado, "QGE2455")) {
+                    // tslint:disable-next-line:max-line-length
+                    document.getElementById('mnsError').innerHTML = "Los datos proporcionados son incorrectos, favor de verificar.";
+                    $('#errorModal').modal('show');
+              } else if (this_aux.includesL(res.MensajeDetallado, "QGE2438") || this_aux.includesL(res.MensajeDetallado, "QGE2476")) {
+                // tslint:disable-next-line:max-line-length
+                  document.getElementById('mnsError').innerHTML = "Has excedido el n&uacute;mero de intentos permitidos, por seguridad no es posible continuar.";
+                  $('#errorModal').modal('show');
+              } else if (this_aux.includesL(res.MensajeDetallado, "QGE2456")) {
 					document.getElementById('mnsError').innerHTML = res.MensajeAUsuario ;
 						$('#errorModal').modal('show');
 				} else {
