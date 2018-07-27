@@ -796,9 +796,33 @@ setDatosCuentaBeneficiario(elementHTML) {
   this_aux.service.claveNumBenefi = this_aux.getNumBeneficiario(valueElement);
 
   //this_aux.consultaClabeSaldos(this_aux.service.numCuentaDestinario);
-  $('#amountSPEI').prop("disabled", false);
-  $('#descriptionSPEI').prop("disabled", false);
-  $('#referenceSPEI').prop("disabled", false);
+
+  if (this_aux.selectTipo.nativeElement.value.toString() === "1") {  // SPEI
+
+    $('#amountSPEI').prop("disabled", false);
+    $('#descriptionSPEI').prop("disabled", false);
+    $('#referenceSPEI').prop("disabled", false);
+
+  }
+
+  if (this_aux.selectTipo.nativeElement.value.toString() === "2") { // TEF
+
+    $('#amountTEF').prop("disabled", false);
+    $('#descriptionTEF').prop("disabled", false);
+    $('#referenceTEF').prop("disabled", false);
+
+  }
+
+
+
+  if (this_aux.selectTipo.nativeElement.value.toString() === "3") {  // Quick
+
+    $('#cuenta').prop("disabled", false);
+    $('#selecBanco').prop("disabled", false);
+    $('#ammountQUICK').prop("disabled", false);
+    $('#referenceQuick').prop("disabled", false);
+
+  }
 
 
   console.log(this_aux.service.claveBancoDestino+this_aux.service.claveAliasCuenta+this_aux.service.claveNumBenefi);
@@ -906,6 +930,8 @@ setCuentasBenficiarioXTipo() {
 
     if (this_aux.selectTipo.nativeElement.value.toString() === "1") {  // SPEI
 
+      this_aux.bloqueaBtn();
+
       setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
 
       const desactivaCtaOri = document.getElementById("dropdownMenu1");
@@ -949,6 +975,8 @@ setCuentasBenficiarioXTipo() {
     }
 
     if (this_aux.selectTipo.nativeElement.value.toString() === "2") { // TEF
+
+      this_aux.bloqueaBtn();
 
       const desactivaCtaOri = document.getElementById("dropdownMenu1");
       desactivaCtaOri.removeAttribute("disabled");
@@ -994,6 +1022,8 @@ setCuentasBenficiarioXTipo() {
 
 
     if (this_aux.selectTipo.nativeElement.value.toString() === "3") {  // Quick
+
+      //this_aux.bloqueaBtn();
 
       const desactivaCtaOri = document.getElementById("dropdownMenu1");
       desactivaCtaOri.removeAttribute("disabled");
@@ -1075,6 +1105,48 @@ desabilitaBtn() {
     } else {
       $('#continuarspei').prop("disabled", true);
     }
+
+  }
+
+
+}
+
+bloqueaBtn() {
+
+  const this_aux = this;
+  let importeTranSPEI = $('#amountSPEI').val();
+  let conceptoTranSPEI = $('#descriptionSPEI').val();
+  let referenciaTranSPEI = $('#referenceSPEI').val();
+  let importeTranTEF = $('#amountTEF').val();
+  let conceptoTranTEF = $('#descriptionTEF').val();
+  let referenciaTranTEF = $('#referenceTEF').val();
+  let ctaTranQUICK = $('#cuenta').val();
+  let bancoTranQUICK = $('#selecBanco').val();
+  let importeTranQUICK = $('#ammountQUICK').val();
+  let referenciaTranQUICK = $('#referenceQuick').val();
+
+  if (this_aux.selectTipo.nativeElement.value.toString() === "1") {  // SPEI
+
+    $('#amountSPEI').prop("disabled", true);
+    $('#descriptionSPEI').prop("disabled", true);
+    $('#referenceSPEI').prop("disabled", true);
+
+  }
+
+  if (this_aux.selectTipo.nativeElement.value.toString() === "2") { // TEF
+
+    $('#amountTEF').prop("disabled", true);
+    $('#descriptionTEF').prop("disabled", true);
+    $('#referenceTEF').prop("disabled", true);
+
+  }
+
+  if (this_aux.selectTipo.nativeElement.value.toString() === "3") {  // Quick
+
+    $('#cuenta').prop("disabled", true);
+    $('#selecBanco').prop("disabled", true);
+    $('#ammountQUICK').prop("disabled", true);
+    $('#referenceQuick').prop("disabled", true);
 
   }
 
@@ -1404,7 +1476,39 @@ consultaTablaCorpBancosService() {
 
       this_aux.listaBancos = response.responseJSON;
       this_aux.listaBancos.sort(this_aux.sortByProperty('NombreBanco'));
-      $("#_modal_please_wait").modal("hide");
+      const bancos = this_aux.listaBancos.sort(this_aux.sortByProperty('Id'));
+      let idBanco;
+
+      for (let i = 0; i <= bancos.length; i++) {
+        if (bancos[i].Id !== undefined) {
+          idBanco = bancos[i].Id;
+          break;
+        }
+      }
+
+      if ( idBanco === '1') {
+
+
+        $("#_modal_please_wait").modal("hide");
+
+        // desbloquea compos
+
+        $('#cuenta').prop("disabled", false);
+        $('#selecBanco').prop("disabled", false);
+        $('#ammountQUICK').prop("disabled", false);
+        $('#referenceQuick').prop("disabled", false);
+
+      } else {
+        // bloquea campos
+
+        $('#cuenta').prop("disabled", true);
+        $('#selecBanco').prop("disabled", true);
+        $('#ammountQUICK').prop("disabled", true);
+        $('#referenceQuick').prop("disabled", true);
+        document.getElementById('errorMensaje').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
+        $("#modalErrorMessage").modal("show");
+       }
+
     }, function(error) {
       console.error("El WS respondio incorrectamente");
       $("#_modal_please_wait").modal("hide");
