@@ -96,6 +96,10 @@ export class TransferenciaSpeiComponent implements OnInit {
   nombreCuenta: string;
   numeroTarjeta: string;
 
+  fcTokenSp = "";
+  fcTokenTef = "";
+  fcTokenQuick = "";
+
 
   constructor(private _http: Http, private router: Router, public service: SesionBxiService, private renderer: Renderer2, private currencyPipe: CurrencyPipe) {
 
@@ -125,7 +129,9 @@ export class TransferenciaSpeiComponent implements OnInit {
       'ammountQUICK': new FormControl('', [Validators.required, Validators.min(0), Validators.max(7000), Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)]),
       'referenceQuick': new FormControl('', [Validators.required, Validators.maxLength(7)]),
 
-      'fcToken': new FormControl()
+      'fcTokenSp': new FormControl(),
+      'fcTokenTef': new FormControl(),
+      'fcTokenQuick': new FormControl()
 
     });
 
@@ -231,6 +237,42 @@ export class TransferenciaSpeiComponent implements OnInit {
                               this_aux.refF = data;
                               this_aux.desabilitaBtn();
                             });
+
+                            this.forma.controls['fcTokenSp'].valueChanges.subscribe(
+                              data2 => {
+                                console.log('fcTokenSp', data2);
+                                console.log('forma', this.forma);
+
+                                this_aux.fcTokenSp = data2;
+                                if (this_aux.fcTokenSp !== " ") {
+
+                                    $('#ValToken').prop("disabled", false);
+                                }
+                              });
+
+                              this.forma.controls['fcTokenTef'].valueChanges.subscribe(
+                                data2 => {
+                                  console.log('fcTokenTef', data2);
+                                  console.log('forma', this.forma);
+
+                                  this_aux.fcTokenTef = data2;
+                                  if (this_aux.fcTokenTef !== " ") {
+
+                                      $('#confirmarP').prop("disabled", false);
+                                  }
+                                });
+
+                                this.forma.controls['fcTokenQuick'].valueChanges.subscribe(
+                                  data2 => {
+                                    console.log('fcTokenQuick', data2);
+                                    console.log('forma', this.forma);
+
+                                    this_aux.fcTokenQuick = data2;
+                                    if (this_aux.fcTokenQuick !== " ") {
+
+                                        $('#confirmarP2').prop("disabled", false);
+                                    }
+                                  });
 
 
   }
@@ -373,6 +415,14 @@ export class TransferenciaSpeiComponent implements OnInit {
   setTipoAutenticacionOnModal() {
     const this_aux = this;
     const operacion = this_aux.selectTipo.nativeElement.value.toString();
+    const divMjeTipoAutentica = document.getElementById('mensajeTipoAutentica');
+    const control: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([0-9]{6})$/)]);
+    this_aux.forma.setControl('fcTokenSp', control );
+    const control1: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([0-9]{6})$/)]);
+    this_aux.forma.setControl('fcTokenTef', control1 );
+    const control2: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([0-9]{6})$/)]);
+    this_aux.forma.setControl('fcTokenQuick', control2 );
+
     let mensajeError;
     const divChallengeSPEI = document.getElementById('challengerSPEI');
     const divTokenPassSPEI = document.getElementById('divPassSPEI');
@@ -380,24 +430,24 @@ export class TransferenciaSpeiComponent implements OnInit {
     const divTokenPassTEF = document.getElementById('divPassTEF');
     const divChallengeQUICK = document.getElementById('challengerQUICK');
     const divTokenPassQUICK = document.getElementById('divPassQUICK');
-    const control: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([0-9]{6})*$/)]);
+
 
     if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
       $('#_modal_please_wait').modal('show');
       this_aux.labelTipoAutentica = 'Token Celular';
-
+      divMjeTipoAutentica.setAttribute('style', 'display: flex');
        if (operacion === "1") {
         divTokenPassSPEI.setAttribute('style', 'display: flex');
-        this_aux.forma.setControl('fcTokenT', control );
+        this_aux.forma.setControl('fcTokenSp', control );
         $( ".cdk-visually-hidden" ).css( "margin-top", "19%" );
        } else if (operacion === "2") {
         divTokenPassTEF.setAttribute('style', 'display: flex');
         $( ".cdk-visually-hidden" ).css( "margin-top", "19%" );
-        this_aux.forma.setControl('fcToken', control );
+        this_aux.forma.setControl('fcTokenTef', control1 );
        } else if (operacion === "3") {
         divTokenPassQUICK.setAttribute('style', 'display: flex');
         $( ".cdk-visually-hidden" ).css( "margin-top", "19%" );
-        this_aux.forma.setControl('fcToken', control );
+        this_aux.forma.setControl('fcTokenQuick', control2 );
        }
 
       const operacionesbxi: OperacionesBXI = new OperacionesBXI();
@@ -422,26 +472,26 @@ export class TransferenciaSpeiComponent implements OnInit {
            }, 500);
 
           } else {
-
-            setTimeout(() => {
+            setTimeout(function() {
               $('#_modal_please_wait').modal('hide');
               console.log(detallePrepara.Id + detallePrepara.MensajeAUsuario);
-                          mensajeError = this_aux.controlarError(detallePrepara);
-                          document.getElementById('mnsError').innerHTML =  mensajeError;
-                          $('#errorModal').modal('show');
-           }, 1000);
+              mensajeError = this_aux.controlarError(detallePrepara);
+              document.getElementById('mnsError').innerHTML =  mensajeError;
+              $('#errorModal').modal('show');
+            }, 500);
           }
         }, function(error) {
 
           setTimeout(() => {
             $('#_modal_please_wait').modal('hide');
             this_aux.showErrorPromise(error);
-         }, 1000);
+         }, 500);
 
         });
 
-    } else if (this_aux.service.metodoAutenticaMayor.toString()  === '0') {
+  } else if (this_aux.service.metodoAutenticaMayor.toString()  === '0') {
 
+      divMjeTipoAutentica.setAttribute('style', 'display: flex');
       if (operacion === "1") {
         divChallengeSPEI.setAttribute('style', 'display: none');
         divTokenPassSPEI.setAttribute('style', 'display: flex');
@@ -456,6 +506,7 @@ export class TransferenciaSpeiComponent implements OnInit {
       this_aux.labelTipoAutentica = 'Contrase&atilde;a';
     } else if (this_aux.service.metodoAutenticaMayor.toString()  === '1') {
 
+      divMjeTipoAutentica.setAttribute('style', 'display: flex');
       if (operacion === "1") {
         divChallengeSPEI.setAttribute('style', 'display: none');
         divTokenPassSPEI.setAttribute('style', 'display: flex');
@@ -469,6 +520,10 @@ export class TransferenciaSpeiComponent implements OnInit {
 
       this_aux.labelTipoAutentica = 'Token Físico';
     }
+ setTimeout(function() {
+     $( ".cdk-visually-hidden" ).css( "margin-top", "16%" );
+    $('#confirmModal').modal('show');
+ }, 500);
 
 
     this.validaDatosBen();

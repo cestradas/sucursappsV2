@@ -1,16 +1,16 @@
 <div ng-cloak class="padding-barToTittle">
     <h2 class="text-center color-letra">Transferencias a otros bancos</h2>
 </div>
+<form [formGroup]="forma" (ngSubmit)="showDetallePago()" class="needs-validation">
+    <fieldset class="padding-TittleToFieldset padding-fieldset-general">
 
-<fieldset class="padding-TittleToFieldset padding-fieldset-general">
+        <div class="row sumando-form-group letranegrita padding-InFieldset">
+            <div class="col-sm-1 sumando-bg-red group-name">
+                Tipo
+            </div>
+            <div class="dropdown sumando-dropdown-account col-sm-11" style="padding-left: 0px; padding-right: 0px;">
 
-    <div class="row sumando-form-group letranegrita padding-InFieldset">
-        <div class="col-sm-1 sumando-bg-red group-name">
-            Tipo
-        </div>
-        <div class="dropdown sumando-dropdown-account col-sm-11" style="padding-left: 0px; padding-right: 0px;">
-
-            <select class="input-whidth selectModificado" #selectTipo id="tipoTransfer" (change)="setCuentasBenficiarioXTipo();" style=" width: 100%; height: 60px; border:0px solid red; ">
+                <select class="input-whidth selectModificado" #selectTipo id="tipoTransfer" (change)="setCuentasBenficiarioXTipo();" style=" width: 100%; height: 60px; border:0px solid red; ">
                        <!-- <img src="./assets/img/bg_selectN.png" align="right" style="width: 3.8%; float: right; position: absolute;     margin-left: 1549px;"> -->
 
                     <option value="0" disabled selected>Seleccione transferencia</option>
@@ -18,20 +18,20 @@
                     <option value="2" class="text-li">TEF</option>
                     <option value="3" class="text-li">Rapida</option>
                 </select>
+            </div>
+
         </div>
 
-    </div>
-
-    <div class="row sumando-form-group letranegrita">
-        <div class="col-sm-1 sumando-bg-red group-name">
-            Desde
-        </div>
-        <div class="col-sm-11 group-controls  padding-InFieldset" style="padding-left: 0px; padding-right:  0px;">
-            <div class="form-group">
-                <div class="sumando-bg-white">
-                    <input type="hidden">
-                    <div class="dropdown sumando-dropdown-account">
-                        <button class="btn btn-default btn-block dropdown-toggle btn-color-cuentas" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" disabled="true" aria-expanded="true">
+        <div class="row sumando-form-group letranegrita">
+            <div class="col-sm-1 sumando-bg-red group-name">
+                Desde
+            </div>
+            <div class="col-sm-11 group-controls  padding-InFieldset" style="padding-left: 0px; padding-right:  0px;">
+                <div class="form-group">
+                    <div class="sumando-bg-white">
+                        <input type="hidden">
+                        <div class="dropdown sumando-dropdown-account">
+                            <button class="btn btn-default btn-block dropdown-toggle btn-color-cuentas" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" disabled="true" aria-expanded="true">
               <table id="tableOrigen" style="display: none" width="99%">
                 <tr>
                   <td align="left" width="45%">
@@ -59,28 +59,28 @@
                 </tr>
               </table>
             </button>
-                        <div>
-                            <ul id="ul_Cuentas" #listaCuentas class="dropdown-menu btn-block" aria-labelledby="dropdownMenu1" style="width: 100%; height: 200px; overflow: auto">
+                            <div>
+                                <ul id="ul_Cuentas" #listaCuentas class="dropdown-menu btn-block" aria-labelledby="dropdownMenu1" style="width: 100%; height: 200px; overflow: auto">
 
-                            </ul>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div id="beneficiarios">
-        <div class="row sumando-form-group letranegrita">
-            <div class="col-sm-1 sumando-bg-red group-name">
-                Para
-            </div>
-            <div class="col-sm-11 group-controls  padding-InFieldset" style="padding-left: 0px; padding-right:  0px;">
-                <div class="form-group">
-                    <div class="sumando-bg-white">
-                        <input type="hidden">
-                        <div class="dropdown sumando-dropdown-account">
-                            <button disabled="true" class="btn btn-default btn-block dropdown-toggle btn-color-cuentas" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <div id="beneficiarios">
+            <div class="row sumando-form-group letranegrita">
+                <div class="col-sm-1 sumando-bg-red group-name">
+                    Para
+                </div>
+                <div class="col-sm-11 group-controls  padding-InFieldset" style="padding-left: 0px; padding-right:  0px;">
+                    <div class="form-group">
+                        <div class="sumando-bg-white">
+                            <input type="hidden">
+                            <div class="dropdown sumando-dropdown-account">
+                                <button disabled="true" class="btn btn-default btn-block dropdown-toggle btn-color-cuentas" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               <table id="tableBeneficiarios" style="display: none" width="97%">
                 <tr>
                   <td align="left" width="50%" style="width: 0px;">
@@ -108,23 +108,23 @@
                 </tr>
               </table>
             </button>
-                            <div>
-                                <ul id="ul_CuentasBen" #listaCuentasBeneficiario class="dropdown-menu btn-block" aria-labelledby="dropdownMenu2" style="width: 100%; height: 200px; overflow: auto">
+                                <div>
+                                    <ul id="ul_CuentasBen" #listaCuentasBeneficiario class="dropdown-menu btn-block" aria-labelledby="dropdownMenu2" style="width: 100%; height: 200px; overflow: auto">
 
-                                </ul>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
 
 
 
-    <form [formGroup]="forma" (ngSubmit)="showDetallePago()">
+
         <div id="divisionInputs"></div>
         <div class="row sumando-form-group letranegrita">
             <!--<div class="col-sm-1 sumando-bg-red group-name">Para</div>-->
@@ -340,13 +340,13 @@
                 Continuar</button>
             </div>
         </div>
-    </form>
-</fieldset>
+
+    </fieldset>
 
 
 
-<!-- Modal -->
-<form [formGroup]="forma" novalidate>
+    <!-- Modal -->
+
     <div class="modal fade" id="confirmModalSPEI" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content shadowModal ">
@@ -397,43 +397,40 @@
                             <label>${{importeAuxSPEI}}</label>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" id="mensajeTipoAutentica">
                         <div class="col-lg-12">
-                            <label style="display: block; text-align: center; line-height: 280%; color: #eb012a;">Por favor captura tu <label>{{labelTipoAutentica}}</label> para poder continuar</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg 12">
-                            <div id="challengerSPEI" class="row">
-                                <div class="col-lg 6">
-                                    <label>N&uacute;mero de seguridad</label>
-                                </div>
-                                <div class="col-lg 6">
-                                    <label class='form-control input-lg'>{{NumeroSeguridad}}</label>
-                                </div>
-
-                            </div>
-                            <div id="divPassSPEI" class="row">
-                                <div class="col-lg 6">
-                                    <label>{{labelTipoAutentica}}</label>
-                                </div>
-                                <div class="col-lg 6">
-                                    <label>
-                            <input id="inputTokenSPEI" type="password" class="form-control input-lg" #token  [matKeyboard]="'num'">
-                            <div *ngIf="(forma.get('fcToken').errors  && forma.get('fcToken').touched)" class="alert alert-danger">
-                              <p color="danger" *ngIf="forma.get('fcToken').hasError('required')">Dato obligatorio, favor de capturar. </p>
-                              <p color="danger" *ngIf="forma.get('fcToken').hasError('pattern')">Dato incorrecto, favor de verificar.</p>
-                              <p color="danger" *ngIf="forma.get('fcToken').hasError('minlength') || forma.get('token').hasError('maxlength')">Los datos proporcionados son incorrectos, favor de verificar.</p>
-                          </div>
+                            <label style="display: block; text-align: center; line-height: 280%; 	color: #eb012a;">Por favor captura tu
+                          <label>{{labelTipoAutentica}}</label> para poder continuar
                             </label>
-                                </div>
-
+                        </div>
+                    </div>
+                    <div id="challengerSPEI" class="row">
+                        <div class="col-lg-6" align="center">
+                            <label>N&uacute;mero de seguridad:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class='form-control input-lg'>{{NumeroSeguridad}}</label>
+                        </div>
+                    </div>
+                    <div id="divPassSPEI" class="row">
+                        <div class="col-lg-6" align="center">
+                            <label>{{labelTipoAutentica}}:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <input id="inputTokenSPEI" type="password" class="form-control input-lg" #TokenSp [matKeyboard]="'num'" formControlName='fcTokenSp'>
+                            <div *ngIf="forma.get('fcTokenSp').errors  && forma.get('fcTokenSp').touched " class="alert alert-danger">
+                                <p color="danger" *ngIf="forma.get('fcTokenSp').hasError('required')"> Dato obligatorio, favor de capturar.
+                                </p>
+                                <p color="danger" *ngIf="forma.get('fcTokenSp').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.
+                                </p>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
+
+                    <br>
+                    <div class="modal-footer" style="padding-right: 0px !important;">
                         <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                        <button id="confirmar" class="color-botones btn btn-lg " (click)="confirmarPago(token.value, '','')">
+                        <button id="ValToken" class="color-botones btn btn-lg " (click)="confirmarPago(TokenSp.value, '','')" [disabled]="(forma.get('fcTokenSp').invalid)">
                             Confirmar
                           </button>
                     </div>
@@ -442,10 +439,10 @@
             </div>
         </div>
     </div>
-</form>
 
-<!-- Modal -->
-<form [formGroup]="forma" novalidate>
+
+    <!-- Modal -->
+
     <div class="modal fade" id="confirmModalTEF" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content shadowModal ">
@@ -479,43 +476,40 @@
                             <label>${{importeAuxTEF}}</label>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" id="mensajeTipoAutentica">
                         <div class="col-lg-12">
-                            <label style="display: block; text-align: center; line-height: 280%; color: #eb012a;">Por favor captura tu <label>{{labelTipoAutentica}}</label> para poder continuar</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg 12">
-                            <div id="challengerTEF" class="row">
-                                <div class="col-lg 6">
-                                    <label>N&uacute;mero de seguridad</label>
-                                </div>
-                                <div class="col-lg 6">
-                                    <label class='form-control input-lg'>{{NumeroSeguridad}}</label>
-                                </div>
-
-                            </div>
-                            <div id="divPassTEF" class="row">
-                                <div class="col-lg 6">
-                                    <label>{{labelTipoAutentica}}</label>
-                                </div>
-                                <div class="col-lg 6">
-                                    <label>
-                            <input id="inputTokenTEF" type="password" class="form-control input-lg" #tokenTef [matKeyboard]="'num'">
-                            <div *ngIf="(forma.get('fcToken').errors  && forma.get('fcToken').touched)" class="alert alert-danger">
-                              <p color="danger" *ngIf="forma.get('fcToken').hasError('required')">Dato obligatorio, favor de capturar. </p>
-                              <p color="danger" *ngIf="forma.get('fcToken').hasError('pattern')">Dato incorrecto, favor de verificar.</p>
-                              <p color="danger" *ngIf="forma.get('fcToken').hasError('minlength') || forma.get('token').hasError('maxlength')">Los datos proporcionados son incorrectos, favor de verificar.</p>
-                          </div>
+                            <label style="display: block; text-align: center; line-height: 280%; 	color: #eb012a;">Por favor captura tu
+                          <label>{{labelTipoAutentica}}</label> para poder continuar
                             </label>
-                                </div>
-
+                        </div>
+                    </div>
+                    <div id="challengerTEF" class="row">
+                        <div class="col-lg-6" align="center">
+                            <label>N&uacute;mero de seguridad:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class='form-control input-lg'>{{NumeroSeguridad}}</label>
+                        </div>
+                    </div>
+                    <div id="divPassTEF" class="row">
+                        <div class="col-lg-6" align="center">
+                            <label>{{labelTipoAutentica}}:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <input id="inputTokenTEF" type="password" class="form-control input-lg" #TokenTef [matKeyboard]="'num'" formControlName='fcTokenTef'>
+                            <div *ngIf="forma.get('fcTokenTef').errors  && forma.get('fcTokenTef').touched " class="alert alert-danger">
+                                <p color="danger" *ngIf="forma.get('fcTokenTef').hasError('required')"> Dato obligatorio, favor de capturar.
+                                </p>
+                                <p color="danger" *ngIf="forma.get('fcTokenTef').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.
+                                </p>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
+
+                    <br>
+                    <div class="modal-footer" style="padding-right: 0px !important;">
                         <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                        <button id="confirmarP" class="color-botones btn btn-lg " (click)="confirmarPago('', tokenTef.value, '')">
+                        <button id="confirmarP" class="color-botones btn btn-lg " (click)="confirmarPago('', TokenTef.value, '')" [disabled]="(forma.get('fcTokenTef').invalid)">
                             Confirmar
                           </button>
                     </div>
@@ -524,10 +518,10 @@
             </div>
         </div>
     </div>
-</form>
 
-<!-- Modal -->
-<form [formGroup]="forma" novalidate>
+
+    <!-- Modal -->
+
     <div class="modal fade" id="confirmModalQUICK" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content shadowModal ">
@@ -572,43 +566,40 @@
                             <label>${{importeAuxQUICK}}</label>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" id="mensajeTipoAutentica">
                         <div class="col-lg-12">
-                            <label style="display: block; text-align: center; line-height: 280%; color: #eb012a;">Por favor captura tu <label>{{labelTipoAutentica}}</label> para poder continuar</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg 12">
-                            <div id="challengerQUICK" class="row">
-                                <div class="col-lg 6">
-                                    <label>N&uacute;mero de seguridad</label>
-                                </div>
-                                <div class="col-lg 6">
-                                    <label class='form-control input-lg'>{{NumeroSeguridad}}</label>
-                                </div>
-
-                            </div>
-                            <div id="divPassQUICK" class="row">
-                                <div class="col-lg 6">
-                                    <label>{{labelTipoAutentica}}</label>
-                                </div>
-                                <div class="col-lg 6">
-                                    <label>
-                            <input id="inputTokenQUICK" type="password" class="form-control input-lg" #tokenQuick  [matKeyboard]="'num'">
-                            <div *ngIf="(forma.get('fcToken').errors  && forma.get('fcToken').touched)" class="alert alert-danger">
-                              <p color="danger" *ngIf="forma.get('fcToken').hasError('required')">Dato obligatorio, favor de capturar. </p>
-                              <p color="danger" *ngIf="forma.get('fcToken').hasError('pattern')">Dato incorrecto, favor de verificar.</p>
-                              <p color="danger" *ngIf="forma.get('fcToken').hasError('minlength') || forma.get('token').hasError('maxlength')">Los datos proporcionados son incorrectos, favor de verificar.</p>
-                          </div>
+                            <label style="display: block; text-align: center; line-height: 280%; 	color: #eb012a;">Por favor captura tu
+                          <label>{{labelTipoAutentica}}</label> para poder continuar
                             </label>
-                                </div>
-
+                        </div>
+                    </div>
+                    <div id="challengerQUICK" class="row">
+                        <div class="col-lg-6" align="center">
+                            <label>N&uacute;mero de seguridad:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class='form-control input-lg'>{{NumeroSeguridad}}</label>
+                        </div>
+                    </div>
+                    <div id="divPassQUICK" class="row">
+                        <div class="col-lg-6" align="center">
+                            <label>{{labelTipoAutentica}}:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <input id="inputTokenQUICK" type="password" class="form-control input-lg" #TokenQuick [matKeyboard]="'num'" formControlName='fcTokenQuick'>
+                            <div *ngIf="forma.get('fcTokenQuick').errors  && forma.get('fcTokenQuick').touched " class="alert alert-danger">
+                                <p color="danger" *ngIf="forma.get('fcTokenQuick').hasError('required')"> Dato obligatorio, favor de capturar.
+                                </p>
+                                <p color="danger" *ngIf="forma.get('fcTokenQuick').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.
+                                </p>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
+
+                    <br>
+                    <div class="modal-footer" style="padding-right: 0px !important;">
                         <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                        <button id="confirmarP2" class="color-botones btn btn-lg " (click)="confirmarPago('','', tokenQuick.value)">
+                        <button id="confirmarP2" class="color-botones btn btn-lg " (click)="confirmarPago('','', TokenQuick.value)" [disabled]="(forma.get('fcTokenQuick').invalid)">
                             Confirmar
                           </button>
                     </div>
@@ -617,27 +608,29 @@
             </div>
         </div>
     </div>
-</form>
-
-<!-- //////////////////////////////////////////////////////////////////////////////////////////////////// Modal End here-->
 
 
-<div id="modalErrorMessage" class="modal fade" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-dialog-error">
-        <div class="modal-content">
-            <div class="modal-body text-center">
-                <p>
-                    <label id="errorMensaje"></label>
-                </p>
+    <!-- //////////////////////////////////////////////////////////////////////////////////////////////////// Modal End here-->
+
+
+    <div id="modalErrorMessage" class="modal fade" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-error">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <p>
+                        <label id="errorMensaje"></label>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button id="cerrar" type="button" class="btn btn-default" data-dismiss="modal" onClick="currentPage.loadMenu();">Cerrar</button>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button id="cerrar" type="button" class="btn btn-default" data-dismiss="modal" onClick="currentPage.loadMenu();">Cerrar</button>
-            </div>
+            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-content -->
+        <!-- /.modal-dialog -->
     </div>
-    <!-- /.modal-dialog -->
-</div>
+
+</form>
 
 <!-- <div class="modal fade" id="modalErrorMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
 <div class="modal-dialog" role="document">

@@ -50,7 +50,7 @@ export class TransferenciaFinishSpeiComponent implements OnInit {
       const respPagoSPEI = this_aux.service.detalleConfirmacionSPEI;
       const respPagoJsonSPEI = JSON.parse(respPagoSPEI);
       console.log(respPagoJsonSPEI);
-      setTimeout(() => $('#_modal_please_wait').modal('hide'), 5000);
+      setTimeout(() => $('#_modal_please_wait').modal('hide'), 500);
 
       document.getElementById('claveRastreoSPEI').style.display = 'flex';
       document.getElementById('comisionSPEI').style.display = 'flex';
@@ -74,7 +74,7 @@ export class TransferenciaFinishSpeiComponent implements OnInit {
       const respPagoTEF = this_aux.service.detalleConfirmacionTEF;
       const respPagoJsonTEF = JSON.parse(respPagoTEF);
       console.log(respPagoJsonTEF);
-      setTimeout(() => $('#_modal_please_wait').modal('hide'), 5000);
+      setTimeout(() => $('#_modal_please_wait').modal('hide'), 500);
 
       document.getElementById('claveRastreoSPEI').style.display = 'none';
       document.getElementById('comisionSPEI').style.display = 'none';
@@ -98,7 +98,7 @@ export class TransferenciaFinishSpeiComponent implements OnInit {
       const respPagoQUICK = this_aux.service.detalleConfirmacionQUICK;
       const respPagoJsonQUICK = JSON.parse(respPagoQUICK);
       console.log(respPagoJsonQUICK);
-      setTimeout(() => $('#_modal_please_wait').modal('hide'), 5000);
+      setTimeout(() => $('#_modal_please_wait').modal('hide'), 500);
 
       document.getElementById('claveRastreoSPEI').style.display = 'none';
       document.getElementById('comisionSPEI').style.display = 'flex';
