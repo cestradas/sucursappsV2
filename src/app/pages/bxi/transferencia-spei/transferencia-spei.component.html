@@ -139,12 +139,9 @@
                             </div>
                             <div class="col-lg-10">
                                 <input disabled="disabled" formControlName="amountSPEI" [matKeyboard]="'num'" name="amountSPEI" #rImporteSPEI id="amountSPEI" type="text" step="0.01" currency required class="form-control amount input-lg" (blur)="transformAmount(rImporteSPEI.value)" />
-
-                                <div *ngIf="forma.hasError('min', 'amountSPEI') || forma.hasError('max', 'amountSPEI') || forma.get('amountSPEI').hasError('pattern') " class="alert alert-danger">
-                                    Los datos proporcionados son incorrectos, favor de verificar.
-                                </div>
-                                <div *ngIf="forma.hasError('required', 'amountSPEI') && forma.get('amountSPEI').touched" class="alert alert-danger">
-                                    Dato obligatorio, favor de capturar.
+                                <div class="alert alert-danger" *ngIf="(forma.get('amountSPEI').errors  && forma.get('amountSPEI').touched)">
+                                    <p *ngIf="forma.get('amountSPEI').hasError('required') " style="margin-bottom: 0rem !important;">Dato obligatorio, favor de capturar. </p>
+                                    <p *ngIf="forma.get('amountSPEI').hasError('pattern')" style="margin-bottom: 0rem !important;">Los datos proporcionados son incorrectos, favor de verificar. </p>
                                 </div>
                             </div>
 
@@ -244,11 +241,10 @@
                             </div>
                             <div class="col-lg-10">
                                 <input disabled="disabled" name="cuenta" [matKeyboard]="'num'" id="cuenta" formControlName="cuenta" type="text" step="0.01" currency required class="form-control amount input-lg" ng-model="command.amount" ng-min="1" ng-max="7000" />
-                                <div *ngIf="forma.hasError('maxlength', 'cuenta')" class="alert alert-danger">
-                                    Los datos proporcionados son incorrectos, favor de verificar.
-                                </div>
-                                <div *ngIf="forma.hasError('required', 'cuenta') && forma.get('cuenta').touched" class="alert alert-danger">
-                                    Dato obligatorio, favor de capturar.
+
+                                <div class="alert alert-danger" *ngIf="(forma.get('cuenta').errors  && forma.get('cuenta').touched)">
+                                    <p *ngIf="forma.get('cuenta').hasError('required') " style="margin-bottom: 0rem !important;">Dato obligatorio, favor de capturar. </p>
+                                    <p *ngIf="forma.get('cuenta').hasError('pattern')" style="margin-bottom: 0rem !important;">Dato incorrecto, favor de verificar. </p>
                                 </div>
                             </div>
                         </div>
@@ -419,9 +415,9 @@
                         <div class="col-lg-6">
                             <input id="inputTokenSPEI" type="password" class="form-control input-lg" #TokenSp [matKeyboard]="'num'" formControlName='fcTokenSp'>
                             <div *ngIf="forma.get('fcTokenSp').errors  && forma.get('fcTokenSp').touched " class="alert alert-danger">
-                                <p color="danger" *ngIf="forma.get('fcTokenSp').hasError('required')"> Dato obligatorio, favor de capturar.
+                                <p color="danger" *ngIf="forma.get('fcTokenSp').hasError('required')" style="margin-bottom: 0rem !important;"> Dato obligatorio, favor de capturar.
                                 </p>
-                                <p color="danger" *ngIf="forma.get('fcTokenSp').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.
+                                <p color="danger" *ngIf="forma.get('fcTokenSp').hasError('pattern')" style="margin-bottom: 0rem !important;">Los datos proporcionados son incorrectos, favor de verificar.
                                 </p>
                             </div>
                         </div>

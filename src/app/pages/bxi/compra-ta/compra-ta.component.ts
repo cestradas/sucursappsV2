@@ -97,6 +97,22 @@ export class CompraTaComponent implements OnInit {
      this.consultaCatEmpresas();
 
      $( ".cdk-visually-hidden" ).css( "margin-top", "15%" );
+
+     //ESTILOS Preferente
+     let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
+    let btnContinuar = document.getElementById("continuarTA");
+    let btnConfirmar = document.getElementById("confirmar");
+
+    if (storageTipoClienteBEL === "true") {
+
+      btnContinuar.classList.remove("color-botones");
+      btnContinuar.classList.add("color-botones_Preferente");
+      btnConfirmar.classList.remove("color-botones");
+      btnConfirmar.classList.add("color-botones_Preferente");
+
+      //localStorage.removeItem("tipoClienteBEL");
+
+    }
   }
 
 

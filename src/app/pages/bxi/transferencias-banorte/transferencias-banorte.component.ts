@@ -45,6 +45,8 @@ export class TransferenciasBanorteComponent implements OnInit {
   CuentaDestino: string;
 
   forma: FormGroup;
+  amount = "";
+  concepto = "";
 
   importeAux: string;
 
@@ -460,6 +462,7 @@ setCuentasBenficiarioXTipo() {
 
     if (this_aux.selectTipo.nativeElement.value.toString() === "1") {  // PROPIAS
       let contCtas = 0;
+      $( ".cdk-visually-hidden" ).css( "margin-top", "10%" );
       // document.getElementById('tranTEF').style.display = 'none';
       this_aux.listaCuentasUsr.forEach(auxcuenta => {
 
@@ -510,6 +513,7 @@ setCuentasBenficiarioXTipo() {
 
     if (this_aux.selectTipo.nativeElement.value.toString() === "2") { // TERCEROS
       let contCtasTer = 0;
+      $( ".cdk-visually-hidden" ).css( "margin-top", "10%" );
       // document.getElementById('tranSPEI').style.display = 'none';
       this_aux.listaCuentasBen.forEach(auxcuenta => {
 
@@ -783,7 +787,7 @@ if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
 
  setTimeout(function() {
      $( ".cdk-visually-hidden" ).css( "margin-top", "16%" );
-    $('#confirmModal').modal('show');
+    //$('#confirmModal').modal('show');
  }, 500);
 
 

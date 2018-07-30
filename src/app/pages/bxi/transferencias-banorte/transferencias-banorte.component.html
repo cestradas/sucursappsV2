@@ -138,11 +138,9 @@
                             </div>
                             <div class="col-sm-10">
                                 <input disabled="disabled" id="amount" #rImporte [matKeyboard]="'num'" name="amount" formControlName="amount" type="text" class="form-control amount input-lg" maxlength="40" required (blur)="transformAmount(rImporte.value)" />
-                                <div id="valdaAmmount" style="display: none;" class="alert alert-danger">
-                                    Los datos proporcionados son incorrectos, favor de verificar.
-                                </div>
-                                <div *ngIf="forma.hasError('required', 'concepto') && forma.get('concepto').touched" class="invalid-tooltip">
-                                    Este dato es obligatorio.
+                                <div id="valdaAmmount" class="alert alert-danger" *ngIf="(forma.get('amount').errors  && forma.get('amount').touched)">
+                                    <p *ngIf="forma.get('amount').hasError('required') " style="margin-bottom: 0rem !important;">Dato obligatorio, favor de capturar. </p>
+                                    <p *ngIf="forma.get('amount').hasError('pattern')" style="margin-bottom: 0rem !important;">Dato incorrecto, favor de verificar. </p>
                                 </div>
                             </div>
                         </div>
@@ -154,12 +152,11 @@
                             </div>
                             <div class="col-sm-10">
                                 <input disabled="disabled" aria-describedby="validationTooltipUsernamePrepend" [matKeyboard]="" id="concepto" name="concepto" formControlName="concepto" type="text" maxlength="40" class="form-control amount" required (blur)="desabilitaBtn()" />
-                                <div id="valdaConcepto" style="display: none;" class="alert alert-danger">
-                                    Los datos proporcionados son incorrectos, favor de verificar.
+                                <div id="valdaConcepto" class="alert alert-danger" *ngIf="(forma.get('concepto').errors  && forma.get('concepto').touched)">
+                                    <p *ngIf="forma.get('concepto').hasError('required') " style="margin-bottom: 0rem !important;">Dato obligatorio, favor de capturar. </p>
+                                    <p *ngIf="forma.get('concepto').hasError('pattern')" style="margin-bottom: 0rem !important;">Dato incorrecto, favor de verificar. </p>
                                 </div>
-                                <div *ngIf="forma.hasError('required', 'concepto') && forma.get('concepto').touched" class="invalid-tooltip">
-                                    Este dato es obligatorio.
-                                </div>
+
 
                             </div>
 

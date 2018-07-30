@@ -96,6 +96,9 @@ export class TransferenciaSpeiComponent implements OnInit {
   nombreCuenta: string;
   numeroTarjeta: string;
 
+  amountSPEI = "";
+  cuenta = "";
+
   fcTokenSp = "";
   fcTokenTef = "";
   fcTokenQuick = "";
@@ -123,7 +126,7 @@ export class TransferenciaSpeiComponent implements OnInit {
       // Quick
 
 
-      'cuenta': new FormControl('', [Validators.required, Validators.maxLength(20)]),
+      'cuenta': new FormControl('', [Validators.required, Validators.maxLength(20), Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)]),
       'sel1': new FormControl('', [Validators.required]),
       //'clabe': new FormControl('', [Validators.required, Validators.maxLength(16)]),
       'ammountQUICK': new FormControl('', [Validators.required, Validators.min(0), Validators.max(7000), Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)]),
@@ -987,6 +990,8 @@ setCuentasBenficiarioXTipo() {
 
       this_aux.bloqueaBtn();
 
+      $( ".cdk-visually-hidden" ).css( "margin-top", "10%" );
+
       setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
 
       const desactivaCtaOri = document.getElementById("dropdownMenu1");
@@ -1032,6 +1037,8 @@ setCuentasBenficiarioXTipo() {
     if (this_aux.selectTipo.nativeElement.value.toString() === "2") { // TEF
 
       this_aux.bloqueaBtn();
+
+      $( ".cdk-visually-hidden" ).css( "margin-top", "10%" );
 
       const desactivaCtaOri = document.getElementById("dropdownMenu1");
       desactivaCtaOri.removeAttribute("disabled");
@@ -1079,6 +1086,8 @@ setCuentasBenficiarioXTipo() {
     if (this_aux.selectTipo.nativeElement.value.toString() === "3") {  // Quick
 
       //this_aux.bloqueaBtn();
+
+      $( ".cdk-visually-hidden" ).css( "margin-top", "10%" );
 
       const desactivaCtaOri = document.getElementById("dropdownMenu1");
       desactivaCtaOri.removeAttribute("disabled");
