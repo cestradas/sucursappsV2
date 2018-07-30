@@ -104,11 +104,11 @@
 
                             <div class="col-sm-10">
                                 <input disabled="disabled" [matKeyboard]="'num'" maxlength="50" formControlName="telefono" id="telefono" name="telefono" type="text" class="input-whidth form-control amount input-lg" />
-                                <div class="alert-danger" *ngIf="(forma.get('telefono').errors  && forma.get('telefono').touched)">
-                                    <p color="danger" *ngIf="forma.get('telefono').hasError('required')">Dato obligatorio, favor de capturar.</p>
-                                    <p color="danger" *ngIf="forma.get('telefono').hasError('pattern')">Dato incorrecto, favor de verificar.</p>
-                                    <p color="danger" *ngIf="forma.get('telefono').hasError('minlength') || forma.get('telefono').hasError('maxlength')">Los datos proporcionados son incorrectos, favor de verificar.</p>
+                                <div class="alert alert-danger" *ngIf="(forma.get('telefono').errors  && forma.get('telefono').touched)">
+                                    <p *ngIf="forma.get('telefono').hasError('required') " style="margin-bottom: 0rem !important;">Dato obligatorio, favor de capturar. </p>
+                                    <p *ngIf="forma.get('telefono').hasError('pattern')" style="margin-bottom: 0rem !important;">Dato incorrecto, favor de verificar. </p>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -205,7 +205,7 @@
                                 <div *ngIf="(forma.get('fcToken').errors  && forma.get('fcToken').touched)" class="alert alert-danger">
                                     <p color="danger" *ngIf="forma.get('fcToken').hasError('required')">Dato obligatorio, favor de capturar. </p>
                                     <p color="danger" *ngIf="forma.get('fcToken').hasError('pattern')">Dato incorrecto, favor de verificar.</p>
-                                    <p color="danger" *ngIf="forma.get('fcToken').hasError('minlength') || forma.get('token').hasError('maxlength')">Los datos proporcionados son incorrectos, favor de verificar.</p>
+
                                 </div>
                                 </label>
                                 </div>
@@ -215,7 +215,7 @@
                     </div>
                     <div class="modal-footer" style="padding-right: 0px !important;">
                         <button class="btn btn-lg" data-dismiss="modal" (click)="ocultaModal()">Cancelar</button>
-                        <button class="color-botones btn btn-lg " [disabled]="!forma.valid" (click)="confirmarPago(token.value)">
+                        <button id="confirmar" class="color-botones btn btn-lg " [disabled]="!forma.valid" (click)="confirmarPago(token.value)">
                                 Confirmar
                               </button>
                     </div>
