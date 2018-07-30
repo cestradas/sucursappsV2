@@ -12,6 +12,18 @@ export class CancelarEnvioEdcFinishComponent implements OnInit {
   correoRegistrado: string;
   ngOnInit() {
     this.correoRegistrado = this.service.EmailCliente;
+
+    //ESTILOS Preferente
+    let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
+    let btnTerminar = document.getElementById("terminar");
+
+    if (storageTipoClienteBEL === "true") {
+
+      btnTerminar.classList.remove("color-botones");
+      btnTerminar.classList.add("color-botones_Preferente");
+
+
+    }
   }
 
 }

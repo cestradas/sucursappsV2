@@ -112,23 +112,33 @@ export class ImpresionEdcComponent implements OnInit {
 
     this.fillSelectCuentas();
 
+    //ESTILOS Preferente
     let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
+    let btnCorreo = document.getElementById("correo");
     let btnImprimir = document.getElementById("imprimirDOC");
     let btnContinuar = document.getElementById("continuarImp");
+    let btnCancelarEnvio = document.getElementById("cancelarEnvioDomicilio");
     let btnError = document.getElementById("errorImp");
     let btnImpOK = document.getElementById("impOK");
+    let btnSalir = document.getElementById("salir");
 
 
     if (storageTipoClienteBEL === "true") {
 
+      btnSalir.classList.remove("color-botones");
+      btnCorreo.classList.remove("color-botones");
+      btnCancelarEnvio.classList.remove("color-botones");
       btnImprimir.classList.remove("color-botones");
       btnContinuar.classList.remove("color-botones");
       btnError.classList.remove("color-botones");
       btnImpOK.classList.remove("color-botones");
+      btnCorreo.classList.add("color-botones_Preferente");
       btnImprimir.classList.add("color-botones_Preferente");
       btnContinuar.classList.add("color-botones_Preferente");
+      btnCancelarEnvio.classList.add("color-botones_Preferente");
       btnError.classList.add("color-botones_Preferente");
       btnImpOK.classList.add("color-botones_Preferente");
+      btnSalir.classList.add("color-botones_Preferente");
 
       //localStorage.removeItem("tipoClienteBEL");
 

@@ -11,6 +11,7 @@ declare var $: $;
 })
 export class ImpresionEdcTdcFinalComponent implements OnInit {
 
+
   forma: FormGroup;
 
   contraZip: string;
@@ -41,7 +42,7 @@ export class ImpresionEdcTdcFinalComponent implements OnInit {
         console.log('forma', this.forma);
         
         this_aux.correo = data;
-       // this_aux.validateFields();
+        this_aux.validateFields();
       });
 
       this.forma.controls['confCorreo'].valueChanges.subscribe(
@@ -84,6 +85,20 @@ export class ImpresionEdcTdcFinalComponent implements OnInit {
 
   ngOnInit() {
     $( ".cdk-visually-hidden" ).css( "margin-top", "15%" );
+
+    // ESTILOS Preferente
+    let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
+
+    let btnContinuarEdc = document.getElementById("continuarEdc");
+
+
+    if (storageTipoClienteTar === "true") {
+
+      btnContinuarEdc.classList.remove("color-botones");
+      btnContinuarEdc.classList.add("color-botones_Preferente");
+
+
+    }
   }
 
   enviaCorreo() {

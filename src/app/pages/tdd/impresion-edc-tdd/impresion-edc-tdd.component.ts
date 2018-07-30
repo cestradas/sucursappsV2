@@ -118,21 +118,31 @@ export class ImpresionEdcTddComponent implements OnInit {
     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
 
     let btnSalir = document.getElementById("salir");
-    let btnSalir2 = document.getElementById("salir2");
-    let btnSalir3 = document.getElementById("salir3");
+
     let btnCorreo = document.getElementById("correo");
+    let btnImprimirDOC = document.getElementById("imprimirDOC");
+    let btnCancelarEnvioDomicilio = document.getElementById("cancelarEnvioDomicilio");
+    let btnContinuarImp = document.getElementById("continuarImp");
+    let btnErrorImp = document.getElementById("errorImp");
+    let btnImpOK = document.getElementById("impOK");
 
 
     if (storageTipoClienteTar === "true") {
 
       btnSalir.classList.remove("color-botones");
       btnSalir.classList.add("color-botones_Preferente");
-      btnSalir2.classList.remove("color-botones");
-      btnSalir2.classList.add("color-botones_Preferente");
-      btnSalir3.classList.remove("color-botones");
-      btnSalir3.classList.add("color-botones_Preferente");
       btnCorreo.classList.remove("color-botones");
       btnCorreo.classList.add("color-botones_Preferente");
+      btnImprimirDOC.classList.remove("color-botones");
+      btnImprimirDOC.classList.add("color-botones_Preferente");
+      btnCancelarEnvioDomicilio.classList.remove("color-botones");
+      btnCancelarEnvioDomicilio.classList.add("color-botones_Preferente");
+      btnContinuarImp.classList.remove("color-botones");
+      btnContinuarImp.classList.add("color-botones_Preferente");
+      btnErrorImp.classList.remove("color-botones");
+      btnErrorImp.classList.add("color-botones_Preferente");
+      btnImpOK.classList.remove("color-botones");
+      btnImpOK.classList.add("color-botones_Preferente");
     }
 
   }

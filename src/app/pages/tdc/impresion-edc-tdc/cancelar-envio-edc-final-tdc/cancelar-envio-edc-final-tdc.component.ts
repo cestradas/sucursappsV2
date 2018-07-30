@@ -15,6 +15,16 @@ export class CancelarEnvioEdcFinalTdcComponent implements OnInit {
 
   ngOnInit() {
     this.correoRegistrado = this.serviceTdd.email;
+
+    //ESTILOS Preferente
+    let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
+    let btnContinuar = document.getElementById("terminar");
+
+    if (storageTipoClienteTar === "true") {
+
+      btnContinuar.classList.remove("color-botones");
+      btnContinuar.classList.add("color-botones_Preferente");
+    }
   }
 
 }

@@ -84,6 +84,22 @@ export class ImpresionEdcFinishComponent implements OnInit {
 
   ngOnInit() {
     $( ".cdk-visually-hidden" ).css( "margin-top", "15%" );
+
+     //ESTILOS Preferente
+     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
+     let btnContinuarCancelacion = document.getElementById("continuarEdc");
+     let btnCerrar = document.getElementById("cerrar");
+
+
+     if (storageTipoClienteTar === "true") {
+
+       btnContinuarCancelacion.classList.remove("color-botones");
+       btnContinuarCancelacion.classList.add("color-botones_Preferente");
+       btnCerrar.classList.remove("color-botones");
+       btnCerrar.classList.add("color-botones_Preferente");
+
+
+     }
   }
 
   enviaCorreo() {

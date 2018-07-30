@@ -25,6 +25,24 @@ export class CancelarEnvioEdcTdcComponent implements OnInit {
     $('#_modal_please_wait').modal('show');
     this.consultaSaldosTarjetas();
     this.consultarDatos();
+
+    // ESTILOS Preferente
+    let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
+
+    let btnSalir = document.getElementById("continuarCancelacion");
+    let terminar = document.getElementById("continuarCancelacion");
+    let cerrar = document.getElementById("continuarCancelacion");
+
+    if (storageTipoClienteTar === "true") {
+
+      btnSalir.classList.remove("color-botones");
+      btnSalir.classList.add("color-botones_Preferente");
+      terminar.classList.remove("color-botones");
+      terminar.classList.add("color-botones_Preferente");
+      cerrar.classList.remove("color-botones");
+      cerrar.classList.add("color-botones_Preferente");
+
+    }
   }
   consultarDatos() {
     const this_aux = this;

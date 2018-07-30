@@ -17,10 +17,29 @@ export class CancelarEnvioEdcComponent implements OnInit {
   aliasCuenta: string;
   terminacionTarjeta: string;
   ngOnInit() {
+
+
     this.aliasCuenta = this.service.aliasCuentaEDCSel;
     let tamanio = this.service.numeroCuentaEDCSel.length;
     this.terminacionTarjeta = this.service.numeroCuentaEDCSel.substring(tamanio - 4, tamanio);
     this.validarCorreo(this.service.EmailCliente);
+
+     //ESTILOS Preferente
+     let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
+     let btnContinuar = document.getElementById("continuarCancelacion");
+     let btnTerminar = document.getElementById("terminar");
+     let btnCerrar = document.getElementById("cerrar");
+
+     if (storageTipoClienteBEL === "true") {
+
+       btnContinuar.classList.remove("color-botones");
+       btnContinuar.classList.add("color-botones_Preferente");
+       btnTerminar.classList.remove("color-botones");
+       btnTerminar.classList.add("color-botones_Preferente");
+       btnCerrar.classList.remove("color-botones");
+       btnCerrar.classList.add("color-botones_Preferente");
+
+     }
   }
 
   validarCorreo (email) {

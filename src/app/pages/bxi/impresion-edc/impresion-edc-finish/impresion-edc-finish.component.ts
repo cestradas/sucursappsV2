@@ -92,6 +92,18 @@ export class ImpresionEdcFinishComponent implements OnInit {
 
   ngOnInit() {
     $( ".cdk-visually-hidden" ).css( "margin-top", "15%" );
+
+    //ESTILOS Preferente
+    let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
+    let btnTerminar = document.getElementById("terminar");
+
+    if (storageTipoClienteBEL === "true") {
+
+      btnTerminar.classList.remove("color-botones");
+      btnTerminar.classList.add("color-botones_Preferente");
+
+
+    }
   }
 
   enviaCorreo() {

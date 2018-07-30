@@ -27,7 +27,7 @@
             </div>
             <!-- <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
             <div class="col-sm-1">
-                <button id="continuarCancelacion" [disabled]="botonAceptar == 0 || botonTerminos == 0" name="continuarCancelacion" class="btn btn-danger btn-lg" style="margin-right: -34px;" (click)="activarCancelacion()">Continuar</button>
+                <button id="continuarCancelacion" [disabled]="botonAceptar == 0 || botonTerminos == 0" name="continuarCancelacion" class="btn color-botones btn-lg" style="margin-right: -34px;" (click)="activarCancelacion()">Continuar</button>
             </div>
         </div>
     </fieldset>
@@ -45,7 +45,7 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="color-botones btn btn-lg pull-right" routerLink="/menuBXI" data-dismiss="modal">Terminar</button>
+                <button type="button" id="terminar" class="color-botones btn btn-lg pull-right" routerLink="/menuBXI" data-dismiss="modal">Terminar</button>
             </div>
 
         </div>
@@ -71,7 +71,7 @@
                 <p style="text-align: justify">Te recordamos que el hecho de que no recibas tu estado de cuenta no constituye una excepción a tu obligación de pago de tu cuenta de tarjeta de crédito.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="color-botones btn btn-lg pull-right" data-dismiss="modal">Cerrar</button>
+                <button type="button" id="cerrar" class="color-botones btn btn-lg pull-right" data-dismiss="modal">Cerrar</button>
             </div>
 
         </div>

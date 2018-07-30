@@ -21,6 +21,25 @@ export class CancelarEnvioEdcTddComponent implements OnInit {
     this.terminacionTarjeta = this.serviceTdd.numeroCuentaTdd.substring(tamanio - 4, tamanio);
     $('#_modal_please_wait').modal('show');
     this.consultarDatos();
+
+    //ESTILOS Preferente
+    let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
+    let btnContinuarCancelacion = document.getElementById("continuarCancelacion");
+    let btnTerminar = document.getElementById("terminar");
+    let btnCerrar = document.getElementById("cerrar");
+
+
+    if (storageTipoClienteTar === "true") {
+
+      btnContinuarCancelacion.classList.remove("color-botones");
+      btnContinuarCancelacion.classList.add("color-botones_Preferente");
+      btnTerminar.classList.remove("color-botones");
+      btnTerminar.classList.add("color-botones_Preferente");
+      btnCerrar.classList.remove("color-botones");
+      btnCerrar.classList.add("color-botones_Preferente");
+
+
+    }
   }
 
   consultarDatos() {

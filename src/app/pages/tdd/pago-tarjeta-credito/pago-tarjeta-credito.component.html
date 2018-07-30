@@ -53,7 +53,7 @@
                         <div class="dropdown sumando-dropdown-account col-lg-10">
                             <select formControlName="selectBanco" #rSelecBanco class="input-whidth input-lg selectModificado" id="tipoBanco" (change)="selectBanco($event.target.value)" style=" width: 100%; border:  0px">
                             <option disabled="" selected value="0" ng-reflect-value="0">SELECCIONE BANCO</option>
-                            <option *ngFor="let banco of bancos; let i = index" [value]="banco.IdBanco" class="text-li">{{ banco.NombreBanco }}</option>
+                            <option *ngFor="let banco of bancos; let i = index" [value]="banco.IdBanco">{{ banco.NombreBanco }}</option>
 
 
                         </select>
@@ -173,7 +173,7 @@
                     </div> -->
                     <div class="modal-footer">
                         <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                        <button id="continuar" class="color-botones btn btn-lg " onclick="handlerCallPinpad()" (click)="cargaBancos()" data-dismiss="modal">
+                        <button id="continuar2" class="color-botones btn btn-lg " onclick="handlerCallPinpad()" (click)="cargaBancos()" data-dismiss="modal">
                                         Confirmar
                                       </button>
                     </div>
