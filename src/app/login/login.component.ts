@@ -175,7 +175,7 @@ export class LoginComponent {
                     $('#errorModal').modal('show');
               } else if (this_aux.includesL(res.MensajeDetallado, "QGE2438") || this_aux.includesL(res.MensajeDetallado, "QGE2476")) {
                 // tslint:disable-next-line:max-line-length
-                  document.getElementById('mnsError').innerHTML = "Has excedido el n&uacute;mero de intentos permitidos, por seguridad no es posible continuar.";
+                  document.getElementById('mnsError').innerHTML = "Has excedido el número de intentos permitidos, por seguridad no es posible continuar.";
                   $('#errorModal').modal('show');
               } else if (this_aux.includesL(res.MensajeDetallado, "QGE2456")) {
 					document.getElementById('mnsError').innerHTML = res.MensajeAUsuario ;
@@ -195,7 +195,7 @@ export class LoginComponent {
 
 
               // tslint:disable-next-line:max-line-length
-              document.getElementById('mnsError').innerHTML = "Por el momento este servicio no est&aacute; disponible, favor de intentar de nuevo m&aacute;s tarde.";
+              document.getElementById('mnsError').innerHTML = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
               $('#errorModal').modal('show');
 				}
              }
@@ -208,27 +208,27 @@ export class LoginComponent {
 
 
 						// tslint:disable-next-line:max-line-length
-						document.getElementById('mnsError').innerHTML = "Por el momento este servicio no est&aacute; disponible, favor de intentar de nuevo m&aacute;s tarde.";
+						document.getElementById('mnsError').innerHTML = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
 						$('#errorModal').modal('show');
 				
            });
 
          } else {
 
-           setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
+          $('#ModalTDDLogin').modal('hide');
 
 				if (descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos"){
 					// tslint:disable-next-line:max-line-length
                console.log("Pinpad respondio con " + this.respuestaTrjeta);
                // tslint:disable-next-line:max-line-length
-               document.getElementById('mnsError').innerHTML = "Inicio de sesi&oacuete;n fall&oacuete;.";
+               document.getElementById('mnsError').innerHTML = "Inicio de sesión falló.";
 				$('#errorModal').modal('show');
 					
 				}else{
                // tslint:disable-next-line:max-line-length
                console.log("Pinpad respondio con " + this.respuestaTrjeta);
                // tslint:disable-next-line:max-line-length
-               document.getElementById('mnsError').innerHTML = "Por el momento este servicio no est&aacute; disponible, favor de intentar de nuevo m&aacute;s tarde.";
+               document.getElementById('mnsError').innerHTML = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
 				$('#errorModal').modal('show');
 				}
 
@@ -318,7 +318,7 @@ export class LoginComponent {
   
   
               // tslint:disable-next-line:max-line-length
-              document.getElementById('mnsError').innerHTML = "Por el momento este servicio no est&aacute; disponible, favor de intentar de nuevo m&aacute;s tarde.";
+              document.getElementById('mnsError').innerHTML = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
               $('#errorModal').modal('show');
              }
              
@@ -331,7 +331,7 @@ export class LoginComponent {
   
   
                // tslint:disable-next-line:max-line-length
-               document.getElementById('mnsError').innerHTML = "Por el momento este servicio no est&aacute; disponible, favor de intentar de nuevo m&aacute;s tarde.";
+               document.getElementById('mnsError').innerHTML = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
                $('#errorModal').modal('show');
   
            });
@@ -344,7 +344,7 @@ export class LoginComponent {
                // tslint:disable-next-line:max-line-length
                console.log("Pinpad respondio con " + this.respuestaTrjeta);
                // tslint:disable-next-line:max-line-length
-               document.getElementById('mnsError').innerHTML = "Por el momento este servicio no est&aacute; disponible, favor de intentar de nuevo m&aacute;s tarde.";
+               document.getElementById('mnsError').innerHTML = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
                $('#errorModal').modal('show');
   
          }

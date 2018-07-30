@@ -58,19 +58,18 @@ export class MovimientosaldotdcComponent implements OnInit {
   ngOnInit() {
      // ESTILOS Preferente
      let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
-     let btnGuardar = document.getElementById("guardar");
-     let btnSalir = document.getElementById("salir");
-     let btnConfirmar = document.getElementById("Confirmar2");
+     let btnContinuar = document.getElementById("salir");
+     let btnContinuar2 = document.getElementById("salir2");
+     let btnContinuar3 = document.getElementById("salir3");
  
      if (storageTipoClienteTar === "true") {
  
-       btnGuardar.classList.remove("color-botones");
-       btnGuardar.classList.add("color-botones_Preferente");
-       btnSalir.classList.remove("color-botones");
-       btnSalir.classList.add("color-botones_Preferente");
-       btnConfirmar.classList.remove("color-botones");
-       btnConfirmar.classList.add("color-botones_Preferente");
- 
+       btnContinuar.classList.remove("color-botones");
+       btnContinuar.classList.add("color-botones_Preferente");
+       btnContinuar2.classList.remove("color-botones");
+       btnContinuar2.classList.add("color-botones_Preferente");
+       btnContinuar3.classList.remove("color-botones");
+       btnContinuar3.classList.add("color-botones_Preferente");
      }
      
     this.consultaMovimientosCreditom();
@@ -240,14 +239,12 @@ export class MovimientosaldotdcComponent implements OnInit {
     }
   
     noMovMesAct () {
-      const div = document.getElementById('noMovimientosMesActual');
-      $('#noMovimientosMesActual').modal('show');
-    
-    }
-    noMovMesAnt () {
       const div = document.getElementById('noMovimientosMesAnterior');
       $('#noMovimientosMesAnterior').modal('show');
-    
+    }
+    noMovMesAnt () {
+      const div = document.getElementById('noMovimientosMesActual');
+      $('#noMovimientosMesActual').modal('show');
     }
     timeOut () {
       const div = document.getElementById('timeOut');
