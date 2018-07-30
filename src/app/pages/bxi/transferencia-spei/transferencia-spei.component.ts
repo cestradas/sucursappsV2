@@ -284,7 +284,7 @@ export class TransferenciaSpeiComponent implements OnInit {
       //ESTILOS Preferente
       let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
       let btnContinuar = document.getElementById("continuarspei");
-      let btnConfirmar = document.getElementById("confirmar");
+      let btnConfirmar = document.getElementById("ValToken");
       let btnContinuarP = document.getElementById("confirmarP");
       let btnContinuarP2 = document.getElementById("confirmarP2");
       let btnCerrar = document.getElementById("cerrar");
