@@ -145,6 +145,12 @@ export class ImpresionEdcTddComponent implements OnInit {
       btnImpOK.classList.add("color-botones_Preferente");
     }
 
+     // oculta flechas
+     let flechaCalI = document.getElementById("flechasEDCI");
+     flechaCalI.setAttribute('style', 'opacity: 0; margin-top: 278px;' );
+     let flechaCalD = document.getElementById("flechasEDCD");
+     flechaCalD.setAttribute('style', 'opacity: 0; margin-top: 278px;' );
+
   }
 
   mantenimientoEDC() {
@@ -204,6 +210,12 @@ export class ImpresionEdcTddComponent implements OnInit {
         if ( res[0].Id === "1" ) {
           if (res[0].EstadoLista === "OK") {
             this_aux.consultaCancelacionEDCDomicilio('1');
+
+            // mostrar flechas
+            let flechaCalI = document.getElementById("flechasEDCI");
+            flechaCalI.setAttribute('style', 'opacity: .5; margin-top: 278px;');
+            let flechaCalD = document.getElementById("flechasEDCD");
+            flechaCalD.setAttribute('style', 'opacity: .5; margin-top: 278px;');
             setTimeout(function() {
 
               console.log(res);

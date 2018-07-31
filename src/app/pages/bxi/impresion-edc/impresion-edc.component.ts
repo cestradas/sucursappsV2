@@ -143,6 +143,11 @@ export class ImpresionEdcComponent implements OnInit {
       //localStorage.removeItem("tipoClienteBEL");
 
     }
+   // oculta flechas
+    let flechaCalI = document.getElementById("flechasEDCI");
+    flechaCalI.setAttribute('style', 'opacity: 0; margin-top: 278px;' );
+    let flechaCalD = document.getElementById("flechasEDCD");
+    flechaCalD.setAttribute('style', 'opacity: 0; margin-top: 278px;' );
 
     // this.obtenerListaDocs();
 
@@ -390,11 +395,16 @@ setDatosCuentaSeleccionada(elementHTML) {
 
         if ( res[0].Id === "1" ) {
           if (res[0].EstadoLista === "OK") {
-            this_aux.consultaCancelacionEDCDomicilio(opcion, cuenta);
+
+            // mostrar flechas
+            let flechaCalI = document.getElementById("flechasEDCI");
+            flechaCalI.setAttribute('style', 'opacity: .5; margin-top: 278px;');
+            let flechaCalD = document.getElementById("flechasEDCD");
+            flechaCalD.setAttribute('style', 'opacity: .5; margin-top: 278px;');
             setTimeout(function() {
 
               console.log(res);
-              
+              this_aux.consultaCancelacionEDCDomicilio(opcion, cuenta);
               this_aux.obj = JSON.parse(this_aux.fechas);
 
               for (let i = 1 ; i < res.length; i++) {
