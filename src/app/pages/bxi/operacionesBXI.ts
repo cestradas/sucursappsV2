@@ -274,12 +274,13 @@ export class OperacionesBXI {
          return resourceRequest.sendFormParameters(formParameters);
     }
 
-    pagoTarjetaCredito(tipoTarjeta, montoAPagar, cuentaAbono, cuentaCargo): any {
+    pagoTarjetaCredito(opeFinanciero, tipoTarjeta, montoAPagar, cuentaAbono, cuentaCargo): any {
         const formParameters = {
             tipoTarjeta: tipoTarjeta,
             montoAPagar: montoAPagar,
             cuentaAbono: cuentaAbono,
             cuentaCargo: cuentaCargo,
+            opeFinanciero: opeFinanciero
           };
 
          const    resourceRequest = new WLResourceRequest(

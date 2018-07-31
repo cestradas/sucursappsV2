@@ -37,6 +37,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   NumeroSeguridad: string;
   SaldoOrigen: number;
   ImporteShow: number;
+  operadorFinanciero: string;
 
   // tslint:disable-next-line:max-line-length
   constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2,  private fb: FormBuilder, private currencyPipe: CurrencyPipe) {
@@ -305,6 +306,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
       if (this_aux.rcbFiltro.nativeElement.value.toString() === "20") {
         this_aux.tipoTarjeta = '2230';
+        this_aux.operadorFinanciero = '314';
         this_aux.service.nameOperacion = "Pago tarjeta de crédito American Express";
         if ( auxcuenta.TipoCuenta.toString() === "2" && auxcuenta.ClaveBanco.toString() === "40103") {
           this_aux.crearListaBeneficiarios(auxcuenta, false);
@@ -312,6 +314,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       }
       if (this_aux.rcbFiltro.nativeElement.value.toString() === "2") {
         this_aux.tipoTarjeta = '165';
+        this_aux.operadorFinanciero = '313';
         this_aux.service.nameOperacion = "Pago tarjeta de crédito Otros Bancos";
         if ( auxcuenta.TipoCuenta.toString() === "2" && auxcuenta.ClaveBanco.toString() !== "40103") {
           this_aux.crearListaBeneficiarios(auxcuenta, false);
@@ -321,8 +324,10 @@ export class PagoTarjetaCreditoComponent implements OnInit {
         this_aux.tipoTarjeta = '165';
         if (this_aux.rcbFiltro.nativeElement.value.toString() === "5") {
           this_aux.service.nameOperacion = "Pago tarjeta de crédito Propias Banorte";
+          this_aux.operadorFinanciero = '311';
         } else {
           this_aux.service.nameOperacion = "Pago tarjeta de crédito Terceros Banorte";
+          this_aux.operadorFinanciero = '312';
         }
         if (auxcuenta.TipoCuenta.toString() === this_aux.rcbFiltro.nativeElement.value.toString()) {
             this_aux.crearListaBeneficiarios(auxcuenta, true);
@@ -452,7 +457,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     const this_aux = this;
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     // tslint:disable-next-line:max-line-length
-    operacionesbxi.pagoTarjetaCredito(this_aux.tipoTarjeta, this_aux.Importe, this_aux.CuentaDestino, this_aux.service.numCuentaSeleccionado).then(
+    operacionesbxi.pagoTarjetaCredito(this_aux.operadorFinanciero, this_aux.tipoTarjeta, this_aux.Importe, this_aux.CuentaDestino, this_aux.service.numCuentaSeleccionado).then(
       function(detallePago) {
           const jsonDetallePago = detallePago.responseJSON;
           if (jsonDetallePago.Id === '1') {
