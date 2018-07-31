@@ -1693,7 +1693,8 @@ consultaCancelacionEDCDomicilio(opcion) {
                 $("#_modal_please_wait").modal("hide");
                 this_aux.showErrorSucces(detalleMant);
               }, 500);
-            }            
+            }  
+            $("#_modal_please_wait").modal("hide");          
          }, 3000);
         },
           function(error) {

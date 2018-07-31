@@ -22,6 +22,7 @@ export class ActualizarDatosContactotdcComponent implements OnInit {
   showCelularError = false;
   correoActualizado: string;
   celActualizado: string;
+  validar = false;
 
   constructor(private router: Router, private fb: FormBuilder, private _serviceSesion: SesionTDDService, 
               private _validaNipService: ValidaNipTransaccionTdcService) {
@@ -53,7 +54,7 @@ export class ActualizarDatosContactotdcComponent implements OnInit {
 
     const this_aux = this;
     $( ".cdk-visually-hidden" ).css( "margin-top", "17%" );
-    this.consultarDatos();
+    this_aux.getDatosContacto();
   }
   contieneDatosIncorrectos(texto) {
     const this_aux = this;
@@ -69,35 +70,7 @@ export class ActualizarDatosContactotdcComponent implements OnInit {
     }
     
   }
-  consultarDatos() {
-    const this_aux = this;
-    const operaciones: ConsultaCatalogosTdcService = new ConsultaCatalogosTdcService();
-    operaciones.consultarDatosContacto().then(
-      function(respPago) {
-
-        const jsonRespuesta = respPago.responseJSON;
-      if (jsonRespuesta.Id === '1') {
-         console.log(respPago.responseText);
-         if(jsonRespuesta.Telefono !="" && jsonRespuesta.Email!=""){
-          this_aux._serviceSesion.datosBreadCroms.CelCliente = jsonRespuesta.Telefono;
-          this_aux._serviceSesion.datosBreadCroms.EmailCliente = jsonRespuesta.Email;
-         }
-         else{
-          this_aux._serviceSesion.datosBreadCroms.CelCliente = "";
-          this_aux._serviceSesion.datosBreadCroms.EmailCliente = "";
-         }
-         console.log("Consulta de Datos Exitosa");
-      } 
-      else {
-          this_aux.showErrorSucces(jsonRespuesta);
-          console.log("No hay Datos");
-      }
-        this_aux.getDatosContacto();
-        setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
-      }, function(error) { this_aux.showErrorPromise(error); }
-    );
-    
-  }
+  
 
   getDatosContacto() {
     const this_aux = this;
@@ -174,7 +147,6 @@ let res;
       }
     }
   );
-  console.log("quitando gif pinpad")
   $('#ModalTDDLogin').modal('hide');
 }
 
@@ -220,6 +192,7 @@ let res;
 
   editarCorreo(correoHTML) {
     const this_aux = this;
+    this_aux.validar = true;
     correoHTML.readOnly = false;
    // tslint:disable-next-line:max-line-length
    const control: FormControl = new FormControl(this_aux.correoElectronico.nativeElement.value, [Validators.required,  Validators.pattern(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)]);
@@ -229,6 +202,7 @@ let res;
   }
   editarNumCel(numCelHTML) {
     const this_aux = this;
+    this_aux.validar = true;
     numCelHTML.readOnly = false;
     // tslint:disable-next-line:max-line-length
     const control: FormControl = new FormControl(this_aux.numeroCelular.nativeElement.value, [Validators.required, Validators.pattern(/^([0-9])*$/), Validators.minLength(10), Validators.maxLength(10) ]);

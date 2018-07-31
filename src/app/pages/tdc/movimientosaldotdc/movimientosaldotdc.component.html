@@ -24,7 +24,7 @@
                                 <tr>
                                     <th>Fecha</th>
                                     <th>Descripci&oacute;n</th>
-                                    <th>Import</th>
+                                    <th>Importe</th>
                                 </tr>
                                 <tr *ngFor="let movimiento of movimientosCue; let i = index">
                                     <td *ngIf="(i>=numeroDatoInicial) && (i < numeroDatoFinal)">{{movimiento.FechaOperacion|date:'dd/MM/yyyy'}}</td>

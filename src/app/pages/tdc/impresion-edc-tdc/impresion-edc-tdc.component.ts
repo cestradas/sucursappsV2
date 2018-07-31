@@ -116,7 +116,6 @@ export class ImpresionEdcTdcComponent implements OnInit {
     setTimeout(() => $("#_modal_please_wait").modal('hide'), 3000);
    //setTimeout(() => this_aux.consultaCancelacionEDCDomicilio('1'), 500);//2 es para tdc 1 tdd  consulta
    //setTimeout(() => this_aux.consultaCancelacionEDCDomicilio('2'), 500);
-   setTimeout(() => this_aux.mantenimientoEDC(),2000);
   }
 
   
@@ -1710,6 +1709,7 @@ consultaCancelacionEDCDomicilio(opcion) {
             } else {
               btnCancelarEnvio.style.display = 'none';
             }
+            $("#_modal_please_wait").modal("hide");
          }, 3000);
         },
           function(error) {
@@ -1743,7 +1743,7 @@ consultaSaldosTarjetas() {
           this_aux.NumeroTarjeta = detalleSaldos.NumeroTarjeta;
           this_aux.mascaraNumeroCuenta(this_aux.NumeroTarjeta);
           $('#_modal_please_wait').modal('hide');
-
+          this_aux.mantenimientoEDC();
         } else {
            this_aux.showErrorSucces(detalleSaldos);
         }

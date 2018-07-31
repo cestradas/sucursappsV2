@@ -227,7 +227,7 @@ limpiarFormulario () {
       console.log("Seleccionaste TEF");
       const controlClabe: FormControl = new FormControl(
         // tslint:disable-next-line:max-line-length
-        this_aux.rClabe.nativeElement.value, [Validators.required, Validators.pattern(/^([0-9]{1,})$/), Validators.minLength(16), Validators.maxLength(16)]);
+        this_aux.rClabe.nativeElement.value, [Validators.required, Validators.pattern(/^([0-9]{1,})$/), Validators.minLength(16), Validators.maxLength(18)]);
       this_aux.myform.setControl("numeroClabeF", controlClabe);
     }
 
@@ -506,7 +506,7 @@ limpiarFormulario () {
     //if (impor !== '') {
 
      // if (numCuenta !== '' && numCuenta !== '.' && numCuenta !== '-') {
-        if (this_aux.nombreOperacion === "1") {
+     //   if (this_aux.nombreOperacion === "1") {
           if ((numCuenta.length === 16 || numCuenta.length === 18) ) { 
             this_aux.tamCuenta = 1;    
             this_aux.auxTamCuenta = 0;     
@@ -519,7 +519,7 @@ limpiarFormulario () {
             this_aux.tamCuenta = 0;
             this_aux.auxTamCuenta = 0;
           }
-        } else if (this_aux.nombreOperacion === "2") {
+       /* } else if (this_aux.nombreOperacion === "2") {
           if (numCuenta.length === 16 ) { 
             this_aux.tamCuenta = 1;  
             this_aux.auxTamCuenta = 0;   
@@ -533,7 +533,7 @@ limpiarFormulario () {
             this_aux.tamCuenta = 0;
             this_aux.auxTamCuenta = 0;
           }
-        }
+        } */
   //     }
   }
 
