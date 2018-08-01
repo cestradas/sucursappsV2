@@ -233,7 +233,7 @@ export class OperacionesBXI {
 
          confirmaTransferPropTerBanorte(cveCliente, paramEmailBeneficiario, paramMnsEmail,
              paramAliasCuentaOrigen, paramNumeroCuentaCargo,
-             paramCuentaAbono, paramImporte, conceptoDePago, paramNombreUsuario): any {
+             paramCuentaAbono, paramImporte, conceptoDePago, paramNombreUsuario, tipoOperacion): any {
 
 
              let formParameters = {
@@ -245,7 +245,8 @@ export class OperacionesBXI {
                  paramCuentaAbono: paramCuentaAbono,
                  paramImporte: paramImporte,
                  conceptoDePago: conceptoDePago,
-                 paramNombreUsuario: paramNombreUsuario
+                 paramNombreUsuario: paramNombreUsuario,
+                 tipoOperacion: tipoOperacion
              };
 
              const resourceRequest = new WLResourceRequest(

@@ -940,7 +940,7 @@ confirmarPago(token) {
                 operacionesbxi.confirmaTransferPropTerBanorte(sic, this_aux.service.correoBeneficiario, paramMnsEmail,
                                                               this_aux.service.AliasCuentaTranPropBanorte, ctaO,
                                                               ctaDest, importe, concepto,
-                                                              this_aux.service.NombreUsuario)
+                                                              this_aux.service.NombreUsuario, operacionSelect)
                 .then(
 
 
@@ -997,7 +997,7 @@ confirmarPago(token) {
                 operacionesbxi.confirmaTransferPropTerBanorte(sic, this_aux.service.correoBeneficiario, paramMnsEmail,
                                                               this_aux.service.AliasCuentaTranPropBanorte, ctaO,
                                                               ctaDest, importe, concepto,
-                                                              this_aux.service.NombreUsuario)
+                                                              this_aux.service.NombreUsuario, operacionSelect)
                 .then(
 
                   function(response) {
