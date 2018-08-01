@@ -239,8 +239,16 @@ confirmarPago() {
 
 pagoServicio() {
 
+  
+
+
 console.log("si entre");
 const this_aux = this;
+if (this_aux.service.idFacturador === '88924') {
+    let referenciaAux = "0000000000" + this_aux.referenciaPago;
+    this_aux.referenciaPago = referenciaAux;
+}
+
 const operaciones: consultaCatalogos = new consultaCatalogos();
 console.log(this_aux.service.idFacturador, this_aux.importeAux, this_aux.referenciaPago
   , this_aux.cuentaClienteTdd, this_aux.fechaVencimiento);
@@ -357,7 +365,7 @@ leeCodeBar(valor) {
     } else {
       if (value.length === 30) {
 
-        const referencia = value.substring(2, 14);
+        const referencia = value.substring(0, 30);
         const importe = '$' + parseInt(value.substring(20, 29), 10) + '.00';
         const anio = '20' + value.substring(14, 16);
         const mes = value.substring(16, 18);

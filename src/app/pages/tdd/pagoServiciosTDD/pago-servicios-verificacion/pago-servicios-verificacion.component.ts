@@ -59,7 +59,7 @@ cuentaClienteTdd: string;
     console.log(respPagoJson);
     this_aux.detallePago.nombreServicio = this_aux.service.nombreServicio;
     this_aux.detallePago.cuentaCargo = this_aux.service.numCuentaSeleccionado;
-    if (this.service.idFacturador === '1310') {
+    if (this.service.idFacturador === '1310' || this_aux.service.idFacturador === '88924') {
 
       const certificadoPago = respPagoJson.CertificadoPago;
       certificadoPago.forEach(element => {
