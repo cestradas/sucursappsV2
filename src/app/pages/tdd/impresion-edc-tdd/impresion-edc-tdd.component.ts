@@ -211,11 +211,7 @@ export class ImpresionEdcTddComponent implements OnInit {
           if (res[0].EstadoLista === "OK") {
             this_aux.consultaCancelacionEDCDomicilio('1');
 
-            // mostrar flechas
-            let flechaCalI = document.getElementById("flechasEDCI");
-            flechaCalI.setAttribute('style', 'opacity: .5; margin-top: 278px;');
-            let flechaCalD = document.getElementById("flechasEDCD");
-            flechaCalD.setAttribute('style', 'opacity: .5; margin-top: 278px;');
+
             setTimeout(function() {
 
               console.log(res);
@@ -281,6 +277,16 @@ export class ImpresionEdcTddComponent implements OnInit {
              let creaElement = document.createElement('div');
              let objCalendario1 = document.getElementById('calendario');
              let objCalendario2 = document.getElementById('calendario2');
+
+            if ( res.length <= 6 ) {
+              $('#calendario2').remove();
+            } else {
+                 // mostrar flechas
+                 let flechaCalI = document.getElementById("flechasEDCI");
+                 flechaCalI.setAttribute('style', 'opacity: .5; margin-top: 278px;');
+                 let flechaCalD = document.getElementById("flechasEDCD");
+                 flechaCalD.setAttribute('style', 'opacity: .5; margin-top: 278px;');
+            }
              // let domString = '<div class="container"><span class="intro">Hello</span> <span id="name"> World!</span></div>';
     
              // validar que existan **********
