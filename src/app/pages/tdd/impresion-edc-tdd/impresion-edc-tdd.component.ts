@@ -159,7 +159,7 @@ export class ImpresionEdcTddComponent implements OnInit {
     console.log("adentro de mantenimiento EDC");
     const formParameters = {
        ctaO: this_aux.numeroCuentaTitular
-     // ctaO: '0100000034'
+    //  ctaO: '0100000034'
     };
 
     const resourceRequest = new WLResourceRequest(
@@ -194,7 +194,7 @@ export class ImpresionEdcTddComponent implements OnInit {
     console.log("adentro de obtener Lista Docs");
     const formParameters = {
       documeto: this_aux.numeroCuentaTitular
-//        documeto: '201536140'
+    //    documeto: '201536140'
     };
 
     const resourceRequest = new WLResourceRequest(
@@ -331,6 +331,10 @@ export class ImpresionEdcTddComponent implements OnInit {
                // objTo.appendChild(this_aux.calendario.nativeElement);
     
                   contFechas --;
+
+                  if (contFechas < 0) {
+                    break;
+                  }
     
     
               }
@@ -349,271 +353,289 @@ export class ImpresionEdcTddComponent implements OnInit {
              let elementoCal4 = document.getElementById('Itemcalendario4');
              let elementoCal5 = document.getElementById('Itemcalendario5');
     
-             elementoCal0.addEventListener("click", function(event) {
-              console.log(this.id);
-              if( ((this_aux.Valida_Seleccion_Calendario0 === 0) || (this_aux.Valida_Seleccion_Calendario0 === 1))
-                  && (this_aux.Valida_Seleccion_Calendario1 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario2 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario3 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario4 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario5 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario6 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario7 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario8 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario9 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario10 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-                    this_aux.itemSeleccionado = 0;
-                    this_aux.clickCal0();
-                  } else {
-                    this_aux.itemSeleccionado = 1;
-                    this_aux.clickCal0();
-                    if (this_aux.Valida_Seleccion_Calendario1 === 1) {
-                      this_aux.clickCal1();
-                    } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
-                      this_aux.clickCal2();
-                    } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
-                      this_aux.clickCal3();
-                    } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
-                      this_aux.clickCal4();
-                    } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
-                      this_aux.clickCal5();
-                    } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
-                      this_aux.clickCal6();
-                    } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
-                      this_aux.clickCal7();
-                    } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
-                      this_aux.clickCal8();
-                    } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
-                      this_aux.clickCal9();
-                    } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
-                      this_aux.clickCal10();
-                    } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
-                      this_aux.clickCal11();
-                    }
-                  }
-    
-            });
-            elementoCal1.addEventListener("click", function(event) {
-              console.log(this.id);
-              if( ((this_aux.Valida_Seleccion_Calendario1 === 0) || (this_aux.Valida_Seleccion_Calendario1 === 1))
-                  && (this_aux.Valida_Seleccion_Calendario0 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario2 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario3 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario4 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario5 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario6 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario7 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario8 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario9 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario10 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-                    this_aux.itemSeleccionado = 0;
-                    this_aux.clickCal1();
-                  } else {
-                    this_aux.itemSeleccionado = 1;
-                    this_aux.clickCal1();
-                    if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+             if (elementoCal0 != null) {
+              elementoCal0.addEventListener("click", function(event) {
+                console.log(this.id);
+                if( ((this_aux.Valida_Seleccion_Calendario0 === 0) || (this_aux.Valida_Seleccion_Calendario0 === 1))
+                    && (this_aux.Valida_Seleccion_Calendario1 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario2 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario3 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario4 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario5 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario6 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario7 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario8 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario9 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario10 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+                      this_aux.itemSeleccionado = 0;
                       this_aux.clickCal0();
-                    } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
-                      this_aux.clickCal2();
-                    } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
-                      this_aux.clickCal3();
-                    } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
-                      this_aux.clickCal4();
-                    } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
-                      this_aux.clickCal5();
-                    } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
-                      this_aux.clickCal6();
-                    } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
-                      this_aux.clickCal7();
-                    } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
-                      this_aux.clickCal8();
-                    } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
-                      this_aux.clickCal9();
-                    } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
-                      this_aux.clickCal10();
-                    } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
-                      this_aux.clickCal11();
-                    }
-                  }
-            });
-            elementoCal2.addEventListener("click", function(event) {
-              console.log(this.id);
-              if( ((this_aux.Valida_Seleccion_Calendario2 === 0) || (this_aux.Valida_Seleccion_Calendario2 === 1))
-                  && (this_aux.Valida_Seleccion_Calendario0 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario1 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario3 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario4 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario5 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario6 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario7 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario8 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario9 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario10 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-                    this_aux.itemSeleccionado = 0;
-                    this_aux.clickCal2();
-                  } else {
-                    this_aux.itemSeleccionado = 1;
-                    this_aux.clickCal2();
-                    if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                    } else {
+                      this_aux.itemSeleccionado = 1;
                       this_aux.clickCal0();
-                    } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
-                      this_aux.clickCal1();
-                    } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
-                      this_aux.clickCal3();
-                    } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
-                      this_aux.clickCal4();
-                    } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
-                      this_aux.clickCal5();
-                    } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
-                      this_aux.clickCal6();
-                    } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
-                      this_aux.clickCal7();
-                    } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
-                      this_aux.clickCal8();
-                    } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
-                      this_aux.clickCal9();
-                    } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
-                      this_aux.clickCal10();
-                    } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
-                      this_aux.clickCal11();
+                      if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+                        this_aux.clickCal1();
+                      } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+                        this_aux.clickCal2();
+                      } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                        this_aux.clickCal3();
+                      } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                        this_aux.clickCal4();
+                      } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                        this_aux.clickCal5();
+                      } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                        this_aux.clickCal6();
+                      } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+                        this_aux.clickCal7();
+                      } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                        this_aux.clickCal8();
+                      } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+                        this_aux.clickCal9();
+                      } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+                        this_aux.clickCal10();
+                      } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+                        this_aux.clickCal11();
+                      }
                     }
+      
+              });
+             }
+             
+             if (elementoCal1 != null ) {
+              elementoCal1.addEventListener("click", function(event) {
+                console.log(this.id);
+                if( ((this_aux.Valida_Seleccion_Calendario1 === 0) || (this_aux.Valida_Seleccion_Calendario1 === 1))
+                    && (this_aux.Valida_Seleccion_Calendario0 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario2 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario3 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario4 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario5 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario6 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario7 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario8 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario9 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario10 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+                      this_aux.itemSeleccionado = 0;
+                      this_aux.clickCal1();
+                    } else {
+                      this_aux.itemSeleccionado = 1;
+                      this_aux.clickCal1();
+                      if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                        this_aux.clickCal0();
+                      } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+                        this_aux.clickCal2();
+                      } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                        this_aux.clickCal3();
+                      } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                        this_aux.clickCal4();
+                      } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                        this_aux.clickCal5();
+                      } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                        this_aux.clickCal6();
+                      } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+                        this_aux.clickCal7();
+                      } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                        this_aux.clickCal8();
+                      } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+                        this_aux.clickCal9();
+                      } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+                        this_aux.clickCal10();
+                      } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+                        this_aux.clickCal11();
+                      }
+                    }
+              });
+             }
+
+             if ( elementoCal2 != null ) {
+              elementoCal2.addEventListener("click", function(event) {
+                console.log(this.id);
+                if( ((this_aux.Valida_Seleccion_Calendario2 === 0) || (this_aux.Valida_Seleccion_Calendario2 === 1))
+                    && (this_aux.Valida_Seleccion_Calendario0 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario1 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario3 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario4 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario5 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario6 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario7 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario8 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario9 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario10 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+                      this_aux.itemSeleccionado = 0;
+                      this_aux.clickCal2();
+                    } else {
+                      this_aux.itemSeleccionado = 1;
+                      this_aux.clickCal2();
+                      if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                        this_aux.clickCal0();
+                      } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+                        this_aux.clickCal1();
+                      } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                        this_aux.clickCal3();
+                      } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                        this_aux.clickCal4();
+                      } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                        this_aux.clickCal5();
+                      } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                        this_aux.clickCal6();
+                      } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+                        this_aux.clickCal7();
+                      } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                        this_aux.clickCal8();
+                      } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+                        this_aux.clickCal9();
+                      } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+                        this_aux.clickCal10();
+                      } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+                        this_aux.clickCal11();
+                      }
+                    }
+              });
+             }
+          
+            if ( elementoCal3 != null) {
+              elementoCal3.addEventListener("click", function(event) {
+                console.log(this.id);
+                if( ((this_aux.Valida_Seleccion_Calendario3 === 0) || (this_aux.Valida_Seleccion_Calendario3 === 1))
+                && (this_aux.Valida_Seleccion_Calendario0 === 0)
+                && (this_aux.Valida_Seleccion_Calendario1 === 0)
+                && (this_aux.Valida_Seleccion_Calendario2 === 0)
+                && (this_aux.Valida_Seleccion_Calendario4 === 0)
+                && (this_aux.Valida_Seleccion_Calendario5 === 0)
+                && (this_aux.Valida_Seleccion_Calendario6 === 0)
+                && (this_aux.Valida_Seleccion_Calendario7 === 0)
+                && (this_aux.Valida_Seleccion_Calendario8 === 0)
+                && (this_aux.Valida_Seleccion_Calendario9 === 0)
+                && (this_aux.Valida_Seleccion_Calendario10 === 0)
+                && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+                  this_aux.itemSeleccionado = 0;
+                  this_aux.clickCal3();
+                } else {
+                  this_aux.itemSeleccionado = 1;
+                  this_aux.clickCal3();
+                  if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                    this_aux.clickCal0();
+                  } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+                    this_aux.clickCal1();
+                  } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+                    this_aux.clickCal2();
+                  } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                    this_aux.clickCal4();
+                  } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                    this_aux.clickCal5();
+                  } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                    this_aux.clickCal6();
+                  } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+                    this_aux.clickCal7();
+                  } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                    this_aux.clickCal8();
+                  } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+                    this_aux.clickCal9();
+                  } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+                    this_aux.clickCal10();
+                  } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+                    this_aux.clickCal11();
                   }
-            });
-            elementoCal3.addEventListener("click", function(event) {
-              console.log(this.id);
-              if( ((this_aux.Valida_Seleccion_Calendario3 === 0) || (this_aux.Valida_Seleccion_Calendario3 === 1))
-              && (this_aux.Valida_Seleccion_Calendario0 === 0)
-              && (this_aux.Valida_Seleccion_Calendario1 === 0)
-              && (this_aux.Valida_Seleccion_Calendario2 === 0)
-              && (this_aux.Valida_Seleccion_Calendario4 === 0)
-              && (this_aux.Valida_Seleccion_Calendario5 === 0)
-              && (this_aux.Valida_Seleccion_Calendario6 === 0)
-              && (this_aux.Valida_Seleccion_Calendario7 === 0)
-              && (this_aux.Valida_Seleccion_Calendario8 === 0)
-              && (this_aux.Valida_Seleccion_Calendario9 === 0)
-              && (this_aux.Valida_Seleccion_Calendario10 === 0)
-              && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-                this_aux.itemSeleccionado = 0;
-                this_aux.clickCal3();
-              } else {
-                this_aux.itemSeleccionado = 1;
-                this_aux.clickCal3();
-                if (this_aux.Valida_Seleccion_Calendario0 === 1) {
-                  this_aux.clickCal0();
-                } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
-                  this_aux.clickCal1();
-                } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
-                  this_aux.clickCal2();
-                } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                }
+              });
+            }
+
+            if ( elementoCal4 != null) {
+              elementoCal4.addEventListener("click", function(event) {
+                console.log(this.id);
+                if( ((this_aux.Valida_Seleccion_Calendario4 === 0) || (this_aux.Valida_Seleccion_Calendario4 === 1))
+                && (this_aux.Valida_Seleccion_Calendario0 === 0)
+                && (this_aux.Valida_Seleccion_Calendario1 === 0)
+                && (this_aux.Valida_Seleccion_Calendario2 === 0)
+                && (this_aux.Valida_Seleccion_Calendario3 === 0)
+                && (this_aux.Valida_Seleccion_Calendario5 === 0)
+                && (this_aux.Valida_Seleccion_Calendario6 === 0)
+                && (this_aux.Valida_Seleccion_Calendario7 === 0)
+                && (this_aux.Valida_Seleccion_Calendario8 === 0)
+                && (this_aux.Valida_Seleccion_Calendario9 === 0)
+                && (this_aux.Valida_Seleccion_Calendario10 === 0)
+                && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+                  this_aux.itemSeleccionado = 0;
                   this_aux.clickCal4();
-                } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
-                  this_aux.clickCal5();
-                } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
-                  this_aux.clickCal6();
-                } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
-                  this_aux.clickCal7();
-                } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
-                  this_aux.clickCal8();
-                } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
-                  this_aux.clickCal9();
-                } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
-                  this_aux.clickCal10();
-                } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
-                  this_aux.clickCal11();
-                }
-              }
-            });
-            elementoCal4.addEventListener("click", function(event) {
-              console.log(this.id);
-              if( ((this_aux.Valida_Seleccion_Calendario4 === 0) || (this_aux.Valida_Seleccion_Calendario4 === 1))
-              && (this_aux.Valida_Seleccion_Calendario0 === 0)
-              && (this_aux.Valida_Seleccion_Calendario1 === 0)
-              && (this_aux.Valida_Seleccion_Calendario2 === 0)
-              && (this_aux.Valida_Seleccion_Calendario3 === 0)
-              && (this_aux.Valida_Seleccion_Calendario5 === 0)
-              && (this_aux.Valida_Seleccion_Calendario6 === 0)
-              && (this_aux.Valida_Seleccion_Calendario7 === 0)
-              && (this_aux.Valida_Seleccion_Calendario8 === 0)
-              && (this_aux.Valida_Seleccion_Calendario9 === 0)
-              && (this_aux.Valida_Seleccion_Calendario10 === 0)
-              && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-                this_aux.itemSeleccionado = 0;
-                this_aux.clickCal4();
-              } else {
-                this_aux.itemSeleccionado = 1;
-                this_aux.clickCal4();
-                if (this_aux.Valida_Seleccion_Calendario0 === 1) {
-                  this_aux.clickCal0();
-                } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
-                  this_aux.clickCal1();
-                } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
-                  this_aux.clickCal2();
-                } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
-                  this_aux.clickCal3();
-                } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
-                  this_aux.clickCal5();
-                } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
-                  this_aux.clickCal6();
-                } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
-                  this_aux.clickCal7();
-                } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
-                  this_aux.clickCal8();
-                } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
-                  this_aux.clickCal9();
-                } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
-                  this_aux.clickCal10();
-                } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
-                  this_aux.clickCal11();
-                }
-              }
-            });
-            elementoCal5.addEventListener("click", function(event) {
-              console.log(this.id);
-              if( ((this_aux.Valida_Seleccion_Calendario5 === 0) || (this_aux.Valida_Seleccion_Calendario5 === 1))
-              && (this_aux.Valida_Seleccion_Calendario0 === 0)
-              && (this_aux.Valida_Seleccion_Calendario1 === 0)
-              && (this_aux.Valida_Seleccion_Calendario2 === 0)
-              && (this_aux.Valida_Seleccion_Calendario3 === 0)
-              && (this_aux.Valida_Seleccion_Calendario4 === 0)
-              && (this_aux.Valida_Seleccion_Calendario6 === 0)
-              && (this_aux.Valida_Seleccion_Calendario7 === 0)
-              && (this_aux.Valida_Seleccion_Calendario8 === 0)
-              && (this_aux.Valida_Seleccion_Calendario9 === 0)
-              && (this_aux.Valida_Seleccion_Calendario10 === 0)
-              && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-                this_aux.itemSeleccionado = 0;
-                this_aux.clickCal5();
-              } else {
-                this_aux.itemSeleccionado = 1;
-                this_aux.clickCal5();
-                if (this_aux.Valida_Seleccion_Calendario0 === 1) {
-                  this_aux.clickCal0();
-                } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
-                  this_aux.clickCal1();
-                } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
-                  this_aux.clickCal2();
-                } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
-                  this_aux.clickCal3();
-                } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                } else {
+                  this_aux.itemSeleccionado = 1;
                   this_aux.clickCal4();
-                } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
-                  this_aux.clickCal6();
-                } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
-                  this_aux.clickCal7();
-                } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
-                  this_aux.clickCal8();
-                } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
-                  this_aux.clickCal9();
-                } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
-                  this_aux.clickCal10();
-                } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
-                  this_aux.clickCal11();
+                  if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                    this_aux.clickCal0();
+                  } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+                    this_aux.clickCal1();
+                  } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+                    this_aux.clickCal2();
+                  } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                    this_aux.clickCal3();
+                  } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                    this_aux.clickCal5();
+                  } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                    this_aux.clickCal6();
+                  } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+                    this_aux.clickCal7();
+                  } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                    this_aux.clickCal8();
+                  } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+                    this_aux.clickCal9();
+                  } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+                    this_aux.clickCal10();
+                  } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+                    this_aux.clickCal11();
+                  }
                 }
-              }
-            });
+              });
+            }
+            
+            if (elementoCal5 != null) {
+              elementoCal5.addEventListener("click", function(event) {
+                console.log(this.id);
+                if( ((this_aux.Valida_Seleccion_Calendario5 === 0) || (this_aux.Valida_Seleccion_Calendario5 === 1))
+                && (this_aux.Valida_Seleccion_Calendario0 === 0)
+                && (this_aux.Valida_Seleccion_Calendario1 === 0)
+                && (this_aux.Valida_Seleccion_Calendario2 === 0)
+                && (this_aux.Valida_Seleccion_Calendario3 === 0)
+                && (this_aux.Valida_Seleccion_Calendario4 === 0)
+                && (this_aux.Valida_Seleccion_Calendario6 === 0)
+                && (this_aux.Valida_Seleccion_Calendario7 === 0)
+                && (this_aux.Valida_Seleccion_Calendario8 === 0)
+                && (this_aux.Valida_Seleccion_Calendario9 === 0)
+                && (this_aux.Valida_Seleccion_Calendario10 === 0)
+                && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+                  this_aux.itemSeleccionado = 0;
+                  this_aux.clickCal5();
+                } else {
+                  this_aux.itemSeleccionado = 1;
+                  this_aux.clickCal5();
+                  if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                    this_aux.clickCal0();
+                  } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+                    this_aux.clickCal1();
+                  } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+                    this_aux.clickCal2();
+                  } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                    this_aux.clickCal3();
+                  } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                    this_aux.clickCal4();
+                  } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                    this_aux.clickCal6();
+                  } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+                    this_aux.clickCal7();
+                  } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                    this_aux.clickCal8();
+                  } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+                    this_aux.clickCal9();
+                  } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+                    this_aux.clickCal10();
+                  } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+                    this_aux.clickCal11();
+                  }
+                }
+              });
+            }
+           
     
             for (let i = res.length; i >= 1; i--) {
     
@@ -668,281 +690,293 @@ export class ImpresionEdcTddComponent implements OnInit {
              let elementoCal10 = document.getElementById('Itemcalendario10');
              let elementoCal11 = document.getElementById('Itemcalendario11');
     
-            elementoCal6.addEventListener("click", function(event) {
-              console.log(this.id);
-              if( ((this_aux.Valida_Seleccion_Calendario6 === 0) || (this_aux.Valida_Seleccion_Calendario6 === 1))
-                  && (this_aux.Valida_Seleccion_Calendario0 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario1 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario2 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario3 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario4 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario5 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario7 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario8 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario9 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario10 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-                    this_aux.itemSeleccionado = 0;
-                    this_aux.clickCal6();
-                  } else {
-                    this_aux.itemSeleccionado = 1;
-                    this_aux.clickCal6();
-                    if (this_aux.Valida_Seleccion_Calendario0 === 1) {
-                      this_aux.clickCal0();
-                    } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
-                      this_aux.clickCal1();
-                    } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
-                      this_aux.clickCal2();
-                    } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
-                      this_aux.clickCal3();
-                    } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
-                      this_aux.clickCal4();
-                    } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
-                      this_aux.clickCal5();
-                    } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
-                      this_aux.clickCal7();
-                    } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
-                      this_aux.clickCal8();
-                    } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
-                      this_aux.clickCal9();
-                    } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
-                      this_aux.clickCal10();
-                    } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
-                      this_aux.clickCal11();
-                    }
-                  }
-            });
-    
-            elementoCal7.addEventListener("click", function(event) {
-              console.log(this.id);
-              if( ((this_aux.Valida_Seleccion_Calendario7 === 0) || (this_aux.Valida_Seleccion_Calendario7 === 1))
-                  && (this_aux.Valida_Seleccion_Calendario0 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario1 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario2 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario3 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario4 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario5 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario6 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario8 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario9 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario10 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-                    this_aux.itemSeleccionado = 0;
-                    this_aux.clickCal7();
-                  } else {
-                    this_aux.itemSeleccionado = 1;
-                    this_aux.clickCal7();
-                    if (this_aux.Valida_Seleccion_Calendario0 === 1) {
-                      this_aux.clickCal0();
-                    } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
-                      this_aux.clickCal1();
-                    } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
-                      this_aux.clickCal2();
-                    } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
-                      this_aux.clickCal3();
-                    } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
-                      this_aux.clickCal4();
-                    } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
-                      this_aux.clickCal5();
-                    } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+             if (elementoCal6 != null) {
+              elementoCal6.addEventListener("click", function(event) {
+                console.log(this.id);
+                if( ((this_aux.Valida_Seleccion_Calendario6 === 0) || (this_aux.Valida_Seleccion_Calendario6 === 1))
+                    && (this_aux.Valida_Seleccion_Calendario0 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario1 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario2 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario3 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario4 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario5 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario7 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario8 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario9 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario10 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+                      this_aux.itemSeleccionado = 0;
                       this_aux.clickCal6();
-                    } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
-                      this_aux.clickCal8();
-                    } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
-                      this_aux.clickCal9();
-                    } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
-                      this_aux.clickCal10();
-                    } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
-                      this_aux.clickCal11();
-                    }
-                  }
-    
-            });
-    
-            elementoCal8.addEventListener("click", function(event) {
-              console.log(this.id);
-              if( ((this_aux.Valida_Seleccion_Calendario8 === 0) || (this_aux.Valida_Seleccion_Calendario8 === 1))
-                  && (this_aux.Valida_Seleccion_Calendario0 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario1 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario2 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario3 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario4 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario5 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario6 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario7 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario9 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario10 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-                    this_aux.itemSeleccionado = 0;
-                    this_aux.clickCal8();
-                  } else {
-                    this_aux.itemSeleccionado = 1;
-                    this_aux.clickCal8();
-                    if (this_aux.Valida_Seleccion_Calendario0 === 1) {
-                      this_aux.clickCal0();
-                    } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
-                      this_aux.clickCal1();
-                    } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
-                      this_aux.clickCal2();
-                    } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
-                      this_aux.clickCal3();
-                    } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
-                      this_aux.clickCal4();
-                    } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
-                      this_aux.clickCal5();
-                    } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                    } else {
+                      this_aux.itemSeleccionado = 1;
                       this_aux.clickCal6();
-                    } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
-                      this_aux.clickCal7();
-                    } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
-                      this_aux.clickCal9();
-                    } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
-                      this_aux.clickCal10();
-                    } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
-                      this_aux.clickCal11();
+                      if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                        this_aux.clickCal0();
+                      } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+                        this_aux.clickCal1();
+                      } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+                        this_aux.clickCal2();
+                      } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                        this_aux.clickCal3();
+                      } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                        this_aux.clickCal4();
+                      } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                        this_aux.clickCal5();
+                      } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+                        this_aux.clickCal7();
+                      } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                        this_aux.clickCal8();
+                      } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+                        this_aux.clickCal9();
+                      } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+                        this_aux.clickCal10();
+                      } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+                        this_aux.clickCal11();
+                      }
                     }
-                  }
-    
-            });
-    
-            elementoCal9.addEventListener("click", function(event) {
-              console.log(this.id);
-              if( ((this_aux.Valida_Seleccion_Calendario9 === 0) || (this_aux.Valida_Seleccion_Calendario9 === 1))
-                  && (this_aux.Valida_Seleccion_Calendario0 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario1 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario2 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario3 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario4 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario5 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario6 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario7 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario8 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario10 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-                    this_aux.itemSeleccionado = 0;
-                    this_aux.clickCal9();
-                  } else {
-                    this_aux.itemSeleccionado = 1;
-                    this_aux.clickCal9();
-                    if (this_aux.Valida_Seleccion_Calendario0 === 1) {
-                      this_aux.clickCal0();
-                    } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
-                      this_aux.clickCal1();
-                    } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
-                      this_aux.clickCal2();
-                    } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
-                      this_aux.clickCal3();
-                    } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
-                      this_aux.clickCal4();
-                    } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
-                      this_aux.clickCal5();
-                    } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
-                      this_aux.clickCal6();
-                    } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+              });
+             }
+
+             if ( elementoCal7 != null) {
+
+              elementoCal7.addEventListener("click", function(event) {
+                console.log(this.id);
+                if( ((this_aux.Valida_Seleccion_Calendario7 === 0) || (this_aux.Valida_Seleccion_Calendario7 === 1))
+                    && (this_aux.Valida_Seleccion_Calendario0 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario1 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario2 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario3 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario4 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario5 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario6 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario8 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario9 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario10 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+                      this_aux.itemSeleccionado = 0;
                       this_aux.clickCal7();
-                    } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                    } else {
+                      this_aux.itemSeleccionado = 1;
+                      this_aux.clickCal7();
+                      if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                        this_aux.clickCal0();
+                      } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+                        this_aux.clickCal1();
+                      } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+                        this_aux.clickCal2();
+                      } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                        this_aux.clickCal3();
+                      } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                        this_aux.clickCal4();
+                      } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                        this_aux.clickCal5();
+                      } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                        this_aux.clickCal6();
+                      } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                        this_aux.clickCal8();
+                      } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+                        this_aux.clickCal9();
+                      } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+                        this_aux.clickCal10();
+                      } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+                        this_aux.clickCal11();
+                      }
+                    }
+      
+              });
+             }
+            
+            if ( elementoCal8 != null) {
+              elementoCal8.addEventListener("click", function(event) {
+                console.log(this.id);
+                if( ((this_aux.Valida_Seleccion_Calendario8 === 0) || (this_aux.Valida_Seleccion_Calendario8 === 1))
+                    && (this_aux.Valida_Seleccion_Calendario0 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario1 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario2 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario3 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario4 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario5 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario6 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario7 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario9 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario10 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+                      this_aux.itemSeleccionado = 0;
                       this_aux.clickCal8();
-                    } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
-                      this_aux.clickCal10();
-                    } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
-                      this_aux.clickCal11();
-                    }
-                  }
-    
-            });
-    
-            elementoCal10.addEventListener("click", function(event) {
-              console.log(this.id);
-              if( ((this_aux.Valida_Seleccion_Calendario10 === 0) || (this_aux.Valida_Seleccion_Calendario10 === 1))
-                  && (this_aux.Valida_Seleccion_Calendario0 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario1 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario2 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario3 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario4 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario5 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario6 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario7 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario8 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario9 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
-                    this_aux.itemSeleccionado = 0;
-                    this_aux.clickCal10();
-                  } else {
-                    this_aux.itemSeleccionado = 1;
-                    this_aux.clickCal10();
-                    if (this_aux.Valida_Seleccion_Calendario0 === 1) {
-                      this_aux.clickCal0();
-                    } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
-                      this_aux.clickCal1();
-                    } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
-                      this_aux.clickCal2();
-                    } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
-                      this_aux.clickCal3();
-                    } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
-                      this_aux.clickCal4();
-                    } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
-                      this_aux.clickCal5();
-                    } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
-                      this_aux.clickCal6();
-                    } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
-                      this_aux.clickCal7();
-                    } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                    } else {
+                      this_aux.itemSeleccionado = 1;
                       this_aux.clickCal8();
-                    } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
-                      this_aux.clickCal9();
-                    } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
-                      this_aux.clickCal11();
+                      if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                        this_aux.clickCal0();
+                      } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+                        this_aux.clickCal1();
+                      } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+                        this_aux.clickCal2();
+                      } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                        this_aux.clickCal3();
+                      } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                        this_aux.clickCal4();
+                      } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                        this_aux.clickCal5();
+                      } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                        this_aux.clickCal6();
+                      } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+                        this_aux.clickCal7();
+                      } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+                        this_aux.clickCal9();
+                      } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+                        this_aux.clickCal10();
+                      } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+                        this_aux.clickCal11();
+                      }
                     }
-                  }
-    
-            });
-    
-            elementoCal11.addEventListener("click", function(event) {
-              console.log(this.id);
-              if( ((this_aux.Valida_Seleccion_Calendario11 === 0) || (this_aux.Valida_Seleccion_Calendario11 === 1))
-                  && (this_aux.Valida_Seleccion_Calendario0 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario1 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario2 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario3 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario4 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario5 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario6 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario7 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario8 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario9 === 0)
-                  && (this_aux.Valida_Seleccion_Calendario10 === 0)) {
-                    this_aux.itemSeleccionado = 0;
-                    this_aux.clickCal11();
-                  } else {
-                    this_aux.itemSeleccionado = 1;
-                    this_aux.clickCal11();
-                    if (this_aux.Valida_Seleccion_Calendario0 === 1) {
-                      this_aux.clickCal0();
-                    } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
-                      this_aux.clickCal1();
-                    } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
-                      this_aux.clickCal2();
-                    } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
-                      this_aux.clickCal3();
-                    } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
-                      this_aux.clickCal4();
-                    } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
-                      this_aux.clickCal5();
-                    } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
-                      this_aux.clickCal6();
-                    } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
-                      this_aux.clickCal7();
-                    } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
-                      this_aux.clickCal8();
-                    } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+      
+              });
+            }
+
+            if ( elementoCal9 != null) {
+              elementoCal9.addEventListener("click", function(event) {
+                console.log(this.id);
+                if( ((this_aux.Valida_Seleccion_Calendario9 === 0) || (this_aux.Valida_Seleccion_Calendario9 === 1))
+                    && (this_aux.Valida_Seleccion_Calendario0 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario1 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario2 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario3 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario4 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario5 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario6 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario7 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario8 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario10 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+                      this_aux.itemSeleccionado = 0;
                       this_aux.clickCal9();
-                    } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+                    } else {
+                      this_aux.itemSeleccionado = 1;
+                      this_aux.clickCal9();
+                      if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                        this_aux.clickCal0();
+                      } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+                        this_aux.clickCal1();
+                      } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+                        this_aux.clickCal2();
+                      } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                        this_aux.clickCal3();
+                      } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                        this_aux.clickCal4();
+                      } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                        this_aux.clickCal5();
+                      } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                        this_aux.clickCal6();
+                      } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+                        this_aux.clickCal7();
+                      } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                        this_aux.clickCal8();
+                      } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+                        this_aux.clickCal10();
+                      } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+                        this_aux.clickCal11();
+                      }
+                    }
+      
+              });
+            }
+    
+            if ( elementoCal10 != null) {
+              elementoCal10.addEventListener("click", function(event) {
+                console.log(this.id);
+                if( ((this_aux.Valida_Seleccion_Calendario10 === 0) || (this_aux.Valida_Seleccion_Calendario10 === 1))
+                    && (this_aux.Valida_Seleccion_Calendario0 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario1 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario2 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario3 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario4 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario5 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario6 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario7 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario8 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario9 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
+                      this_aux.itemSeleccionado = 0;
                       this_aux.clickCal10();
+                    } else {
+                      this_aux.itemSeleccionado = 1;
+                      this_aux.clickCal10();
+                      if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                        this_aux.clickCal0();
+                      } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+                        this_aux.clickCal1();
+                      } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+                        this_aux.clickCal2();
+                      } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                        this_aux.clickCal3();
+                      } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                        this_aux.clickCal4();
+                      } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                        this_aux.clickCal5();
+                      } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                        this_aux.clickCal6();
+                      } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+                        this_aux.clickCal7();
+                      } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                        this_aux.clickCal8();
+                      } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+                        this_aux.clickCal9();
+                      } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
+                        this_aux.clickCal11();
+                      }
                     }
-                  }
-    
-            });
-    
+      
+              });
+            }
+
+            if ( elementoCal11 != null) {
+              elementoCal11.addEventListener("click", function(event) {
+                console.log(this.id);
+                if( ((this_aux.Valida_Seleccion_Calendario11 === 0) || (this_aux.Valida_Seleccion_Calendario11 === 1))
+                    && (this_aux.Valida_Seleccion_Calendario0 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario1 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario2 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario3 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario4 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario5 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario6 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario7 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario8 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario9 === 0)
+                    && (this_aux.Valida_Seleccion_Calendario10 === 0)) {
+                      this_aux.itemSeleccionado = 0;
+                      this_aux.clickCal11();
+                    } else {
+                      this_aux.itemSeleccionado = 1;
+                      this_aux.clickCal11();
+                      if (this_aux.Valida_Seleccion_Calendario0 === 1) {
+                        this_aux.clickCal0();
+                      } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
+                        this_aux.clickCal1();
+                      } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
+                        this_aux.clickCal2();
+                      } else if (this_aux.Valida_Seleccion_Calendario3 === 1) {
+                        this_aux.clickCal3();
+                      } else if (this_aux.Valida_Seleccion_Calendario4 === 1) {
+                        this_aux.clickCal4();
+                      } else if (this_aux.Valida_Seleccion_Calendario5 === 1) {
+                        this_aux.clickCal5();
+                      } else if (this_aux.Valida_Seleccion_Calendario6 === 1) {
+                        this_aux.clickCal6();
+                      } else if (this_aux.Valida_Seleccion_Calendario7 === 1) {
+                        this_aux.clickCal7();
+                      } else if (this_aux.Valida_Seleccion_Calendario8 === 1) {
+                        this_aux.clickCal8();
+                      } else if (this_aux.Valida_Seleccion_Calendario9 === 1) {
+                        this_aux.clickCal9();
+                      } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
+                        this_aux.clickCal10();
+                      }
+                    }
+      
+              });
+            }
     
            console.log(this_aux.obj['fechas']);
               }, 500);
