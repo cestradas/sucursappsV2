@@ -1338,3 +1338,16 @@ button#buttonImageMantoBen {
     font-size: 22px;
     padding-left: 1%;
 }
+
+.bootstrap-datetimepicker-widget table td.active,
+.bootstrap-datetimepicker-widget table td.active:hover,
+.bootstrap-datetimepicker-widget table td span.active,
+.bootstrap-datetimepicker-widget table td span.active {
+    background-color: rgb(236, 28, 45) !important;
+}
+
+.datepicker,
+.table-condensed {
+    width: 500px !important;
+    height: 224px !important;
+}
