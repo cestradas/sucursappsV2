@@ -1017,7 +1017,7 @@ setCuentasBenficiarioXTipo() {
         this_aux.renderer.addClass(li, 'text-li');
         const a = this.renderer.createElement('a');
 
-        const textoCuenta = this.renderer.createText( auxcuenta.Alias + ' ' + operacionesbxi.mascaraNumeroCuenta(auxcuenta.NoCuenta));
+        const textoCuenta = this.renderer.createText( auxcuenta.Alias );
         this.renderer.setProperty(a, 'value', auxcuenta.NoCuenta + ','
                                             + auxcuenta.ClaveBanco + ','
                                             + auxcuenta.DescripcionTipoCuenta + ','
@@ -1063,7 +1063,7 @@ setCuentasBenficiarioXTipo() {
           const li =  this.renderer.createElement('li');
           this_aux.renderer.addClass(li, 'text-li');
           const a = this.renderer.createElement('a');
-          const textoCuenta = this.renderer.createText( auxcuenta.Alias  + ' ' + operacionesbxi.mascaraNumeroCuenta(auxcuenta.NoCuenta));
+          const textoCuenta = this.renderer.createText( auxcuenta.Alias );
           this.renderer.setProperty(a, 'value',
                                               + auxcuenta.NoCuenta + ','
                                               + auxcuenta.IdSecovan + ','

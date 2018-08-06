@@ -440,7 +440,7 @@ setCuentasBenficiarioXTipo() {
               const li =  this.renderer.createElement('li');
               this_aux.renderer.addClass(li, 'text-li');
               const a = this.renderer.createElement('a');
-              const textoCuenta = this.renderer.createText( auxcuenta.Alias + ' ' +operacionesbxi.mascaraNumeroCuenta(auxcuenta.NoCuenta));
+              const textoCuenta = this.renderer.createText( auxcuenta.Alias + ' ' + operacionesbxi.mascaraNumeroCuenta(auxcuenta.NoCuenta) );
               this.renderer.setProperty(a, 'value', auxcuenta.NoCuenta);
               this.renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaSeleccionada(event.target);
                 this_aux.numeroTarjeta = auxcuenta.Plastico;
@@ -479,7 +479,7 @@ setCuentasBenficiarioXTipo() {
           const li =  this.renderer.createElement('li');
           this_aux.renderer.addClass(li, 'text-li');
           const a = this.renderer.createElement('a');
-          const textoCuenta = this.renderer.createText( auxcuenta.Alias + ' ' + auxcuenta.NoCuenta);
+          const textoCuenta = this.renderer.createText( auxcuenta.Alias );
           this.renderer.setProperty(a, 'value', auxcuenta.Alias + ','
                                               + auxcuenta.NoCuenta);
           this.renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaBeneficiario(event.target);
@@ -525,7 +525,7 @@ setCuentasBenficiarioXTipo() {
         const li =  this.renderer.createElement('li');
         this_aux.renderer.addClass(li, 'text-li');
         const a = this.renderer.createElement('a');
-        const textoCuenta = this.renderer.createText( auxcuenta.DescripcionTipoCuenta + ' ' + auxcuenta.NoCuenta);
+        const textoCuenta = this.renderer.createText( auxcuenta.DescripcionTipoCuenta );
         this.renderer.setProperty(a, 'value', auxcuenta.Alias + ','
                                             + auxcuenta.NoCuenta + ','
                                             + auxcuenta.ClaveBanco + ','
