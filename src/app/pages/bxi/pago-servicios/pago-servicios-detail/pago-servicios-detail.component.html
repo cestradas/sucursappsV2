@@ -1,42 +1,41 @@
-
 <form [formGroup]="myForm" novalidate>
     <div ng-cloak class="padding-barToTittle">
         <h2 class="text-center color-letra">{{nombreServicio}}</h2>
     </div>
     <fieldset class="padding-TittleToFieldset padding-fieldset-general">
-      <div class="sumando-well-white" style="padding-right: 15px; padding-left: 15px;padding: 2%;">
-        <div class="sumando-form-group  ">
-            <div class=" group-controls sumando-bg-white padding-bgWhite">
-                <div class="form-group">
-                    <div class="row padding-InFieldset">
-                        <div class="col-lg-2">
-                            <label>Cuenta origen:</label>
-                        </div>
-                        <div class="col-lg-10">
-                            <input type="text" id="idCuentaCargo" #rCuentaCargo class="form-control input-lg " value="{{cuentaCargo}}" readonly>
-                        </div>
-                    </div>
-                    <div *ngIf="myForm.get('fcTelefono') !== null && myForm.get('fcDigitoVerificador') !== null">
+        <div class="sumando-well-white" style="padding-right: 15px; padding-left: 15px;padding: 2%;">
+            <div class="sumando-form-group  ">
+                <div class=" group-controls sumando-bg-white padding-bgWhite">
+                    <div class="form-group">
                         <div class="row padding-InFieldset">
-                            <div class="col-lg-12">
+                            <div class="col-lg-2">
+                                <label>Cuenta origen:</label>
+                            </div>
+                            <div class="col-lg-10">
+                                <input type="text" id="idCuentaCargo" #rCuentaCargo class="form-control input-lg " value="{{cuentaCargo}}" readonly>
+                            </div>
+                        </div>
+                        <div *ngIf="myForm.get('fcTelefono') !== null && myForm.get('fcDigitoVerificador') !== null">
+                            <div class="row padding-InFieldset">
+                                <div class="col-lg-12">
                                     <div class="row ">
                                         <div class=" col-lg-2">
                                             <label> Telefono:</label>
                                         </div>
                                         <div class="col-lg-4">
-                                            <input type="text" id="idTelefono"  class="form-control input-lg" formControlName="fcTelefono" #rTelefono [matKeyboard]="'num'" />
+                                            <input type="text" id="idTelefono" class="form-control input-lg" formControlName="fcTelefono" #rTelefono [matKeyboard]="'num'" />
                                             <div *ngIf="myForm.get('fcTelefono').errors  && myForm.get('fcTelefono').touched" class="alert alert-danger">
                                                 <p *ngIf="myForm.get('fcTelefono').hasError('required')">
-                                                        Dato obligatorio, favor de capturar.
+                                                    Dato obligatorio, favor de capturar.
                                                 </p>
-                                               <!-- <p *ngIf="myForm.get('fcTelefono').hasError('minlength')">
+                                                <!-- <p *ngIf="myForm.get('fcTelefono').hasError('minlength')">
                                                         Los datos proporcionados son incorrectos, favor de verificar.
                                                 </p>
                                                 <p *ngIf="myForm.get('fcTelefono').hasError('maxlength')">
                                                         Los datos proporcionados son incorrectos, favor de verificar.
                                             </p>-->
                                                 <p *ngIf="myForm.get('fcTelefono').hasError('pattern')">
-                                                        Los datos proporcionados son incorrectos, favor de verificar.
+                                                    Los datos proporcionados son incorrectos, favor de verificar.
                                                 </p>
                                             </div>
                                         </div>
@@ -47,72 +46,73 @@
                                             <input type="text" id="idDigitoV" class="form-control input-lg" #rDigitoVerificador formControlName="fcDigitoVerificador" [matKeyboard]="'num'" />
                                             <div *ngIf="myForm.get('fcDigitoVerificador').errors  && myForm.get('fcDigitoVerificador').touched" class="alert alert-danger">
                                                 <p *ngIf="myForm.get('fcDigitoVerificador').hasError('required')">
-                                                        Dato obligatorio, favor de capturar.
+                                                    Dato obligatorio, favor de capturar.
                                                 </p>
                                                 <p *ngIf="myForm.get('fcDigitoVerificador').hasError('pattern')">
                                                     Los datos proporcionados son incorrectos, favor de verificar.
-                                            </p>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
-                                
+
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div *ngIf="myForm.get('fcReferencia') !== null">
-                        <div class="row padding-InFieldset">
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <div class="row ">
-                                        <div class=" col-lg-2">
-                                            <label> Referencia:</label>
-                                        </div>
-                                        <div class="col-lg-10">
-                                            <input type="text" id="idReferencia"  class="form-control input-lg" formControlName="fcReferencia" #rReferencia [matKeyboard]="" />
-                                            <div *ngIf="myForm.get('fcReferencia').errors  && myForm.get('fcReferencia').touched" class="alert alert-danger">
-                                                <p *ngIf="myForm.get('fcReferencia').hasError('required')">
+                        <div *ngIf="myForm.get('fcReferencia') !== null">
+                            <div class="row padding-InFieldset">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <div class="row ">
+                                            <div class=" col-lg-2">
+                                                <label> Referencia:</label>
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <input type="text" id="idReferencia" class="form-control input-lg" formControlName="fcReferencia" #rReferencia [matKeyboard]="" />
+                                                <div *ngIf="myForm.get('fcReferencia').errors  && myForm.get('fcReferencia').touched" class="alert alert-danger">
+                                                    <p *ngIf="myForm.get('fcReferencia').hasError('required')">
                                                         Dato obligatorio, favor de capturar.
-                                                </p>
-                                                <p *ngIf="myForm.get('fcReferencia').hasError('pattern')">
-                                                    Los datos proporcionados son incorrectos, favor de verificar.
-                                                </p>
+                                                    </p>
+                                                    <p *ngIf="myForm.get('fcReferencia').hasError('pattern')">
+                                                        Los datos proporcionados son incorrectos, favor de verificar.
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row padding-InFieldset">
-                        <div class="col-lg-2">
-                            <label>Fecha de vencimiento: </label>
-                        </div>
-                        <div class="col-lg-10">
-                            <input type="text" id="txtFechaVencimiento" class="form-control input-lg " formControlName="fcFechaVencimiento" #rFechaVencimiento [matKeyboard]="'num'" placeholder="AAAA-MM-DD" />
-                            <div *ngIf="myForm.get('fcFechaVencimiento').errors  && myForm.get('fcFechaVencimiento').touched " class="alert alert-danger">
+                        <div class="row padding-InFieldset">
+                            <div class="col-lg-2">
+                                <label>Fecha de vencimiento: </label>
+                            </div>
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control datetimepicker-input input-lg" id="txtFechaVencimiento" (click)="calendario();" (blur)="validarFecha()" data-toggle="datetimepicker" formControlName="fcFechaVencimiento" data-target="#txtFechaVencimiento" #rFechaVencimiento
+                                    placeholder="AAAA-MM-DD" />
+                                <!-- <input type="text" id="txtFechaVencimiento" class="form-control input-lg " formControlName="fcFechaVencimiento" #rFechaVencimiento [matKeyboard]="'num'" placeholder="AAAA-MM-DD" /> -->
+                                <div *ngIf="myForm.get('fcFechaVencimiento').errors  && myForm.get('fcFechaVencimiento').touched " class="alert alert-danger">
 
-                                <p color="danger" *ngIf="myForm.get('fcFechaVencimiento').hasError('required')"> Dato obligatorio, favor de capturar.</p>
-                                <p color="danger" *ngIf="myForm.get('fcFechaVencimiento').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
+                                    <p color="danger" *ngIf="myForm.get('fcFechaVencimiento').hasError('required')"> Dato obligatorio, favor de capturar.</p>
+                                    <p color="danger" *ngIf="myForm.get('fcFechaVencimiento').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row ">
-                        <div class="col-lg-2">
-                            <label>Importe: </label>
-                        </div>
-                        <div class="col-lg-10">
-                            <input type="text" id="txtImporte" class="form-control input-lg" formControlName="fcImporte" #rImporte [matKeyboard]="'num'"
-                            (blur)="transformAmount(rImporte.value)"  />
-                            <div *ngIf="myForm.get('fcImporte').errors  && myForm.get('fcImporte').touched" class="alert alert-danger">
-                                    <p   *ngIf="myForm.get('fcImporte').hasError('required') ">Dato obligatorio, favor de capturar. </p>
-                                    <p   *ngIf="myForm.get('fcImporte').hasError('pattern')">Dato incorrecto, favor de verificar. </p>
+                        <div class="row ">
+                            <div class="col-lg-2">
+                                <label>Importe: </label>
                             </div>
+                            <div class="col-lg-10">
+                                <input type="text" id="txtImporte" class="form-control input-lg" formControlName="fcImporte" #rImporte [matKeyboard]="'num'" (blur)="transformAmount(rImporte.value)" />
+                                <div *ngIf="myForm.get('fcImporte').errors  && myForm.get('fcImporte').touched" class="alert alert-danger">
+                                    <p *ngIf="myForm.get('fcImporte').hasError('required') ">Dato obligatorio, favor de capturar. </p>
+                                    <p *ngIf="myForm.get('fcImporte').hasError('pattern')">Dato incorrecto, favor de verificar. </p>
+                                </div>
 
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
         <div class="row actions-form-group text-right">
             <div class="col-lg-9"></div>
@@ -123,9 +123,9 @@
                 <button id="contiuar" type="button" class="btn color-botones btn-lg" [disabled]="myForm.invalid" (click)="validarSaldo(myForm.value)">
                                         Continuar
                     </button>
-                </div>
+            </div>
         </div>
-     </fieldset>
+    </fieldset>
 
     <!-- Modal -->
     <div class="modal fade" id="confirmModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
@@ -142,142 +142,136 @@
                             <label>{{cuentaCargo}}</label>
                         </div>
                     </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <label>Servicio:</label>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>Servicio:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label>{{nombreServicio}}</label>
+                        </div>
                     </div>
-                    <div class="col-lg-6">
-                        <label>{{nombreServicio}}</label>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>Importe neto:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label>{{importeShow | currency}}</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <label>Importe neto:</label>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>Comision:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label>$0.00</label>
+                        </div>
                     </div>
-                    <div class="col-lg-6">
-                        <label>{{importeShow | currency}}</label>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>Importe total:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label>{{importeShow | currency}}</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <label>Comision:</label>
-                    </div>
-                    <div class="col-lg-6">
-                        <label>$0.00</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <label>Importe total:</label>
-                    </div>
-                    <div class="col-lg-6">
-                        <label>{{importeShow | currency}}</label>
-                    </div>
-                </div>
-                <div class="row">
+                    <div class="row">
                         <div class="col-lg-12">
-                          <label style="display: block; text-align: center; line-height: 280%; 	color: #eb012a;">Por favor captura tu 
-                              <label>{{labelTipoAutentica}}</label> 
-                            para poder continuar
-                          </label>
+                            <label style="display: block; text-align: center; line-height: 280%; 	color: #eb012a;">Por favor captura tu 
+                              <label>{{labelTipoAutentica}}</label> para poder continuar
+                            </label>
                         </div>
                     </div>
                     <div id="challenger" class="row">
-                            <div class="col-lg-6" align="center">
-                                  <label>N&uacute;mero de seguridad: </label>
-                            </div>
-                            <div class="col-lg-6">
-                                <label  class='form-control input-lg'  >{{NumeroSeguridad}}</label>
-                            </div>
+                        <div class="col-lg-6" align="center">
+                            <label>N&uacute;mero de seguridad: </label>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class='form-control input-lg'>{{NumeroSeguridad}}</label>
+                        </div>
                     </div>
                     <div id="divPass" class="row">
-                                <div class="col-lg-6" align="center">
-                                    <label>{{labelTipoAutentica}}:</label>
-                                 </div>
-                                  <div class="col-lg-6">
-                                    <input type="password" class="form-control input-lg" #token [matKeyboard]="'num'" formControlName='fcToken'>
-                                    <div *ngIf="myForm.get('fcToken').errors  && myForm.get('fcToken').touched " class="alert alert-danger">
-                                        <p color="danger" *ngIf="myForm.get('fcToken').hasError('required')"> Dato obligatorio, favor de capturar.
-                                        </p>
-                                        <p color="danger" *ngIf="myForm.get('fcToken').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.
-                                        </p>
-                                    </div>
-                                  </div>
-                      </div>  
-                      <br>                  
-                <div class="modal-footer" style="padding-right: 0px !important;">
-                    <button class="btn btn-lg" data-dismiss="modal" (click)="ocultaModal()">Cancelar</button>
-                    <button class="color-botones btn btn-lg " (click)="confirmarPago(token.value)" [disabled]="(myForm.get('fcToken').invalid)">
+                        <div class="col-lg-6" align="center">
+                            <label>{{labelTipoAutentica}}:</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <input type="password" class="form-control input-lg" #token [matKeyboard]="'num'" formControlName='fcToken'>
+                            <div *ngIf="myForm.get('fcToken').errors  && myForm.get('fcToken').touched " class="alert alert-danger">
+                                <p color="danger" *ngIf="myForm.get('fcToken').hasError('required')"> Dato obligatorio, favor de capturar.
+                                </p>
+                                <p color="danger" *ngIf="myForm.get('fcToken').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="modal-footer" style="padding-right: 0px !important;">
+                        <button class="btn btn-lg" data-dismiss="modal" (click)="ocultaModal()">Cancelar</button>
+                        <button class="color-botones btn btn-lg " (click)="confirmarPago(token.value)" [disabled]="(myForm.get('fcToken').invalid)">
                                 Confirmar
                               </button>
-                </div>
+                    </div>
 
+                </div>
             </div>
         </div>
     </div>
-</div>
 </form>
 
-<div class="modal fade" id="ModalLectordeRecibo"  tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="ModalBXIError" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content shadowModal ">
+<div class="modal fade" id="ModalLectordeRecibo" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="ModalBXIError" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content shadowModal ">
             <div class="modal-header">
-                    <div class="row">
-                            <div class="col-md-9">
-                                    <h4 class="modal-title" style="color: rgb(176, 22, 87); font-weight: 700;">Coloca tu recibo para continuar</h4>
-                            </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                                <div style=" padding-left: 90%;"><img style="width: 58px;" data-dismiss="modal" src="./assets/img/fail_icon.png"></div>
-                        </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <h4 class="modal-title" style="color: rgb(176, 22, 87); font-weight: 700;">Coloca tu recibo para continuar</h4>
                     </div>
                 </div>
-                <div class="modal-body" style="padding: 2rem;">
-                    <div>
-                        <p style="color: #eb012a; font-weight: 700;">
-                        Instrucciones:
-                        </p>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div style=" padding-left: 90%;"><img style="width: 58px;" data-dismiss="modal" src="./assets/img/fail_icon.png"></div>
                     </div>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td style=" width: 50%;">
-                                     <p>
-                                             1.  Coloca tu recibo con el
-                                              código de barras visible
-                                              en el esc&aacute;ner
-                                     </p>
-                                </td>
-                                <td rowspan="3" colspan="4">
-                                    <img src="./assets/img/scan.jpg" width="90% " style="height: 12%;">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p>
-                                            2. Presiona el gatillo  del esc&aacute;ner y espera a que el dispositivo valide la informaci&oacute;n
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p>
-                                            3.  Tiene 5 intentos para
-                                            que el scanner valide
-                                            información, si no,
-                                            capture manualmente
-                                      </p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                   <!-- <div class="row" >
+                </div>
+            </div>
+            <div class="modal-body" style="padding: 2rem;">
+                <div>
+                    <p style="color: #eb012a; font-weight: 700;">
+                        Instrucciones:
+                    </p>
+                </div>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td style=" width: 50%;">
+                                <p>
+                                    1. Coloca tu recibo con el código de barras visible en el esc&aacute;ner
+                                </p>
+                            </td>
+                            <td rowspan="3" colspan="4">
+                                <img src="./assets/img/scan.jpg" width="90% " style="height: 12%;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>
+                                    2. Presiona el gatillo del esc&aacute;ner y espera a que el dispositivo valide la informaci&oacute;n
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>
+                                    3. Tiene 5 intentos para que el scanner valide información, si no, capture manualmente
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- <div class="row" >
                                             <div class="col-lg-5">
                                                     <input type="text" id="txtReadCode" #rCodeBar autofocus (input)="leeCodeBar(rCodeBar.value)" class="txt-codeBar" >
                                             </div>
                     </div>-->
-                </div>
             </div>
         </div>
     </div>
+</div>
