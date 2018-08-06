@@ -1347,7 +1347,8 @@ button#buttonImageMantoBen {
 }
 
 .datepicker,
-.table-condensed {
-    width: 500px !important;
-    height: 224px !important;
+.table-condensed,
+.datepicker-days {
+    width: 170% !important;
+    height: 170% !important;
 }
