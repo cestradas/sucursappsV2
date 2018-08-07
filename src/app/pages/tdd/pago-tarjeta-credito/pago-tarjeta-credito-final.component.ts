@@ -69,6 +69,7 @@ export class PagoTarjetaCreditoFinalComponent implements OnInit {
     this_aux.detallePago.institucion = this_aux._response.nameBancoDestino;
     this_aux.detallePago.cuentaOrigen = this_aux._response.numeroCuentaTdd;
     this_aux.detallePago.cuentaDestino = this_aux._response.numCuentaDestino;
+    this_aux.detallePago.operacion = this_aux._response.nameOperacion;
     $('#_modal_please_wait').modal('hide');
   }
 }

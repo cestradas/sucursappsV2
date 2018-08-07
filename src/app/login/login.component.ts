@@ -96,7 +96,7 @@ export class LoginComponent {
              $('#ModalTDDLogin').modal('hide');
              setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
          });                     
-       }, 30000);
+       }, 25000);
    }
   
 
@@ -152,6 +152,7 @@ export class LoginComponent {
               console.log(tipoPreferencia);
               let validaPreferencia = false;
                this_aux.comienzaContador();
+               this_aux.comienzaContadorFrame();
  
                if (this_aux.includesL(tipoPreferencia, "PREFERENTE")) {
                  // PREFERENTE
@@ -270,7 +271,7 @@ export class LoginComponent {
         const resourceRequest = new WLResourceRequest(
         'adapters/AdapterBanorteSucursAppsTdc/resource/validaNip',
         WLResourceRequest.POST);
-        resourceRequest.setTimeout(30000); // 30000
+        resourceRequest.setTimeout(25000); // 30000
         resourceRequest
         .sendFormParameters(formParameters)
         .then(
@@ -440,6 +441,22 @@ getUsrPassLegacTdc(usrAgent) {
   comienzaContador() {
   const this_aux = this;
   const body = $('body');
+  body.on('click', function() {
+    localStorage.setItem('TimeOut', localStorage.getItem('TimeOutIni'));
+  });
+
+  setInterval(function() {
+   const valueNewTimeOut = +localStorage.getItem('TimeOut') - 1;
+   localStorage.setItem('TimeOut', valueNewTimeOut.toString());
+   if (valueNewTimeOut === 0) {
+    this_aux.cerrarSesion();
+   }
+  }, 1000);
+}
+
+comienzaContadorFrame() {
+  const this_aux = this;
+  const body = $('iframe');
   body.on('click', function() {
     localStorage.setItem('TimeOut', localStorage.getItem('TimeOutIni'));
   });

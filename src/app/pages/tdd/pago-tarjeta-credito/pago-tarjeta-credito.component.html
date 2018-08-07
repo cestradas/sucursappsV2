@@ -43,6 +43,22 @@
         </div>
 
         <form [formGroup]="forma">
+            <div class="row sumando-form-group letranegrita padding-InFieldset">
+                <div class="col-sm-1 sumando-bg-red group-name" style="height: 68px !important;">
+                    Tipo
+                </div>
+                <div class="dropdown sumando-dropdown-account col-sm-11" style="padding-left: 0px; padding-right: 0px;">
+
+                    <select class="input-whidth selectModificado" id="selTipo" formControlName="selecTipo" #rcbFiltro (change)="tipoTarjeta()" style=" width: 100%; height: 68px !important; border:0px solid red">
+                                    <option value="0" disabled selected> Seleccione el tipo de tarjeta ...</option>
+                                    <option value="311" class="text-li">Propias Banorte</option>
+                                    <option value="312" class="text-li"> Terceros Banorte</option>
+                                    <option value="313" class="text-li"> Otros Bancos</option>
+                                    <option value="314" class="text-li"> American Express</option>
+                                </select>
+
+                </div>
+            </div>
             <div class="row sumando-form-group letranegrita">
                 <div class="col-sm-1 sumando-bg-red group-name">Para</div>
                 <div class="col-lg-11 sumando-well-white">
@@ -53,8 +69,9 @@
                         <div class="dropdown sumando-dropdown-account col-lg-10">
                             <select formControlName="selectBanco" #rSelecBanco class="input-whidth input-lg selectModificado" id="tipoBanco" (change)="selectBanco($event.target.value)" style=" width: 100%; border:  0px">
                             <option disabled="" selected value="0" ng-reflect-value="0">SELECCIONE BANCO</option>
-                            <option *ngFor="let banco of bancos; let i = index" [value]="banco.IdBanco" class="text-li">{{ banco.NombreBanco }}</option>
-
+                            <ng-container *ngFor="let banco of bancos; let i = index">
+                                <option *ngIf="banco.Mostrar !== '0'" [value]="banco.IdBanco" class="text-li">{{ banco.NombreBanco }}</option>    
+                            </ng-container>                            
 
                         </select>
                         </div>
@@ -92,22 +109,6 @@
                         <div class="clearfix "></div>
                     </div>
                     <br>
-                    <!--
-                    <div class="margin-InFieldset row">
-                        <label class="col-sm-2 control-label ">Correo a notificar:</label>
-
-                        <div class="col-sm-10 ">
-                            <input class="input-whidth form-control amount input-lg" [matKeyboard]="" formControlName="email" type="text" name="email " id="email" />
-                            <div *ngIf="forma.hasError('required', 'email') && forma.get('email').touched" class="alert alert-danger">
-                                Este dato es obligatorio.
-                            </div>
-                            <div *ngIf="forma.hasError('pattern', 'email') && !forma.get('email').untouched" class="alert alert-danger">
-                                El correo electronico es incorrecto.
-                            </div>
-                        </div>
-                        <div class="clearfix "></div>
-                    </div> -->
-
                 </div>
             </div>
             <div class="row actions-form-group text-right " style="margin-right: -26px;">
@@ -116,7 +117,7 @@
                     <button class="btn btn-lg" [routerLink]="['/menuTdd']">Regresar</button>
                 </div>
                 <div class="col-lg-1">
-                    <button id="continuar" [disabled]="!forma.valid || rSelecBanco.value === 'Seleccione Banco' || rSelecBanco.value === '0'" class="btn color-botones btn-lg pull-left" type="submit" data-toggle="modal" (click)="validarSaldo()">Continuar</button>
+                    <button id="continuar" [disabled]="!forma.valid || rSelecBanco.value === 'Seleccione Banco' || rSelecBanco.value === '0' || rcbFiltro.value === '0'" class="btn color-botones btn-lg pull-left" type="submit" data-toggle="modal" (click)="validarSaldo(rSelecBanco.value)">Continuar</button>
                 </div>
             </div>
 
@@ -126,7 +127,7 @@
 
     <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content shadowModal" style="height: 320px">
+            <div class="modal-content shadowModal" style="height: 293px">
 
                 <div class="modal-body" style="padding: 2rem;">
 
@@ -163,14 +164,6 @@
                             <label>{{importe | currency}}</label>
                         </div>
                     </div>
-                    <!--<div class="row">
-                        <div class="col-lg 6">
-                            <label>Correo:</label>
-                        </div>
-                        <div class="col-lg 6">
-                            <label>{{correo}}</label>
-                        </div>
-                    </div> -->
                     <div class="modal-footer">
                         <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
                         <button id="continuar2" class="color-botones btn btn-lg " onclick="handlerCallPinpad()" (click)="cargaBancos()" data-dismiss="modal">
@@ -183,38 +176,6 @@
         </div>
     </div>
 
-    <!--
-    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content shadowModal">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Confirmar pago</h4>
-                </div>
-                <div class="modal-body">
-
-                    <ul class="list-group">
-                        <li class="list-group-item"><strong> <label>Cuenta Origen:</label></strong>
-                            <label>{{ cuentaClienteTdd }}</label>
-                        </li>
-                        <li class="list-group-item"><strong><label>Cuenta Destino:</label></strong>
-                            <label>{{ noTarjeta }}</label>
-                        </li>
-                        <li class="list-group-item"><strong><label>Importe:</label></strong>
-                            <label>{{ importe | currency }}</label>
-                        </li>
-                        <li class="list-group-item"><strong><label>Correo:</label></strong>
-                            <label>{{ correo }}</label></li>
-                    </ul>
-                </div>
-                <div class="modal-footer ">
-                    <button type="button" class="btn btn-lg letranegrita" data-dismiss="modal">Cancelar</button>
-                    <button id="continuar2" type="button" class="btn color-botones btn-lg" onclick="handlerCallPinpad()" (click)="cargaBancos()" data-dismiss="modal">Confirmar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="uiv-animate" ui-view></div>
--->
     <div id="modalErrorMessage" class="modal fade" data-backdrop="static" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-dialog-error">
             <div class="modal-content">

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { Http, Response, Headers,  URLSearchParams, RequestOptions } from "@angular/http";
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from "@angular/router";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
@@ -11,14 +11,16 @@ import { Session } from "protractor";
 import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 import { consultaCatalogos } from "../../../services/consultaCatalogos/consultaCatalogos.service";
 
-declare var $: $;
 
+declare var $: $;
 @Component({
   selector: "app-menutdd",
   templateUrl: "./menutdd.component.html",
   styles: []
 })
 export class MenutddComponent implements OnInit {
+
+  @ViewChild('rIframe') riframe: ElementRef;
   loadingM: boolean;
   responseCampania: any;
   stringUrl: string;
@@ -31,8 +33,11 @@ export class MenutddComponent implements OnInit {
   AlertasActivas = false;
   ArrayAlertasCliente: Array<any> = [];
   Prieba: boolean;
+  event: any;
+  postResp;
   constructor(private router: Router, private http: Http, private _service: ConsultaSaldosTddService, 
-    private _serviceSesion: SesionTDDService, private serviceTdd: ResponseWS) {}
+    private _serviceSesion: SesionTDDService, private serviceTdd: ResponseWS, private renderer: Renderer2) {
+    }
 
   ngOnInit() {
     // $('div').removeClass('modal-backdrop');
@@ -42,8 +47,11 @@ export class MenutddComponent implements OnInit {
     } 
     if (sessionStorage.getItem("campania") === "activa") {
       this.encriptarSic();
+      
     } 
     }
+
+
   conAlertas() {
         
     const div4 = document.getElementById('Alertas');
@@ -300,6 +308,7 @@ export class MenutddComponent implements OnInit {
        document.getElementById("divAltura").style.maxHeight = alto.toString() + "px";
        document.getElementById("divAltura").style.height = alto.toString() + "px";
        $("#campaniaModal").modal("show");   
+       this_aux.clickCamp();
     }
   }
 
@@ -310,7 +319,7 @@ export class MenutddComponent implements OnInit {
     console.log("adentro encriptar sic: " + this_aux._serviceSesion.datosBreadCroms.sicUsuarioTDD);
 
     const formParameters = {
-        //sic: this_aux._serviceSesion.datosBreadCroms.sicUsuarioTDD
+        // sic: this_aux._serviceSesion.datosBreadCroms.sicUsuarioTDD
         sic: '51984872'
     };
 
@@ -326,6 +335,7 @@ export class MenutddComponent implements OnInit {
             this_aux.sicCifrado = DatosJSON.SicEncriptado;
             this_aux.idSucursal = DatosJSON.idSucursal;
             this_aux.urlProperty = DatosJSON.urlCampania;
+            sessionStorage.setItem("urlCampania", this_aux.urlProperty);
             this_aux.cargarcampanias();
         } else {
             console.log("Ocurrio un error al encriptar sic");
@@ -350,16 +360,30 @@ export class MenutddComponent implements OnInit {
 
  send(msg) {
     const this_aux = this;
-    let popupIframe = document.getElementsByTagName('iframe')[0];
-   this_aux.contenido = (popupIframe.contentWindow ? popupIframe.contentWindow : popupIframe.contentDocument);
-    this_aux.contenido.postMessage(msg, this_aux.urlProperty + '/ade-front/');
+    let popupIframe = this_aux.riframe.nativeElement;
+    let contenido = (popupIframe.contentWindow ? popupIframe.contentWindow :
+    popupIframe.contentDocument);
+    contenido.postMessage(msg,  this_aux.urlProperty + '/ade-front/'); 
     sessionStorage.setItem("campania", "inactivo");
     $('#campaniaModal').modal('toggle');
     return false;
     }
 
-  
-
+    clickCamp () {
+      const this_aux = this;    
+      let iframe = this_aux.riframe.nativeElement;
+    window.parent.addEventListener('message', function(e) {
+        let origin = e.origin;
+        if (origin !== sessionStorage.getItem("urlCampania")) {
+          return;
+        } else {
+          console.log("Respondio Correctamente");
+          if (e.data === "cerrar") {
+            $('#campaniaModal').modal('toggle');
+          }          
+        }
+    }, false);
+    }
 }
 
 

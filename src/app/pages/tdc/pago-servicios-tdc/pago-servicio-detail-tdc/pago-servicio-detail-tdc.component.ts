@@ -67,7 +67,7 @@ export class PagoServicioDetailTdcComponent implements OnInit {
 
     this.myForm = this.fb.group({
       fcTelefono: ['', [Validators.required, Validators.pattern(/^(([0-9]{10}))$/)]],
-       fcReferencia: ['', [Validators.required, Validators.pattern(/^(([0-9]{1,30}))$/)]],
+       fcReferencia: ['', [Validators.required, Validators.pattern(/^(([0-9]{1,40}))$/)]],
        fcDigitoVerificador: ['', [Validators.required, Validators.pattern(/^(([0-9]{1}))$/)]],
       fcFechaVencimiento: ['', [Validators.required , Validators.pattern(/^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]],
       fcImporte: ['', [Validators.required, Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)]],
@@ -252,6 +252,7 @@ const this_aux = this;
 const operaciones: ConsultaCatalogosTdcService = new ConsultaCatalogosTdcService();
 console.log(this_aux.service.idFacturador, this_aux.importeAux, this_aux.referenciaPago
   , this_aux.cuentaClienteTdd, this_aux.fechaVencimiento);
+  
 operaciones.pagaServicio(this_aux.service.idFacturador, this_aux.importeAux, this_aux.referenciaPago
   , this_aux.fechaVencimiento).then(
     function(respPago) {
@@ -366,14 +367,14 @@ leeCodeBar(valor) {
     } else {
       if (value.length === 30) {
 
-        const referencia = value.substring(2, 14);
+        const referencia = "0000000000" + value; // value.substring(2, 14);
         const importe = '$' + parseInt(value.substring(20, 29), 10) + '.00';
         const anio = '20' + value.substring(14, 16);
         const mes = value.substring(16, 18);
         const dia = value.substring(18, 20);
         const fecha = anio + '-' + mes + '-' + dia;
         // tslint:disable-next-line:max-line-length
-        const controlReferencia: FormControl = new FormControl(referencia, [ Validators.required, Validators.pattern(/^([a0-zA9-Z]{1,30})$/)]);
+        const controlReferencia: FormControl = new FormControl(referencia, [ Validators.required, Validators.pattern(/^([a0-zA9-Z]{1,40})$/)]);
         // tslint:disable-next-line:max-line-length
         const controlFecha: FormControl = new FormControl(fecha, [Validators.required,  Validators.pattern(/^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]);
         const controlImporte: FormControl = new FormControl(importe, Validators.required);
@@ -450,6 +451,22 @@ mascaraNumeroCuenta(numCtaSel) {
   return this.numCuenta_show;
 }
 
+calendario() {
+  const this_aux = this;
+ $('#txtFechaVencimiento').datetimepicker({
+     format: 'YYYY-MM-DD',
+     locale: 'es',
+   });
+}
 
+validarFecha() {
+   // $('#txtFechaVencimiento').click();
+   const this_aux = this;
+   let fecha = $("#txtFechaVencimiento").val();
+   console.log(document.getElementById('txtFechaVencimiento').innerHTML = fecha);
+   const controlFecha: FormControl = new FormControl(fecha, [Validators.required,  Validators.pattern(/^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]);
+   this_aux.myForm.setControl('fcFechaVencimiento', controlFecha );
+   
+}
 
 }

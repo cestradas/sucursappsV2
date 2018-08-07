@@ -278,6 +278,7 @@ export class CompraTiempoAireComponent implements OnInit {
         } else {
           this_aux.showErrorSucces(compraTAResp);
         }
+        $("#_modal_please_wait").modal("show");
       },
       function(error) {
         console.error("El WS respondio incorrectamente");
@@ -301,7 +302,6 @@ export class CompraTiempoAireComponent implements OnInit {
 
       if (res === true) {
         $("#ModalTDDLogin").modal("hide");
-        setTimeout(() => $("#_modal_please_wait").modal("hide"), 500);
         this.recargaTiempoAire();
         this._validaNipService.respuestaNip.res = "";
       } else {

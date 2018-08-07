@@ -100,15 +100,3 @@ function getContextRoot() {
     }, 1000)
 
 }
-
-
-
-function listener() {
-    window.addEventListener('message', function(e) {
-        var origin = event.origin || event.originalEvent.origin;
-        if (origin !== "http://lnxsapl1d.dev.unix.banorte.com:9080") {
-            return;
-        }
-        $('#campaniaModal').modal('toggle');
-    }, false);
-}

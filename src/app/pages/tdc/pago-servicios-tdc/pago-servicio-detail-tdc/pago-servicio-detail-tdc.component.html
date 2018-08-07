@@ -81,7 +81,10 @@
                                 <label>Fecha de vencimiento: </label>
                             </div>
                             <div class="col-lg-10">
-                                <input type="text" id="txtFechaVencimiento" (click)="espacioTeclado();" class="form-control input-lg " formControlName="fcFechaVencimiento" #rFechaVencimiento [matKeyboard]="'num'" placeholder="AAAA-MM-DD" />
+                                <!--<input type="text" id="txtFechaVencimiento" (click)="espacioTeclado();" class="form-control input-lg " formControlName="fcFechaVencimiento" #rFechaVencimiento [matKeyboard]="'num'" placeholder="AAAA-MM-DD" />-->
+                                <input type="text" class="form-control datetimepicker-input input-lg" id="txtFechaVencimiento" (click)="calendario();" (blur)="validarFecha()" data-toggle="datetimepicker" formControlName="fcFechaVencimiento" data-target="#txtFechaVencimiento" #rFechaVencimiento
+                                placeholder="AAAA-MM-DD" />
+                                
                                 <div *ngIf="myForm.get('fcFechaVencimiento').errors && myForm.get('fcFechaVencimiento').touched" class="alert alert-danger">
 
                                     <p color="danger" *ngIf="myForm.get('fcFechaVencimiento').hasError('required')"> Dato obligatorio, favor de capturar.</p>

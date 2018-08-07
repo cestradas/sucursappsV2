@@ -37,6 +37,9 @@ export class MantenimientoBenefComponent implements OnInit {
   @ViewChild("RFisicaMoralSelecAlta", { read: ElementRef }) RFisicaMoralSelecAlta: ElementRef;
   @ViewChild("RFechaNacimientoAlta", { read: ElementRef }) RFechaNacimientoAlta: ElementRef;
   @ViewChild("RParentescoAlta", { read: ElementRef }) RParentescoAlta: ElementRef;
+  @ViewChild("RTipoVSelecAlta", { read: ElementRef }) RTipoVivSelecAlta: ElementRef;
+  @ViewChild("RNumeroEntradaAlta", { read: ElementRef }) RNumeroEntradaAlta: ElementRef;
+  @ViewChild("RNumeroPisoAlta", { read: ElementRef }) RNumeroPisoAlta: ElementRef;
 
   @ViewChild("RColoniasM", { read: ElementRef }) RColoniasM: ElementRef;
   @ViewChild("RApellidoMat", { read: ElementRef }) RApellidoMat: ElementRef;
@@ -46,7 +49,8 @@ export class MantenimientoBenefComponent implements OnInit {
   @ViewChild("RNumeroCalle", { read: ElementRef }) RNumeroCalle: ElementRef;
   @ViewChild("RNumeroDepartamento", { read: ElementRef }) RNumeroDepartamento: ElementRef;
   @ViewChild("RFisicaMoralSelec", { read: ElementRef }) RFisicaMoralSelec: ElementRef;
-  
+  @ViewChild("RNumeroEntrada", { read: ElementRef }) RNumeroEntrada: ElementRef;
+  @ViewChild("RNumeroPiso", { read: ElementRef }) RNumeroPiso: ElementRef;
   
   
   tamRegistrosBenef: any = 0;
@@ -78,6 +82,9 @@ export class MantenimientoBenefComponent implements OnInit {
   porcentaje: any = "";
   nombreCalle: any = "";
   numeroCalle: any = "";
+  numeroEntrada: any = "";
+  numeroPiso: any = "0";
+  tipoVivienda: any = "0";
   numeroDepartamento: any = "";
   descripcionColonia: any = "";
   codigoPostal: any = "";
@@ -87,6 +94,7 @@ export class MantenimientoBenefComponent implements OnInit {
   descripcionEstado: any = "";
   parentesco: any = "";
   idEliminarTabla: any = "";
+  tipoViviendaSeleccionada: any = "";
   myform: FormGroup;
   myformCP: FormGroup;
   myformCPMod: FormGroup;
@@ -111,7 +119,9 @@ export class MantenimientoBenefComponent implements OnInit {
       registroFC: [''],
       porcentajeBenef: [''],
       numExterior: [''],
-      numInterior: ['']
+      numInterior: [''],
+      numEntrada: [''],
+      numPiso: ['']
     });
 
     this.myformCP = this.fb.group({
@@ -233,6 +243,9 @@ export class MantenimientoBenefComponent implements OnInit {
     this_aux.nombreCalle = datosBeneficiario.NombreCalle;
     this_aux.numeroCalle = datosBeneficiario.NumeroCalle;
     this_aux.numeroDepartamento = datosBeneficiario.NumeroDepartamen;
+    this_aux.numeroEntrada = datosBeneficiario.NumeroEntrada;
+    this_aux.numeroPiso = datosBeneficiario.NumeroPiso;
+    this_aux.tipoVivienda = datosBeneficiario.TipoVivienda;
     this_aux.parentesco = datosBeneficiario.Parentesco;   
     this_aux.descripcionColonia = datosBeneficiario.DescripcionColonia;
     this_aux.opcion = datosBeneficiario.Opcion;
@@ -277,7 +290,10 @@ export class MantenimientoBenefComponent implements OnInit {
     this_aux.myform.setControl('numExterior', controlnumExt);
     const controlnumInt: FormControl = new FormControl('');
     this_aux.myform.setControl('numInterior', controlnumInt);
-
+    const controlnumEntrada: FormControl = new FormControl('');
+    this_aux.myform.setControl('numEntrada', controlnumEntrada);
+    const controlnumPiso: FormControl = new FormControl('');
+    this_aux.myform.setControl('numPiso', controlnumPiso);
       
   }
   reiniciarInput() {
@@ -298,7 +314,10 @@ export class MantenimientoBenefComponent implements OnInit {
     this_aux.RDescripcionDelegacionAlta.nativeElement.value = "";
     this_aux.RNumeroCalleAlta.nativeElement.value = "";
     this_aux.RNumeroDepartamentoAlta.nativeElement.value = "";
+    this_aux.RNumeroEntradaAlta.nativeElement.value = "";
+    this_aux.RNumeroPisoAlta.nativeElement.value = "";
     this_aux.rColonias.nativeElement.value = "Seleccione Colonia";
+    $("#selVivienda").val(this_aux.numeroPiso);
 
     this.registroFederal = "";
     this.fisicaMoralSeleccionada = "";
@@ -318,7 +337,9 @@ export class MantenimientoBenefComponent implements OnInit {
     this.codigoEstado = "";
     this.descripcionEstado = "";
     this.parentesco = "";
+    this.tipoViviendaSeleccionada = "";
     this.CP = null;
+    this.tipoVivienda = "0";
   }
 
   consultaBeneficiarios() {
@@ -482,6 +503,9 @@ export class MantenimientoBenefComponent implements OnInit {
           'FechaNacimiento': fechaFormato,
           'NombreCalle': myform1.nomCalleBenef,
           'NumeroCalle': this_aux.RNumeroCalleAlta.nativeElement.value,
+          'NumeroEntrada' : this_aux.RNumeroEntradaAlta.nativeElement.value,
+          'NumeroPiso' : this_aux.RNumeroPisoAlta.nativeElement.value,
+          'TipoVivienda' : this_aux.RTipoVivSelecAlta.nativeElement.value,
           'NumeroDepartamen': this_aux.RNumeroDepartamentoAlta.nativeElement.value,
           'Parentesco': myform1.parentescoBenef,
           'RegistroFederal': myform1.registroFC,
@@ -505,6 +529,9 @@ export class MantenimientoBenefComponent implements OnInit {
           'NombreCalle': myform1.nomCalleBenef,
           'NumeroCalle': this_aux.RNumeroCalleAlta.nativeElement.value,
           'NumeroDepartamen': this_aux.RNumeroDepartamentoAlta.nativeElement.value,
+          'NumeroEntrada' : this_aux.RNumeroEntradaAlta.nativeElement.value,
+          'NumeroPiso' : this_aux.RNumeroPisoAlta.nativeElement.value,
+          'TipoVivienda' : this_aux.RTipoVivSelecAlta.nativeElement.value,
           'Parentesco': myform1.parentescoBenef,
           'RegistroFederal': myform1.registroFC,
           'CodigoDelegacion': this_aux.codigoDelegacion,
@@ -546,7 +573,8 @@ export class MantenimientoBenefComponent implements OnInit {
       valueAux.ApMaternoBenef.toUpperCase(), valueAux.FechaNacimiento, valueAux.Parentesco.toUpperCase(), valueAux.RegistroFederal.toUpperCase(),
       valueAux.PorcentajeBenef, valueAux.NombreCalle.toUpperCase(), valueAux.NumeroCalle, valueAux.NumeroDepartamen,
       valueAux.DescripcionColonia.toUpperCase(), valueAux.CodigoPostal, valueAux.CodigoDelegacion, valueAux.DescripDelegacion.toUpperCase(),
-      valueAux.CodigoEstado, valueAux.DescripcionEdo.toUpperCase());
+      valueAux.CodigoEstado, valueAux.DescripcionEdo.toUpperCase(), valueAux.TipoVivienda, valueAux.NumeroEntrada,
+      valueAux.NumeroPiso);
     } else {
       this_aux.capturaDatosAltaBeneficiarioMoral(
         // tslint:disable-next-line:max-line-length
@@ -555,14 +583,16 @@ export class MantenimientoBenefComponent implements OnInit {
         valueAux.NumeroCalle, valueAux.NumeroDepartamen,
         // tslint:disable-next-line:max-line-length
         valueAux.DescripcionColonia.toUpperCase(), valueAux.CodigoPostal, valueAux.CodigoDelegacion, valueAux.DescripDelegacion.toUpperCase(),
-        valueAux.CodigoEstado, valueAux.DescripcionEdo.toUpperCase()
+        valueAux.CodigoEstado, valueAux.DescripcionEdo.toUpperCase(), valueAux.TipoVivienda, valueAux.NumeroEntrada,
+        valueAux.NumeroPiso
       );
     }
   }
 
 
   capturaDatosAltaBeneficiarioMoral(nomBenRec, fechaFormato,  parenRec, rFcRec, porcenRec, nomCRec, numCRec, 
-    numDepRec, descripColoniaRec, codigoPRec, codigoDelRec, descripDelRec, codigoEdoRec, descripEdoRec) {
+    numDepRec, descripColoniaRec, codigoPRec, codigoDelRec, descripDelRec, codigoEdoRec, descripEdoRec,
+    tipoVivienda, numEntrada, numPiso) {
     const this_aux = this;
     this_aux.contadorSoapAltas = 1;
     console.log("adentro AltaBeneficiarioMoral");
@@ -586,7 +616,10 @@ export class MantenimientoBenefComponent implements OnInit {
       descripcionDelegacion: descripDelRec,
       codigoEstado: codigoEdoRec,
       descripcionEstado: descripEdoRec,
-      parentesco: parenRec
+      parentesco: parenRec,
+      tipoVivienda: tipoVivienda,
+      numEntrada: numEntrada,
+      numPiso: numPiso
     };
 
     const resourceRequest = new WLResourceRequest(
@@ -628,7 +661,7 @@ export class MantenimientoBenefComponent implements OnInit {
 
   capturaDatosAltaBeneficiarioFisico(nomBenRec, apellPRec, apellMRec, fechaFormato, parenRec, rFcRec, porcenRec,
     nomCRec, numCRec, numDepRec, descripColoniaRec, codigoPRec, codigoDelRec, descripDelRec, codigoEdoRec,
-    descripEdoRec) {
+    descripEdoRec, tipoVivienda, numEntrada, numPiso) {
     const this_aux = this;
     this_aux.contadorSoapAltas = 1;
     console.log("adentro AltaBeneficiarioFisico");
@@ -651,7 +684,10 @@ export class MantenimientoBenefComponent implements OnInit {
       descripcionDelegacion: descripDelRec,
       codigoEstado: codigoEdoRec,
       descripcionEstado: descripEdoRec,
-      parentesco: parenRec
+      parentesco: parenRec,
+      tipoVivienda: tipoVivienda,
+      numEntrada: numEntrada,
+      numPiso: numPiso
     };
 
     const resourceRequest = new WLResourceRequest(
@@ -723,6 +759,7 @@ export class MantenimientoBenefComponent implements OnInit {
 
       const controlApP: FormControl = new FormControl('');
       const controlApM: FormControl = new FormControl('');
+      // tslint:disable-next-line:max-line-length
       const controlFechaM: FormControl = new FormControl('', Validators.pattern(/^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/));
       const controlParM: FormControl = new FormControl(this_aux.RParentescoAlta.nativeElement.value, Validators.maxLength(20));      
       this_aux.myform.setControl('apPatBenef', controlApP);
@@ -738,9 +775,21 @@ export class MantenimientoBenefComponent implements OnInit {
     this_aux.myform.setControl('numExterior', controlnumExt);
     const controlnumInt: FormControl = new FormControl('', [Validators.maxLength(4)]);
     this_aux.myform.setControl('numInterior', controlnumInt);
+    const controlnumEntrada: FormControl = new FormControl('', [Validators.maxLength(2)]);
+    this_aux.myform.setControl('numEntrada', controlnumEntrada);
+    const controlnumPiso: FormControl = new FormControl('', [Validators.maxLength(2)]);
+    this_aux.myform.setControl('numPiso', controlnumPiso);
     const controlCPA: FormControl = new FormControl('', [Validators.required, Validators.minLength(5),
       Validators.maxLength(5), Validators.pattern(/^([0-9]{1,})$/)]);
       this_aux.myformCP.setControl('CodPBenef', controlCPA);  
+      $("#selVivienda").val(this_aux.tipoVivienda);  
+      $("#selColonia").val("");  
+
+  }
+
+  tipoVivSelect(tipoVivienda) {
+    const this_aux = this;
+    this_aux.tipoVivienda = tipoVivienda;
   }
 
   fMModificacion() {
@@ -772,8 +821,7 @@ export class MantenimientoBenefComponent implements OnInit {
       const controlrFcMM: FormControl = new FormControl(this_aux.registroFederal, [Validators.required, Validators.pattern(
         /^([A-ZÑ&, a-zñ&]{3})(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01]))([A-Z\d, a-z\d]{2})([A\d])$/
       )]); 
-      this_aux.myform.setControl('registroFC', controlrFcMM);
-
+      this_aux.myform.setControl('registroFC', controlrFcMM); 
 
       const controlFisicoFecha: FormControl = new FormControl(this_aux.fechaNacimiento, 
         Validators.pattern(/^\d{4}\-\d{2}\-\d{2}$/));
@@ -785,17 +833,38 @@ export class MantenimientoBenefComponent implements OnInit {
     const codigoP: FormControl = new FormControl(this_aux.codigoPostal, [Validators.required, Validators.minLength(5),
       Validators.maxLength(5), Validators.pattern(/^([0-9]{1,})$/)]);
     this_aux.myformCPMod.setControl('CodPBenefMod', codigoP);
-    const controlnumExt: FormControl = new FormControl('', [Validators.maxLength(7), Validators.pattern(/^([0-9]{1,})$/)]);
+    const controlnumExt: FormControl = new FormControl('', [Validators.maxLength(7)]);
     this_aux.myform.setControl('numExterior', controlnumExt);
-    const controlnumInt: FormControl = new FormControl('', [Validators.maxLength(4), Validators.pattern(/^([0-9]{1,})$/)]);
+    const controlnumInt: FormControl = new FormControl('', [Validators.maxLength(4)]);
     this_aux.myform.setControl('numInterior', controlnumInt);
+    const controlnumEntrada: FormControl = new FormControl('', [Validators.maxLength(2)]);
+    this_aux.myform.setControl('numEntrada', controlnumEntrada);
+    const controlnumPiso: FormControl = new FormControl('', [Validators.maxLength(2)]);
+    this_aux.myform.setControl('numPiso', controlnumPiso);
     this_aux.RDescripcionEstado.nativeElement.value = this_aux.descripcionEstado;
     this_aux.RDescripcionDelegacion.nativeElement.value = this_aux.descripcionDelegacion;
-    this_aux.RColoniasM.nativeElement.value = this_aux.descripcionColonia;
-    this_aux.RNumeroCalle.nativeElement.value = this_aux.numeroCalle;
+    this_aux.RColoniasM.nativeElement.value = this_aux.descripcionColonia;    
     this_aux.RNumeroDepartamento.nativeElement.value = this_aux.numeroDepartamento;
     this_aux.RPorcentaje.nativeElement.value = this_aux.porcentaje;
-  }
+    
+    
+    $("#selViviendaM").val(this_aux.tipoVivienda);    
+    if (this_aux.numeroCalle !== "0000000") {
+      this_aux.RNumeroCalle.nativeElement.value = this_aux.numeroCalle;
+    } else {
+      this_aux.RNumeroCalle.nativeElement.value = "";
+    } 
+    if (this_aux.numeroEntrada !== "0") {
+      this_aux.RNumeroEntrada.nativeElement.value = this_aux.numeroEntrada;
+    } else {
+      this_aux.RNumeroEntrada.nativeElement.value = "";
+    }
+    if (this_aux.numeroPiso !== "0") {
+      this_aux.RNumeroPiso.nativeElement.value = this_aux.numeroPiso;
+    } else {
+      this_aux.RNumeroPiso.nativeElement.value = "";
+    }
+   }
 
   sumaPorcentajes (porcentajeRecibido) {
 
@@ -917,6 +986,9 @@ export class MantenimientoBenefComponent implements OnInit {
         value.NombreCalle = myform.nomCalleBenef;
         value.NumeroCalle = this_aux.RNumeroCalle.nativeElement.value;
         value.NumeroDepartamen = this_aux.RNumeroDepartamento.nativeElement.value;
+        value.NumeroEntrada = this_aux.RNumeroEntrada.nativeElement.value,
+        value.NumeroPiso = this_aux.RNumeroPiso.nativeElement.value,
+        value.TipoVivienda = this_aux.tipoVivienda,
         value.Parentesco = myform.parentescoBenef;
         value.PorcentajeBenef = this_aux.RPorcentaje.nativeElement.value;
         value.RegistroFederal = myform.registroFC;
@@ -962,7 +1034,9 @@ export class MantenimientoBenefComponent implements OnInit {
     let descripcionEstadoModif: any = "";
     let parentescoModif: any = "";
     let consecutivoModifi: any = "";
-
+    let tipoViviendaModifi: any = "";
+    let numEntradaModifi: any = "";
+    let numPisoModifi: any = "";
     let encontrar: any = "";
    // if (this_aux.contadorModificaciones.length !== 0) {
         this_aux.BEN.forEach(function(value, key) {
@@ -987,7 +1061,9 @@ export class MantenimientoBenefComponent implements OnInit {
             rFCModif = value.RegistroFederal.toUpperCase();
             fisicaMoralModif = value.FisicaMoral;
             consecutivoModifi = value.NumeroConsecutiv;
-
+            tipoViviendaModifi = value.TipoVivienda;
+            numEntradaModifi = value.NumeroEntrada;
+            numPisoModifi = value.NumeroPiso;
             if (value.FisicaMoral === "F") {
               nombreBeneficiarioModif = value.NombreBeneficia.toUpperCase();
               apellidoPatModif = value.ApPaternoBenef.toUpperCase();
@@ -1000,7 +1076,7 @@ export class MantenimientoBenefComponent implements OnInit {
               apellidoMatModif, rFCModif, fisicaMoralModif, razonSocialModif, codigoPostalModif,
               codigoDelegacionModif, codigoEstadoModif, descripcionDelegacionModif, descripcionColoniaModif,
               descripcionEstadoModif, fechaNacimientoModif,  nombreCalleModif, numeroCalleModif,
-              numeroDepartamentoModif, parentescoModif, porcentajeModif);
+              numeroDepartamentoModif, parentescoModif, porcentajeModif, tipoViviendaModifi, numEntradaModifi, numPisoModifi);
           }
         });
     // }
@@ -1009,7 +1085,8 @@ export class MantenimientoBenefComponent implements OnInit {
   modificarBeneficiariosSoap(consecutvoModif, nombreBeneficiarioModif, apellidoPatModif, apellidoMatModif, rFCModif,
     fisicaMoralModif, razonSocialModif, codigoPostalModif, codigoDelegacionModif, codigoEstadoModif,
     descripcionDelegacionModif, descripcionColoniaModif, descripcionEstadoModif, fechaNacimientoModif,
-    nombreCalleModif, numeroCalleModif, numeroDepartamentoModif, parentescoModif, porcentajeModif) {
+    nombreCalleModif, numeroCalleModif, numeroDepartamentoModif, parentescoModif, porcentajeModif, tipoViviendaModifi, 
+    numEntradaModifi, numPisoModifi) {
     const this_aux = this;
     const THIS: any = this;
     let respuestaModif: any;
@@ -1020,6 +1097,10 @@ export class MantenimientoBenefComponent implements OnInit {
     }
     if (fechaNacimientoModif === "") {
       fechaNacimientoModif = "19000101";
+    }
+
+    if (tipoViviendaModifi === "") {
+      tipoViviendaModifi = "0";
     }
 
     const formParameters = {
@@ -1042,7 +1123,10 @@ export class MantenimientoBenefComponent implements OnInit {
       numeroCalleM: numeroCalleModif,
       numeroDepM: numeroDepartamentoModif,
       parentescoM: parentescoModif,
-      porcentajeM: porcentajeModif
+      porcentajeM: porcentajeModif,
+      tipoVivienda: tipoViviendaModifi,
+      numEntrada: numEntradaModifi,
+      numPiso: numPisoModifi
     };
 
     const resourceRequest = new WLResourceRequest(
@@ -1132,7 +1216,7 @@ export class MantenimientoBenefComponent implements OnInit {
   realizaAccion() {
     const this_aux = this;
     if (this_aux.B) {
-      //this_aux.numeroBajas--;
+      // this_aux.numeroBajas--;
       this_aux.bajaBeneficiarios();
     } else {
         if (this_aux.C) {
@@ -1158,7 +1242,7 @@ export class MantenimientoBenefComponent implements OnInit {
   realizaAccion1() {
     const this_aux = this;
       if (!this_aux.A && !this_aux.B && !this_aux.C  ) {
-        //this_aux.numeroBajas--;
+        // this_aux.numeroBajas--;
      //   this_aux.bajaBeneficiarios();
       
     } else if (!this_aux.A && !this_aux.B && this_aux.C ) {
@@ -1253,6 +1337,44 @@ export class MantenimientoBenefComponent implements OnInit {
       $( ".cdk-visually-hidden" ).css( "margin-top", "2%" );
     }
   }
+
+  calendario() {
+    const this_aux = this;
+   $('#txtFechaVencimiento').datetimepicker({
+       format: 'YYYY-MM-DD',
+       locale: 'es',
+     });
+ }
+ 
+ validarFecha() {
+     // $('#txtFechaVencimiento').click();
+     const this_aux = this;
+     let fecha = $("#txtFechaVencimiento").val();
+     console.log(document.getElementById('txtFechaVencimiento').innerHTML = fecha);
+     // tslint:disable-next-line:max-line-length
+     const controlFecha: FormControl = new FormControl(fecha, [Validators.required,  Validators.pattern(/^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]);
+     this_aux.myform.setControl('fechaNacBenef', controlFecha );
+     
+ }
+
+ calendarioModif() {
+  const this_aux = this;
+ $('#txtFechaVencimientoMod').datetimepicker({
+     format: 'YYYY-MM-DD',
+     locale: 'es',
+   });
+}
+
+validarFechaModif() {
+   // $('#txtFechaVencimiento').click();
+   const this_aux = this;
+   let fecha = $("#txtFechaVencimientoMod").val();
+   console.log(document.getElementById('txtFechaVencimientoMod').innerHTML = fecha);
+   // tslint:disable-next-line:max-line-length
+   const controlFecha: FormControl = new FormControl(fecha, [Validators.required,  Validators.pattern(/^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]);
+   this_aux.myform.setControl('fechaNacBenef', controlFecha );
+   
+}
 
   showErrorPromise(error) {
     console.log(error);

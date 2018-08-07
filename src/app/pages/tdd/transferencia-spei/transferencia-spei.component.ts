@@ -211,8 +211,7 @@ limpiarFormulario () {
       Validators.required, Validators.pattern(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)]
     );
     this_aux.myform.setControl("correoF", controlCorreo);
-    if (operacion === "1") {
-      document.getElementById('clabeTarjeta').innerHTML = "Clabe / Número de Tarjeta:";           
+    if (operacion === "1") {    
       this_aux.consultaTablaCorpBancosService();
       console.log("Seleccionaste QUICK");
       const controlClabe: FormControl = new FormControl(
@@ -221,8 +220,7 @@ limpiarFormulario () {
       this_aux.myform.setControl("numeroClabeF", controlClabe);
     }
 
-    if (operacion === "2") {
-      document.getElementById('clabeTarjeta').innerHTML = "Número de Tarjeta:";         
+    if (operacion === "2") {       
       this_aux.consultaBancosNacionalesService();
       console.log("Seleccionaste TEF");
       const controlClabe: FormControl = new FormControl(

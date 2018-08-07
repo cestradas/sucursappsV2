@@ -19,8 +19,8 @@ declare var $: $;
 })
 export class PagoTarjetaCreditoComponent implements OnInit {
 
-  @ViewChild("rImporte", { read: ElementRef })
-  rImporte: ElementRef;
+  @ViewChild("rImporte", { read: ElementRef }) rImporte: ElementRef;
+  @ViewChild('rcbFiltro', { read: ElementRef}) rcbFiltro: ElementRef ;
 
   nombreUsuarioTdd: string;
   saldoClienteTdd: string;
@@ -36,6 +36,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   importe: string;
   correo: string;
   nombreBanco: string;
+  numeroBanco = "0";
 
 
   constructor(
@@ -54,15 +55,11 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
     this.forma = new FormGroup({
 
-      'selectBanco': new FormControl('0', [Validators.required
-        // , this.selectDifCero
-      ]),
+      'selectBanco': new FormControl('0', [Validators.required]),
       // tslint:disable-next-line:max-line-length
       'numTarjeta': new FormControl('', [Validators.required, Validators.pattern(/^([0-9]{1,})$/), Validators.minLength(16), Validators.maxLength(16)]),
-      'importe': new FormControl('', [Validators.required, Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)])
- //     'email': new FormControl('', [Validators.required,
-   //     Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')])
-
+      'importe': new FormControl('', [Validators.required, Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)]),
+      'selecTipo': new FormControl('0', Validators.required)
     });
 
     this._service.validarDatosSaldoTdd().then(
@@ -80,11 +77,6 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       data => {
         console.log(data);
         this.opcionSeleccionado = data;
-      });
-
-    this.forma.controls['numTarjeta'].valueChanges.subscribe(
-      data => {
-        this.noTarjeta = data;
       });
 
     this.forma.controls['importe'].valueChanges.subscribe(
@@ -163,17 +155,60 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   cargaBancos() {
 
     if ( this.opcionSeleccionado === '2') {
-
       this.id = 2230;
-
     } else {
-
       this.id = 165;
+    }
+    this.pagarTarjetaCredito();
+  }
 
+  tipoTarjeta () {
+    const this_aux = this;
+
+    if (this_aux.rcbFiltro.nativeElement.value.toString() === "311") {
+      this_aux._response.nameOperacion = "Pago tarjeta de crédito Propias Banorte";
+      this_aux.numeroBanco = "22";
+    } else if (this_aux.rcbFiltro.nativeElement.value.toString() === "312") {
+      this_aux._response.nameOperacion = "Pago tarjeta de crédito Terceros Banorte";
+      this_aux.numeroBanco = "22";
+    } else if (this_aux.rcbFiltro.nativeElement.value.toString() === "313") {
+      this_aux._response.nameOperacion = "Pago tarjeta de crédito Otros Bancos";
+      this_aux.numeroBanco = "0";
+    } else if (this_aux.rcbFiltro.nativeElement.value.toString() === "314") {
+      this_aux._response.nameOperacion = "Pago tarjeta de crédito American Express";
+      this_aux.numeroBanco = "2";
     }
 
-    this.pagarTarjetaCredito();
-
+    if (this_aux.numeroBanco === "2") {
+      // tslint:disable-next-line:max-line-length
+      const controlTar: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([0-9]{1,})$/), Validators.minLength(15), Validators.maxLength(15)]);
+      this_aux.forma.setControl('numTarjeta', controlTar);
+    } else {
+      // tslint:disable-next-line:max-line-length
+      const controlTar: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([0-9]{1,})$/), Validators.minLength(16), Validators.maxLength(16)]);
+      this_aux.forma.setControl('numTarjeta', controlTar);
+    }
+    this.forma.controls['numTarjeta'].valueChanges.subscribe(
+      data => {
+        this.noTarjeta = data;
+      });
+    
+    this_aux.bancos.forEach(function(value, key)  {
+      if (this_aux.numeroBanco !== "0") {
+        if (value.IdBanco !== this_aux.numeroBanco) {
+          value.Mostrar = '0';
+        } else {
+          value.Mostrar = '1';
+        }
+      } else {
+        if (value.IdBanco === "22" || value.IdBanco === "2") {
+          value.Mostrar = '0';
+        } else {
+          value.Mostrar = '1';
+        }
+      }
+      
+       });
   }
 
   selectBanco(bancoSeleccionado) {
@@ -242,6 +277,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       montoAPagar: pImporte,
       cuentaAbono: THIS.noTarjeta,
       cuentaCargo: THIS.cuentaClienteTdd,
+      opFinanciero: this_aux.rcbFiltro.nativeElement.value.toString(),
     };
 
     const resourceRequest = new WLResourceRequest(
@@ -274,9 +310,10 @@ export class PagoTarjetaCreditoComponent implements OnInit {
           });
   }
 
-  validarSaldo() {
+  validarSaldo(bancoRec) {
     const this_aux = this;
     let importeOpe = "";
+    this_aux.selectBanco(bancoRec);
     $('#_modal_please_wait').modal('show');
     importeOpe = this_aux.replaceSimbolo(this_aux.importe);
     this._validaNipService.consultaTablaYValidaSaldo(importeOpe).then(

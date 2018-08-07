@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ResponseWS } from '../../../services/response/response.service';
+import $ from 'jquery';
+declare var $: $;
 
 @Component({ 
   selector: 'app-compra-tiempo-aire-final',
@@ -45,15 +47,26 @@ export class CompraTiempoAireFinalComponent implements OnInit {
 
   convertDate (fecha) {
   const this_aux = this;
+  $("#_modal_please_wait").modal("hide");
     const d = new Date(fecha);
-    const date = d.getFullYear()  + '-' + d.getMonth() + '-' + d.getDate();
-    console.log(date);
+    let date = "";
+    let numMes = d.getMonth() + 1;
+    let formatMes = numMes.toString();
+    let formatDia = d.getDate().toString();
+    if (formatMes.length === 1) {
+      formatMes = '0' + formatMes;
+    }
+    if (formatDia.length === 1) {
+      formatDia =  '0' + formatDia;
+    }
+    date = d.getFullYear() + '-' + formatMes + '-' + formatDia;
+    console.log(date + "---" + d.getMonth());
     return date;
   }
 
   convertTime (hora) {
     const d = new Date(hora);
-    const time = d.getHours() + ':' + d.getMinutes() + ':' + d.getMilliseconds();
+    const time = d.getHours() + ':' + d.getMinutes(); // + ':' + d.getMilliseconds();
     return time;
   }
 

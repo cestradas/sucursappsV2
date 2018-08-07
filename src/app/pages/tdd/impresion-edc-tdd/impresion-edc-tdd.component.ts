@@ -1777,7 +1777,12 @@ showErrorSucces(json) {
     document.getElementById("mnsError").innerHTML =
       "El servicio no esta disponible, favor de intentar mas tarde";
   } else {
-    document.getElementById("mnsError").innerHTML = json.MensajeAUsuario;
+    if (json.MensajeAUsuario !== null || json.MensajeAUsuario !== undefined) {
+      document.getElementById("mnsError").innerHTML = json.MensajeAUsuario;
+    } else {
+      document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar mas tarde";
+    }
+    
   }
   $('#_modal_please_wait').modal('hide');
   $("#errorModal").modal("show");

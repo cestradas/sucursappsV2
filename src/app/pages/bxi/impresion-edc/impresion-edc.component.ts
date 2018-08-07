@@ -396,13 +396,13 @@ setDatosCuentaSeleccionada(elementHTML) {
 
         if ( res[0].Id === "1" ) {
           if (res[0].EstadoLista === "OK") {
-
+            this_aux.consultaCancelacionEDCDomicilio(opcion, cuenta);
 
 
             setTimeout(function() {
 
               console.log(res);
-              this_aux.consultaCancelacionEDCDomicilio(opcion, cuenta);
+              
               this_aux.obj = JSON.parse(this_aux.fechas);
 
               for (let i = 1 ; i < res.length; i++) {

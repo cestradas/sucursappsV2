@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, Renderer2} from '@angular/core';
 import { Http, Response, Headers,  URLSearchParams, RequestOptions } from "@angular/http";
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from "@angular/router";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
@@ -21,6 +21,7 @@ declare var $: $;
   styles: []
 })
 export class MenutdcComponent implements OnInit {
+  @ViewChild('rIframe') riframe: ElementRef;
 ArrayAlertasCliente: Array<any> = [];  
 AlertasActivas = false;
 
@@ -278,6 +279,7 @@ encriptarSic() {
           this_aux.sicCifrado = DatosJSON.SicEncriptado;
           this_aux.idSucursal = DatosJSON.idSucursal;
           this_aux.urlProperty = DatosJSON.urlCampania;
+          sessionStorage.setItem("urlCampania", this_aux.urlProperty);
           this_aux.cargarcampanias();
       } else {
           console.log("Ocurrio un error al encriptar sic");
@@ -323,17 +325,35 @@ cargarcampanias() {
      document.getElementById("divAltura").style.maxHeight = alto.toString() + "px";
      document.getElementById("divAltura").style.height = alto.toString() + "px";
      $("#campaniaModal").modal("show");   
+     this_aux.clickCamp();
   }
 }
 
 send(msg) {
   const this_aux = this;
-  let popupIframe = document.getElementsByTagName('iframe')[0];
- this_aux.contenido = (popupIframe.contentWindow ? popupIframe.contentWindow : popupIframe.contentDocument);
-  this_aux.contenido.postMessage(msg, this_aux.urlProperty + '/ade-front/');
+  let popupIframe = this_aux.riframe.nativeElement;
+  let contenido = (popupIframe.contentWindow ? popupIframe.contentWindow :
+  popupIframe.contentDocument);
+  contenido.postMessage(msg,  this_aux.urlProperty + '/ade-front/'); 
   sessionStorage.setItem("campania", "inactivo");
   $('#campaniaModal').modal('toggle');
   return false;
+  }
+
+  clickCamp () {
+    const this_aux = this;    
+    let iframe = this_aux.riframe.nativeElement;
+  window.parent.addEventListener('message', function(e) {
+      let origin = e.origin;
+      if (origin !== sessionStorage.getItem("urlCampania")) {
+        return;
+      } else {
+        console.log("Respondio Correctamente");
+        if (e.data === "cerrar") {
+          $('#campaniaModal').modal('toggle');
+        }          
+      }
+  }, false);
   }
 
 }

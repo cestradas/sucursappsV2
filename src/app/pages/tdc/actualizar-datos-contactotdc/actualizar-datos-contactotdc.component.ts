@@ -109,6 +109,7 @@ export class ActualizarDatosContactotdcComponent implements OnInit {
             this_aux.showErrorSucces(jsonRespuesta);
             console.log("Datos no Actualizados");
             $('#ModalTDDLogin').modal('hide');
+            $('#_modal_please_wait').modal('hide');
           }
         }, function(error) { this_aux.showErrorPromiseMoney(error);
           $('#ModalTDDLogin').modal('hide'); }
