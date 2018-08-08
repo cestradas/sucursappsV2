@@ -162,6 +162,10 @@ export class PagoServiciosDetailComponent implements OnInit {
         this_aux.referenciaPago = myForm.fcTelefono.toString() + myForm.fcDigitoVerificador.toString();
       } else {
         this_aux.referenciaPago = myForm.fcReferencia.toString();
+        if (this_aux.service.idFacturador === '88924') {
+          this_aux.referenciaPago = "0000000000" + myForm.fcReferencia.toString();
+          console.log("Referencia CFE " +  this_aux.referenciaPago)
+        }
       }
        this_aux.setTipoAutenticacionOnModal();
   }
@@ -448,7 +452,7 @@ showErrorSucces(json) {
       } else {
         if (value.length === 30) {
 
-          const referencia = "0000000000" + value; // value.substring(2, 14);
+          const referencia = value; // value.substring(2, 14);
           const importe = '$' + parseInt(value.substring(20, 29), 10) + '.00';
           const anio = '20' + value.substring(14, 16);
           const mes = value.substring(16, 18);
@@ -508,6 +512,7 @@ validarFecha() {
    const this_aux = this;
    let fecha = $("#txtFechaVencimiento").val();
    console.log(document.getElementById('txtFechaVencimiento').innerHTML = fecha);
+   // tslint:disable-next-line:max-line-length
    const controlFecha: FormControl = new FormControl(fecha, [Validators.required,  Validators.pattern(/^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]);
    this_aux.myForm.setControl('fcFechaVencimiento', controlFecha );
    
