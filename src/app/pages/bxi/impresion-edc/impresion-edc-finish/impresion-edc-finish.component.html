@@ -63,8 +63,8 @@
                             <div class="col-sm-10">
                                 <input id="contra" name="contra" placeholder="La contrseña debe ser de 5 caracteres (números y/o letras)" [matKeyboard]="" formControlName="contra" type="password" class="form-control amount input-lg" maxlength="60" required />
                                 <div class="alert-danger" *ngIf="(forma.get('contra').errors  && forma.get('contra').touched)">
-                                    <p color="danger" *ngIf="forma.get('contra').hasError('required')">La contraseña debe der de 5 caracteres (números y/o letras)</p>
-                                    <p color="danger" *ngIf="forma.get('contra').hasError('pattern') || forma.get('contra').hasError('maxlength')">La contraseña debe der de 5 caracteres (números y/o letras)</p>
+                                    <p color="danger" *ngIf="forma.get('contra').hasError('required')">La contraseña debe ser de 5 caracteres (números y/o letras)</p>
+                                    <p color="danger" *ngIf="forma.get('contra').hasError('pattern') || forma.get('contra').hasError('maxlength')">La contraseña debe ser de 5 caracteres (números y/o letras)</p>
                                 </div>
                                 <!-- <div *ngIf="forma.hasError('min', 'contra') || forma.hasError('max', 'contra') " style="margin-bottom: 0px; padding: 0.5rem 1.20rem;" class="alert alert-danger">
                                         Limite de....
