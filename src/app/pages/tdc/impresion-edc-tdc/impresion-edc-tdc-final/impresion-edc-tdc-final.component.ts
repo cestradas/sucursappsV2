@@ -156,7 +156,7 @@ resourceRequest.sendFormParameters(formParameters).then(
   showErrorPromise(error) {
     console.log(error);
     // tslint:disable-next-line:max-line-length
-    document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar mas tarde";
+    document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar más tarde";
     $('#_modal_please_wait').modal('hide');
     $('#errorModal').modal('show');
   }
@@ -172,7 +172,7 @@ resourceRequest.sendFormParameters(formParameters).then(
     console.log(json.Id + json.MensajeAUsuario);
     if (json.Id === "2") {
       document.getElementById("mnsError").innerHTML =
-        "El servicio no esta disponible, favor de intentar mas tarde";
+        "El servicio no esta disponible, favor de intentar más tarde";
     } else {
       document.getElementById("mnsError").innerHTML = json.MensajeAUsuario;
     }
@@ -181,5 +181,3 @@ resourceRequest.sendFormParameters(formParameters).then(
   }
 
 }
-  
- 
