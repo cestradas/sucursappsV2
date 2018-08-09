@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ConsultaCatalogosTdcService } from '../../../services/consultaCatalogosTDC/consulta-catalogos-tdc.service';
 import { ConsultaSaldosTddService } from '../../../services/service.index';
 import { SesionTDDService} from '../../../services/service.index';
+import { DISABLED } from '../../../../../node_modules/@angular/forms/src/model';
 declare var $: any;
 @Component({
   selector: 'app-activar-alertastdc',
@@ -31,8 +32,7 @@ $('#_modal_please_wait').modal('show');
      this.consultaSaldosTarjetas();
      // this._service.validarDatosSaldoTdd().then( // ya no seria necesario
        // mensaje => {
-         this.consultaAlertas();
-         setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
+         
       // }
      // );
      
@@ -46,7 +46,7 @@ $('#_modal_please_wait').modal('show');
       btnContinuar.classList.add("color-botones_Preferente");
     }
 
-  this.consultaAlertas();
+//  this.consultaAlertas();
   }
 
     consultaAlertas() {
@@ -185,9 +185,12 @@ irMenuTDC() {
             this_aux.NumeroTarjeta = detalleSaldos.NumeroTarjeta;
             this_aux.mascaraNumeroCuenta(this_aux.NumeroTarjeta);
             $('#_modal_please_wait').modal('hide');
+            this_aux.consultaAlertas();
+            setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
   
           } else {
              this_aux.showErrorSucces(detalleSaldos);
+             document.getElementById("thing").setAttribute('disabled', 'disabled');
           }
         }, function(error) {
           this_aux.showErrorPromise(error);

@@ -175,6 +175,11 @@ export class MovimientosaldotdcComponent implements OnInit {
              }
              
         
+            }
+            else{
+              console.log("id"+detalleCuenta.Id);
+              this_aux.showErrorSucces(detalleCuenta);
+              
             } 
           }, function(error) {
             

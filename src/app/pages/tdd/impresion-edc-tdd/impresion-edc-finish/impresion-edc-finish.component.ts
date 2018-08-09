@@ -19,10 +19,10 @@ export class ImpresionEdcFinishComponent implements OnInit {
   correosIgual = 0;
   correoIgualAux = 0;
 
-  constructor( private router: Router, private serviceTdd: ResponseWS) {
+  constructor( private router: Router, private serviceTdd: ResponseWS) { 
 
     const this_aux = this;
-
+    
     setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
 
     this_aux.forma = new FormGroup({
@@ -39,7 +39,7 @@ export class ImpresionEdcFinishComponent implements OnInit {
       data => {
         console.log('correo', data);
         console.log('forma', this.forma);
-
+        
         this_aux.correo = data;
        // this_aux.validateFields();
       });

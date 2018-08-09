@@ -37,7 +37,7 @@ export class consultaCatalogos {
                 
               };
               let resourceRequest;
-              if (idFacturador === '1310') {
+              if (idFacturador === '1310' || idFacturador === '88924') {
                  resourceRequest = new WLResourceRequest(
                     'adapters/AdapterBanorteSucursApps2/resource/pagoDisposicionCredito', WLResourceRequest.POST);
               } else {

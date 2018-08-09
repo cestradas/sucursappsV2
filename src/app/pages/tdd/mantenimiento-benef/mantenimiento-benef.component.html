@@ -72,7 +72,7 @@
             <br>
             <div class="row">
                 <div class="col-lg-10">
-                    <button id="alta" type="button" class="color-botones btn btn-lg" [disabled]="tamRegistrosBenef == 10" (click)="altaBeneficiario()" style="margin-bottom: 20px; float: inherit; width: 110px;">Alta</button>
+                    <button id="alta" type="button" class="color-botones btn btn-lg" (click)="altaBeneficiario()" style="margin-bottom: 20px; float: inherit; width: 110px;">Alta</button>
                 </div>
                 <div class="col-lg-2">
                     <button id="gardar" type="button" class="color-botones btn btn-lg pull-right" [disabled]="contadorModificaciones.length == 0 && contadorAltas == 0  && arrayBajas.length == 0" (click)="checkPorcentaje()" style="margin-left: 40px">Guardar Cambios</button>
@@ -184,8 +184,6 @@
                                 <option value="5" class="text-li">Manzana</option>
                                 <option value="6" class="text-li">Callejón</option>
                                 <option value="7" class="text-li">Fraccionamiento</option>
-                                <option value="8" class="text-li">Mercado</option>
-                                <option value="9" class="text-li">Poblado</option>
                             </select>
                         </div>
                     </div>
@@ -255,31 +253,36 @@
                         <div class="col-sm-1">
                             <input class="input-whidth form-control amount input-lg" type="text" id=EntradaInputText formControlName="numEntrada" #RNumeroEntradaAlta [matKeyboard]="" style=" text-align: center" maxlength="6" placeholder="Entrada">
                         </div>
-                        <div class="form-group col-sm-1">
+                        <div class="form-group col-sm-1" id="infoPiso" style="display: none">
                             <label for="amount" class="col-sm control-label">Piso:</label>
                         </div>
-                        <div class="col-sm-1">
-                            <input class="input-whidth form-control amount input-lg" type="text" id=PisoInputText formControlName="numPiso" #RNumeroPisoAlta [matKeyboard]="" style=" text-align: center" maxlength="6" placeholder="Piso">
+                        <div class="col-sm-1" id="infoPiso1" style="display: none">
+                            <input class="input-whidth form-control amount input-lg" type="text" formControlName="numPiso" #RNumeroPisoAlta [matKeyboard]="" style=" text-align: center" maxlength="6" placeholder="Piso">
                         </div>
-                        <div class="form-group col-sm-1">
+                        <div class="form-group col-sm-1" id="infoDepartamento" style="display: none">
                             <label for="amount" class="col-sm control-label">Departamento:</label>
                         </div>
-                        <div class="col-sm-1">
-                            <input class="input-whidth form-control amount input-lg" type="text" id=DepaInputText formControlName="numInterior" #RNumeroDepartamentoAlta [matKeyboard]="" style="text-align: center" maxlength="4" placeholder="Dpto">
+                        <div class="col-sm-1" id="infoDepartamento1" style="display: none">
+                            <input class="input-whidth form-control amount input-lg" type="text" formControlName="numInterior" #RNumeroDepartamentoAlta [matKeyboard]="" style="text-align: center" maxlength="4" placeholder="Dpto">
                         </div>
                     </div>
-                    <div class="row" *ngIf="(myform.get('numExterior').errors && myform.get('numExterior').touched) || (myform.get('numInterior').errors && myform.get('numInterior').touched) || (myform.get('numEntrada').errors && myform.get('numEntrada').touched) || (myform.get('numPiso').errors && myform.get('numPiso').touched)">
+                    <div class="row" *ngIf="(myform.get('numExterior').errors && myform.get('numExterior').touched) || 
+                    (myform.get('numEntrada').errors && myform.get('numEntrada').touched) || 
+                    (myform.get('numPiso').errors && myform.get('numPiso').touched) || 
+                    (myform.get('numInterior').errors && myform.get('numInterior').touched)">
                         <div class="col-sm-2">
-                            <p class="alert-danger" color="danger" style="margin: 0px" *ngIf="myform.get('numExterior').hasError('maxlength') || myform.get('numExterior').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
+                            <p class="alert-danger" color="danger" style="margin: 0px" *ngIf="(myform.get('numExterior').hasError('maxlength') || myform.get('numExterior').hasError('pattern')) && myform.get('numExterior').touched">Los datos proporcionados son incorrectos, favor de verificar.</p>
                         </div>
                         <div class="col-sm-2">
-                            <p class="alert-danger" color="danger" style="margin: 0px" *ngIf="myform.get('numEntrada').hasError('maxlength') || myform.get('numEntrada').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
+                            <p class="alert-danger" color="danger" style="margin: 0px" *ngIf="(myform.get('numEntrada').hasError('maxlength') || myform.get('numEntrada').hasError('pattern'))  && myform.get('numEntrada').touched">Los datos proporcionados son incorrectos, favor de verificar.</p>
                         </div>
                         <div class="col-sm-2">
-                            <p class="alert-danger" color="danger" style="margin: 0px" *ngIf="myform.get('numPiso').hasError('maxlength') || myform.get('numPiso').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
+                            <p class="alert-danger" color="danger" style="margin: 0px" *ngIf="(myform.get('numPiso').hasError('maxlength') || myform.get('numPiso').hasError('pattern')) && myform.get('numPiso').touched">Los datos proporcionados son incorrectos, favor de verificar.</p>
+                            <p class="alert-danger" color="danger" style="margin: 0px" *ngIf="myform.get('numPiso').hasError('required')  && myform.get('numPiso').touched">Dato obligatorio, favor de capturar.</p>
                         </div>
                         <div class="col-sm-2">
-                            <p class="alert-danger" color="danger" style="margin: 0px" *ngIf="myform.get('numInterior').hasError('maxlength') || myform.get('numInterior').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
+                            <p class="alert-danger" color="danger" style="margin: 0px" *ngIf="(myform.get('numInterior').hasError('maxlength') || myform.get('numInterior').hasError('pattern')) && myform.get('numInterior').touched">Los datos proporcionados son incorrectos, favor de verificar.</p>
+                            <p class="alert-danger" color="danger" style="margin: 0px" *ngIf="myform.get('numInterior').hasError('required')  && myform.get('numInterior').touched">Dato obligatorio, favor de capturar.</p>
                         </div>
                     </div>
                     <br>
@@ -402,8 +405,6 @@
                                 <option value="5" class="text-li">Manzana</option>
                                 <option value="6" class="text-li">Callejón</option>
                                 <option value="7" class="text-li">Fraccionamiento</option>
-                                <option value="8" class="text-li">Mercado</option>
-                                <option value="9" class="text-li">Poblado</option>
                             </select>
                         </div>
                     </div>
@@ -478,31 +479,36 @@
                         <div class="col-sm-1">
                             <input class="input-whidth form-control amount input-lg" type="text" id=EntradaInputText formControlName="numEntrada" #RNumeroEntrada [matKeyboard]="" style=" text-align: center" maxlength="6" placeholder="Entrada">
                         </div>
-                        <div class="form-group col-sm-1">
+                        <div class="form-group col-sm-1" id="infoPiso2" style="display: none">
                             <label for="amount" class="col-sm control-label">Piso:</label>
                         </div>
-                        <div class="col-sm-1">
+                        <div class="col-sm-1" style="display: none" id="infoPiso3">
                             <input class="input-whidth form-control amount input-lg" type="text" id=PisoInputText formControlName="numPiso" #RNumeroPiso [matKeyboard]="" style=" text-align: center" maxlength="6" placeholder="Piso">
                         </div>
-                        <div class="form-group col-sm-1">
+                        <div class="form-group col-sm-1" id="infoDepartamento2" style="display: none">
                             <label for="amount" class="col-sm control-label">Departamento:</label>
                         </div>
-                        <div class="col-sm-1">
+                        <div class="col-sm-1" id="infoDepartamento3" style="display: none">
                             <input class="input-whidth form-control amount input-lg" type="text" id=DepaInputText [matKeyboard]="" formControlName="numInterior" #RNumeroDepartamento style="text-align: center" maxlength="4" placeholder="Dpto">
                         </div>
                     </div>
-                    <div class="row" *ngIf="(myform.get('numExterior').errors && myform.get('numExterior').touched) || (myform.get('numInterior').errors && myform.get('numInterior').touched) || (myform.get('numEntrada').errors && myform.get('numEntrada').touched) || (myform.get('numPiso').errors && myform.get('numPiso').touched)">
+                    <div class="row" *ngIf="(myform.get('numExterior').errors && myform.get('numExterior').touched) || 
+                    (myform.get('numEntrada').errors && myform.get('numEntrada').touched) || 
+                    (myform.get('numPiso').errors && myform.get('numPiso').touched) || 
+                    (myform.get('numInterior').errors && myform.get('numInterior').touched)">
                         <div class="col-sm-2">
-                            <p class="alert-danger" color="danger" style="margin: 0px" *ngIf="myform.get('numExterior').hasError('maxlength') || myform.get('numExterior').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
+                            <p class="alert-danger" color="danger" style="margin: 0px" *ngIf="(myform.get('numExterior').hasError('maxlength') || myform.get('numExterior').hasError('pattern')) && myform.get('numExterior').touched">Los datos proporcionados son incorrectos, favor de verificar.</p>
                         </div>
                         <div class="col-sm-2">
-                            <p class="alert-danger" color="danger" style="margin: 0px" *ngIf="myform.get('numEntrada').hasError('maxlength') || myform.get('numEntrada').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
+                            <p class="alert-danger" color="danger" style="margin: 0px" *ngIf="(myform.get('numEntrada').hasError('maxlength') || myform.get('numEntrada').hasError('pattern'))  && myform.get('numEntrada').touched">Los datos proporcionados son incorrectos, favor de verificar.</p>
                         </div>
                         <div class="col-sm-2">
-                            <p class="alert-danger" color="danger" style="margin: 0px" *ngIf="myform.get('numPiso').hasError('maxlength') || myform.get('numPiso').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
+                            <p class="alert-danger" color="danger" style="margin: 0px" *ngIf="(myform.get('numPiso').hasError('maxlength') || myform.get('numPiso').hasError('pattern')) && myform.get('numPiso').touched">Los datos proporcionados son incorrectos, favor de verificar.</p>
+                            <p class="alert-danger" color="danger" style="margin: 0px" *ngIf="myform.get('numPiso').hasError('required')  && myform.get('numPiso').touched">Dato obligatorio, favor de capturar.</p>
                         </div>
                         <div class="col-sm-2">
-                            <p class="alert-danger" color="danger" style="margin: 0px" *ngIf="myform.get('numInterior').hasError('maxlength') || myform.get('numInterior').hasError('pattern')">Los datos proporcionados son incorrectos, favor de verificar.</p>
+                            <p class="alert-danger" color="danger" style="margin: 0px" *ngIf="(myform.get('numInterior').hasError('maxlength') || myform.get('numInterior').hasError('pattern')) && myform.get('numInterior').touched">Los datos proporcionados son incorrectos, favor de verificar.</p>
+                            <p class="alert-danger" color="danger" style="margin: 0px" *ngIf="myform.get('numInterior').hasError('required')  && myform.get('numInterior').touched">Dato obligatorio, favor de capturar.</p>
                         </div>
                     </div>
                     <br>
@@ -589,6 +595,27 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-lg" data-dismiss="modal">Cancelar</button>
                         <button id="aceptar2" type="button" class="color-botones btn btn-lg pull-right" onclick="handlerCallPinpad()" (click)="finalizaProcesoGuardarDatos()" data-dismiss="modal" style="margin-right: -16px;">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Aviso de Registros maximos -->
+
+    <div class="modal fade" id="RegistrosMaxModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content shadowModal" style="height: 280px;">
+                <div class="modal-body" style="padding: 2rem; padding-top: 0px;">
+                    <h4 class="padding-barToTittle deleteMargin-h2" style="color: #B01657; font-weight: 700; margin-top: -35px;">Aviso</h4>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg 12">
+                            <p style="text-align: justify">El número de beneficiarios debe ser menor o igual a 10. Para poder continuar, es necesario que la suma de los porcentajes asigandos a sus beneficiarios sea igual a 100%.</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="aceptar3" type="button" class="color-botones btn btn-lg pull-right" data-dismiss="modal" style="margin-right: -16px;">Aceptar</button>
                     </div>
                 </div>
             </div>

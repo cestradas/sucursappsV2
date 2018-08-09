@@ -11,6 +11,7 @@ import { Session } from "protractor";
 import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 
 import { ResponseWS } from '../../../services/response/response.service';
+import { Script } from "vm";
 
 declare var $: $;
 
@@ -140,21 +141,23 @@ contenido: any;
               }
 
 
-              
-            }
-           /* if(detalle .Id === '0') {  //solo para la tdc que devuelve error en el servicio
+                
+              } else if (detalle.Id === '0' && detalle.MensajeAUsuario.includes('NUMERO DE CLIENTE INEXISTENTE.')){
                 this_aux.conAlertas();
-            }*/
-            else {
-              this_aux.sinAlertas();
-              this_aux.showErrorSucces(detalle);      
-            }
-            setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
-      }, function(error) {
-        this_aux.sinAlertas();
-        setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
-        this_aux.showErrorPromise(error);    }
-    );
+                console.log(detalle);
+                console.log("id = 0");
+                // this_aux.showErrorSucces(detalle);      
+              } else {
+                this_aux.conAlertas();
+              }
+              setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
+        }, function(error) {
+          this_aux.conAlertas();
+          console.log(error);
+          setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
+          // this_aux.showErrorPromise(error);    
+        }
+      );
   }
 
   sinAlertas() {
@@ -187,23 +190,13 @@ contenido: any;
   }
 
   showErrorSucces(json) {
-    const this_aux = this;
     console.log(json.Id + json.MensajeAUsuario);
-    if (json.Id === '0') {
-      console.log("error en el servicio");
-      $('#errorModal').modal('hide');
-      this_aux.conAlertas();
-    }
-    else if (json.Id === '2') {
+    if (json.Id === '2') {
       document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
-      console.log("error mostrado a usuario");
-    }
-    else {
+    } else {
       document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
-      console.log("entro al else");
     }
-    // $('#errorModal').modal('show');
-  
+    $('#errorModal').modal('show');
   }
 
   consultaDatoscontacto(id) {
@@ -264,7 +257,7 @@ encriptarSic() {
 
   const formParameters = {
       //sic: this_aux._serviceSesion.datosBreadCroms.sicUsuarioTDD
-      sic: '51984872'
+      sic: '51851458'
   };
 
   const resourceRequest = new WLResourceRequest(
@@ -298,7 +291,7 @@ cargarcampanias() {
   params.set("param1", decodeURIComponent(this_aux.sicCifrado));
   params.set("param2", "SUCA");
   params.set("sesion", sessionStorage.getItem("idSesion"));
-  params.set("param3", "1003");
+  params.set("param3", this_aux.idSucursal);
 
   // Http request-
   // this_aux.stringUrl = this_aux.urlProperty + "/ade-front/existeEvento.json?param1=cGP7ZYTkSjuaCtabUn%2BA2Q%3D%3D";

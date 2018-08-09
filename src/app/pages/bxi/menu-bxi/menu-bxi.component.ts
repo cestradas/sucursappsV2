@@ -315,7 +315,7 @@ cargarcampanias() {
   params.set("param1", decodeURIComponent(this_aux.sicCifrado));
   params.set("param2", "SUCA");
   params.set("sesion", sessionStorage.getItem("idSesion"));
-  params.set("param3", "1003");
+  params.set("param3", this_aux.idSucursal);
 
   // Http request-
   // this_aux.stringUrl = this_aux.urlProperty + "/ade-front/existeEvento.json?param1=cGP7ZYTkSjuaCtabUn%2BA2Q%3D%3D";
@@ -354,7 +354,7 @@ encriptarSic() {
   
   const formParameters = {
      //  sic: this_aux.service.infoUsuarioSIC
-      sic: '51984872'
+     sic: '51851458'
   };
 
   const resourceRequest = new WLResourceRequest(

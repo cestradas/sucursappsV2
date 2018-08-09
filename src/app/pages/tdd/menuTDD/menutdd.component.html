@@ -85,13 +85,13 @@
 
                     <div class="col-md-2 col-sm-2 col-xl-2 " style="margin-left: 120px;">
                         <a>
-                            <img src="./assets/img/10_Pago-de-servicios.png " class="sizeMenuButtons" width="200px " #imagen6 id="pagoServ" draggable="false " (click)="mandarPage(imagen6.id)" />
+                            <img src="./assets/img/10_Pago-de-servicios.png " class="sizeMenuButtons styleMenuButton" width="200px " #imagen6 id="pagoServ" draggable="false " (click)="mandarPage(imagen6.id)" />
                         </a>
 
                     </div>
                     <div class="col-md-2 col-sm-2 col-xl-2 ">
                         <a id="loadPage2Button ">
-                            <img src="./assets/img/11_Pago-de-tarjetas-de-crédito.png " class="sizeMenuButtons" width="200px " #imagen7 id="pagoCredito" draggable="false " (click)="mandarPage(imagen7.id)" />
+                            <img src="./assets/img/11_Pago-de-tarjetas-de-crédito.png " class="sizeMenuButtons styleMenuButton" width="200px " #imagen7 id="pagoCredito" draggable="false " (click)="mandarPage(imagen7.id)" />
                         </a>
                     </div>
                     <div class="col-md-2 col-sm-2 col-xl-1 ">
@@ -100,17 +100,17 @@
                     <div id="espacioSPEI" class="col-md-2 col-sm-2 col-xl-2 espacioBotones" id="mantenimientoIMG">
                         <!--<div id="espacioSPEI" class="col-md-2 col-sm-2 col-xl-2 espacioBotones">-->
                         <a>
-                            <img src="./assets/img/12_Mantenimiento-de-beneficiarios.png " class="sizeMenuButtons" width="200px " #imagen8 id="mantoBeneficiarios" draggable="false " (click)="mandarPage(imagen8.id)" />
+                            <img src="./assets/img/12_Mantenimiento-de-beneficiarios.png " class="sizeMenuButtons styleMenuButton" width="200px " #imagen8 id="mantoBeneficiarios" draggable="false " (click)="mandarPage(imagen8.id)" />
                         </a>
                     </div>
                     <div class="col-md-2 col-sm-2 col-xl-2 " id="datosContactoIMG">
                         <a>
-                            <img src="./assets/img/13_Actualizar-datos-de-contacto.png " class="sizeMenuButtons" width="200px " #imagen9 id="actDatosContacto" draggable="false " (click)="mandarPage(imagen9.id)" />
+                            <img src="./assets/img/13_Actualizar-datos-de-contacto.png " class="sizeMenuButtons styleMenuButton" width="200px " #imagen9 id="actDatosContacto" draggable="false " (click)="mandarPage(imagen9.id)" />
                         </a>
                     </div>
                     <div class="col-md-2 col-sm-2 col-xl-2 " id="Alertas" style="display:none">
                         <a>
-                            <img src="./assets/img/14_Activar-alertas-Banorte.png " class="sizeMenuButtons stilo" width="200px " draggable="false " #imagen10 id="actAlertas" (click)="mandarPage(imagen10.id)" />
+                            <img src="./assets/img/14_Activar-alertas-Banorte.png " class="sizeMenuButtons stilo styleMenuButton" width="200px " draggable="false " #imagen10 id="actAlertas" (click)="mandarPage(imagen10.id)" />
                         </a>
                     </div>
                 </div>
@@ -162,7 +162,7 @@
 <div id="opciones" class="row " style="display: block; float: right; margin-right: 140px; margin-top: 120px;">
     <div class="col-md-3 col-sm-3 col-xl-12">
         <a>
-            <img (click)="moreOptions()" src="./assets/img/8_Más-operaciones.png " width="170px " draggable="false " />
+            <img (click)="moreOptions()" src="./assets/img/8_Más-operaciones.png " class="sizeMenuButtons styleMenuButton" width="170px " draggable="false " />
         </a>
     </div>
     <br>
@@ -174,7 +174,7 @@
 <div id="regresar" class="row " style="display: none; float: right; margin-right: 140px; margin-top: 120px;">
     <div class="col-md-3 col-sm-3 col-xl-12">
         <a>
-            <img (click)="regresar()" src="./assets/img/15_Regresar.png " width="170px " draggable="false " />
+            <img class="styleMenuButton" (click)="regresar()" src="./assets/img/15_Regresar.png " width="170px " draggable="false " />
         </a>
     </div>
     <br>
@@ -189,8 +189,8 @@
     <div id="divLargo" class="modal-dialog modal-dialog-centered" role="document" style="align-items: normal">
         <div id="divAltura" class="modal-content shadowModal">
             <!-- class="button b-close"  -->
-            <span class="btn btn-lg pull-right" (click)="send('cerrar')" style="position: absolute; top: 5px; right: 5px; color: white"><b>X</b></span>
-            <iframe id="frameCampania" #rIframe></iframe>
+            <span class="btn btn-lg pull-right styleMenuButton" (click)="send('cerrar')" style="position: absolute; top: 5px; right: 5px; color: white"><b>X</b></span>
+            <iframe id="frameCampania" #rIframe onclick="javascript:alert('entra alert');"></iframe>
         </div>
     </div>
 </div>
