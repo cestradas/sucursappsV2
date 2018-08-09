@@ -30,8 +30,8 @@ export class ImpresionEdcTdcFinalComponent implements OnInit {
 
       'correo': new FormControl('', [Validators.required,  Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
       'confCorreo': new FormControl('', [Validators.required,  Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
-      'contra': new FormControl('', [Validators.required, Validators.maxLength(10)])
-     
+      'contra': new FormControl('', [Validators.required, Validators.maxLength(5), Validators.minLength(5)])
+
     });
 
     console.log(this.forma);

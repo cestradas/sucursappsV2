@@ -19,18 +19,18 @@ export class ImpresionEdcFinishComponent implements OnInit {
   correosIgual = 0;
   correoIgualAux = 0;
 
-  constructor( private router: Router, private serviceTdd: ResponseWS) { 
+  constructor( private router: Router, private serviceTdd: ResponseWS) {
 
     const this_aux = this;
-    
+
     setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
 
     this_aux.forma = new FormGroup({
 
       'correo': new FormControl('', [Validators.required,  Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
       'confCorreo': new FormControl('', [Validators.required,  Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
-      'contra': new FormControl('', [Validators.required, Validators.maxLength(10)])
-     
+      'contra': new FormControl('', [Validators.required, Validators.maxLength(5), Validators.minLength(5)])
+
     });
 
     console.log(this.forma);
@@ -39,7 +39,7 @@ export class ImpresionEdcFinishComponent implements OnInit {
       data => {
         console.log('correo', data);
         console.log('forma', this.forma);
-        
+
         this_aux.correo = data;
        // this_aux.validateFields();
       });
@@ -157,7 +157,7 @@ resourceRequest.sendFormParameters(formParameters).then(
   showErrorPromise(error) {
     console.log(error);
     // tslint:disable-next-line:max-line-length
-    document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar mas tarde";
+    document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar más tarde";
     $('#_modal_please_wait').modal('hide');
     $('#errorModal').modal('show');
   }
@@ -173,7 +173,7 @@ resourceRequest.sendFormParameters(formParameters).then(
     console.log(json.Id + json.MensajeAUsuario);
     if (json.Id === "2") {
       document.getElementById("mnsError").innerHTML =
-        "El servicio no esta disponible, favor de intentar mas tarde";
+        "El servicio no esta disponible, favor de intentar más tarde";
     } else {
       document.getElementById("mnsError").innerHTML = json.MensajeAUsuario;
     }

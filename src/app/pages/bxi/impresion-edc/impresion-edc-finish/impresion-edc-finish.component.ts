@@ -35,7 +35,7 @@ export class ImpresionEdcFinishComponent implements OnInit {
       'correo': new FormControl('', [Validators.required,  Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
       'confCorreo': new FormControl('', [Validators.required,  Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
 
-      'contra': new FormControl('', [Validators.required, Validators.maxLength(10)])
+      'contra': new FormControl('', [Validators.required, Validators.maxLength(5), Validators.minLength(5)])
 
     });
 
@@ -58,7 +58,7 @@ export class ImpresionEdcFinishComponent implements OnInit {
 
           this_aux.confirmCorreo = data;
           this_aux.correosIgual = 0;
-          
+
         });
 
         this.forma.controls['contra'].valueChanges.subscribe(
@@ -66,7 +66,7 @@ export class ImpresionEdcFinishComponent implements OnInit {
             console.log('contra', data);
             console.log('forma', this.forma);
 
-            this_aux.contraZip = data; 
+            this_aux.contraZip = data;
            // this_aux.validateFields();
             this_aux.correoIgualAux = 1;
           });
@@ -157,7 +157,7 @@ export class ImpresionEdcFinishComponent implements OnInit {
   showErrorSucces(json) {
 
 
-    console.log(json.Id + json.MensajeAUsuario);    
+    console.log(json.Id + json.MensajeAUsuario);
     document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
     $('#errorModal').modal('show');
 
@@ -166,7 +166,7 @@ export class ImpresionEdcFinishComponent implements OnInit {
 showErrorPromise(error) {
   console.log(error);
   // tslint:disable-next-line:max-line-length
-  document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar mas tarde";
+  document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar más tarde";
   $('#_modal_please_wait').modal('hide');
   $('#errorModal').modal('show');
 }
