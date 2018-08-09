@@ -1724,7 +1724,7 @@ showErrorSucces(json) {
 
   console.log(json.Id + json.MensajeAUsuario);
   if (json.Id === '2') {
-    document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
+    document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar más tarde';
   } else {
     document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
   }
