@@ -1935,7 +1935,23 @@ showErrorSucces(json) {
     document.getElementById("mnsError").innerHTML =
       "El servicio no esta disponible, favor de intentar mas tarde";
   } else {
+    this.validaErr(json);
+  }
+  $('#_modal_please_wait').modal('hide');
+  $("#errorModal").modal("show");
+}
+
+validaErr(json) {
+  if(json.Id === "0") {
     document.getElementById("mnsError").innerHTML = json.MensajeAUsuario;
+
+  }
+  else if (json[0].Id === "2") {
+    document.getElementById("mnsError").innerHTML = //json[0].ErrorMsg;
+      "El servicio no esta disponible, favor de intentar mas tarde";
+  } else {
+    document.getElementById("mnsError").innerHTML =
+      "El servicio no esta disponible, favor de intentar mas tarde";
   }
   $('#_modal_please_wait').modal('hide');
   $("#errorModal").modal("show");

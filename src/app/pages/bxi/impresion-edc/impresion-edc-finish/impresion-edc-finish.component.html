@@ -92,7 +92,7 @@
             </div>
             <!-- <button [disabled]="!forma.valid" class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
             <div class="col-sm-1">
-                <button [disabled]="!forma.valid || correosIgual === 1" id="continuarEdc" name="continuarEdc" class="btn btn-danger btn-lg" (click)="validateFields()">
+                <button [disabled]="!forma.valid || correosIgual === 1" id="continuarEdc" name="continuarEdc" class="btn color-botones btn-lg" (click)="validateFields()">
                             Continuar</button>
             </div>
         </div>
@@ -207,7 +207,7 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default color-botones" data-dismiss="modal" onClick="currentPage.loadMenu();">Aceptar</button>
+                <button type="button" id="aceptar" class="btn btn-default color-botones" data-dismiss="modal" onClick="currentPage.loadMenu();">Aceptar</button>
             </div>
         </div>
         <!-- /.modal-content -->
