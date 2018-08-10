@@ -388,8 +388,8 @@ setDatosCuentaSeleccionada(elementHTML) {
     $('#_modal_please_wait').modal('show');
 
      operacionesbxi.getListaDocumentos(this_aux.service.numCuentaTranPropBanorte, tipoCuenta).then(
-     //operacionesbxi.getListaDocumentos("201536140").then(
-    //operacionesbxi.getListaDocumentos("600092267").then(
+     //operacionesbxi.getListaDocumentos("201536140" , tipoCuenta).then(
+    //operacionesbxi.getListaDocumentos("600092267", tipoCuenta).then(
       function(response) {
 
         // console.log(response.responseText);
