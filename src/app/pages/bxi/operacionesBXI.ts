@@ -385,10 +385,11 @@ export class OperacionesBXI {
      return resourceRequest.sendFormParameters(formParameters);
    }
 
-   getListaDocumentos(documeto): any {
+   getListaDocumentos(documeto, tipoCuenta): any {
 
     const formParameters = {
-        documeto: documeto
+        documeto: documeto,
+        tipoCuenta: tipoCuenta
     };
        const resourceRequest = new WLResourceRequest(
            'adapters/AdapterBanorteSucursAppsBEL2/resource/listaDocs',

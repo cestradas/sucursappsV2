@@ -109,6 +109,7 @@ export class SesionBxiService {
     fechaDocumento: string;
     numeroCuentaEDCSel: string;
     aliasCuentaEDCSel: string;
+    tipoCuentaEDCSel: string;
     opcionEDCSel: string;
      // Envio EDC Correo
     fechaCorte: string;

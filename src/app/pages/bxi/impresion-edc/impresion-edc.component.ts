@@ -192,6 +192,7 @@ export class ImpresionEdcComponent implements OnInit {
     this. renderer.listen(a, 'click', (event) => {
       this_aux.service.numeroCuentaEDCSel = cuenta.NoCuenta;
       this_aux.service.aliasCuentaEDCSel = cuenta.Alias;
+      this_aux.service.tipoCuentaEDCSel= cuenta.TipoCuenta;
       this_aux.nombreCuenta = cuenta.Alias;
       if (cuenta.TipoCuenta !== 5) {
         this_aux.service.opcionEDCSel = '1';
@@ -365,7 +366,7 @@ setDatosCuentaSeleccionada(elementHTML) {
           const detalleMant = response.responseJSON;
           console.log(response.responseText);
           if (detalleMant.Id === '1') {
-            this_aux.obtenerListaDocs(opcion, cuenta);
+            this_aux.obtenerListaDocs(opcion, cuenta, this_aux.service.tipoCuentaEDCSel);
           } else {
             setTimeout(function() {
               $("#_modal_please_wait").modal("hide");
@@ -381,12 +382,12 @@ setDatosCuentaSeleccionada(elementHTML) {
   }
 
 
-  obtenerListaDocs(opcion, cuenta) {
+  obtenerListaDocs(opcion, cuenta, tipoCuenta) {
     const this_aux =  this;
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     $('#_modal_please_wait').modal('show');
 
-     operacionesbxi.getListaDocumentos(this_aux.service.numCuentaTranPropBanorte).then(
+     operacionesbxi.getListaDocumentos(this_aux.service.numCuentaTranPropBanorte, tipoCuenta).then(
      //operacionesbxi.getListaDocumentos("201536140").then(
     //operacionesbxi.getListaDocumentos("600092267").then(
       function(response) {
@@ -402,7 +403,7 @@ setDatosCuentaSeleccionada(elementHTML) {
             setTimeout(function() {
 
               console.log(res);
-              
+
               this_aux.obj = JSON.parse(this_aux.fechas);
 
               for (let i = 1 ; i < res.length; i++) {
