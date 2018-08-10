@@ -19,6 +19,7 @@ export class TransferenciasCuentasBanorteComponent implements OnInit {
 
   nombreUsuarioTdd: string;
   saldoClienteTdd: string;
+  tipoCuentaTdd: string;
   cuentaClienteTdd: string;
   myForm: FormGroup;
   forma: FormGroup;
@@ -81,7 +82,7 @@ export class TransferenciasCuentasBanorteComponent implements OnInit {
          this.saldoClienteTdd = mensaje.SaldoDisponible;
          this.cuentaClienteTdd = operaciones.mascaraNumeroCuenta(mensaje.NumeroCuenta);
          this.nombreUsuarioTdd = this._serviceSesion.datosBreadCroms.nombreUsuarioTDD;
- 
+         this.tipoCuentaTdd = mensaje.Producto;
          console.log('Saldos cargados correctamente TDD: ' , mensaje);
          setTimeout( () => $('#_modal_please_wait').modal('hide'), 500 );
        }

@@ -1,3 +1,4 @@
+import { FileChangeEvent } from '@angular/compiler-cli/src/perform_watch';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import $ from 'jquery';
@@ -20,6 +21,7 @@ export class PagoServiciosComponent implements OnInit {
   nombreUsuarioTdd: string;
   saldoClienteTdd: string;
   cuentaClienteTdd: string;
+  tipoCuentaTdd: string;
 
   forma: FormGroup;
   myForm: FormGroup;
@@ -61,7 +63,7 @@ export class PagoServiciosComponent implements OnInit {
         this.saldoClienteTdd = mensaje.SaldoDisponible;
         this.cuentaClienteTdd = operaciones.mascaraNumeroCuenta(mensaje.NumeroCuenta);
         this.nombreUsuarioTdd = this._serviceSesion.datosBreadCroms.nombreUsuarioTDD;
-
+        this.tipoCuentaTdd = mensaje.Producto;
       }
     );
     setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
@@ -245,8 +247,6 @@ getDetalleEmpresa(idFacturador) {
       });
 }
 
-
-
 showErrorSucces(json) {
 
   console.log(json.Id + json.MensajeAUsuario);
@@ -290,5 +290,4 @@ actualizaEmpresasXtipoPago() {
       this_aux.listaEmpresasAux = this_aux.listaEmpresas;
   
   }
-
 }

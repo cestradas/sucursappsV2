@@ -15,7 +15,8 @@ export class ConsultaSaldosTddService {
         SaldoDia: '',
         SaldoDisponible: '',
         SaldoRetenido: '',
-        SaldoMesAnterior: ''
+        SaldoMesAnterior: '',
+        Producto: ''
 
     };
 
@@ -55,6 +56,9 @@ export class ConsultaSaldosTddService {
                 function(response) {
                   
                     let resp = response.responseJSON;
+                    console.log(resp);
+                    let respTipotar = JSON.parse(resp.Producto);                    
+
                     if (resp.Id === '1' ) {
                     THIS.datosSaldosTDD.Id = resp.Id;
                     THIS.datosSaldosTDD.NumeroCuenta = resp.NumeroCuenta;
@@ -63,6 +67,7 @@ export class ConsultaSaldosTddService {
                     THIS.datosSaldosTDD.SaldoDisponible = resp.SaldoDisponible;
                     THIS.datosSaldosTDD.SaldoRetenido = resp.SaldoRetenido;
                     THIS.datosSaldosTDD.SaldoMesAnterior = resp.SaldoMesAnterior;
+                    THIS.datosSaldosTDD.Producto = respTipotar.DescripcionSubprodu;
                     }  else {
                         this_aux.showErrorSucces(resp);
                     }
@@ -84,7 +89,7 @@ export class ConsultaSaldosTddService {
                         if ( this.datosSaldosTDD.Id !== '' && this.datosSaldosTDD.NumeroCuenta !== '' &&
                              this.datosSaldosTDD.ClabeCuenta !== '' && this.datosSaldosTDD.SaldoDia !== '' &&
                              this.datosSaldosTDD.SaldoDisponible !== '' && this.datosSaldosTDD.SaldoRetenido !== '' &&
-                             this.datosSaldosTDD.SaldoMesAnterior !== '') {
+                             this.datosSaldosTDD.SaldoMesAnterior !== '' && this.datosSaldosTDD.Producto !== '') {
 
                             let resp = {
 
@@ -94,8 +99,8 @@ export class ConsultaSaldosTddService {
                                 'SaldoDia': this.datosSaldosTDD.SaldoDia,
                                 'SaldoDisponible': this.datosSaldosTDD.SaldoDisponible,
                                 'SaldoRetenido': this.datosSaldosTDD.SaldoRetenido,
-                                'SaldoMesAnterior': this.datosSaldosTDD.SaldoMesAnterior
-
+                                'SaldoMesAnterior': this.datosSaldosTDD.SaldoMesAnterior,
+                                'Producto' : this.datosSaldosTDD.Producto
                             };
                 
                             resolve(resp);
@@ -167,5 +172,6 @@ interface DatosSaldosTDD {
     SaldoDisponible: string;
     SaldoRetenido: string;
     SaldoMesAnterior: string;
+    Producto: string;
 
 }
