@@ -78,6 +78,11 @@ export class PagoDeServicioDetallesComponent implements OnInit {
 
   ngOnInit() {
 
+    $('#txtFechaVencimiento').datetimepicker({
+      format: 'YYYY-MM-DD',
+      locale: 'es',
+    });
+
     // ESTILOS Preferente
     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
     let btnContinuar = document.getElementById("continuar");
@@ -413,6 +418,7 @@ validaIntentos(value) {
 
  calendario() {
    const this_aux = this;
+   $('#txtFechaVencimiento').data("datetimepicker").destroy();
   $('#txtFechaVencimiento').datetimepicker({
       format: 'YYYY-MM-DD',
       locale: 'es',
@@ -423,6 +429,7 @@ validarFecha() {
     // $('#txtFechaVencimiento').click();
     const this_aux = this;
     let fecha = $("#txtFechaVencimiento").val();
+    fecha = fecha.substring(0, 10);
     console.log(document.getElementById('txtFechaVencimiento').innerHTML = fecha);
     const controlFecha: FormControl = new FormControl(fecha, [Validators.required,  Validators.pattern(/^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]);
     this_aux.myForm.setControl('fcFechaVencimiento', controlFecha );
