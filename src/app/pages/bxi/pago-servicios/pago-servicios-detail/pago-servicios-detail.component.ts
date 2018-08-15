@@ -100,8 +100,14 @@ export class PagoServiciosDetailComponent implements OnInit {
                //   $(this).find('input:first').focus();
                });
               } else {
-                this_aux.setReglaReferencia(detalleRegla);
-                // this_aux.myForm.removeControl('fcFechaVencimiento');
+
+                if (detalleRegla.Id === '1') {
+                  this_aux.setReglaReferencia(detalleRegla);
+                } else {
+                  // tslint:disable-next-line:max-line-length
+                  const controlReferencia: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([a0-zA9-Z]{1,60})$/)]);
+                  this_aux.myForm.setControl('fcReferencia', controlReferencia );
+                }
                 // tslint:disable-next-line:max-line-length
                 const controlFecha: FormControl = new FormControl('', [ Validators.pattern(/(^\s*$)|^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]);
                 this_aux.myForm.setControl('fcFechaVencimiento', controlFecha );
