@@ -548,7 +548,7 @@ setReglaReferencia(detalleRegla) {
   const this_aux = this;
   const tamRef = parseInt(detalleRegla.numCaracteres, 10);
   let re;
-  if ( detalleRegla.tipoCadena === 'AS') {
+  if ( detalleRegla.tipoCadena === 'AN') {
      // alfa numerico 
     // tslint:disable-next-line:max-line-length 
       re = new RegExp("^([a0-zA9-Z]{" + tamRef + "})$"); 
