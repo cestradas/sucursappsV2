@@ -49,7 +49,7 @@ export class PagoServiciosDetailComponent implements OnInit {
    }
 
   ngOnInit() {
-    $('#txtFechaVencimiento').datetimepicker({
+   $('#txtFechaVencimiento').datetimepicker({
       format: 'YYYY-MM-DD',
       locale: 'es',
     });
@@ -77,15 +77,19 @@ export class PagoServiciosDetailComponent implements OnInit {
          } }, 1000);
       
     });
-        const detalleEmpresa = JSON.parse(this_aux.service.detalleEmpresa_PS);
+         const detalleEmpresa = JSON.parse(this_aux.service.detalleEmpresa_PS);
           this_aux.nombreServicio =  detalleEmpresa.empresa;
           this_aux.service.nombreServicio = this_aux.nombreServicio;
+          // consulta las reglas del facturador
+          const reglaFacturador =  detalleEmpresa.regla;
+          const detalleRegla = JSON.parse(reglaFacturador); 
+
           this_aux.cuentaCargo = operacionesbxi.mascaraNumeroCuenta(this_aux.service.numCuentaSeleccionado);
 
           if (this_aux.service.idFacturador === '1310') {
             $('#ModalLectordeRecibo').modal('show');
             $('#ModalLectordeRecibo').on('shown.bs.modal', function() {
-              $(this).find('input:first').focus();
+            //  $(this).find('input:first').focus();
             });
               this_aux.myForm.removeControl('fcReferencia');
           } else {
@@ -93,8 +97,14 @@ export class PagoServiciosDetailComponent implements OnInit {
               if (this_aux.service.idFacturador === '88924') {
                 $('#ModalLectordeRecibo').modal('show');
                 $('#ModalLectordeRecibo').on('shown.bs.modal', function() {
-                  $(this).find('input:first').focus();
-                });
+               //   $(this).find('input:first').focus();
+               });
+              } else {
+                this_aux.setReglaReferencia(detalleRegla);
+                // this_aux.myForm.removeControl('fcFechaVencimiento');
+                // tslint:disable-next-line:max-line-length
+                const controlFecha: FormControl = new FormControl('', [ Validators.pattern(/(^\s*$)|^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]);
+                this_aux.myForm.setControl('fcFechaVencimiento', controlFecha );
               }
               this_aux.myForm.removeControl('fcTelefono');
               this_aux.myForm.removeControl('fcDigitoVerificador');
@@ -113,10 +123,6 @@ export class PagoServiciosDetailComponent implements OnInit {
       btnContinuar.classList.remove("color-botones");
       btnContinuar.classList.add("color-botones_Preferente");
     }
-
-
-    
-
   }
 
   validarSaldo(myForm) {
@@ -168,7 +174,7 @@ export class PagoServiciosDetailComponent implements OnInit {
         this_aux.referenciaPago = myForm.fcReferencia.toString();
         if (this_aux.service.idFacturador === '88924') {
           this_aux.referenciaPago = "0000000000" + myForm.fcReferencia.toString();
-          console.log("Referencia CFE " +  this_aux.referenciaPago)
+          console.log("Referencia CFE " +  this_aux.referenciaPago);
         }
       }
        this_aux.setTipoAutenticacionOnModal();
@@ -518,9 +524,31 @@ validarFecha() {
    let fecha = $("#txtFechaVencimiento").val();
    fecha = fecha.substring(0, 10);
    console.log(document.getElementById('txtFechaVencimiento').innerHTML = fecha);
+   // tslint:disable-next-line:max-line-length
    const controlFecha: FormControl = new FormControl(fecha, [Validators.required,  Validators.pattern(/^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]);
    this_aux.myForm.setControl('fcFechaVencimiento', controlFecha );
    
+}
+
+setReglaReferencia(detalleRegla) {
+  const this_aux = this;
+  const tamRef = parseInt(detalleRegla.numCaracteres, 10);
+  let re;
+  if ( detalleRegla.tipoCadena === 'AS') {
+     // alfa numerico 
+    // tslint:disable-next-line:max-line-length 
+      re = new RegExp("^([a0-zA9-Z]{1," + tamRef + "})$"); 
+      // const controlReferencia: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([a0-zA9-Z]{1,tamRef})$/)]);
+      const controlReferencia: FormControl = new FormControl('', [Validators.required, Validators.pattern(re)]);
+      this_aux.myForm.setControl('fcReferencia', controlReferencia );
+
+  } else if (detalleRegla.tipoCadena === 'NS') {
+     // numerico
+     // const controlReferencia: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([0-9]{1,40})$/)]);
+     re =   new RegExp("^([0-9]{1," + tamRef + "})$"); 
+     const controlReferencia: FormControl = new FormControl('', [Validators.required, Validators.pattern(re)]);
+     this_aux.myForm.setControl('fcReferencia', controlReferencia );
+  }
 }
 
 }
