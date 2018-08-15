@@ -530,9 +530,17 @@ validarFecha() {
    let fecha = $("#txtFechaVencimiento").val();
    fecha = fecha.substring(0, 10);
    console.log(document.getElementById('txtFechaVencimiento').innerHTML = fecha);
-   // tslint:disable-next-line:max-line-length
-   const controlFecha: FormControl = new FormControl(fecha, [Validators.required,  Validators.pattern(/^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]);
-   this_aux.myForm.setControl('fcFechaVencimiento', controlFecha );
+   
+   if (this_aux.service.idFacturador === '1310' || this_aux.service.idFacturador === '88924') {
+     // tslint:disable-next-line:max-line-length
+    const controlFecha: FormControl = new FormControl(fecha, [Validators.required,  Validators.pattern(/^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]);
+    this_aux.myForm.setControl('fcFechaVencimiento', controlFecha );
+   } else {
+      // tslint:disable-next-line:max-line-length
+      const controlFecha: FormControl = new FormControl(fecha, [ Validators.pattern(/(^\s*$)|^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]);
+      this_aux.myForm.setControl('fcFechaVencimiento', controlFecha );
+   }
+
    
 }
 
