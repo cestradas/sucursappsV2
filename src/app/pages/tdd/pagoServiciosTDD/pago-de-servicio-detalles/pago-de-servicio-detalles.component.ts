@@ -122,6 +122,9 @@ export class PagoDeServicioDetallesComponent implements OnInit {
     });
 
     const detalleEmpresa = JSON.parse(this_aux.service.detalleEmpresa_PS);
+// consulta las reglas del facturador
+    const reglaFacturador =  detalleEmpresa.regla;
+    const detalleRegla = JSON.parse(reglaFacturador); 
 
     this_aux.nombreServicio =  detalleEmpresa.empresa;
     this_aux.service.nombreServicio = this_aux.nombreServicio;
@@ -139,7 +142,20 @@ export class PagoDeServicioDetallesComponent implements OnInit {
           $('#ModalLectordeRecibo').on('shown.bs.modal', function() {
             $(this).find('input:first').focus();
           });
+        } else {
+
+          if (detalleRegla.Id === '1') {
+            this_aux.setReglaReferencia(detalleRegla);
+          } else {
+            // tslint:disable-next-line:max-line-length
+            const controlReferencia: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([a0-zA9-Z]{1,60})$/)]);
+            this_aux.myForm.setControl('fcReferencia', controlReferencia );
+          }
+          // tslint:disable-next-line:max-line-length
+          const controlFecha: FormControl = new FormControl('', [ Validators.pattern(/(^\s*$)|^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]);
+          this_aux.myForm.setControl('fcFechaVencimiento', controlFecha );
         }
+
         this_aux.myForm.removeControl('fcTelefono');
         this_aux.myForm.removeControl('fcDigitoVerificador');
     }
@@ -431,8 +447,35 @@ validarFecha() {
     let fecha = $("#txtFechaVencimiento").val();
     fecha = fecha.substring(0, 10);
     console.log(document.getElementById('txtFechaVencimiento').innerHTML = fecha);
-    const controlFecha: FormControl = new FormControl(fecha, [Validators.required,  Validators.pattern(/^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]);
-    this_aux.myForm.setControl('fcFechaVencimiento', controlFecha );
+    if (this_aux.service.idFacturador === '1310' || this_aux.service.idFacturador === '88924') {
+      // tslint:disable-next-line:max-line-length
+     const controlFecha: FormControl = new FormControl(fecha, [Validators.required,  Validators.pattern(/^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]);
+     this_aux.myForm.setControl('fcFechaVencimiento', controlFecha );
+    } else {
+       // tslint:disable-next-line:max-line-length
+       const controlFecha: FormControl = new FormControl(fecha, [ Validators.pattern(/(^\s*$)|^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]);
+       this_aux.myForm.setControl('fcFechaVencimiento', controlFecha );
+    }
+     }
+
+     setReglaReferencia(detalleRegla) {
+      const this_aux = this;
+      const tamRef = parseInt(detalleRegla.numCaracteres, 10);
+      let re;
+      if ( detalleRegla.tipoCadena === 'AS') {
+         // alfa numerico 
+        // tslint:disable-next-line:max-line-length 
+          re = new RegExp("^([a0-zA9-Z]{1," + tamRef + "})$"); 
+          // const controlReferencia: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([a0-zA9-Z]{1,tamRef})$/)]);
+          const controlReferencia: FormControl = new FormControl('', [Validators.required, Validators.pattern(re)]);
+          this_aux.myForm.setControl('fcReferencia', controlReferencia );
     
-}
+      } else if (detalleRegla.tipoCadena === 'NS') {
+         // numerico
+         // const controlReferencia: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([0-9]{1,40})$/)]);
+         re =   new RegExp("^([0-9]{1," + tamRef + "})$"); 
+         const controlReferencia: FormControl = new FormControl('', [Validators.required, Validators.pattern(re)]);
+         this_aux.myForm.setControl('fcReferencia', controlReferencia );
+      }
+    }
 }

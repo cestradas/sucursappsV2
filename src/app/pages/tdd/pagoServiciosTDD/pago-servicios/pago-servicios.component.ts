@@ -178,6 +178,8 @@ getDetalleEmpresa(idFacturador) {
        function(response) {
          console.log(response.responseText);
          const detalleEmpresa = response.responseJSON;
+         const reglas = JSON.parse(detalleEmpresa.regla);
+         console.log(reglas);
          const body = $('body');
          if (detalleEmpresa.Id === '1') {
            this_aux.service.detalleEmpresa_PS = response.responseText;
