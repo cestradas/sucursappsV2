@@ -88,15 +88,14 @@ export class ImpresionEdcTdcFinalComponent implements OnInit {
 
     // ESTILOS Preferente
     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
-
-    let btnContinuarEdc = document.getElementById("continuarEdc");
-
-
+    let btnContinuarCancelacion = document.getElementById("continuarEdc");
+    let btnCerrar = document.getElementById("cerrar");
+     
     if (storageTipoClienteTar === "true") {
-
-      btnContinuarEdc.classList.remove("color-botones");
-      btnContinuarEdc.classList.add("color-botones_Preferente");
-
+      btnContinuarCancelacion.classList.remove("color-botones");
+      btnContinuarCancelacion.classList.add("color-botones_Preferente");
+      btnCerrar.classList.remove("color-botones");
+      btnCerrar.classList.add("color-botones_Preferente");
 
     }
   }
@@ -165,7 +164,7 @@ resourceRequest.sendFormParameters(formParameters).then(
     console.log(json.Id + json.MensajeAUsuario);
     document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tus datos.";
     $('#_modal_please_wait').modal('hide');
-    $('#ModalErrorTransaccion').modal('show');
+    $('#errorModal').modal('show');
   }
 
   showErrorSucces(json) {

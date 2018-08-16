@@ -53,7 +53,7 @@ export class CancelarEnvioEdcTddComponent implements OnInit {
         if (jsonRespuesta.Id === '1') {
           if (jsonRespuesta.Email === '') {
             $('#registraCorreo').modal('show');
-            btnContinuar.style.display = 'none';
+            this_aux.botonAceptar = 0;
           } else {
             this_aux.serviceTdd.email = jsonRespuesta.Email;
           }
@@ -62,13 +62,13 @@ export class CancelarEnvioEdcTddComponent implements OnInit {
             $('#_modal_please_wait').modal('hide');
             this_aux.showErrorSucces(jsonRespuesta);
           }, 500);
-          btnContinuar.style.display = 'none';
+          this_aux.botonAceptar = 0;
          }
 
         setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
       }, function(error) { 
         this_aux.showErrorPromise(error);
-        btnContinuar.style.display = 'none';
+        this_aux.botonAceptar = 0;
         $('#_modal_please_wait').modal('hide');
       });
   }

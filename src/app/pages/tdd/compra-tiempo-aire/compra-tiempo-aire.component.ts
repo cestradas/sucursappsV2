@@ -25,6 +25,7 @@ export class CompraTiempoAireComponent implements OnInit {
   nombreUsuarioTdd: string;
   saldoClienteTdd: string;
   cuentaClienteTdd: string;
+  tipoCuentaTdd: string;
   cveTelefonicaF = "";
   forma: FormGroup;
   mostrarCuentaMascara: string;
@@ -61,6 +62,7 @@ export class CompraTiempoAireComponent implements OnInit {
       this.mostrarCuentaMascara = operaciones.mascaraNumeroCuenta(
         mensaje.NumeroCuenta
       );
+      this.tipoCuentaTdd = mensaje.Producto;
       this.consultarEmpresasTelefonos();
     });
 
@@ -277,8 +279,7 @@ export class CompraTiempoAireComponent implements OnInit {
           this_aux.router.navigate(["/compraTiempoAireFinal"]);
         } else {
           this_aux.showErrorSucces(compraTAResp);
-        }
-        $("#_modal_please_wait").modal("show");
+        }        
       },
       function(error) {
         console.error("El WS respondio incorrectamente");
@@ -287,8 +288,7 @@ export class CompraTiempoAireComponent implements OnInit {
     );
   }
 
-  trnasrecargaTA() {
-    $("#ModalTDDLogin").modal("show");
+  trnasrecargaTA() {    
     document.getElementById("capturaInicio").style.display = "none";
     document.getElementById("caputuraSesion").style.display = "block";
     $("#_modal_please_wait").modal("show");
@@ -302,8 +302,9 @@ export class CompraTiempoAireComponent implements OnInit {
 
       if (res === true) {
         $("#ModalTDDLogin").modal("hide");
-        this.recargaTiempoAire();
+        $("#_modal_please_wait").modal("show");
         this._validaNipService.respuestaNip.res = "";
+        this.recargaTiempoAire();        
       } else {
         console.error("Mostrar modal el nip no es igual");
         document.getElementById("mnsError").innerHTML =

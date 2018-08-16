@@ -24,6 +24,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
   nombreUsuarioTdd: string;
   saldoClienteTdd: string;
+  tipoCuentaTdd: string;
   cuentaClienteTdd: string;
   mostrarCuentaMascara: string;
   opcionSeleccionado = '0';
@@ -69,6 +70,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
         this.saldoClienteTdd = mensaje.SaldoDisponible;
         this.cuentaClienteTdd = mensaje.NumeroCuenta;
         this.mostrarCuentaMascara = operaciones.mascaraNumeroCuenta(this.cuentaClienteTdd);
+        this.tipoCuentaTdd = mensaje.Producto;
         this.consultaBancos();
       }
     ); 
@@ -209,6 +211,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       }
       
        });
+       $("#tipoBanco").val("0");       
   }
 
   selectBanco(bancoSeleccionado) {

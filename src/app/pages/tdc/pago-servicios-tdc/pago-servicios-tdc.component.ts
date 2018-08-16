@@ -289,9 +289,14 @@ actualizaEmpresasXtipoPago() {
 
       this_aux.arrayEmpresas.forEach(empresa => {
        const tipoPago = empresa.TipoPago; 
-        if ( tipoPago.includes("06")) {
+       if(empresa.IdFacturador ==='88924' || empresa.IdFacturador ==='1310'){
+          console.log("Facturador no permitido" + empresa.IdFacturador);
+      }else {
+        if( tipoPago.includes("06")) {
           this_aux.listaEmpresas.push(empresa.Descripcion);
-        }
+          console.log("Facturadores permitidos" + empresa.IdFacturador +" "+empresa.Descripcion);
+       }
+      } 
       });
       console.log(this_aux.listaEmpresas);
       this_aux.listaEmpresasAux = this_aux.listaEmpresas;

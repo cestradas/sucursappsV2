@@ -28,7 +28,8 @@ export class MenutddComponent implements OnInit {
   idSucursal: string;
   numeroCuentaTitular: string;
   contenido: any;
-  urlProperty: any;
+  urlPropertyJson: any;
+  urlPropertyHtm: any;
   sesionBrowser: any;
   AlertasActivas = false;
   ArrayAlertasCliente: Array<any> = [];
@@ -284,12 +285,11 @@ export class MenutddComponent implements OnInit {
     params.set("param3", this_aux.idSucursal);
   
     // Http request-
-    // this_aux.stringUrl = this_aux.urlProperty + "/ade-front/existeEvento.json?param1=cGP7ZYTkSjuaCtabUn%2BA2Q%3D%3D";
-     this_aux.stringUrl = this_aux.urlProperty + "/ade-front/existeEvento.json";
-    // this_aux.urlProperty + "/ade-front/existeEvento.json";
+    // this_aux.stringUrl = this_aux.urlPropertyJson + "/ade-front/existeEvento.json";
+    // this_aux.stringUrl = this_aux.urlProperty + "/ExisteEvento";
        
     this.http
-      .get(this_aux.stringUrl, {
+      .get(this_aux.urlPropertyJson, {
         search: params
       })
       .subscribe(response => (this_aux.responseCampania = response));
@@ -301,7 +301,7 @@ export class MenutddComponent implements OnInit {
         let alto = cadena.substring(val2 + 1);
   
        document.getElementById("frameCampania").setAttribute("src", 
-       this_aux.urlProperty + "/ade-front/ade.htm?param1=" + this_aux.sicCifrado + 
+       this_aux.urlPropertyHtm + "?param1=" + this_aux.sicCifrado + 
       "&param2=SUCA&sesion=" + sessionStorage.getItem("idSesion") + "&param3=" + this_aux.idSucursal);
        document.getElementById("frameCampania").style.height = "100%";
        document.getElementById("divLargo").style.maxWidth = ancho.toString() + "px";
@@ -334,8 +334,8 @@ export class MenutddComponent implements OnInit {
         if (DatosJSON.Id === "1") {
             this_aux.sicCifrado = DatosJSON.SicEncriptado;
             this_aux.idSucursal = DatosJSON.idSucursal;
-            this_aux.urlProperty = DatosJSON.urlCampania;
-            sessionStorage.setItem("urlCampania", this_aux.urlProperty);
+            this_aux.urlPropertyJson = DatosJSON.urlCampania;
+            this_aux.urlPropertyHtm = DatosJSON.urlCampaniaHtm;
             this_aux.cargarcampanias();
         } else {
             console.log("Ocurrio un error al encriptar sic");
@@ -361,9 +361,12 @@ export class MenutddComponent implements OnInit {
  send(msg) {
     const this_aux = this;
     let popupIframe = this_aux.riframe.nativeElement;
+    let newUrl  = "";
+    let tamUrl = this_aux.urlPropertyHtm.length;
+    newUrl = this_aux.urlPropertyHtm.substring( 0, tamUrl - 7 );
     let contenido = (popupIframe.contentWindow ? popupIframe.contentWindow :
     popupIframe.contentDocument);
-    contenido.postMessage(msg,  this_aux.urlProperty + '/ade-front/'); 
+    contenido.postMessage(msg,  newUrl); 
     sessionStorage.setItem("campania", "inactivo");
     $('#campaniaModal').modal('toggle');
     return false;
@@ -372,9 +375,12 @@ export class MenutddComponent implements OnInit {
     clickCamp () {
       const this_aux = this;    
       let iframe = this_aux.riframe.nativeElement;
+      let newUrl  = "";
+      let tamUrl = this_aux.urlPropertyHtm.length;
+      newUrl = this_aux.urlPropertyHtm.substring( 0, tamUrl - 7 );
     window.parent.addEventListener('message', function(e) {
         let origin = e.origin;
-        if (origin !== sessionStorage.getItem("urlCampania")) {
+        if (origin !== newUrl) {
           return;
         } else {
           console.log("Respondio Correctamente");

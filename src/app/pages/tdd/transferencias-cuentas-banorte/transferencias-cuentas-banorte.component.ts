@@ -63,12 +63,14 @@ export class TransferenciasCuentasBanorteComponent implements OnInit {
         btnContinuar.classList.add("color-botones_Preferente");
         btnConfirmar.classList.remove("color-botones");
         btnConfirmar.classList.add("color-botones_Preferente");
-
-
-      
-       
-       
       }
+      localStorage.removeItem("des");
+      localStorage.removeItem("np");
+      localStorage.removeItem("res");
+      localStorage.removeItem("tr2");
+      localStorage.removeItem("tr2_serv");
+      localStorage.removeItem("np_serv");
+      localStorage.removeItem("res_serv");
  
      const operaciones: consultaCatalogos = new consultaCatalogos();
  

@@ -25,7 +25,7 @@ export class MantenimientoBenefComponent implements OnInit {
   BEN: any;
   DatosJSONCP: any;
   CP: any;
-
+  tipoCuentaTdd: string;
   @ViewChild("rColonias", { read: ElementRef })
   rColonias: ElementRef;
   @ViewChild("RApellidoPatAlta", { read: ElementRef })
@@ -106,7 +106,7 @@ export class MantenimientoBenefComponent implements OnInit {
   nombreCalle: any = "";
   numeroCalle: any = "";
   numeroEntrada: any = "";
-  numeroPiso: any = "0";
+  numeroPiso: any = "";
   tipoVivienda: any = "0";
   numeroDepartamento: any = "";
   descripcionColonia: any = "";
@@ -169,6 +169,7 @@ export class MantenimientoBenefComponent implements OnInit {
       this.mostrarCuentaMascara = operaciones.mascaraNumeroCuenta(
         this.numeroCuentaTitular
       );
+      this.tipoCuentaTdd = mensaje.Producto;
       this.consultaBeneficiarios();
     });
 
@@ -188,7 +189,17 @@ export class MantenimientoBenefComponent implements OnInit {
     localStorage.removeItem("np_serv");
     localStorage.removeItem("res_serv");
 
-    //ESTILOS Preferente
+    $('#txtFechaVencimiento').datetimepicker({
+      format: 'YYYY-MM-DD',
+      locale: 'es',
+    });
+
+    $('#txtFechaVencimientoMod').datetimepicker({
+      format: 'YYYY-MM-DD',
+      locale: 'es',
+    });
+
+    // ESTILOS Preferente
     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
     let btnAlta = document.getElementById("alta");
     let btnGuardar = document.getElementById("gardar");
@@ -925,7 +936,7 @@ export class MantenimientoBenefComponent implements OnInit {
   tipoVivSelect(tipoVivienda) {
     const this_aux = this;
     this_aux.tipoVivienda = tipoVivienda;
-    if (this_aux.tipoVivienda === "2" || this_aux.tipoVivienda === "3") {
+    if (this_aux.tipoVivienda === "2" || this_aux.tipoVivienda === "3" || this_aux.tipoVivienda === "4") {
       document.getElementById("infoDepartamento").style.display = "flex";
       document.getElementById("infoDepartamento1").style.display = "flex";
       document.getElementById("infoDepartamento2").style.display = "flex";
@@ -935,9 +946,13 @@ export class MantenimientoBenefComponent implements OnInit {
       document.getElementById("infoPiso2").style.display = "flex";
       document.getElementById("infoPiso3").style.display = "flex";
 
-      const controlnumPiso: FormControl = new FormControl("", [Validators.required, Validators.maxLength(2)]);
-      this_aux.myform.setControl("numPiso", controlnumPiso);
-
+      if (this_aux.tipoVivienda === "4") {
+        const controlnumPiso: FormControl = new FormControl(this_aux.numeroPiso, [Validators.maxLength(2)]);
+        this_aux.myform.setControl("numPiso", controlnumPiso);
+      } else {
+        const controlnumPiso: FormControl = new FormControl(this_aux.numeroPiso, [Validators.required, Validators.maxLength(2)]);
+        this_aux.myform.setControl("numPiso", controlnumPiso);
+      }
       const controlnumInt: FormControl = new FormControl("", [Validators.required, Validators.maxLength(4)]);
       this_aux.myform.setControl("numInterior", controlnumInt);
     } else {
@@ -957,7 +972,7 @@ export class MantenimientoBenefComponent implements OnInit {
       this_aux.myform.setControl("numInterior", controlnumInt);
 
       this_aux.numeroPiso = "";
-      this_aux.numeroDepartamento ="";
+      this_aux.numeroDepartamento = "";
     }
   }
 
@@ -1070,7 +1085,7 @@ export class MantenimientoBenefComponent implements OnInit {
     } else {
       this_aux.RNumeroPiso.nativeElement.value = "";
     }
-    if (this_aux.tipoVivienda === "2" || this_aux.tipoVivienda === "3") {
+    if (this_aux.tipoVivienda === "2" || this_aux.tipoVivienda === "3" || this_aux.tipoVivienda === "4") {
       document.getElementById("infoDepartamento").style.display = "flex";
       document.getElementById("infoDepartamento1").style.display = "flex";
       document.getElementById("infoDepartamento2").style.display = "flex";
@@ -1080,9 +1095,13 @@ export class MantenimientoBenefComponent implements OnInit {
       document.getElementById("infoPiso2").style.display = "flex";
       document.getElementById("infoPiso3").style.display = "flex";
 
-      const controlnumPiso: FormControl = new FormControl(this_aux.numeroPiso, [Validators.required, Validators.maxLength(2)]);
-      this_aux.myform.setControl("numPiso", controlnumPiso);
-
+      if (this_aux.tipoVivienda === "4") {
+        const controlnumPiso: FormControl = new FormControl(this_aux.numeroPiso, [Validators.maxLength(2)]);
+        this_aux.myform.setControl("numPiso", controlnumPiso);
+      } else {
+        const controlnumPiso: FormControl = new FormControl(this_aux.numeroPiso, [Validators.required, Validators.maxLength(2)]);
+        this_aux.myform.setControl("numPiso", controlnumPiso);
+      }
       const controlnumInt: FormControl = new FormControl(this_aux.numeroDepartamento, [Validators.required, Validators.maxLength(4)]);
       this_aux.myform.setControl("numInterior", controlnumInt);
     } else {
@@ -1382,6 +1401,10 @@ export class MantenimientoBenefComponent implements OnInit {
       numEntradaModifi = "0";
     }
 
+    if (numPisoModifi === "") {
+      numPisoModifi = "0";
+    }
+
     const formParameters = {
       numeroCuenta: this_aux.numeroCuentaTitular,
       numeroConsecutivoM: consecutvoModif,
@@ -1437,7 +1460,7 @@ export class MantenimientoBenefComponent implements OnInit {
       function(error) {
         THIS.loading = false;
         setTimeout(function() {
-          this_aux.showErrorPromise(error);
+          this_aux.showErrorPromiseMoney(error);
         }, 500);
         console.log("Error al modificar beneficiarios");
       }
@@ -1491,32 +1514,6 @@ export class MantenimientoBenefComponent implements OnInit {
     }
 
     this_aux.realizaAccion1();
-  }
-
-  realizaAccion() {
-    const this_aux = this;
-    if (this_aux.B) {
-      // this_aux.numeroBajas--;
-      this_aux.bajaBeneficiarios();
-    } else {
-      if (this_aux.C) {
-        this_aux.numeroModificaciones--;
-        this_aux.guardarCambios();
-      } else {
-        if (this_aux.A) {
-          this_aux.contadorAltas--;
-          this_aux.contadorSoapAltas = 0;
-          this_aux.altaBeneficiariosSoap();
-          /*  if (this_aux.personasFisica !== 0) {
-              this_aux.personasFisica--;
-                this_aux.altaBeneficiariosSoap();
-            } else if (this_aux.personasMoral !== 0) {
-              this_aux.personasMoral--;
-                this_aux.altaBeneficiariosSoap();
-            } */
-        }
-      }
-    }
   }
 
   realizaAccion1() {
@@ -1616,6 +1613,7 @@ export class MantenimientoBenefComponent implements OnInit {
 
   calendario() {
     const this_aux = this;
+    $('#txtFechaVencimiento').data("datetimepicker").destroy();
     $("#txtFechaVencimiento").datetimepicker({
       format: "YYYY-MM-DD",
       locale: "es"
@@ -1626,6 +1624,7 @@ export class MantenimientoBenefComponent implements OnInit {
     // $('#txtFechaVencimiento').click();
     const this_aux = this;
     let fecha = $("#txtFechaVencimiento").val();
+    fecha = fecha.substring(0, 10);
     console.log(
       (document.getElementById("txtFechaVencimiento").innerHTML = fecha)
     );
@@ -1641,6 +1640,7 @@ export class MantenimientoBenefComponent implements OnInit {
 
   calendarioModif() {
     const this_aux = this;
+    $('#txtFechaVencimientoMod').data("datetimepicker").destroy();
     $("#txtFechaVencimientoMod").datetimepicker({
       format: "YYYY-MM-DD",
       locale: "es"
@@ -1651,6 +1651,7 @@ export class MantenimientoBenefComponent implements OnInit {
     // $('#txtFechaVencimiento').click();
     const this_aux = this;
     let fecha = $("#txtFechaVencimientoMod").val();
+    fecha = fecha.substring(0, 10);
     console.log(
       (document.getElementById("txtFechaVencimientoMod").innerHTML = fecha)
     );

@@ -70,6 +70,8 @@ function callPinPad() {
         } else {
             localStorage.setItem("res", respuesta.res);
             localStorage.setItem("des", respuesta.des);
+            localStorage.setItem("tr2", "");
+            localStorage.setItem("tr2_serv", "");
         }
 
 

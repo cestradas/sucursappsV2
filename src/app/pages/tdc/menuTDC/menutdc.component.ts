@@ -29,7 +29,8 @@ AlertasActivas = false;
 sesionBrowser: any;
 sicCifrado: string;
 idSucursal: string;
-urlProperty: any;
+urlPropertyJson: any;
+urlPropertyHtm: any;
 stringUrl: string;
 responseCampania: any;
 contenido: any;
@@ -116,29 +117,29 @@ contenido: any;
 
   consultaAlertas() {
 
-  const this_aux = this;
-  const operaciones: ConsultaCatalogosTdcService = new ConsultaCatalogosTdcService();
-    operaciones.mantieneAlertas().then(
-      function(detalleAlertas) {
-            const detalle = detalleAlertas.responseJSON;
-            let AlertasActivas_true = false;
-            console.log(detalle);
-            if (detalle .Id === '1') {
+    const this_aux = this;
+    const operaciones: ConsultaCatalogosTdcService = new ConsultaCatalogosTdcService();
+      operaciones.mantieneAlertas().then(
+        function(detalleAlertas) {
+              const detalle = detalleAlertas.responseJSON;
+              let AlertasActivas_true = false;
+              console.log(detalle);
+              if (detalle .Id === '1') {
 
-              const alertas = detalle.AlertasXCliente;
-              this_aux.ArrayAlertasCliente = alertas;
-              alertas.forEach(alerta => {
-                  if (alerta.IndicadorServicio === 'S' ) {   AlertasActivas_true = true;
-                  }
-              });
-              this_aux.AlertasActivas = AlertasActivas_true;
-              console.log('this_aux.AlertasActivas' + this_aux.AlertasActivas);
-              if (this_aux.AlertasActivas) {
-                
-                this_aux.conAlertas();
-              } else {
-                this_aux.sinAlertas();
-              }
+                const alertas = detalle.AlertasXCliente;
+                this_aux.ArrayAlertasCliente = alertas;
+                alertas.forEach(alerta => {
+                    if (alerta.IndicadorServicio === 'S' ) {   AlertasActivas_true = true;
+                    }
+                });
+                this_aux.AlertasActivas = AlertasActivas_true;
+                console.log('this_aux.AlertasActivas' + this_aux.AlertasActivas);
+                if (this_aux.AlertasActivas) {
+                  
+                  this_aux.conAlertas();
+                } else {
+                  this_aux.sinAlertas();
+                }
 
 
                 
@@ -271,8 +272,8 @@ encriptarSic() {
       if (DatosJSON.Id === "1") {
           this_aux.sicCifrado = DatosJSON.SicEncriptado;
           this_aux.idSucursal = DatosJSON.idSucursal;
-          this_aux.urlProperty = DatosJSON.urlCampania;
-          sessionStorage.setItem("urlCampania", this_aux.urlProperty);
+          this_aux.urlPropertyJson = DatosJSON.urlCampania;
+            this_aux.urlPropertyHtm = DatosJSON.urlCampaniaHtm;
           this_aux.cargarcampanias();
       } else {
           console.log("Ocurrio un error al encriptar sic");
@@ -295,11 +296,11 @@ cargarcampanias() {
 
   // Http request-
   // this_aux.stringUrl = this_aux.urlProperty + "/ade-front/existeEvento.json?param1=cGP7ZYTkSjuaCtabUn%2BA2Q%3D%3D";
-   this_aux.stringUrl = this_aux.urlProperty + "/ade-front/existeEvento.json";
+  // this_aux.stringUrl = this_aux.urlProperty + "/ade-front/existeEvento.json";
   // this_aux.urlProperty + "/ade-front/existeEvento.json";
      
   this.http
-    .get(this_aux.stringUrl, {
+    .get(this_aux.urlPropertyJson, {
       search: params
     })
     .subscribe(response => (this_aux.responseCampania = response));
@@ -311,7 +312,8 @@ cargarcampanias() {
       let alto = cadena.substring(val2 + 1);
 
      document.getElementById("frameCampania").setAttribute("src", 
-     this_aux.urlProperty + "/ade-front/ade.htm?param1=" + this_aux.sicCifrado + 
+     this_aux.urlPropertyHtm + "?param1=" + this_aux.sicCifrado + 
+    // this_aux.urlProperty + "/ade-front/ade.htm?param1=" + this_aux.sicCifrado + 
     "&param2=SUCA&sesion=" + sessionStorage.getItem("idSesion") + "&param3=" + this_aux.idSucursal);
      document.getElementById("frameCampania").style.height = "100%";
      document.getElementById("divLargo").style.maxWidth = ancho.toString() + "px";
@@ -325,9 +327,12 @@ cargarcampanias() {
 send(msg) {
   const this_aux = this;
   let popupIframe = this_aux.riframe.nativeElement;
+  let newUrl  = "";
+  let tamUrl = this_aux.urlPropertyHtm.length;
+  newUrl = this_aux.urlPropertyHtm.substring( 0, tamUrl - 7 );
   let contenido = (popupIframe.contentWindow ? popupIframe.contentWindow :
   popupIframe.contentDocument);
-  contenido.postMessage(msg,  this_aux.urlProperty + '/ade-front/'); 
+  contenido.postMessage(msg,  newUrl); 
   sessionStorage.setItem("campania", "inactivo");
   $('#campaniaModal').modal('toggle');
   return false;
@@ -336,9 +341,12 @@ send(msg) {
   clickCamp () {
     const this_aux = this;    
     let iframe = this_aux.riframe.nativeElement;
+    let newUrl  = "";
+    let tamUrl = this_aux.urlPropertyHtm.length;
+    newUrl = this_aux.urlPropertyHtm.substring( 0, tamUrl - 7 );
   window.parent.addEventListener('message', function(e) {
       let origin = e.origin;
-      if (origin !== sessionStorage.getItem("urlCampania")) {
+      if (origin !== newUrl) {
         return;
       } else {
         console.log("Respondio Correctamente");

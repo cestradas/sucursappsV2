@@ -60,7 +60,6 @@ export class CompraTiempoAireFinalComponent implements OnInit {
       formatDia =  '0' + formatDia;
     }
     date = d.getFullYear() + '-' + formatMes + '-' + formatDia;
-    console.log(date + "---" + d.getMonth());
     return date;
   }
 

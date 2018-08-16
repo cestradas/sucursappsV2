@@ -48,7 +48,7 @@ export class TransferenciaSpeiComponent implements OnInit {
   tamCuenta: any;
   auxTamCuenta: any = 1;
   myform: FormGroup;
-
+  tipoCuentaTdd: string;
   listaBancos: any;
   nombreOperacion: any = 0;
 
@@ -70,6 +70,7 @@ export class TransferenciaSpeiComponent implements OnInit {
       this.numeroCuentaTitular = mensaje.NumeroCuenta;
       this.mostrarCuentaMascara = operaciones.mascaraNumeroCuenta(this.numeroCuentaTitular);
       this.idCuentaTitular = mensaje.Id;
+      this.tipoCuentaTdd = mensaje.Producto;
       setTimeout(() => $("#_modal_please_wait").modal("hide"), 1000);
     });
 

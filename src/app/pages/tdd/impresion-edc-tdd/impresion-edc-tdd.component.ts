@@ -29,7 +29,7 @@ export class ImpresionEdcTddComponent implements OnInit {
   numeroCuentaTitular: string;
   saldoDisponibleClienteTdd: string;
   mostrarCuentaMascara: string;
-
+  tipoCuentaTdd: string;
   bandera0 = 1;
   bandera1 = 1;
   bandera2 = 1;
@@ -107,6 +107,7 @@ export class ImpresionEdcTddComponent implements OnInit {
         serviceTdd.numeroCuentaTdd = this_aux.numeroCuentaTitular;
         setTimeout(() => {
           this_aux.mantenimientoEDC();  
+          this.tipoCuentaTdd = mensaje.Producto;
         }, 2000);
       }
     );
@@ -990,9 +991,13 @@ export class ImpresionEdcTddComponent implements OnInit {
             document.getElementById('mnsError').innerHTML = res[0].MensajeAUsuario;
             $("#errorModal").modal("show");
           }
-        } else {
-          this_aux.showErrorSucces(res);
-        }          $('#_modal_please_wait').modal('hide');
+        } else{
+          setTimeout(function(){
+            $('#_modal_please_wait').modal('hide');
+            this_aux.showErrorSucces2(res);
+            },500);
+        }
+        $('#_modal_please_wait').modal('hide');
    }, function(error) {
 
           console.error("Error");
@@ -1686,6 +1691,7 @@ operacion(id) {
                     // strae PDF del respWL
                     // this.doc_1 = documento.PDF;
                     this_aux.nombreDocumento = documento.NombreDoc;
+                    this_aux.serviceTdd.validaMail = "0";
                     $('#infoPrinter').modal('show');
                   }
                   $('#_modal_please_wait').modal('hide');
@@ -1786,5 +1792,16 @@ showErrorSucces(json) {
   }
   $('#_modal_please_wait').modal('hide');
   $("#errorModal").modal("show");
+}
+
+showErrorSucces2(json) {
+
+  console.log(json.Id + json.MensajeAUsuario);
+  if (json[0].Id === '2') {
+    document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar más tarde';
+  } else {
+    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+  }
+  $('#errorModal').modal('show');
 }
 }

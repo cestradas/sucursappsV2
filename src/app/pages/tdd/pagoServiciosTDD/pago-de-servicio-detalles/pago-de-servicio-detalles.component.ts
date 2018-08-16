@@ -465,7 +465,7 @@ validarFecha() {
       if ( detalleRegla.tipoCadena === 'AN') {
          // alfa numerico 
         // tslint:disable-next-line:max-line-length 
-          re = new RegExp("^([a0-zA9-Z]{" + tamRef + "})$"); 
+          re = new RegExp("^([a0-zA9-Z]{1," + tamRef + "})$"); 
           // const controlReferencia: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([a0-zA9-Z]{1,tamRef})$/)]);
           const controlReferencia: FormControl = new FormControl('', [Validators.required, Validators.pattern(re)]);
           this_aux.myForm.setControl('fcReferencia', controlReferencia );
@@ -473,7 +473,7 @@ validarFecha() {
       } else if (detalleRegla.tipoCadena === 'NS') {
          // numerico
          // const controlReferencia: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([0-9]{1,40})$/)]);
-         re =   new RegExp("^([0-9]{" + tamRef + "})$"); 
+         re =   new RegExp("^([0-9]{1," + tamRef + "})$"); 
          const controlReferencia: FormControl = new FormControl('', [Validators.required, Validators.pattern(re)]);
          this_aux.myForm.setControl('fcReferencia', controlReferencia );
       }

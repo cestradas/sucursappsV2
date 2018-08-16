@@ -19,7 +19,7 @@
                     <div class="sumando-dropdown-account">
                         <table id="tablaMantoBen" width="100%" class="letranegrita">
                             <tr>
-                                <td align="left" width="40%" style="border: 0px">CUENTA ENLACE PERSONAL <strong>
+                                <td align="left" width="40%" style="border: 0px"><strong>{{tipoCuentaTdd}}
                                                                                     </strong>
                                 </td>
                                 <td align="left" style="border: 0px">
@@ -68,7 +68,7 @@
                         </div>
                         <div class="dropdown sumando-dropdown-account col-lg-10">
                             <select formControlName="selectBanco" #rSelecBanco class="input-whidth input-lg selectModificado" id="tipoBanco" (change)="selectBanco($event.target.value)" style=" width: 100%; border:  0px">
-                            <option disabled="" selected value="0" ng-reflect-value="0">SELECCIONE BANCO</option>
+                            <option value="0" disabled selected>SELECCIONE BANCO</option>
                             <ng-container *ngFor="let banco of bancos; let i = index">
                                 <option *ngIf="banco.Mostrar !== '0'" [value]="banco.IdBanco" class="text-li">{{ banco.NombreBanco }}</option>    
                             </ng-container>                            

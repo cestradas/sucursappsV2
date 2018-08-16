@@ -85,7 +85,6 @@ export class BreadcrumbsComponent implements OnInit {
     if (this_aux.service.Login === "1" ) {
       sessionStorage.removeItem("campania");
       sessionStorage.removeItem("idSesion");
-      sessionStorage.removeItem("urlCampania");
     const THIS: any = this;
       this_aux.service.Login = "0";
       const operacionesbxi: OperacionesBXI = new OperacionesBXI();
@@ -132,7 +131,6 @@ export class BreadcrumbsComponent implements OnInit {
     localStorage.removeItem("validaNipServ");
     sessionStorage.removeItem("campania");
     sessionStorage.removeItem("idSesion");
-    sessionStorage.removeItem("urlCampania");
     localStorage.removeItem("des");
     localStorage.removeItem("np");
     localStorage.removeItem("res");

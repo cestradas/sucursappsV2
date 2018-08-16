@@ -90,7 +90,7 @@ export class OperacionesBXI {
                 'adapters/AdapterBanorteSucursAppsBEL2/resource/pagoDisposicionCredito', WLResourceRequest.POST);
           } else {
              resourceRequest = new WLResourceRequest(
-                'adapters/AdapterBanorteSucursAppsBEL2/resource/pagoConcentracionEmpresarial', WLResourceRequest.POST);
+                'adapters/AdapterBanorteSucursAppsBEL/resource/pagoConcentracionEmpresarial', WLResourceRequest.POST);
           }
           resourceRequest.setTimeout(30000);
 

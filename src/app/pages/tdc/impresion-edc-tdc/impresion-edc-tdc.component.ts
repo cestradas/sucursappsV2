@@ -133,6 +133,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
 
     if (storageTipoClienteTar === "true") {
 
+      
       btnSalir.classList.remove("color-botones");
       btnSalir.classList.add("color-botones_Preferente");
       btnCorreo.classList.remove("color-botones");
@@ -1003,7 +1004,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
         else{
           setTimeout(function(){
             $('#_modal_please_wait').modal('hide');
-            this_aux.showErrorSucces(res);
+            this_aux.showErrorSucces2(res);
             },500);
         }
          
@@ -1716,7 +1717,9 @@ operacion(id) {
   finishPagePrint() {
 
     const this_aux = this;
- //
+    
+    this_aux.serviceTdd.validaMail = "0";//preguntar tecua
+
      this_aux.router.navigate(['/docElectronTdc']);
   }
 
@@ -1724,7 +1727,7 @@ showErrorSucces(json) {
 
   console.log(json.Id + json.MensajeAUsuario);
   if (json.Id === '2') {
-    document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar m�s tarde';
+    document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar más tarde';
   } else {
     document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
   }
@@ -1827,6 +1830,16 @@ showErrorSuccesMoney(json) {
   $('#ModalErrorTransaccion').modal('show');
 }
 
+showErrorSucces2(json) {
+
+  console.log(json.Id + json.MensajeAUsuario);
+  if (json[0].Id === '2') {
+    document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar más tarde';
+  } else {
+    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+  }
+  $('#errorModal').modal('show');
+}
 
 }
 

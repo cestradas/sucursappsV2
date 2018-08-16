@@ -28,21 +28,23 @@ export class CancelarEnvioEdcTdcComponent implements OnInit {
 
     // ESTILOS Preferente
     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
-
-    let btnSalir = document.getElementById("continuarCancelacion");
-    let terminar = document.getElementById("continuarCancelacion");
-    let cerrar = document.getElementById("continuarCancelacion");
+    let btnContinuarCancelacion = document.getElementById("continuarCancelacion");
+    let btnTerminar = document.getElementById("terminar");
+    let btnCerrar = document.getElementById("cerrar");
 
     if (storageTipoClienteTar === "true") {
 
-      btnSalir.classList.remove("color-botones");
-      btnSalir.classList.add("color-botones_Preferente");
-      terminar.classList.remove("color-botones");
-      terminar.classList.add("color-botones_Preferente");
-      cerrar.classList.remove("color-botones");
-      cerrar.classList.add("color-botones_Preferente");
+      btnContinuarCancelacion.classList.remove("color-botones");
+      btnContinuarCancelacion.classList.add("color-botones_Preferente");
+      btnTerminar.classList.remove("color-botones");
+      btnTerminar.classList.add("color-botones_Preferente");
+      btnCerrar.classList.remove("color-botones");
+      btnCerrar.classList.add("color-botones_Preferente");
 
     }
+
+
+    
   }
   consultarDatos() {
     const this_aux = this;
