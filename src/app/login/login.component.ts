@@ -499,7 +499,7 @@ getUsrPassLegacTdc(usrAgent) {
         } 
         if (valueNewTimeOut === 0) {
           $('#avisoSesionExpira').modal('hide');
-          this_aux.cerrarSesionTimeOutBXI();
+          this_aux.cerrarSesion();
         }
   }, 1000);
 }
