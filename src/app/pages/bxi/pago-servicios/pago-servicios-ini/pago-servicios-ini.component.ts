@@ -391,9 +391,13 @@ getEmpresas() {
           // filtro empresas con 
           this_aux.service.formaPago = "6";
           this_aux.arrayEmpresas.forEach(empresa => {
-            const tipoPago = empresa.TipoPago; 
-            if ( tipoPago.includes("06")) {
-              this_aux.listaEmpresas.push(empresa.Descripcion);
+            if (empresa.IdFacturador === '1310' || empresa.IdFacturador === '88924') {
+              // empresa no valida con este tipo de cuenta
+            } else {
+              const tipoPago = empresa.TipoPago; 
+              if ( tipoPago.includes("06")) {
+                this_aux.listaEmpresas.push(empresa.Descripcion);
+              }
             }
           });
           console.log(this_aux.listaEmpresas);
