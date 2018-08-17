@@ -1851,7 +1851,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
     } else {
       // Imprimir
-
+      this_aux.service.validaMail = "0";
 
       $('#_modal_please_wait').modal('show');
       if( this.cal_Click_0 === 1 || this.cal_Click_1 === 1 || this.cal_Click_2 === 1 ||
