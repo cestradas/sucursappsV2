@@ -491,9 +491,16 @@ getUsrPassLegacTdc(usrAgent) {
   setInterval(function() {
    const valueNewTimeOut = +localStorage.getItem('TimeOut') - 1;
    localStorage.setItem('TimeOut', valueNewTimeOut.toString());
-   if (valueNewTimeOut === 0) {
-    this_aux.cerrarSesion();
-   }
+   if  (valueNewTimeOut === 10)  {
+            $('#avisoSesionExpira').modal('show');
+        }
+        if  (valueNewTimeOut <= 10)  {
+          document.getElementById('addExpira').innerHTML =  "Tu sesión expirará en " + valueNewTimeOut ;
+        } 
+        if (valueNewTimeOut === 0) {
+          $('#avisoSesionExpira').modal('hide');
+          this_aux.cerrarSesionTimeOutBXI();
+        }
   }, 1000);
 }
 
