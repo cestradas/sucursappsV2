@@ -491,11 +491,11 @@ getUsrPassLegacTdc(usrAgent) {
   setInterval(function() {
    const valueNewTimeOut = +localStorage.getItem('TimeOut') - 1;
    localStorage.setItem('TimeOut', valueNewTimeOut.toString());
-   if  (valueNewTimeOut === 10)  {
+   if  (valueNewTimeOut === 15)  {
             $('#avisoSesionExpira').modal('show');
         }
-        if  (valueNewTimeOut <= 10)  {
-          document.getElementById('addExpira').innerHTML =  "Tu sesión expirará en " + valueNewTimeOut ;
+        if  (valueNewTimeOut <= 15)  {
+          document.getElementById('addExpira').innerHTML = valueNewTimeOut;
         } 
         if (valueNewTimeOut === 0) {
           $('#avisoSesionExpira').modal('hide');
