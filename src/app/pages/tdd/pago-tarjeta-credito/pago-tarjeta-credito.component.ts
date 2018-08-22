@@ -142,6 +142,9 @@ export class PagoTarjetaCreditoComponent implements OnInit {
               .showErrorPromise(error);
             }, 500);
           });
+          setTimeout(() => {
+            $("#_modal_please_wait").modal("hide");
+          }, 5000);
   }
   
   sortByProperty = function (property) {

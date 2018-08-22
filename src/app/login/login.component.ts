@@ -46,8 +46,7 @@ export class LoginComponent {
                     // tslint:disable-next-line:max-line-length
                     if (descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card") {
                       this_aux.onPlasticLoginafterSecurity();
-                    } else {
-                      console.log("Se detectaron datos Tarjeta: " + localStorage.getItem("tr2"));   
+                    } else {   
                       const securityCheckName = 'banorteSecurityCheckSa';
                    const userLoginChallengeHandler = WL.Client
                        .createSecurityCheckChallengeHandler(securityCheckName);
@@ -97,36 +96,57 @@ export class LoginComponent {
              // TDC
   onPlasticLogintdc() {
     const this_aux = this;
-     $('#ModalTDDLogin').modal('show');
+    $('#ModalTDDLogin').modal('show');
+    document.getElementById('capturaInicio').style.display = 'block';
+    document.getElementById('caputuraSesion').style.display = 'none';
+    let contador = 0;
+    let myTime = setInterval(detectarTarjeta, 2000);
+    function detectarTarjeta () {
+      let respuestaPin = localStorage.getItem("res");
+      let respuestaTar = localStorage.getItem("tr2");
+      let descripcion = localStorage.getItem("des");
+     if ( (respuestaPin !== null && respuestaTar !== null)) {
+       clearInterval(myTime); 
+       // tslint:disable-next-line:max-line-length
+       if (descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card") {
+         this_aux.onPlasticLoginafterSecuritytdc();
+       } else {
+         console.log("Se detectaron datos Tarjeta: " + localStorage.getItem("tr2"));   
+         const securityCheckName = 'banorteSecurityCheckSa';
+      const userLoginChallengeHandler = WL.Client
+          .createSecurityCheckChallengeHandler(securityCheckName);
+      const usr_ca = 'sucursApps';
+      const tarjet = 'adm-sucusWeb';
+      console.log(usr_ca);
+      console.log(tarjet);
 
-     setTimeout(function() {
-     
-     const securityCheckName = 'banorteSecurityCheckSa';
-     const userLoginChallengeHandler = WL.Client
-         .createSecurityCheckChallengeHandler(securityCheckName);
-     const usr_ca = 'sucursApps';
-     const tarjet = 'adm-sucusWeb';
-     console.log(usr_ca);
-     console.log(tarjet);
+          WLAuthorizationManager.login(securityCheckName, {
+              'usr_ca': usr_ca,
+              'tarjet': tarjet
+          }).then(
+              function() {
+                 const usuarioAgent = navigator.userAgent;
+                 console.log('login onSuccess');
+                 setTimeout(function() {
+                  this_aux.getUsrPassLegacTdc(usuarioAgent);
+                 }, 1000);
 
-         WLAuthorizationManager.login(securityCheckName, {
-             'usr_ca': usr_ca,
-             'tarjet': tarjet
-         }).then(
-             function() {
-                const usuarioAgent = navigator.userAgent;
-                console.log('login onSuccess');
-                setTimeout(function() {
-                 this_aux.getUsrPassLegacTdc(usuarioAgent);
-                 console.log("------>" + usuarioAgent);
-                }, 1000);
-
-         }, function(error) {
-             console.log(error);
-             $('#ModalTDDLogin').modal('hide');
-             setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
-         });                     
-       }, 25000);
+          }, function(error) {
+              console.log(error);
+              $('#ModalTDDLogin').modal('hide');
+              setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
+          }); 
+       }
+     }  else {
+       contador ++;
+       if (contador === 15) {
+         clearInterval(myTime);
+         $('#ModalTDDLogin').modal('hide');
+         document.getElementById('mnsError').innerHTML = "Inicio de sesión falló.";
+         $('#errorModal').modal('show');
+       } 
+     }
+    }
    }
   
 
@@ -179,7 +199,7 @@ export class LoginComponent {
               let tipoPreferencia = res.DetalleClave;
               console.log(tipoPreferencia);
               let validaPreferencia = false;
-               this_aux.comienzaContador();               
+              // this_aux.comienzaContador();               
  
                if (this_aux.includesL(tipoPreferencia, "PREFERENTE")) {
                  // PREFERENTE
@@ -308,7 +328,7 @@ export class LoginComponent {
         const resourceRequest = new WLResourceRequest(
         'adapters/AdapterBanorteSucursAppsTdc/resource/validaNip',
         WLResourceRequest.POST);
-        resourceRequest.setTimeout(25000); // 30000
+        resourceRequest.setTimeout(30000);
         resourceRequest
         .sendFormParameters(formParameters)
         .then(
@@ -324,8 +344,9 @@ export class LoginComponent {
               // setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
   
               let tipoPreferencia = res.DetalleClave;
+              console.log(tipoPreferencia);
               let validaPreferencia = false;
-               this_aux.comienzaContador();
+              // this_aux.comienzaContador();
   
                if (this_aux.includesL(tipoPreferencia, "PREFERENTE")) {
                  // PREFERENTE
@@ -342,15 +363,28 @@ export class LoginComponent {
               localStorage.setItem("validaNipServ", "1");
   
              } else {
-              
-              
+				 
+				 if (this_aux.includesL(res.MensajeDetallado, "QGE2455")) {
+                    // tslint:disable-next-line:max-line-length
+                    document.getElementById('mnsError').innerHTML = "Los datos proporcionados son incorrectos, favor de verificar.";
+                    $('#errorModal').modal('show');
+              } else if (this_aux.includesL(res.MensajeDetallado, "QGE2438") || this_aux.includesL(res.MensajeDetallado, "QGE2476")) {
+                // tslint:disable-next-line:max-line-length
+                  document.getElementById('mnsError').innerHTML = "Has excedido el número de intentos permitidos, por seguridad no es posible continuar.";
+                  $('#errorModal').modal('show');
+              } else if (this_aux.includesL(res.MensajeDetallado, "QGE2456")) {
+					document.getElementById('mnsError').innerHTML = res.MensajeAUsuario ;
+						$('#errorModal').modal('show');
+				} else {
+
+              /*
               localStorage.removeItem("des");
               localStorage.removeItem("np");
               localStorage.removeItem("res");
               localStorage.removeItem("tr2");
               localStorage.removeItem("tr2_serv");
               localStorage.removeItem("np_serv");
-              localStorage.removeItem("res_serv");
+              localStorage.removeItem("res_serv"); */
               
               setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
   
@@ -358,6 +392,7 @@ export class LoginComponent {
               // tslint:disable-next-line:max-line-length
               document.getElementById('mnsError').innerHTML = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
               $('#errorModal').modal('show');
+				}
              }
              
         
@@ -375,20 +410,39 @@ export class LoginComponent {
            });
   
          } else {
-  
-           setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
-  
-  
+
+          $('#ModalTDDLogin').modal('hide');
+
+				// tslint:disable-next-line:indent
+				if (descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card"){
+               console.log("Pinpad respondio con " + this.respuestaTrjeta);
+               // tslint:disable-next-line:max-line-length
+               document.getElementById('mnsError').innerHTML = "Inicio de sesión falló.";
+				$('#errorModal').modal('show');
+					
+				}else{
                // tslint:disable-next-line:max-line-length
                console.log("Pinpad respondio con " + this.respuestaTrjeta);
                // tslint:disable-next-line:max-line-length
                document.getElementById('mnsError').innerHTML = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
-               $('#errorModal').modal('show');
-  
+				$('#errorModal').modal('show');
+        }
+        /*
+        localStorage.removeItem("tr2");
+        localStorage.removeItem("des");
+        localStorage.removeItem("res"); */
+
          }
   
    // }, 50000);
-  
+   localStorage.removeItem("des");
+   localStorage.removeItem("np");
+   localStorage.removeItem("res");
+   localStorage.removeItem("tr2");
+   localStorage.removeItem("tr2_serv");
+   localStorage.removeItem("np_serv");
+   localStorage.removeItem("res_serv");
+
   
   }
 
@@ -457,30 +511,37 @@ getUsrPassLegacTdc(usrAgent) {
       resourceRequest.sendFormParameters(formParameters).then(
           function(response) {
 
-            this_aux.datosLegacy = response.responseJSON;
-            const resLegacyJson = response.responseJSON;
-            console.log( this_aux.datosLegacy);
-            if (resLegacyJson.Id === '0') {
-                WLAuthorizationManager.logout('banorteSecurityCheckSa');
-               
-                setTimeout(function() {
-                  $('#errorModal').modal('show');
-                  $('#ModalTDDLogin').modal('hide');
-                }, 500);
-                
-            } else {
-              console.log("El servcio de informacion Legacy respondio correctamente");
-              this_aux.idSession();
-              this_aux.tokenOperacionTdc();
-            }
-            },
-          function(error) {
-            WLAuthorizationManager.logout('banorteSecurityCheckSa');
-              console.log("Ocurrio un error con el servcio de informacion Legacy");
-              $('#errorModal').modal('show');
-              $('#ModalTDDLogin').modal('hide');
-          });
+              this_aux.datosLegacy = response.responseJSON;
+              const resLegacyJson = response.responseJSON;
+              console.log( this_aux.datosLegacy);
+              if (resLegacyJson.Id === '0') {
+                  WLAuthorizationManager.logout('banorteSecurityCheckSa');
+                 
+                  setTimeout(function() {
+                    $('#errorModal').modal('show');
+                    $('#ModalTDDLogin').modal('hide');
+                  }, 500);
+                  localStorage.removeItem("des");
+                  localStorage.removeItem("np");
+                  localStorage.removeItem("res");
+                  localStorage.removeItem("tr2");
+                  localStorage.removeItem("tr2_serv");
+                  localStorage.removeItem("np_serv");
+                  localStorage.removeItem("res_serv");
+              } else {
+                console.log("El servcio de informacion Legacy respondio correctamente");
+                this_aux.idSession();
+                this_aux.tokenOperacionTdc();
+              }
+              },
+            function(error) {
+              WLAuthorizationManager.logout('banorteSecurityCheckSa');
+                console.log("Ocurrio un error con el servcio de informacion Legacy");
+                $('#errorModal').modal('show');
+                $('#ModalTDDLogin').modal('hide');
+            });
 }
+/*
   comienzaContador() {
   const this_aux = this;
   const body = $('body');
@@ -495,14 +556,14 @@ getUsrPassLegacTdc(usrAgent) {
             $('#avisoSesionExpira').modal('show');
         }
         if  (valueNewTimeOut <= 15)  {
-          document.getElementById('addExpira').innerHTML = valueNewTimeOut;
+          document.getElementById('addExpira').innerHTML =  valueNewTimeOut.toString();
         } 
         if (valueNewTimeOut === 0) {
           $('#avisoSesionExpira').modal('hide');
           this_aux.cerrarSesion();
         }
   }, 1000);
-}
+  } */
 
 cerrarSesion() {
 

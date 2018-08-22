@@ -133,7 +133,7 @@ let res;
 
       if (res === true) {
 
-        
+        $('#ModalTDDLogin').modal('hide');
         this_aux.modificarDatos(this_aux.correoActualizado, this_aux.celActualizado);
       this._validaNipService.respuestaNip.res = "";
       } else {

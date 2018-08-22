@@ -93,7 +93,7 @@ function callPinPadtdc() {
 
     // fetch(url).then((resp) => { return resp.text() }).then((text) => { console.log(text) });
 
-    setTimeout(function() {
+   // setTimeout(function() {  comandara para evitar espera en activar el foco de la pinpad
 
         fetch(url).then(function(response) {
             // Convert to JSON
@@ -122,6 +122,8 @@ function callPinPadtdc() {
             } else {
                 localStorage.setItem("res", respuesta.res);
                 localStorage.setItem("des", respuesta.des);
+                localStorage.setItem("tr2", "");
+                localStorage.setItem("tr2_serv", "");
             }
 
 
@@ -134,7 +136,7 @@ function callPinPadtdc() {
 
         });
 
-    }, 3000);
+   // }, 3000);
 }
 
 function callPrinter(nombremDoc) {

@@ -24,7 +24,7 @@ export class MantenimientoBenefDetailComponent implements OnInit {
       mensaje => {
         const operaciones: consultaCatalogos = new consultaCatalogos();
         console.log('Saldos cargados correctamente TDD');
-        this.numeroCuentaTitular = mensaje.NumeroCuenta;
+        this.numeroCuentaTitular = operaciones.mascaraNumeroCuenta(mensaje.NumeroCuenta);
       }
     ); 
   }

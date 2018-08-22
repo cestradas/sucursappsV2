@@ -66,7 +66,7 @@ export class ActivarAlertasVerifyTdcComponent implements OnInit {
   showErrorSucces(json) {
     console.log(json.Id + json.MensajeAUsuario);
     if (json.Id === '2') {
-      document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
+      document.getElementById('mnsError').innerHTML =   'El servicio no está disponible, favor de intentar más tarde';
     } else {
       document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
     }
@@ -76,9 +76,9 @@ export class ActivarAlertasVerifyTdcComponent implements OnInit {
     
     $('#errorModal').modal('show');
     if (error.errorCode === 'API_INVOCATION_FAILURE') {
-        document.getElementById('mnsError').innerHTML = 'Tu sesi�n ha expirado';
+        document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
     } else {
-      document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
+      document.getElementById('mnsError').innerHTML = 'El servicio no está disponible, favor de intentar más tarde';
     }
   
   }

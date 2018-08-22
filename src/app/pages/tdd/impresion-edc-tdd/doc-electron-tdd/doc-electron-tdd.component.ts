@@ -18,7 +18,7 @@ declare var $: any;
 export class DocElectronTddComponent implements OnInit {
 
   constructor(private router: Router, private renderer: Renderer2, private serviceTdd: ResponseWS) {
-
+    setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
 }
 
 ngOnInit() {
@@ -34,7 +34,6 @@ ngOnInit() {
     document.getElementById("msgUsuario").innerHTML = "La impresión del estado de cuenta ha terminado.";
 
   }  
-  $('#_modal_please_wait').modal('hide');
 }
 
 }

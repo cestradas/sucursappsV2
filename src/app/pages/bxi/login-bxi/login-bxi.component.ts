@@ -287,7 +287,7 @@ export class LoginBxiComponent implements OnInit {
               this_aux.service.isPreferente = jsonDatosUsuario.Preferente;
               this_aux.service.userRfc = jsonDatosUsuario.Rfc;
               // $( ".nav-img-banorte" ).css( "background-image", "");
-              this_aux.comienzaContador();
+             // this_aux.comienzaContador();
               if (this_aux.service.isPreferente  === true) {
                // PREFERENTE
                localStorage.setItem("tipoClienteBEL", jsonDatosUsuario.Preferente );
@@ -308,7 +308,7 @@ export class LoginBxiComponent implements OnInit {
         }
       );
     }
-
+/*
     comienzaContador() {
       const this_aux = this;
       const body = $('body');
@@ -317,20 +317,20 @@ export class LoginBxiComponent implements OnInit {
       });
   
       setInterval(function() {
-       const valueNewTimeOut = +localStorage.getItem('TimeOut') - 1;
-       localStorage.setItem('TimeOut', valueNewTimeOut.toString());
-        if  (valueNewTimeOut === 10)  {
-            $('#avisoSesionExpira').modal('show');
-        }
-        if  (valueNewTimeOut <= 10)  {
-          document.getElementById('addExpira').innerHTML =  "Tu sesion exprirara en " + valueNewTimeOut ;
-        } 
-        if (valueNewTimeOut === 0) {
-          $('#avisoSesionExpira').modal('hide');
-          this_aux.cerrarSesionTimeOutBXI();
-        }
-      }, 1000);
-    }
+        const valueNewTimeOut = +localStorage.getItem('TimeOut') - 1;
+        localStorage.setItem('TimeOut', valueNewTimeOut.toString());
+        if  (valueNewTimeOut === 15)  {
+                 $('#avisoSesionExpira').modal('show');
+             }
+             if  (valueNewTimeOut <= 15)  {
+               document.getElementById('addExpira').innerHTML =  valueNewTimeOut.toString();
+             } 
+             if (valueNewTimeOut === 0) {
+               $('#avisoSesionExpira').modal('hide');
+               this_aux.cerrarSesionTimeOutBXI();
+             }
+       }, 1000);
+    } */
 
     cerrarSesionTimeOutBXI() {
 

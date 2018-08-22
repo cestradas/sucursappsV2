@@ -225,7 +225,8 @@ export class TransferenciasCuentasBanorteComponent implements OnInit {
           } else {
             this_aux.showErrorSucces(jsonDetalleTrans);
             console.log("Transferencia no realizada");
-            $('#ModalTDDLogin').modal('hide');
+            setTimeout( () => $('#_modal_please_wait').modal('hide'), 500 );
+          $('#ModalTDDLogin').modal('hide');
           }
 
           

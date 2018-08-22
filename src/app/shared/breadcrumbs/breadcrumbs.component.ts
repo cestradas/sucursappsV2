@@ -22,6 +22,7 @@ export class BreadcrumbsComponent implements OnInit {
 
   ngOnInit() {
     const this_aux = this;
+    this_aux.comienzaContador();
     if ( this_aux._service.datosBreadCroms.nombreUsuarioTDD !== '' ) {
 
       this_aux.NombreUsuario =  this_aux._service.datosBreadCroms.nombreUsuarioTDD;
@@ -147,7 +148,7 @@ export class BreadcrumbsComponent implements OnInit {
 
             console.log(response);
 
-            WLAuthorizationManager.logout('banorteSecurityCheckSa');
+          WLAuthorizationManager.logout('banorteSecurityCheckSa');
            
             // setTimeout( () => THIS.router.navigate(['/login']), 500 );
             THIS.router.navigate(['/final']);
@@ -162,6 +163,29 @@ export class BreadcrumbsComponent implements OnInit {
 
           });
 
+  }
+
+  comienzaContador() {
+    const this_aux = this;
+    const body = $('body');
+    body.on('click', function() {
+      localStorage.setItem('TimeOut', localStorage.getItem('TimeOutIni'));
+    });
+  
+    setInterval(function() {
+     const valueNewTimeOut = +localStorage.getItem('TimeOut') - 1;
+     localStorage.setItem('TimeOut', valueNewTimeOut.toString());
+     if  (valueNewTimeOut === 15)  {
+              $('#avisoSesionExpira').modal('show');
+          }
+          if  (valueNewTimeOut <= 15)  {
+            document.getElementById('addExpira').innerHTML =  valueNewTimeOut.toString();
+          } 
+          if (valueNewTimeOut === 0) {
+            $('#avisoSesionExpira').modal('hide');
+             this_aux.cerrarSessionBEL();
+          }
+    }, 1000);
   }
 
 }

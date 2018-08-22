@@ -110,7 +110,7 @@ export class ValidaNipTransaccion {
                       clearInterval(THIS.intervalo);
                       $('#ModalTDDLogin').modal('hide');
                       $("#_modal_please_wait").modal("hide");
-                      document.getElementById('mnsError').innerHTML = "Inicio de sesión falló.";
+                      document.getElementById('mnsError').innerHTML = "Tarjeta no detectada.";
                       $('#errorModal').modal('show');
                     }  
         } // }, 30000);

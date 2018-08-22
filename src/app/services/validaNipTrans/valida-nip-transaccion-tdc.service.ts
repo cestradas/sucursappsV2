@@ -7,6 +7,7 @@ declare var $: $;
 export class ValidaNipTransaccionTdcService {
 
     postResp;
+    intervalo;
     respuestaTrjeta = "";
     respuestaTrjeta_serv = "";
     respuestaNip: RespuestaNip = {
@@ -30,18 +31,37 @@ export class ValidaNipTransaccionTdcService {
       let np = localStorage.getItem("np");
       let respTar = localStorage.getItem("res");
 
-      setTimeout(function() {
+    //  setTimeout(function() {
+        let contador = 0;
+        let myTime = setInterval(detectarTarjeta, 2000);
 
-          // trae los datos de sesion de login al pedir validacion de TDD por segunda vez
-      let tr2_serv = localStorage.getItem("tr2_serv");
-      let np_serv = localStorage.getItem("np_serv");
-      let respTar_serv = localStorage.getItem("res_serv");
-      this.respuestaTrjeta_serv = respTar_serv;
-      
-      if (tr2_serv != null) {
-
-
-          if ((respTar_serv !== "NO_OK") && (respTar_serv !== null) && (localStorage.getItem("validaNipServ") === "1")) {
+        function detectarTarjeta () {
+   // trae los datos de sesion de login al pedir validacion de TDD por segunda vez
+   let tr2_serv = localStorage.getItem("tr2_serv");
+   let np_serv = localStorage.getItem("np_serv");
+   let respTar_serv = localStorage.getItem("res_serv");
+   this.respuestaTrjeta_serv = respTar_serv;
+   let descripcion = localStorage.getItem("des");
+   
+   if (tr2_serv != null) {
+    clearInterval(myTime); 
+    // tslint:disable-next-line:max-line-length
+    if (descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card") {
+        $('#ModalTDDLogin').modal('hide');
+       console.log("Pinpad Trans respondio con " + this.respuestaTrjeta);
+       clearInterval(THIS.intervalo);
+       // tslint:disable-next-line:max-line-length
+       if (descripcion === "ATR error or NO smart card") {
+        document.getElementById('mnsError').innerHTML = "Tarjeta no detectada.";
+       } else {
+        document.getElementById('mnsError').innerHTML = descripcion;
+       }
+       
+        $('#errorModal').modal('show');
+                /* localStorage.removeItem("tr2_serv");
+        localStorage.removeItem("des"); */        
+      } else {
+        if ((respTar_serv !== "NO_OK") && (respTar_serv !== null) && (localStorage.getItem("validaNipServ") === "1")) {
 
             const formParameters = {
               tarjeta: tr2_serv,
@@ -49,7 +69,7 @@ export class ValidaNipTransaccionTdcService {
               nip: np_serv
               // nip: 'D4D60267FBB0BB28'
             };
-
+   
             const resourceRequest = new WLResourceRequest(
                 'adapters/AdapterBanorteSucursAppsTdc/resource/validaNipTrans',
                 WLResourceRequest.POST);
@@ -65,27 +85,53 @@ export class ValidaNipTransaccionTdcService {
                             THIS.respuestaNip.res = response.responseJSON;
                             // tslint:disable-next-line:max-line-length                            
                            }
-
-
+   
+   
                     } ,
-
+   
                     function(error) {
-                        document.getElementById('mnsError').innerHTML = "Por el momento este servicio no est&aacute; disponible, favor de intentar de nuevo m&aacute;s tarde.";
+                        document.getElementById('mnsError').innerHTML = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
                             $('#errorModal').modal('show');
                         console.log(error.responseText);
-
+   
                     });
-
-        } } }, 30000);
-
+                    /*
+            localStorage.removeItem("tr2_serv");
+            localStorage.removeItem("des"); */
+   
+        }
+      }
+      $("#_modal_please_wait").modal("hide");
+        } else {
+            console.log("NO se detectaron datos Tarjeta: " + localStorage.getItem("tr2_serv"));  
+            contador ++;
+                    if (contador === 15) {
+                      clearInterval(myTime);
+                      clearInterval(THIS.intervalo);
+                      $('#ModalTDDLogin').modal('hide');
+                      $("#_modal_please_wait").modal("hide");
+                      document.getElementById('mnsError').innerHTML = "Inicio de sesión falló.";
+                      $('#errorModal').modal('show');
+                    }  
+        } // }, 30000);
+        }
+       
+        localStorage.removeItem("des");
+        localStorage.removeItem("np");
+        localStorage.removeItem("res");
+        localStorage.removeItem("tr2");
+        localStorage.removeItem("tr2_serv");
+        localStorage.removeItem("np_serv");
+        localStorage.removeItem("res_serv");
     }
 
     validarDatosrespuesta(): Promise<any> {
         return new Promise( (resolve, reject) => {
+            const this_aux = this;
             let resp;
-            let intervalo = setInterval( () => {
+            this_aux.intervalo = setInterval( () => {
 
-                console.log("Dentro de la promesa: " + this.respuestaNip.res);
+            console.log("Dentro de la promesa: " + this.respuestaNip.res);
 
                 if ( this.respuestaNip.res !== '') {
 
@@ -95,7 +141,7 @@ export class ValidaNipTransaccionTdcService {
 
                     };                     
                     resolve(resp);
-                    clearInterval(intervalo);
+                    clearInterval(this_aux.intervalo);
 
                 }
               

@@ -95,6 +95,9 @@ export class ImpresionEdcTddComponent implements OnInit {
   constructor(private router: Router, private renderer: Renderer2, private _service: ConsultaSaldosTddService,
     private serviceTdd: ResponseWS) {
     const this_aux = this;
+    setTimeout(function() {
+      $('div').removeClass('modal-backdrop');
+    }, 500);
     this._service.cargarSaldosTDD();
     $('#_modal_please_wait').modal('show');
     this._service.validarDatosSaldoTdd().then(

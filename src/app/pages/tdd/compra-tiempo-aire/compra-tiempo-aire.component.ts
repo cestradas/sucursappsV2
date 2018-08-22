@@ -291,7 +291,7 @@ export class CompraTiempoAireComponent implements OnInit {
   trnasrecargaTA() {    
     document.getElementById("capturaInicio").style.display = "none";
     document.getElementById("caputuraSesion").style.display = "block";
-    $("#_modal_please_wait").modal("show");
+    $("#ModalTDDLogin").modal("show");
     this._validaNipService.validaNipTrans();
 
     let res;

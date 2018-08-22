@@ -138,7 +138,7 @@ resourceRequest.sendFormParameters(formParameters).then(
     function(error) {
       $('#_modal_please_wait').modal('hide');
       console.error("Error");
-      this_aux.showErrorPromiseMoney(error);
+      this_aux.showErrorPromise(error);
     });
 
   }
@@ -156,13 +156,6 @@ resourceRequest.sendFormParameters(formParameters).then(
     console.log(error);
     // tslint:disable-next-line:max-line-length
     document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar más tarde";
-    $('#_modal_please_wait').modal('hide');
-    $('#errorModal').modal('show');
-  }
-
-  showErrorPromiseMoney(json) {
-    console.log(json.Id + json.MensajeAUsuario);
-    document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tus datos.";
     $('#_modal_please_wait').modal('hide');
     $('#errorModal').modal('show');
   }

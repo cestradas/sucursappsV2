@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ResponseWS } from "../../../../services/response/response.service";
 import { ConsultaSaldosTddService } from "../../../../services/saldosTDD/consultaSaldos.service";
 import { SesionTDDService } from "../../../../services/breadcrums/breadcroms.service";
+import { consultaCatalogos } from '../../../../services/consultaCatalogos/consultaCatalogos.service';
 
 declare var $: any;
 
@@ -13,7 +14,6 @@ export class TransferenciasSpeiDetailComponent implements OnInit {
   formatoFecha: any;
   tipoOperacion: String;
   operacionType: any;
-
   detalleTransferencia: any = {
     cuentaTitular: "",
     nombreTitular: "",
@@ -52,7 +52,8 @@ export class TransferenciasSpeiDetailComponent implements OnInit {
 
     this._service.validarDatosSaldoTdd().then(mensaje => {
       console.log("Saldos cargados correctamente TDD");
-      this.detalleTransferencia.cuentaTitular = mensaje.NumeroCuenta;
+      const operaciones: consultaCatalogos = new consultaCatalogos();
+      this.detalleTransferencia.cuentaTitular = operaciones.mascaraNumeroCuenta(mensaje.NumeroCuenta);
     });
 
     if (this_aux.tipoOperacion === "SPEI") {

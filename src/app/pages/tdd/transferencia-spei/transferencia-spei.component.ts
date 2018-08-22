@@ -125,9 +125,9 @@ export class TransferenciaSpeiComponent implements OnInit {
     resourceRequest.setTimeout(30000);
     resourceRequest.send().then(
       function(response) {
-        this_aux.listaBancos = response.responseJSON;
-        this_aux.listaBancos.sort(this_aux.sortByProperty('NombreBanco'));
         $("#_modal_please_wait").modal("hide");
+        this_aux.listaBancos = response.responseJSON;
+        this_aux.listaBancos.sort(this_aux.sortByProperty('NombreBanco'));        
       },
       function(error) {
         console.error("El WS respondio incorrectamente");
@@ -136,6 +136,9 @@ export class TransferenciaSpeiComponent implements OnInit {
         }, 500);
       }
     );
+    setTimeout(() => {
+      $("#_modal_please_wait").modal("hide");
+    }, 5000);
   }
 
   consultaTablaCorpBancosService() {
@@ -160,6 +163,9 @@ export class TransferenciaSpeiComponent implements OnInit {
         }, 500);
       }
     );
+    setTimeout(() => {
+      $("#_modal_please_wait").modal("hide");
+    }, 5000);
   }
 
   sortByProperty = function (property) {
