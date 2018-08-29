@@ -202,14 +202,16 @@ showErrorSucces(json) {
                   $('#_modal_please_wait').modal('hide');
                }, 500);
               } else {
-                $('#_modal_please_wait').modal('hide');
+  
                 setTimeout(function() {
+                  $('#_modal_please_wait').modal('hide');
                   this_aux.showErrorSucces(detallePrepara);
                 }, 1000);
               }
             }, function(error) {
-              $('#_modal_please_wait').modal('hide');
+              
               setTimeout(() => {
+                $('#_modal_please_wait').modal('hide');
                 this_aux.showErrorPromise(error);
              }, 1000);
   
