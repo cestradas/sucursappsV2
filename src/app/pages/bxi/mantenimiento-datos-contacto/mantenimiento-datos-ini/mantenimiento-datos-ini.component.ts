@@ -255,16 +255,21 @@ showErrorSucces(json) {
                   this_aux.modificarDatos(this_aux.Correo, this_aux.Celular);
               } else {
 
-                $('#_modal_please_wait').modal('hide');
-                  console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
-                  mensajeError = this_aux.controlarError(infoUsuarioJSON);
-                  document.getElementById('mnsError').innerHTML =  mensajeError;
-                  $('#errorModal').modal('show');
+               
+                  setTimeout(() => {
+                    $('#_modal_please_wait').modal('hide');
+                    console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
+                    mensajeError = this_aux.controlarError(infoUsuarioJSON);
+                    document.getElementById('mnsError').innerHTML =  mensajeError;
+                    $('#errorModal').modal('show');
+                   }, 500);
 
               }
         }, function(error) {
-          $('#_modal_please_wait').modal('hide');
-           this_aux.showErrorPromiseMoney(error);
+           setTimeout(() => {
+            $('#_modal_please_wait').modal('hide');
+            this_aux.showErrorPromiseMoney(error);
+           }, 500);
         });
   }
 
