@@ -296,7 +296,7 @@ jQuery.extend = jQuery.fn.extend = function() {
 jQuery.extend( {
 
 	// Unique for each copy of jQuery on the page
-	expando: "jQuery" + ( version + window.crypto.getRandomValues(window.crypto.getRandomValues(new Uint32Array(1)) ).replace( /\D/g, "" ),
+	expando: "jQuery" + ( version + Math.random() ).replace( /\D/g, "" ),
 
 	// Assume jQuery is ready without the ready module
 	isReady: true,
@@ -2477,7 +2477,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 				// We must always have either seed elements or outermost context
 				elems = seed || byElement && Expr.find["TAG"]( "*", outermost ),
 				// Use integer dirruns iff this is the outermost matcher
-				dirrunsUnique = (dirruns += contextBackup == null ? 1 : window.crypto.getRandomValues(window.crypto.getRandomValues(new Uint32Array(1)) || 0.1),
+				dirrunsUnique = (dirruns += contextBackup == null ? 1 : Math.random() || 0.1),
 				len = elems.length;
 
 			if ( outermost ) {
