@@ -158,12 +158,12 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 };
 
   cargaBancos() {
-
+/*
     if ( this.opcionSeleccionado === '2') {
       this.id = 2230;
     } else {
       this.id = 165;
-    }
+    } */
     this.pagarTarjetaCredito();
   }
 
@@ -173,15 +173,19 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     if (this_aux.rcbFiltro.nativeElement.value.toString() === "311") {
       this_aux._response.nameOperacion = "Pago tarjeta de crédito Propias Banorte";
       this_aux.numeroBanco = "22";
+      this_aux.id = 165;
     } else if (this_aux.rcbFiltro.nativeElement.value.toString() === "312") {
       this_aux._response.nameOperacion = "Pago tarjeta de crédito Terceros Banorte";
       this_aux.numeroBanco = "22";
+      this_aux.id = 165;
     } else if (this_aux.rcbFiltro.nativeElement.value.toString() === "313") {
       this_aux._response.nameOperacion = "Pago tarjeta de crédito Otros Bancos";
       this_aux.numeroBanco = "0";
+      this_aux.id = 165;
     } else if (this_aux.rcbFiltro.nativeElement.value.toString() === "314") {
       this_aux._response.nameOperacion = "Pago tarjeta de crédito American Express";
       this_aux.numeroBanco = "2";
+      this_aux.id = 2230;
     }
 
     if (this_aux.numeroBanco === "2") {

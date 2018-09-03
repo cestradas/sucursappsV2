@@ -301,7 +301,7 @@ getidSesion() {
            this_aux.sesionBrowser = response.responseText;
           console.log(this_aux.sesionBrowser);
           console.log("El servcio de id sesion respondio correctamente");
-          console.log("SIC BEL: " + this_aux.service.infoUsuarioSIC);
+          // console.log("SIC BEL: " + this_aux.service.infoUsuarioSIC);
           sessionStorage.setItem("idSesion", this_aux.sesionBrowser);  
           this_aux.encriptarSic();   
       },
@@ -355,8 +355,7 @@ encriptarSic() {
   console.log("adentro encriptar sic");
   
   const formParameters = {
-     //  sic: this_aux.service.infoUsuarioSIC
-     sic: '51851458'
+    sic: this_aux.service.infoUsuarioSIC     
   };
 
   const resourceRequest = new WLResourceRequest(
@@ -390,7 +389,7 @@ send(msg) {
     let popupIframe = this_aux.riframe.nativeElement;
     let newUrl  = "";
     let tamUrl = this_aux.urlPropertyHtm.length;
-    newUrl = this_aux.urlPropertyHtm.substring( 0, tamUrl - 7 );
+    newUrl = this_aux.urlPropertyHtm.substring( 0, tamUrl - 18 );
     let contenido = (popupIframe.contentWindow ? popupIframe.contentWindow :
     popupIframe.contentDocument);
     contenido.postMessage(msg,  newUrl); 
@@ -404,7 +403,7 @@ send(msg) {
     let iframe = this_aux.riframe.nativeElement;
     let newUrl  = "";
     let tamUrl = this_aux.urlPropertyHtm.length;
-    newUrl = this_aux.urlPropertyHtm.substring( 0, tamUrl - 7 );
+    newUrl = this_aux.urlPropertyHtm.substring( 0, tamUrl - 18 );
   window.parent.addEventListener('message', function(e) {
       let origin = e.origin;
       if (origin !== newUrl) {

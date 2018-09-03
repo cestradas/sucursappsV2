@@ -316,11 +316,10 @@ export class MenutddComponent implements OnInit {
 
     const this_aux = this;
     const THIS: any = this;
-    console.log("adentro encriptar sic: " + this_aux._serviceSesion.datosBreadCroms.sicUsuarioTDD);
+   // console.log("adentro encriptar sic: " + this_aux._serviceSesion.datosBreadCroms.sicUsuarioTDD);
 
     const formParameters = {
-        // sic: this_aux._serviceSesion.datosBreadCroms.sicUsuarioTDD
-        sic: '51851458'
+        sic: this_aux._serviceSesion.datosBreadCroms.sicUsuarioTDD
     };
 
     const resourceRequest = new WLResourceRequest(
@@ -363,7 +362,7 @@ export class MenutddComponent implements OnInit {
     let popupIframe = this_aux.riframe.nativeElement;
     let newUrl  = "";
     let tamUrl = this_aux.urlPropertyHtm.length;
-    newUrl = this_aux.urlPropertyHtm.substring( 0, tamUrl - 7 );
+    newUrl = this_aux.urlPropertyHtm.substring( 0, tamUrl - 18 );
     let contenido = (popupIframe.contentWindow ? popupIframe.contentWindow :
     popupIframe.contentDocument);
     contenido.postMessage(msg,  newUrl); 
@@ -377,7 +376,7 @@ export class MenutddComponent implements OnInit {
       let iframe = this_aux.riframe.nativeElement;
       let newUrl  = "";
       let tamUrl = this_aux.urlPropertyHtm.length;
-      newUrl = this_aux.urlPropertyHtm.substring( 0, tamUrl - 7 );
+      newUrl = this_aux.urlPropertyHtm.substring( 0, tamUrl - 18 );
     window.parent.addEventListener('message', function(e) {
         let origin = e.origin;
         if (origin !== newUrl) {

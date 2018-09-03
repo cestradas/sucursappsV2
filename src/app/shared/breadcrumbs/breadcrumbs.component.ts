@@ -19,10 +19,13 @@ export class BreadcrumbsComponent implements OnInit {
               private _service: SesionTDDService,
               private router: Router )  {}
 
-
   ngOnInit() {
     const this_aux = this;
-    this_aux.comienzaContador();
+    if (localStorage.getItem("contadorTime") === null)      {
+      localStorage.setItem("contadorTime", "1");
+      this_aux.comienzaContador();
+    } 
+    
     if ( this_aux._service.datosBreadCroms.nombreUsuarioTDD !== '' ) {
 
       this_aux.NombreUsuario =  this_aux._service.datosBreadCroms.nombreUsuarioTDD;
@@ -86,6 +89,7 @@ export class BreadcrumbsComponent implements OnInit {
     if (this_aux.service.Login === "1" ) {
       sessionStorage.removeItem("campania");
       sessionStorage.removeItem("idSesion");
+      localStorage.removeItem("contadorTime");
     const THIS: any = this;
       this_aux.service.Login = "0";
       const operacionesbxi: OperacionesBXI = new OperacionesBXI();
@@ -139,6 +143,7 @@ export class BreadcrumbsComponent implements OnInit {
     localStorage.removeItem("tr2_serv");
     localStorage.removeItem("np_serv");
     localStorage.removeItem("res_serv");
+    localStorage.removeItem("contadorTime");
     const resourceRequest = new WLResourceRequest(
       'adapters/AdapterBanorteSucursApps2/resource/cerrarSesion',
       WLResourceRequest.POST);
@@ -172,20 +177,21 @@ export class BreadcrumbsComponent implements OnInit {
       localStorage.setItem('TimeOut', localStorage.getItem('TimeOutIni'));
     });
   
-    setInterval(function() {
-     const valueNewTimeOut = +localStorage.getItem('TimeOut') - 1;
-     localStorage.setItem('TimeOut', valueNewTimeOut.toString());
-     if  (valueNewTimeOut === 15)  {
-              $('#avisoSesionExpira').modal('show');
-          }
-          if  (valueNewTimeOut <= 15)  {
-            document.getElementById('addExpira').innerHTML =  valueNewTimeOut.toString();
-          } 
-          if (valueNewTimeOut === 0) {
-            $('#avisoSesionExpira').modal('hide');
-             this_aux.cerrarSessionBEL();
-          }
+    setInterval( function () {
+      const valueNewTimeOut = +localStorage.getItem('TimeOut') - 1;
+      localStorage.setItem('TimeOut', valueNewTimeOut.toString());
+      if  (valueNewTimeOut === 15)  {
+               $('#avisoSesionExpira').modal('show');
+           }
+           if  (valueNewTimeOut <= 15)  {
+             document.getElementById('addExpira').innerHTML =  valueNewTimeOut.toString();
+           } 
+           if (valueNewTimeOut === 0) {
+             $('#avisoSesionExpira').modal('hide');
+              this_aux.cerrarSessionBEL();
+           }
     }, 1000);
+  
   }
 
 }
