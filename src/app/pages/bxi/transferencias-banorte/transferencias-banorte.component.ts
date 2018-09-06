@@ -85,12 +85,12 @@ export class TransferenciasBanorteComponent implements OnInit {
 
     });
 
-    console.log(this.forma);
+    // console.log(this.forma);
 
     this.forma.controls['amount'].valueChanges.subscribe(
       data => {
-        console.log('amount', data);
-        console.log('forma', this.forma);
+        // console.log('amount', data);
+        // console.log('forma', this.forma);
 
         this_aux.importeF = data;
         this_aux.desabilitaBtn();
@@ -98,8 +98,8 @@ export class TransferenciasBanorteComponent implements OnInit {
 
       this.forma.controls['concepto'].valueChanges.subscribe(
         data => {
-          console.log('concepto', data);
-          console.log('forma', this.forma);
+          // console.log('concepto', data);
+          // console.log('forma', this.forma);
 
           this_aux.conceptoF = data;
           this_aux.desabilitaBtn();
@@ -107,8 +107,8 @@ export class TransferenciasBanorteComponent implements OnInit {
 
         this.forma.controls['fcTokenTr'].valueChanges.subscribe(
           data2 => {
-            console.log('fcTokenTr', data2);
-            console.log('forma', this.forma);
+            // console.log('fcTokenTr', data2);
+            // console.log('forma', this.forma);
 
             this_aux.fcTokenTr = data2;
             if (this_aux.fcTokenTr !== " ") {
@@ -134,7 +134,7 @@ export class TransferenciasBanorteComponent implements OnInit {
   fillSelectCuentas() {
     const this_aux = this;
     const cuentasString = this_aux.service.infoCuentas;
-    console.log(this_aux.service.infoCuentas);
+    // console.log(this_aux.service.infoCuentas);
     const consultaCuentas = JSON.parse(cuentasString);
     const cuentasArray = consultaCuentas.ArrayCuentas;
       cuentasArray.forEach(cuenta => {
@@ -158,7 +158,7 @@ filtraCtaVista(cuenta) {
 crearListaCuentas(cuenta) {
   const this_aux = this;
   const cuentasString = this_aux.service.infoCuentas;
-  console.log(this_aux.service.infoCuentas);
+  // console.log(this_aux.service.infoCuentas);
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
   const li =  this.renderer.createElement('li');
   this_aux.renderer.addClass(li, 'text-li');
@@ -179,7 +179,7 @@ setDatosCuentaSeleccionada(elementHTML) {
   $('#_modal_please_wait').modal('show');
   const this_aux = this;
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
-  console.log(elementHTML);
+  // console.log(elementHTML);
   const tableOrigen = document.getElementById('tableOrigen');
   const tableDefaultOrigen = document.getElementById('tableDefaultOrigen');
   const lblCuentaOrigen = document.getElementById('lblCuentaOrigen');
@@ -218,7 +218,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
 getSaldoDeCuenta(numCuenta_seleccionada) {
 
-  console.log(numCuenta_seleccionada.length);
+  // console.log(numCuenta_seleccionada.length);
   if (numCuenta_seleccionada.length === 16) {
        this.getSaldoTDC(numCuenta_seleccionada);
   } else {
@@ -231,7 +231,7 @@ getSaldoTDDOtras(numCuenta_seleccionada) {
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
   operacionesbxi.getSaldo(numCuenta_seleccionada).then(
       function(response1) {
-        console.log(response1.responseText);
+        // console.log(response1.responseText);
         const detalleSaldos = response1.responseJSON;
         if ( detalleSaldos.Id === '1') {
 
@@ -263,7 +263,7 @@ getSaldoTDDOtras(numCuenta_seleccionada) {
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
   operacionesbxi.getSaldoTDC(numCuenta_seleccionada).then(
       function(response1) {
-        console.log(response1.responseText);
+        // console.log(response1.responseText);
         const detalleSaldos = response1.responseJSON;
         if ( detalleSaldos.Id === '1') {
 
@@ -335,9 +335,9 @@ fillCuentasBeneficiario () {
     //    });
   });
 
-  console.log(this_aux.listaCuentasBen);
-  console.log(this_aux.listaDatosBen);
-  console.log(this_aux.listaCuentasUsr);
+  // console.log(this_aux.listaCuentasBen);
+  // console.log(this_aux.listaDatosBen);
+  // console.log(this_aux.listaCuentasUsr);
   this_aux.defineFiltros();
 }
 
@@ -392,9 +392,9 @@ setCuentasBenficiarioXTipo() {
   // selleciono cta propias
   if (this_aux.selectTipo.nativeElement.value.toString() === "1") {
     console.log('setCuentasUsuario');
-    console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
+    // console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
     const node = document.getElementById("ul_CuentasBen");
-    console.log(node);
+    // console.log(node);
     while (node.firstChild) {
       node.removeChild(node.firstChild);
      }
@@ -404,9 +404,9 @@ setCuentasBenficiarioXTipo() {
   // selleciono cta terceros
   if (this_aux.selectTipo.nativeElement.value.toString() === "2") {
     console.log('setCuentasBenficiarioXTipo');
-    console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
+    // console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
     const node = document.getElementById("ul_CuentasBen");
-    console.log(node);
+    // console.log(node);
     while (node.firstChild) {
       node.removeChild(node.firstChild);
      }
@@ -416,9 +416,9 @@ setCuentasBenficiarioXTipo() {
   // CUENTAS DEL USUSARIO
 
   console.log('setCuentasUsuario');
-    console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
+    // console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
     const node = document.getElementById("ul_Cuentas");
-    console.log(node);
+    // console.log(node);
     while (node.firstChild) {
       node.removeChild(node.firstChild);
      }
@@ -432,7 +432,7 @@ setCuentasBenficiarioXTipo() {
 
 
           const cuentasString = this_aux.service.infoCuentas;
-          console.log(this_aux.service.infoCuentas);
+          // console.log(this_aux.service.infoCuentas);
           const operacionesbxi: OperacionesBXI = new OperacionesBXI();
           const consultaCuentas = JSON.parse(cuentasString);
         //  const cuentasArray = consultaCuentas.ArrayCuentas;
@@ -472,7 +472,7 @@ setCuentasBenficiarioXTipo() {
 
         contCtas ++;
       const cuentasString = this_aux.service.infoCuentas;
-      console.log(this_aux.service.infoCuentas);
+      // console.log(this_aux.service.infoCuentas);
       const consultaCuentas = JSON.parse(cuentasString);
      // const cuentasArray = consultaCuentas.ArrayCuentas;
      // cuentasArray.forEach(cuenta => {
@@ -563,7 +563,7 @@ setCuentasBenficiarioXTipo() {
 setDatosCuentaBeneficiario(elementHTML) {
 
   const this_aux = this;
-  console.log(elementHTML);
+  // console.log(elementHTML);
   const tableBeneficiarios = document.getElementById('tableBeneficiarios');
   const tableDefaultBeneficiarios = document.getElementById('tableDefaultBeneficiarios');
   const lblCuentaDestino = document.getElementById('lblCuentaDestino');
@@ -598,13 +598,13 @@ setDatosCuentaBeneficiario(elementHTML) {
    }
 
 
-  console.log(this_aux.service.claveBancoDestino + this_aux.service.claveAliasCuenta + this_aux.service.claveNumBenefi);
+  // console.log(this_aux.service.claveBancoDestino + this_aux.service.claveAliasCuenta + this_aux.service.claveNumBenefi);
 
 }
 
 resetLista() {
   const node = document.getElementById("ul_CuentasBen");
-  console.log(node);
+  // console.log(node);
   while (node.firstChild) {
     node.removeChild(node.firstChild);
    }
@@ -615,8 +615,8 @@ getNumeroCuentaDestino(text) {
   const  separador = ',';
   const  arregloDeSubCadenas = text.split(separador);
   const numCuentaDestino = arregloDeSubCadenas[1];
-  console.log(arregloDeSubCadenas);
-  console.log(numCuentaDestino);
+  // console.log(arregloDeSubCadenas);
+  // console.log(numCuentaDestino);
 
   return numCuentaDestino;
 }
@@ -625,8 +625,8 @@ getNameInstitucion(text) {
   const  separador = ',';
   const  arregloDeSubCadenas = text.split(separador);
   const nameInstitucion = arregloDeSubCadenas[2];
-  console.log(arregloDeSubCadenas);
-  console.log(nameInstitucion);
+  // console.log(arregloDeSubCadenas);
+  // console.log(nameInstitucion);
 
   return nameInstitucion;
 }
@@ -635,8 +635,8 @@ getNameAliasCuenta(text) {
   const  separador = ',';
   const  arregloDeSubCadenas = text.split(separador);
   const nameAliasCuenta = arregloDeSubCadenas[0];
-  console.log(arregloDeSubCadenas);
-  console.log(nameAliasCuenta);
+  // console.log(arregloDeSubCadenas);
+  // console.log(nameAliasCuenta);
 
   return nameAliasCuenta;
 }
@@ -645,8 +645,8 @@ getNumBeneficiario(text) {
   const  separador = ',';
   const  arregloDeSubCadenas = text.split(separador);
   const numBeneCta = arregloDeSubCadenas[3];
-  console.log(arregloDeSubCadenas);
-  console.log(numBeneCta);
+  // console.log(arregloDeSubCadenas);
+  // console.log(numBeneCta);
 
   return numBeneCta;
 }
@@ -656,7 +656,7 @@ consultaClabeSaldos(numCuentaDestinario_seleccionada) {
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
   operacionesbxi.getSaldo(numCuentaDestinario_seleccionada).then(
       function(response1) {
-        console.log(response1.responseText);
+        // console.log(response1.responseText);
         const detalleSaldos = response1.responseJSON;
         if ( detalleSaldos.Id === '1') {
 
@@ -667,7 +667,7 @@ consultaClabeSaldos(numCuentaDestinario_seleccionada) {
 
 
         } else {
-          console.log(detalleSaldos.MensajeAUsuario);
+          // console.log(detalleSaldos.MensajeAUsuario);
 
           document.getElementById('mnsError').innerHTML = detalleSaldos.MensajeAUsuario;
           $('#errorModal').modal('show');
@@ -697,7 +697,7 @@ showDetallePago() {
   console.log("adentro Trnsferencias Internacionales");
 
   const operacionSelect = this_aux.selectTipo.nativeElement.value.toString();
-  console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
+  // console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
 
   switch (operacionSelect) {
 
@@ -745,7 +745,7 @@ if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
   operacionesbxi.preparaAutenticacion().then(
     function(response) {
       const detallePrepara = response.responseJSON;
-      console.log(detallePrepara);
+      // console.log(detallePrepara);
       if (detallePrepara.Id === 'SEG0001') {
         divChallenge.setAttribute('style', 'display: flex');
         this_aux.NumeroSeguridad = detallePrepara.MensajeUsuarioUno;
@@ -756,7 +756,7 @@ if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
           } else {
             setTimeout(function() {
               $('#_modal_please_wait').modal('hide');
-              console.log(detallePrepara.Id + detallePrepara.MensajeAUsuario);
+              // console.log(detallePrepara.Id + detallePrepara.MensajeAUsuario);
               mensajeError = this_aux.controlarError(detallePrepara);
               document.getElementById('mnsError').innerHTML =  mensajeError;
               $('#errorModal').modal('show');
@@ -795,7 +795,7 @@ if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
 
 
   const operacionSelect = this_aux.selectTipo.nativeElement.value.toString();
-  console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
+  // console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
 
 
   switch (operacionSelect) {
@@ -844,7 +844,7 @@ validarSaldo(tipoOperecionPago) {
       function(response) {
 
         let DatosJSON = response.responseJSON;
-        console.log(response.responseText);
+        // console.log(response.responseText);
         if (DatosJSON.Id === "1") {
 
           console.log("Pago validado");
@@ -922,7 +922,7 @@ confirmarPago(token) {
 
 
   const operacionSelect = this_aux.selectTipo.nativeElement.value.toString();
-  console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
+  // console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
 
   switch (operacionSelect) {
 
@@ -946,18 +946,18 @@ confirmarPago(token) {
 
                   function(response) {
                     $('#_modal_please_wait').modal('show');
-                    console.log(response.responseJSON);
+                    // console.log(response.responseJSON);
 
                     const transferPropTer = response.responseJSON;
 
 
                      if ( transferPropTer.Id === '1') {
 
-                       console.log(transferPropTer);
+                       // console.log(transferPropTer);
                        this_aux.service.validaFinishTipoTransfer = "1";
 
                        this_aux.service.detalleConfirmacionTranPropBanorte = response.responseText;
-                       console.log(this_aux.service.detalleConfirmacionTranPropBanorte);
+                       // console.log(this_aux.service.detalleConfirmacionTranPropBanorte);
                        this_aux.router.navigate(['/TransferFinishBanorte']);
 
                      } else {
@@ -1001,18 +1001,18 @@ confirmarPago(token) {
                 .then(
 
                   function(response) {
-                    console.log(response.responseJSON);
+                    // console.log(response.responseJSON);
 
                     const transferPropTer = response.responseJSON;
 
 
                      if ( transferPropTer.Id === '1') {
 
-                       console.log(transferPropTer);
+                       // console.log(transferPropTer);
                        this_aux.service.validaFinishTipoTransfer = "1";
 
                        this_aux.service.detalleConfirmacionTranPropBanorte = response.responseText;
-                       console.log(this_aux.service.detalleConfirmacionTranPropBanorte);
+                       // console.log(this_aux.service.detalleConfirmacionTranPropBanorte);
                        this_aux.router.navigate(['/TransferFinishBanorte']);
 
                      } else {
@@ -1026,7 +1026,7 @@ confirmarPago(token) {
                   }
                 );
             } else {
-              console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
+              // console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
               mensajeError = this_aux.controlarError(infoUsuarioJSON);
               document.getElementById('mnsError').innerHTML =  mensajeError;
               setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
@@ -1159,7 +1159,7 @@ controlarError(json) {
 }
 
 showErrorPromise(error) {
-  console.log(error);
+  // console.log(error);
   // tslint:disable-next-line:max-line-length
   document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
   $('#_modal_please_wait').modal('hide');
@@ -1167,14 +1167,14 @@ showErrorPromise(error) {
 }
 
 showErrorSucces(json) {
-  console.log(json.Id + json.MensajeAUsuario);
+  // console.log(json.Id + json.MensajeAUsuario);
   document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
   $('#_modal_please_wait').modal('hide');
   $('#errorModal').modal('show');
 }
 
 showErrorSuccesMoney(json) {
-  console.log(json.Id + json.MensajeAUsuario);
+  // console.log(json.Id + json.MensajeAUsuario);
   document.getElementById('msgError').innerHTML =   json.MensajeAUsuario;
   $('#_modal_please_wait').modal('hide');
   $('#ModalErrorTransaccion').modal('show');

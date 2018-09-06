@@ -174,7 +174,7 @@ export class MantenimientoBenefComponent implements OnInit {
     });
 
     this.myformCP.controls["CodPBenef"].valueChanges.subscribe(data => {
-      console.log(data);
+      // console.log(data);
       this.tamañoCP(data);
     });
   }
@@ -411,7 +411,7 @@ export class MantenimientoBenefComponent implements OnInit {
     resourceRequest.setTimeout(30000);
     resourceRequest.sendFormParameters(formParameters).then(
       function(response) {
-        console.log(response.responseJSON);
+        // console.log(response.responseJSON);
         this_aux.DatosJSON = response.responseJSON;
         if (this_aux.DatosJSON.Id === "1") {
           if (this_aux.DatosJSON.MensajeAUsuario === "Sin datos") {
@@ -437,9 +437,9 @@ export class MantenimientoBenefComponent implements OnInit {
                 this_aux.porcentajeGuardado + Number(value.PorcentajeBenef);
               this_aux.ultimoRegistroGuardado = Number(value.NumeroConsecutiv);
             });
-            console.log(
-              "PORCENTAJE EN CONSULTA: " + this_aux.porcentajeGuardado
-            );
+            // console.log(
+            //   "PORCENTAJE EN CONSULTA: " + this_aux.porcentajeGuardado
+            // );
             const stringDatosBen = JSON.stringify(this_aux.DatosJSON);
             this_aux.serviceMantenimiento.datosBeneficiarios = stringDatosBen;
           }
@@ -479,7 +479,7 @@ export class MantenimientoBenefComponent implements OnInit {
         value.PorcentajeBenef = "0";
       }
     });
-    console.log("PORCENTAJE EN BAJA: " + this_aux.porcentajeGuardado);
+    // console.log("PORCENTAJE EN BAJA: " + this_aux.porcentajeGuardado);
   }
 
   bajaBeneficiarios() {
@@ -512,7 +512,7 @@ export class MantenimientoBenefComponent implements OnInit {
     resourceRequest.sendFormParameters(formParameters).then(
       function(response) {
         respuestaBaja = response.responseJSON;
-        console.log("RESPUESTA BAJA: " + respuestaBaja);
+        // console.log("RESPUESTA BAJA: " + respuestaBaja);
         if (respuestaBaja.Id === "1") {
           const stringDetalleMantenimiento = JSON.stringify(this_aux.DatosJSON);
           this_aux.serviceMantenimiento.detalleMantenimiento = stringDetalleMantenimiento;
@@ -601,7 +601,7 @@ export class MantenimientoBenefComponent implements OnInit {
     }
     this_aux.contadorAltas++;
     this_aux.tamRegistrosBenef++;
-    console.log("ULTIMOS REGISTROS" + this_aux.ultimoRegistroGuardado);
+    // console.log("ULTIMOS REGISTROS" + this_aux.ultimoRegistroGuardado);
     this.reiniciarInput();
     this.reiniciarValidaciones();
   }
@@ -722,9 +722,9 @@ export class MantenimientoBenefComponent implements OnInit {
     resourceRequest.setTimeout(30000);
     resourceRequest.sendFormParameters(formParameters).then(
       function(response) {
-        console.log(response.responseJSON);
+        // console.log(response.responseJSON);
         respuestaAlta = response.responseJSON;
-        console.log("RESPUESTA ALTA Moral: " + respuestaAlta);
+        // console.log("RESPUESTA ALTA Moral: " + respuestaAlta);
         if (respuestaAlta.Id === "1") {
           const stringDetalleMantenimiento = JSON.stringify(this_aux.DatosJSON);
           this_aux.serviceMantenimiento.detalleMantenimiento = stringDetalleMantenimiento;
@@ -807,9 +807,9 @@ export class MantenimientoBenefComponent implements OnInit {
     resourceRequest.setTimeout(30000);
     resourceRequest.sendFormParameters(formParameters).then(
       function(response) {
-        console.log(response.responseJSON);
+        // console.log(response.responseJSON);
         respuestaAltaF = response.responseJSON;
-        console.log("RESPUESTA ALTA: " + respuestaAltaF);
+        // console.log("RESPUESTA ALTA: " + respuestaAltaF);
         if (respuestaAltaF.Id === "1") {
           const stringDetalleMantenimiento = JSON.stringify(this_aux.DatosJSON);
           this_aux.serviceMantenimiento.detalleMantenimiento = stringDetalleMantenimiento;
@@ -838,7 +838,7 @@ export class MantenimientoBenefComponent implements OnInit {
   }
 
   fMSelect(fisicaRec) {
-    console.log("Seleccionaste: " + fisicaRec);
+    // console.log("Seleccionaste: " + fisicaRec);
     const this_aux = this;
     this_aux.fisicaMoralSeleccionada = fisicaRec;
     if (fisicaRec === "1") {
@@ -978,7 +978,7 @@ export class MantenimientoBenefComponent implements OnInit {
 
   fMModificacion() {
     const this_aux = this;
-    console.log("Persona: " + this_aux.fisicaMoralSeleccionada);
+    // console.log("Persona: " + this_aux.fisicaMoralSeleccionada);
     if (this_aux.fisicaMoralSeleccionada === "PERSONA FÍSICA") {
       console.log("Se elimina rfc");
       const nombreBen: FormControl = new FormControl(
@@ -1149,7 +1149,7 @@ export class MantenimientoBenefComponent implements OnInit {
     resourceRequest.setTimeout(30000);
     resourceRequest.sendFormParameters(formParameters).then(
       function(response) {
-        console.log("CODIGOS POSTALES: " + response.responseJSON);
+        // console.log("CODIGOS POSTALES: " + response.responseJSON);
         this_aux.DatosJSONCP = response.responseJSON;
         if (this_aux.DatosJSONCP.Id === "1") {
           this_aux.CP = this_aux.DatosJSONCP.ArrayCP;
@@ -1268,9 +1268,9 @@ export class MantenimientoBenefComponent implements OnInit {
 
   guardarCambios() {
     const this_aux = this;
-    console.log(
-      "numero de modificaciones:" + this_aux.contadorModificaciones.length
-    );
+    // console.log(
+    //   "numero de modificaciones:" + this_aux.contadorModificaciones.length
+    // );
     let rFCModif: any = "";
     let fisicaMoralModif: any = "";
     let fechaNacimientoModif: any = "";
@@ -1301,7 +1301,7 @@ export class MantenimientoBenefComponent implements OnInit {
       });
       if (encontrar !== undefined && value.Opcion === "Modificacion") {
         value.Opcion = "ModificacionRealizada";
-        console.log("Valor modificado: " + value.NumeroConsecutiv);
+        // console.log("Valor modificado: " + value.NumeroConsecutiv);
         codigoPostalModif = value.CodigoPostal;
         codigoDelegacionModif = value.CodigoDelegacion;
         codigoEstadoModif = value.CodigoEstado;
@@ -1385,7 +1385,7 @@ export class MantenimientoBenefComponent implements OnInit {
     const THIS: any = this;
     let respuestaModif: any;
     console.log("adentro modificar Beneficiarios");
-    console.log(this_aux.BEN);
+    // console.log(this_aux.BEN);
     if (numeroDepartamentoModif === "") {
       numeroDepartamentoModif = "0";
     }
@@ -1438,11 +1438,11 @@ export class MantenimientoBenefComponent implements OnInit {
     resourceRequest.setTimeout(30000);
     resourceRequest.sendFormParameters(formParameters).then(
       function(response) {
-        console.log(response.responseJSON);
+        // console.log(response.responseJSON);
         this_aux.DatosJSON = response.responseJSON;
 
         respuestaModif = response.responseJSON;
-        console.log("RESPUESTA MODIFICACION: " + respuestaModif);
+        // console.log("RESPUESTA MODIFICACION: " + respuestaModif);
         if (respuestaModif.Id === "1") {
           const stringDetalleMantenimiento = JSON.stringify(this_aux.DatosJSON);
           this_aux.serviceMantenimiento.detalleMantenimiento = stringDetalleMantenimiento;
@@ -1475,7 +1475,7 @@ export class MantenimientoBenefComponent implements OnInit {
     let porcentajeVacio: any = true;
     this_aux.porcentajeGuardado = 0;
     let conversion: any = 0;
-    console.log("PORCENTAJE Benefe: " + this.BEN);
+    // console.log("PORCENTAJE Benefe: " + this.BEN);
     this.BEN.forEach(function(value, key) {
       if (value.PorcentajeBenef === "") {
         porcentajeVacio = false;
@@ -1483,7 +1483,7 @@ export class MantenimientoBenefComponent implements OnInit {
       conversion = Number(value.PorcentajeBenef);
       this_aux.porcentajeGuardado = this_aux.porcentajeGuardado + conversion;
     });
-    console.log("PORCENTAJE GUARDADO: " + this_aux.porcentajeGuardado);
+    // console.log("PORCENTAJE GUARDADO: " + this_aux.porcentajeGuardado);
     if (
       this_aux.sumaPorcentajes(this_aux.porcentajeGuardado) &&
       porcentajeVacio
@@ -1566,7 +1566,7 @@ export class MantenimientoBenefComponent implements OnInit {
 
     this._validaNipService.validarDatosrespuesta().then(mensaje => {
       res = this._validaNipService.respuestaNip.res;
-      console.log(res);
+      // console.log(res);
 
       if (res === true) {
         $("#ModalTDDLogin").modal("hide");
@@ -1625,9 +1625,9 @@ export class MantenimientoBenefComponent implements OnInit {
     const this_aux = this;
     let fecha = $("#txtFechaVencimiento").val();
     fecha = fecha.substring(0, 10);
-    console.log(
-      (document.getElementById("txtFechaVencimiento").innerHTML = fecha)
-    );
+    // console.log(
+    //   (document.getElementById("txtFechaVencimiento").innerHTML = fecha)
+    // );
     // tslint:disable-next-line:max-line-length
     const controlFecha: FormControl = new FormControl(fecha, [
       Validators.required,
@@ -1652,9 +1652,9 @@ export class MantenimientoBenefComponent implements OnInit {
     const this_aux = this;
     let fecha = $("#txtFechaVencimientoMod").val();
     fecha = fecha.substring(0, 10);
-    console.log(
-      (document.getElementById("txtFechaVencimientoMod").innerHTML = fecha)
-    );
+    // console.log(
+    //   (document.getElementById("txtFechaVencimientoMod").innerHTML = fecha)
+    // );
     // tslint:disable-next-line:max-line-length
     const controlFecha: FormControl = new FormControl(fecha, [
       Validators.required,
@@ -1666,7 +1666,7 @@ export class MantenimientoBenefComponent implements OnInit {
   }
 
   showErrorPromise(error) {
-    console.log(error);
+    // console.log(error);
     // tslint:disable-next-line:max-line-length
     document.getElementById("mnsError").innerHTML =
       "El servicio no esta disponible, favor de intentar mas tarde";
@@ -1675,7 +1675,7 @@ export class MantenimientoBenefComponent implements OnInit {
   }
 
   showErrorPromiseMoney(json) {
-    console.log(json.Id + json.MensajeAUsuario);
+    // console.log(json.Id + json.MensajeAUsuario);
     document.getElementById("msgError").innerHTML =
       "No fue posible confirmar la operación. Por favor verifica tus datos.";
     $("#_modal_please_wait").modal("hide");
@@ -1683,7 +1683,7 @@ export class MantenimientoBenefComponent implements OnInit {
   }
 
   showErrorSucces(json) {
-    console.log(json.Id + json.MensajeAUsuario);
+    // console.log(json.Id + json.MensajeAUsuario);
     if (json.Id === "2") {
       document.getElementById("mnsError").innerHTML =
         "El servicio no esta disponible, favor de intentar mas tarde";

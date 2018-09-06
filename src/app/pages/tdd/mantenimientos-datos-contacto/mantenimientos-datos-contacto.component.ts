@@ -103,13 +103,13 @@ export class MantenimientosDatosContactoComponent implements OnInit {
     console.log("si entre");
     const this_aux = this;
     const operaciones: consultaCatalogos = new consultaCatalogos();
-    console.log(correo + "   " + celular);
+    // console.log(correo + "   " + celular);
     operaciones.actualizaDatosContacto(correo, celular).then(
         function(resp) {
 
           const jsonRespuesta = resp.responseJSON;
           if (jsonRespuesta.Id === '1') {
-           console.log(resp.responseText);
+           // console.log(resp.responseText);
             $('div').removeClass('modal-backdrop');
             this_aux.router.navigate(['/actualizarDatosContactoFinalTDD']);
             console.log("Datos Actualizados");
@@ -136,7 +136,7 @@ let res;
     mensaje => {
 
       res = this._validaNipService.respuestaNip.res;
-      console.log(res);
+      // console.log(res);
 
       if (res === true) {
 
@@ -168,7 +168,7 @@ let res;
 
   showErrorSucces(json) {
 
-    console.log(json.Id + json.MensajeAUsuario);
+    // console.log(json.Id + json.MensajeAUsuario);
     if (json.Id === '2') {
       document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
     } else {
@@ -220,7 +220,7 @@ let res;
   
   focusTeclado(element) {
     console.log("Entro focus");
-    console.log(element);
+    // console.log(element);
     if (element.readOnly === true) {
       $( ".cdk-visually-hidden" ).css( "margin-top", "100%" );
     } else {

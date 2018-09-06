@@ -208,7 +208,7 @@ contenido: any;
   
         const jsonRespuesta = respPago.responseJSON;
         if (jsonRespuesta.Id === '1') {
-         console.log(respPago.responseText);
+         //console.log(respPago.responseText);
          this_aux._serviceSesion.datosBreadCroms.CelCliente = jsonRespuesta.Telefono;
          this_aux._serviceSesion.datosBreadCroms.EmailCliente = jsonRespuesta.Email;
          // tslint:disable-next-line:max-line-length

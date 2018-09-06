@@ -48,8 +48,8 @@ export class LoginBxiComponent implements OnInit {
         .createSecurityCheckChallengeHandler(securityCheckName);
     const usr_ca = 'sucursApps';
     const tarjet = 'adm-sucusWeb';
-    console.log(usr_ca);
-    console.log(tarjet);
+    // console.log(usr_ca);
+    // console.log(tarjet);
 
         WLAuthorizationManager.login(securityCheckName, {
             'usr_ca': usr_ca,
@@ -63,7 +63,7 @@ export class LoginBxiComponent implements OnInit {
                }, 500);
         
         }, function(error) {
-            console.log(error);
+            // console.log(error);
         });
   }
 
@@ -86,7 +86,7 @@ export class LoginBxiComponent implements OnInit {
             function(response) {
                 this_aux.datosLegacy = response.responseJSON;
                 const resLegacyJson = response.responseJSON;
-                console.log( this_aux.datosLegacy);
+                // console.log( this_aux.datosLegacy);
                 if (resLegacyJson.Id === '0') {
                     WLAuthorizationManager.logout('banorteSecurityCheckSa');
                    
@@ -119,7 +119,7 @@ export class LoginBxiComponent implements OnInit {
     let mensajeError;
     autenticacion.identificaUsuriao(usuarioBxi).then(
       function(identificacion) {
-        console.log(identificacion.responseJSON);
+        // console.log(identificacion.responseJSON);
         const detalleIdentifacionUsurario = identificacion.responseJSON;
 
           if ( detalleIdentifacionUsurario.Id === 'SEG0001') {
@@ -142,7 +142,7 @@ export class LoginBxiComponent implements OnInit {
                         } else {
                          
                           WLAuthorizationManager.logout('banorteSecurityCheckSa');
-                            console.log(respConsultaMetodos.Id + respConsultaMetodos.MensajeAUsuario);
+                            // console.log(respConsultaMetodos.Id + respConsultaMetodos.MensajeAUsuario);
                             mensajeError = this_aux.controlarError(respConsultaMetodos);
                             document.getElementById('mnsError').innerHTML =  mensajeError;
                             $('#_modal_please_wait').modal('hide');
@@ -157,7 +157,7 @@ export class LoginBxiComponent implements OnInit {
           } else {
            
             WLAuthorizationManager.logout('banorteSecurityCheckSa');
-            console.log(detalleIdentifacionUsurario.Id + detalleIdentifacionUsurario.MensajeAUsuario);
+            // console.log(detalleIdentifacionUsurario.Id + detalleIdentifacionUsurario.MensajeAUsuario);
             mensajeError = this_aux.controlarError(detalleIdentifacionUsurario);
             document.getElementById('mnsError').innerHTML =  mensajeError;
             $('#_modal_please_wait').modal('hide');
@@ -189,7 +189,7 @@ export class LoginBxiComponent implements OnInit {
         }
 
       });
-      console.log(nivelMayor + tipoAutenticacion + etiqueta + requierePreparacion );
+      // console.log(nivelMayor + tipoAutenticacion + etiqueta + requierePreparacion );
       this_aux.service.metodoAutenticaMayor = tipoAutenticacion;
       this_aux.service.metodoAutenticaEtiqueta = etiqueta;
       this.showModalByTipoAutentica();
@@ -218,7 +218,7 @@ export class LoginBxiComponent implements OnInit {
       console.log('entro autenticaUsuario ' );
       autenticacion.autenticaUsuario( claveAcceso, "0").then(
           function(response) {
-                 console.log(response.responseJSON);
+                 // console.log(response.responseJSON);
                 const infoUsuario = response.responseText;
                 const infoUsuarioJSON = response.responseJSON;
                 if (infoUsuarioJSON.Id === 'SEG0001') {
@@ -244,7 +244,7 @@ export class LoginBxiComponent implements OnInit {
 
                  setTimeout(function() {
                   $('#_modal_please_wait').modal('hide');
-                  console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
+                  // console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
                   mensajeError = this_aux.controlarError(infoUsuarioJSON);
                   document.getElementById('mnsError').innerHTML =  mensajeError;
                   $('#errorModal').modal('show');
@@ -283,7 +283,7 @@ export class LoginBxiComponent implements OnInit {
         function(datosUsuario) {
            const jsonDatosUsuario = datosUsuario.responseJSON;
             if (jsonDatosUsuario.Id === '1') {
-              console.log(jsonDatosUsuario);
+              // console.log(jsonDatosUsuario);
               this_aux.service.isPreferente = jsonDatosUsuario.Preferente;
               this_aux.service.userRfc = jsonDatosUsuario.Rfc;
               // $( ".nav-img-banorte" ).css( "background-image", "");
@@ -340,29 +340,29 @@ export class LoginBxiComponent implements OnInit {
       const THIS: any = this;
       this_aux.service.Login = "0";
       const operacionesbxi: OperacionesBXI = new OperacionesBXI();
-      console.log("Cerrar sesion BEL");
+       console.log("Cerrar sesion BEL");
       operacionesbxi.cerrarSesionBEL().then(
           function(response) {
-            console.log(response);
+            // console.log(response);
             const responseJson = response.responseJSON;
             if (responseJson.Id === "SEG0001") {
               WLAuthorizationManager.logout('banorteSecurityCheckSa');
               localStorage.removeItem('TimeOut');
               localStorage.removeItem('TimeOutIni');
-              console.log("BEL cerro sesion",  this_aux.service.Login);
+              // console.log("BEL cerro sesion",  this_aux.service.Login);
               this_aux.router.navigate(['/login']);
               location.reload(true);
             } else {
-              console.log("BEL error cerrar sesion", responseJson.Id  + responseJson.MensajeAUsuario);
+              // console.log("BEL error cerrar sesion", responseJson.Id  + responseJson.MensajeAUsuario);
               document.getElementById('msgError').innerHTML =   "Error en cerrar sesión";
               $('#ModalErrorTransaccion').modal('show');
             }
           },
           function(error) {
 
-            console.log(error);
+            // console.log(error);
             document.getElementById('msgError').innerHTML =   "Error en cerrar sesión";
-            console.log("BEL error cerrar sesion", error.errorCode  + error.errorMsg);
+            // console.log("BEL error cerrar sesion", error.errorCode  + error.errorMsg);
            // this_aux.router.navigate(['/login']);
 
           });
@@ -412,18 +412,18 @@ export class LoginBxiComponent implements OnInit {
                       break;
        
         case '2'      : mensajeError = "El servicio no esta disponible, favor de intentar mas tarde";
-                        console.log("Id: 2 Mensaje:" + mensajeUsuario);
+                        // console.log("Id: 2 Mensaje:" + mensajeUsuario);
                       break;
 
         default:    mensajeError = "El servicio no esta disponible, favor de intentar mas tarde";
-        console.log("Id: 0 Mensaje:" + mensajeUsuario);
+        // console.log("Id: 0 Mensaje:" + mensajeUsuario);
       }
 
       return mensajeError;
     }
 
     showErrorPromise(error) {
-      console.log(error);
+      // console.log(error);
       // tslint:disable-next-line:max-line-length
       document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar mas tarde";
       $('#_modal_please_wait').modal('hide');
@@ -432,7 +432,7 @@ export class LoginBxiComponent implements OnInit {
 
     showErrorSucces(json) {
         $('#_modal_please_wait').modal('hide');
-        console.log(json.Id + json.MensajeAUsuario);
+        // console.log(json.Id + json.MensajeAUsuario);
         if (json.Id === '2') {
           document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
         } else {

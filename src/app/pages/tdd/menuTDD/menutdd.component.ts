@@ -62,7 +62,7 @@ export class MenutddComponent implements OnInit {
   }
 
   mandarPage(id) {
-    console.log(id);
+    // console.log(id);
 
     switch (id) {
       case "saldosMov":
@@ -141,7 +141,7 @@ export class MenutddComponent implements OnInit {
 
       const jsonRespuesta = respPago.responseJSON;
       if (jsonRespuesta.Id === '1') {
-       console.log(respPago.responseText);
+       // console.log(respPago.responseText);
        this_aux._serviceSesion.datosBreadCroms.CelCliente = jsonRespuesta.Telefono;
        this_aux._serviceSesion.datosBreadCroms.EmailCliente = jsonRespuesta.Email;
        // tslint:disable-next-line:max-line-length
@@ -184,7 +184,7 @@ export class MenutddComponent implements OnInit {
         function(detalleAlertas) {
               const detalle = detalleAlertas.responseJSON;
               let AlertasActivas_true = false;
-              console.log(detalle);
+              // console.log(detalle);
               if (detalle .Id === '1') {
 
                 const alertas = detalle.AlertasXCliente;
@@ -194,7 +194,7 @@ export class MenutddComponent implements OnInit {
                     }
                 });
                 this_aux.AlertasActivas = AlertasActivas_true;
-                console.log('this_aux.AlertasActivas' + this_aux.AlertasActivas);
+                // console.log('this_aux.AlertasActivas' + this_aux.AlertasActivas);
                 if (this_aux.AlertasActivas) {
                   
                   this_aux.conAlertas();
@@ -206,7 +206,7 @@ export class MenutddComponent implements OnInit {
                 
               } else if (detalle.Id === '0' && detalle.MensajeAUsuario === 'NUMERO DE CLIENTE INEXISTENTE.') {
                 this_aux.conAlertas();
-                console.log(detalle);
+                // console.log(detalle);
                 // this_aux.showErrorSucces(detalle);      
               } else {
                 this_aux.conAlertas();
@@ -214,7 +214,7 @@ export class MenutddComponent implements OnInit {
               setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
         }, function(error) {
           this_aux.conAlertas();
-          console.log(error);
+          // console.log(error);
           setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
           // this_aux.showErrorPromise(error);    
         }
@@ -236,7 +236,7 @@ export class MenutddComponent implements OnInit {
     
     showErrorSucces(json) {
 
-      console.log(json.Id + json.MensajeAUsuario);
+      // console.log(json.Id + json.MensajeAUsuario);
       if (json.Id === '2') {
         document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
       } else {
@@ -351,7 +351,7 @@ export class MenutddComponent implements OnInit {
   getidSesion() {
     const this_aux = this;
     this_aux.sesionBrowser = this_aux.serviceTdd.sesionTdd;
-    console.log(this_aux.sesionBrowser);
+    // console.log(this_aux.sesionBrowser);
     sessionStorage.setItem("idSesion", this_aux.sesionBrowser);  
     this_aux.encriptarSic(); 
 }

@@ -1686,13 +1686,13 @@ operacion(id) {
           resourceRequest.setTimeout(100000);
           resourceRequest.sendFormParameters(formParameters).then(
             function(response) {
-              console.log(response.responseText);
+              //console.log(response.responseText);
               const documento = response.responseJSON;
               $('#_modal_please_wait').modal('show');
 
               if ( documento.Id === '1') {
                   if ( documento.PDF !== undefined) {
-                    console.log("info doc", nombreDoc);
+                    //console.log("info doc", nombreDoc);
                     localStorage.setItem("doc", documento.PDF);
                     localStorage.setItem("nombreDoc", nombreDoc);
                     // strae PDF del respWL
@@ -1781,7 +1781,7 @@ consultaSaldosTarjetas() {
   const formParameters = { 
   }; 
   
-  console.log(formParameters);
+  //console.log(formParameters);
   const resourceRequest = new WLResourceRequest(
     
     'adapters/AdapterBanorteSucursAppsTdc/resource/consultaSaldosTarjetas', WLResourceRequest.POST);
@@ -1789,7 +1789,7 @@ consultaSaldosTarjetas() {
     
     resourceRequest.sendFormParameters(formParameters).then(
       function(response1) {
-        console.log(response1.responseText);
+        //console.log(response1.responseText);
 
         const detalleSaldos = response1.responseJSON;
         $('#_modal_please_wait').modal('hide');

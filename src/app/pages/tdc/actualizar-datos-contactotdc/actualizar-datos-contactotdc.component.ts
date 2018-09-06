@@ -101,7 +101,7 @@ export class ActualizarDatosContactotdcComponent implements OnInit {
 
           const jsonRespuesta = resp.responseJSON;
           if (jsonRespuesta.Id === '1') {
-           console.log(resp.responseText);
+           //console.log(resp.responseText);
             $('div').removeClass('modal-backdrop');
             this_aux.router.navigate(['/mantenimientoDatosContactoFinalTdc']);
             console.log("Datos Actualizados");
@@ -129,7 +129,7 @@ let res;
     mensaje => {
 
       res = this._validaNipService.respuestaNip.res;
-      console.log(res);
+      //console.log(res);
 
       if (res === true) {
 
@@ -213,7 +213,7 @@ let res;
   
   focusTeclado(element) {
     console.log("Entro focus");
-    console.log(element);
+    //console.log(element);
     if (element.readOnly === true) {
       $( ".cdk-visually-hidden" ).css( "margin-top", "100%" );
     } else {

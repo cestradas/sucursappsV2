@@ -56,7 +56,7 @@ cuentaClienteTdd: string;
     const this_aux = this;
     const respPago = this_aux.service.detalleConfirmacionPS;
     const respPagoJson = JSON.parse(respPago);
-    console.log(respPagoJson);
+    // console.log(respPagoJson);
     this_aux.detallePago.nombreServicio = this_aux.service.nombreServicio;
     this_aux.detallePago.cuentaCargo = this_aux.service.numCuentaSeleccionado;
     if (this.service.idFacturador === '1310' || this_aux.service.idFacturador === '88924') {

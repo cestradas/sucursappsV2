@@ -44,7 +44,7 @@ export class ActivarAlertasVerifyTdcComponent implements OnInit {
   
         const jsonRespuesta = respPago.responseJSON;
         if (jsonRespuesta.Id === '1') {
-         console.log(respPago.responseText);
+         //console.log(respPago.responseText);
          this_aux.Email = jsonRespuesta.Email;
          this_aux.Celular = jsonRespuesta.Telefono;
           console.log("Consulta de Datos Exitosa");
@@ -96,7 +96,7 @@ export class ActivarAlertasVerifyTdcComponent implements OnInit {
     
     resourceRequest.sendFormParameters(formParameters).then(
       function(response1) {
-        console.log(response1.responseText);
+      //  console.log(response1.responseText);
 
         const detalleSaldos = response1.responseJSON;
         $('#_modal_please_wait').modal('hide');

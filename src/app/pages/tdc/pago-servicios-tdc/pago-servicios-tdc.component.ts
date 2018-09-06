@@ -115,7 +115,7 @@ export class PagoServiciosTdcComponent implements OnInit {
            const idEmpresa = empresa.IdFacturador;
            this_aux.listaEmpresas.push(descripcion);
            });
-         console.log(this_aux.listaEmpresas);
+         //console.log(this_aux.listaEmpresas);
          this_aux.listaEmpresasAux = this_aux.listaEmpresas;
          this_aux.actualizaEmpresasXtipoPago();
          setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
@@ -127,7 +127,7 @@ export class PagoServiciosTdcComponent implements OnInit {
        const operaciones: ConsultaCatalogosTdcService = new ConsultaCatalogosTdcService();
        operaciones.consultaEmpresas().then(
        function(response) {
-             console.log(response.responseJSON);
+            // console.log(response.responseJSON);
              const consultaEmpresas = response.responseJSON;
              if (consultaEmpresas.Id === '1') {
 
@@ -138,7 +138,7 @@ export class PagoServiciosTdcComponent implements OnInit {
                      const idEmpresa = empresa.IdFacturador;
                      this_aux.listaEmpresas.push(descripcion);
                  });
-               console.log(this_aux.listaEmpresas);
+             //  console.log(this_aux.listaEmpresas);
                this_aux.listaEmpresasAux = this_aux.listaEmpresas;
                setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
 
@@ -156,7 +156,7 @@ export class PagoServiciosTdcComponent implements OnInit {
 getIdEmpresa(empresaSeleccionada: string) {
   const this_aux =  this;
   console.log(empresaSeleccionada);
-  console.log(this_aux.arrayEmpresas);
+  //console.log(this_aux.arrayEmpresas);
   let valueFacturador: string;
   const arrayFacturadores = this_aux.arrayEmpresas;
   arrayFacturadores.forEach(empresa => {
@@ -181,7 +181,7 @@ getDetalleEmpresa(idFacturador) {
    const operaciones: ConsultaCatalogosTdcService = new ConsultaCatalogosTdcService();
    operaciones.consultaDetalleEmpresa(idFacturador).then(
        function(response) {
-         console.log(response.responseText);
+        // console.log(response.responseText);
          const detalleEmpresa = response.responseJSON;
          const body = $('body');
          if (detalleEmpresa.Id === '1') {
@@ -298,7 +298,7 @@ actualizaEmpresasXtipoPago() {
        }
       } 
       });
-      console.log(this_aux.listaEmpresas);
+      //console.log(this_aux.listaEmpresas);
       this_aux.listaEmpresasAux = this_aux.listaEmpresas;
   
   }
@@ -308,7 +308,7 @@ consultaSaldosTarjetas() {
   const formParameters = { 
   }; 
   
-  console.log(formParameters);
+ // console.log(formParameters);
   const resourceRequest = new WLResourceRequest(
     
     'adapters/AdapterBanorteSucursAppsTdc/resource/consultaSaldosTarjetas', WLResourceRequest.POST);
@@ -316,7 +316,7 @@ consultaSaldosTarjetas() {
     
     resourceRequest.sendFormParameters(formParameters).then(
       function(response1) {
-        console.log(response1.responseText);
+        //console.log(response1.responseText);
 
         const detalleSaldos = response1.responseJSON;
         $('#_modal_please_wait').modal('hide');

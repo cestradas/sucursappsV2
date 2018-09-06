@@ -54,7 +54,7 @@ export class MantenimientoBenefDetailComponent implements OnInit {
     const this_aux = this;
     const THIS: any = this;
     console.log("adentro consultarBeneficiarios");
-    console.log(this_aux.BEN);
+    // console.log(this_aux.BEN);
     let anio: any = "";
     let mes: any = "";
     let dia: any = "";
@@ -70,7 +70,7 @@ export class MantenimientoBenefDetailComponent implements OnInit {
     resourceRequest.setTimeout(30000);
     resourceRequest.sendFormParameters(formParameters).then(
       function(response) {
-        console.log(response.responseJSON);
+        // console.log(response.responseJSON);
         const DatosJSON = response.responseJSON;
         this_aux.BEN = DatosJSON.ArrayBeneficiarios;
         if (this_aux.BEN === undefined) {

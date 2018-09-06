@@ -42,7 +42,7 @@ export class ActivarAlertasIniComponent implements OnInit {
   fillSelectCuentas() {
     const this_aux = this;
     const cuentasString = this_aux.service.infoCuentas;
-    console.log(this_aux.service.infoCuentas);
+    // console.log(this_aux.service.infoCuentas);
     const consultaCuentas = JSON.parse(cuentasString);
     const cuentasArray = consultaCuentas.ArrayCuentas;
       cuentasArray.forEach(cuenta => {
@@ -77,7 +77,7 @@ crearListaCuentas(cuenta) {
 setDatosCuentaSeleccionada(elementHTML) {
 
   const this_aux = this;
-  console.log(elementHTML);
+  // console.log(elementHTML);
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
  // const divBlockAlerta = document.getElementById("blockAlertas");
   const tableOrigen = document.getElementById('tableOrigen');
@@ -134,7 +134,7 @@ consultaAlertas(I, TDD , TDC , numeroCuenta) {
     function(detalleAlertas) {
           const detalle = detalleAlertas.responseJSON;
           let AlertasActivas_true = false;
-          console.log(detalle);
+          // console.log(detalle);
           if (detalle .Id === '1') {
 
                 
@@ -148,7 +148,7 @@ consultaAlertas(I, TDD , TDC , numeroCuenta) {
                     }
                 });
                 this_aux.AlertasActivas = AlertasActivas_true;
-                console.log('this_aux.AlertasActivas' + this_aux.AlertasActivas);
+                // console.log('this_aux.AlertasActivas' + this_aux.AlertasActivas);
                 if (this_aux.AlertasActivas) {
                   
                   setTimeout(function() { 
@@ -186,7 +186,7 @@ consultaAlertas(I, TDD , TDC , numeroCuenta) {
 }
 
 getSaldoDeCuenta(numCuenta_seleccionada) {
-  console.log(numCuenta_seleccionada.length);
+  // console.log(numCuenta_seleccionada.length);
   if (numCuenta_seleccionada.length === 16) {
        this.getSaldoTDC(numCuenta_seleccionada);
   } else {
@@ -199,7 +199,7 @@ getSaldoTDDOtras(numCuenta_seleccionada) {
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
   operacionesbxi.getSaldo(numCuenta_seleccionada).then(
       function(response1) {
-        console.log(response1.responseText);
+        // console.log(response1.responseText);
         const detalleSaldos = response1.responseJSON;
         if ( detalleSaldos.Id === '1') {
 
@@ -230,7 +230,7 @@ getSaldoTDDOtras(numCuenta_seleccionada) {
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
   operacionesbxi.getSaldoTDC(numCuenta_seleccionada).then(
       function(response1) {
-        console.log(response1.responseText);
+        // console.log(response1.responseText);
         const detalleSaldos = response1.responseJSON;
         if ( detalleSaldos.Id === '1') {
 
@@ -264,8 +264,8 @@ getNumeroCuentaOrigen(text) {
   const  separador = ',';
   const  arregloDeSubCadenas = text.split(separador);
   const numCuentaOrigen = arregloDeSubCadenas[0];
-  console.log(arregloDeSubCadenas);
-  console.log(numCuentaOrigen);
+  // console.log(arregloDeSubCadenas);
+  // console.log(numCuentaOrigen);
 
   return numCuentaOrigen;
 }
@@ -274,8 +274,8 @@ getNumeroCuentaOrigen(text) {
     const  separador = ',';
     const  arregloDeSubCadenas = text.split(separador);
     const tipoCuenta = arregloDeSubCadenas[1];
-    console.log(arregloDeSubCadenas);
-    console.log(tipoCuenta);
+    // console.log(arregloDeSubCadenas);
+    // console.log(tipoCuenta);
 
     return tipoCuenta;
   }
@@ -305,7 +305,7 @@ getNumeroCuentaOrigen(text) {
 
   showErrorSucces(json) {
 
-      console.log(json.Id + json.MensajeAUsuario);
+      // console.log(json.Id + json.MensajeAUsuario);
       if (json.Id === '2') {
         document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
       } else {
@@ -372,7 +372,7 @@ getNumeroCuentaOrigen(text) {
     const reNum = /\d/g;
     let textContentAux = textContent.replace(re, '');
     textContentAux = textContentAux.replace(reNum, '');
-    console.log(textContentAux);
+    // console.log(textContentAux);
 
     return textContentAux;
 

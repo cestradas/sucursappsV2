@@ -31,7 +31,7 @@ export class PagoServiciosVerifyComponent implements OnInit {
     const respPago = this_aux.service.detalleConfirmacionPS;
     const respPagoJson = JSON.parse(respPago);
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
-    console.log(respPagoJson);
+    // console.log(respPagoJson);
     this_aux.detallePago.nombreServicio = this_aux.service.nombreServicio;
     this_aux.detallePago.cuentaCargo = operacionesbxi.mascaraNumeroCuenta( this_aux.service.numCuentaSeleccionado);
     if (this.service.idFacturador === '1310' || this.service.idFacturador === '88924' ) {

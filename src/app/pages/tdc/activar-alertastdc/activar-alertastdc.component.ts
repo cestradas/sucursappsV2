@@ -57,7 +57,7 @@ $('#_modal_please_wait').modal('show');
         function(detalleAlertas) {
               const detalle = detalleAlertas.responseJSON;
               let AlertasActivas_true = false;
-              console.log(detalle);
+              //console.log(detalle);
               if (detalle .Id === '1') {
 
 
@@ -68,7 +68,7 @@ $('#_modal_please_wait').modal('show');
                         }
                     });
                     this_aux.AlertasActivas = AlertasActivas_true;
-                    console.log('this_aux.AlertasActivas' + this_aux.AlertasActivas);
+                   // console.log('this_aux.AlertasActivas' + this_aux.AlertasActivas);
                     if (this_aux.AlertasActivas) {
                       setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
                         document.getElementById('mnsError').innerHTML =  "Ya tienes alertas activas para esta cuenta"; 
@@ -166,7 +166,7 @@ irMenuTDC() {
     const formParameters = { 
     }; 
     
-    console.log(formParameters);
+    //console.log(formParameters);
     const resourceRequest = new WLResourceRequest(
       
       'adapters/AdapterBanorteSucursAppsTdc/resource/consultaSaldosTarjetas', WLResourceRequest.POST);
@@ -174,7 +174,7 @@ irMenuTDC() {
       
       resourceRequest.sendFormParameters(formParameters).then(
         function(response1) {
-          console.log(response1.responseText);
+         // console.log(response1.responseText);
 
           const detalleSaldos = response1.responseJSON;
           $('#_modal_please_wait').modal('hide');

@@ -54,7 +54,7 @@ if (storageTipoClienteTar === "true") {
   
         const jsonRespuesta = respPago.responseJSON;
         if (jsonRespuesta.Id === '1') {
-         console.log(respPago.responseText);
+         // console.log(respPago.responseText);
          this_aux.Email = jsonRespuesta.Email;
          this_aux.Celular = jsonRespuesta.Telefono;
           console.log("Consulta de Datos Exitosa");
@@ -74,7 +74,7 @@ if (storageTipoClienteTar === "true") {
 
   showErrorSucces(json) {
 
-    console.log(json.Id + json.MensajeAUsuario);
+    // console.log(json.Id + json.MensajeAUsuario);
     if (json.Id === '2') {
       document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
     } else {

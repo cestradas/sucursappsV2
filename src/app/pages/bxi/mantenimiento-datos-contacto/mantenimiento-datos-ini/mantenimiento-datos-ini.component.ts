@@ -94,7 +94,7 @@ export class MantenimientoDatosIniComponent implements OnInit {
       function(respActualiza) {
         const jsonRespuesta = respActualiza.responseJSON;
           if (jsonRespuesta.Id === '1') {
-              console.log(jsonRespuesta);
+              // console.log(jsonRespuesta);
               this_aux.service.EmailCliente = correo;
               this_aux.service.CelCliente = celular;
               const d = new Date();
@@ -142,7 +142,7 @@ export class MantenimientoDatosIniComponent implements OnInit {
 }
 
 showErrorSucces(json) {
-  console.log(json.Id + json.MensajeAUsuario);
+  // console.log(json.Id + json.MensajeAUsuario);
   if (json.Id === '2') {
     document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
   } else {
@@ -158,7 +158,7 @@ showErrorSucces(json) {
 
   focusTeclado(element) {
     console.log("Entro focus");
-    console.log(element);
+    // console.log(element);
     if (element.readOnly === true) {
       $( ".cdk-visually-hidden" ).css( "margin-top", "100%" );
     } else {
@@ -194,7 +194,7 @@ showErrorSucces(json) {
           operacionesbxi.preparaAutenticacion().then(
             function(response) {
               const detallePrepara = response.responseJSON;
-              console.log(detallePrepara);
+              // console.log(detallePrepara);
               if (detallePrepara.Id === 'SEG0001') {
                 divChallenge.setAttribute('style', 'display: flex');
                 this_aux.NumeroSeguridad = detallePrepara.MensajeUsuarioUno;
@@ -258,7 +258,7 @@ showErrorSucces(json) {
                
                   setTimeout(() => {
                     $('#_modal_please_wait').modal('hide');
-                    console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
+                    // console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
                     mensajeError = this_aux.controlarError(infoUsuarioJSON);
                     document.getElementById('mnsError').innerHTML =  mensajeError;
                     $('#errorModal').modal('show');
@@ -316,10 +316,10 @@ showErrorSucces(json) {
       case 'SEGTK03': mensajeError = "Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones"; // Token desincronizado."; 
                     break;
       case '2'      : mensajeError = "El servicio no esta disponible, favor de intentar mas tarde";
-                    console.log("Id: 2 Mensaje:" + mensajeUsuario);
+                    // console.log("Id: 2 Mensaje:" + mensajeUsuario);
                   break;
       default:    mensajeError = "El servicio no esta disponible, favor de intentar mas tarde";
-                  console.log("Id: 0 Mensaje:" + mensajeUsuario);
+                  // console.log("Id: 0 Mensaje:" + mensajeUsuario);
     }
  
     return mensajeError;

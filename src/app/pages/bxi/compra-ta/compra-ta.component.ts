@@ -69,12 +69,12 @@ export class CompraTaComponent implements OnInit {
 
     });
 
-    console.log(this.forma);
+    // console.log(this.forma);
 
     this.forma.controls['telefono'].valueChanges.subscribe(
       data => {
-        console.log('telefono', data);
-        console.log('forma', this.forma);
+        // console.log('telefono', data);
+        // console.log('forma', this.forma);
 
         this_aux.telefonoF = data;
 
@@ -124,13 +124,13 @@ export class CompraTaComponent implements OnInit {
     operacionesbxi.getCatEmpresas().then(
       function(response) {
 
-        console.log(response.responseText);
+        // console.log(response.responseText);
         let res = response.responseJSON;
 
         // tslint:disable-next-line:forin
         for ( let i in res ) {
 
-          console.log(res[i].Nombre);
+          // console.log(res[i].Nombre);
 
           switch (res[i].Nombre) {
             case 'Telcel': {
@@ -176,7 +176,7 @@ export class CompraTaComponent implements OnInit {
   fillSelectCuentas() {
     const this_aux = this;
     const cuentasString = this_aux.service.infoCuentas;
-    console.log(this_aux.service.infoCuentas);
+    // console.log(this_aux.service.infoCuentas);
     const consultaCuentas = JSON.parse(cuentasString);
     const cuentasArray = consultaCuentas.ArrayCuentas;
       cuentasArray.forEach(cuenta => {
@@ -213,7 +213,7 @@ setDatosCuentaSeleccionada(elementHTML) {
   $('#_modal_please_wait').modal('show');
   const this_aux = this;
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
-  console.log(elementHTML);
+  // console.log(elementHTML);
   const tableOrigen = document.getElementById('tableOrigen');
   const tableDefaultOrigen = document.getElementById('tableDefaultOrigen');
   const lblCuentaOrigen = document.getElementById('lblCuentaOrigen');
@@ -237,13 +237,13 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
   operacionesbxi.getSaldo(numCuenta_seleccionada).then(
       function(response1) {
-        console.log(response1.responseText);
+        // console.log(response1.responseText);
         const detalleSaldos = response1.responseJSON;
         if ( detalleSaldos.Id === '1') {
           this_aux.SaldoOrigen = detalleSaldos.SaldoDisponible;
           setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
         } else {
-          console.log(detalleSaldos.MensajeAUsuario);
+          // console.log(detalleSaldos.MensajeAUsuario);
           this_aux.showErrorSucces(detalleSaldos);
           setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
         }
@@ -261,7 +261,7 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
     const this_aux =  this;
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
 
-    console.log(id.id);
+    // console.log(id.id);
 
     this_aux.cveTelefonicaF = id.id;
 
@@ -300,14 +300,14 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
          break;
       }
       default: {
-        console.log("No existe ese operador: " + id.id);
+        // console.log("No existe ese operador: " + id.id);
          break;
       }
    }
 
     operacionesbxi.getSaldoCompany(id.id).then(
       function(response1) {
-        console.log(response1.responseText);
+        // console.log(response1.responseText);
         let detalleSaldos = response1.responseJSON;
         // if ( detalleSaldos[0].Id === '1') {
           if (detalleSaldos.Id = '1') {
@@ -363,7 +363,7 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
       operacionesbxi.preparaAutenticacion().then(
         function(response) {
           const detallePrepara = response.responseJSON;
-          console.log(detallePrepara);
+          // console.log(detallePrepara);
           if (detallePrepara.Id === 'SEG0001') {
             divChallenge.setAttribute('style', 'display: flex');
             this_aux.NumeroSeguridad = detallePrepara.MensajeUsuarioUno;
@@ -375,7 +375,7 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
 
             setTimeout(() => {
               $('#_modal_please_wait').modal('hide');
-              console.log(detallePrepara.Id + detallePrepara.MensajeAUsuario);
+              // console.log(detallePrepara.Id + detallePrepara.MensajeAUsuario);
                           mensajeError = this_aux.controlarError(detallePrepara);
                           document.getElementById('mnsError').innerHTML =  mensajeError;
                           $('#errorModal').modal('show');
@@ -418,7 +418,7 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
 
    // ctaO = this_aux.service.numCuentaCTASel;
    $('#_modal_please_wait').modal('show');
-    console.log(importeTel);
+    // console.log(importeTel);
 
     const autenticacion: Autenticacion = new Autenticacion();
     
@@ -471,16 +471,16 @@ compraTA() {
   .then(
 
     function(response) {
-      console.log(response.responseJSON);
+      // console.log(response.responseJSON);
 
       const compraTAResp = response.responseJSON;
 
 
        if ( compraTAResp.Id === '1') {
 
-         console.log(compraTAResp);
+        //  console.log(compraTAResp);
          this_aux.service.detalleConfirmacionCTA = response.responseText;
-         console.log(this_aux.service.detalleConfirmacionCTA);
+        //  console.log(this_aux.service.detalleConfirmacionCTA);
          setTimeout(() => {$('#confirmModal').modal('hide'); } , 1000);
          this_aux.service.operador = this_aux.operador;
          this_aux.router.navigate(['/CompraTaFinish']);
@@ -542,7 +542,7 @@ controlarError(json) {
 
     // tslint:disable-next-line:no-switch-case-fall-through
     default:    mensajeError = "El servicio no esta disponible, favor de intentar mas tarde.";
-                  console.log("Id: 0 Mensaje:" + mensajeUsuario);
+                  // console.log("Id: 0 Mensaje:" + mensajeUsuario);
   }
 
   return mensajeError;
@@ -562,7 +562,7 @@ showErrorPromiseMoney(error) {
 
 showErrorSucces(json) {
 
-      console.log(json.Id + json.MensajeAUsuario);
+      // console.log(json.Id + json.MensajeAUsuario);
       if (json.Id === '2') {
         document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
       } else {
@@ -588,7 +588,7 @@ validarSaldo() {
   operacionesbxi.consultaTablaYValidaSaldo(this_aux.service.numCuentaCTASel, this_aux.importe).then(
     function(response) {
       let DatosJSON = response.responseJSON;
-      console.log(response.responseText);
+      // console.log(response.responseText);
       if (DatosJSON.Id === "1") {
         console.log("Pago validado");
         this_aux.setTipoAutenticacionOnModal();

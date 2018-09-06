@@ -132,7 +132,7 @@ export class MovimientosaldotdcComponent implements OnInit {
       tipoConsulta: tipoconsulta
     }; 
     
-    console.log(formParameters);
+    //console.log(formParameters);
       
     const resourceRequest = new WLResourceRequest(
         'adapters/AdapterBanorteSucursAppsTdc/resource/consultaMovimientosTarjetas', WLResourceRequest.POST);
@@ -141,7 +141,7 @@ export class MovimientosaldotdcComponent implements OnInit {
         
         resourceRequest.sendFormParameters(formParameters).then(
           function(response) {
-            console.log(response.responseText);
+            //console.log(response.responseText);
            this_aux.movimientos = response.responseJSON;
            if (this_aux.movimientos === null) { 
              this_aux.timeOut();
@@ -154,7 +154,7 @@ export class MovimientosaldotdcComponent implements OnInit {
               console.log(this_aux.movimientosCue);
               
              if (  this_aux.movimientosCue === null || this_aux.movimientosCue === undefined) {
-              console.log(detalleCuenta.MensajeAUsuario);
+             // console.log(detalleCuenta.MensajeAUsuario);
               this_aux.sinMovimientos(this_aux.par);
              } else {
                
@@ -162,7 +162,7 @@ export class MovimientosaldotdcComponent implements OnInit {
               this_aux.numPaginas = this_aux.TamArray / this_aux.tamPaginas;             
     
                   const textTitular = detalleCuenta;
-                  console.log(detalleCuenta.MensajeAUsuario);
+                  //console.log(detalleCuenta.MensajeAUsuario);
                   this_aux.mostrarTabla();
                   if (this_aux.numPaginas <= 1 ) { 
                     const div2 = document.getElementById('Navegador');
@@ -177,7 +177,7 @@ export class MovimientosaldotdcComponent implements OnInit {
         
             }
             else{
-              console.log("id"+detalleCuenta.Id);
+             // console.log("id"+detalleCuenta.Id);
               this_aux.showErrorSucces(detalleCuenta);
               
             } 
@@ -268,7 +268,7 @@ export class MovimientosaldotdcComponent implements OnInit {
         
         resourceRequest.sendFormParameters(formParameters).then(
           function(response) {
-            console.log(response.responseText);
+          //  console.log(response.responseText);
             this_aux.movimientos = response.responseJSON;
             if (this_aux.movimientos === null) { 
               this_aux.timeOut();
@@ -278,7 +278,7 @@ export class MovimientosaldotdcComponent implements OnInit {
             if ( detalleCuenta.Id === '1') {// uno servicio es que tiene datos y si es 0 es un error
               this_aux.movimientosCue = this_aux.movimientos.movimientos;
 
-              console.log(this_aux.movimientosCue);
+              //console.log(this_aux.movimientosCue);
               
              if (  this_aux.movimientosCue === null || this_aux.movimientosCue === undefined) {
               console.log(detalleCuenta.MensajeAUsuario);
@@ -316,7 +316,7 @@ export class MovimientosaldotdcComponent implements OnInit {
       const formParameters = { 
       }; 
       
-      console.log(formParameters);
+      //console.log(formParameters);
              
       const resourceRequest = new WLResourceRequest(
         
@@ -325,7 +325,7 @@ export class MovimientosaldotdcComponent implements OnInit {
         
         resourceRequest.sendFormParameters(formParameters).then(
           function(response1) {
-            console.log(response1.responseText);
+           // console.log(response1.responseText);
 
             const detalleSaldos = response1.responseJSON;
             $('#_modal_please_wait').modal('hide');

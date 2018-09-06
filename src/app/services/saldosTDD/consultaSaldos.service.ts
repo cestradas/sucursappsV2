@@ -24,7 +24,7 @@ export class ConsultaSaldosTddService {
 
     showErrorSucces(json) {
 
-        console.log(json.Id + json.MensajeAUsuario);
+        // console.log(json.Id + json.MensajeAUsuario);
         if (json.Id === '2') {
           document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
         } else {
@@ -36,7 +36,7 @@ export class ConsultaSaldosTddService {
       showErrorPromise(error) {
         $('#errorModal').modal('show');
         if (error.errorCode === 'API_INVOCATION_FAILURE') {
-            document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+            document.getElementById('mnsError').innerHTML = 'Tu sesiï¿½n ha expirado';
         } else {
           document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
         }
@@ -56,7 +56,7 @@ export class ConsultaSaldosTddService {
                 function(response) {
                   
                     let resp = response.responseJSON;
-                    console.log(resp);
+                    // console.log(resp);
                     let respTipotar = JSON.parse(resp.Producto);                    
 
                     if (resp.Id === '1' ) {
@@ -75,7 +75,7 @@ export class ConsultaSaldosTddService {
 
                 function(error) {
                     this_aux.showErrorSucces(error);
-                    console.log(error.responseText);
+                    // console.log(error.responseText);
         
                 });
 

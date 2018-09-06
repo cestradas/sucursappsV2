@@ -23,7 +23,7 @@ export class TransferenciasCuentasBanorteVerifyComponent implements OnInit {
     const this_aux = this;
     const respPago = this_aux._serviceSesion.datosBreadCroms.repTrasferenciaCuentasBanorte;
     const respPagoJson = JSON.parse(respPago);
-    console.log(this._serviceSesion.datosBreadCroms.repTrasferenciaCuentasBanorte);
+    // console.log(this._serviceSesion.datosBreadCroms.repTrasferenciaCuentasBanorte);
     this_aux.detallePago.FechaOperacion = respPagoJson.FechaOperacion;
     this_aux.detallePago.HoraOperacion = respPagoJson.HoraOperacion;
     this_aux.detallePago.TitularAbono = respPagoJson.TitularAbono;

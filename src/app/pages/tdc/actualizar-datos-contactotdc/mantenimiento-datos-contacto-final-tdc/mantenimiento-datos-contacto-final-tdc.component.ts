@@ -76,7 +76,7 @@ export class MantenimientoDatosContactoFinalTdcComponent implements OnInit {
 
         const jsonRespuesta = respPago.responseJSON;
         if (jsonRespuesta.Id === '1') {
-          console.log(respPago.responseText);
+          //console.log(respPago.responseText);
           this_aux.Celular = jsonRespuesta.Telefono;
           this_aux.CorreoElectronico = jsonRespuesta.Email;
           

@@ -85,7 +85,7 @@ export class TransferenciasCuentasBanorteComponent implements OnInit {
          this.cuentaClienteTdd = operaciones.mascaraNumeroCuenta(mensaje.NumeroCuenta);
          this.nombreUsuarioTdd = this._serviceSesion.datosBreadCroms.nombreUsuarioTDD;
          this.tipoCuentaTdd = mensaje.Producto;
-         console.log('Saldos cargados correctamente TDD: ' , mensaje);
+         // console.log('Saldos cargados correctamente TDD: ' , mensaje);
          setTimeout( () => $('#_modal_please_wait').modal('hide'), 500 );
        }
        
@@ -135,11 +135,11 @@ export class TransferenciasCuentasBanorteComponent implements OnInit {
       this_aux.importe = this_aux.importeAux;
     
     $('#_modal_please_wait').modal('show');
-    console.log(this_aux.importe + "este es importe a consultar");
+    // console.log(this_aux.importe + "este es importe a consultar");
     this._validaNipService.consultaTablaYValidaSaldo(this_aux.importe).then(
       function(response) {
         let DatosJSON = response.responseJSON;
-        console.log(response.responseText);
+        // console.log(response.responseText);
         if (DatosJSON.Id === "1") {
          // aqiiiiiiiii
          this_aux.showDetallePago(myForm);
@@ -180,7 +180,7 @@ export class TransferenciasCuentasBanorteComponent implements OnInit {
         mensaje => {
   
           res = this._validaNipService.respuestaNip.res;
-          console.log(res);
+          // console.log(res);
   
           if (res === true) {
   
@@ -220,7 +220,7 @@ export class TransferenciasCuentasBanorteComponent implements OnInit {
             this_aux._serviceSesion.datosBreadCroms.repTrasferenciaCuentasBanorte = respuestaTransferencia.responseText;
             $('div').removeClass('modal-backdrop');
             this_aux.router.navigate(['/transFinal']);
-            console.log(jsonDetalleTrans.MensajeAUsuario);
+            // console.log(jsonDetalleTrans.MensajeAUsuario);
             console.log("Trasferencia Exitosa");
           } else {
             this_aux.showErrorSucces(jsonDetalleTrans);
@@ -254,7 +254,7 @@ export class TransferenciasCuentasBanorteComponent implements OnInit {
 
 showErrorSucces(json) {
 
-        console.log(json.Id + json.MensajeAUsuario);
+        // console.log(json.Id + json.MensajeAUsuario);
         if (json.Id === '2') {
           document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
         } else {
@@ -276,7 +276,7 @@ showErrorSucces(json) {
     const this_aux = this;
     if (this_aux.importeAux === undefined) { this_aux.importeAux = this_aux.replaceSimbolo( this_aux.myForm.get('fcImporte').value); }
       this_aux.importe = this_aux.importeAux;
-      console.log(this_aux.importe);
+      // console.log(this_aux.importe);
       // this_aux.fechaVencimiento = myForm.fcFechaVencimiento.toString();
       // if (this_aux.service.idFacturador === '1310') {
       //   this_aux.referenciaPago = myForm.fcTelefono.toString() + myForm.fcDigitoVerificador.toString();

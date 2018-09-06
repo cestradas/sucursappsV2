@@ -55,14 +55,14 @@ export class MenuBxiComponent implements OnInit {
                     this_aux.service.infoCuentas = getCuentas;
                     operaciones.consultaCuentasBeneficiarios(this_aux.service.usuarioLogin).then(
                       function(cuentasBeneficiario) {
-                      console.log(cuentasBeneficiario.responseJSON);
+                      // console.log(cuentasBeneficiario.responseJSON);
                       const resCuentasXBeneficiario = cuentasBeneficiario.responseJSON;
                       if (resCuentasXBeneficiario.Id === '1') {
 
                           this_aux.service.infoCuentasBeneficiarios = JSON.stringify(resCuentasXBeneficiario.arrayCuentasXBeneficiario);
                           this_aux.service.infoDatosDeBeneficiarios = JSON.stringify(resCuentasXBeneficiario.Beneficiarios);
-                          console.log(this_aux.service.infoCuentasBeneficiarios);
-                          console.log(this_aux.service.infoDatosDeBeneficiarios);
+                          // console.log(this_aux.service.infoCuentasBeneficiarios);
+                          // console.log(this_aux.service.infoDatosDeBeneficiarios);
                           $('#_modal_please_wait').modal('hide');
                           $('div').removeClass('modal-backdrop');
 
@@ -84,9 +84,9 @@ export class MenuBxiComponent implements OnInit {
           }
         );
     } else {
-      console.log(this_aux.service.infoCuentasBeneficiarios);
-      console.log(this_aux.service.infoDatosDeBeneficiarios);
-      console.log( this_aux.service.infoCuentas);
+      // console.log(this_aux.service.infoCuentasBeneficiarios);
+      // console.log(this_aux.service.infoDatosDeBeneficiarios);
+      // console.log( this_aux.service.infoCuentas);
     }
   }
 
@@ -216,7 +216,7 @@ export class MenuBxiComponent implements OnInit {
   }
 
   showErrorPromise(error) {
-    console.log(error);
+    // console.log(error);
     // tslint:disable-next-line:max-line-length
     document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar mas tarde";
     $('#_modal_please_wait').modal('hide');
@@ -225,7 +225,7 @@ export class MenuBxiComponent implements OnInit {
 
   showErrorSucces(json) {
 
-    console.log(json.Id + json.MensajeAUsuario);
+    // console.log(json.Id + json.MensajeAUsuario);
     if (json.Id === '2') {
       document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
     } else {
@@ -245,7 +245,7 @@ export class MenuBxiComponent implements OnInit {
           function(data) {
             const jsonData = data.responseJSON;
             if (jsonData.Id === '1') {
-                console.log('Datos contacto' + jsonData);
+                // console.log('Datos contacto' + jsonData);
                   this_aux.service.EmailCliente = jsonData.Email;
                   this_aux.service.CelCliente = jsonData.Telefono;
                   // tslint:disable-next-line:max-line-length
@@ -299,7 +299,7 @@ getidSesion() {
   resourceRequest.send().then(
       function(response) {
            this_aux.sesionBrowser = response.responseText;
-          console.log(this_aux.sesionBrowser);
+          // console.log(this_aux.sesionBrowser);
           console.log("El servcio de id sesion respondio correctamente");
           // console.log("SIC BEL: " + this_aux.service.infoUsuarioSIC);
           sessionStorage.setItem("idSesion", this_aux.sesionBrowser);  

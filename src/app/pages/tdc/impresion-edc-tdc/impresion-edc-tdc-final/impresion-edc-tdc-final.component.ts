@@ -34,7 +34,7 @@ export class ImpresionEdcTdcFinalComponent implements OnInit {
 
     });
 
-    console.log(this.forma);
+    //console.log(this.forma);
 
     this.forma.controls['correo'].valueChanges.subscribe(
       data => {
@@ -120,9 +120,9 @@ const resourceRequest = new WLResourceRequest(
 resourceRequest.setTimeout(100000);
 resourceRequest.sendFormParameters(formParameters).then(
   function(response) {
-    console.log(response.responseText);
+    //console.log(response.responseText);
     const respNotificador = response.responseJSON;
-    console.log(respNotificador);
+    //console.log(respNotificador);
 
     if ( respNotificador.Id === '1') {
         $('#_modal_please_wait').modal('hide');

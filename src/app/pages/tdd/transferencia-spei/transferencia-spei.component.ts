@@ -405,7 +405,7 @@ limpiarFormulario () {
       mensaje => {
 
         res = this._validaNipService.respuestaNip.res;
-        console.log(res);
+        // console.log(res);
 
         if (res === true) {
           $('#ModalTDDLogin').modal('hide');
@@ -457,8 +457,8 @@ limpiarFormulario () {
 
   this_aux.myform.controls['importeF'].valueChanges.subscribe(
     data => {
-      console.log('importeF', data);
-      console.log('myform', this_aux.myform);
+      // console.log('importeF', data);
+      // console.log('myform', this_aux.myform);
     });
     
   }
@@ -500,7 +500,7 @@ limpiarFormulario () {
     let importeAux = importe.replace('$', '');
     const re = /\,/g;
     importeAux = importeAux.replace(re, '');
-    console.log(importeAux);
+    // console.log(importeAux);
 
         return importeAux;
   }
@@ -543,7 +543,7 @@ limpiarFormulario () {
   }
 
   showErrorPromise(error) {
-    console.log(error);
+    // console.log(error);
     // tslint:disable-next-line:max-line-length
     document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar mas tarde";
     $('#_modal_please_wait').modal('hide');
@@ -551,14 +551,14 @@ limpiarFormulario () {
   }
   
   showErrorPromiseMoney(json) {
-    console.log(json.Id + json.MensajeAUsuario);
+    // console.log(json.Id + json.MensajeAUsuario);
     document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tu saldo.";
     $('#_modal_please_wait').modal('hide');
     $('#ModalErrorTransaccion').modal('show');
   }
   
   showErrorSucces(json) {
-    console.log(json.Id + json.MensajeAUsuario);
+    // console.log(json.Id + json.MensajeAUsuario);
     if (json.Id === "2") {
       document.getElementById("mnsError").innerHTML =
         "El servicio no esta disponible, favor de intentar mas tarde";

@@ -176,7 +176,7 @@ console.log("aquiiiiiiiiiiiii");
     const this_aux = this;
     if (this_aux.importeAux === undefined) { this_aux.importeAux = this_aux.replaceSimbolo( this_aux.myForm.get('fcImporte').value); }
       this_aux.importe = this_aux.importeAux;
-      console.log(this_aux.importe);
+      // console.log(this_aux.importe);
       this_aux.fechaVencimiento = myForm.fcFechaVencimiento.toString();
       if (this_aux.service.idFacturador === '1310') {
         this_aux.referenciaPago = myForm.fcTelefono.toString() + myForm.fcDigitoVerificador.toString();
@@ -218,7 +218,7 @@ replaceSimbolo(importe) {
   let importeAux = importe.replace('$', '');
   const re = /\,/g;
   importeAux = importeAux.replace(re, '');
-  console.log(importeAux);
+  // console.log(importeAux);
 
       return importeAux;
 }
@@ -237,7 +237,7 @@ confirmarPago() {
       mensaje => {
 
         res = this._validaNipService.respuestaNip.res;
-        console.log(res);
+        // console.log(res);
 
         if (res === true) {
           
@@ -271,8 +271,8 @@ if (this_aux.service.idFacturador === '88924') {
 }
 
 const operaciones: consultaCatalogos = new consultaCatalogos();
-console.log(this_aux.service.idFacturador, this_aux.importeAux, this_aux.referenciaPago
-  , this_aux.cuentaClienteTdd, this_aux.fechaVencimiento);
+// console.log(this_aux.service.idFacturador, this_aux.importeAux, this_aux.referenciaPago
+  // , this_aux.cuentaClienteTdd, this_aux.fechaVencimiento);
 operaciones.pagaServicio(this_aux.service.idFacturador, this_aux.importeAux, this_aux.referenciaPago
   , this_aux.fechaVencimiento).then(
     function(respPago) {
@@ -301,7 +301,7 @@ validarSaldo(myForm) {
     this._validaNipService.consultaTablaYValidaSaldo(this_aux.importe).then(
       function(response) {
         let DatosJSON = response.responseJSON;
-        console.log(response.responseText);
+        // console.log(response.responseText);
         if (DatosJSON.Id === "1") {
          // aqiiiiiiiii
          this_aux.showDetallePago(myForm);
@@ -339,7 +339,7 @@ validarSaldo(myForm) {
 
 showErrorSucces(json) {
 
-        console.log(json.Id + json.MensajeAUsuario);
+        // console.log(json.Id + json.MensajeAUsuario);
         if (json.Id === '2') {
           document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
         } else {
@@ -446,7 +446,7 @@ validarFecha() {
     const this_aux = this;
     let fecha = $("#txtFechaVencimiento").val();
     fecha = fecha.substring(0, 10);
-    console.log(document.getElementById('txtFechaVencimiento').innerHTML = fecha);
+    // console.log(document.getElementById('txtFechaVencimiento').innerHTML = fecha);
     if (this_aux.service.idFacturador === '1310' || this_aux.service.idFacturador === '88924') {
       // tslint:disable-next-line:max-line-length
      const controlFecha: FormControl = new FormControl(fecha, [Validators.required,  Validators.pattern(/^\d{2,4}\-(([0]{1}[1-9]{1})|([1]{1}[0-2]{1}))\-(([0]{1}[0-9])|([1]{1}[0-9])|([2]{1}[0-9])|([3]{1}[0-1]))$/)]);

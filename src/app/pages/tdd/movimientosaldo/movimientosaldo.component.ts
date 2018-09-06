@@ -155,7 +155,7 @@ paginador2() {
     prev: 'Anterior',
     next: 'Siguiente',
     onPageClick: function (event, page) {
-      console.log(page);
+      // console.log(page);
       this_aux.cambiarPagina(page);
     
     }
@@ -203,8 +203,8 @@ llamarMovimientos () {
 
 
               const textTitular = detalleCuenta;
-              console.log(this_aux.TamArray);
-              console.log(detalleCuenta.MensajeAUsuario);
+              // console.log(this_aux.TamArray);
+              // console.log(detalleCuenta.MensajeAUsuario);
               if (this_aux.numPaginas > 1) {
                 if (this_aux.numPaginas % 1 !==  0) {
                   this_aux.numPaginas = Math.trunc(this_aux.numPaginas) + 1;
@@ -217,7 +217,7 @@ llamarMovimientos () {
                 div2.style.display = "none";
                }
             } else {
-              console.log( detalleCuenta.Id + "  " + detalleCuenta.MensajeAUsuario);
+              // console.log( detalleCuenta.Id + "  " + detalleCuenta.MensajeAUsuario);
               if (detalleCuenta.Id === '2' ) {
                   this_aux.showErrorSucces(detalleCuenta);
               }
@@ -281,7 +281,7 @@ llamarMovimientos () {
 
     showErrorSucces(json) {
 
-      console.log(json.Id + json.MensajeAUsuario);
+      // console.log(json.Id + json.MensajeAUsuario);
       if (json.Id === '2') {
         document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
       } else {

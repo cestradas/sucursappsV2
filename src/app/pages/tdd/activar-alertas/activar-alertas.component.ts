@@ -60,7 +60,7 @@ $('#_modal_please_wait').modal('show');
         function(detalleAlertas) {
               const detalle = detalleAlertas.responseJSON;
               let AlertasActivas_true = false;
-              console.log(detalle);
+              // console.log(detalle);
               if (detalle .Id === '1') {
 
 
@@ -139,7 +139,7 @@ setAltaServicioAlertas() {
 
 showErrorSucces(json) {
 
-  console.log(json.Id + json.MensajeAUsuario);
+  // console.log(json.Id + json.MensajeAUsuario);
   if (json.Id === '2') {
     document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
   } else {

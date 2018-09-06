@@ -74,7 +74,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     fillSelectCuentas() {
       const this_aux = this;
       const cuentasString = this_aux.service.infoCuentas;
-      console.log(this_aux.service.infoCuentas);
+      // console.log(this_aux.service.infoCuentas);
       const consultaCuentas = JSON.parse(cuentasString);
       const cuentasArray = consultaCuentas.ArrayCuentas;
         cuentasArray.forEach(cuenta => {
@@ -107,7 +107,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     $('#_modal_please_wait').modal('show');
     const this_aux = this;
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
-    console.log(elementHTML);
+    // console.log(elementHTML);
     const tableOrigen = document.getElementById('tableOrigen');
     const tableDefaultOrigen = document.getElementById('tableDefaultOrigen');
     const lblCuentaOrigen = document.getElementById('lblCuentaOrigen');
@@ -124,7 +124,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
   getSaldoDeCuenta(numCuenta_seleccionada) {
 
-    console.log(numCuenta_seleccionada.length);
+    // console.log(numCuenta_seleccionada.length);
     if (numCuenta_seleccionada.length === 16) {
          this.getSaldoTDC(numCuenta_seleccionada);
     } else {
@@ -137,7 +137,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     operacionesbxi.getSaldo(numCuenta_seleccionada).then(
         function(response1) {
-          console.log(response1.responseText);
+          // console.log(response1.responseText);
           const detalleSaldos = response1.responseJSON;
           if ( detalleSaldos.Id === '1') {
 
@@ -168,7 +168,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     operacionesbxi.getSaldoTDC(numCuenta_seleccionada).then(
         function(response1) {
-          console.log(response1.responseText);
+          // console.log(response1.responseText);
           const detalleSaldos = response1.responseJSON;
           if ( detalleSaldos.Id === '1') {
 
@@ -225,7 +225,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
         });
       }
     });
-    console.log(this_aux.listaCuentasBen);
+    // console.log(this_aux.listaCuentasBen);
     this_aux.defineFiltros();
   }
 
@@ -272,7 +272,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
   setDatosCuentaBeneficiario(elementHTML) {
 
     const this_aux = this;
-    console.log(elementHTML);
+    // console.log(elementHTML);
     const tableBeneficiarios = document.getElementById('tableBeneficiarios');
     const tableDefaultBeneficiarios = document.getElementById('tableDefaultBeneficiarios');
     const lblCuentaDestino = document.getElementById('lblCuentaDestino');
@@ -368,7 +368,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
         operacionesbxi.preparaAutenticacion().then(
           function(response) {
             const detallePrepara = response.responseJSON;
-            console.log(detallePrepara);
+            // console.log(detallePrepara);
             if (detallePrepara.Id === 'SEG0001') {
               divChallenge.setAttribute('style', 'display: flex');
               this_aux.NumeroSeguridad = detallePrepara.MensajeUsuarioUno;
@@ -378,7 +378,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
             } else {
               setTimeout(function() { 
                 $('#_modal_please_wait').modal('hide');
-                console.log(detallePrepara.Id + detallePrepara.MensajeAUsuario);
+                // console.log(detallePrepara.Id + detallePrepara.MensajeAUsuario);
                 mensajeError = this_aux.controlarError(detallePrepara);
                 document.getElementById('mnsError').innerHTML =  mensajeError;
                 $('#errorModal').modal('show');
@@ -437,7 +437,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
               } else {
                   setTimeout(function() { 
                     $('#_modal_please_wait').modal('hide');
-                    console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
+                    // console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
                     mensajeError = this_aux.controlarError(infoUsuarioJSON);
                     document.getElementById('mnsError').innerHTML =  mensajeError;
                     $('#errorModal').modal('show');
@@ -494,8 +494,8 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     const  separador = ',';
     const  arregloDeSubCadenas = text.split(separador);
     const numCuentaDestino = arregloDeSubCadenas[0];
-    console.log(arregloDeSubCadenas);
-    console.log(numCuentaDestino);
+    // console.log(arregloDeSubCadenas);
+    // console.log(numCuentaDestino);
 
     return numCuentaDestino;
   }
@@ -504,8 +504,8 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     const  separador = ',';
     const  arregloDeSubCadenas = text.split(separador);
     const nameInstitucion = arregloDeSubCadenas[1];
-    console.log(arregloDeSubCadenas);
-    console.log(nameInstitucion);
+    // console.log(arregloDeSubCadenas);
+    // console.log(nameInstitucion);
 
     return nameInstitucion;
   }
@@ -513,7 +513,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
   resetLista() {
     const node = document.getElementById("ul_CuentasBen");
-    console.log(node);
+    // console.log(node);
     while (node.firstChild) {
       node.removeChild(node.firstChild);
      }
@@ -536,7 +536,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     let importeAux = importe.replace('$', '');
     const re = /\,/g;
     importeAux = importeAux.replace(re, '');
-    console.log(importeAux);
+    // console.log(importeAux);
 
         return importeAux;
           
@@ -585,10 +585,10 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       case 'SEGTK03': mensajeError = "Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones"; // Token desincronizado."; 
       break;
       case '2'      : mensajeError = "El servicio no esta disponible, favor de intentar mas tarde.";
-                    console.log("Id: 2 Mensaje:" + mensajeUsuario);
+                    // console.log("Id: 2 Mensaje:" + mensajeUsuario);
                   break;
       default:    mensajeError = "El servicio no esta disponible, favor de intentar mas tarde.";
-                  console.log("Id: 0 Mensaje:" + mensajeUsuario);
+                  // console.log("Id: 0 Mensaje:" + mensajeUsuario);
     }
 
     return mensajeError;
@@ -608,7 +608,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
   showErrorSucces(json) {
 
-    console.log(json.Id + json.MensajeAUsuario);
+    // console.log(json.Id + json.MensajeAUsuario);
     if (json.Id === '2') {
       document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
     } else {
@@ -640,7 +640,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     operacionesbxi.consultaTablaYValidaSaldo(numCuentaSelec, importe).then(
       function(response) {
         let DatosJSON = response.responseJSON;
-        console.log(response.responseText);
+        // console.log(response.responseText);
         if (DatosJSON.Id === "1") {
           console.log("Pago validado");
           this_aux.setTipoAutenticacionOnModal();
@@ -672,7 +672,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     const reNum = /\d/g;
     let textContentAux = textContent.replace(re, '');
     textContentAux = textContentAux.replace(reNum, '');
-    console.log(textContentAux);
+    // console.log(textContentAux);
 
     return textContentAux;
 

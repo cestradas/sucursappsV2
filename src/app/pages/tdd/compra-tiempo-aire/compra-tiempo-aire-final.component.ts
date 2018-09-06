@@ -33,7 +33,7 @@ export class CompraTiempoAireFinalComponent implements OnInit {
     const this_aux = this;
     const respPago = this_aux.service.detalleConfirmacionCTA;
     const respPagoJson = JSON.parse(respPago);
-    console.log(respPagoJson);
+    // console.log(respPagoJson);
 
     this_aux.detallePago.referenciaNumerica = respPagoJson.NumReferencia;
     

@@ -50,13 +50,13 @@ fillSelectCuentas() {
   const this_aux = this;
     this_aux.resetLista();
     const cuentasString = this_aux.service.infoCuentas;
-    console.log(this_aux.service.infoCuentas);
+    // console.log(this_aux.service.infoCuentas);
     const consultaCuentas = JSON.parse(cuentasString);
     this_aux.cuentasArray = consultaCuentas.ArrayCuentas;
-    console.log(this_aux.cuentasArray.length);
+    // console.log(this_aux.cuentasArray.length);
 
   
-  console.log(this_aux.cuentasArray);
+  // console.log(this_aux.cuentasArray);
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
  
     for (let i = 0; i < this_aux.cuentasArray.length; i++) {
@@ -93,7 +93,7 @@ fillSelectCuentas() {
 
 resetLista() {
     const node = document.getElementById("ul_Cuentas");
-    console.log(node);
+    // console.log(node);
     while (node.firstChild) {
       node.removeChild(node.firstChild);
      }
@@ -106,7 +106,7 @@ resetLista() {
       console.log("setDatosCuentaSeleccionada inicial  " + tipoCuenta);
   $('#_modal_please_wait').modal('show');
   const this_aux = this;
-  console.log(elementHTML);
+  // console.log(elementHTML);
   const tableOrigen = document.getElementById('tableOrigen');
   const tableDefaultOrigen = document.getElementById('tableDefaultOrigen');
   const lblCuentaOrigen = document.getElementById('lblCuentaOrigen');
@@ -120,22 +120,22 @@ resetLista() {
   // lblAliasOrigen.innerHTML = elementHTML.textContent;
   lblCuentaOrigen.innerHTML = operacionesbxi.mascaraNumeroCuenta(numCuenta_seleccionada.toString());
   this_aux.service.numCuentaSeleccionado = numCuenta_seleccionada;
-  console.log("setDatosCuentaSeleccionada final  " + tipoCuenta);
+  // console.log("setDatosCuentaSeleccionada final  " + tipoCuenta);
 
   if (tipoCuenta === 1) {
     this_aux.service.tipoCuenta = "1";
-    console.log("setDatosCuentaSeleccionada if cuando 1  " + tipoCuenta);
+    // console.log("setDatosCuentaSeleccionada if cuando 1  " + tipoCuenta);
     this_aux.getSaldoDeCuentaTDD(this_aux.service.numCuentaSeleccionado);
 
     console.log("llego el saldo tdd");
   } else if (tipoCuenta === 4) {
     this_aux.service.tipoCuenta = "1";
-    console.log("setDatosCuentaSeleccionada if cuando 1  " + tipoCuenta);
+    // console.log("setDatosCuentaSeleccionada if cuando 1  " + tipoCuenta);
     this_aux.getSaldoDeCuentaTDD(this_aux.service.numCuentaSeleccionado);
   } else {
     this_aux.service.tipoCuenta = "5";
 
-    console.log("setDatosCuentaSeleccionada if cuando 2  " + tipoCuenta);
+    // console.log("setDatosCuentaSeleccionada if cuando 2  " + tipoCuenta);
     this_aux.getSaldoDeCuentaTDC(this_aux.service.numCuentaSeleccionado);
     console.log("llego el saldo tdc");
   }
@@ -147,7 +147,7 @@ getSaldoDeCuentaTDD(numCuenta_seleccionada) {
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
   operacionesbxi.getSaldo(numCuenta_seleccionada).then(
       function(response1) {
-        console.log(response1.responseText);
+        // console.log(response1.responseText);
         const detalleSaldos = response1.responseJSON;
         if ( detalleSaldos.Id === '1') {
           // const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
@@ -175,7 +175,7 @@ getSaldoDeCuentaTDC(numCuenta_seleccionada) {
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
   operacionesbxi.getSaldoTDC(numCuenta_seleccionada).then(
       function(response1) {
-        console.log(response1.responseText);
+        // console.log(response1.responseText);
         const detalleSaldos = response1.responseJSON;
         if ( detalleSaldos.Id === '1') {
           // const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
@@ -208,7 +208,7 @@ getSaldoDeCuentaTDC(numCuenta_seleccionada) {
 
 showErrorSucces(json) {
 
-  console.log(json.Id + json.MensajeAUsuario);
+  // console.log(json.Id + json.MensajeAUsuario);
   if (json.Id === '2') {
     document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
   } else {

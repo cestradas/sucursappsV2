@@ -142,7 +142,7 @@ export class PagoServiciosDetailComponent implements OnInit {
     operacionesbxi.consultaTablaYValidaSaldo(this_aux.cuentaCargo, this_aux.importe).then(
       function(response) {
         let DatosJSON = response.responseJSON;
-        console.log(response.responseText);
+        // console.log(response.responseText);
         if (DatosJSON.Id === "1") {
           console.log("Pago validado");
           this_aux.showDetallePago(myForm);
@@ -172,7 +172,7 @@ export class PagoServiciosDetailComponent implements OnInit {
         }
        this_aux.importe = this_aux.importeAux;
        this_aux.importeShow = parseInt(this_aux.importe, 10);
-      console.log(this_aux.importe);
+      // console.log(this_aux.importe);
       this_aux.fechaVencimiento = myForm.fcFechaVencimiento.toString();
       if (this_aux.service.idFacturador === '1310') {
         this_aux.referenciaPago = myForm.fcTelefono.toString() + myForm.fcDigitoVerificador.toString();
@@ -180,7 +180,7 @@ export class PagoServiciosDetailComponent implements OnInit {
         this_aux.referenciaPago = myForm.fcReferencia.toString();
         if (this_aux.service.idFacturador === '88924') {
           this_aux.referenciaPago = "0000000000" + myForm.fcReferencia.toString();
-          console.log("Referencia CFE " +  this_aux.referenciaPago);
+          // console.log("Referencia CFE " +  this_aux.referenciaPago);
         }
       }
        this_aux.setTipoAutenticacionOnModal();
@@ -204,7 +204,7 @@ export class PagoServiciosDetailComponent implements OnInit {
         operacionesbxi.preparaAutenticacion().then(
           function(response) {
             const detallePrepara = response.responseJSON;
-            console.log(detallePrepara);
+            // console.log(detallePrepara);
             if (detallePrepara.Id === 'SEG0001') {
               divChallenge.setAttribute('style', 'display: flex');
               this_aux.NumeroSeguridad = detallePrepara.MensajeUsuarioUno;
@@ -300,7 +300,7 @@ export class PagoServiciosDetailComponent implements OnInit {
               } else {
                       setTimeout(function() {
                         $('#_modal_please_wait').modal('hide');
-                          console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
+                          // console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
                           mensajeError = this_aux.controlarError(infoUsuarioJSON);
                           document.getElementById('mnsError').innerHTML =  mensajeError;
                           $('#errorModal').modal('show');
@@ -336,7 +336,7 @@ export class PagoServiciosDetailComponent implements OnInit {
     let importeAux = importe.replace('$', '');
     const re = /\,/g;
     importeAux = importeAux.replace(re, '');
-    console.log(importeAux);
+    // console.log(importeAux);
 
         return importeAux;
   }
@@ -388,10 +388,10 @@ export class PagoServiciosDetailComponent implements OnInit {
                     break;
      
       case '2'      : mensajeError = "El servicio no esta disponible, favor de intentar mas tarde";
-                    console.log("Id: 2 Mensaje:" + mensajeUsuario);
+                    // console.log("Id: 2 Mensaje:" + mensajeUsuario);
                   break;
       default:    mensajeError = "El servicio no esta disponible, favor de intentar mas tarde";
-                  console.log("Id: 0 Mensaje:" + mensajeUsuario);
+                  // console.log("Id: 0 Mensaje:" + mensajeUsuario);
     }
 
     return mensajeError;
@@ -421,7 +421,7 @@ export class PagoServiciosDetailComponent implements OnInit {
 
 showErrorSucces(json) {
 
-  console.log(json.Id + json.MensajeAUsuario);
+  // console.log(json.Id + json.MensajeAUsuario);
   if (json.Id === '2') {
     document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
   } else {
@@ -529,7 +529,7 @@ validarFecha() {
    const this_aux = this;
    let fecha = $("#txtFechaVencimiento").val();
    fecha = fecha.substring(0, 10);
-   console.log(document.getElementById('txtFechaVencimiento').innerHTML = fecha);
+   // console.log(document.getElementById('txtFechaVencimiento').innerHTML = fecha);
    
    if (this_aux.service.idFacturador === '1310' || this_aux.service.idFacturador === '88924') {
      // tslint:disable-next-line:max-line-length

@@ -60,7 +60,7 @@ export class PagoServiciosIniComponent implements OnInit {
    fillSelectCuentas() {
              const this_aux = this;
              const cuentasString = this_aux.service.infoCuentas;
-             console.log(this_aux.service.infoCuentas);
+             // console.log(this_aux.service.infoCuentas);
              const consultaCuentas = JSON.parse(cuentasString);
              const cuentasArray = consultaCuentas.ArrayCuentas;
                cuentasArray.forEach(cuenta => {
@@ -95,7 +95,7 @@ export class PagoServiciosIniComponent implements OnInit {
        $('#_modal_please_wait').modal('show');
        const this_aux = this;
        const operacionesbxi: OperacionesBXI = new OperacionesBXI();
-       console.log(elementHTML);
+       // console.log(elementHTML);
        const tableOrigen = document.getElementById('tableOrigen');
        const tableDefaultOrigen = document.getElementById('tableDefaultOrigen');
        const lblCuentaOrigen = document.getElementById('lblCuentaOrigen');
@@ -113,7 +113,7 @@ export class PagoServiciosIniComponent implements OnInit {
      }
 
      getSaldoDeCuenta(numCuenta_seleccionada) {
-       console.log(numCuenta_seleccionada.length);
+       // console.log(numCuenta_seleccionada.length);
       if (numCuenta_seleccionada.length === 16) {
            this.getSaldoTDC(numCuenta_seleccionada);
       } else {
@@ -126,7 +126,7 @@ export class PagoServiciosIniComponent implements OnInit {
       const operacionesbxi: OperacionesBXI = new OperacionesBXI();
       operacionesbxi.getSaldo(numCuenta_seleccionada).then(
           function(response1) {
-            console.log(response1.responseText);
+            // console.log(response1.responseText);
             const detalleSaldos = response1.responseJSON;
             if ( detalleSaldos.Id === '1') {
 
@@ -157,7 +157,7 @@ export class PagoServiciosIniComponent implements OnInit {
       const operacionesbxi: OperacionesBXI = new OperacionesBXI();
       operacionesbxi.getSaldoTDC(numCuenta_seleccionada).then(
           function(response1) {
-            console.log(response1.responseText);
+            // console.log(response1.responseText);
             const detalleSaldos = response1.responseJSON;
             if ( detalleSaldos.Id === '1') {
 
@@ -196,7 +196,7 @@ getEmpresas() {
              const descripcion = empresa.Descripcion;
               this_aux.listaEmpresas.push(descripcion);
            });
-           console.log(this_aux.listaEmpresas);
+           // console.log(this_aux.listaEmpresas);
            this_aux.listaEmpresasAux = this_aux.listaEmpresas;
            $('#_modal_please_wait').modal('hide');
         }, 500);
@@ -205,7 +205,7 @@ getEmpresas() {
           const operacionesbxi: OperacionesBXI = new OperacionesBXI();
           operacionesbxi.consultaEmpresas().then(
           function(response) {
-                console.log(response.responseJSON);
+                // console.log(response.responseJSON);
                 const consultaEmpresas = response.responseJSON;
                 if (consultaEmpresas.Id === '1') {
 
@@ -217,7 +217,7 @@ getEmpresas() {
                             const idEmpresa = empresa.IdFacturador;
                             this_aux.listaEmpresas.push(descripcion);
                         });
-                      console.log(this_aux.listaEmpresas);
+                      // console.log(this_aux.listaEmpresas);
                       this_aux.listaEmpresasAux = this_aux.listaEmpresas;
                       $('#_modal_please_wait').modal('hide');
 
@@ -241,8 +241,8 @@ getEmpresas() {
 
      getIdEmpresa(empresaSeleccionada: string) {
          const this_aux =  this;
-         console.log(empresaSeleccionada);
-         console.log(this_aux.arrayEmpresas);
+         // console.log(empresaSeleccionada);
+         // console.log(this_aux.arrayEmpresas);
          let valueFacturador: string;
          const arrayFacturadores = this_aux.arrayEmpresas;
          arrayFacturadores.forEach(empresa => {
@@ -268,7 +268,7 @@ getEmpresas() {
        const operacionesbxi: OperacionesBXI = new OperacionesBXI();
        operacionesbxi.consultaDetalleEmpresa(idFacturador).then(
            function(response) {
-             console.log(response.responseText);
+             // console.log(response.responseText);
              const detalleEmpresa = response.responseJSON;
              const body = $('body');
              if (detalleEmpresa.Id === '1') {
@@ -358,7 +358,7 @@ getEmpresas() {
   showErrorSucces(json) {
 
     
-    console.log(json.Id + json.MensajeAUsuario);
+    // console.log(json.Id + json.MensajeAUsuario);
     if (json.Id === '2') {
       document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
     } else {
@@ -400,7 +400,7 @@ getEmpresas() {
               }
             }
           });
-          console.log(this_aux.listaEmpresas);
+          // console.log(this_aux.listaEmpresas);
           this_aux.listaEmpresasAux = this_aux.listaEmpresas;
       } else if ( tipoCuenta === 4 || tipoCuenta === 1) {
           this_aux.service.formaPago = "4";
@@ -410,7 +410,7 @@ getEmpresas() {
               this_aux.listaEmpresas.push(empresa.Descripcion);
             }
           });
-          console.log(this_aux.listaEmpresas);
+          // console.log(this_aux.listaEmpresas);
           this_aux.listaEmpresasAux = this_aux.listaEmpresas;
       }  else {
         this_aux.service.formaPago = "4";
@@ -419,7 +419,7 @@ getEmpresas() {
              this_aux.listaEmpresas.push(empresa.Descripcion);
            
          });
-         console.log(this_aux.listaEmpresas);
+         // console.log(this_aux.listaEmpresas);
          this_aux.listaEmpresasAux = this_aux.listaEmpresas;
       }
     }
@@ -430,7 +430,7 @@ getEmpresas() {
       const reNum = /\d/g;
       let textContentAux = textContent.replace(re, '');
       textContentAux = textContentAux.replace(reNum, '');
-      console.log(textContentAux);
+      // console.log(textContentAux);
   
       return textContentAux;
   

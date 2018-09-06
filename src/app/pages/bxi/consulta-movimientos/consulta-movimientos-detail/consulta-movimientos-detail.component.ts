@@ -59,9 +59,9 @@ export class ConsultaMovimientosDetailComponent implements OnInit {
     this.saldoDispoinible = this.service.saldoSeleccionado;
     this.SaldoActual = this.service.SaldoActual;
 
-    console.log(this.service.saldoSeleccionado);
+    // console.log(this.service.saldoSeleccionado);
 
-    console.log(this.cuentaClienteBXI);
+    // console.log(this.cuentaClienteBXI);
     const this_aux = this;
     this_aux.dia = new Date().getUTCDate();
     this_aux.mes = (new Date().getUTCMonth() + 1);
@@ -78,7 +78,7 @@ export class ConsultaMovimientosDetailComponent implements OnInit {
     this_aux.fechaMesActualFin = (this_aux.anio + "-" + this_aux.mes + "-" + this_aux.dia).toString();
     this_aux.fechaMesActualIni = (this_aux.anio + "-" + this_aux.mes + "-01").toString();
      
-    console.log("valor inicial tipo cuenta" + this.service.tipoCuenta);
+    // console.log("valor inicial tipo cuenta" + this.service.tipoCuenta);
     if (this.service.tipoCuenta === "1") {
       const div2 = document.getElementById('selectTDD');
       div2.style.display = "block";
@@ -128,7 +128,7 @@ export class ConsultaMovimientosDetailComponent implements OnInit {
       prev: 'Anterior',
       next: 'Siguiente',
       onPageClick: function (event, page) {
-        console.log(page);
+        // console.log(page);
         this_aux.cambiarPagina(page);
       
       }
@@ -211,14 +211,14 @@ consultaMovimientosTDC(numeroCue) {
 
   
   const this_aux = this;
-  console.log(this_aux.opcionSeleccionado);
+  // console.log(this_aux.opcionSeleccionado);
   this_aux.mostrarSaldoCredito();
   const formParameters = {
     cuenta: numeroCue,
     tipoConsulta: this_aux.opcionSeleccionado
   }; 
   
-  console.log(formParameters);
+  // console.log(formParameters);
          
   const resourceRequest = new WLResourceRequest(
     
@@ -227,7 +227,7 @@ consultaMovimientosTDC(numeroCue) {
     
     resourceRequest.sendFormParameters(formParameters).then(
       function(response) {
-        console.log(response.responseText);
+        // console.log(response.responseText);
        this_aux.movimientos = response.responseJSON;
        if (this_aux.movimientos === null) { 
          this_aux.timeOut();
@@ -238,16 +238,16 @@ consultaMovimientosTDC(numeroCue) {
 
           this_aux.movimientosCue = this_aux.movimientos.movimientos;
 
-          console.log(this_aux.movimientosCue);
+          // console.log(this_aux.movimientosCue);
           
          if ( this_aux.movimientosCue === undefined ) {
-          console.log(detalleCuenta.MensajeAUsuario);
+          // console.log(detalleCuenta.MensajeAUsuario);
           this_aux.sinMovimientosTDC(this_aux.par);
          } else {
           this_aux.TamArray = this_aux.movimientosCue.length;
           this_aux.numPaginas = this_aux.TamArray / this_aux.tamPaginas;         
               const textTitular = detalleCuenta;
-              console.log(detalleCuenta.MensajeAUsuario);
+              // console.log(detalleCuenta.MensajeAUsuario);
               if (this_aux.numPaginas > 1) {
                 if (this_aux.numPaginas % 1 !==  0) {
                   this_aux.numPaginas = Math.trunc(this_aux.numPaginas) + 1;
@@ -281,7 +281,7 @@ consultaMovimientosTDC(numeroCue) {
 
 showErrorSucces(json) {
 
-  console.log(json.Id + json.MensajeAUsuario);
+  // console.log(json.Id + json.MensajeAUsuario);
   if (json.Id === '2') {
     document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
   } else {
@@ -330,7 +330,7 @@ mostrarSaldoCredito() {
       numeroRegistros: numreg
     }; 
     
-    console.log(formParameters);
+    // console.log(formParameters);
            
     const resourceRequest = new WLResourceRequest(
       
@@ -339,7 +339,7 @@ mostrarSaldoCredito() {
       
       resourceRequest.sendFormParameters(formParameters).then(
         function(response) {
-          console.log(response.responseText);
+          // console.log(response.responseText);
          this_aux.movimientos = response.responseJSON;
          if (this_aux.movimientos === null) { 
            this_aux.timeOut();
@@ -359,7 +359,7 @@ mostrarSaldoCredito() {
               this_aux.paginador2();
             }
             const textTitular = detalleCuenta;
-            console.log(detalleCuenta.MensajeAUsuario);
+            // console.log(detalleCuenta.MensajeAUsuario);
             
             this_aux.mostrarTablaTDD();
             if (this_aux.numPaginas <= 1 ) { 
@@ -367,7 +367,7 @@ mostrarSaldoCredito() {
               div2.style.display = "none";
              }
           } else {
-            console.log(detalleCuenta.MensajeAUsuario);
+            // console.log(detalleCuenta.MensajeAUsuario);
             if (detalleCuenta.Id === '2') {
               this_aux.showErrorSucces(detalleCuenta);
             } else {

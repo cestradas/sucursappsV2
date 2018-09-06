@@ -160,7 +160,7 @@ export class ImpresionEdcComponent implements OnInit {
 
     const this_aux = this;
     const cuentasString = this_aux.service.infoCuentas;
-    console.log(this_aux.service.infoCuentas);
+    // console.log(this_aux.service.infoCuentas);
     const consultaCuentas = JSON.parse(cuentasString);
     const cuentasArray = consultaCuentas.ArrayCuentas;
       cuentasArray.forEach(cuenta => {
@@ -182,7 +182,7 @@ export class ImpresionEdcComponent implements OnInit {
   crearListaCuentas(cuenta) {
     const this_aux = this;
     const cuentasString = this_aux.service.infoCuentas;
-    console.log(this_aux.service.infoCuentas);
+    // console.log(this_aux.service.infoCuentas);
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     const li =  this.renderer.createElement('li');
     this_aux.renderer.addClass(li, 'text-li');
@@ -215,7 +215,7 @@ setDatosCuentaSeleccionada(elementHTML) {
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
   let btnCancelarEnvio = document.getElementById('cancelarEnvioDomicilio');
   btnCancelarEnvio.style.display = 'none';
-  console.log(elementHTML);
+  // console.log(elementHTML);
   const tableOrigen = document.getElementById('tableOrigen');
   const tableDefaultOrigen = document.getElementById('tableDefaultOrigen');
   const lblCuentaOrigen = document.getElementById('lblCuentaOrigen');
@@ -240,7 +240,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
   getSaldoDeCuenta(numCuenta_seleccionada) {
 
-    console.log(numCuenta_seleccionada.length);
+    // console.log(numCuenta_seleccionada.length);
   if (numCuenta_seleccionada.length === 16) {
        this.getSaldoTDC(numCuenta_seleccionada);
   } else {
@@ -255,7 +255,7 @@ setDatosCuentaSeleccionada(elementHTML) {
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     operacionesbxi.getSaldo(numCuenta_seleccionada).then(
         function(response1) {
-          console.log(response1.responseText);
+          // console.log(response1.responseText);
           const detalleSaldos = response1.responseJSON;
           if ( detalleSaldos.Id === '1') {
             setTimeout(function() {
@@ -289,7 +289,7 @@ setDatosCuentaSeleccionada(elementHTML) {
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     operacionesbxi.getSaldoTDC(numCuenta_seleccionada).then(
         function(response1) {
-          console.log(response1.responseText);
+          // console.log(response1.responseText);
           const detalleSaldos = response1.responseJSON;
           if ( detalleSaldos.Id === '1') {
 
@@ -364,7 +364,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
         setTimeout(function() {
           const detalleMant = response.responseJSON;
-          console.log(response.responseText);
+          // console.log(response.responseText);
           if (detalleMant.Id === '1') {
             this_aux.obtenerListaDocs(opcion, cuenta, this_aux.service.tipoCuentaEDCSel);
           } else {
@@ -402,7 +402,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
             setTimeout(function() {
 
-              console.log(res);
+              // console.log(res);
 
               this_aux.obj = JSON.parse(this_aux.fechas);
 
@@ -549,7 +549,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
              if ( elementoCal0 != null) {
               elementoCal0.addEventListener("click", function(event) {
-                console.log(this.id);
+                // console.log(this.id);
                 if( ((this_aux.Valida_Seleccion_Calendario0 === 0) || (this_aux.Valida_Seleccion_Calendario0 === 1))
                     && (this_aux.Valida_Seleccion_Calendario1 === 0)
                     && (this_aux.Valida_Seleccion_Calendario2 === 0)
@@ -597,7 +597,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
             if ( elementoCal1 != null) {
               elementoCal1.addEventListener("click", function(event) {
-                console.log(this.id);
+                // console.log(this.id);
                 if( ((this_aux.Valida_Seleccion_Calendario1 === 0) || (this_aux.Valida_Seleccion_Calendario1 === 1))
                     && (this_aux.Valida_Seleccion_Calendario0 === 0)
                     && (this_aux.Valida_Seleccion_Calendario2 === 0)
@@ -644,7 +644,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
             if ( elementoCal2 != null) {
               elementoCal2.addEventListener("click", function(event) {
-                console.log(this.id);
+                // console.log(this.id);
                 if( ((this_aux.Valida_Seleccion_Calendario2 === 0) || (this_aux.Valida_Seleccion_Calendario2 === 1))
                     && (this_aux.Valida_Seleccion_Calendario0 === 0)
                     && (this_aux.Valida_Seleccion_Calendario1 === 0)
@@ -691,7 +691,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
             if ( elementoCal3 != null) {
               elementoCal3.addEventListener("click", function(event) {
-                console.log(this.id);
+                // console.log(this.id);
                 if( ((this_aux.Valida_Seleccion_Calendario3 === 0) || (this_aux.Valida_Seleccion_Calendario3 === 1))
                 && (this_aux.Valida_Seleccion_Calendario0 === 0)
                 && (this_aux.Valida_Seleccion_Calendario1 === 0)
@@ -738,7 +738,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
             if ( elementoCal4 != null) {
               elementoCal4.addEventListener("click", function(event) {
-                console.log(this.id);
+                // console.log(this.id);
                 if( ((this_aux.Valida_Seleccion_Calendario4 === 0) || (this_aux.Valida_Seleccion_Calendario4 === 1))
                 && (this_aux.Valida_Seleccion_Calendario0 === 0)
                 && (this_aux.Valida_Seleccion_Calendario1 === 0)
@@ -785,7 +785,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
             if ( elementoCal5 != null) {
               elementoCal5.addEventListener("click", function(event) {
-                console.log(this.id);
+                // console.log(this.id);
                 if( ((this_aux.Valida_Seleccion_Calendario5 === 0) || (this_aux.Valida_Seleccion_Calendario5 === 1))
                 && (this_aux.Valida_Seleccion_Calendario0 === 0)
                 && (this_aux.Valida_Seleccion_Calendario1 === 0)
@@ -886,7 +886,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
              if ( elementoCal6 != null) {
               elementoCal6.addEventListener("click", function(event) {
-                console.log(this.id);
+                // console.log(this.id);
                 if( ((this_aux.Valida_Seleccion_Calendario6 === 0) || (this_aux.Valida_Seleccion_Calendario6 === 1))
                     && (this_aux.Valida_Seleccion_Calendario0 === 0)
                     && (this_aux.Valida_Seleccion_Calendario1 === 0)
@@ -933,7 +933,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
             if ( elementoCal7 != null) {
               elementoCal7.addEventListener("click", function(event) {
-                console.log(this.id);
+                // console.log(this.id);
                 if( ((this_aux.Valida_Seleccion_Calendario7 === 0) || (this_aux.Valida_Seleccion_Calendario7 === 1))
                     && (this_aux.Valida_Seleccion_Calendario0 === 0)
                     && (this_aux.Valida_Seleccion_Calendario1 === 0)
@@ -981,7 +981,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
             if ( elementoCal8 != null) {
               elementoCal8.addEventListener("click", function(event) {
-                console.log(this.id);
+                // console.log(this.id);
                 if( ((this_aux.Valida_Seleccion_Calendario8 === 0) || (this_aux.Valida_Seleccion_Calendario8 === 1))
                     && (this_aux.Valida_Seleccion_Calendario0 === 0)
                     && (this_aux.Valida_Seleccion_Calendario1 === 0)
@@ -1029,7 +1029,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
             if ( elementoCal9 != null) {
               elementoCal9.addEventListener("click", function(event) {
-                console.log(this.id);
+                // console.log(this.id);
                 if( ((this_aux.Valida_Seleccion_Calendario9 === 0) || (this_aux.Valida_Seleccion_Calendario9 === 1))
                     && (this_aux.Valida_Seleccion_Calendario0 === 0)
                     && (this_aux.Valida_Seleccion_Calendario1 === 0)
@@ -1077,7 +1077,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
             if ( elementoCal10 != null) {
               elementoCal10.addEventListener("click", function(event) {
-                console.log(this.id);
+                // console.log(this.id);
                 if( ((this_aux.Valida_Seleccion_Calendario10 === 0) || (this_aux.Valida_Seleccion_Calendario10 === 1))
                     && (this_aux.Valida_Seleccion_Calendario0 === 0)
                     && (this_aux.Valida_Seleccion_Calendario1 === 0)
@@ -1125,7 +1125,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
             if ( elementoCal11 != null) {
               elementoCal11.addEventListener("click", function(event) {
-                console.log(this.id);
+                // console.log(this.id);
                 if( ((this_aux.Valida_Seleccion_Calendario11 === 0) || (this_aux.Valida_Seleccion_Calendario11 === 1))
                     && (this_aux.Valida_Seleccion_Calendario0 === 0)
                     && (this_aux.Valida_Seleccion_Calendario1 === 0)
@@ -1173,7 +1173,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
 
 
-           console.log(this_aux.obj['fechas']);
+           // console.log(this_aux.obj['fechas']);
               }, 500);
           }  else {
             document.getElementById('mnsError').innerHTML = res[0].MensajeAUsuario;
@@ -1201,7 +1201,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
      this.cal_Click_0 = 1;
      this.bandera0 ++;
-      console.log("val " + this.Valida_Seleccion_Calendario0);
+      // console.log("val " + this.Valida_Seleccion_Calendario0);
      if(this.bandera0 % 2 === 0  || this.bandera0 === 1 ) {
        // set docuemto
        this.numDocumento =  document.getElementById('Itemcalendario0').getAttribute('value');
@@ -1228,7 +1228,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
  		});
 
-      console.log("b6: "+this.bandera0);
+      // console.log("b6: "+this.bandera0);
       this.bloquearBoton = '1';
  	}else {
 
@@ -1246,8 +1246,8 @@ setDatosCuentaSeleccionada(elementHTML) {
  	    	'visibility':'hidden'
  		});
  		// palomita.remove();
- 		 console.log("b6: "+ this.bandera0);
-      console.log("val "+ this.Valida_Seleccion_Calendario1);
+ 		 // console.log("b6: "+ this.bandera0);
+      // console.log("val "+ this.Valida_Seleccion_Calendario1);
       if(this.itemSeleccionado === 0) {
         this.bloquearBoton = '0';
       }
@@ -1866,7 +1866,7 @@ setDatosCuentaSeleccionada(elementHTML) {
         operacionesbxi.getDocumento(this.fechaCorteDoc, this.numDocumento, id).then(
 
             function(response) {
-              console.log(response.responseText);
+              // console.log(response.responseText);
               const documento = response.responseJSON;
               $('#_modal_please_wait').modal('show');
 
@@ -1876,7 +1876,7 @@ setDatosCuentaSeleccionada(elementHTML) {
                   if ( documento.PDF !== undefined) {
 
 
-                    console.log("info doc", nombreDoc);
+                    // console.log("info doc", nombreDoc);
                     localStorage.setItem("doc", documento.PDF);
                     localStorage.setItem("nombreDoc", nombreDoc);
                     // strae PDF del respWL
@@ -1914,7 +1914,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
 
  showErrorPromise(error) {
-  console.log(error);
+  // console.log(error);
   // tslint:disable-next-line:max-line-length
   document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar mas tarde";
   $('#_modal_please_wait').modal('hide');
@@ -1922,7 +1922,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 }
 
 showErrorPromiseMoney(json) {
-  console.log(json.Id + json.MensajeAUsuario);
+  // console.log(json.Id + json.MensajeAUsuario);
   document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tus datos.";
   $('#_modal_please_wait').modal('hide');
   $('#ModalErrorTransaccion').modal('show');

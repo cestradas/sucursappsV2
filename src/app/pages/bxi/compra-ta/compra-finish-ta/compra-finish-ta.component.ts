@@ -26,7 +26,7 @@ export class CompraFinishTaComponent implements OnInit {
     const this_aux = this;
     const respPago = this_aux.service.detalleConfirmacionCTA;
     const respPagoJson = JSON.parse(respPago);
-    console.log(respPagoJson);
+    // console.log(respPagoJson);
     this_aux.detallePago.operadorTelefono = this_aux.service.operador;
     this_aux.detallePago.referenciaNumerica = respPagoJson.NumReferencia;
     this_aux.detallePago.hora = respPagoJson.FechaHoraOperacion;

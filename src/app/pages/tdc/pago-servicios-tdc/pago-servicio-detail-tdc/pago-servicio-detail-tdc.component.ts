@@ -182,7 +182,7 @@ console.log("aquiiiiiiiiiiiii");
     const this_aux = this;
     if (this_aux.importeAux === undefined) { this_aux.importeAux = this_aux.replaceSimbolo( this_aux.myForm.get('fcImporte').value); }
       this_aux.importe = this_aux.importeAux;
-      console.log(this_aux.importe);
+     // console.log(this_aux.importe);
       this_aux.fechaVencimiento = myForm.fcFechaVencimiento.toString();
       if (this_aux.service.idFacturador === '1310') {
         this_aux.referenciaPago = myForm.fcTelefono.toString() + myForm.fcDigitoVerificador.toString();
@@ -224,7 +224,7 @@ replaceSimbolo(importe) {
   let importeAux = importe.replace('$', '');
   const re = /\,/g;
   importeAux = importeAux.replace(re, '');
-  console.log(importeAux);
+ // console.log(importeAux);
 
       return importeAux;
 }
@@ -243,7 +243,7 @@ confirmarPago() {
       mensaje => {
 
         res = this._validaNipService.respuestaNip.res;
-        console.log(res);
+        // console.log(res);
 
         if (res === true) {
           
@@ -275,8 +275,7 @@ if (this_aux.service.idFacturador === '88924') {
 }
 
 const operaciones: ConsultaCatalogosTdcService = new ConsultaCatalogosTdcService();
-console.log(this_aux.service.idFacturador, this_aux.importeAux, this_aux.referenciaPago
-  , this_aux.cuentaClienteTdd, this_aux.fechaVencimiento);
+//console.log(this_aux.service.idFacturador, this_aux.importeAux, this_aux.referenciaPago, this_aux.cuentaClienteTdd, this_aux.fechaVencimiento);
   
 operaciones.pagaServicio(this_aux.service.idFacturador, this_aux.importeAux, this_aux.referenciaPago
   , this_aux.fechaVencimiento).then(
@@ -306,7 +305,7 @@ validarSaldo(myForm) {
     this._validaNipService.consultaTablaYValidaSaldo(this_aux.importe).then(
       function(response) {
         let DatosJSON = response.responseJSON;
-        console.log(response.responseText);
+        // console.log(response.responseText);
         if (DatosJSON.Id === "1") {
          // aqiiiiiiiii
          this_aux.showDetallePago(myForm);
@@ -443,7 +442,7 @@ consultaSaldosTarjetas() {
   const formParameters = { 
   }; 
   
-  console.log(formParameters);
+ // console.log(formParameters);
   const resourceRequest = new WLResourceRequest(
     
     'adapters/AdapterBanorteSucursAppsTdc/resource/consultaSaldosTarjetas', WLResourceRequest.POST);
@@ -451,7 +450,7 @@ consultaSaldosTarjetas() {
     
     resourceRequest.sendFormParameters(formParameters).then(
       function(response1) {
-        console.log(response1.responseText);
+       // console.log(response1.responseText);
 
         const detalleSaldos = response1.responseJSON;
         $('#_modal_please_wait').modal('hide');

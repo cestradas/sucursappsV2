@@ -114,7 +114,7 @@ export class CompraTiempoAireComponent implements OnInit {
 
         // tslint:disable-next-line:forin
         for (let i in res) {
-          console.log(res[i].Nombre);
+          // console.log(res[i].Nombre);
 
           switch (res[i].Nombre) {
             case "Telcel": {
@@ -166,7 +166,7 @@ export class CompraTiempoAireComponent implements OnInit {
     const THIS: any = this;
     const this_aux = this;
 
-    console.log(id.id);
+    // console.log(id.id);
 
     this_aux.cveTelefonicaF = id.id;
     switch (id.name) {
@@ -204,12 +204,12 @@ export class CompraTiempoAireComponent implements OnInit {
         break;
       }
       default: {
-        console.log("No existe ese operador: " + id.id);
+        // console.log("No existe ese operador: " + id.id);
         break;
       }
     }
 
-    console.log("Params img telefonos: " + id.name + " Id: " + id.id);
+    // console.log("Params img telefonos: " + id.name + " Id: " + id.id);
 
     const formParameters = {
       paramIdCatEmpresa: id.id
@@ -225,7 +225,7 @@ export class CompraTiempoAireComponent implements OnInit {
         let res = response.responseJSON;
 
         if ((res.Id = "1")) {
-          console.log(response.responseText);
+          // console.log(response.responseText);
           THIS.recargas = res;
         } else {
           this_aux.showErrorSucces(res);
@@ -267,15 +267,15 @@ export class CompraTiempoAireComponent implements OnInit {
     resourceRequest.setTimeout(30000);
     resourceRequest.sendFormParameters(formParameters).then(
       function(response) {
-        console.log(response.responseJSON);
+        // console.log(response.responseJSON);
 
         const compraTAResp = response.responseJSON;
 
         if (compraTAResp.Id === "1") {
-          console.log(compraTAResp);
+          // console.log(compraTAResp);
           this_aux.serviceResponse.detalleConfirmacionCTA =
             response.responseText;
-          console.log(this_aux.serviceResponse.detalleConfirmacionCTA);
+          // console.log(this_aux.serviceResponse.detalleConfirmacionCTA);
           this_aux.router.navigate(["/compraTiempoAireFinal"]);
         } else {
           this_aux.showErrorSucces(compraTAResp);
@@ -298,7 +298,7 @@ export class CompraTiempoAireComponent implements OnInit {
 
     this._validaNipService.validarDatosrespuesta().then(mensaje => {
       res = this._validaNipService.respuestaNip.res;
-      console.log(res);
+      // console.log(res);
 
       if (res === true) {
         $("#ModalTDDLogin").modal("hide");
@@ -352,7 +352,7 @@ export class CompraTiempoAireComponent implements OnInit {
   }
 
   showErrorPromise(error) {
-    console.log(error);
+    // console.log(error);
     // tslint:disable-next-line:max-line-length
     document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar mas tarde";
     $('#_modal_please_wait').modal('hide');
@@ -370,7 +370,7 @@ export class CompraTiempoAireComponent implements OnInit {
   }
 
   showErrorSucces(json) {
-    console.log(json.Id + json.MensajeAUsuario);
+    // console.log(json.Id + json.MensajeAUsuario);
     if (json.Id === "2") {
       document.getElementById("mnsError").innerHTML =
         "El servicio no esta disponible, favor de intentar mas tarde";

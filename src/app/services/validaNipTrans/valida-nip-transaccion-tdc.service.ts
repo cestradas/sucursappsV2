@@ -48,7 +48,7 @@ export class ValidaNipTransaccionTdcService {
     // tslint:disable-next-line:max-line-length
     if (descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card") {
         $('#ModalTDDLogin').modal('hide');
-       console.log("Pinpad Trans respondio con " + this.respuestaTrjeta);
+       // console.log("Pinpad Trans respondio con " + this.respuestaTrjeta);
        clearInterval(THIS.intervalo);
        // tslint:disable-next-line:max-line-length
        if (descripcion === "ATR error or NO smart card") {
@@ -80,7 +80,7 @@ export class ValidaNipTransaccionTdcService {
                     function(response) {
                         if (response.responseJSON === true) {              
                             THIS.respuestaNip.res = response.responseJSON;
-                            console.log("Respuesta desde el Service RES: " , THIS.respuestaNip.res);
+                            // console.log("Respuesta desde el Service RES: " , THIS.respuestaNip.res);
                            } else {
                             THIS.respuestaNip.res = response.responseJSON;
                             // tslint:disable-next-line:max-line-length                            
@@ -92,7 +92,7 @@ export class ValidaNipTransaccionTdcService {
                     function(error) {
                         document.getElementById('mnsError').innerHTML = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
                             $('#errorModal').modal('show');
-                        console.log(error.responseText);
+                        // console.log(error.responseText);
    
                     });
                     /*
@@ -103,7 +103,7 @@ export class ValidaNipTransaccionTdcService {
       }
       $("#_modal_please_wait").modal("hide");
         } else {
-            console.log("NO se detectaron datos Tarjeta: " + localStorage.getItem("tr2_serv"));  
+            // console.log("NO se detectaron datos Tarjeta: " + localStorage.getItem("tr2_serv"));  
             contador ++;
                     if (contador === 15) {
                       clearInterval(myTime);
@@ -131,7 +131,7 @@ export class ValidaNipTransaccionTdcService {
             let resp;
             this_aux.intervalo = setInterval( () => {
 
-            console.log("Dentro de la promesa: " + this.respuestaNip.res);
+            // console.log("Dentro de la promesa: " + this.respuestaNip.res);
 
                 if ( this.respuestaNip.res !== '') {
 

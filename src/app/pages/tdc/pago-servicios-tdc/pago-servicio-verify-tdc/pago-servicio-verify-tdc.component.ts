@@ -57,7 +57,7 @@ numCuenta_show: string;
     const this_aux = this;
     const respPago = this_aux.service.detalleConfirmacionPS;
     const respPagoJson = JSON.parse(respPago);
-    console.log(respPagoJson);
+    //console.log(respPagoJson);
     this_aux.detallePago.nombreServicio = this_aux.service.nombreServicio;
     this_aux.detallePago.cuentaCargo = this_aux.service.numCuentaSeleccionado;
     if (this.service.idFacturador === '1310') {
@@ -115,7 +115,7 @@ consultaSaldosTarjetas() {
   const formParameters = { 
   }; 
   
-  console.log(formParameters);
+  //console.log(formParameters);
   const resourceRequest = new WLResourceRequest(
     
     'adapters/AdapterBanorteSucursAppsTdc/resource/consultaSaldosTarjetas', WLResourceRequest.POST);
@@ -123,7 +123,7 @@ consultaSaldosTarjetas() {
     
     resourceRequest.sendFormParameters(formParameters).then(
       function(response1) {
-        console.log(response1.responseText);
+        //console.log(response1.responseText);
 
         const detalleSaldos = response1.responseJSON;
         $('#_modal_please_wait').modal('hide');

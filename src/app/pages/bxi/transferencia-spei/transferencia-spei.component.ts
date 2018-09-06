@@ -140,12 +140,12 @@ export class TransferenciaSpeiComponent implements OnInit {
 
 
 
-    console.log(this.forma);
+    // console.log(this.forma);
 
     this.forma.controls['amountSPEI'].valueChanges.subscribe(
       data => {
-        console.log('amountSPEI', data);
-        console.log('forma', this.forma);
+        // console.log('amountSPEI', data);
+        // console.log('forma', this.forma);
 
         this_aux.importeF = data;
         this_aux.desabilitaBtn();
@@ -153,8 +153,8 @@ export class TransferenciaSpeiComponent implements OnInit {
 
       this.forma.controls['descriptionSPEI'].valueChanges.subscribe(
         data => {
-          console.log('descriptionSPEI', data);
-          console.log('forma', this.forma);
+          // console.log('descriptionSPEI', data);
+          // console.log('forma', this.forma);
 
           this_aux.descripcionF = data;
           this_aux.desabilitaBtn();
@@ -162,8 +162,8 @@ export class TransferenciaSpeiComponent implements OnInit {
 
         this.forma.controls['referenceSPEI'].valueChanges.subscribe(
           data => {
-            console.log('referenceSPEI', data);
-            console.log('forma', this.forma);
+            // console.log('referenceSPEI', data);
+            // console.log('forma', this.forma);
 
             this_aux.refF = data;
             this_aux.desabilitaBtn();
@@ -171,8 +171,8 @@ export class TransferenciaSpeiComponent implements OnInit {
 
             this.forma.controls['amountTEF'].valueChanges.subscribe(
               data => {
-                console.log('amountTEF', data);
-                console.log('forma', this.forma);
+                // console.log('amountTEF', data);
+                // console.log('forma', this.forma);
 
                 this_aux.importeF = data;
                 this_aux.desabilitaBtn();
@@ -180,8 +180,8 @@ export class TransferenciaSpeiComponent implements OnInit {
 
               this.forma.controls['descriptionTEF'].valueChanges.subscribe(
                 data => {
-                  console.log('descriptionTEF', data);
-                  console.log('forma', this.forma);
+                  // console.log('descriptionTEF', data);
+                  // console.log('forma', this.forma);
 
                   this_aux.descripcionF = data;
                   this_aux.desabilitaBtn();
@@ -189,8 +189,8 @@ export class TransferenciaSpeiComponent implements OnInit {
 
                 this.forma.controls['referenceTEF'].valueChanges.subscribe(
                   data => {
-                    console.log('referenceTEF', data);
-                    console.log('forma', this.forma);
+                    // console.log('referenceTEF', data);
+                    // console.log('forma', this.forma);
 
                     this_aux.refF = data;
                     this_aux.desabilitaBtn();
@@ -198,8 +198,8 @@ export class TransferenciaSpeiComponent implements OnInit {
 
                   this.forma.controls['cuenta'].valueChanges.subscribe(
                     data => {
-                      console.log('cuenta', data);
-                      console.log('forma', this.forma);
+                      // console.log('cuenta', data);
+                      // console.log('forma', this.forma);
 
                       this_aux.tipoCuentaF = data;
                       this_aux.desabilitaBtn();
@@ -207,8 +207,8 @@ export class TransferenciaSpeiComponent implements OnInit {
 
                     this.forma.controls['sel1'].valueChanges.subscribe(
                       data => {
-                        console.log('sel1', data);
-                        console.log('forma', this.forma);
+                        // console.log('sel1', data);
+                        // console.log('forma', this.forma);
 
                         this_aux.bancoReceptF = data;
                         this_aux.desabilitaBtn();
@@ -225,8 +225,8 @@ export class TransferenciaSpeiComponent implements OnInit {
                       */
                         this.forma.controls['ammountQUICK'].valueChanges.subscribe(
                           data => {
-                            console.log('ammountQUICK', data);
-                            console.log('forma', this.forma);
+                            // console.log('ammountQUICK', data);
+                            // console.log('forma', this.forma);
 
                             this_aux.importeF = data;
                             this_aux.desabilitaBtn();
@@ -234,8 +234,8 @@ export class TransferenciaSpeiComponent implements OnInit {
 
                           this.forma.controls['referenceQuick'].valueChanges.subscribe(
                             data => {
-                              console.log('referenceQuick', data);
-                              console.log('forma', this.forma);
+                              // console.log('referenceQuick', data);
+                              // console.log('forma', this.forma);
 
                               this_aux.refF = data;
                               this_aux.desabilitaBtn();
@@ -243,8 +243,8 @@ export class TransferenciaSpeiComponent implements OnInit {
 
                             this.forma.controls['fcTokenSp'].valueChanges.subscribe(
                               data2 => {
-                                console.log('fcTokenSp', data2);
-                                console.log('forma', this.forma);
+                                // console.log('fcTokenSp', data2);
+                                // console.log('forma', this.forma);
 
                                 this_aux.fcTokenSp = data2;
                                 if (this_aux.fcTokenSp !== " ") {
@@ -255,8 +255,8 @@ export class TransferenciaSpeiComponent implements OnInit {
 
                               this.forma.controls['fcTokenTef'].valueChanges.subscribe(
                                 data2 => {
-                                  console.log('fcTokenTef', data2);
-                                  console.log('forma', this.forma);
+                                  // console.log('fcTokenTef', data2);
+                                  // console.log('forma', this.forma);
 
                                   this_aux.fcTokenTef = data2;
                                   if (this_aux.fcTokenTef !== " ") {
@@ -267,8 +267,8 @@ export class TransferenciaSpeiComponent implements OnInit {
 
                                 this.forma.controls['fcTokenQuick'].valueChanges.subscribe(
                                   data2 => {
-                                    console.log('fcTokenQuick', data2);
-                                    console.log('forma', this.forma);
+                                    // console.log('fcTokenQuick', data2);
+                                    // console.log('forma', this.forma);
 
                                     this_aux.fcTokenQuick = data2;
                                     if (this_aux.fcTokenQuick !== " ") {
@@ -315,7 +315,7 @@ export class TransferenciaSpeiComponent implements OnInit {
   selecionaTransfer() {
     const this_aux = this;
     const operacionSelect = this_aux.selectTipo.nativeElement.value.toString();
-    console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
+    // console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
 
     switch (operacionSelect) {
 
@@ -373,7 +373,7 @@ export class TransferenciaSpeiComponent implements OnInit {
     console.log("adentro Trnsferencias Internacionales");
 
     const operacionSelect = this_aux.selectTipo.nativeElement.value.toString();
-    console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
+    // console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
 
     switch (operacionSelect) {
 
@@ -457,7 +457,7 @@ export class TransferenciaSpeiComponent implements OnInit {
       operacionesbxi.preparaAutenticacion().then(
         function(response) {
           const detallePrepara = response.responseJSON;
-          console.log(detallePrepara);
+          // console.log(detallePrepara);
           if (detallePrepara.Id === 'SEG0001') {
 
             if (operacion === "1") {
@@ -477,7 +477,7 @@ export class TransferenciaSpeiComponent implements OnInit {
           } else {
             setTimeout(function() {
               $('#_modal_please_wait').modal('hide');
-              console.log(detallePrepara.Id + detallePrepara.MensajeAUsuario);
+              // console.log(detallePrepara.Id + detallePrepara.MensajeAUsuario);
               mensajeError = this_aux.controlarError(detallePrepara);
               document.getElementById('mnsError').innerHTML =  mensajeError;
               $('#errorModal').modal('show');
@@ -533,7 +533,7 @@ export class TransferenciaSpeiComponent implements OnInit {
 
 
     const operacionSelect = this_aux.selectTipo.nativeElement.value.toString();
-    console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
+    // console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
     let tipoOperecionPago = "";
 
     switch (operacionSelect) {
@@ -582,7 +582,7 @@ validarSaldo(tipoOperecionPago) {
     operacionesbxi.consultaTablaYValidaSaldo(this_aux.service.numCuentaSPEISel, importeOpe).then(
       function(response) {
         let DatosJSON = response.responseJSON;
-        console.log(response.responseText);
+        // console.log(response.responseText);
         if (DatosJSON.Id === "1") {
 
           console.log("Pago validado");
@@ -613,7 +613,7 @@ validarSaldo(tipoOperecionPago) {
   fillSelectCuentas() {
     const this_aux = this;
     const cuentasString = this_aux.service.infoCuentas;
-    console.log(this_aux.service.infoCuentas);
+    // console.log(this_aux.service.infoCuentas);
     const consultaCuentas = JSON.parse(cuentasString);
     const cuentasArray = consultaCuentas.ArrayCuentas;
       cuentasArray.forEach(cuenta => {
@@ -653,7 +653,7 @@ setDatosCuentaSeleccionada(elementHTML) {
   $('#_modal_please_wait').modal('show');
   const this_aux = this;
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
-  console.log(elementHTML);
+  // console.log(elementHTML);
   const tableOrigen = document.getElementById('tableOrigen');
   const tableDefaultOrigen = document.getElementById('tableDefaultOrigen');
   const lblCuentaOrigen = document.getElementById('lblCuentaOrigen');
@@ -681,7 +681,7 @@ setDatosCuentaSeleccionada(elementHTML) {
 
 getSaldoDeCuenta(numCuenta_seleccionada) {
 
-  console.log(numCuenta_seleccionada.length);
+  // console.log(numCuenta_seleccionada.length);
   if (numCuenta_seleccionada.length === 16) {
        this.getSaldoTDC(numCuenta_seleccionada);
   } else {
@@ -695,7 +695,7 @@ getSaldoTDDOtras(numCuenta_seleccionada) {
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
   operacionesbxi.getSaldo(numCuenta_seleccionada).then(
       function(response1) {
-        console.log(response1.responseText);
+        // console.log(response1.responseText);
         const detalleSaldos = response1.responseJSON;
         if ( detalleSaldos.Id === '1') {
           this_aux.service.clabeDestinatario = detalleSaldos.ClabeCuenta;
@@ -729,7 +729,7 @@ getSaldoTDDOtras(numCuenta_seleccionada) {
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
   operacionesbxi.getSaldoTDC(numCuenta_seleccionada).then(
       function(response1) {
-        console.log(response1.responseText);
+        // console.log(response1.responseText);
         const detalleSaldos = response1.responseJSON;
         if ( detalleSaldos.Id === '1') {
 
@@ -807,9 +807,9 @@ fillCuentasBeneficiario () {
 
 
   $('#_modal_please_wait').modal('hide');
-  console.log(this_aux.listaCuentasBen);
-  console.log(this_aux.listaDatosBen);
-  console.log(this_aux.listaCuentasUsr);
+  // console.log(this_aux.listaCuentasBen);
+  // console.log(this_aux.listaDatosBen);
+  // console.log(this_aux.listaCuentasUsr);
   this_aux.defineFiltros();
 }
 
@@ -835,7 +835,7 @@ setDatosCuentaBeneficiario(elementHTML) {
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
 
   const this_aux = this;
-  console.log(elementHTML);
+  // console.log(elementHTML);
   const tableBeneficiarios = document.getElementById('tableBeneficiarios');
   const tableDefaultBeneficiarios = document.getElementById('tableDefaultBeneficiarios');
   const lblCuentaDestino = document.getElementById('lblCuentaDestino');
@@ -883,7 +883,7 @@ setDatosCuentaBeneficiario(elementHTML) {
   }
 
 
-  console.log(this_aux.service.claveBancoDestino+this_aux.service.claveAliasCuenta+this_aux.service.claveNumBenefi);
+  // console.log(this_aux.service.claveBancoDestino+this_aux.service.claveAliasCuenta+this_aux.service.claveNumBenefi);
 
 }
 
@@ -891,8 +891,8 @@ getNumeroCuentaDestino(text) {
   const  separador = ',';
   const  arregloDeSubCadenas = text.split(separador);
   const numCuentaDestino = arregloDeSubCadenas[0];
-  console.log(arregloDeSubCadenas);
-  console.log(numCuentaDestino);
+  // console.log(arregloDeSubCadenas);
+  // console.log(numCuentaDestino);
 
   return numCuentaDestino;
 }
@@ -901,8 +901,8 @@ getNameInstitucion(text) {
   const  separador = ',';
   const  arregloDeSubCadenas = text.split(separador);
   const nameInstitucion = arregloDeSubCadenas[1];
-  console.log(arregloDeSubCadenas);
-  console.log(nameInstitucion);
+  // console.log(arregloDeSubCadenas);
+  // console.log(nameInstitucion);
 
   return nameInstitucion;
 }
@@ -911,8 +911,8 @@ getNameAliasCuenta(text) {
   const  separador = ',';
   const  arregloDeSubCadenas = text.split(separador);
   const nameAliasCuenta = arregloDeSubCadenas[2];
-  console.log(arregloDeSubCadenas);
-  console.log(nameAliasCuenta);
+  // console.log(arregloDeSubCadenas);
+  // console.log(nameAliasCuenta);
 
   return nameAliasCuenta;
 }
@@ -921,8 +921,8 @@ getNumBeneficiario(text) {
   const  separador = ',';
   const  arregloDeSubCadenas = text.split(separador);
   const numBeneCta = arregloDeSubCadenas[3];
-  console.log(arregloDeSubCadenas);
-  console.log(numBeneCta);
+  // console.log(arregloDeSubCadenas);
+  // console.log(numBeneCta);
 
   return numBeneCta;
 }
@@ -976,9 +976,9 @@ setCuentasBenficiarioXTipo() {
     tableDefaultBeneficiarios.setAttribute('style', 'height: 68px !important;');
 
   console.log('setCuentasBenficiarioXTipo');
-  console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
+  // console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
   const node = document.getElementById("ul_CuentasBen");
-  console.log(node);
+  // console.log(node);
   while (node.firstChild) {
     node.removeChild(node.firstChild);
    }
@@ -1117,7 +1117,7 @@ setCuentasBenficiarioXTipo() {
 
 resetLista() {
   const node = document.getElementById("ul_CuentasBen");
-  console.log(node);
+  // console.log(node);
   while (node.firstChild) {
     node.removeChild(node.firstChild);
    }
@@ -1223,7 +1223,7 @@ consultaClabeSaldos(numCuentaDestinario_seleccionada) {
   const operacionesbxi: OperacionesBXI = new OperacionesBXI();
   operacionesbxi.getSaldo(numCuentaDestinario_seleccionada).then(
       function(response1) {
-        console.log(response1.responseText);
+        // console.log(response1.responseText);
         const detalleSaldos = response1.responseJSON;
         if ( detalleSaldos.Id === '1') {
 
@@ -1234,7 +1234,7 @@ consultaClabeSaldos(numCuentaDestinario_seleccionada) {
           $('#referenceSPEI').prop("disabled", false);
 
         } else {
-          console.log(detalleSaldos.MensajeAUsuario);
+          // console.log(detalleSaldos.MensajeAUsuario);
 
           document.getElementById('errorMensaje').innerHTML = detalleSaldos.MensajeAUsuario;
           $('#modalErrorMessage').modal('show');
@@ -1332,7 +1332,7 @@ validaDatosBen() {
 
 
     const operacionSelect = this_aux.selectTipo.nativeElement.value.toString();
-    console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
+    // console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
 
     switch (operacionSelect) {
 
@@ -1356,18 +1356,18 @@ validaDatosBen() {
 
 
                     function(response) {
-                      console.log(response.responseJSON);
+                      // console.log(response.responseJSON);
 
                       const transferSPEI = response.responseJSON;
 
 
                        if ( transferSPEI.Id === '1') {
 
-                         console.log(transferSPEI);
+                         // console.log(transferSPEI);
                          this_aux.service.validaFinishTipoTransfer = "1";
                          $("#_modal_please_wait").modal("show");
                          this_aux.service.detalleConfirmacionSPEI = response.responseText;
-                         console.log(this_aux.service.detalleConfirmacionSPEI);
+                         // console.log(this_aux.service.detalleConfirmacionSPEI);
                          this_aux.router.navigate(['/TransferFinishSpei']);
 
                        } else {
@@ -1381,7 +1381,7 @@ validaDatosBen() {
                     }
                   );
               } else {
-                console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
+                // console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
                 mensajeError = this_aux.controlarError(infoUsuarioJSON);
                 document.getElementById('errorMensaje').innerHTML =  mensajeError;
                 $('#_modal_please_wait').modal('hide');
@@ -1414,18 +1414,18 @@ validaDatosBen() {
                   .then(
 
                     function(response) {
-                      console.log(response.responseJSON);
+                      // console.log(response.responseJSON);
 
                       const transferTEF = response.responseJSON;
 
 
                        if ( transferTEF.Id === '1') {
 
-                         console.log(transferTEF);
+                         // console.log(transferTEF);
                          $("#_modal_please_wait").modal("show");
                          this_aux.service.validaFinishTipoTransfer = "2";
                          this_aux.service.detalleConfirmacionTEF = response.responseText;
-                         console.log(this_aux.service.detalleConfirmacionTEF);
+                         // console.log(this_aux.service.detalleConfirmacionTEF);
                          this_aux.router.navigate(['/TransferFinishSpei']);
 
                        } else {
@@ -1437,7 +1437,7 @@ validaDatosBen() {
                     }
                   );
               } else {
-                console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
+                // console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
                 mensajeError = this_aux.controlarError(infoUsuarioJSON);
 
                 document.getElementById('errorMensaje').innerHTML =  mensajeError;
@@ -1469,18 +1469,18 @@ validaDatosBen() {
                   .then(
 
                     function(response) {
-                      console.log(response.responseJSON);
+                      // console.log(response.responseJSON);
 
                       const transferQUICK = response.responseJSON;
 
 
                        if ( transferQUICK.Id === '1') {
 
-                         console.log(transferQUICK);
+                         // console.log(transferQUICK);
                          $("#_modal_please_wait").modal("show");
                          this_aux.service.validaFinishTipoTransfer = "3";
                          this_aux.service.detalleConfirmacionQUICK = response.responseText;
-                         console.log(this_aux.service.detalleConfirmacionQUICK);
+                         // console.log(this_aux.service.detalleConfirmacionQUICK);
                          this_aux.router.navigate(['/TransferFinishSpei']);
 
                        } else {
@@ -1490,7 +1490,7 @@ validaDatosBen() {
                     }, function(error) { this_aux.showErrorPromiseMoney(error); }
                   );
               } else {
-                console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
+                // console.log(infoUsuarioJSON.Id + infoUsuarioJSON.MensajeAUsuario);
                 mensajeError = this_aux.controlarError(infoUsuarioJSON);
                 document.getElementById('errorMensaje').innerHTML =  infoUsuarioJSON.MensajeAUsuario;
                 setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
@@ -1536,7 +1536,7 @@ consultaTablaCorpBancosService() {
 
   operacionesbxi.consultaBancos().then(
     function(response) {
-      console.log(response.responseText);
+      // console.log(response.responseText);
 
       this_aux.listaBancos = response.responseJSON;
       this_aux.listaBancos.sort(this_aux.sortByProperty('NombreBanco'));
@@ -1716,7 +1716,7 @@ controlarError(json) {
 }
 
 showErrorPromise(error) {
-  console.log(error);
+  // console.log(error);
   // tslint:disable-next-line:max-line-length
   document.getElementById('errorMensaje').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
   $('#_modal_please_wait').modal('hide');
@@ -1724,7 +1724,7 @@ showErrorPromise(error) {
 }
 
 showErrorSucces(json) {
-  console.log(json.Id + json.MensajeAUsuario);
+  // console.log(json.Id + json.MensajeAUsuario);
   if ( json.Id === "2") {
     document.getElementById('errorMensaje').innerHTML =   json.ErrorMsg;
     $('#_modal_please_wait').modal('hide');
@@ -1738,7 +1738,7 @@ showErrorSucces(json) {
 }
 
 showErrorSuccesMoney(json) {
-  console.log(json.Id + json.MensajeAUsuario);
+  // console.log(json.Id + json.MensajeAUsuario);
   document.getElementById('errorMensaje').innerHTML =   json.MensajeAUsuario;
   $('#_modal_please_wait').modal('hide');
   $('#ModalErrorTransaccion').modal('show');

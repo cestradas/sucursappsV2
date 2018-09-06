@@ -163,7 +163,7 @@ consultaSaldosTarjetas() {
   const formParameters = { 
   }; 
   
-  console.log(formParameters);
+  //console.log(formParameters);
   const resourceRequest = new WLResourceRequest(
     
     'adapters/AdapterBanorteSucursAppsTdc/resource/consultaSaldosTarjetas', WLResourceRequest.POST);
@@ -171,7 +171,7 @@ consultaSaldosTarjetas() {
     
     resourceRequest.sendFormParameters(formParameters).then(
       function(response1) {
-        console.log(response1.responseText);
+        //console.log(response1.responseText);
 
         const detalleSaldos = response1.responseJSON;
         $('#_modal_please_wait').modal('hide');

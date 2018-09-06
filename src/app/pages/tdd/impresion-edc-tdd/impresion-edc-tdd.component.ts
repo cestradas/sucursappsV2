@@ -173,7 +173,7 @@ export class ImpresionEdcTddComponent implements OnInit {
     resourceRequest.setTimeout(30000);
     resourceRequest.sendFormParameters(formParameters).then(
       function(response) {
-          console.log(response.responseText);
+          // console.log(response.responseText);
           const detalleMant = response.responseJSON;
           if (detalleMant.Id === '1') {
             this_aux.obtenerListaDocs();
@@ -218,7 +218,7 @@ export class ImpresionEdcTddComponent implements OnInit {
 
             setTimeout(function() {
 
-              console.log(res);
+              // console.log(res);
               
               this_aux.obj = JSON.parse(this_aux.fechas);
     
@@ -365,7 +365,7 @@ export class ImpresionEdcTddComponent implements OnInit {
     
              if (elementoCal0 != null) {
               elementoCal0.addEventListener("click", function(event) {
-                console.log(this.id);
+                // console.log(this.id);
                 if( ((this_aux.Valida_Seleccion_Calendario0 === 0) || (this_aux.Valida_Seleccion_Calendario0 === 1))
                     && (this_aux.Valida_Seleccion_Calendario1 === 0)
                     && (this_aux.Valida_Seleccion_Calendario2 === 0)
@@ -413,7 +413,7 @@ export class ImpresionEdcTddComponent implements OnInit {
              
              if (elementoCal1 != null ) {
               elementoCal1.addEventListener("click", function(event) {
-                console.log(this.id);
+                // console.log(this.id);
                 if( ((this_aux.Valida_Seleccion_Calendario1 === 0) || (this_aux.Valida_Seleccion_Calendario1 === 1))
                     && (this_aux.Valida_Seleccion_Calendario0 === 0)
                     && (this_aux.Valida_Seleccion_Calendario2 === 0)
@@ -460,7 +460,7 @@ export class ImpresionEdcTddComponent implements OnInit {
 
              if ( elementoCal2 != null ) {
               elementoCal2.addEventListener("click", function(event) {
-                console.log(this.id);
+                // console.log(this.id);
                 if( ((this_aux.Valida_Seleccion_Calendario2 === 0) || (this_aux.Valida_Seleccion_Calendario2 === 1))
                     && (this_aux.Valida_Seleccion_Calendario0 === 0)
                     && (this_aux.Valida_Seleccion_Calendario1 === 0)
@@ -507,7 +507,7 @@ export class ImpresionEdcTddComponent implements OnInit {
           
             if ( elementoCal3 != null) {
               elementoCal3.addEventListener("click", function(event) {
-                console.log(this.id);
+                // console.log(this.id);
                 if( ((this_aux.Valida_Seleccion_Calendario3 === 0) || (this_aux.Valida_Seleccion_Calendario3 === 1))
                 && (this_aux.Valida_Seleccion_Calendario0 === 0)
                 && (this_aux.Valida_Seleccion_Calendario1 === 0)
@@ -554,7 +554,7 @@ export class ImpresionEdcTddComponent implements OnInit {
 
             if ( elementoCal4 != null) {
               elementoCal4.addEventListener("click", function(event) {
-                console.log(this.id);
+                // console.log(this.id);
                 if( ((this_aux.Valida_Seleccion_Calendario4 === 0) || (this_aux.Valida_Seleccion_Calendario4 === 1))
                 && (this_aux.Valida_Seleccion_Calendario0 === 0)
                 && (this_aux.Valida_Seleccion_Calendario1 === 0)
@@ -601,7 +601,7 @@ export class ImpresionEdcTddComponent implements OnInit {
             
             if (elementoCal5 != null) {
               elementoCal5.addEventListener("click", function(event) {
-                console.log(this.id);
+                // console.log(this.id);
                 if( ((this_aux.Valida_Seleccion_Calendario5 === 0) || (this_aux.Valida_Seleccion_Calendario5 === 1))
                 && (this_aux.Valida_Seleccion_Calendario0 === 0)
                 && (this_aux.Valida_Seleccion_Calendario1 === 0)
@@ -702,7 +702,7 @@ export class ImpresionEdcTddComponent implements OnInit {
     
              if (elementoCal6 != null) {
               elementoCal6.addEventListener("click", function(event) {
-                console.log(this.id);
+                // console.log(this.id);
                 if( ((this_aux.Valida_Seleccion_Calendario6 === 0) || (this_aux.Valida_Seleccion_Calendario6 === 1))
                     && (this_aux.Valida_Seleccion_Calendario0 === 0)
                     && (this_aux.Valida_Seleccion_Calendario1 === 0)
@@ -750,7 +750,7 @@ export class ImpresionEdcTddComponent implements OnInit {
              if ( elementoCal7 != null) {
 
               elementoCal7.addEventListener("click", function(event) {
-                console.log(this.id);
+                // console.log(this.id);
                 if( ((this_aux.Valida_Seleccion_Calendario7 === 0) || (this_aux.Valida_Seleccion_Calendario7 === 1))
                     && (this_aux.Valida_Seleccion_Calendario0 === 0)
                     && (this_aux.Valida_Seleccion_Calendario1 === 0)
@@ -798,7 +798,7 @@ export class ImpresionEdcTddComponent implements OnInit {
             
             if ( elementoCal8 != null) {
               elementoCal8.addEventListener("click", function(event) {
-                console.log(this.id);
+                // console.log(this.id);
                 if( ((this_aux.Valida_Seleccion_Calendario8 === 0) || (this_aux.Valida_Seleccion_Calendario8 === 1))
                     && (this_aux.Valida_Seleccion_Calendario0 === 0)
                     && (this_aux.Valida_Seleccion_Calendario1 === 0)
@@ -846,7 +846,7 @@ export class ImpresionEdcTddComponent implements OnInit {
 
             if ( elementoCal9 != null) {
               elementoCal9.addEventListener("click", function(event) {
-                console.log(this.id);
+                // console.log(this.id);
                 if( ((this_aux.Valida_Seleccion_Calendario9 === 0) || (this_aux.Valida_Seleccion_Calendario9 === 1))
                     && (this_aux.Valida_Seleccion_Calendario0 === 0)
                     && (this_aux.Valida_Seleccion_Calendario1 === 0)
@@ -894,7 +894,7 @@ export class ImpresionEdcTddComponent implements OnInit {
     
             if ( elementoCal10 != null) {
               elementoCal10.addEventListener("click", function(event) {
-                console.log(this.id);
+                // console.log(this.id);
                 if( ((this_aux.Valida_Seleccion_Calendario10 === 0) || (this_aux.Valida_Seleccion_Calendario10 === 1))
                     && (this_aux.Valida_Seleccion_Calendario0 === 0)
                     && (this_aux.Valida_Seleccion_Calendario1 === 0)
@@ -942,7 +942,7 @@ export class ImpresionEdcTddComponent implements OnInit {
 
             if ( elementoCal11 != null) {
               elementoCal11.addEventListener("click", function(event) {
-                console.log(this.id);
+                // console.log(this.id);
                 if( ((this_aux.Valida_Seleccion_Calendario11 === 0) || (this_aux.Valida_Seleccion_Calendario11 === 1))
                     && (this_aux.Valida_Seleccion_Calendario0 === 0)
                     && (this_aux.Valida_Seleccion_Calendario1 === 0)
@@ -988,7 +988,7 @@ export class ImpresionEdcTddComponent implements OnInit {
               });
             }
     
-           console.log(this_aux.obj['fechas']);
+           // console.log(this_aux.obj['fechas']);
               }, 500);
           } else {
             document.getElementById('mnsError').innerHTML = res[0].MensajeAUsuario;
@@ -1018,7 +1018,7 @@ export class ImpresionEdcTddComponent implements OnInit {
 
      this.cal_Click_0 = 1;
      this.bandera0 ++;
-      console.log("val " + this.Valida_Seleccion_Calendario0);
+      // console.log("val " + this.Valida_Seleccion_Calendario0);
      if(this.bandera0 % 2 === 0  || this.bandera0 === 1 ) {
        // set docuemto
        this.numDocumento =  document.getElementById('Itemcalendario0').getAttribute('value');
@@ -1045,7 +1045,7 @@ export class ImpresionEdcTddComponent implements OnInit {
 
  		});
 
-      console.log("b6: "+this.bandera0);
+      // console.log("b6: "+this.bandera0);
       this.bloquearBoton = '1';
  	}else {
 
@@ -1063,8 +1063,8 @@ export class ImpresionEdcTddComponent implements OnInit {
  	    	'visibility':'hidden'
  		});
  		// palomita.remove();
- 		 console.log("b6: "+ this.bandera0);
-      console.log("val "+ this.Valida_Seleccion_Calendario1);
+ 		 // console.log("b6: "+ this.bandera0);
+      // console.log("val "+ this.Valida_Seleccion_Calendario1);
       if(this.itemSeleccionado === 0) {
         this.bloquearBoton = '0';
       }      
@@ -1682,13 +1682,13 @@ operacion(id) {
           resourceRequest.setTimeout(100000);
           resourceRequest.sendFormParameters(formParameters).then(
             function(response) {
-              console.log(response.responseText);
+              // console.log(response.responseText);
               const documento = response.responseJSON;
               $('#_modal_please_wait').modal('show');
 
               if ( documento.Id === '1') {
                   if ( documento.PDF !== undefined) {
-                    console.log("info doc", nombreDoc);
+                    // console.log("info doc", nombreDoc);
                     localStorage.setItem("doc", documento.PDF);
                     localStorage.setItem("nombreDoc", nombreDoc);
                     // strae PDF del respWL
@@ -1766,7 +1766,7 @@ consultaCancelacionEDCDomicilio(opcion) {
 }
 
 showErrorPromise(error) {
-  console.log(error);
+  // console.log(error);
   // tslint:disable-next-line:max-line-length
   document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar mas tarde";
   $('#_modal_please_wait').modal('hide');
@@ -1774,14 +1774,14 @@ showErrorPromise(error) {
 }
 
 showErrorPromiseMoney(json) {
-  console.log(json.Id + json.MensajeAUsuario);
+  // console.log(json.Id + json.MensajeAUsuario);
   document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tus datos.";
   $('#_modal_please_wait').modal('hide');
   $('#ModalErrorTransaccion').modal('show');
 }
 
 showErrorSucces(json) {
-  console.log(json.Id + json.MensajeAUsuario);
+  // console.log(json.Id + json.MensajeAUsuario);
   if (json.Id === "2") {
     document.getElementById("mnsError").innerHTML =
       "El servicio no esta disponible, favor de intentar mas tarde";

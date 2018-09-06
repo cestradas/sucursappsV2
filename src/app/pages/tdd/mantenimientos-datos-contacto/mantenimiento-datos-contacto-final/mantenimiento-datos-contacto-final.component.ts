@@ -75,7 +75,7 @@ export class MantenimientoDatosContactoFinalComponent implements OnInit {
 
         const jsonRespuesta = respPago.responseJSON;
         if (jsonRespuesta.Id === '1') {
-         console.log(respPago.responseText);
+         // console.log(respPago.responseText);
          this_aux.Celular = jsonRespuesta.Telefono;
          this_aux.CorreoElectronico = jsonRespuesta.Email;
          this_aux.Sic = this_aux._serviceSesion.datosBreadCroms.numeroCliente;
@@ -108,7 +108,7 @@ export class MantenimientoDatosContactoFinalComponent implements OnInit {
 
   showErrorSucces(json) {
     setTimeout(function() {
-      console.log(json.Id + json.MensajeAUsuario);
+      // console.log(json.Id + json.MensajeAUsuario);
       document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
       $('#_modal_please_wait').modal('hide');
       $('#errorModal').modal('show');

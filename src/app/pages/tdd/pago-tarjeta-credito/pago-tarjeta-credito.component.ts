@@ -77,7 +77,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
     this.forma.controls['selectBanco'].valueChanges.subscribe(
       data => {
-        console.log(data);
+        // console.log(data);
         this.opcionSeleccionado = data;
       });
 
@@ -231,7 +231,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
   selectDifCero(control: FormControl): {[s: string]: boolean} {
 
-    console.log(control.value);
+    // console.log(control.value);
 
     if (control.value === '0') {
       return{
@@ -255,7 +255,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       mensaje => {
 
         res = this._validaNipService.respuestaNip.res;
-        console.log(res);
+        // console.log(res);
 
         if (res === true) {
           $('#ModalTDDLogin').modal('hide');
@@ -281,7 +281,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     let pImporte = parseFloat(this.importe).toFixed(2);
     // let deImpore: number = parseFloat(pImporte).toFixed(2);
     this_aux._response.numCuentaDestino = THIS.noTarjeta;
-    console.log(pImporte);
+    // console.log(pImporte);
     const formParameters = {
       tipoTarjeta: THIS.id,
       montoAPagar: pImporte,
@@ -358,7 +358,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
     let importeAux = importe.replace('$', '');
     const re = /\,/g;
     importeAux = importeAux.replace(re, '');
-    console.log(importeAux);
+    // console.log(importeAux);
 
         return importeAux;
   }
@@ -376,7 +376,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 }
 
 showErrorPromise(error) {
-  console.log(error);
+  // console.log(error);
   // tslint:disable-next-line:max-line-length
   document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar mas tarde";
   $('#_modal_please_wait').modal('hide');
@@ -384,14 +384,14 @@ showErrorPromise(error) {
 }
 
 showErrorPromiseMoney(json) {
-  console.log(json.Id + json.MensajeAUsuario);
+  // console.log(json.Id + json.MensajeAUsuario);
   document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tu saldo.";
   $('#_modal_please_wait').modal('hide');
   $('#ModalErrorTransaccion').modal('show');
 }
 
 showErrorSucces(json) {
-  console.log(json.Id + json.MensajeAUsuario);
+  // console.log(json.Id + json.MensajeAUsuario);
   if (json.Id === "2") {
     document.getElementById("mnsError").innerHTML =
       "El servicio no esta disponible, favor de intentar mas tarde";

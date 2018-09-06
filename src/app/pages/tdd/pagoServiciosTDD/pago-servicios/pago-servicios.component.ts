@@ -119,7 +119,7 @@ export class PagoServiciosComponent implements OnInit {
            const idEmpresa = empresa.IdFacturador;
            this_aux.listaEmpresas.push(descripcion);
            });
-         console.log(this_aux.listaEmpresas);
+         // console.log(this_aux.listaEmpresas);
          this_aux.listaEmpresasAux = this_aux.listaEmpresas;
          setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
         }, 500);
@@ -129,7 +129,7 @@ export class PagoServiciosComponent implements OnInit {
        const operaciones: consultaCatalogos = new consultaCatalogos();
        operaciones.consultaEmpresas().then(
        function(response) {
-             console.log(response.responseJSON);
+             // console.log(response.responseJSON);
              const consultaEmpresas = response.responseJSON;
              if (consultaEmpresas.Id === '1') {
 
@@ -140,7 +140,7 @@ export class PagoServiciosComponent implements OnInit {
                      const idEmpresa = empresa.IdFacturador;
                      this_aux.listaEmpresas.push(descripcion);
                  });
-               console.log(this_aux.listaEmpresas);
+               // console.log(this_aux.listaEmpresas);
                this_aux.listaEmpresasAux = this_aux.listaEmpresas;
                setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
 
@@ -157,8 +157,8 @@ export class PagoServiciosComponent implements OnInit {
 
 getIdEmpresa(empresaSeleccionada: string) {
   const this_aux =  this;
-  console.log(empresaSeleccionada);
-  console.log(this_aux.arrayEmpresas);
+  // console.log(empresaSeleccionada);
+  // console.log(this_aux.arrayEmpresas);
   let valueFacturador: string;
   const arrayFacturadores = this_aux.arrayEmpresas;
   arrayFacturadores.forEach(empresa => {
@@ -184,10 +184,10 @@ getDetalleEmpresa(idFacturador) {
    const operaciones: consultaCatalogos = new consultaCatalogos();
    operaciones.consultaDetalleEmpresa(idFacturador).then(
        function(response) {
-         console.log(response.responseText);
+         // console.log(response.responseText);
          const detalleEmpresa = response.responseJSON;
          const reglas = JSON.parse(detalleEmpresa.regla);
-         console.log(reglas);
+         // console.log(reglas);
          const body = $('body');
          if (detalleEmpresa.Id === '1') {
            this_aux.service.detalleEmpresa_PS = response.responseText;
@@ -227,7 +227,7 @@ getDetalleEmpresa(idFacturador) {
 
   body.on('click', function() {
 
-   console.log( this_aux.facturador.nativeElement.value);
+   // console.log( this_aux.facturador.nativeElement.value);
    const auxOption = [];
    const valueInput = this_aux.facturador.nativeElement.value;
 
@@ -259,7 +259,7 @@ getDetalleEmpresa(idFacturador) {
 
 showErrorSucces(json) {
 
-  console.log(json.Id + json.MensajeAUsuario);
+  // console.log(json.Id + json.MensajeAUsuario);
   if (json.Id === '2') {
     document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
   } else {
@@ -296,7 +296,7 @@ actualizaEmpresasXtipoPago() {
           this_aux.listaEmpresas.push(empresa.Descripcion);
         }
       });
-      console.log(this_aux.listaEmpresas);
+      // console.log(this_aux.listaEmpresas);
       this_aux.listaEmpresasAux = this_aux.listaEmpresas;
   
   }

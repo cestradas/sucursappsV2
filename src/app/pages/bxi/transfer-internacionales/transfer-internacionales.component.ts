@@ -60,7 +60,7 @@ onConfirmacion() {
   //numCuenta = document.getElementById("accountNumber").value;
 
   let attribute = $("#accountNumber").val();
-  console.log(attribute);
+  // console.log(attribute);
 
     const THIS: any = this;
 
@@ -81,10 +81,10 @@ resourceRequest
   .then(
       function(response) {
 
-        console.log(response.responseJSON);
+        // console.log(response.responseJSON);
 
           THIS.transferSPEI = response.responseJSON;
-          console.log(THIS.transferSPEI);
+          // console.log(THIS.transferSPEI);
 
       },
       function(error) {
@@ -120,10 +120,10 @@ resourceRequest
   .then(
       function(response) {
 
-        console.log(response.responseJSON);
+        // console.log(response.responseJSON);
 
           THIS.datosCuenta = response.responseJSON;
-          console.log(THIS.datosCuenta);
+          // console.log(THIS.datosCuenta);
 
       },
       function(error) {

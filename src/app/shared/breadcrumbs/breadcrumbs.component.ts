@@ -29,7 +29,7 @@ export class BreadcrumbsComponent implements OnInit {
     if ( this_aux._service.datosBreadCroms.nombreUsuarioTDD !== '' ) {
 
       this_aux.NombreUsuario =  this_aux._service.datosBreadCroms.nombreUsuarioTDD;
-      console.log("TDD ", this_aux._service.datosBreadCroms.nombreUsuarioTDD);
+      // console.log("TDD ", this_aux._service.datosBreadCroms.nombreUsuarioTDD);
 
       // Valida preferencia Tarjeta cliente
 
@@ -56,9 +56,9 @@ export class BreadcrumbsComponent implements OnInit {
      if ( this_aux.service.NombreUsuario !== '' || this_aux.service.NombreUsuario !== undefined ) {
 
       this.NombreUsuario = this_aux.service.NombreUsuario;
-      console.log("BEL ", this_aux.service.NombreUsuario);
+      // console.log("BEL ", this_aux.service.NombreUsuario);
       this.service.Login = "1";
-      console.log("BEL ", this_aux.service.Login);
+      // console.log("BEL ", this_aux.service.Login);
 
       let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
       let navElement = document.getElementById("navBar");
@@ -96,16 +96,16 @@ export class BreadcrumbsComponent implements OnInit {
       console.log("Cerrar sesion BEL");
       operacionesbxi.cerrarSesionBEL().then(
           function(response) {
-            console.log(response);
+            // console.log(response);
             const responseJson = response.responseJSON;
             if (responseJson.Id === "SEG0001") {
-              console.log("BEL cerro sesion",  this_aux.service.Login);
+              // console.log("BEL cerro sesion",  this_aux.service.Login);
               WLAuthorizationManager.logout('banorteSecurityCheckSa');
               localStorage.removeItem('TimeOut');
               localStorage.removeItem('TimeOutIni');
               this_aux.router.navigate(['/final']);
             } else {
-              console.log("BEL error cerrar sesion", responseJson.Id  + responseJson.MensajeAUsuario);
+              // console.log("BEL error cerrar sesion", responseJson.Id  + responseJson.MensajeAUsuario);
               this_aux.router.navigate(['/final']);
               document.getElementById('msgError').innerHTML =   "Error en cerrar sesión";
               $('#ModalErrorTransaccion').modal('show');
@@ -113,9 +113,9 @@ export class BreadcrumbsComponent implements OnInit {
           },
           function(error) {
             this_aux.router.navigate(['/final']);
-            console.log(error);
+            // console.log(error);
             document.getElementById('msgError').innerHTML =   "Error en cerrar sesión";
-            console.log("BEL error cerrar sesion", error.errorCode  + error.errorMsg);
+            // console.log("BEL error cerrar sesion", error.errorCode  + error.errorMsg);
            // this_aux.router.navigate(['/login']);
 
           });
@@ -151,7 +151,7 @@ export class BreadcrumbsComponent implements OnInit {
   resourceRequest.send().then(
           function(response) {
 
-            console.log(response);
+            // console.log(response);
 
           WLAuthorizationManager.logout('banorteSecurityCheckSa');
            
@@ -163,7 +163,7 @@ export class BreadcrumbsComponent implements OnInit {
           function(error) {
 
             WLAuthorizationManager.logout('banorteSecurityCheckSa');
-            console.log(error);
+            // console.log(error);
             THIS.router.navigate(['/final']);
 
           });
