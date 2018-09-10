@@ -27,7 +27,7 @@ function saveDocElectron(documentoB64, nombremDoc) {
         // Quita los datos almacenados del PDF
         //localStorage.removeItem(doc);
         //localStorage.removeItem(nombreDoc);
-        console.log("borrado de doc");
+        // console.log("borrado de doc");
     }, 2000);
 
     //Llama a servicio de impresion de docuemnto
@@ -39,7 +39,7 @@ function callPinPad() {
 
     var url = 'http://localhost:8081/sucursappsdevices/pinpad/read';
 
-    // fetch(url).then((resp) => { return resp.text() }).then((text) => { console.log(text) });
+    // fetch(url).then((resp) => { return resp.text() }).then((text) => {  console.log(text) });
 
     //setTimeout(function() {
 
@@ -48,7 +48,7 @@ function callPinPad() {
         return response.json();
     }).then(function(res) {
 
-        console.log(res);
+        // console.log(res);
 
         var respuesta = JSON.parse(res);
 
@@ -91,52 +91,52 @@ function callPinPadtdc() {
 
     var url = 'http://localhost:8083/sucursappsdevices/pinpad/read';
 
-    // fetch(url).then((resp) => { return resp.text() }).then((text) => { console.log(text) });
+    // fetch(url).then((resp) => { return resp.text() }).then((text) => { // console.log(text) });
 
-   // setTimeout(function() {  comandara para evitar espera en activar el foco de la pinpad
+    // setTimeout(function() {  comandara para evitar espera en activar el foco de la pinpad
 
-        fetch(url).then(function(response) {
-            // Convert to JSON
-            return response.json();
-        }).then(function(res) {
+    fetch(url).then(function(response) {
+        // Convert to JSON
+        return response.json();
+    }).then(function(res) {
 
-            console.log(res);
+        // console.log(res);
 
-            var respuesta = JSON.parse(res);
+        var respuesta = JSON.parse(res);
 
 
-            if (respuesta.res != "NO_OK") {
-                if ((localStorage.getItem("validaNipServ") === null) || (localStorage.getItem("validaNipServ") === "")) {
+        if (respuesta.res != "NO_OK") {
+            if ((localStorage.getItem("validaNipServ") === null) || (localStorage.getItem("validaNipServ") === "")) {
 
-                    localStorage.setItem("tr2", respuesta.tr2);
-                    localStorage.setItem("np", respuesta.np);
-                    localStorage.setItem("res", respuesta.res);
-
-                } else {
-
-                    localStorage.setItem("tr2_serv", respuesta.tr2);
-                    localStorage.setItem("np_serv", respuesta.np);
-                    localStorage.setItem("res_serv", respuesta.res);
-                }
+                localStorage.setItem("tr2", respuesta.tr2);
+                localStorage.setItem("np", respuesta.np);
+                localStorage.setItem("res", respuesta.res);
 
             } else {
-                localStorage.setItem("res", respuesta.res);
-                localStorage.setItem("des", respuesta.des);
-                localStorage.setItem("tr2", "");
-                localStorage.setItem("tr2_serv", "");
+
+                localStorage.setItem("tr2_serv", respuesta.tr2);
+                localStorage.setItem("np_serv", respuesta.np);
+                localStorage.setItem("res_serv", respuesta.res);
             }
 
+        } else {
+            localStorage.setItem("res", respuesta.res);
+            localStorage.setItem("des", respuesta.des);
+            localStorage.setItem("tr2", "");
+            localStorage.setItem("tr2_serv", "");
+        }
 
 
 
-        }, function(err) {
-            if (err) {
-                return console.log(err);
-            }
 
-        });
+    }, function(err) {
+        if (err) {
+            return console.log(err);
+        }
 
-   // }, 3000);
+    });
+
+    // }, 3000);
 }
 
 function callPrinter(nombremDoc) {

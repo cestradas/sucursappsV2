@@ -7,13 +7,13 @@ $(document).ready(function() {
 
     if (localStorage.getItem("Ambientes")) {
         AMBIENTES = localStorage.getItem("Ambientes").split(",");
-        console.log(localStorage.getItem("Ambientes"))
+        // console.log(localStorage.getItem("Ambientes"))
 
 
         getContextRoot();
 
     } else if (localStorage.getItem("Ambientes") == "") {
-        console.log("no hay mas contextos")
+        // console.log("no hay mas contextos")
         $.getJSON('assets/js/cfg.json', function(datos) {
             AMBIENTES[0] = datos['root'];
             AMBIENTES[1] = datos['root1'];
@@ -51,7 +51,7 @@ function getContextRoot() {
 
     setTimeout(function() {
 
-        console.log(AMBIENTES[0]);
+        // console.log(AMBIENTES[0]);
 
         var wlInitOptions = {
             // mfpContextRoot: AMBIENTES[0],
@@ -60,7 +60,7 @@ function getContextRoot() {
         };
 
         WL.Client.init(wlInitOptions).then(function() {
-            console.info("VERSION: 2.18, 30/08/2018, Versión Productiva V2")
+            console.info("VERSION: 2.18, 30/08/2018, Versiï¿½n Productiva V2")
 
             var formParameters = {};
             var resourceRequest = new WLResourceRequest(
@@ -69,7 +69,7 @@ function getContextRoot() {
             resourceRequest.setTimeout(10000);
             resourceRequest.sendFormParameters().then(
                 function(response) {
-                    console.log(response);
+                    // console.log(response);
                     // borra datos TDD en localstorage
                     localStorage.removeItem("des");
                     localStorage.removeItem("np");
@@ -87,7 +87,7 @@ function getContextRoot() {
 
                 },
                 function(error) {
-                    console.log(error);
+                    // console.log(error);
                     AMBIENTES.shift();
                     localStorage.setItem("Ambientes", AMBIENTES);
                     WL.Client.reloadApp();
@@ -95,7 +95,7 @@ function getContextRoot() {
 
 
         }, function(error) {
-            console.log(error);
+            // console.log(error);
         });
     }, 1000)
 

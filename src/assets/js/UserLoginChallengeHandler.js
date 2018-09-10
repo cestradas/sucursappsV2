@@ -53,8 +53,8 @@ var UserLoginChallengeHandler = function(usr, key) {
         var usr_ca = usr;
         var tarjet = key;
 
-        console.log(usr_ca);
-        console.log(tarjet);
+        // console.log(usr_ca);
+        // console.log(tarjet);
 
         //var usr_ca = "sucursApps";
         //var tarjet = "adm-sucusWeb";
@@ -103,7 +103,7 @@ var UserLoginChallengeHandler = function(usr, key) {
 
     function servidor(param) {
         setTimeout(function() {
-            console.log(param);
+            // console.log(param);
             var wlInitOptions = {
                 mfpContextRoot: param,
                 applicationId: 'com.banorte.sucursapps',
@@ -156,8 +156,8 @@ function getUsrPassLegacy(usrAgent) {
         resourceRequest.sendFormParameters(formParameters).then(
             function(response) {
                 datosLegacy = response.responseJSON;
-                console.log(datosLegacy);
-                console.log("El servcio de informacion Legacy respondio correctamente");
+                // console.log(datosLegacy);
+                // console.log("El servcio de informacion Legacy respondio correctamente");
             },
             function(error) {
                 console.error("Ocurrio un error con el servcio de informacion Legacy");
@@ -174,8 +174,8 @@ function getidSesion() {
     resourceRequest.send().then(
         function(response) {
             datosSesion = response.responseText;
-            console.log(datosSesion);
-            console.log("El servcio de id sesion respondio correctamente");
+            // console.log(datosSesion);
+            // console.log("El servcio de id sesion respondio correctamente");
         },
         function(error) {
             console.error("Ocurrio un error con el servcio de id sesion");
