@@ -6,6 +6,7 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Route
 import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 
 
+
 declare var jquery: any; // jquery
 declare var $: any;
 
@@ -143,31 +144,42 @@ export class LoginBxiComponent implements OnInit {
                          
                           WLAuthorizationManager.logout('banorteSecurityCheckSa');
                             // console.log(respConsultaMetodos.Id + respConsultaMetodos.MensajeAUsuario);
-                            mensajeError = this_aux.controlarError(respConsultaMetodos);
-                            document.getElementById('mnsError').innerHTML =  mensajeError;
-                            $('#_modal_please_wait').modal('hide');
-                            $('#errorModal').modal('show');
+                           
+                            setTimeout(function() {
+                              mensajeError = this_aux.controlarError(respConsultaMetodos);
+                              document.getElementById('mnsError').innerHTML =  mensajeError;
+                              $('#_modal_please_wait').modal('hide');
+                              $('#errorModal').modal('show');
+                          }, 500);
+
                         }
                      }, function(error) { 
                      
                       WLAuthorizationManager.logout('banorteSecurityCheckSa'); 
-                      this_aux.showErrorPromise(error); 
+                        setTimeout(function() {
+                          this_aux.showErrorPromise(error); 
+                        }, 500);
                     }
               );
           } else {
            
             WLAuthorizationManager.logout('banorteSecurityCheckSa');
             // console.log(detalleIdentifacionUsurario.Id + detalleIdentifacionUsurario.MensajeAUsuario);
-            mensajeError = this_aux.controlarError(detalleIdentifacionUsurario);
-            document.getElementById('mnsError').innerHTML =  mensajeError;
-            $('#_modal_please_wait').modal('hide');
-            $('#errorModal').modal('show');
+            setTimeout(function() {
+              mensajeError = this_aux.controlarError(detalleIdentifacionUsurario);
+              document.getElementById('mnsError').innerHTML =  mensajeError;
+              $('#_modal_please_wait').modal('hide');
+              $('#errorModal').modal('show');
+           }, 500);
 
           }
       }, function(error) { 
        
         WLAuthorizationManager.logout('banorteSecurityCheckSa');
-        this_aux.showErrorPromise(error); });
+        setTimeout(function() {
+          this_aux.showErrorPromise(error); 
+        }, 500);
+       });
   }
 
 
@@ -205,7 +217,9 @@ export class LoginBxiComponent implements OnInit {
           this_aux.nombreEnmascarado = this_aux.nombreEnmascaradoAux;
           this_aux.urlImagen = this_aux.urlImagenAux;
           this_aux.MENSAJEPERSONAL = this_aux.MENSAJEPERSONAL_aux;  
-          $('#_modal_please_wait').modal('hide');
+          setTimeout(function() {
+            $('#_modal_please_wait').modal('hide');
+          }, 500);
 
     }
 
