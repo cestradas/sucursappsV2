@@ -170,7 +170,7 @@ export class ImpresionEdcFinishComponent implements OnInit {
 showErrorPromise(error) {
   // console.log(error);
   // tslint:disable-next-line:max-line-length
-  document.getElementById('mnsError').innerHTML =   "El servicio no est� disponible, favor de intentar m�s tarde";
+  document.getElementById('mnsError').innerHTML =   "El servicio no está disponible, favor de intentar más tarde";
   $('#_modal_please_wait').modal('hide');
   $('#errorModal').modal('show');
 }

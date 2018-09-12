@@ -212,6 +212,9 @@ setDatosCuentaSeleccionada(elementHTML) {
 
 
   // desactiva combo cuentas usuario
+  //this.resetLista();
+
+  this.fillCuentasBeneficiario();
   $('#dropdownMenu2').prop("disabled", false);
 
 }
@@ -303,10 +306,16 @@ fillCuentasBeneficiario () {
   const datosBeneficiarios = JSON.parse(this_aux.service.infoDatosDeBeneficiarios); // Json con datos de usuario Correo, nombre y num
   const cuentasArray = jsoncuentasUsuario.ArrayCuentas;
 
+  this_aux.listaCuentasBen = [];
+  this_aux.listaDatosBen = [];
+  this_aux.listaCuentasUsr = [];
+
   cuentasArray.forEach(ArrayCuentas => {
 
       // if (ArrayCuentas.TipoCuenta.toString() === '5') {
-        this_aux.listaCuentasUsr.push(ArrayCuentas);
+        if ( ArrayCuentas.NoCuenta !== this_aux.cuentaOrigenModal) {
+          this_aux.listaCuentasUsr.push(ArrayCuentas);
+        }
       //  this_aux.crearListaBeneficiarios(cuentaUsuario);
       // }
 
@@ -339,6 +348,8 @@ fillCuentasBeneficiario () {
   // console.log(this_aux.listaDatosBen);
   // console.log(this_aux.listaCuentasUsr);
   this_aux.defineFiltros();
+
+  this_aux.setCuentasBenficiarioXTipo();
 }
 
 defineFiltros() {

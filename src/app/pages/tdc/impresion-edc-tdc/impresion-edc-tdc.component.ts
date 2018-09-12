@@ -174,7 +174,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
     resourceRequest.setTimeout(30000);
     resourceRequest.sendFormParameters(formParameters).then(
       function(response) {
-          console.log(response.responseText);
+        //  console.log(response.responseText);
           const detalleMant = response.responseJSON;
           if(detalleMant.Id==="1"){
             this_aux.obtenerListaDocs();

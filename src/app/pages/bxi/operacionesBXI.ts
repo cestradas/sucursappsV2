@@ -143,92 +143,168 @@ export class OperacionesBXI {
      }
 
      confirmaTransferSPEI(ctaO, ctaDest, sic, bancoRecep, clabe,
-                          nombreBene, ref, importe, descripcion, correo,
-                          rfcEmi, aliasCta): any {
+
+        nombreBene, ref, importe, descripcion, correo,
+
+        rfcEmi, aliasCta, RFCFront): any {
 
 
-         let formParameters = {
-           ctaO: ctaO,
-           ctaDest: ctaDest,
-           sic: sic,
-           bancoRecep:  bancoRecep,
-           clabe: clabe,
-           nombreBene: nombreBene,
-           ref: ref,
-           importe: importe,
-           descripcion: descripcion,
-           correo: correo,
-           rfcEmi: rfcEmi,
-           aliasCta: aliasCta
-         };
 
-               const resourceRequest = new WLResourceRequest(
-                 'adapters/AdapterBanorteSucursAppsBEL/resource/transferInterSPEI', WLResourceRequest.POST);
-                resourceRequest.setTimeout(30000);
+let formParameters = {
 
-            return resourceRequest.sendFormParameters(formParameters);
+ctaO: ctaO,
 
+ctaDest: ctaDest,
 
-       }
+sic: sic,
 
+bancoRecep:  bancoRecep,
 
-       confirmaTransferTEF(aliasCuentaOri, cuentaCargo , claveCliente,
-                           rfcOrdenante, bancReceptor, aliasCuentaDestino,
-                           clabe, nombreBene, nombreUsuario, importe, descripcion, referencia): any {
+clabe: clabe,
 
+nombreBene: nombreBene,
 
-           let formParameters = {
-              aliasCuentaOri: aliasCuentaOri,
-              cuentaCargo: cuentaCargo,
-              claveCliente: claveCliente,
-              rfcOrdenante:  rfcOrdenante,
-              bancReceptor: bancReceptor,
-              aliasCuentaDestino: aliasCuentaDestino,
-              clabe: clabe,
-              nombreBene: nombreBene,
-              nombreUsuario: nombreUsuario,
-              importe: importe,
-              descripcion: descripcion,
-              referencia: referencia
-           };
+ref: ref,
+
+importe: importe,
+
+descripcion: descripcion,
+
+correo: correo,
+
+rfcEmi: rfcEmi,
+
+aliasCta: aliasCta,
+
+RFCFront: RFCFront
+
+};
 
 
-                 const resourceRequest = new WLResourceRequest(
-                     'adapters/AdapterBanorteSucursAppsBEL/resource/transferInterTEF', WLResourceRequest.POST);
-                    resourceRequest.setTimeout(30000);
+
+const resourceRequest = new WLResourceRequest(
+
+'adapters/AdapterBanorteSucursAppsBEL/resource/transferInterSPEI', WLResourceRequest.POST);
+
+resourceRequest.setTimeout(30000);
 
 
-              return resourceRequest.sendFormParameters(formParameters);
 
-         }
-
-         confirmaTransferQUICK(ctaO, ctaDest, sic, bancoRecep, // clabe,
-             nombreBene, ref, importe, descripcion, correo,
-             rfcEmi): any {
+return resourceRequest.sendFormParameters(formParameters);
 
 
-             let formParameters = {
-             ctaO: ctaO,
-             ctaDest: ctaDest,
-             sic: sic,
-             bancoRecep:  bancoRecep,
-             // clabe: clabe,
-             nombreBene: nombreBene,
-             ref: ref,
-             importe: importe,
-             descripcion: descripcion,
-             correo: correo,
-             rfcEmi: rfcEmi
-             };
 
-             const resourceRequest = new WLResourceRequest(
-             'adapters/AdapterBanorteSucursAppsBEL/resource/transferInterQUICK', WLResourceRequest.POST);
-             resourceRequest.setTimeout(30000);
-
-             return resourceRequest.sendFormParameters(formParameters);
+}
 
 
-         }
+
+confirmaTransferTEF(aliasCuentaOri, cuentaCargo , claveCliente,
+
+         rfcOrdenante, bancReceptor, aliasCuentaDestino,
+
+         clabe, nombreBene, nombreUsuario, importe, descripcion, referencia, RFCFront): any {
+
+
+
+let formParameters = {
+
+aliasCuentaOri: aliasCuentaOri,
+
+cuentaCargo: cuentaCargo,
+
+claveCliente: claveCliente,
+
+rfcOrdenante:  rfcOrdenante,
+
+bancReceptor: bancReceptor,
+
+aliasCuentaDestino: aliasCuentaDestino,
+
+clabe: clabe,
+
+nombreBene: nombreBene,
+
+nombreUsuario: nombreUsuario,
+
+importe: importe,
+
+descripcion: descripcion,
+
+referencia: referencia,
+
+RFCFront: RFCFront
+
+};
+
+
+
+const resourceRequest = new WLResourceRequest(
+
+   'adapters/AdapterBanorteSucursAppsBEL/resource/transferInterTEF', WLResourceRequest.POST);
+
+  resourceRequest.setTimeout(30000);
+
+
+
+return resourceRequest.sendFormParameters(formParameters);
+
+
+
+}
+
+
+
+confirmaTransferQUICK(ctaO, ctaDest, sic, bancoRecep, // clabe,
+
+nombreBene, ref, importe, descripcion, correo,
+
+rfcEmi, RFCFront): any {
+
+
+
+let formParameters = {
+
+ctaO: ctaO,
+
+ctaDest: ctaDest,
+
+sic: sic,
+
+bancoRecep:  bancoRecep,
+
+// clabe: clabe,
+
+nombreBene: nombreBene,
+
+ref: ref,
+
+importe: importe,
+
+descripcion: descripcion,
+
+correo: correo,
+
+rfcEmi: rfcEmi,
+
+RFCFront: RFCFront
+
+};
+
+
+
+const resourceRequest = new WLResourceRequest(
+
+'adapters/AdapterBanorteSucursAppsBEL/resource/transferInterQUICK', WLResourceRequest.POST);
+
+resourceRequest.setTimeout(30000);
+
+
+
+return resourceRequest.sendFormParameters(formParameters);
+
+
+
+}
 
 
          confirmaTransferPropTerBanorte(cveCliente, paramEmailBeneficiario, paramMnsEmail,

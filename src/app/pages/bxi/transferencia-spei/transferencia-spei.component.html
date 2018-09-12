@@ -4,7 +4,7 @@
 <form [formGroup]="forma" (ngSubmit)="showDetallePago()" class="needs-validation">
     <fieldset class="padding-TittleToFieldset padding-fieldset-general">
 
-        <div class="row sumando-form-group letranegrita padding-InFieldset">
+        <div class="row sumando-form-group letranegrita padding-InFieldset" style="padding-bottom: 14px;">
             <div class="col-sm-1 sumando-bg-red group-name">
                 Tipo
             </div>
@@ -14,9 +14,9 @@
                        <!-- <img src="./assets/img/bg_selectN.png" align="right" style="width: 3.8%; float: right; position: absolute;     margin-left: 1549px;"> -->
 
                     <option value="0" disabled selected>Seleccione transferencia</option>
-                    <option value="1" class="text-li">SPEI</option>
-                    <option value="2" class="text-li">TEF</option>
-                    <option value="3" class="text-li">Rapida</option>
+                    <option value="1" class="text-li">Mismo día (SPEI)</option>
+                    <option value="2" class="text-li">Día hábil siguiente (TEF)</option>
+                    <option value="3" class="text-li">Rápida</option>
                 </select>
             </div>
 
@@ -26,7 +26,7 @@
             <div class="col-sm-1 sumando-bg-red group-name">
                 Desde
             </div>
-            <div class="col-sm-11 group-controls  padding-InFieldset" style="padding-left: 0px; padding-right:  0px;">
+            <div class="col-sm-11 group-controls  padding-InFieldset" style="padding-left: 0px; padding-right:  0px; padding-bottom: 4px;">
                 <div class="form-group">
                     <div class="sumando-bg-white">
                         <input type="hidden">
@@ -126,7 +126,7 @@
 
 
         <div id="divisionInputs"></div>
-        <div class="row sumando-form-group letranegrita">
+        <div class="row sumando-form-group letranegrita" style="margin-top: 2px !important;">
             <!--<div class="col-sm-1 sumando-bg-red group-name">Para</div>-->
             <div class="col-sm-1 sumando-bg-red group-name" style="background-color: #ff000000 !important;"></div>
             <div class="col-sm-11 sumando-well-white">
@@ -175,6 +175,21 @@
                                 </div>
                                 <div *ngIf="forma.hasError('required', 'referenceSPEI') && forma.get('referenceSPEI').touched" class="alert alert-danger">
                                     Dato obligatorio, favor de capturar.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
+                        <div class="row">
+                            <div class="col-lg-1 padding-labelToInput">
+                                <label>RFC Beneficiario:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <input disabled="disabled" id="RFCben" [matKeyboard]="" name="RFCben" formControlName="RFCben" type="text" maxlength="13" class="form-control amount input-lg" />
+
+                                <div class="alert alert-danger" *ngIf="(forma.get('RFCben').errors  && forma.get('RFCben').touched)">
+
+                                    <p *ngIf="forma.get('RFCben').hasError('pattern')" style="margin-bottom: 0rem !important;">Los datos proporcionados son incorrectos, favor de verificar. </p>
                                 </div>
                             </div>
                         </div>
@@ -231,6 +246,20 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
+                        <div class="row">
+                            <div class="col-lg-1 padding-labelToInput">
+                                <label>RFC Beneficiario:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <input disabled="disabled" id="RFCbenTEF" [matKeyboard]="" name="RFCbenTEF" formControlName="RFCbenTEF" type="text" maxlength="13" class="form-control amount input-lg" />
+                                <div class="alert alert-danger" *ngIf="(forma.get('RFCbenTEF').errors  && forma.get('RFCbenTEF').touched)">
+
+                                    <p *ngIf="forma.get('RFCbenTEF').hasError('pattern')" style="margin-bottom: 0rem !important;">Los datos proporcionados son incorrectos, favor de verificar. </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div id="tranQuick" style="display: none;">
@@ -257,7 +286,9 @@
                             <div class="dropdown sumando-dropdown-account col-sm-9">
                                 <select disabled="disabled" class="input-whidth input-lg selectModificado" name="sel1" id="selecBanco" #rSelecBanco (change)="selectBanco($event.target.value)" style="border:0px solid red; background-size: auto; width: 111%">
                                     <option disabled="true" value="">Seleccione un banco</option>
-                                    <option *ngFor="let bancos of listaBancos"  [value]="bancos.IdSecoban">{{bancos.NombreBanco}}</option>
+                                    <ng-container *ngFor="let bancos of listaBancos">
+                                        <option class="text-li" *ngIf="bancos.Mostrar !== '0'" [value]="bancos.IdSecoban">{{bancos.NombreBanco}}</option>
+                                    </ng-container>                                    
                                 </select>
                                 <div *ngIf="forma.hasError('required', 'sel1') && forma.get('sel1').touched" class="alert alert-danger">
                                     Dato obligatorio, favor de capturar.
@@ -313,6 +344,20 @@
                                 </div>
                                 <div *ngIf="forma.hasError('required', 'referenceQuick') && forma.get('referenceQuick').touched" class="alert alert-danger">
                                     Dato obligatorio, favor de capturar.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group padding-InFieldset" style="margin-bottom: 0px">
+                        <div class="row">
+                            <div class="col-lg-1 padding-labelToInput">
+                                <label>RFC Beneficiario:</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <input disabled="disabled" id="RFCbenQUICK" [matKeyboard]="" name="RFCbenQUICK" formControlName="RFCbenQUICK" type="text" maxlength="13" class="form-control amount input-lg" />
+                                <div class="alert alert-danger" *ngIf="(forma.get('RFCbenQUICK').errors  && forma.get('RFCbenQUICK').touched)">
+
+                                    <p *ngIf="forma.get('RFCbenQUICK').hasError('pattern')" style="margin-bottom: 0rem !important;">Los datos proporcionados son incorrectos, favor de verificar. </p>
                                 </div>
                             </div>
                         </div>
@@ -618,7 +663,7 @@
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <button id="cerrar" type="button" class="btn btn-default" data-dismiss="modal" onClick="currentPage.loadMenu();">Aceptar</button>
+                    <button id="cerrar" type="button" class="btn btn-default" data-dismiss="modal">Aceptar</button>
                 </div>
             </div>
             <!-- /.modal-content -->

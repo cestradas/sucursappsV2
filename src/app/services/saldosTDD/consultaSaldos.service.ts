@@ -36,7 +36,7 @@ export class ConsultaSaldosTddService {
       showErrorPromise(error) {
         $('#errorModal').modal('show');
         if (error.errorCode === 'API_INVOCATION_FAILURE') {
-            document.getElementById('mnsError').innerHTML = 'Tu sesi�n ha expirado';
+            document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
         } else {
           document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
         }

@@ -77,7 +77,7 @@ export class CompraTaComponent implements OnInit {
         // console.log('forma', this.forma);
 
         this_aux.telefonoF = data;
-
+        this_aux.desabilitaBtn();
       });
 
 
@@ -229,6 +229,15 @@ setDatosCuentaSeleccionada(elementHTML) {
   this_aux.cuentaSeleccionada = operacionesbxi.mascaraNumeroCuenta(numCuenta_seleccionada.toString());
   this_aux.getSaldoDeCuenta(numCuenta_seleccionada);
 
+  if ( this_aux.importe !== undefined ) {
+
+    if (this_aux.importe.toString() !== "") {
+    
+       $('#telefono').prop("disabled", false);
+    
+    }
+  }
+  
 
 }
 
@@ -338,10 +347,27 @@ getSaldoDeCuenta(numCuenta_seleccionada) {
     $('#' + param.id).addClass('border border-danger');
     this_aux.importe = param.id;
 
-
-    $('#telefono').prop("disabled", false);
+    if (this_aux.cuentaSeleccionada.toString() !== "") {
+      $('#telefono').prop("disabled", false);
+    }
+    
+   // $('#telefono').prop("disabled", false);
+   // $('#continuarTA').prop("disabled", true);
 
   }
+
+  desabilitaBtn() {
+
+  const this_aux = this;
+  let continuaCTA = $('#telefono').val();
+  
+  if ((continuaCTA !== "" || continuaCTA.length >= 10) && (this_aux.importe.toString() !== "")) {
+    $('#continuarTA').prop("disabled", true);
+  }
+  
+
+
+}
 
 
 

@@ -31,6 +31,8 @@ export class TransferenciaSpeiComponent implements OnInit {
   rReferencia: ElementRef;
   @ViewChild("rEmail", { read: ElementRef })
   rEmail: ElementRef;
+  @ViewChild("rRfcBeneficiario", { read: ElementRef })
+  rRfcBeneficiario: ElementRef;
 
   numeroCuentaTitular: string;
   mostrarCuentaMascara: string;
@@ -41,6 +43,7 @@ export class TransferenciaSpeiComponent implements OnInit {
   nombreBanco: any = "";
   bancoRecep: any = "";
   nombreBene: any = "";
+  rfcBeneficiario: any = "";
   referencia: any = "";
   importe: any = "";
   descripcion: any = "";
@@ -79,6 +82,9 @@ export class TransferenciaSpeiComponent implements OnInit {
     this.myform = this.fb.group({
       numeroClabeF: [""],
       nombreBeneficiarioF: [""],
+      rfcBeneficiarioF: ["", Validators.pattern(
+        /^([A-ZÑ&, a-zñ&]{3,4})(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01]))([A-Z\d, a-z\d]{2})([A\d])$/
+      )],
       descripcionF: [""],
       importeF: ["", Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)],
       // referenciaF: ["", Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})/)],
@@ -127,7 +133,17 @@ export class TransferenciaSpeiComponent implements OnInit {
       function(response) {
         $("#_modal_please_wait").modal("hide");
         this_aux.listaBancos = response.responseJSON;
-        this_aux.listaBancos.sort(this_aux.sortByProperty('NombreBanco'));        
+        if (this_aux.listaBancos !== "" || this_aux.listaBancos !== null || this_aux.listaBancos !== undefined) {
+          this_aux.listaBancos.sort(this_aux.sortByProperty('NombreBanco'));  
+          this_aux.listaBancos.forEach( function(value, key) {
+            if (this_aux.includesL(value.NombreBanco, "BANORTE")) {
+              value.Mostrar = '0';
+            } else {
+              value.Mostrar = '1';
+            }
+          });
+        }   
+        $("#_modal_please_wait").modal("hide");           
       },
       function(error) {
         console.error("El WS respondio incorrectamente");
@@ -153,7 +169,16 @@ export class TransferenciaSpeiComponent implements OnInit {
     resourceRequest.send().then(
       function(response) {
         this_aux.listaBancos = response.responseJSON;
-        this_aux.listaBancos.sort(this_aux.sortByProperty('NombreBanco'));
+        if (this_aux.listaBancos !== "" || this_aux.listaBancos !== null || this_aux.listaBancos !== undefined) {
+          this_aux.listaBancos.sort(this_aux.sortByProperty('NombreBanco'));  
+          this_aux.listaBancos.forEach( function(value, key) {
+            if (this_aux.includesL(value.NombreBanco, "BANORTE")) {
+              value.Mostrar = '0';
+            } else {
+              value.Mostrar = '1';
+            }
+          });
+        }
         $("#_modal_please_wait").modal("hide");
       },
       function(error) {
@@ -167,6 +192,16 @@ export class TransferenciaSpeiComponent implements OnInit {
       $("#_modal_please_wait").modal("hide");
     }, 5000);
   }
+
+  includesL(container, value) {
+    let returnValue = false;
+    let pos = String(container).indexOf(value);
+   
+    if (pos >= 0) {
+      returnValue = true;
+    }
+    return returnValue;
+   }
 
   sortByProperty = function (property) {
 
@@ -187,6 +222,7 @@ limpiarFormulario () {
   this_aux.rImporte.nativeElement.value = "";
   this_aux.rReferencia.nativeElement.value = "";
   this_aux.rEmail.nativeElement.value = "";
+  this_aux.rRfcBeneficiario.nativeElement.value = "";
 }
 
   seleccionOperacion(operacion) {
@@ -199,6 +235,15 @@ limpiarFormulario () {
       Validators.required
     );
     this_aux.myform.setControl("nombreBeneficiarioF", controlNombrenBenef);
+
+    const controlRfcBenef: FormControl = new FormControl(
+      this_aux.rRfcBeneficiario.nativeElement.value, 
+      Validators.pattern(
+        /^([A-ZÑ&, a-zñ&]{3,4})(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01]))([A-Z\d, a-z\d]{2})([A\d])$/
+      )
+    );
+    this_aux.myform.setControl("rfcBeneficiarioF", controlRfcBenef);
+
     const controlDescripcion: FormControl = new FormControl(
       this_aux.rDescripcion.nativeElement.value,
       Validators.required
@@ -238,6 +283,7 @@ limpiarFormulario () {
 
     document.getElementById("clabe").removeAttribute("disabled");
     document.getElementById("beneficiario").removeAttribute("disabled");
+    document.getElementById("rfcBeneficiario").removeAttribute("disabled");
     document.getElementById("descripcion").removeAttribute("disabled");
     document.getElementById("importe").removeAttribute("disabled");
     document.getElementById("referencia").removeAttribute("disabled");
@@ -254,14 +300,7 @@ limpiarFormulario () {
       this_aux.nombreSele.options[this_aux.nombreSele.selectedIndex].text;
   }
 
-  showDetallePago(
-    clabeBenRec,
-    nombreBeneRec,
-    refRec,
-    importeRec,
-    descripcionRec,
-    correoRec
-  ) {
+  showDetallePago(clabeBenRec, nombreBeneRec, refRec, importeRec, descripcionRec, correoRec, rfcBenRec) {
     const this_aux = this;
 
     this_aux.clabe = clabeBenRec;
@@ -270,9 +309,15 @@ limpiarFormulario () {
     this_aux.nombreBene = nombreBeneRec;
     this_aux.descripcion = descripcionRec;
     this_aux.referencia = refRec;
+    this_aux.rfcBeneficiario = rfcBenRec;
 
     if ( this_aux.referencia === "") {
       document.getElementById("referenciaModal").style.display = 'none';
+    }
+    if ( this_aux.rfcBeneficiario === "") {
+      document.getElementById("rfcModal").style.display = 'none';
+    } else {
+      document.getElementById("rfcModal").style.display = 'flex';
     }
     $("#confirmModal").modal("show");
   }
@@ -281,14 +326,7 @@ limpiarFormulario () {
     $("#confirmModal").modal("toggle");
   }
 
-  transferenciaSPEISoap(
-    clabeBenRec,
-    nombreBeneRec,
-    refRec,
-    importeRec,
-    descripcionRec,
-    correoRec
-  ): any {
+  transferenciaSPEISoap(clabeBenRec, nombreBeneRec, refRec, importeRec, descripcionRec, correoRec, rfcBenRec): any {
     const this_aux = this;
     console.log("Inicia Transacccion Spei");
 
@@ -302,7 +340,8 @@ limpiarFormulario () {
       bancoRecep: this_aux.bancoRecep.trim(),
       clabeBeneficiario: clabeBenRec,
       nombreBene: nombreBeneRec.toUpperCase(),
-      referencia: refRec
+      referencia: refRec,
+      rfcBeneficiario: rfcBenRec.toUpperCase()
     };
 
     let respuestaSpei;
@@ -337,14 +376,7 @@ limpiarFormulario () {
     );
   }
 
-  transferenciaTEFSoap(
-    clabeBenRec,
-    nombreBeneRec,
-    refRec,
-    importeRec,
-    descripcionRec,
-    correoRec
-  ): any {
+  transferenciaTEFSoap(clabeBenRec, nombreBeneRec, refRec, importeRec, descripcionRec, correoRec, rfcBenRec): any {
     const this_aux = this;
     console.log("Inicia Transacccion TEF");
 
@@ -356,7 +388,8 @@ limpiarFormulario () {
       correo: correoRec,
       importe: importeRec,
       referencia: refRec,
-      concepto: descripcionRec.toUpperCase()
+      concepto: descripcionRec.toUpperCase(),
+      rfcBeneficiario: rfcBenRec.toUpperCase()
     };
 
     let respuestaTef;
@@ -411,23 +444,11 @@ limpiarFormulario () {
           $('#ModalTDDLogin').modal('hide');
           $('#_modal_please_wait').modal('show');
           if (this_aux.nombreOperacion === "1") {
-            this_aux.transferenciaSPEISoap(
-              this_aux.clabe,
-              this_aux.nombreBene,
-              this_aux.referencia,
-              this_aux.importe,
-              this_aux.descripcion,
-              this_aux.email
-            );
+            this_aux.transferenciaSPEISoap(this_aux.clabe, this_aux.nombreBene, this_aux.referencia,
+              this_aux.importe, this_aux.descripcion, this_aux.email , this_aux.rfcBeneficiario);
           } else if (this_aux.nombreOperacion === "2") {
-            this_aux.transferenciaTEFSoap(
-              this_aux.clabe,
-              this_aux.nombreBene,
-              this_aux.referencia,
-              this_aux.importe,
-              this_aux.descripcion,
-              this_aux.email
-            );
+            this_aux.transferenciaTEFSoap(this_aux.clabe, this_aux.nombreBene, this_aux.referencia,
+              this_aux.importe, this_aux.descripcion, this_aux.email, this_aux.rfcBeneficiario);
           }
           this._validaNipService.respuestaNip.res = "";
         } else {
@@ -463,7 +484,7 @@ limpiarFormulario () {
     
   }
 
-  validarSaldo(clabeBenRec, nombreBeneRec, refRec, importeRec, descripcionRec, correoRec) {
+  validarSaldo(clabeBenRec, nombreBeneRec, refRec, importeRec, descripcionRec, correoRec, rfcBenRec) {
     const this_aux = this;
     let importeOpe = "";
     $('#_modal_please_wait').modal('show');
@@ -472,7 +493,7 @@ limpiarFormulario () {
       function(response) {
         let DatosJSON = response.responseJSON;
         if (DatosJSON.Id === "1") {
-          this_aux.showDetallePago(clabeBenRec, nombreBeneRec, refRec, importeOpe, descripcionRec, correoRec);
+          this_aux.showDetallePago(clabeBenRec, nombreBeneRec, refRec, importeOpe, descripcionRec, correoRec, rfcBenRec);
         } else if ( DatosJSON.Id === "4" ) {
           $('#modalLimiteDiario').modal('show');
         } else if ( DatosJSON.Id === "5" ) {

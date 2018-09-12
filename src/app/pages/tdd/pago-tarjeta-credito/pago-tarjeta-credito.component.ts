@@ -21,7 +21,8 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
   @ViewChild("rImporte", { read: ElementRef }) rImporte: ElementRef;
   @ViewChild('rcbFiltro', { read: ElementRef}) rcbFiltro: ElementRef ;
-
+  
+  valueSelectB = 0;
   nombreUsuarioTdd: string;
   saldoClienteTdd: string;
   tipoCuentaTdd: string;
@@ -202,12 +203,14 @@ export class PagoTarjetaCreditoComponent implements OnInit {
         this.noTarjeta = data;
       });
     
+      let bancoSelecId = '';
     this_aux.bancos.forEach(function(value, key)  {
       if (this_aux.numeroBanco !== "0") {
         if (value.IdBanco !== this_aux.numeroBanco) {
           value.Mostrar = '0';
         } else {
           value.Mostrar = '1';
+          bancoSelecId = value.IdBanco;
         }
       } else {
         if (value.IdBanco === "22" || value.IdBanco === "2") {
@@ -218,7 +221,19 @@ export class PagoTarjetaCreditoComponent implements OnInit {
       }
       
        });
-       $("#tipoBanco").val("0");       
+       let opcSelect = 0;
+       if (this_aux.numeroBanco === "0") {
+        opcSelect = 0;
+       } else {
+         if (bancoSelecId === "22") {
+          opcSelect = 22;            
+         } else {
+          opcSelect = 2;
+         }         
+       }
+       this_aux.valueSelectB = opcSelect;
+       
+       
   }
 
   selectBanco(bancoSeleccionado) {

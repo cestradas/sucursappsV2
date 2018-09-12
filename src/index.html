@@ -8,15 +8,62 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="stylesheet" type="text/css" href="assets/font-awesome/fonts/font-awesome.min.css" />
-    <link rel="stylesheet" href="assets/jquery/calendario/tempusdominus-bootstrap-4.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script type="text/javascript" src="assets/js/popper.js"></script>
+
 </head>
 
-<body >
+<body>
 
     <app-root></app-root>
 
+    <script type="text/javascript" src="assets/node_modules/ibm-mfp-web-sdk/node_modules/sjcl/sjcl.js"></script>
+    <script type="text/javascript" src="assets/node_modules/ibm-mfp-web-sdk/node_modules/jssha/src/sha.js"></script>
+    <script type="text/javascript" src="assets/node_modules/ibm-mfp-web-sdk/node_modules/promiz/promiz.min.js"></script>
+    <script type="text/javascript" src="assets/node_modules/ibm-mfp-web-sdk/lib/analytics/ibmmfpfanalytics.js"></script>
+    <script type="text/javascript" src="assets/node_modules/ibm-mfp-web-sdk/ibmmfpf.js"></script>
+
+    <!-- <script type="text/javascript" src="assets/jquery/jquery-3.3.1.min.js"></script> -->
+    <script type="text/javascript" src="assets/jquery/calendario/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="assets/jquery/calendario/moment.min.js"></script>
+    <script type="text/javascript" src="assets/jquery/calendario/tempusdominus-bootstrap-4.js"></script>
+    <script type="text/javascript" src="assets/jquery/calendario/moment-with-locales.js"></script>
+    <link rel="stylesheet" href="assets/jquery/calendario/tempusdominus-bootstrap-4.min.css" />
+
+    <script type="text/javascript" src="assets/b4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.twbsPagination.min.js"></script>
+
+
+    <script type="text/javascript" src="assets/js/index.js"></script>
+    <!--PRA USO DE NODE EN ELECTRON -->
+    <script type="text/javascript" src="assets/js/bundle.js"></script>
+    <script type="text/javascript" src="assets/js/mca-cec-electron.js"></script>
+    <!-- scipt que sera llamdo desde el .ts para ejecutar las sentencias de node-->
+    <script language="javascript">
+        function handlerWriteDoc() {
+            // console.log("entra funcion para escribir PDF");
+
+            var storagePDF = localStorage.getItem("doc");
+            var storageNombrePDF = localStorage.getItem("nombreDoc");
+            saveDocElectron(storagePDF, storageNombrePDF);
+        }
+    </script>
+    <script language="javascript">
+        function handlerCallPinpad() {
+            // console.log("entra funcion para llamar pinpad");
+
+            callPinPad();
+
+        }
+
+        function handlerCallPinpadtdc() {
+            // console.log("entra funcion para llamar pinpad");
+
+            callPinPadtdc();
+
+        }
+    </script>
 
 </body>
 
@@ -219,7 +266,3 @@
 
         </div>
     </div>
-    <script type="text/javascript" src="assets/jquery/calendario/jquery-3.3.1.js"></script>
-    <script type="text/javascript" src="assets/b4/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="assets/js/index.js"></script>
-   

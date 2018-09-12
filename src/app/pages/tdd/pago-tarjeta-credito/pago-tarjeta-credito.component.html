@@ -51,10 +51,9 @@
 
                     <select class="input-whidth selectModificado" id="selTipo" formControlName="selecTipo" #rcbFiltro (change)="tipoTarjeta()" style=" width: 100%; height: 68px !important; border:0px solid red">
                                     <option value="0" disabled selected> Seleccione el tipo de tarjeta ...</option>
-                                    <option value="311" class="text-li">Propias Banorte</option>
-                                    <option value="312" class="text-li"> Terceros Banorte</option>
-                                    <option value="313" class="text-li"> Otros Bancos</option>
-                                    <option value="314" class="text-li"> American Express</option>
+                                    <option value="311" class="text-li">Tarjetas Banorte</option>
+                                    <option value="313" class="text-li">Otros Bancos</option>
+                                    <option value="314" class="text-li">American Express</option>
                                 </select>
 
                 </div>
@@ -67,8 +66,8 @@
                             <label class=" control-label">Banco:</label>
                         </div>
                         <div class="dropdown sumando-dropdown-account col-lg-10">
-                            <select formControlName="selectBanco" #rSelecBanco class="input-whidth input-lg selectModificado" id="tipoBanco" (change)="selectBanco($event.target.value)" style=" width: 100%; border:  0px">
-                            <option value="0" disabled selected>SELECCIONE BANCO</option>
+                            <select formControlName="selectBanco" value="{{valueSelectB}}" #rSelecBanco class="input-whidth input-lg selectModificado" id="tipoBanco" (change)="selectBanco($event.target.value)" style=" width: 100%; border:  0px">
+                            <option value="0" disabled>SELECCIONE BANCO</option>
                             <ng-container *ngFor="let banco of bancos; let i = index">
                                 <option *ngIf="banco.Mostrar !== '0'" [value]="banco.IdBanco" class="text-li">{{ banco.NombreBanco }}</option>    
                             </ng-container>                            

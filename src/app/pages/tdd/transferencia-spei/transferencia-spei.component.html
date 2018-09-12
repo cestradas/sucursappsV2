@@ -46,8 +46,8 @@
     
                     <option disabled="true" selected>Seleccione transferencia</option>
                    <!-- <option value="1">SPEI</option>-->
-                    <option value="1" class="text-li">SPEI</option>
-                    <option value="2" class="text-li">TEF</option>                    
+                    <option value="1" class="text-li">Mismo día (SPEI)</option>
+                    <option value="2" class="text-li">Día hábil siguiente (TEF)</option>                    
                 </select>
         </div>
 
@@ -67,13 +67,15 @@
                     <div class="dropdown sumando-dropdown-account col-sm-9">
                         <select class="input-whidth input-lg selectModificado" name="sel1" id="selecBanco" #rSelecBanco (change)="selectBanco($event.target.value)" style="border:0px solid red; background-size: auto; width: 100%">
                             <option disabled="true">Seleccione un banco</option>
-                            <option class="text-li" *ngFor="let bancos of listaBancos"  [value]="bancos.IdSecoban">{{bancos.NombreBanco}}</option>                                     
+                            <ng-container *ngFor="let bancos of listaBancos">
+                                <option class="text-li" *ngIf="bancos.Mostrar !== '0'" [value]="bancos.IdSecoban">{{bancos.NombreBanco}}</option>  
+                            </ng-container>                                                               
                         </select>
                     </div>
                 </div>
                 <div class="clearfix"></div>
 
-                <div class="row padding-InFieldset">
+                <div class="row" style="padding-bottom: 15px;">
                     <div class="form-group col-sm-2">
                         <label for="amount" id="clabeTarjeta" class="col-sm-2 control-label" style="max-width: 250px;">Clabe / Número de Tarjeta:</label>
                     </div>
@@ -89,7 +91,7 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <div class="row padding-InFieldset">
+                <div class="row" style="padding-bottom: 15px;">
                     <div class="form-group col-sm-2">
                         <label for="amount" class="col-sm-2 control-label">Beneficiario:</label>
                     </div>
@@ -102,7 +104,20 @@
                     <div class="clearfix"></div>
 
                 </div>
-                <div class="row padding-InFieldset">
+                <div class="row" style="padding-bottom: 15px;">
+                    <div class="form-group col-sm-2">
+                        <label for="amount" class="control-label" style="padding-left: 14px"> RFC Beneficiario:</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <input disabled="disabled" type="text" name="rfcBeneficiario" [matKeyboard]="" id="rfcBeneficiario" #rRfcBeneficiario formControlName="rfcBeneficiarioF" maxlength="100" class="form-control amount input-lg text-uppercase" />
+                        <div class="alert-danger" *ngIf="myform.get('rfcBeneficiarioF').errors && myform.get('rfcBeneficiarioF').touched">
+                            <p color="danger" style="margin-bottom: 0;" style="margin-bottom: 0;">Los datos proporcionados son incorrectos, favor de verificar.</p>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                </div>
+                <div class="row" style="padding-bottom: 15px;">
                     <div class="form-group col-sm-2">
                         <label class="col-sm-2 control-label">Descripci&oacute;n:</label>
                     </div>
@@ -115,7 +130,7 @@
                     <div class="clearfix"></div>
 
                 </div>
-                <div class="row padding-InFieldset">
+                <div class="row" style="padding-bottom: 15px;">
                     <div class="form-group col-sm-2">
                         <label for="amount" class="col-sm-2 control-label">Importe:</label>
                     </div>
@@ -139,7 +154,7 @@
                     <div class="clearfix"></div>
 
                 </div>
-                <div class="row">
+                <div class="row" style="padding-bottom: 15px;">
                     <div class="form-group col-sm-2">
                         <label for="amount" class="col-sm-5 control-label" style="max-width: 180px;">Correo a Notificar:</label>
                     </div>
@@ -167,7 +182,7 @@
             <div class="col-sm-1">
                 <button id="continuarspei" name="continuarspei" class="btn color-botones btn-lg" [disabled]="myform.invalid || rSelecBanco.value === 'Seleccione un banco' || rSelecBanco.value === ''
                 || rTipoTransferencia.value === 'Seleccione transferencia' || rTipoTransferencia.value === '' || tamCuenta !== 1" (click)="validarSaldo(rClabe.value, rBeneficiario.value, rReferencia.value, rImporte.value, rDescripcion.value,
-                    rEmail.value)" style="margin-right: -49px;">
+                    rEmail.value, rRfcBeneficiario.value)" style="margin-right: -49px;">
                         Continuar</button>
             </div>
         </div>
@@ -179,7 +194,7 @@
 <!-- Modal -->
 <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content shadowModal" style="height: 410px; width: 550px;">
+        <div class="modal-content shadowModal" style="height: 444px; width: 575px;">
 
             <div class="modal-body" style="padding: 2rem;">
 
@@ -189,7 +204,7 @@
                         <label>Cuenta origen:</label>
                     </div>
                     <div class="col-lg 6">
-                        <label>{{numeroCuentaTitular}}</label>
+                        <label>{{mostrarCuentaMascara}}</label>
                     </div>
                 </div>
                 <div class="row">
@@ -230,6 +245,14 @@
                     </div>
                     <div class="col-lg 6">
                         <label>{{nombreBene | uppercase}}</label>
+                    </div>
+                </div>
+                <div class="row" id="rfcModal">
+                    <div class="col-lg 6">
+                        <label>RFC Beneficiario:</label>
+                    </div>
+                    <div class="col-lg 6">
+                        <label>{{rfcBeneficiario | uppercase}}</label>
                     </div>
                 </div>
                 <div class="row">

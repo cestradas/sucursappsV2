@@ -29,6 +29,7 @@ let importe = "";
 let descripcion = "";
 let correo = "";
 let rfcEmi = "";
+let rfcBeneficiario = "";
 let aliasCta = "";
 let clabeTEF_SPEI = "";
 
@@ -36,6 +37,7 @@ let bancoRecep = "";
 let refFront = "";
 let importeFront = "";
 let descripcionFront = "";
+let RFCFront = "";
 
 
 
@@ -77,6 +79,7 @@ export class TransferenciaSpeiComponent implements OnInit {
   importeF = "";
   descripcionF = "";
   refF = "";
+  rfcF = "";
 
   rfcEmiF = "";
 
@@ -116,13 +119,14 @@ export class TransferenciaSpeiComponent implements OnInit {
       'amountSPEI': new FormControl('', [Validators.required, Validators.min(0), Validators.max(7000), Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)]),
       'descriptionSPEI': new FormControl('', [Validators.required, Validators.maxLength(60)]),
       'referenceSPEI': new FormControl('', [Validators.required, Validators.maxLength(7)]),
-
-      // TEF
+      'RFCben': new FormControl('', [Validators.maxLength(13), Validators.pattern( /^(([A-Z]|[a-z]|\s){1})(([A-Z]|[a-z]){3})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))$/)]),
+      
+       // TEF
 
       'amountTEF': new FormControl('', [Validators.required, Validators.min(0), Validators.max(7000), Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)]),
       'descriptionTEF': new FormControl('', [Validators.required, Validators.maxLength(60)]),
       'referenceTEF': new FormControl('', [Validators.required, Validators.maxLength(7)]),
-
+      'RFCbenTEF': new FormControl('', [Validators.maxLength(13), Validators.pattern( /^(([A-Z]|[a-z]|\s){1})(([A-Z]|[a-z]){3})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))$/)]),
       // Quick
 
 
@@ -131,6 +135,7 @@ export class TransferenciaSpeiComponent implements OnInit {
       //'clabe': new FormControl('', [Validators.required, Validators.maxLength(16)]),
       'ammountQUICK': new FormControl('', [Validators.required, Validators.min(0), Validators.max(7000), Validators.pattern( /^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/)]),
       'referenceQuick': new FormControl('', [Validators.required, Validators.maxLength(7)]),
+      'RFCbenQUICK': new FormControl('', [Validators.maxLength(13), Validators.pattern( /^(([A-Z]|[a-z]|\s){1})(([A-Z]|[a-z]){3})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))$/)]),
 
       'fcTokenSp': new FormControl(),
       'fcTokenTef': new FormControl(),
@@ -169,6 +174,15 @@ export class TransferenciaSpeiComponent implements OnInit {
             this_aux.desabilitaBtn();
           });
 
+          this.forma.controls['RFCben'].valueChanges.subscribe(
+          data => {
+            console.log('RFCben', data);
+            console.log('forma', this.forma);
+
+            this_aux.rfcF = data;
+            this_aux.desabilitaBtn();
+          });
+
             this.forma.controls['amountTEF'].valueChanges.subscribe(
               data => {
                 // console.log('amountTEF', data);
@@ -194,6 +208,15 @@ export class TransferenciaSpeiComponent implements OnInit {
 
                     this_aux.refF = data;
                     this_aux.desabilitaBtn();
+                  });
+
+                  this.forma.controls['RFCbenTEF'].valueChanges.subscribe(
+                    data => {
+                      console.log('RFCbenTEF', data);
+                      console.log('forma', this.forma);
+
+                      this_aux.rfcF = data;
+                      this_aux.desabilitaBtn();
                   });
 
                   this.forma.controls['cuenta'].valueChanges.subscribe(
@@ -240,6 +263,16 @@ export class TransferenciaSpeiComponent implements OnInit {
                               this_aux.refF = data;
                               this_aux.desabilitaBtn();
                             });
+
+
+                             this.forma.controls['RFCbenQUICK'].valueChanges.subscribe(
+                                data => {
+                                console.log('RFCbenQUICK', data);
+                                console.log('forma', this.forma);
+
+                                this_aux.rfcF = data;
+                                this_aux.desabilitaBtn();
+                             });
 
                             this.forma.controls['fcTokenSp'].valueChanges.subscribe(
                               data2 => {
@@ -382,6 +415,7 @@ export class TransferenciaSpeiComponent implements OnInit {
       importe = this_aux.importeF;
       descripcion = this_aux.descripcionF;
       ref = this_aux.refF;
+      rfcBeneficiario = this_aux.rfcF;
 
             break;
 
@@ -392,6 +426,7 @@ export class TransferenciaSpeiComponent implements OnInit {
       importe = this_aux.importeF;
       descripcion = this_aux.descripcionF;
       ref = this_aux.refF;
+      rfcBeneficiario = this_aux.rfcF;
 
 
             break;
@@ -402,6 +437,7 @@ export class TransferenciaSpeiComponent implements OnInit {
       //clabe = this_aux.clabeF;
       importe = this_aux.importeF;
       ref = this_aux.refF;
+      rfcBeneficiario = this_aux.rfcF;
 
 
 
@@ -587,13 +623,13 @@ validarSaldo(tipoOperecionPago) {
 
           console.log("Pago validado");
           if (tipoOperecionPago === "1") {          // SPEI
-            $( ".cdk-visually-hidden" ).css( "margin-top", "14%" );
+            $( ".cdk-visually-hidden" ).css( "margin-top", "9%" );
             $('#confirmModalSPEI').modal('show');
           } else if (tipoOperecionPago === "2") {   //TEF
-            $( ".cdk-visually-hidden" ).css( "margin-top", "14%" );
+            $( ".cdk-visually-hidden" ).css( "margin-top", "9%" );
             $('#confirmModalTEF').modal('show');
           } else if (tipoOperecionPago === "3") {   //QUICK
-            $( ".cdk-visually-hidden" ).css( "margin-top", "14%" );
+            $( ".cdk-visually-hidden" ).css( "margin-top", "9%" );
             $('#confirmModalQUICK').modal('show');
           }
 
@@ -607,6 +643,8 @@ validarSaldo(tipoOperecionPago) {
         $('#_modal_please_wait').modal('hide');
       }, function(error) {
        $('#_modal_please_wait').modal('hide');
+       this_aux.showErrorPromise(error);
+      
   });
   }
 
@@ -860,6 +898,7 @@ setDatosCuentaBeneficiario(elementHTML) {
     $('#amountSPEI').prop("disabled", false);
     $('#descriptionSPEI').prop("disabled", false);
     $('#referenceSPEI').prop("disabled", false);
+    $('#RFCben').prop("disabled", false);
 
   }
 
@@ -868,6 +907,7 @@ setDatosCuentaBeneficiario(elementHTML) {
     $('#amountTEF').prop("disabled", false);
     $('#descriptionTEF').prop("disabled", false);
     $('#referenceTEF').prop("disabled", false);
+    $('#RFCbenTEF').prop("disabled", false);
 
   }
 
@@ -879,6 +919,7 @@ setDatosCuentaBeneficiario(elementHTML) {
     $('#selecBanco').prop("disabled", false);
     $('#ammountQUICK').prop("disabled", false);
     $('#referenceQuick').prop("disabled", false);
+    $('#RFCbenQUICK').prop("disabled", false);
 
   }
 
@@ -989,6 +1030,7 @@ setCuentasBenficiarioXTipo() {
     if (this_aux.selectTipo.nativeElement.value.toString() === "1") {  // SPEI
 
       this_aux.bloqueaBtn();
+      $('#continuarspei').prop("disabled", true);
 
       $( ".cdk-visually-hidden" ).css( "margin-top", "10%" );
 
@@ -1037,6 +1079,7 @@ setCuentasBenficiarioXTipo() {
     if (this_aux.selectTipo.nativeElement.value.toString() === "2") { // TEF
 
       this_aux.bloqueaBtn();
+      $('#continuarspei').prop("disabled", true);
 
       $( ".cdk-visually-hidden" ).css( "margin-top", "10%" );
 
@@ -1086,6 +1129,7 @@ setCuentasBenficiarioXTipo() {
     if (this_aux.selectTipo.nativeElement.value.toString() === "3") {  // Quick
 
       //this_aux.bloqueaBtn();
+      $('#continuarspei').prop("disabled", true);
 
       $( ".cdk-visually-hidden" ).css( "margin-top", "10%" );
 
@@ -1129,19 +1173,43 @@ desabilitaBtn() {
   let importeTranSPEI = $('#amountSPEI').val();
   let conceptoTranSPEI = $('#descriptionSPEI').val();
   let referenciaTranSPEI = $('#referenceSPEI').val();
+  let RFCTranSPEI = $('#RFCben').val();
   let importeTranTEF = $('#amountTEF').val();
   let conceptoTranTEF = $('#descriptionTEF').val();
   let referenciaTranTEF = $('#referenceTEF').val();
+  let RFCTranTEF = $('#RFCbenTEF').val();
   let ctaTranQUICK = $('#cuenta').val();
   let bancoTranQUICK = $('#selecBanco').val();
   let importeTranQUICK = $('#ammountQUICK').val();
   let referenciaTranQUICK = $('#referenceQuick').val();
+  let RFCTranQUICK = $('#RFCbenQUICK').val();
+  let validaRFCSPEI = false;
+  let validaRFCTEF = false;
+  let validaRFCQUICK = false;
 
   let expreg = new RegExp("/^([0-9]{1,})+((?:\.){0,1}[0-9]{0,})$/");
 
+  
+
+  if (RFCTranSPEI !== ""){
+    validaRFCSPEI = this_aux.ValidaRfc(RFCTranSPEI);
+    RFCTranSPEI = this_aux.replaceSpaces(RFCTranSPEI);
+  }
+
+  if (RFCTranTEF !== ""){
+    validaRFCTEF = this_aux.ValidaRfc(RFCTranTEF);
+    RFCTranTEF = this_aux.replaceSpaces(RFCTranTEF);
+  }
+
+  if (RFCTranQUICK !== ""){
+    validaRFCQUICK = this_aux.ValidaRfc(RFCTranQUICK);
+    RFCTranQUICK = this_aux.replaceSpaces(RFCTranQUICK);
+  }
+  
+
   if (this_aux.selectTipo.nativeElement.value.toString() === "1") {  // SPEI
 
-    if ((this_aux.replaceSimbolo(importeTranSPEI) !== "") && (conceptoTranSPEI !== "") && (referenciaTranSPEI !== "")) {
+    if ((this_aux.replaceSimbolo(importeTranSPEI) !== "") && (conceptoTranSPEI !== "") && (referenciaTranSPEI !== "") && (validaRFCSPEI === true || RFCTranSPEI === "")) {
 
       $('#continuarspei').prop("disabled", false); //false desbloquea
     } else {
@@ -1152,7 +1220,7 @@ desabilitaBtn() {
 
   if (this_aux.selectTipo.nativeElement.value.toString() === "2") { // TEF
 
-    if ((this_aux.replaceSimbolo(importeTranTEF) !== "") && (conceptoTranTEF !== "") && (referenciaTranTEF !== "")) {
+    if ((this_aux.replaceSimbolo(importeTranTEF) !== "") && (conceptoTranTEF !== "") && (referenciaTranTEF !== "")  && (validaRFCTEF === true || RFCTranTEF === "")) {
 
       $('#continuarspei').prop("disabled", false); //false desbloquea
     } else {
@@ -1163,7 +1231,7 @@ desabilitaBtn() {
 
   if (this_aux.selectTipo.nativeElement.value.toString() === "3") {  // Quick
 
-    if ((this_aux.replaceSimbolo(importeTranQUICK) !== "") && (ctaTranQUICK !== "") && (bancoTranQUICK !== "") && (referenciaTranQUICK !== "")) {
+    if ((this_aux.replaceSimbolo(importeTranQUICK) !== "") && (ctaTranQUICK !== "") && (bancoTranQUICK !== "") && (referenciaTranQUICK !== "") && (validaRFCQUICK === true || RFCTranQUICK === "")) {
 
       $('#continuarspei').prop("disabled", false); //false desbloquea
     } else {
@@ -1181,19 +1249,28 @@ bloqueaBtn() {
   let importeTranSPEI = $('#amountSPEI').val();
   let conceptoTranSPEI = $('#descriptionSPEI').val();
   let referenciaTranSPEI = $('#referenceSPEI').val();
+  let RFCTranSPEI = $('#RFCben').val();
   let importeTranTEF = $('#amountTEF').val();
   let conceptoTranTEF = $('#descriptionTEF').val();
   let referenciaTranTEF = $('#referenceTEF').val();
+  let RFCTranTEF = $('#RFCbenTEF').val();
   let ctaTranQUICK = $('#cuenta').val();
   let bancoTranQUICK = $('#selecBanco').val();
   let importeTranQUICK = $('#ammountQUICK').val();
   let referenciaTranQUICK = $('#referenceQuick').val();
+  let RFCTranQUICK = $('#RFCbenQUICK').val();
 
   if (this_aux.selectTipo.nativeElement.value.toString() === "1") {  // SPEI
 
     $('#amountSPEI').prop("disabled", true);
     $('#descriptionSPEI').prop("disabled", true);
     $('#referenceSPEI').prop("disabled", true);
+    $('#RFCben').prop("disabled", true);
+
+    $('#amountSPEI').val("");
+    $('#descriptionSPEI').val("");
+    $('#referenceSPEI').val("");
+    $('#RFCben').val("");
 
   }
 
@@ -1202,6 +1279,12 @@ bloqueaBtn() {
     $('#amountTEF').prop("disabled", true);
     $('#descriptionTEF').prop("disabled", true);
     $('#referenceTEF').prop("disabled", true);
+    $('#RFCbenTEF').prop("disabled", true);
+
+    $('#amountTEF').val("");
+    $('#descriptionTEF').val("");
+    $('#referenceTEF').val("");
+    $('#RFCbenTEF').val("");
 
   }
 
@@ -1211,12 +1294,41 @@ bloqueaBtn() {
     $('#selecBanco').prop("disabled", true);
     $('#ammountQUICK').prop("disabled", true);
     $('#referenceQuick').prop("disabled", true);
+    $('#RFCbenQUICK').prop("disabled", true);
+
+    $('#cuenta').val("");
+    $('#selecBanco').val("");
+    $('#ammountQUICK').val("");
+    $('#referenceQuick').val("");
+    $('#RFCbenQUICK').val("");
 
   }
 
 
 }
 
+ValidaRfc(rfcStr) {
+	var strCorrecta;
+	strCorrecta = rfcStr;	
+	if (rfcStr.length == 12){
+	var valid = '^(([A-Z]|[a-z]){3})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
+	}else{
+	var valid = '^(([A-Z]|[a-z]|\s){1})(([A-Z]|[a-z]){3})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
+	}
+	var validRfc=new RegExp(valid);
+	var matchArray=strCorrecta.match(validRfc);
+	if (matchArray==null) {
+		//console.log('Cadena incorrectas');
+
+		return false;
+	}
+	else
+	{
+		//console.log('Cadena correcta:' + strCorrecta);
+		return true;
+	}
+	
+}
 
 consultaClabeSaldos(numCuentaDestinario_seleccionada) {
   const this_aux =  this;
@@ -1232,6 +1344,7 @@ consultaClabeSaldos(numCuentaDestinario_seleccionada) {
           $('#amountSPEI').prop("disabled", false);
           $('#descriptionSPEI').prop("disabled", false);
           $('#referenceSPEI').prop("disabled", false);
+          $('#RFCben').prop("disabled", false);
 
         } else {
           // console.log(detalleSaldos.MensajeAUsuario);
@@ -1248,6 +1361,7 @@ consultaClabeSaldos(numCuentaDestinario_seleccionada) {
           $('#amountSPEI').prop("disabled", true);
           $('#descriptionSPEI').prop("disabled", true);
           $('#referenceSPEI').prop("disabled", true);
+          $('#RFCben').prop("disabled", true);
 
 
         }
@@ -1326,6 +1440,7 @@ validaDatosBen() {
     refFront = ref;
     importeFront = importe;
     descripcionFront = descripcion;
+    RFCFront = rfcBeneficiario;
 
     const autenticacion: Autenticacion = new Autenticacion();
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
@@ -1351,7 +1466,7 @@ validaDatosBen() {
 
                   operacionesbxi.confirmaTransferSPEI(ctaO, ctaDest, sic, bancoRecep, clabeTEF_SPEI,
                                                       nombreBene, refFront, importeFront,
-                                                      descripcionFront, correo, this_aux.service.userRfc, aliasCta)
+                                                      descripcionFront, correo, this_aux.service.userRfc, aliasCta, RFCFront)
                   .then(
 
 
@@ -1409,7 +1524,7 @@ validaDatosBen() {
                                                      this_aux.service.claveAliasCuenta ,
                                                     // this_aux.service.claveNumBenefi,
                                                     ctaDest, this_aux.nombreBeneModal,
-                                                     this_aux.service.NombreUsuario, importeFront, descripcionFront, refFront)
+                                                     this_aux.service.NombreUsuario, importeFront, descripcionFront, refFront, RFCFront)
 
                   .then(
 
@@ -1465,7 +1580,7 @@ validaDatosBen() {
                   operacionesbxi.confirmaTransferQUICK(ctaO, this_aux.tipoCuentaF, sic, this_aux.bancoRecep.trim(),
                                                       //this_aux.clabeF,
                                                        nombreBene, this_aux.refF , importeFront,
-                                                      "Transferencia Quick", correo, this_aux.service.userRfc)
+                                                      "Transferencia Quick", correo, this_aux.service.userRfc, RFCFront)
                   .then(
 
                     function(response) {
@@ -1540,6 +1655,13 @@ consultaTablaCorpBancosService() {
 
       this_aux.listaBancos = response.responseJSON;
       this_aux.listaBancos.sort(this_aux.sortByProperty('NombreBanco'));
+      this_aux.listaBancos.forEach( function(value, key) {
+        if (this_aux.includesL(value.NombreBanco, "BANORTE")) {
+          value.Mostrar = '0';
+        } else {
+          value.Mostrar = '1';
+        }
+      });
       const bancos = this_aux.listaBancos.sort(this_aux.sortByProperty('Id'));
       let idBanco;
 
@@ -1561,6 +1683,7 @@ consultaTablaCorpBancosService() {
         $('#selecBanco').prop("disabled", false);
         $('#ammountQUICK').prop("disabled", false);
         $('#referenceQuick').prop("disabled", false);
+        $('#RFCbenQUICK').prop("disabled", false);
 
       } else {
         // bloquea campos
@@ -1569,6 +1692,7 @@ consultaTablaCorpBancosService() {
         $('#selecBanco').prop("disabled", true);
         $('#ammountQUICK').prop("disabled", true);
         $('#referenceQuick').prop("disabled", true);
+        $('#RFCbenQUICK').prop("disabled", true);
         document.getElementById('errorMensaje').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
         $("#modalErrorMessage").modal("show");
        }
@@ -1582,6 +1706,16 @@ consultaTablaCorpBancosService() {
 
 
 }
+
+includesL(container, value) {
+  let returnValue = false;
+  let pos = String(container).indexOf(value);
+ 
+  if (pos >= 0) {
+    returnValue = true;
+  }
+  return returnValue;
+ }
 
 sortByProperty = function (property) {
 

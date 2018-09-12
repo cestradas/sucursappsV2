@@ -175,18 +175,21 @@ export class MovimientosaldotdcComponent implements OnInit {
              }
              
         
-            }
-            else{
+            } else {
              // console.log("id"+detalleCuenta.Id);
               this_aux.showErrorSucces(detalleCuenta);
               
-            } 
+            }
+            console.log("Movimientos cargados correctamente tarjetas");
+            setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);   
           }, function(error) {
+            this_aux.showErrorPromise(error);
+            setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
+
             
             
       });
-      console.log("Movimientos cargados correctamente tarjetas");
-      setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
+      
     }
     
    
@@ -304,12 +307,14 @@ export class MovimientosaldotdcComponent implements OnInit {
             }
             console.log("Consulta Saldos");
             this_aux.consultaSaldosTarjetasm();
+            console.log("Movimientos cargados correctamente");
+            setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
           }, function(error) {
-            
+            this_aux.showErrorPromise(error);
+            setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
             
       });
-      console.log("Movimientos cargados correctamente");
-      setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
+   
     }
     consultaSaldosTarjetasm() {
       const this_aux = this;
@@ -356,13 +361,15 @@ export class MovimientosaldotdcComponent implements OnInit {
       $('#errorModal').modal('show');
       }
       
-      showErrorPromise(error) {
-      console.log(error);
-      // tslint:disable-next-line:max-line-length
-      document.getElementById('mnsError').innerHTML = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde."; 
-      setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
-      $('#errorModal').modal('show');
-      }  
+    showErrorPromise(error) {
+        console.log(error);
+        $('#errorModal').modal('show');
+       if (error.errorCode === 'API_INVOCATION_FAILURE') {
+        document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
+      } else {
+      document.getElementById('mnsError').innerHTML = 'El servicio no esta disponible, favor de intentar mas tarde';
+       }
+    }  
 
       mascaraNumeroCuenta(numCtaSel) {
         const tamNumCta = numCtaSel.length;

@@ -90,7 +90,7 @@ export class ValidaNipTransaccion {
                     } ,
    
                     function(error) {
-                        document.getElementById('mnsError').innerHTML = "Por el momento este servicio no est� disponible, favor de intentar de nuevo m�s tarde.";
+                        document.getElementById('mnsError').innerHTML = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
                             $('#errorModal').modal('show');
                         // console.log(error.responseText);
    

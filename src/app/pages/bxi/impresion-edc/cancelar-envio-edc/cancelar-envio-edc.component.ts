@@ -122,7 +122,7 @@ export class CancelarEnvioEdcComponent implements OnInit {
 
   showErrorPromiseMoney(json) {
     // console.log(json.Id + json.MensajeAUsuario);
-    document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operaci�n. Por favor verifica tus datos.";
+    document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tus datos.";
     $('#_modal_please_wait').modal('hide');
     $('#ModalErrorTransaccion').modal('show');
   }
