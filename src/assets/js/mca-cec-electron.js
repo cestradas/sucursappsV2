@@ -12,7 +12,7 @@ function callEncuesta(){
      let win3 = new browserWindow({
        
                 width:1920, height:1200, 
-                
+                resizable: false,
                 alwaysOnTop: true, 
                 movable: false,
                 minimizable: false,
