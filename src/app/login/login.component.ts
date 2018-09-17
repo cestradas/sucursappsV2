@@ -631,8 +631,8 @@ resourceRequest.send().then(
 
   encuesta() {
     console.log("Encuesta de satisfaccion");
-    $("#frame").attr("src", "https://internetunix.unix.banorte.com:8443/encuesta/preview.html?nameCampaign=CAMP_EXP_CLIENTE");
-    $('#ModalEncuesta').modal('show');
+    //$("#frame").attr("src", "https://internetunix.unix.banorte.com:8443/encuesta/preview.html?nameCampaign=CAMP_EXP_CLIENTE");
+    //$('#ModalEncuesta').modal('show');
 
   }
 
