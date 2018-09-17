@@ -1,6 +1,51 @@
 // export funciona metodo con importacion en ts
 // function saveDocElectron(documentoB64, numDoc, fechaDoc) {
 
+function callEncuesta(){
+    
+     var electron = require("electron");
+     var nativeImage = electron.remote.nativeImage
+     const browserWindow = electron.remote.BrowserWindow
+     const path = require("path");
+     
+    
+     let win3 = new browserWindow({
+       
+                width:1920, height:1200, 
+                
+                alwaysOnTop: true, 
+                movable: false,
+                minimizable: false,
+                maximizable: false,
+                icon: 'Encuesta/img/banorte.ico',
+
+                webPreferences: {
+                    
+                    javascript: true,
+                    devTools : false,
+                   
+                    webSecurity: false,
+                    allowRunningInsecureContent: true 
+      }})
+     
+  win3.on('closed', () => {
+    win3 = null
+  })
+    
+    //win3.webContents.openDevTools()
+
+    
+    
+    win3.loadURL(path.join('file://', process.cwd(), 'Encuesta/EncuestaBanorte.html'))
+   
+    
+    win3.show()
+
+
+
+}
+
+
 
 function saveDocElectron(documentoB64, nombremDoc) {
 
