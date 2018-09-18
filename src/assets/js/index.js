@@ -71,15 +71,7 @@ function getContextRoot() {
             resourceRequest.sendFormParameters().then(
                 function(response) {
                     // console.log(response);
-                    // borra datos TDD en localstorage
-                    localStorage.removeItem("des");
-                    localStorage.removeItem("np");
-                    localStorage.removeItem("res");
-                    localStorage.removeItem("tr2");
-                    localStorage.removeItem("tr2_serv");
-                    localStorage.removeItem("np_serv");
-                    localStorage.removeItem("res_serv");
-                    localStorage.removeItem("validaNipServ");
+                    // borra datos TDD en localstorage                    
                     var responseJson = response.responseJSON;
                     localStorage.setItem("TimeOut", responseJson.TimeOut);
                     localStorage.setItem("TimeOutIni", responseJson.TimeOut);

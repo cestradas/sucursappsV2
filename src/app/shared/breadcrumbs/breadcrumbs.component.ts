@@ -86,10 +86,15 @@ export class BreadcrumbsComponent implements OnInit {
 
   cerrarSessionBEL() {
     const this_aux = this;
+    localStorage.setItem("TimeOut", localStorage.getItem('TimeOutIni'));
     if (this_aux.service.Login === "1" ) {
       sessionStorage.removeItem("campania");
       sessionStorage.removeItem("idSesion");
+      sessionStorage.removeItem("tipoClienteBEL");
+      sessionStorage.removeItem("doc");
+      sessionStorage.removeItem("nombreDoc");
       localStorage.removeItem("contadorTime");
+      
     const THIS: any = this;
       this_aux.service.Login = "0";
       const operacionesbxi: OperacionesBXI = new OperacionesBXI();
@@ -101,8 +106,8 @@ export class BreadcrumbsComponent implements OnInit {
             if (responseJson.Id === "SEG0001") {
               // console.log("BEL cerro sesion",  this_aux.service.Login);
               WLAuthorizationManager.logout('banorteSecurityCheckSa');
-              localStorage.removeItem('TimeOut');
-              localStorage.removeItem('TimeOutIni');
+             // localStorage.removeItem('TimeOut');
+             // localStorage.removeItem('TimeOutIni');
               this_aux.router.navigate(['/final']);
             } else {
               // console.log("BEL error cerrar sesion", responseJson.Id  + responseJson.MensajeAUsuario);
@@ -143,6 +148,9 @@ export class BreadcrumbsComponent implements OnInit {
     localStorage.removeItem("tr2_serv");
     localStorage.removeItem("np_serv");
     localStorage.removeItem("res_serv");
+    localStorage.removeItem("tipoClienteTar");
+    localStorage.removeItem("doc");
+    localStorage.removeItem("nombreDoc");
     localStorage.removeItem("contadorTime");
     const resourceRequest = new WLResourceRequest(
       'adapters/AdapterBanorteSucursApps2/resource/cerrarSesion',

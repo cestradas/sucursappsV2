@@ -13,7 +13,7 @@ export class FinalComponent implements OnInit {
 
     const this_aux = this; 
     setTimeout( function() {
-      location.reload(true);
+    //  location.reload(true);
       this_aux.router.navigate(['/login']);
     } 
     , 3000);
