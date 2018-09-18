@@ -1,8 +1,7 @@
 import { OperacionesBXI } from './../../pages/bxi/operacionesBXI';
 import { SesionBxiService } from './../../pages/bxi/sesion-bxi.service';
 import { Component, OnInit ,  ViewChild, ElementRef} from '@angular/core';
-import { Router, ActivationEnd } from '@angular/router';
-import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
+import { Router} from '@angular/router';
 import { SesionTDDService } from '../../services/breadcrums/breadcroms.service';
 
 declare var jquery: any; // jquery
@@ -15,16 +14,18 @@ declare var $: any;
 export class BreadcrumbsComponent implements OnInit {
 
   NombreUsuario: string;
+  intervalo: any;
+
   constructor(private service: SesionBxiService,
               private _service: SesionTDDService,
               private router: Router )  {}
 
   ngOnInit() {
     const this_aux = this;
-    if (localStorage.getItem("contadorTime") === null)      {
-      localStorage.setItem("contadorTime", "1");
+   // if (localStorage.getItem("contadorTime") === null)      {
+     // localStorage.setItem("contadorTime", "1");
       this_aux.comienzaContador();
-    } 
+    // } 
     
     if ( this_aux._service.datosBreadCroms.nombreUsuarioTDD !== '' ) {
 
@@ -87,13 +88,15 @@ export class BreadcrumbsComponent implements OnInit {
   cerrarSessionBEL() {
     const this_aux = this;
     localStorage.setItem("TimeOut", localStorage.getItem('TimeOutIni'));
+    clearInterval( this_aux.intervalo);
+
     if (this_aux.service.Login === "1" ) {
       sessionStorage.removeItem("campania");
       sessionStorage.removeItem("idSesion");
       sessionStorage.removeItem("tipoClienteBEL");
       sessionStorage.removeItem("doc");
       sessionStorage.removeItem("nombreDoc");
-      localStorage.removeItem("contadorTime");
+      // localStorage.removeItem("contadorTime");
       
     const THIS: any = this;
       this_aux.service.Login = "0";
@@ -112,6 +115,7 @@ export class BreadcrumbsComponent implements OnInit {
             } else {
               // console.log("BEL error cerrar sesion", responseJson.Id  + responseJson.MensajeAUsuario);
               this_aux.router.navigate(['/final']);
+              WLAuthorizationManager.logout('banorteSecurityCheckSa');
               document.getElementById('msgError').innerHTML =   "Error en cerrar sesión";
               $('#ModalErrorTransaccion').modal('show');
             }
@@ -151,7 +155,7 @@ export class BreadcrumbsComponent implements OnInit {
     localStorage.removeItem("tipoClienteTar");
     localStorage.removeItem("doc");
     localStorage.removeItem("nombreDoc");
-    localStorage.removeItem("contadorTime");
+    // localStorage.removeItem("contadorTime");
     const resourceRequest = new WLResourceRequest(
       'adapters/AdapterBanorteSucursApps2/resource/cerrarSesion',
       WLResourceRequest.POST);
@@ -185,7 +189,7 @@ export class BreadcrumbsComponent implements OnInit {
       localStorage.setItem('TimeOut', localStorage.getItem('TimeOutIni'));
     });
   
-    setInterval( function () {
+      this_aux.intervalo = setInterval( function () {
       const valueNewTimeOut = +localStorage.getItem('TimeOut') - 1;
       localStorage.setItem('TimeOut', valueNewTimeOut.toString());
       if  (valueNewTimeOut === 15)  {
@@ -196,6 +200,7 @@ export class BreadcrumbsComponent implements OnInit {
            } 
            if (valueNewTimeOut === 0) {
              $('#avisoSesionExpira').modal('hide');
+            //   clearInterval( this_aux.intervalo);
               this_aux.cerrarSessionBEL();
            }
     }, 1000);

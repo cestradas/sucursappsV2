@@ -51,8 +51,6 @@ function getContextRoot() {
 
     setTimeout(function() {
 
-        // console.log(AMBIENTES[0]);
-
         var wlInitOptions = {
             mfpContextRoot: AMBIENTES[0],
             // mfpContextRoot: '/DEVMFPSapp',
@@ -60,9 +58,14 @@ function getContextRoot() {
             applicationId: 'com.banorte.sucursapps',
         };
 
+        if( localStorage.getItem("AmbienteOK") !== null){
+            wlInitOptions.mfpContextRoot =  localStorage.getItem("AmbienteOK");
+        }
+
         WL.Client.init(wlInitOptions).then(function() {
             console.info("VERSION: 3.5, 17/09/2018, Versión Productiva")
 
+            if( localStorage.getItem("AmbienteOK") === null){
             var formParameters = {};
             var resourceRequest = new WLResourceRequest(
                 'adapters/AdapterBanorteSucursAppsBEL/resource/checkServer',
@@ -75,6 +78,7 @@ function getContextRoot() {
                     var responseJson = response.responseJSON;
                     localStorage.setItem("TimeOut", responseJson.TimeOut);
                     localStorage.setItem("TimeOutIni", responseJson.TimeOut);
+                    localStorage.setItem("AmbienteOK", wlInitOptions.mfpContextRoot )
 
                     $('#modal_please_wait').modal('hide');
 
@@ -85,8 +89,7 @@ function getContextRoot() {
                     localStorage.setItem("Ambientes", AMBIENTES);
                     WL.Client.reloadApp();
                 });
-
-
+            }
         }, function(error) {
             // console.log(error);
         });
