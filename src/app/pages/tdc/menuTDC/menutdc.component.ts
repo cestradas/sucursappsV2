@@ -45,7 +45,7 @@ contenido: any;
     if (sessionStorage.getItem("campania") === "activa") {
       this.encriptarSic();
     } 
-    
+   
   }
 
   mandarPage(id) {
@@ -96,6 +96,7 @@ contenido: any;
   $('#opciones').addClass('flipOutY fast');
   $('#regresar').addClass('flipInY slow');
   const this_aux = this;
+  $('#_modal_please_wait').modal('show');
   this_aux.consultaAlertas();
   }
 
@@ -123,7 +124,7 @@ contenido: any;
         function(detalleAlertas) {
               const detalle = detalleAlertas.responseJSON;
               let AlertasActivas_true = false;
-              console.log(detalle);
+              // console.log(detalle);
               if (detalle .Id === '1') {
 
                 const alertas = detalle.AlertasXCliente;
@@ -137,6 +138,7 @@ contenido: any;
                 if (this_aux.AlertasActivas) {
                   
                   this_aux.conAlertas();
+                  
                 } else {
                   this_aux.sinAlertas();
                 }
@@ -169,6 +171,9 @@ contenido: any;
    div4.style.display = "block";
    const div5 = document.getElementById('alertasTxt');
    div5.style.display = "block";
+
+   const operacionesNoFrecuetes = document.getElementById('Controlador');
+    operacionesNoFrecuetes.style.display="block";
   }
   conAlertas() {
     const div = document.getElementById('imgdatoscontacto').style.marginLeft="633px";
@@ -178,6 +183,8 @@ contenido: any;
     div4.style.display = "none";
     const div5 = document.getElementById('alertasTxt');
     div5.style.display = "none";
+    const operacionesNoFrecuetes = document.getElementById('Controlador');
+    operacionesNoFrecuetes.style.display="block";
   }
   showErrorPromise(error) {
 
@@ -191,7 +198,7 @@ contenido: any;
   }
 
   showErrorSucces(json) {
-    console.log(json.Id + json.MensajeAUsuario);
+    // console.log(json.Id + json.MensajeAUsuario);
     if (json.Id === '2') {
       document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
     } else {
@@ -201,6 +208,7 @@ contenido: any;
   }
 
   consultaDatoscontacto(id) {
+    
     const this_aux = this;
     const operaciones: ConsultaCatalogosTdcService = new ConsultaCatalogosTdcService();
     operaciones.consultarDatosContacto().then(

@@ -1852,21 +1852,21 @@ controlarError(json) {
 showErrorPromise(error) {
   // console.log(error);
   // tslint:disable-next-line:max-line-length
-  document.getElementById('errorMensaje').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
+  document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
   $('#_modal_please_wait').modal('hide');
-  $('#modalErrorMessage').modal('show');
+  $('#errorModal').modal('show');
 }
 
 showErrorSucces(json) {
   // console.log(json.Id + json.MensajeAUsuario);
   if ( json.Id === "2") {
-    document.getElementById('errorMensaje').innerHTML =   json.ErrorMsg;
+    document.getElementById('mnsError').innerHTML =   json.ErrorMsg;
     $('#_modal_please_wait').modal('hide');
-    $('#modalErrorMessage').modal('show');
+    $('#errorModal').modal('show');
   } else {
-    document.getElementById('errorMensaje').innerHTML =   json.MensajeAUsuario;
+    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
     $('#_modal_please_wait').modal('hide');
-    $('#modalErrorMessage').modal('show');
+    $('#errorModal').modal('show');
   }
 
 }

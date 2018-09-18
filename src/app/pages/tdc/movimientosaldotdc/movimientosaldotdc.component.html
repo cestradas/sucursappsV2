@@ -29,19 +29,23 @@
                                 <tr *ngFor="let movimiento of movimientosCue; let i = index">
                                     <td *ngIf="(i>=numeroDatoInicial) && (i < numeroDatoFinal)">{{movimiento.FechaOperacion|date:'dd/MM/yyyy'}}</td>
                                     <td *ngIf="(i>=numeroDatoInicial) && (i < numeroDatoFinal)">{{movimiento.DescripVariableUno}}</td>
-                                    <ng-template [ngIf]="(i>=numeroDatoInicial) && (i < numeroDatoFinal) &&(movimiento.TipoTransaccion != 'D')" [ngIfElse]="negativo">
+                                    <div>
+                                        <td *ngIf="(i>=numeroDatoInicial) && (i < numeroDatoFinal) &&(movimiento.TipoTransaccion != 'D')">{{movimiento.Importe| currency}}</td>
+                                        <td *ngIf="(i>=numeroDatoInicial) && (i < numeroDatoFinal) &&(movimiento.TipoTransaccion == 'D')">-{{movimiento.Importe| currency}}</td>
+                                    </div>
+                                    <!-- <ng-template [ngIf]="(i>=numeroDatoInicial) && (i < numeroDatoFinal) &&(movimiento.TipoTransaccion != 'D')" [ngIfElse]="negativo">
                                         <td>{{movimiento.Importe| currency}}</td>
                                     </ng-template>
                                     <ng-template #negativo>
                                         <td>-{{movimiento.Importe| currency}}</td>
-                                    </ng-template>
+                                    </ng-template> -->
                             </table>
                         </div>
                         <div class="row">
                             <div class="col-sm-4"></div>
                             <div class="col-sm-4" style="display:none" id="Navegador">
                                 <nav aria-label="Page navigation example">
-                                    <ul class="pagination">
+                                    <ul id="paginador" class="pagination-sm">
 
                                     </ul>
                                 </nav>

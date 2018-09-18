@@ -70,15 +70,15 @@ $('#_modal_please_wait').modal('show');
                     this_aux.AlertasActivas = AlertasActivas_true;
                    // console.log('this_aux.AlertasActivas' + this_aux.AlertasActivas);
                     if (this_aux.AlertasActivas) {
-                      setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
+                     
                         document.getElementById('mnsError').innerHTML =  "Ya tienes alertas activas para esta cuenta"; 
                         $('#errorModal').modal('show');
                     }
-
+              setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
               } else {
                 $('#_modal_please_wait').modal('hide');
                 this_aux.showErrorSucces(detalle);      }
-                $("div").remove(".modal-backdrop");
+               
         }, function(error) { 
           setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
           this_aux.showErrorPromise(error);    }
@@ -137,7 +137,7 @@ $('#_modal_please_wait').modal('show');
  }
 
  showErrorSucces(json) {
-  console.log(json.Id + json.MensajeAUsuario);
+  // console.log(json.Id + json.MensajeAUsuario);
   if (json.Id === '2') {
     document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
   } else {
@@ -177,23 +177,22 @@ irMenuTDC() {
          // console.log(response1.responseText);
 
           const detalleSaldos = response1.responseJSON;
-          $('#_modal_please_wait').modal('hide');
-          if ( detalleSaldos.Id === '1') {
+           if ( detalleSaldos.Id === '1') {
             this_aux.saldoDispoinible = detalleSaldos.SaldoDisponible;
             this_aux.saldoDispoinible = this_aux.saldoDispoinible;
             this_aux.SaldoActual = detalleSaldos.SaldoActual;
             this_aux.NumeroTarjeta = detalleSaldos.NumeroTarjeta;
+            // console.log(this_aux.NumeroTarjeta);
             this_aux.mascaraNumeroCuenta(this_aux.NumeroTarjeta);
-            $('#_modal_please_wait').modal('hide');
-            this_aux.consultaAlertas();
-            setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
-  
+           this_aux.consultaAlertas();
           } else {
              this_aux.showErrorSucces(detalleSaldos);
              document.getElementById("thing").setAttribute('disabled', 'disabled');
+             $('#_modal_please_wait').modal('hide');
           }
         }, function(error) {
           this_aux.showErrorPromise(error);
+          $('#_modal_please_wait').modal('hide');
     });
   }
 
@@ -205,8 +204,9 @@ irMenuTDC() {
 
   mascaraNumeroCuenta(numCtaSel) {
     const tamNumCta = numCtaSel.length;
+    // console.log(tamNumCta);
     const numCta_aux = numCtaSel.substring(tamNumCta - 4, tamNumCta);
-    this.numCuenta_show = '******' + numCta_aux;
+    this.numCuenta_show = '************' + numCta_aux;
     return this.numCuenta_show;
   }
 

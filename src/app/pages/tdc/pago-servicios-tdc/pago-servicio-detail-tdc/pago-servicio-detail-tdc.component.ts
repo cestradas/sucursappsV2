@@ -61,8 +61,9 @@ export class PagoServicioDetailTdcComponent implements OnInit {
 
       }
     );*/
+
     this.consultaSaldosTarjetas();
-    setTimeout( () => $('#_modal_please_wait').modal('hide'), 500 );
+    
 
 
     this.myForm = this.fb.group({
@@ -165,7 +166,7 @@ export class PagoServicioDetailTdcComponent implements OnInit {
         this_aux.myForm.removeControl('fcTelefono');
         this_aux.myForm.removeControl('fcDigitoVerificador');
     }
-    $('#_modal_please_wait').modal('hide');
+   
 
     $( ".cdk-visually-hidden" ).css( "margin-top", "9%" );
   }
@@ -199,7 +200,7 @@ console.log("aquiiiiiiiiiiiii");
       divChallenge.setAttribute('style', 'display: none');
       this_aux.labelTipoAutentica = 'Contrase&atilde;a';
 
-
+  $('#_modal_please_wait').modal('hide');
   $('#confirmModal').modal('show');
 }
 
@@ -243,7 +244,7 @@ confirmarPago() {
       mensaje => {
 
         res = this._validaNipService.respuestaNip.res;
-        // console.log(res);
+        //console.log(res);
 
         if (res === true) {
           
@@ -252,7 +253,7 @@ confirmarPago() {
         } else {
 
           console.error("Mostrar modal las tarjetas no son iguales");
-          document.getElementById('mnsError').innerHTML =   "Las tarjetas no corresponden.";
+          document.getElementById('mnsError').innerHTML =   "Los datos proporcionados son incorrectos, favor de verificar.";
           $('#_modal_please_wait').modal('hide');
           $('#errorModal').modal('show');
           $('#ModalTDDLogin').modal('hide');
@@ -299,13 +300,14 @@ operaciones.pagaServicio(this_aux.service.idFacturador, this_aux.importeAux, thi
 }
 
 validarSaldo(myForm) {
+  $('#_modal_please_wait').modal('show');
     const this_aux = this;
     if (this_aux.importeAux === undefined) { this_aux.importeAux = this_aux.replaceSimbolo( this_aux.myForm.get('fcImporte').value); }
     this_aux.importe = this_aux.importeAux;
     this._validaNipService.consultaTablaYValidaSaldo(this_aux.importe).then(
       function(response) {
         let DatosJSON = response.responseJSON;
-        // console.log(response.responseText);
+        //console.log(response.responseText);
         if (DatosJSON.Id === "1") {
          // aqiiiiiiiii
          this_aux.showDetallePago(myForm);
@@ -343,7 +345,7 @@ validarSaldo(myForm) {
 
 showErrorSucces(json) {
 
-  console.log(json.Id + json.MensajeAUsuario);
+  // console.log(json.Id + json.MensajeAUsuario);
   if (json.Id === '2') {
     document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
   } else {
@@ -453,7 +455,7 @@ consultaSaldosTarjetas() {
        // console.log(response1.responseText);
 
         const detalleSaldos = response1.responseJSON;
-        $('#_modal_please_wait').modal('hide');
+        
         if ( detalleSaldos.Id === '1') {
           this_aux.NumeroTarjeta = detalleSaldos.NumeroTarjeta;
           this_aux.mascaraNumeroCuenta(this_aux.NumeroTarjeta);
@@ -461,16 +463,18 @@ consultaSaldosTarjetas() {
 
         } else {
            this_aux.showErrorSucces(detalleSaldos);
+           $('#_modal_please_wait').modal('hide');
         }
       }, function(error) {
         this_aux.showErrorPromise(error);
+        $('#_modal_please_wait').modal('hide');
   });
 }
 
 mascaraNumeroCuenta(numCtaSel) {
   const tamNumCta = numCtaSel.length;
   const numCta_aux = numCtaSel.substring(tamNumCta - 4, tamNumCta);
-  this.numCuenta_show = '******' + numCta_aux;
+  this.numCuenta_show = '************' + numCta_aux;
   return this.numCuenta_show;
 }
 

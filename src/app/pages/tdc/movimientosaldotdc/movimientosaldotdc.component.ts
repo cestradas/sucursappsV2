@@ -72,7 +72,7 @@ export class MovimientosaldotdcComponent implements OnInit {
        btnContinuar3.classList.add("color-botones_Preferente");
      }
      
-    this.consultaMovimientosCreditom();
+    
     this.consultaSaldosTarjetasm();
     this.llamarMovimientosTDC();
     $('#_modal_please_wait').modal('show');
@@ -86,7 +86,7 @@ export class MovimientosaldotdcComponent implements OnInit {
   }
 
   paginador2() {
-  
+    // console.log("paginador");
     const this_aux = this;
     let paginasVisibles = 8 ;
     if (this_aux.numPaginas < paginasVisibles) {
@@ -102,7 +102,7 @@ export class MovimientosaldotdcComponent implements OnInit {
       prev: 'Anterior',
       next: 'Siguiente',
       onPageClick: function (event, page) {
-        console.log(page);
+        // console.log(page);
         this_aux.cambiarPagina(page);
       
       }
@@ -163,6 +163,16 @@ export class MovimientosaldotdcComponent implements OnInit {
     
                   const textTitular = detalleCuenta;
                   //console.log(detalleCuenta.MensajeAUsuario);
+                   
+                  if (this_aux.numPaginas > 1) {
+                    if (this_aux.numPaginas % 1 !==  0) {
+                      this_aux.numPaginas = Math.trunc(this_aux.numPaginas) + 1;
+                      console.log(this_aux.numPaginas);
+                    } 
+                    this_aux.paginador2();
+                  }
+                  
+                  //
                   this_aux.mostrarTabla();
                   if (this_aux.numPaginas <= 1 ) { 
                     const div2 = document.getElementById('Navegador');
@@ -259,63 +269,7 @@ export class MovimientosaldotdcComponent implements OnInit {
       $('#timeOut').modal('show');
     
     }
-    consultaMovimientosCreditom() {
-    const this_aux = this;
-    const formParameters = {
-     
-    };
 
-      const resourceRequest = new WLResourceRequest(
-        'adapters/AdapterBanorteSucursAppsTdc/resource/consultaMovimientosTarjetas', WLResourceRequest.POST);
-        resourceRequest.setTimeout(30000);
-        
-        resourceRequest.sendFormParameters(formParameters).then(
-          function(response) {
-          //  console.log(response.responseText);
-            this_aux.movimientos = response.responseJSON;
-            if (this_aux.movimientos === null) { 
-              this_aux.timeOut();
-            }
-            
-            const detalleCuenta = response.responseJSON;
-            if ( detalleCuenta.Id === '1') {// uno servicio es que tiene datos y si es 0 es un error
-              this_aux.movimientosCue = this_aux.movimientos.movimientos;
-
-              //console.log(this_aux.movimientosCue);
-              
-             if (  this_aux.movimientosCue === null || this_aux.movimientosCue === undefined) {
-              console.log(detalleCuenta.MensajeAUsuario);
-              this_aux.sinMovimientos(this_aux.par);
-             } else {
-               
-              this_aux.TamArray = this_aux.movimientosCue.length;
-              this_aux.numPaginas = this_aux.TamArray / this_aux.tamPaginas;             
-    
-                  const textTitular = detalleCuenta;
-                  console.log(detalleCuenta.MensajeAUsuario);
-                  this_aux.mostrarTabla();
-                  if (this_aux.numPaginas <= 1 ) { 
-                    const div2 = document.getElementById('Navegador');
-                    div2.style.display = "none";
-                   }
-                   
-             }
-             if (this_aux.options === 0) {
-                $("#selecttdc").val('0');
-             }
-             
-            }
-            console.log("Consulta Saldos");
-            this_aux.consultaSaldosTarjetasm();
-            console.log("Movimientos cargados correctamente");
-            setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
-          }, function(error) {
-            this_aux.showErrorPromise(error);
-            setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
-            
-      });
-   
-    }
     consultaSaldosTarjetasm() {
       const this_aux = this;
       const formParameters = { 
@@ -352,7 +306,7 @@ export class MovimientosaldotdcComponent implements OnInit {
       });
     }
     showErrorSucces(json) {
-      console.log(json.Id + json.MensajeAUsuario);
+      // console.log(json.Id + json.MensajeAUsuario);
       if (json.Id === '2') {
         document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
       } else {
@@ -362,7 +316,7 @@ export class MovimientosaldotdcComponent implements OnInit {
       }
       
     showErrorPromise(error) {
-        console.log(error);
+        // console.log(error);
         $('#errorModal').modal('show');
        if (error.errorCode === 'API_INVOCATION_FAILURE') {
         document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
@@ -374,7 +328,7 @@ export class MovimientosaldotdcComponent implements OnInit {
       mascaraNumeroCuenta(numCtaSel) {
         const tamNumCta = numCtaSel.length;
         const numCta_aux = numCtaSel.substring(tamNumCta - 4, tamNumCta);
-        this.numCuenta_show = '******' + numCta_aux;
+        this.numCuenta_show = '************' + numCta_aux;
         return this.numCuenta_show;
       }
     

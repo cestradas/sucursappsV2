@@ -38,8 +38,8 @@ export class ImpresionEdcTdcFinalComponent implements OnInit {
 
     this.forma.controls['correo'].valueChanges.subscribe(
       data => {
-        console.log('correo', data);
-        console.log('forma', this.forma);
+        // console.log('correo', data);
+        // console.log('forma', this.forma);
         
         this_aux.correo = data;
         this_aux.validateFields();
@@ -47,8 +47,8 @@ export class ImpresionEdcTdcFinalComponent implements OnInit {
 
       this.forma.controls['confCorreo'].valueChanges.subscribe(
         data => {
-          console.log('confCorreo', data);
-          console.log('forma', this.forma);
+          // console.log('confCorreo', data);
+          // console.log('forma', this.forma);
 
           this_aux.confirmCorreo = data;
           this_aux.correosIgual = 0;
@@ -57,8 +57,8 @@ export class ImpresionEdcTdcFinalComponent implements OnInit {
 
         this.forma.controls['contra'].valueChanges.subscribe(
           data => {
-            console.log('contra', data);
-            console.log('forma', this.forma);
+            // console.log('contra', data);
+            // console.log('forma', this.forma);
 
             this_aux.contraZip = data; 
            // this_aux.validateFields();
@@ -161,7 +161,7 @@ resourceRequest.sendFormParameters(formParameters).then(
   }
 
   showErrorSucces(json) {
-    console.log(json.Id + json.MensajeAUsuario);
+    // console.log(json.Id + json.MensajeAUsuario);
     if (json.Id === "2") {
       document.getElementById("mnsError").innerHTML =
         "El servicio no esta disponible, favor de intentar más tarde";

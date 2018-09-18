@@ -24,7 +24,7 @@ export class CancelarEnvioEdcTdcComponent implements OnInit {
     // this.terminacionTarjeta = this.serviceTdd.numeroCuentaTdd.substring(tamanio - 4, tamanio);
     $('#_modal_please_wait').modal('show');
     this.consultaSaldosTarjetas();
-    this.consultarDatos();
+    
 
     // ESTILOS Preferente
     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
@@ -63,6 +63,7 @@ export class CancelarEnvioEdcTdcComponent implements OnInit {
           }
         } else {
           this_aux.showErrorSucces(jsonRespuesta);
+          setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
           btnContinuar.style.display = 'none';
           console.log("No hay Datos");
         }
@@ -70,6 +71,7 @@ export class CancelarEnvioEdcTdcComponent implements OnInit {
         setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
       }, function(error) { 
         this_aux.showErrorPromise(error); 
+        setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
         btnContinuar.style.display = 'none';
         $('#_modal_please_wait').modal('hide');
       });
@@ -138,7 +140,7 @@ export class CancelarEnvioEdcTdcComponent implements OnInit {
 
 
   showErrorSucces(json) {
-  console.log(json.Id + json.MensajeAUsuario);
+  // console.log(json.Id + json.MensajeAUsuario);
   if (json.Id === '2') {
     document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
   } else {
@@ -174,23 +176,27 @@ consultaSaldosTarjetas() {
         //console.log(response1.responseText);
 
         const detalleSaldos = response1.responseJSON;
-        $('#_modal_please_wait').modal('hide');
+       
         if ( detalleSaldos.Id === '1') {
           this_aux.NumeroTarjeta = detalleSaldos.NumeroTarjeta;
           this_aux.mascaraNumeroCuenta(this_aux.NumeroTarjeta);
-          $('#_modal_please_wait').modal('hide');
+          this_aux.consultarDatos();
+          
+
 
         } else {
            this_aux.showErrorSucces(detalleSaldos);
+           $('#_modal_please_wait').modal('hide');
         }
       }, function(error) {
         this_aux.showErrorPromise(error);
+        $('#_modal_please_wait').modal('hide');
   });
 }
 mascaraNumeroCuenta(numCtaSel) {
   const tamNumCta = numCtaSel.length;
   const numCta_aux = numCtaSel.substring(tamNumCta - 4, tamNumCta);
-  this.numCuenta_show = '******' + numCta_aux;
+  this.numCuenta_show = '************' + numCta_aux;
   return this.numCuenta_show;
 }
 

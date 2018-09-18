@@ -161,7 +161,7 @@ let res;
 
   showErrorSucces(json) {
 
-    console.log(json.Id + json.MensajeAUsuario);
+    // console.log(json.Id + json.MensajeAUsuario);
     if (json.Id === '2') {
       document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
     } else {

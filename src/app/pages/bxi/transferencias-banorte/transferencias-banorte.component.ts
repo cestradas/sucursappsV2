@@ -122,11 +122,17 @@ export class TransferenciasBanorteComponent implements OnInit {
 
 
   ngOnInit() {
-
+    let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
+    let btnContinuar = document.getElementById("continuarspei");
+    if (storageTipoClienteBEL === "true") {
+      btnContinuar.classList.remove("color-botones");
+      btnContinuar.classList.add("color-botones_Preferente");
+    }
     this.resetLista();
     this.fillSelectCuentas();
     // this.consultaCuentas();
     this.fillCuentasBeneficiario();
+    
 
   }
 

@@ -144,7 +144,7 @@ consultaSaldosTarjetas() {
 }
 
 showErrorSucces(json) {
-  console.log(json.Id + json.MensajeAUsuario);
+  // console.log(json.Id + json.MensajeAUsuario);
   if (json.Id === '2') {
     document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
   } else {
@@ -163,7 +163,7 @@ showErrorPromise(error) {
 mascaraNumeroCuenta(numCtaSel) {
   const tamNumCta = numCtaSel.length;
   const numCta_aux = numCtaSel.substring(tamNumCta - 4, tamNumCta);
-  this.numCuenta_show = '******' + numCta_aux;
+  this.numCuenta_show = '************' + numCta_aux;
   return this.numCuenta_show;
 }
 

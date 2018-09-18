@@ -27,8 +27,7 @@ export class ActivarAlertasVerifyTdcComponent implements OnInit {
     this.consultaSaldosTarjetas();
      // this._service.validarDatosSaldoTdd().then(
       // mensaje => {
-         this.consultarDatosContacto();
-         setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
+    
       // }
     // );    
   
@@ -41,20 +40,25 @@ export class ActivarAlertasVerifyTdcComponent implements OnInit {
     const operaciones: ConsultaCatalogosTdcService = new ConsultaCatalogosTdcService();
     operaciones.consultarDatosContacto().then(
       function(respPago) {
-  
+        
         const jsonRespuesta = respPago.responseJSON;
+        
         if (jsonRespuesta.Id === '1') {
          //console.log(respPago.responseText);
          this_aux.Email = jsonRespuesta.Email;
          this_aux.Celular = jsonRespuesta.Telefono;
           console.log("Consulta de Datos Exitosa");
           
+          
         } else {
           this_aux.showErrorSucces(jsonRespuesta);
           console.log("No hay Datos");
         }
         setTimeout( () => $('#_modal_please_wait').modal('hide'), 700 );
-      }, function(error) { this_aux.showErrorPromise(error); }
+      }, function(error) {
+         this_aux.showErrorPromise(error); 
+        $('#_modal_please_wait').modal('hide');
+      }
     );
   }
 
@@ -64,7 +68,7 @@ export class ActivarAlertasVerifyTdcComponent implements OnInit {
   }
 
   showErrorSucces(json) {
-    console.log(json.Id + json.MensajeAUsuario);
+    // console.log(json.Id + json.MensajeAUsuario);
     if (json.Id === '2') {
       document.getElementById('mnsError').innerHTML =   'El servicio no está disponible, favor de intentar más tarde';
     } else {
@@ -88,7 +92,7 @@ export class ActivarAlertasVerifyTdcComponent implements OnInit {
   const formParameters = { 
   }; 
   
-  console.log(formParameters);
+  // console.log(formParameters);
   const resourceRequest = new WLResourceRequest(
     
     'adapters/AdapterBanorteSucursAppsTdc/resource/consultaSaldosTarjetas', WLResourceRequest.POST);
@@ -96,30 +100,33 @@ export class ActivarAlertasVerifyTdcComponent implements OnInit {
     
     resourceRequest.sendFormParameters(formParameters).then(
       function(response1) {
-      //  console.log(response1.responseText);
-
+        // console.log(response1.responseText);
         const detalleSaldos = response1.responseJSON;
-        $('#_modal_please_wait').modal('hide');
         if ( detalleSaldos.Id === '1') {
           this_aux.saldoDispoinible = detalleSaldos.SaldoDisponible;
           this_aux.saldoDispoinible = this_aux.saldoDispoinible;
           this_aux.SaldoActual = detalleSaldos.SaldoActual;
           this_aux.NumeroTarjeta = detalleSaldos.NumeroTarjeta;
+          // console.log(this_aux.NumeroTarjeta);
           this_aux.mascaraNumeroCuenta(this_aux.NumeroTarjeta);
-          $('#_modal_please_wait').modal('hide');
+          this_aux.consultarDatosContacto();
+         
 
         } else {
            this_aux.showErrorSucces(detalleSaldos);
+           $('#_modal_please_wait').modal('hide');
         }
       }, function(error) {
         this_aux.showErrorPromise(error);
+        $('#_modal_please_wait').modal('hide');
   });
 }
 
 mascaraNumeroCuenta(numCtaSel) {
   const tamNumCta = numCtaSel.length;
+  // console.log(tamNumCta);
   const numCta_aux = numCtaSel.substring(tamNumCta - 4, tamNumCta);
-  this.numCuenta_show = '******' + numCta_aux;
+  this.numCuenta_show = '************' + numCta_aux;
   return this.numCuenta_show;
 }
 

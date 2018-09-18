@@ -101,7 +101,7 @@ export class MantenimientoDatosContactoFinalTdcComponent implements OnInit {
           this_aux.showErrorSucces(jsonRespuesta);
           this._serviceSesion.datosBreadCroms.CelCliente = "";
           this._serviceSesion.datosBreadCroms.EmailCliente = "";
-          console.log("No hay Datos");
+          // console.log("No hay Datos");
         }
 
 
@@ -111,7 +111,7 @@ export class MantenimientoDatosContactoFinalTdcComponent implements OnInit {
   }
 
   showErrorSucces(json) {
-    console.log(json.Id + json.MensajeAUsuario);
+    // console.log(json.Id + json.MensajeAUsuario);
     if (json.Id === '2') {
       document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
     } else {

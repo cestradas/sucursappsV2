@@ -99,27 +99,20 @@ export class ImpresionEdcTdcComponent implements OnInit {
   // constructor(private router: Router, private renderer: Renderer2, private _service: ConsultaSaldosTddService,
   constructor(private router: Router, private renderer: Renderer2, private serviceTdd: ResponseWS) {
     const this_aux = this;
-    // this._service.cargarSaldosTDD();
-    $('#_modal_please_wait').modal('show');
-   // this._service.validarDatosSaldoTdd().then(
-     // mensaje => {
+   
       this.consultaSaldosTarjetas(); 
       
-      console.log('Saldos cargados correctamente TDC');
-       // console.log('Saldos cargados correctamente TDD');
-        // this_aux.saldoDisponibleClienteTdd = mensaje.SaldoDisponible;
-        // this_aux.numeroCuentaTitular = mensaje.NumeroCuenta;
-        // serviceTdd.numeroCuentaTdd = this_aux.numeroCuentaTitular; 
-        
-     // }
-    // ); 
-    setTimeout(() => $("#_modal_please_wait").modal('hide'), 3000);
+   
+    
+    
    //setTimeout(() => this_aux.consultaCancelacionEDCDomicilio('1'), 500);//2 es para tdc 1 tdd  consulta
    //setTimeout(() => this_aux.consultaCancelacionEDCDomicilio('2'), 500);
   }
 
   
   ngOnInit() {
+
+    $('#_modal_please_wait').modal('show');
     // ESTILOS Preferente
     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
 
@@ -160,7 +153,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
 
   mantenimientoEDC() {
     const this_aux = this;
-    $('#_modal_please_wait').modal('show');
+   
     console.log("adentro de mantenimiento EDC");
     const formParameters = {
        ctaO: this_aux.NumeroTarjeta
@@ -174,30 +167,32 @@ export class ImpresionEdcTdcComponent implements OnInit {
     resourceRequest.setTimeout(30000);
     resourceRequest.sendFormParameters(formParameters).then(
       function(response) {
-        //  console.log(response.responseText);
+//          console.log(response.responseText);
           const detalleMant = response.responseJSON;
           if(detalleMant.Id==="1"){
+            
             this_aux.obtenerListaDocs();
           }
           else{
+            setTimeout(() => $('#_modal_please_wait').modal('hide'), 500);
              setTimeout(function(){
-                      $('#_modal_please_wait').modal('hide');
+                     
                       this_aux.showErrorSucces(detalleMant);
               },500);
           }
         
-          $('#_modal_please_wait').modal('hide');
+         
       },
         function(error) {
           console.error("Error");
-        $('#_modal_please_wait').modal('hide');
+          setTimeout(() => $('#_modal_please_wait').modal('hide'), 500);
           this_aux.showErrorPromise(error);
         });
   }
 
   obtenerListaDocs() {
     const this_aux = this;
-    $('#_modal_please_wait').modal('show');
+    
     console.log("adentro de obtener Lista Docs");
     const formParameters = {
       documeto: this_aux.NumeroTarjeta
@@ -221,7 +216,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
 
             setTimeout(function() {
 
-              console.log(res);
+              // console.log(res);
               this_aux.obj = JSON.parse(this_aux.fechas);
     
               for (let i = 1 ; i < res.length; i++) {
@@ -988,31 +983,32 @@ export class ImpresionEdcTdcComponent implements OnInit {
 
             }
 
-
-
            console.log(this_aux.obj['fechas']);
               }, 500);
           }
           else{
+            setTimeout(() => $('#_modal_please_wait').modal('hide'), 500);
             document.getElementById("mnsError").innerHTML=res[0].MensajeAUsuario;
             $("#errorModal").modal('show');
+           
           }
           
           
        
         }
         else{
+          setTimeout(() => $('#_modal_please_wait').modal('hide'), 500);
           setTimeout(function(){
-            $('#_modal_please_wait').modal('hide');
+           
             this_aux.showErrorSucces2(res);
             },500);
         }
          
           
-          $('#_modal_please_wait').modal('hide');
+         
    }, function(error) {
        console.error("Error");
-      $('#_modal_please_wait').modal('hide');
+       setTimeout(() => $('#_modal_please_wait').modal('hide'), 500);
       this_aux.showErrorPromise(error);
      });
   }
@@ -1659,11 +1655,11 @@ operacion(id) {
     this_aux.serviceTdd.fechaCorte = this_aux .fechaCorteDoc;
     this_aux.serviceTdd.numDoc = this_aux .numDocumento;
     this_aux.serviceTdd.idOpe = id;
-      $('#_modal_please_wait').modal('show');
+      
     this_aux.router.navigate(['/impresionEdcTdcFinal']);
   } else {
     // Imprimir
-    $('#_modal_please_wait').modal('show');
+  
     if ( this_aux .cal_Click_0 === 1 || this_aux.cal_Click_1 === 1 || this_aux.cal_Click_2 === 1 ||
       this_aux.cal_Click_3 === 1 || this_aux.cal_Click_4 === 1 || this_aux.cal_Click_5 === 1 ||
       this_aux.cal_Click_6 === 1 || this_aux.cal_Click_7 === 1 || this_aux.cal_Click_8 === 1 ||
@@ -1688,7 +1684,7 @@ operacion(id) {
             function(response) {
               //console.log(response.responseText);
               const documento = response.responseJSON;
-              $('#_modal_please_wait').modal('show');
+              
 
               if ( documento.Id === '1') {
                   if ( documento.PDF !== undefined) {
@@ -1700,12 +1696,12 @@ operacion(id) {
                     this_aux.nombreDocumento = documento.NombreDoc;
                     $('#infoPrinter').modal('show');
                   }
-                  $('#_modal_please_wait').modal('hide');
-                  setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
+                  
+                  
 
               } else {
                 this_aux.showErrorSucces(documento);
-                setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
+                
              }
            }, function(error) {
               //this_aux.showErrorPromise(error);
@@ -1740,6 +1736,7 @@ cancelarEnvio() {
 }
 
 consultaCancelacionEDCDomicilio(opcion) {
+  $('#_modal_please_wait').modal('show');
  const this_aux = this;
 
       const formParameters = {
@@ -1766,12 +1763,14 @@ consultaCancelacionEDCDomicilio(opcion) {
             } else {
               btnCancelarEnvio.style.display = 'none';
             }
-            $("#_modal_please_wait").modal("hide");
+            setTimeout(() => $('#_modal_please_wait').modal('hide'), 500); 
          }, 3000);
         },
           function(error) {
             console.error("Error");
+            setTimeout(() => $('#_modal_please_wait').modal('hide'), 500);
             $('#errorModal').modal('show');
+           
           });
 
 }
@@ -1792,47 +1791,51 @@ consultaSaldosTarjetas() {
         //console.log(response1.responseText);
 
         const detalleSaldos = response1.responseJSON;
-        $('#_modal_please_wait').modal('hide');
+      
         if ( detalleSaldos.Id === '1') {
           this_aux.saldoDispoinible = detalleSaldos.SaldoDisponible;
           this_aux.saldoDispoinible = this_aux.saldoDispoinible;
           this_aux.SaldoActual = detalleSaldos.SaldoActual;
           this_aux.NumeroTarjeta = detalleSaldos.NumeroTarjeta;
           this_aux.mascaraNumeroCuenta(this_aux.NumeroTarjeta);
-          $('#_modal_please_wait').modal('hide');
+          
           this_aux.mantenimientoEDC();
         } else {
            this_aux.showErrorSucces(detalleSaldos);
+           setTimeout(() => $('#_modal_please_wait').modal('hide'), 500);
+          
         }
       }, function(error) {
         this_aux.showErrorPromise(error);
+        setTimeout(() => $('#_modal_please_wait').modal('hide'), 500);
+       
   });
 }
 
 mascaraNumeroCuenta(numCtaSel) {
   const tamNumCta = numCtaSel.length;
   const numCta_aux = numCtaSel.substring(tamNumCta - 4, tamNumCta);
-  this.numCuenta_show = '******' + numCta_aux;
+  this.numCuenta_show = '************' + numCta_aux;
   return this.numCuenta_show;
 }
 showErrorPromise(error) {
-  console.log(error);
+  // console.log(error);
   // tslint:disable-next-line:max-line-length
   document.getElementById('mnsError').innerHTML =   "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
-  $('#_modal_please_wait').modal('hide');
+  
   $('#errorModal').modal('show');
 }
 
 showErrorSuccesMoney(json) {
-  console.log(json.Id + json.MensajeAUsuario);
+  // console.log(json.Id + json.MensajeAUsuario);
   document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tu saldo";
-  $('#_modal_please_wait').modal('hide');
+
   $('#ModalErrorTransaccion').modal('show');
 }
 
 showErrorSucces2(json) {
 
-  console.log(json.Id + json.MensajeAUsuario);
+  // console.log(json.Id + json.MensajeAUsuario);
   if (json[0].Id === '2') {
     document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar más tarde';
   } else {

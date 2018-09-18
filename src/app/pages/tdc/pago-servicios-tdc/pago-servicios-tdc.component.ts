@@ -256,7 +256,7 @@ getDetalleEmpresa(idFacturador) {
 
 showErrorSucces(json) {
 
-  console.log(json.Id + json.MensajeAUsuario);
+  // console.log(json.Id + json.MensajeAUsuario);
   if (json.Id === '2') {
     document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
   } else {
@@ -290,11 +290,11 @@ actualizaEmpresasXtipoPago() {
       this_aux.arrayEmpresas.forEach(empresa => {
        const tipoPago = empresa.TipoPago; 
        if(empresa.IdFacturador ==='88924' || empresa.IdFacturador ==='1310'){
-          console.log("Facturador no permitido" + empresa.IdFacturador);
+          // console.log("Facturador no permitido" + empresa.IdFacturador);
       }else {
         if( tipoPago.includes("06")) {
           this_aux.listaEmpresas.push(empresa.Descripcion);
-          console.log("Facturadores permitidos" + empresa.IdFacturador +" "+empresa.Descripcion);
+          // console.log("Facturadores permitidos" + empresa.IdFacturador +" "+empresa.Descripcion);
        }
       } 
       });
@@ -319,7 +319,6 @@ consultaSaldosTarjetas() {
         //console.log(response1.responseText);
 
         const detalleSaldos = response1.responseJSON;
-        $('#_modal_please_wait').modal('hide');
         if ( detalleSaldos.Id === '1') {
           this_aux.saldoDispoinible = detalleSaldos.SaldoDisponible;
           this_aux.saldoDispoinible = this_aux.saldoDispoinible;
@@ -332,16 +331,18 @@ consultaSaldosTarjetas() {
 
         } else {
            this_aux.showErrorSucces(detalleSaldos);
+           $('#_modal_please_wait').modal('hide');
         }
       }, function(error) {
         this_aux.showErrorPromise(error);
+        $('#_modal_please_wait').modal('hide');
   });
 }
 
 mascaraNumeroCuenta(numCtaSel) {
   const tamNumCta = numCtaSel.length;
   const numCta_aux = numCtaSel.substring(tamNumCta - 4, tamNumCta);
-  this.numCuenta_show = '******' + numCta_aux;
+  this.numCuenta_show = '************' + numCta_aux;
   return this.numCuenta_show;
 }
 
