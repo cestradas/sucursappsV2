@@ -3,6 +3,7 @@ import { SesionBxiService } from './../../pages/bxi/sesion-bxi.service';
 import { Component, OnInit ,  ViewChild, ElementRef} from '@angular/core';
 import { Router} from '@angular/router';
 import { SesionTDDService } from '../../services/breadcrums/breadcroms.service';
+import { ResponseWS } from '../../services/service.index';
 
 declare var jquery: any; // jquery
 declare var $: any;
@@ -18,7 +19,7 @@ export class BreadcrumbsComponent implements OnInit {
 
   constructor(private service: SesionBxiService,
               private _service: SesionTDDService,
-              private router: Router )  {}
+              private router: Router, private serviceMantenimiento: ResponseWS)  {}
 
   ngOnInit() {
     const this_aux = this;
@@ -89,13 +90,12 @@ export class BreadcrumbsComponent implements OnInit {
     const this_aux = this;
     localStorage.setItem("TimeOut", localStorage.getItem('TimeOutIni'));
     clearInterval( this_aux.intervalo);
-
     if (this_aux.service.Login === "1" ) {
       sessionStorage.removeItem("campania");
       sessionStorage.removeItem("idSesion");
-      sessionStorage.removeItem("tipoClienteBEL");
-      sessionStorage.removeItem("doc");
-      sessionStorage.removeItem("nombreDoc");
+      localStorage.removeItem("tipoClienteBEL");
+      localStorage.removeItem("doc");
+      localStorage.removeItem("nombreDoc");
       // localStorage.removeItem("contadorTime");
       
     const THIS: any = this;
@@ -133,6 +133,7 @@ export class BreadcrumbsComponent implements OnInit {
     } else {
         this.cerrarSesion();
     }
+    this_aux.eliminarVariables();
 
   }
 
@@ -205,6 +206,109 @@ export class BreadcrumbsComponent implements OnInit {
            }
     }, 1000);
   
+  }
+
+  eliminarVariables() {
+    const this_aux = this;
+    this_aux.serviceMantenimiento.detalleMantenimiento = undefined;
+    this_aux.serviceMantenimiento.datosBeneficiarios = undefined;
+    this_aux.serviceMantenimiento.datosTransferenciaSPEI = undefined;
+    this_aux.serviceMantenimiento.nombreOperacion = undefined;
+    this_aux.serviceMantenimiento.sesionTdd = undefined;
+    // Envio EDC Correo
+    this_aux.serviceMantenimiento.fechaCorte = undefined;
+    this_aux.serviceMantenimiento.numDoc = undefined;
+    this_aux.serviceMantenimiento.idOpe = undefined;
+    this_aux.serviceMantenimiento.stringDocumento = undefined;
+    this_aux.serviceMantenimiento.numeroDocumento = undefined;
+    this_aux.serviceMantenimiento.fechaDocumento = undefined;
+    this_aux.serviceMantenimiento.validaMail = undefined;
+    // Compra TA
+    this_aux.serviceMantenimiento.detalleConfirmacionCTA = undefined;
+    this_aux.serviceMantenimiento.operadorTelefono = undefined;
+    // Cancelacion Envio EDC Domicilio
+    this_aux.serviceMantenimiento.numeroCuentaTdd = undefined;
+    this_aux.serviceMantenimiento.email = undefined;
+    // Pago tarjeta Credito
+    this_aux.serviceMantenimiento.detallePagoTarjeta = undefined;
+    this_aux.serviceMantenimiento.nameBancoDestino = undefined;
+    this_aux.serviceMantenimiento.nameOperacion = undefined;
+    this_aux.serviceMantenimiento.numCuentaDestino = undefined;
+
+    this_aux._service.datosBreadCroms.nombreUsuarioTDD = undefined;
+    this_aux._service.datosBreadCroms.sicUsuarioTDD = undefined;
+    this_aux._service.datosBreadCroms.EmailCliente = undefined;
+    this_aux._service.datosBreadCroms.CelCliente = undefined;
+    this_aux._service.datosBreadCroms.numeroCliente = undefined;
+    this_aux._service.datosBreadCroms.repTrasferenciaCuentasBanorte = undefined;
+    /// BEL
+    this_aux.service.usuarioLogin = undefined;
+    this_aux.service.metodoAutenticaMayor = undefined;
+    this_aux.service.metodoAutenticaEtiqueta = undefined;
+    this_aux.service.NombreUsuario = undefined;
+    this_aux.service.isPreferente = undefined;
+    this_aux.service.userRfc = undefined;
+    this_aux.service.detalleIdentificacion = undefined;
+    this_aux.service.metodosAutenticacionUsario = undefined;
+    this_aux.service.infoUsuario = undefined;
+    this_aux.service.infoCuentas = undefined;
+    this_aux.service.infoCuentasBeneficiarios = undefined;
+    this_aux.service.infoDatosDeBeneficiarios = undefined;
+    this_aux.service.infoUsuarioSIC = undefined;
+    this_aux.service.EmailCliente = undefined;
+    this_aux.service.CelCliente = undefined;
+    this_aux.service.detalleEmpresa_PS = undefined;
+    this_aux.service.idFacturador = undefined;
+    this_aux.service.numCuentaSeleccionado = undefined;
+    this_aux.service.nombreServicio = undefined;
+    this_aux.service.formaPago = undefined;
+    this_aux.service.detalleConfirmacionPS = undefined;
+    this_aux.service.validaFinishTipoTransfer = undefined;
+    this_aux.service.numCuentaSPEISel = undefined;
+    this_aux.service.AliasCuentaSPEISel = undefined;
+    this_aux.service.numCuentaDestinario = undefined;
+    this_aux.service.correoBeneficiario = undefined;
+    this_aux.service.nombreBeneficiario = undefined;
+    this_aux.service.clabeDestinatario = undefined;
+    this_aux.service.claveBancoDestino = undefined;
+    this_aux.service.claveAliasCuenta = undefined;
+    this_aux.service.claveNumBenefi = undefined;
+    this_aux.service.detalleConfirmacionSPEI = undefined;
+    this_aux.service.detalleConfirmacionTEF = undefined;
+    this_aux.service.detalleConfirmacionQUICK = undefined;
+    this_aux.service.numCuentaTranPropBanorte = undefined;
+    this_aux.service.AliasCuentaTranPropBanorte = undefined;
+    this_aux.service.detalleConfirmacionTranPropBanorte = undefined;
+    this_aux.service.numCtaBenSeleccionada = undefined;
+    this_aux.service.nameBancoDestino = undefined;
+    this_aux.service.nameOperacion = undefined;
+    this_aux.service.detallePagoTarjeta = undefined;
+    this_aux.service.Importerecargas = undefined;
+    this_aux.service.numCuentaCTASel = undefined;
+    this_aux.service.operador = undefined;
+    this_aux.service.detalleConfirmacionCTA = undefined;
+    this_aux.service.SaldoActual = undefined;
+    this_aux.service.tipoCuenta = undefined;
+    this_aux.service.aliasCuentaSeleccionada = undefined;
+    this_aux.service.noTarjetaSeleccionada = undefined;
+    this_aux.service.divisa = undefined;
+    this_aux.service.saldoSeleccionado = undefined;
+    this_aux.service.stringDocumento = undefined;
+    this_aux.service.numeroDocumento = undefined;
+    this_aux.service.fechaDocumento = undefined;
+    this_aux.service.numeroCuentaEDCSel = undefined;
+    this_aux.service.aliasCuentaEDCSel = undefined;
+    this_aux.service.tipoCuentaEDCSel = undefined;
+    this_aux.service.opcionEDCSel = undefined;
+    this_aux.service.fechaCorte = undefined;
+    this_aux.service.numDoc = undefined;
+    this_aux.service.idOpe = undefined;
+    this_aux.service.validaMail = undefined;
+    this_aux.service.Login = undefined;
+    this_aux.service.cambioCel = undefined;
+    this_aux.service.cambioCorreo = undefined;
+    this_aux.service.Fecha = undefined;
+    this_aux.service.Tiempo = undefined;
   }
 
 }
