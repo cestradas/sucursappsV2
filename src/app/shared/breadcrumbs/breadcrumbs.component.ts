@@ -46,7 +46,7 @@ export class BreadcrumbsComponent implements OnInit {
     } else
     if ( this_aux.service.NombreUsuario !== undefined  ) {
 
-      this.NombreUsuario = this_aux.service.NombreUsuario;
+      this.NombreUsuario = this_aux.service.NombreUsuario;  
       this.service.Login = "1";
       let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
       let navElement = document.getElementById("navBar");
