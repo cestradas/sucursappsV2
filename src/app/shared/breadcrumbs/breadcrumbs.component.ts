@@ -23,80 +23,59 @@ export class BreadcrumbsComponent implements OnInit {
 
   ngOnInit() {
     const this_aux = this;
-   // if (localStorage.getItem("contadorTime") === null)      {
-     // localStorage.setItem("contadorTime", "1");
+    if (localStorage.getItem("contadorTime") === null)      {
+      localStorage.setItem("contadorTime", "1");
       this_aux.comienzaContador();
-    // } 
-    
-    if ( this_aux._service.datosBreadCroms.nombreUsuarioTDD !== '' ) {
+     } 
+
+     if (  this_aux._service.datosBreadCroms.nombreUsuarioTDD !== '' ) {
 
       this_aux.NombreUsuario =  this_aux._service.datosBreadCroms.nombreUsuarioTDD;
-      // console.log("TDD ", this_aux._service.datosBreadCroms.nombreUsuarioTDD);
-
-      // Valida preferencia Tarjeta cliente
-
       let storageTipoClienteTDD = localStorage.getItem("tipoClienteTar");
       let navElement = document.getElementById("navBar");
 
     if (storageTipoClienteTDD === "true") {
-
       navElement.classList.remove("nav-img-banorte");
       navElement.classList.add("nav-img-banorte-preferente");
-
-      //localStorage.removeItem("tipoClienteBEL");
-
     } else {
 
       navElement.classList.remove("nav-img-banorte-preferente");
       navElement.classList.add("nav-img-banorte");
-
-      //localStorage.removeItem("tipoClienteBEL");
-
     }
 
     } else
-     if ( this_aux.service.NombreUsuario !== '' || this_aux.service.NombreUsuario !== undefined ) {
+    if ( this_aux.service.NombreUsuario !== undefined  ) {
 
       this.NombreUsuario = this_aux.service.NombreUsuario;
-      // console.log("BEL ", this_aux.service.NombreUsuario);
       this.service.Login = "1";
-      // console.log("BEL ", this_aux.service.Login);
-
       let storageTipoClienteBEL = localStorage.getItem("tipoClienteBEL");
       let navElement = document.getElementById("navBar");
 
       if (storageTipoClienteBEL === "true") {
-
         navElement.classList.remove("nav-img-banorte");
         navElement.classList.add("nav-img-banorte-preferente");
-
-        //localStorage.removeItem("tipoClienteBEL");
-
       } else {
-
-        navElement.classList.remove("nav-img-banorte-preferente");
+         navElement.classList.remove("nav-img-banorte-preferente");
         navElement.classList.add("nav-img-banorte");
-
-        //localStorage.removeItem("tipoClienteBEL");
-
       }
     }
-
+    
+    
   }
 
 
 
   cerrarSessionBEL() {
     const this_aux = this;
+    clearInterval(this_aux.intervalo);
     localStorage.setItem("TimeOut", localStorage.getItem('TimeOutIni'));
-    clearInterval( this_aux.intervalo);
     if (this_aux.service.Login === "1" ) {
       sessionStorage.removeItem("campania");
       sessionStorage.removeItem("idSesion");
       localStorage.removeItem("tipoClienteBEL");
       localStorage.removeItem("doc");
       localStorage.removeItem("nombreDoc");
-      // localStorage.removeItem("contadorTime");
+     //  localStorage.removeItem("contadorTime");
       
     const THIS: any = this;
       this_aux.service.Login = "0";
@@ -107,26 +86,23 @@ export class BreadcrumbsComponent implements OnInit {
             // console.log(response);
             const responseJson = response.responseJSON;
             if (responseJson.Id === "SEG0001") {
-              // console.log("BEL cerro sesion",  this_aux.service.Login);
+              
               WLAuthorizationManager.logout('banorteSecurityCheckSa');
-             // localStorage.removeItem('TimeOut');
-             // localStorage.removeItem('TimeOutIni');
               this_aux.router.navigate(['/final']);
             } else {
+              
               // console.log("BEL error cerrar sesion", responseJson.Id  + responseJson.MensajeAUsuario);
-              this_aux.router.navigate(['/final']);
               WLAuthorizationManager.logout('banorteSecurityCheckSa');
               document.getElementById('msgError').innerHTML =   "Error en cerrar sesión";
               $('#ModalErrorTransaccion').modal('show');
+              this_aux.router.navigate(['/final']);
             }
           },
           function(error) {
+            
+            WLAuthorizationManager.logout('banorteSecurityCheckSa');
+            console.log(error);
             this_aux.router.navigate(['/final']);
-            // console.log(error);
-            document.getElementById('msgError').innerHTML =   "Error en cerrar sesión";
-            // console.log("BEL error cerrar sesion", error.errorCode  + error.errorMsg);
-           // this_aux.router.navigate(['/login']);
-
           });
 
 
@@ -156,25 +132,20 @@ export class BreadcrumbsComponent implements OnInit {
     localStorage.removeItem("tipoClienteTar");
     localStorage.removeItem("doc");
     localStorage.removeItem("nombreDoc");
-    // localStorage.removeItem("contadorTime");
+   //  localStorage.removeItem("contadorTime");
     const resourceRequest = new WLResourceRequest(
       'adapters/AdapterBanorteSucursApps2/resource/cerrarSesion',
       WLResourceRequest.POST);
   resourceRequest.setTimeout(30000);
   resourceRequest.send().then(
           function(response) {
-
-            // console.log(response);
-
+            
           WLAuthorizationManager.logout('banorteSecurityCheckSa');
-           
-            // setTimeout( () => THIS.router.navigate(['/login']), 500 );
             THIS.router.navigate(['/final']);
-
-
           },
           function(error) {
-
+            
+            console.log(error);
             WLAuthorizationManager.logout('banorteSecurityCheckSa');
             // console.log(error);
             THIS.router.navigate(['/final']);
@@ -190,7 +161,7 @@ export class BreadcrumbsComponent implements OnInit {
       localStorage.setItem('TimeOut', localStorage.getItem('TimeOutIni'));
     });
   
-      this_aux.intervalo = setInterval( function () {
+    this_aux.intervalo = setInterval( function () {
       const valueNewTimeOut = +localStorage.getItem('TimeOut') - 1;
       localStorage.setItem('TimeOut', valueNewTimeOut.toString());
       if  (valueNewTimeOut === 15)  {
@@ -199,11 +170,11 @@ export class BreadcrumbsComponent implements OnInit {
            if  (valueNewTimeOut <= 15)  {
              document.getElementById('addExpira').innerHTML =  valueNewTimeOut.toString();
            } 
-           if (valueNewTimeOut === 0) {
+           if (valueNewTimeOut === 0 ) {
              $('#avisoSesionExpira').modal('hide');
-            //   clearInterval( this_aux.intervalo);
+             clearInterval(this_aux.intervalo);
               this_aux.cerrarSessionBEL();
-           }
+           } 
     }, 1000);
   
   }
@@ -235,12 +206,12 @@ export class BreadcrumbsComponent implements OnInit {
     this_aux.serviceMantenimiento.nameOperacion = undefined;
     this_aux.serviceMantenimiento.numCuentaDestino = undefined;
 
-    this_aux._service.datosBreadCroms.nombreUsuarioTDD = undefined;
-    this_aux._service.datosBreadCroms.sicUsuarioTDD = undefined;
-    this_aux._service.datosBreadCroms.EmailCliente = undefined;
-    this_aux._service.datosBreadCroms.CelCliente = undefined;
-    this_aux._service.datosBreadCroms.numeroCliente = undefined;
-    this_aux._service.datosBreadCroms.repTrasferenciaCuentasBanorte = undefined;
+    this_aux._service.datosBreadCroms.nombreUsuarioTDD = '';
+    this_aux._service.datosBreadCroms.sicUsuarioTDD = '';
+    this_aux._service.datosBreadCroms.EmailCliente = '';
+    this_aux._service.datosBreadCroms.CelCliente = '';
+    this_aux._service.datosBreadCroms.numeroCliente = '';
+    this_aux._service.datosBreadCroms.repTrasferenciaCuentasBanorte = '';
     /// BEL
     this_aux.service.usuarioLogin = undefined;
     this_aux.service.metodoAutenticaMayor = undefined;

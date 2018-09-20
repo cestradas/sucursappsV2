@@ -13,7 +13,9 @@ export class FinalComponent implements OnInit {
 
     const this_aux = this; 
     setTimeout( function() {
-    //  location.reload(true);
+      
+  
+      localStorage.removeItem("contadorTime");
       this_aux.router.navigate(['/login']);
     } 
     , 3000);
