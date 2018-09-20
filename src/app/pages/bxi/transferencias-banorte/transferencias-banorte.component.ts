@@ -67,6 +67,8 @@ export class TransferenciasBanorteComponent implements OnInit {
   nombreCuentaProp: string;
   numeroTarjeta: string;
 
+  importeValidacion = "";
+
   constructor(private _http: Http, private router: Router, private fb: FormBuilder, public service: SesionBxiService, private renderer: Renderer2, private currencyPipe: CurrencyPipe) {
 
     const this_aux = this;
@@ -204,14 +206,16 @@ setDatosCuentaSeleccionada(elementHTML) {
 
     this_aux.service.numCuentaTranPropBanorte = this_aux.getNumeroCuentaDestino(numCuenta_seleccionada);
     this_aux.service.AliasCuentaTranPropBanorte  = this_aux.getNameAliasCuenta(numCuenta_seleccionada);
-    this_aux.cuentaOrigenModal = this_aux.service.numCuentaTranPropBanorte;
+    this_aux.cuentaOrigenModal = operacionesbxi.mascaraNumeroCuenta(this_aux.service.numCuentaTranPropBanorte.toString());
+    // this_aux.service.numCuentaTranPropBanorte;
     this_aux.getSaldoDeCuenta(this_aux.getNumeroCuentaDestino(numCuenta_seleccionada));
 
   } else {
 
     this_aux.service.numCuentaTranPropBanorte = numCuenta_seleccionada;
     this_aux.service.AliasCuentaTranPropBanorte  = AliasCuenta_seleccionada;
-    this_aux.cuentaOrigenModal = this_aux.service.numCuentaTranPropBanorte;
+    this_aux.cuentaOrigenModal = operacionesbxi.mascaraNumeroCuenta(this_aux.service.numCuentaTranPropBanorte.toString());
+    // this_aux.service.numCuentaTranPropBanorte;
     this_aux.getSaldoDeCuenta(numCuenta_seleccionada);
 
   }
@@ -855,9 +859,9 @@ validarSaldo(tipoOperecionPago) {
     const this_aux = this;
     $('#_modal_please_wait').modal('show');
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
-    let importeOpe = this_aux.importeAux;
-    importeOpe.replace(',', "");
-    operacionesbxi.consultaTablaYValidaSaldo(this_aux.service.numCuentaTranPropBanorte, importeOpe).then(
+    // let importeOpe = this_aux.importeAux;
+    // importeOpe.replace(',', "");
+    operacionesbxi.consultaTablaYValidaSaldo(this_aux.service.numCuentaTranPropBanorte, this_aux.importeValidacion).then(
       function(response) {
 
         let DatosJSON = response.responseJSON;
@@ -956,7 +960,7 @@ confirmarPago(token) {
     */
                 operacionesbxi.confirmaTransferPropTerBanorte(sic, this_aux.service.correoBeneficiario, paramMnsEmail,
                                                               this_aux.service.AliasCuentaTranPropBanorte, ctaO,
-                                                              ctaDest, importe, concepto,
+                                                              ctaDest, this_aux.importeValidacion, concepto,
                                                               this_aux.service.NombreUsuario, operacionSelect)
                 .then(
 
@@ -1013,7 +1017,7 @@ confirmarPago(token) {
 
                 operacionesbxi.confirmaTransferPropTerBanorte(sic, this_aux.service.correoBeneficiario, paramMnsEmail,
                                                               this_aux.service.AliasCuentaTranPropBanorte, ctaO,
-                                                              ctaDest, importe, concepto,
+                                                              ctaDest, this_aux.importeValidacion, concepto,
                                                               this_aux.service.NombreUsuario, operacionSelect)
                 .then(
 
@@ -1076,6 +1080,7 @@ transformAmount(impor) {
   const this_aux = this;
 
       if (impor !== '') {
+        this_aux.importeValidacion = impor;
         const control: FormControl = new FormControl('');
         this_aux.forma.setControl('amount', control);
         this_aux.importeAux = this_aux.replaceSimbolo(impor);
@@ -1152,6 +1157,9 @@ controlarError(json) {
     case 'SEG0009':  mensajeError = "Límite de sesiones superado, favor de cerrar las sesiones de banca en línea activas.";
                   break;
     // tslint:disable-next-line:max-line-length
+    case 'SEGTK03': mensajeError = "Token desincronizado."; // Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
+                   break;
+    // tslint:disable-next-line:max-line-length
     case 'SEGOTP1': mensajeError = "Token desincronizado. Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones";
                   break;
     case 'SEGOTP2': mensajeError = "Token bloqueado, favor de marcar a Banortel.";
@@ -1169,7 +1177,15 @@ controlarError(json) {
                   break;
     case 'SEGAM84': mensajeError = "Token no activado, favor de marcar a Banortel.";
                   break;
-    case '2'      : mensajeError = mensajeUsuario;
+    // tslint:disable-next-line:max-line-length
+    case 'SEGTK03': mensajeError = "Ingresa a Banca en Línea. Selecciona la opción Token Celular, elige sincronizar Token y sigue las instrucciones"; // Token desincronizado."; 
+                  break;
+   
+    case '2'      : mensajeError = "El servicio no esta disponible, favor de intentar mas tarde";
+                  // console.log("Id: 2 Mensaje:" + mensajeUsuario);
+                break;
+    default:    mensajeError = "El servicio no esta disponible, favor de intentar mas tarde";
+                // console.log("Id: 0 Mensaje:" + mensajeUsuario);
   }
 
   return mensajeError;

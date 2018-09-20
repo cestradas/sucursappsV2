@@ -1,7 +1,8 @@
 <h2 class="text-center deleteMargin-h2 padding-barToTittle color-letra">
     Transferencias Banorte</h2>
 
-<form [formGroup]="forma" (ngSubmit)="showDetallePago()" class="needs-validation">
+<!-- <form [formGroup]="forma" (ngSubmit)="showDetallePago()" class="needs-validation"> -->
+<form [formGroup]="forma" class="needs-validation">
     <fieldset class="padding-fieldset-general padding-TittleToFieldset">
 
         <div class="row sumando-form-group letranegrita padding-InFieldset">
@@ -175,7 +176,7 @@
             </div>
             <!-- <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
             <div class="col-sm-1">
-                <button disabled="disabled" id="continuarspei" name="continuarspei" class="btn btn-lg" type="submit">
+                <button disabled="disabled" id="continuarspei" name="continuarspei" class="btn color-botones btn-lg" (click)="showDetallePago()">
                   Continuar</button>
             </div>
         </div>

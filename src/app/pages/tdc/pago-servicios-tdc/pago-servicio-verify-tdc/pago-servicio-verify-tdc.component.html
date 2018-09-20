@@ -18,13 +18,13 @@
                 <strong>Fecha de operaci&oacute;n:</strong>
             </div>
             <div class="col-lg-6" align="left">
-                <label>{{detallePago.fechaOperacion}}</label>
+                <label>{{detallePago.fechaOperacion | date:'yyyy-MM-dd'}}</label>
             </div>
         </div>
         <!-- ------------------------------------------------ -->
         <div class="row">
             <div class="col-lg-6" align="right">
-                    <strong>Clave de confirmaci&oacute;n:</strong>
+                <strong>Clave de confirmaci&oacute;n:</strong>
             </div>
             <div class="col-lg-6" align="left">
                 <label> {{detallePago.claveRastreo}}</label>

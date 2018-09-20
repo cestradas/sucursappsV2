@@ -25,12 +25,14 @@ export class TransferenciasCuentasBanorteComponent implements OnInit {
   forma: FormGroup;
 
   noTarjeta: string;
-  importe: any;
+  importe: string;
   correo: string;
   desc: string;
   tamCuenta: any;
   cuentaDestino: string;
   formattedAmount;
+
+  montoValidaSaldo: string;
 
   importeAux: string;
   constructor(private _service: ConsultaSaldosTddService,
@@ -121,6 +123,7 @@ export class TransferenciasCuentasBanorteComponent implements OnInit {
     // const expre4 =  /^\.+([0-9]{2})/;
     const this_aux = this;
     if (importe !== '' && importe !== '.' && importe !== '-' && (expre2.test(importe) || expres3.test(importe))) {
+      this_aux.montoValidaSaldo = importe;
       this_aux.importeAux = this_aux.replaceSimbolo(importe);
       this_aux.rImporte.nativeElement.value = this_aux.currencyPipe.transform(this_aux.importeAux, 'USD');
       this_aux.importeAux = this_aux.replaceSimbolo( this_aux.rImporte.nativeElement.value) ;
@@ -136,7 +139,7 @@ export class TransferenciasCuentasBanorteComponent implements OnInit {
     
     $('#_modal_please_wait').modal('show');
     // console.log(this_aux.importe + "este es importe a consultar");
-    this._validaNipService.consultaTablaYValidaSaldo(this_aux.importe).then(
+    this._validaNipService.consultaTablaYValidaSaldo(this_aux.montoValidaSaldo).then(
       function(response) {
         let DatosJSON = response.responseJSON;
         // console.log(response.responseText);
@@ -209,7 +212,7 @@ export class TransferenciasCuentasBanorteComponent implements OnInit {
     let descripcion = this_aux.myForm.get('fcDescripcion').value;
     let correo = this_aux.myForm.get('fcCorreo').value;
       operaciones.transferenciaCuentasBanorte(this_aux.cuentaDestino, 
-                                              this_aux.importe, 
+                                              this_aux.montoValidaSaldo, 
                                               descripcion, 
                                               correo).then(
 

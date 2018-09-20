@@ -94,8 +94,8 @@ export class BreadcrumbsComponent implements OnInit {
               
               // console.log("BEL error cerrar sesion", responseJson.Id  + responseJson.MensajeAUsuario);
               WLAuthorizationManager.logout('banorteSecurityCheckSa');
-              document.getElementById('msgError').innerHTML =   "Error en cerrar sesión";
-              $('#ModalErrorTransaccion').modal('show');
+              document.getElementById('mnsError').innerHTML =   "Error en cerrar sesión";
+              $('#errorModal').modal('show');
               this_aux.router.navigate(['/final']);
             }
           },

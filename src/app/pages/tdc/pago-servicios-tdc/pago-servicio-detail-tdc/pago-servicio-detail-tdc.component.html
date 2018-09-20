@@ -82,8 +82,8 @@
                             </div>
                             <div class="col-lg-10" id="divFecha">
                                 <input type="text" class="form-control datetimepicker-input input-lg" id="txtFechaVencimiento" (click)="calendario();" (blur)="validarFecha()" data-toggle="datetimepicker" formControlName="fcFechaVencimiento" data-target="#txtFechaVencimiento" #rFechaVencimiento
-                                placeholder="AAAA-MM-DD" />
-                                
+                                    placeholder="AAAA-MM-DD" />
+
                                 <div *ngIf="myForm.get('fcFechaVencimiento').errors && myForm.get('fcFechaVencimiento').touched" class="alert alert-danger">
 
                                     <p color="danger" *ngIf="myForm.get('fcFechaVencimiento').hasError('required')"> Dato obligatorio, favor de capturar.</p>
@@ -155,7 +155,7 @@
                             <label>Importe neto:</label>
                         </div>
                         <div class="col-lg 6">
-                            <label>${{importe}}</label>
+                            <label>{{importe | currency}}</label>
                         </div>
                     </div>
                     <div class="row">
@@ -179,7 +179,7 @@
                             <label>Importe total:</label>
                         </div>
                         <div class="col-lg 6">
-                            <label>${{importe}}</label>
+                            <label>{{importe | currency}}</label>
                         </div>
                     </div>
 

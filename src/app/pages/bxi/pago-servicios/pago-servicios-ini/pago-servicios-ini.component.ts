@@ -114,6 +114,8 @@ export class PagoServiciosIniComponent implements OnInit {
 
      getSaldoDeCuenta(numCuenta_seleccionada) {
        // console.log(numCuenta_seleccionada.length);
+       const this_aux = this;
+       this_aux.facturador.nativeElement.value = "";
       if (numCuenta_seleccionada.length === 16) {
            this.getSaldoTDC(numCuenta_seleccionada);
       } else {
