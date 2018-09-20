@@ -12,10 +12,8 @@ export class FinalComponent implements OnInit {
   ngOnInit() {
 
     const this_aux = this; 
+    localStorage.removeItem("contadorTime");
     setTimeout( function() {
-      
-      
-      localStorage.removeItem("contadorTime");
       this_aux.router.navigate(['/login']);
     } 
     , 3000);

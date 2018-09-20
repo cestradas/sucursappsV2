@@ -76,7 +76,6 @@ function getContextRoot() {
                     // console.log(response);
                     // borra datos TDD en localstorage                    
                     var responseJson = response.responseJSON;
-                    localStorage.setItem("TimeOut", responseJson.TimeOut);
                     localStorage.setItem("TimeOutIni", responseJson.TimeOut);
                     localStorage.setItem("AmbienteOK", wlInitOptions.mfpContextRoot )
 

@@ -69,6 +69,7 @@ export class BreadcrumbsComponent implements OnInit {
     const this_aux = this;
     clearInterval(this_aux.intervalo);
     localStorage.setItem("TimeOut", localStorage.getItem('TimeOutIni'));
+    localStorage.removeItem('TimeOut');
     if (this_aux.service.Login === "1" ) {
       sessionStorage.removeItem("campania");
       sessionStorage.removeItem("idSesion");
@@ -157,6 +158,7 @@ export class BreadcrumbsComponent implements OnInit {
   comienzaContador() {
     const this_aux = this;
     const body = $('body');
+    localStorage.setItem("TimeOut", localStorage.getItem('TimeOutIni'));
     body.on('click', function() {
       localStorage.setItem('TimeOut', localStorage.getItem('TimeOutIni'));
     });
