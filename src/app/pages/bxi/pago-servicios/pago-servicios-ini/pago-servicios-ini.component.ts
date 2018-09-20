@@ -28,7 +28,6 @@ export class PagoServiciosIniComponent implements OnInit {
   empresaSelect: Boolean = false ;
   nombreEmpresaSelect: string;
   SaldoOrigen: number;
-  cuentaSeleccionada: Boolean = false;
 
 
    constructor( private fb: FormBuilder, private router: Router, private service: SesionBxiService, private renderer: Renderer2) {
@@ -135,7 +134,8 @@ export class PagoServiciosIniComponent implements OnInit {
               
                this_aux.SaldoOrigen = detalleSaldos.SaldoDisponible;
                 $('#_modal_please_wait').modal('hide');
-                this_aux.cuentaSeleccionada = true;
+                const facturador = document.getElementById("facturador");
+                facturador.removeAttribute("disabled");
               }, 500);
             } else {
              this_aux.SaldoOrigen = 0;
@@ -167,7 +167,8 @@ export class PagoServiciosIniComponent implements OnInit {
               
                this_aux.SaldoOrigen = detalleSaldos.SaldoDisponible;
                 $('#_modal_please_wait').modal('hide');
-                this_aux.cuentaSeleccionada = true;
+                const facturador = document.getElementById("facturador");
+                facturador.removeAttribute("disabled");
               }, 500);
               
             } else {
