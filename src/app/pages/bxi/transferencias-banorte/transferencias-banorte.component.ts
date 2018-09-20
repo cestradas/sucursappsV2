@@ -944,7 +944,7 @@ confirmarPago(token) {
   switch (operacionSelect) {
 
     case '1':  // Cuentas propias Banorte
-    $('#_modal_please_wait').modal('show');
+    
 
     /*
     autenticacion.autenticaUsuario(token, this_aux.service.metodoAutenticaMayor).then(
@@ -962,7 +962,7 @@ confirmarPago(token) {
 
 
                   function(response) {
-                    $('#_modal_please_wait').modal('show');
+                   
                     // console.log(response.responseJSON);
 
                     const transferPropTer = response.responseJSON;
@@ -1001,7 +1001,7 @@ confirmarPago(token) {
 
           break;
     case '2':  // Cuentas a terceros Banorte
-    $('#_modal_please_wait').modal('show');
+    
 
 
     autenticacion.autenticaUsuario(token, this_aux.service.metodoAutenticaMayor).then(

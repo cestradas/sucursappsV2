@@ -33,10 +33,10 @@ export class TransferenciaFinishBanorteComponent implements OnInit {
 
   ngOnInit() {
 
-    setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
+    
 
     const this_aux = this;
-    $('div').removeClass('modal-backdrop');
+  
 
     const operacionSelect = this_aux.service.validaFinishTipoTransfer;
 
