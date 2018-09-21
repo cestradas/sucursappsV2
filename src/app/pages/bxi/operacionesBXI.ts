@@ -344,8 +344,8 @@ return resourceRequest.sendFormParameters(formParameters);
             'adapters/AdapterBanorteSucursAppsBEL2/resource/getCuentasBeneficiarios',
             WLResourceRequest.POST);
         resourceRequest.setTimeout(30000);
-        resourceRequest
-            .sendFormParameters(formParameters);
+        // resourceRequest
+          //  .sendFormParameters(formParameters);
 
 
          return resourceRequest.sendFormParameters(formParameters);

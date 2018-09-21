@@ -322,66 +322,7 @@ export class LoginBxiComponent implements OnInit {
         }
       );
     }
-/*
-    comienzaContador() {
-      const this_aux = this;
-      const body = $('body');
-      body.on('click', function() {
-        localStorage.setItem('TimeOut', localStorage.getItem('TimeOutIni'));
-      });
-  
-      setInterval(function() {
-        const valueNewTimeOut = +localStorage.getItem('TimeOut') - 1;
-        localStorage.setItem('TimeOut', valueNewTimeOut.toString());
-        if  (valueNewTimeOut === 15)  {
-                 $('#avisoSesionExpira').modal('show');
-             }
-             if  (valueNewTimeOut <= 15)  {
-               document.getElementById('addExpira').innerHTML =  valueNewTimeOut.toString();
-             } 
-             if (valueNewTimeOut === 0) {
-               $('#avisoSesionExpira').modal('hide');
-               this_aux.cerrarSesionTimeOutBXI();
-             }
-       }, 1000);
-    } */
 
-    cerrarSesionTimeOutBXI() {
-
-      $('#modal_please_wait').modal('show');
-      const this_aux = this;
-      sessionStorage.removeItem("campania");
-      const THIS: any = this;
-      this_aux.service.Login = "0";
-      const operacionesbxi: OperacionesBXI = new OperacionesBXI();
-       console.log("Cerrar sesion BEL");
-      operacionesbxi.cerrarSesionBEL().then(
-          function(response) {
-            // console.log(response);
-            const responseJson = response.responseJSON;
-            if (responseJson.Id === "SEG0001") {
-              WLAuthorizationManager.logout('banorteSecurityCheckSa');
-              localStorage.removeItem('TimeOut');
-              localStorage.removeItem('TimeOutIni');
-              // console.log("BEL cerro sesion",  this_aux.service.Login);
-              this_aux.router.navigate(['/login']);
-              location.reload(true);
-            } else {
-              // console.log("BEL error cerrar sesion", responseJson.Id  + responseJson.MensajeAUsuario);
-              document.getElementById('msgError').innerHTML =   "Error en cerrar sesión";
-              $('#ModalErrorTransaccion').modal('show');
-            }
-          },
-          function(error) {
-
-            // console.log(error);
-            document.getElementById('msgError').innerHTML =   "Error en cerrar sesión";
-            // console.log("BEL error cerrar sesion", error.errorCode  + error.errorMsg);
-           // this_aux.router.navigate(['/login']);
-
-          });
-
-      }
 
     controlarError(json) {
  
