@@ -15,7 +15,7 @@ declare var $: any;
 export class BreadcrumbsComponent implements OnInit {
 
   NombreUsuario: string;
-  okCerrarSesion = false;
+  
 
   constructor(private service: SesionBxiService,
               private _service: SesionTDDService,
@@ -24,9 +24,9 @@ export class BreadcrumbsComponent implements OnInit {
   ngOnInit() {
     const this_aux = this;
     if (localStorage.getItem("contadorTime") === null)      {
-      localStorage.setItem("TimeOut", localStorage.getItem('TimeOutIni'));
       localStorage.setItem("contadorTime", "1");
-      //this_aux.comienzaContador();
+      localStorage.setItem("okCerrarSesion", "false");
+      this_aux.comienzaContador();
      } 
 
      if (  this_aux._service.datosBreadCroms.nombreUsuarioTDD !== '' ) {
@@ -64,14 +64,16 @@ export class BreadcrumbsComponent implements OnInit {
     
   }
 
-
+  stopTime() {
+    const this_aux = this;
+    localStorage.setItem("okCerrarSesion", "true");
+  }
 
   cerrarSessionBEL() {
     const this_aux = this;
     
     const body = $('body');
     body.off();
-    this_aux.okCerrarSesion = true ;
 
     if (this_aux.service.Login === "1" ) {
       sessionStorage.removeItem("campania");
@@ -163,6 +165,13 @@ export class BreadcrumbsComponent implements OnInit {
     const body = $('body');
     body.on('click', function() {
       localStorage.setItem('TimeOut', localStorage.getItem('TimeOutIni'));
+      
+      if ( localStorage.getItem("okCerrarSesion") === "true" ) {
+        localStorage.removeItem("okCerrarSesion");
+         clearInterval(intervalo);
+         localStorage.setItem('TimeOut', localStorage.getItem('TimeOutIni'));
+         this_aux.cerrarSessionBEL();
+      }
     });
   
     let intervalo = setInterval( function () {
@@ -174,10 +183,11 @@ export class BreadcrumbsComponent implements OnInit {
            if  (valueNewTimeOut <= 15)  {
              document.getElementById('addExpira').innerHTML =  valueNewTimeOut.toString();
            } 
-           if (valueNewTimeOut === 0 || this_aux.okCerrarSesion ) {
+           if (valueNewTimeOut === 0  ) {
              $('#avisoSesionExpira').modal('hide');
+             localStorage.removeItem("okCerrarSesion");
               clearInterval(intervalo);
-              localStorage.removeItem('TimeOut');
+              localStorage.setItem('TimeOut', localStorage.getItem('TimeOutIni'));
               this_aux.cerrarSessionBEL();
            }
 
