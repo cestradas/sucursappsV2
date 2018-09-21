@@ -12,7 +12,10 @@ export class FinalComponent implements OnInit {
   ngOnInit() {
 
     const this_aux = this; 
-    localStorage.removeItem("contadorTime");
+    let navElement = document.getElementById("navBar");
+    navElement.classList.remove("nav-img-banorte-preferente");
+    navElement.classList.add("nav-img-banorte");
+
     setTimeout( function() {
       this_aux.router.navigate(['/login']);
     } 

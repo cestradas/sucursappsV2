@@ -16,7 +16,7 @@ declare var $: $;
   templateUrl: './login.component.html',
   styles: []
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   forma: string;
   tarjeta: string;
@@ -28,8 +28,12 @@ export class LoginComponent {
   constructor( private _http: Http,
                private router: Router,
                private _service: SesionTDDService, private serviceTdd: ResponseWS  ) {}
-
-
+               
+               ngOnInit() {
+                $( ".cdk-visually-hidden" ).css( "margin-top", "0%" );
+                localStorage.removeItem("contadorTime");
+               }
+  
                onPlasticLogin() {
                 const this_aux = this;
                  $('#ModalTDDLogin').modal('show');
