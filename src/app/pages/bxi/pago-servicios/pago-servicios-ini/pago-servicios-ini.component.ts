@@ -137,7 +137,7 @@ export class PagoServiciosIniComponent implements OnInit {
                this_aux.SaldoOrigen = detalleSaldos.SaldoDisponible;
                 $('#_modal_please_wait').modal('hide');
                 const facturador = document.getElementById("facturador");
-                facturador.removeAttribute("disabled");
+                this_aux.setValue("");
               }, 500);
             } else {
              this_aux.SaldoOrigen = 0;
@@ -170,7 +170,7 @@ export class PagoServiciosIniComponent implements OnInit {
                this_aux.SaldoOrigen = detalleSaldos.SaldoDisponible;
                 $('#_modal_please_wait').modal('hide');
                 const facturador = document.getElementById("facturador");
-                facturador.removeAttribute("disabled");
+                this_aux.setValue("");
               }, 500);
               
             } else {
