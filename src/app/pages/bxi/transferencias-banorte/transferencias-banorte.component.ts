@@ -752,12 +752,16 @@ setTipoAutenticacionOnModal() {
   const divChallenge = document.getElementById('challenger');
   const divTokenPass = document.getElementById('divPass');
   const divMjeTipoAutentica = document.getElementById('mensajeTipoAutentica');
-
-
+  const operacionSelect = this_aux.selectTipo.nativeElement.value.toString();
+  console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
+  
   const control: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^([0-9]{6})$/)]);
     this_aux.forma.setControl('fcTokenTr', control );
   let mensajeError;
-if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
+
+  if (operacionSelect === "2") {
+
+    if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
   $('#_modal_please_wait').modal('show');
   this_aux.labelTipoAutentica = 'Token Celular';
   divTokenPass.setAttribute('style', 'display: flex');
@@ -806,6 +810,9 @@ if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
     this_aux.labelTipoAutentica = 'Token Fisíco';
   }
 
+  }
+
+
  setTimeout(function() {
      $( ".cdk-visually-hidden" ).css( "margin-top", "16%" );
     //$('#confirmModal').modal('show');
@@ -815,8 +822,7 @@ if (this_aux.service.metodoAutenticaMayor.toString() === '5') {
   this.validaDatosBen();
 
 
-  const operacionSelect = this_aux.selectTipo.nativeElement.value.toString();
-  // console.log('this_aux.selectTipo =' + this_aux.selectTipo.nativeElement.value.toString());
+  
 
 
   switch (operacionSelect) {

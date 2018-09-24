@@ -880,7 +880,7 @@ setDatosCuentaBeneficiario(elementHTML) {
   const lbDescripcionCtaBen = document.getElementById('lbDescripcionCtaBen');
   const valueElement = elementHTML.value;
 
-  tableBeneficiarios.setAttribute('style', 'display: flex');
+  tableBeneficiarios.setAttribute('style', 'display: block');
   tableDefaultBeneficiarios.setAttribute('style', 'display: none');
   lbDescripcionCtaBen.innerHTML = elementHTML.textContent;
   lblCuentaDestino.innerHTML = this_aux.getNumeroCuentaDestino(valueElement);
