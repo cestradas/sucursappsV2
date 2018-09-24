@@ -63,7 +63,7 @@ function getContextRoot() {
         }
 
         WL.Client.init(wlInitOptions).then(function() {
-            console.info("VERSION: 3.5, 17/09/2018, Versión Productiva")
+            console.info("VERSION: 4.0, 21/09/2018, Versión Productiva")
 
             if( localStorage.getItem("AmbienteOK") === null){
             var formParameters = {};
