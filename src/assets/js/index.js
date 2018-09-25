@@ -87,7 +87,7 @@ function getContextRoot() {
                    
                     
                     setTimeout(function() {
-                      //getUsrPassLegacyCR(usuarioAgent); // CONEXION TERMINAL Y BD
+                      getUsrPassLegacyCR(usuarioAgent); // CONEXION TERMINAL Y BD
                     }, 500);
 
                 },
