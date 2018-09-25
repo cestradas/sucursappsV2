@@ -10,6 +10,10 @@ export class HeaderComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
+    let terminal = localStorage.getItem("terminal");
+
+    document.getElementById('terminal').innerHTML = terminal;
   }
 
 }

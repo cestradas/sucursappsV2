@@ -72,6 +72,7 @@ export class TransferenciaSpeiComponent implements OnInit {
 
   forma: FormGroup;
 
+  importeOperacion: string;
   importeAuxSPEI: string;
   importeAuxTEF: string;
   importeAuxQUICK: string;
@@ -635,8 +636,10 @@ validarSaldo(tipoOperecionPago) {
 
         } else if ( DatosJSON.Id === "4" ) {
           $('#modalLimiteDiario').modal('show');
+          $( ".cdk-visually-hidden" ).css( "margin-top", "10%" );
         } else if ( DatosJSON.Id === "5" ) {
           $('#modalLimiteMensual').modal('show');
+          $( ".cdk-visually-hidden" ).css( "margin-top", "10%" );
         } else {
           $('#modalErrorMessage').modal('show');
         }
@@ -713,7 +716,19 @@ setDatosCuentaSeleccionada(elementHTML) {
 
   this_aux.getSaldoDeCuenta(numCuenta_seleccionada);
 
+// desbloquea cuentas beneficiario
+  const desactivaCtaDest = document.getElementById("dropdownMenu2");
+  desactivaCtaDest.removeAttribute("disabled");
+  
+  if (this_aux.selectTipo.nativeElement.value.toString() === "3") {  // Quick
 
+    $('#cuenta').prop("disabled", false);
+    $('#selecBanco').prop("disabled", false);
+    $('#ammountQUICK').prop("disabled", false);
+    $('#referenceQuick').prop("disabled", false);
+    $('#RFCbenQUICK').prop("disabled", false);
+
+  }
 
 }
 
@@ -1038,8 +1053,8 @@ setCuentasBenficiarioXTipo() {
 
       const desactivaCtaOri = document.getElementById("dropdownMenu1");
       desactivaCtaOri.removeAttribute("disabled");
-      const desactivaCtaDest = document.getElementById("dropdownMenu2");
-      desactivaCtaDest.removeAttribute("disabled");
+      //const desactivaCtaDest = document.getElementById("dropdownMenu2");
+      //desactivaCtaDest.removeAttribute("disabled");
       const operacionesbxi: OperacionesBXI = new OperacionesBXI();
 
 
@@ -1085,8 +1100,8 @@ setCuentasBenficiarioXTipo() {
 
       const desactivaCtaOri = document.getElementById("dropdownMenu1");
       desactivaCtaOri.removeAttribute("disabled");
-      const desactivaCtaDest = document.getElementById("dropdownMenu2");
-      desactivaCtaDest.removeAttribute("disabled");
+      //const desactivaCtaDest = document.getElementById("dropdownMenu2");
+      //desactivaCtaDest.removeAttribute("disabled");
       const operacionesbxi: OperacionesBXI = new OperacionesBXI();
 
       setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
@@ -1135,8 +1150,8 @@ setCuentasBenficiarioXTipo() {
 
       const desactivaCtaOri = document.getElementById("dropdownMenu1");
       desactivaCtaOri.removeAttribute("disabled");
-      const desactivaCtaDest = document.getElementById("dropdownMenu2");
-      desactivaCtaDest.setAttribute('disabled','true');
+      //const desactivaCtaDest = document.getElementById("dropdownMenu2");
+      //desactivaCtaDest.setAttribute('disabled','true');
 
       setTimeout(() => $('#_modal_please_wait').modal('hide'), 5000);
 
@@ -1438,7 +1453,7 @@ validaDatosBen() {
 
 
     refFront = ref;
-    importeFront = importe;
+    importeFront = this_aux.importeOperacion;
     descripcionFront = descripcion;
     RFCFront = rfcBeneficiario;
 
@@ -1677,13 +1692,13 @@ consultaTablaCorpBancosService() {
 
         $("#_modal_please_wait").modal("hide");
 
-        // desbloquea compos
+        // bloquea compos
 
-        $('#cuenta').prop("disabled", false);
-        $('#selecBanco').prop("disabled", false);
-        $('#ammountQUICK').prop("disabled", false);
-        $('#referenceQuick').prop("disabled", false);
-        $('#RFCbenQUICK').prop("disabled", false);
+        $('#cuenta').prop("disabled", true);
+        $('#selecBanco').prop("disabled", true);
+        $('#ammountQUICK').prop("disabled", true);
+        $('#referenceQuick').prop("disabled", true);
+        $('#RFCbenQUICK').prop("disabled", true);
 
       } else {
         // bloquea campos

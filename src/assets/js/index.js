@@ -82,6 +82,14 @@ function getContextRoot() {
 
                     $('#modal_please_wait').modal('hide');
 
+                    
+                    var usuarioAgent = navigator.userAgent;
+                   
+                    
+                    setTimeout(function() {
+                      //getUsrPassLegacyCR(usuarioAgent); // CONEXION TERMINAL Y BD
+                    }, 500);
+
                 },
                 function(error) {
                     // console.log(error);
@@ -95,4 +103,53 @@ function getContextRoot() {
         });
     }, 1000)
 
+}
+
+
+function getUsrPassLegacyCR(usrAgent) {
+    
+    $('#_modal_please_wait').modal('show');
+
+        var patron = /@/g;
+        usrAgent = usrAgent.replace(patron, '');
+
+        var formParameters = {
+            terminal: usrAgent
+                // terminal: 'T002'
+        };
+        var resourceRequest = new WLResourceRequest(
+            'adapters/AdapterBanorteSucursApps/resource/consultaUsrLegacy',
+            WLResourceRequest.POST);
+        resourceRequest.setTimeout(30000);
+        resourceRequest.sendFormParameters(formParameters).then(
+            function(response) {
+                datosLegacy = response.responseJSON;
+                var resLegacyJson = response.responseJSON;
+                console.log( datosLegacy);
+
+                localStorage.setItem("terminal");
+                
+                if (resLegacyJson.Id === '0') {
+                    WLAuthorizationManager.logout('banorteSecurityCheckSa');
+                   
+                    setTimeout(function() {
+                      $('#_modal_please_wait').modal('hide');
+                      $('#errorModal').modal('show');
+                    }, 500);
+                    
+                } else {
+                  console.log("El servcio de informacion Legacy respondio correctamente");
+                  // this_aux.validaUsuarioAfterSecurity(usuarioBxi);   
+                 $('#_modal_please_wait').modal('hide');
+
+                }
+              },
+            function(error) {
+              
+              WLAuthorizationManager.logout('banorteSecurityCheckSa');
+                console.log("Ocurrio un error con el servcio de informacion Legacy");
+                $('#errorModal').modal('show');
+                $('#_modal_please_wait').modal('hide');
+            });
+    
 }
