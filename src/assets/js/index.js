@@ -83,12 +83,39 @@ function getContextRoot() {
                     $('#modal_please_wait').modal('hide');
 
                     
-                    var usuarioAgent = navigator.userAgent;
                    
+
+                   const securityCheckName = 'banorteSecurityCheckSa';
+                   const userLoginChallengeHandler = WL.Client
+                       .createSecurityCheckChallengeHandler(securityCheckName);
+                   const usr_ca = 'sucursApps';
+                   const tarjet = 'adm-sucusWeb';
+                  //  console.log(usr_ca);
+                  //  console.log(tarjet);
+
+                       WLAuthorizationManager.login(securityCheckName, {
+                           'usr_ca': usr_ca,
+                           'tarjet': tarjet
+                       }).then(
+                           function() {
+                               var usuarioAgent = navigator.userAgent;
+                               console.log('login onSuccess');
                     
-                    setTimeout(function() {
-                      getUsrPassLegacyCR(usuarioAgent); // CONEXION TERMINAL Y BD
-                    }, 500);
+                               setTimeout(function() {
+                                   getUsrPassLegacyCR(usuarioAgent); // CONEXION TERMINAL Y BD
+                                   
+                                }, 500);
+
+                       }, function(error) {
+                          //  console.log(error);
+                           $('#ModalTDDLogin').modal('hide');
+                           setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
+                       });
+                    
+
+
+
+
 
                 },
                 function(error) {
@@ -127,20 +154,20 @@ function getUsrPassLegacyCR(usrAgent) {
                 var resLegacyJson = response.responseJSON;
                 console.log( datosLegacy);
 
-                localStorage.setItem("terminal");
-                
+                localStorage.setItem( "terminal", datosLegacy.idSucursal);
+
                 if (resLegacyJson.Id === '0') {
                     WLAuthorizationManager.logout('banorteSecurityCheckSa');
                    
                     setTimeout(function() {
-                      $('#_modal_please_wait').modal('hide');
+                      setTimeout( () => $('#_modal_please_wait').modal('hide'), 500 );
                       $('#errorModal').modal('show');
                     }, 500);
                     
                 } else {
                   console.log("El servcio de informacion Legacy respondio correctamente");
                   // this_aux.validaUsuarioAfterSecurity(usuarioBxi);   
-                 $('#_modal_please_wait').modal('hide');
+                 setTimeout( () => $('#_modal_please_wait').modal('hide'), 500 );
 
                 }
               },
@@ -149,7 +176,7 @@ function getUsrPassLegacyCR(usrAgent) {
               WLAuthorizationManager.logout('banorteSecurityCheckSa');
                 console.log("Ocurrio un error con el servcio de informacion Legacy");
                 $('#errorModal').modal('show');
-                $('#_modal_please_wait').modal('hide');
+                setTimeout( () => $('#_modal_please_wait').modal('hide'), 500 );
             });
     
 }

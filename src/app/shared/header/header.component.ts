@@ -11,9 +11,13 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
 
-    let terminal = localStorage.getItem("terminal");
 
-    document.getElementById('terminal').innerHTML = terminal;
+    setTimeout(function() {
+        let terminal = localStorage.getItem("terminal");
+        document.getElementById('terminal').innerHTML = terminal;
+    }, 10000);
+
+    
   }
 
 }
