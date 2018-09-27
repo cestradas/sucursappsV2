@@ -1746,6 +1746,8 @@ sortByProperty = function (property) {
 transformAmount(impor) {
   const this_aux = this;
   const operacionSelect = this_aux.selectTipo.nativeElement.value.toString();
+  
+  this_aux.importeOperacion = impor;
 
   switch (operacionSelect) {
 
