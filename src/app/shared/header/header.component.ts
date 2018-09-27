@@ -14,7 +14,10 @@ export class HeaderComponent implements OnInit {
 
     setTimeout(function() {
         let terminal = localStorage.getItem("terminal");
+
         document.getElementById('terminal').innerHTML = terminal;
+        document.getElementById('etiqueta').innerHTML = "CR:";
+        
     }, 10000);
 
     
