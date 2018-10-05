@@ -474,7 +474,7 @@ setCuentasBenficiarioXTipo() {
 
            }
 
-           $('#dropdownMenu1').prop("disabled", false);
+          // $('#dropdownMenu1').prop("disabled", false);
 
           });
 
@@ -529,11 +529,11 @@ setCuentasBenficiarioXTipo() {
 
     }
 
-
+    let contCtasTer = 0;
 
 
     if (this_aux.selectTipo.nativeElement.value.toString() === "2") { // TERCEROS
-      let contCtasTer = 0;
+      
       $( ".cdk-visually-hidden" ).css( "margin-top", "10%" );
       // document.getElementById('tranSPEI').style.display = 'none';
       this_aux.listaCuentasBen.forEach(auxcuenta => {
@@ -562,20 +562,21 @@ setCuentasBenficiarioXTipo() {
        }
 
        // desbloquea CUENTAS ORIGEN
-       if (contCtasTer >= 1) {
-        $('#dropdownMenu1').prop("disabled", false);
-       } else {
-        document.getElementById('mnsError').innerHTML = "No tienes cuentas registradas";
-        $('#errorModal').modal('show');
-        $('#dropdownMenu2').prop("disabled", true);
-        $('#amount').prop("disabled", true);
-        $('#concepto').prop("disabled", true);
-       }
-
-
+       
 
 
   });
+  if (contCtasTer >= 1) {
+    $('#dropdownMenu1').prop("disabled", false);
+   } else {
+    document.getElementById('mnsError').innerHTML = "No tienes cuentas registradas";
+    $('#errorModal').modal('show');
+    $('#dropdownMenu1').prop("disabled", true);
+    $('#dropdownMenu2').prop("disabled", true);
+    $('#amount').prop("disabled", true);
+    $('#concepto').prop("disabled", true);
+   }
+
 
 
 }
