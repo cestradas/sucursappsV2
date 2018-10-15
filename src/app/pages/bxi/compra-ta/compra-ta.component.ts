@@ -565,7 +565,9 @@ controlarError(json) {
     case 'SEGAM84': mensajeError = "Token no activado, favor de marcar a Banortel.";
                   break;
     case '2'      : mensajeError = 'El servicio no esta disponible, favor de intentar mas tarde.';
-
+                  break;
+    case 'SEGAA01': mensajeError = 'Usuario no enrolado. Favor de ejecutar el enrolamiento del usuario en el sitio web.';
+                  break;
     // tslint:disable-next-line:no-switch-case-fall-through
     default:    mensajeError = "El servicio no esta disponible, favor de intentar mas tarde.";
                   // console.log("Id: 0 Mensaje:" + mensajeUsuario);

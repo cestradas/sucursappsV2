@@ -43,10 +43,31 @@ export class CancelarEnvioEdcComponent implements OnInit {
   }
 
   validarCorreo (email) {
+    const this_aux = this;
+    const operaciones: OperacionesBXI = new OperacionesBXI();
     if (email === undefined) {
-      $('#registraCorreo').modal('show');
-      let btnContinuar = document.getElementById('continuarCancelacion');
-      btnContinuar.style.display = 'none';
+      operaciones.consultaDatosContacto(this_aux.service.infoUsuarioSIC).then(
+        function(data) {
+          const jsonData = data.responseJSON;
+          if (jsonData.Id === '1') {
+              // console.log('Datos contacto' + jsonData);
+                if (jsonData.Email === '' || jsonData.Email === undefined) {
+                  $('#registraCorreo').modal('show');
+                }
+          } else {  
+              setTimeout(function() {
+                $('#_modal_please_wait').modal('hide');
+                this_aux.showErrorSucces(jsonData);     
+                }, 500);
+            }
+        }, function (error) { 
+         
+          setTimeout(function() {
+            $('#_modal_please_wait').modal('hide');
+            this_aux.showErrorPromise(error); 
+            }, 500);
+          }
+      );
     }
   }
 

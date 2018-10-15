@@ -1860,6 +1860,8 @@ controlarError(json) {
                   break;
     case 'SEGAM84': mensajeError = "Token no activado, favor de marcar a Banortel.";
                   break;
+    case 'SEGAA01': mensajeError = 'Usuario no enrolado. Favor de ejecutar el enrolamiento del usuario en el sitio web.';
+                  break;
     case '2'      : mensajeError = mensajeUsuario;
   }
 

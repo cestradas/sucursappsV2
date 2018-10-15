@@ -101,6 +101,32 @@ export class MantenimientoDatosIniComponent implements OnInit {
               this_aux.service.Fecha =  d.getFullYear()  + '-' + d.getMonth() + '-' + d.getDate(); 
               this_aux.service.Tiempo = d.getHours() + ':' + d.getMinutes() + ':' + d.getMilliseconds();
               this_aux.router.navigate(['/mantiene-datos-fin']);
+        } else if (this_aux.includesL(jsonRespuesta.MensajeAUsuario, "ERROR AL EJECUTAR PE80/PENM")) {
+          operaciones.actualizaDatosContacto(this_aux.service.infoUsuarioSIC, correo, celular).then(
+            function(respActualiza2) {
+              const jsonRespuesta2 = respActualiza2.responseJSON;
+                if (jsonRespuesta2.Id === '1') {
+                    // console.log(jsonRespuesta);
+                    this_aux.service.EmailCliente = correo;
+                    this_aux.service.CelCliente = celular;
+                    const d = new Date();
+                    this_aux.service.Fecha =  d.getFullYear()  + '-' + d.getMonth() + '-' + d.getDate(); 
+                    this_aux.service.Tiempo = d.getHours() + ':' + d.getMinutes() + ':' + d.getMilliseconds();
+                    this_aux.router.navigate(['/mantiene-datos-fin']);
+              } else {
+      
+                setTimeout(function() { 
+                  $('#_modal_please_wait').modal('hide');
+                this_aux.showErrorSucces(jsonRespuesta2); 
+                }, 500);
+              }
+            }, function(error) {
+              setTimeout(function() { 
+                $('#_modal_please_wait').modal('hide');
+                this_aux.showErrorPromiseMoney(error);   
+              }, 500); 
+            }
+          );
         } else {
 
           setTimeout(function() { 
@@ -318,6 +344,8 @@ showErrorSucces(json) {
       case '2'      : mensajeError = "El servicio no esta disponible, favor de intentar mas tarde";
                     // console.log("Id: 2 Mensaje:" + mensajeUsuario);
                   break;
+      case 'SEGAA01': mensajeError = 'Usuario no enrolado. Favor de ejecutar el enrolamiento del usuario en el sitio web.';
+                  break;
       default:    mensajeError = "El servicio no esta disponible, favor de intentar mas tarde";
                   // console.log("Id: 0 Mensaje:" + mensajeUsuario);
     }
@@ -330,6 +358,16 @@ showErrorSucces(json) {
     const control: FormControl = new FormControl('');
     this_aux.myForm.setControl('fcToken', control );
   }
+
+  includesL(container, value) {
+    let returnValue = false;
+    let pos = String(container).indexOf(value);
+   
+    if (pos >= 0) {
+      returnValue = true;
+    }
+    return returnValue;
+   }
 
 }
 

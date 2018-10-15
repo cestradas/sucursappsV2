@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
                private _service: SesionTDDService, private serviceTdd: ResponseWS  ) {}
                
                ngOnInit() {
-                $( ".cdk-visually-hidden" ).css( "margin-top", "0%" );
                 localStorage.removeItem("contadorTime");
                }
   
@@ -48,7 +47,7 @@ export class LoginComponent implements OnInit {
                   if ( (respuestaPin !== null && respuestaTar !== null)) {
                     clearInterval(myTime);
                     // tslint:disable-next-line:max-line-length
-                    if (descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card") {
+                    if ((descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card" || descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin") && (respuestaTar === null))  {
                       this_aux.onPlasticLoginafterSecurity();
                     } else {
                       const securityCheckName = 'banorteSecurityCheckSa';
@@ -112,7 +111,7 @@ export class LoginComponent implements OnInit {
      if ( (respuestaPin !== null && respuestaTar !== null)) {
        clearInterval(myTime);
        // tslint:disable-next-line:max-line-length
-       if (descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card") {
+       if ((descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card" || descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin") && (respuestaTar === null)) {
          this_aux.onPlasticLoginafterSecuritytdc();
        } else {
         //  console.log("Se detectaron datos Tarjeta: " + localStorage.getItem("tr2"));
@@ -170,7 +169,7 @@ export class LoginComponent implements OnInit {
      this.respuestaTrjeta = respTar;
      let descripcion = localStorage.getItem("des");
 
-      if ((respTar !== "NO_OK") && (respTar !== null)) {
+      if ((respTar !== "NO_OK") && (respTar !== null) && (descripcion !== "Error lectura pin")) {
 
 
         const THIS: any = this;
@@ -214,25 +213,33 @@ export class LoginComponent implements OnInit {
                  localStorage.setItem("tipoClienteTar", validaPreferencia.toString()  );
                }
 
-               $('#ModalTDDLogin').modal('hide');
+              // $('#ModalTDDLogin').modal('hide');
               THIS.router.navigate(['/menuTdd']);
               //    this_aux.consultaTablaCorpBancosService();
               localStorage.setItem("validaNipServ", "1");
 
              } else {
+              $('#ModalTDDLogin').modal('hide');
 
-				 if (this_aux.includesL(res.MensajeDetallado, "QGE2455")) {
+          if (this_aux.includesL(res.MensajeDetallado, "QGE2455") || this_aux.includesL(res.MensajeDetallado, "QGE2482")) {
                     // tslint:disable-next-line:max-line-length
                     document.getElementById('mnsError').innerHTML = "Los datos proporcionados son incorrectos, favor de verificar.";
                     $('#errorModal').modal('show');
-              } else if (this_aux.includesL(res.MensajeDetallado, "QGE2438") || this_aux.includesL(res.MensajeDetallado, "QGE2476")) {
+              } else if (this_aux.includesL(res.MensajeDetallado, "QGE2438")) {
                 // tslint:disable-next-line:max-line-length
                   document.getElementById('mnsError').innerHTML = "Has excedido el número de intentos permitidos, por seguridad no es posible continuar.";
                   $('#errorModal').modal('show');
+              } else if (this_aux.includesL(res.MensajeDetallado, "QGE2476")) {
+                document.getElementById('mnsError').innerHTML = "Tarjeta bloqueada por NIP, favor de hablar a Banortel.";
+                $('#errorModal').modal('show');
               } else if (this_aux.includesL(res.MensajeDetallado, "QGE2456")) {
-					document.getElementById('mnsError').innerHTML = res.MensajeAUsuario ;
-						$('#errorModal').modal('show');
-				} else {
+        document.getElementById('mnsError').innerHTML = res.MensajeAUsuario ;
+          $('#errorModal').modal('show');
+        } else if (res.MensajeAUsuario === "Tarjeta TDC") {
+          // tslint:disable-next-line:max-line-length
+          document.getElementById('mnsError').innerHTML = "Tipo de plástico incorrecto, favor de seleccionar la opción inicio con tarjeta de crédito";
+          $('#errorModal').modal('show');
+        } else {
 
               /*
               localStorage.removeItem("des");
@@ -249,19 +256,19 @@ export class LoginComponent implements OnInit {
               // tslint:disable-next-line:max-line-length
               document.getElementById('mnsError').innerHTML = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
               $('#errorModal').modal('show');
-				}
+      }
              }
 
 
       },
       function(error) {
 
-					setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
-
-
-						// tslint:disable-next-line:max-line-length
-						document.getElementById('mnsError').innerHTML = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
-						$('#errorModal').modal('show');
+        setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
+        
+        
+          // tslint:disable-next-line:max-line-length
+          document.getElementById('mnsError').innerHTML = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
+          $('#errorModal').modal('show');
 
            });
 
@@ -269,19 +276,22 @@ export class LoginComponent implements OnInit {
 
           $('#ModalTDDLogin').modal('hide');
 
-				// tslint:disable-next-line:indent
-				if (descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card"){
+        // tslint:disable-next-line:max-line-length
+        if (descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card") {
               //  console.log("Pinpad respondio con " + this.respuestaTrjeta);
                // tslint:disable-next-line:max-line-length
                document.getElementById('mnsError').innerHTML = "Inicio de sesión falló.";
-				$('#errorModal').modal('show');
+        $('#errorModal').modal('show');
 
-				}else{
+        } else if (descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin") {
+          document.getElementById('mnsError').innerHTML = "Plástico no válido, por favor verifica que sea un plástico Banorte.";
+          $('#errorModal').modal('show');
+        } else {
                // tslint:disable-next-line:max-line-length
               //  console.log("Pinpad respondio con " + this.respuestaTrjeta);
                // tslint:disable-next-line:max-line-length
                document.getElementById('mnsError').innerHTML = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
-				$('#errorModal').modal('show');
+        $('#errorModal').modal('show');
         }
         /*
         localStorage.removeItem("tr2");
@@ -291,6 +301,7 @@ export class LoginComponent implements OnInit {
          }
 
    // }, 50000);
+
    localStorage.removeItem("des");
    localStorage.removeItem("np");
    localStorage.removeItem("res");
@@ -317,7 +328,7 @@ export class LoginComponent implements OnInit {
 
 
 
-      if ((respTar !== "NO_OK") && (respTar !== null)) {
+      if ((respTar !== "NO_OK") && (respTar !== null) && (descripcion !== "Error lectura pin")) {
 
 
         const THIS: any = this;
@@ -361,25 +372,33 @@ export class LoginComponent implements OnInit {
                  localStorage.setItem("tipoClienteTar", validaPreferencia.toString()  );
                }
 
-               $('#ModalTDDLogin').modal('hide');
+              // $('#ModalTDDLogin').modal('hide');
               THIS.router.navigate(['/menuTDC']);
               //    this_aux.consultaTablaCorpBancosService();
               localStorage.setItem("validaNipServ", "1");
 
              } else {
-
-				 if (this_aux.includesL(res.MensajeDetallado, "QGE2455")) {
+              $('#ModalTDDLogin').modal('hide');
+              
+          if (this_aux.includesL(res.MensajeDetallado, "QGE2455") || this_aux.includesL(res.MensajeDetallado, "QGE2482")) {
                     // tslint:disable-next-line:max-line-length
                     document.getElementById('mnsError').innerHTML = "Los datos proporcionados son incorrectos, favor de verificar.";
                     $('#errorModal').modal('show');
-              } else if (this_aux.includesL(res.MensajeDetallado, "QGE2438") || this_aux.includesL(res.MensajeDetallado, "QGE2476")) {
+              } else if (this_aux.includesL(res.MensajeDetallado, "QGE2438")) {
                 // tslint:disable-next-line:max-line-length
                   document.getElementById('mnsError').innerHTML = "Has excedido el número de intentos permitidos, por seguridad no es posible continuar.";
                   $('#errorModal').modal('show');
+              } else if (this_aux.includesL(res.MensajeDetallado, "QGE2476")) {
+                document.getElementById('mnsError').innerHTML = "Tarjeta bloqueada por NIP, favor de hablar a Banortel.";
+                $('#errorModal').modal('show');
               } else if (this_aux.includesL(res.MensajeDetallado, "QGE2456")) {
-					document.getElementById('mnsError').innerHTML = res.MensajeAUsuario ;
-						$('#errorModal').modal('show');
-				} else {
+            document.getElementById('mnsError').innerHTML = res.MensajeAUsuario ;
+            $('#errorModal').modal('show');
+          } else if (res.MensajeAUsuario === "Tarjeta TDD") {
+            // tslint:disable-next-line:max-line-length
+            document.getElementById('mnsError').innerHTML = "Tipo de plástico incorrecto, favor de seleccionar la opción inicio con tarjeta de débito";
+            $('#errorModal').modal('show');
+          } else {
 
               /*
               localStorage.removeItem("des");
@@ -396,7 +415,7 @@ export class LoginComponent implements OnInit {
               // tslint:disable-next-line:max-line-length
               document.getElementById('mnsError').innerHTML = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
               $('#errorModal').modal('show');
-				}
+      }
              }
 
 
@@ -416,20 +435,22 @@ export class LoginComponent implements OnInit {
          } else {
 
           $('#ModalTDDLogin').modal('hide');
-
-				// tslint:disable-next-line:indent
-				if (descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card"){
+        // tslint:disable-next-line:max-line-length
+        if (descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card") {
               //  console.log("Pinpad respondio con " + this.respuestaTrjeta);
                // tslint:disable-next-line:max-line-length
                document.getElementById('mnsError').innerHTML = "Inicio de sesión falló.";
-				$('#errorModal').modal('show');
+        $('#errorModal').modal('show');
 
-				}else{
+        } else if (descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin") {
+          document.getElementById('mnsError').innerHTML = "Plástico no válido, por favor verifica que sea un plástico Banorte.";
+          $('#errorModal').modal('show');
+        } else {
                // tslint:disable-next-line:max-line-length
               //  console.log("Pinpad respondio con " + this.respuestaTrjeta);
                // tslint:disable-next-line:max-line-length
                document.getElementById('mnsError').innerHTML = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
-				$('#errorModal').modal('show');
+        $('#errorModal').modal('show');
         }
         /*
         localStorage.removeItem("tr2");
@@ -628,15 +649,13 @@ resourceRequest.send().then(
 
   BxiLogin() {
     console.log("en funcion de bxi");
+    $( ".cdk-visually-hidden" ).css( "margin-top", "0%" );
+    $( ".cdk-overlay-container" ).css( "margin-top", "0%" );
     $('#ModalBXILogin').modal('show');
-
-
   }
 
   encuesta() {
     console.log("Encuesta de satisfaccion");
-    //$("#frame").attr("src", "https://internetunix.unix.banorte.com:8443/encuesta/preview.html?nameCampaign=CAMP_EXP_CLIENTE");
-    //$('#ModalEncuesta').modal('show');
 
   }
 

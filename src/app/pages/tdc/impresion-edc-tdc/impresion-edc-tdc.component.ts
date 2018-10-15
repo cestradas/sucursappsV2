@@ -168,25 +168,13 @@ export class ImpresionEdcTdcComponent implements OnInit {
     resourceRequest.sendFormParameters(formParameters).then(
       function(response) {
 //          console.log(response.responseText);
-          const detalleMant = response.responseJSON;
-          if(detalleMant.Id==="1"){
-            
-            this_aux.obtenerListaDocs();
-          }
-          else{
-            setTimeout(() => $('#_modal_please_wait').modal('hide'), 500);
-             setTimeout(function(){
-                     
-                      this_aux.showErrorSucces(detalleMant);
-              },500);
-          }
-        
-         
+      this_aux.obtenerListaDocs();
       },
         function(error) {
           console.error("Error");
           setTimeout(() => $('#_modal_please_wait').modal('hide'), 500);
           this_aux.showErrorPromise(error);
+          this_aux.obtenerListaDocs();
         });
   }
 
@@ -211,7 +199,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
         let res = response.responseJSON;
         if(res[0].Id==="1"){
           if(res[0].EstadoLista==="OK"){
-            this_aux.consultaCancelacionEDCDomicilio('2');
+            
 
 
             setTimeout(function() {
@@ -235,18 +223,24 @@ export class ImpresionEdcTdcComponent implements OnInit {
                     let strA = temp[k];
     
                     let strM = temp[k + 1];
-                    if ( strM === "01") {strM = "Enero"; }
-                    if ( strM === "02") {strM = "Febrero"; }
-                    if ( strM === "03") {strM = "Marzo"; }
-                    if ( strM === "04") {strM = "Abril"; }
-                    if ( strM === "05") {strM = "Mayo"; }
-                    if ( strM === "06") {strM = "Junio"; }
-                    if ( strM === "07") {strM = "Julio"; }
-                    if ( strM === "08") {strM = "Agosto"; }
-                    if ( strM === "09") {strM = "Septiembre"; }
-                    if ( strM === "10") {strM = "Octubre"; }
-                    if ( strM === "11") {strM = "Noviembre"; }
-                    if ( strM === "12") {strM = "Diciembre"; }
+                    if (strM === "01") {
+                      strM = 12;
+                    } else {
+                      strM = strM - 1;
+                    }
+                    
+                    if ( strM === 1) {strM = "Enero"; }
+                    if ( strM === 2) {strM = "Febrero"; }
+                    if ( strM === 3) {strM = "Marzo"; }
+                    if ( strM === 4) {strM = "Abril"; }
+                    if ( strM === 5) {strM = "Mayo"; }
+                    if ( strM === 6) {strM = "Junio"; }
+                    if ( strM === 7) {strM = "Julio"; }
+                    if ( strM === 8) {strM = "Agosto"; }
+                    if ( strM === 9) {strM = "Septiembre"; }
+                    if ( strM === 10) {strM = "Octubre"; }
+                    if ( strM === 11) {strM = "Noviembre"; }
+                    if ( strM === 12) {strM = "Diciembre"; }
     
                     let strD = temp[k + 2];
     
@@ -678,6 +672,9 @@ export class ImpresionEdcTdcComponent implements OnInit {
                // objTo.appendChild(this_aux.calendario.nativeElement);
     
                   contFechas --;
+                  if (contFechas < 0) {
+                    break;
+                  }
               }
     
               cont ++;
@@ -984,6 +981,9 @@ export class ImpresionEdcTdcComponent implements OnInit {
             }
 
            console.log(this_aux.obj['fechas']);
+              }, 500);
+              setTimeout(() => {
+                this_aux.consultaCancelacionEDCDomicilio('2');
               }, 500);
           }
           else{
@@ -1725,9 +1725,30 @@ showErrorSucces(json) {
   if (json.Id === '2') {
     document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar más tarde';
   } else {
-    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+    this.validaErr(json);
   }
   $('#errorModal').modal('show');
+}
+validaErr(json) {
+
+  setTimeout(() => {
+     if(json.Id === "0") {
+      if (json.MensajeAUsuario === "No existe documento") {
+        document.getElementById("mnsError").innerHTML = "No se encontró el archivo " + + " en el repositorio, favor de reportar el problema a un ejecutivo.";
+      } else {
+        document.getElementById("mnsError").innerHTML = json.MensajeAUsuario;
+      }   
+  
+    }
+    else if (json[0].Id === "2") {
+      document.getElementById("mnsError").innerHTML = "El servicio no esta disponible, favor de intentar mas tarde";
+    } else {
+      document.getElementById("mnsError").innerHTML =
+        "El servicio no esta disponible, favor de intentar mas tarde";
+    }
+    $('#_modal_please_wait').modal('hide');
+  }, 500);
+  
 }
 
 cancelarEnvio() {
@@ -1751,7 +1772,6 @@ consultaCancelacionEDCDomicilio(opcion) {
       resourceRequest.setTimeout(30000);
       resourceRequest.sendFormParameters(formParameters).then(
         function(response) {
-          setTimeout(function() {
             const detalleMant = response.responseJSON;
             let btnCancelarEnvio = document.getElementById('cancelarEnvioDomicilio');
             if (detalleMant.Id === "1") {
@@ -1760,11 +1780,8 @@ consultaCancelacionEDCDomicilio(opcion) {
               } else {
                 btnCancelarEnvio.style.display = 'none';
               }
-            } else {
-              btnCancelarEnvio.style.display = 'none';
-            }
+            } 
             setTimeout(() => $('#_modal_please_wait').modal('hide'), 500); 
-         }, 3000);
         },
           function(error) {
             console.error("Error");

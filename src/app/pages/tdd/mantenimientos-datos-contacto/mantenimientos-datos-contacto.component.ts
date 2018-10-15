@@ -113,6 +113,23 @@ export class MantenimientosDatosContactoComponent implements OnInit {
             $('div').removeClass('modal-backdrop');
             this_aux.router.navigate(['/actualizarDatosContactoFinalTDD']);
             console.log("Datos Actualizados");
+          } else if (this_aux.includesL(jsonRespuesta.MensajeAUsuario, "ERROR AL EJECUTAR PE80/PENM")) {
+            operaciones.actualizaDatosContacto(correo, celular).then(
+              function(resp2) {      
+                const jsonRespuesta2 = resp2.responseJSON;
+                if (jsonRespuesta2.Id === '1') {
+                 // console.log(resp.responseText);
+                  $('div').removeClass('modal-backdrop');
+                  this_aux.router.navigate(['/actualizarDatosContactoFinalTDD']);
+                  console.log("Datos Actualizados");
+                } else {
+                  this_aux.showErrorSucces(jsonRespuesta2);
+                  console.log("Datos no Actualizados");
+                  $('#ModalTDDLogin').modal('hide');
+                }
+              }, function(error) { this_aux.showErrorPromiseMoney(error);
+                $('#ModalTDDLogin').modal('hide'); }
+            );
           } else {
             this_aux.showErrorSucces(jsonRespuesta);
             console.log("Datos no Actualizados");
@@ -268,5 +285,15 @@ showErrorPromiseMoney(error) {
     $('#ModalErrorTransaccion').modal('show');
   }
 }
+
+includesL(container, value) {
+  let returnValue = false;
+  let pos = String(container).indexOf(value);
+ 
+  if (pos >= 0) {
+    returnValue = true;
+  }
+  return returnValue;
+ }
 
 }

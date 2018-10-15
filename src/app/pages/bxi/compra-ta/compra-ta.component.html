@@ -106,7 +106,7 @@
                                 <input disabled="disabled" [matKeyboard]="'num'" maxlength="50" formControlName="telefono" id="telefono" name="telefono" type="text" class="input-whidth form-control amount input-lg" />
                                 <div class="alert alert-danger" *ngIf="(forma.get('telefono').errors  && forma.get('telefono').touched)">
                                     <p *ngIf="forma.get('telefono').hasError('required') " style="margin-bottom: 0rem !important;">Dato obligatorio, favor de capturar. </p>
-                                    <p *ngIf="forma.get('telefono').hasError('pattern')" style="margin-bottom: 0rem !important;">Dato incorrecto, favor de verificar. </p>
+                                    <p *ngIf="forma.get('telefono').hasError('minlength') || forma.get('telefono').hasError('maxlength') || forma.get('telefono').hasError('pattern')" style="margin-bottom: 0rem !important;">Los datos proporcionados son incorrectos, favor de verificar.</p>
                                 </div>
 
                             </div>

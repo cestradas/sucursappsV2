@@ -99,11 +99,9 @@ export class ImpresionEdcComponent implements OnInit {
   SaldoOrigen: number;
 
   constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2, private currencyPipe: CurrencyPipe) {
-
-
-    setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
-
-
+    setTimeout(() => {
+      $('#_modal_please_wait').modal('hide');
+    }, 1000);
    }
 
 
@@ -199,6 +197,7 @@ export class ImpresionEdcComponent implements OnInit {
       } else {
         this_aux.service.opcionEDCSel = '2';
       }
+      
     this_aux.setDatosCuentaSeleccionada(event.target); });
     this.renderer.appendChild(a, textoCuenta),
     this.renderer.appendChild(li, a);
@@ -239,7 +238,6 @@ setDatosCuentaSeleccionada(elementHTML) {
   }
 
   getSaldoDeCuenta(numCuenta_seleccionada) {
-
     // console.log(numCuenta_seleccionada.length);
   if (numCuenta_seleccionada.length === 16) {
        this.getSaldoTDC(numCuenta_seleccionada);
@@ -324,7 +322,7 @@ setDatosCuentaSeleccionada(elementHTML) {
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     operacionesbxi.mantenimientoCancelacionEDC(opcion, '', cuenta).then(
       function(response) {
-        setTimeout(function() {
+        
           const detalleMant = response.responseJSON;
           let btnCancelarEnvio = document.getElementById('cancelarEnvioDomicilio');
           if(detalleMant.Id === "1") {
@@ -333,15 +331,10 @@ setDatosCuentaSeleccionada(elementHTML) {
             } else {
               btnCancelarEnvio.style.display = 'none';
             }
-            $("#_modal_please_wait").modal("hide");
-          } else {
             setTimeout(function() {
               $("#_modal_please_wait").modal("hide");
-              this_aux.showErrorSucces(detalleMant);
             }, 500);
-            btnCancelarEnvio.style.display = 'none';
           }
-       }, 3000);
       },
         function(error) {
           $('#_modal_please_wait').modal('hide');
@@ -352,32 +345,17 @@ setDatosCuentaSeleccionada(elementHTML) {
 
   mantenimientoEDC(opcion, cuenta) {
 
-
-    $('#_modal_please_wait').modal('show');
-
     const this_aux =  this;
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
 
      operacionesbxi.mantEDC(this_aux.service.numCuentaTranPropBanorte).then(
      // operacionesbxi.mantEDC("0100000034").then(
       function(response) {
-
-        setTimeout(function() {
-          const detalleMant = response.responseJSON;
-          // console.log(response.responseText);
-          if (detalleMant.Id === '1') {
-            this_aux.obtenerListaDocs(opcion, cuenta, this_aux.service.tipoCuentaEDCSel);
-          } else {
-            setTimeout(function() {
-              $("#_modal_please_wait").modal("hide");
-              this_aux.showErrorSucces(detalleMant);
-            }, 500);
-          }
-       }, 3000);
+        this_aux.obtenerListaDocs(opcion, cuenta, this_aux.service.tipoCuentaEDCSel);
       },
         function(error) {
           console.error("Error");
-          $('#errorModal').modal('show');
+          this_aux.obtenerListaDocs(opcion, cuenta, this_aux.service.tipoCuentaEDCSel);
         });
   }
 
@@ -385,8 +363,7 @@ setDatosCuentaSeleccionada(elementHTML) {
   obtenerListaDocs(opcion, cuenta, tipoCuenta) {
     const this_aux =  this;
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
-    $('#_modal_please_wait').modal('show');
-
+    this_aux.bloquearBoton = '0';
      operacionesbxi.getListaDocumentos(this_aux.service.numCuentaTranPropBanorte, tipoCuenta).then(
      //operacionesbxi.getListaDocumentos("201536140" , tipoCuenta).then(
     //operacionesbxi.getListaDocumentos("600092267", tipoCuenta).then(
@@ -394,13 +371,18 @@ setDatosCuentaSeleccionada(elementHTML) {
 
         // console.log(response.responseText);
         let res = response.responseJSON;
+        $("#calendario").empty();
+        $("#calendario2").empty();
+        let flechaCalI = document.getElementById("flechasEDCI");
+        let flechaCalD = document.getElementById("flechasEDCD");        
+        document.getElementById("flechasEDCD").style.display = 'none';
+        document.getElementById("flechasEDCI").style.display = 'none';
 
         if ( res[0].Id === "1" ) {
           if (res[0].EstadoLista === "OK") {
-            this_aux.consultaCancelacionEDCDomicilio(opcion, cuenta);
+           
 
 
-            setTimeout(function() {
 
               // console.log(res);
 
@@ -422,18 +404,25 @@ setDatosCuentaSeleccionada(elementHTML) {
                     let strA = temp[k];
 
                     let strM = temp[k + 1];
-                    if ( strM === "01") {strM = "Enero"; }
-                    if ( strM === "02") {strM = "Febrero"; }
-                    if ( strM === "03") {strM = "Marzo"; }
-                    if ( strM === "04") {strM = "Abril"; }
-                    if ( strM === "05") {strM = "Mayo"; }
-                    if ( strM === "06") {strM = "Junio"; }
-                    if ( strM === "07") {strM = "Julio"; }
-                    if ( strM === "08") {strM = "Agosto"; }
-                    if ( strM === "09") {strM = "Septiembre"; }
-                    if ( strM === "10") {strM = "Octubre"; }
-                    if ( strM === "11") {strM = "Noviembre"; }
-                    if ( strM === "12") {strM = "Diciembre"; }
+                    if (opcion === "2") {
+                      if (strM === "01") {
+                        strM = 12;
+                      } else {
+                        strM = strM - 1;
+                      }
+                    }
+                    if ( strM === "01" || strM === 1) {strM = "Enero"; }
+                    if ( strM === "02" || strM === 2) {strM = "Febrero"; }
+                    if ( strM === "03" || strM === 3) {strM = "Marzo"; }
+                    if ( strM === "04" || strM === 4) {strM = "Abril"; }
+                    if ( strM === "05" || strM === 5) {strM = "Mayo"; }
+                    if ( strM === "06" || strM === 6) {strM = "Junio"; }
+                    if ( strM === "07" || strM === 7) {strM = "Julio"; }
+                    if ( strM === "08" || strM === 8) {strM = "Agosto"; }
+                    if ( strM === "09" || strM === 9 ) {strM = "Septiembre"; }
+                    if ( strM === "10" || strM === 10) {strM = "Octubre"; }
+                    if ( strM === "11" || strM === 11) {strM = "Noviembre"; }
+                    if ( strM === "12" || strM === 12) {strM = "Diciembre"; }
 
                     let strD = temp[k + 2];
 
@@ -456,8 +445,8 @@ setDatosCuentaSeleccionada(elementHTML) {
 
              }
              // remover todos hijos del contenedor de los calendarios antes de insertar
-             $("#calendario").empty();
-             $("#calendario2").empty();
+            // $("#calendario").empty();
+            // $("#calendario2").empty();
 
 
              let cont = 0;
@@ -467,14 +456,18 @@ setDatosCuentaSeleccionada(elementHTML) {
              let objCalendario2 = document.getElementById('calendario2');
 
              if ( res.length <= 6 ) {
-               $('#calendario2').remove();
+              // $('#calendario2').remove();
             } else {
                   // mostrar flechas
                   let flechaCalI = document.getElementById("flechasEDCI");
                   flechaCalI.setAttribute('style', 'opacity: .5; margin-top: 278px;');
                   let flechaCalD = document.getElementById("flechasEDCD");
                   flechaCalD.setAttribute('style', 'opacity: .5; margin-top: 278px;');
+                  document.getElementById("flechasEDCD").style.display = 'flex';
+                  document.getElementById("flechasEDCI").style.display = 'flex';
             }
+            
+            
              // let domString = '<div class="container"><span class="intro">Hello</span> <span id="name"> World!</span></div>';
 
              // validar que existan **********
@@ -867,6 +860,9 @@ setDatosCuentaSeleccionada(elementHTML) {
                // objTo.appendChild(this_aux.calendario.nativeElement);
 
                   contFechas --;
+                  if (contFechas < 0) {
+                    break;
+                  }
               }
 
               cont ++;
@@ -1171,26 +1167,33 @@ setDatosCuentaSeleccionada(elementHTML) {
               });
             }
 
-
-
-           // console.log(this_aux.obj['fechas']);
-              }, 500);
-          }  else {
-            document.getElementById('mnsError').innerHTML = res[0].MensajeAUsuario;
-            $("#errorModal").modal("show");
+          setTimeout(() => {
+            this_aux.consultaCancelacionEDCDomicilio(opcion, cuenta);
+          }, 500);
+          }  else {            
+            setTimeout(() => {
+              document.getElementById('mnsError').innerHTML = res[0].MensajeAUsuario;
+              $('#_modal_please_wait').modal('hide');
+              $("#errorModal").modal("show");
+            }, 500);
+            
           }
 
         } else {
-          this_aux.showErrorSucces(res);
+          setTimeout(() => {
+            $('#_modal_please_wait').modal('hide');
+            this_aux.showErrorSucces(res);
+          }, 500);
         }
 
-          $('#_modal_please_wait').modal('hide');
+          
    }, function(error) {
 
           console.error("Error");
 
-       $('#_modal_please_wait').modal('hide');
-          $('#errorModal').modal('show');
+          setTimeout(() => {$('#_modal_please_wait').modal('hide');
+          $('#errorModal').modal('show');}, 500);
+          
 
 
         });
@@ -1835,8 +1838,8 @@ setDatosCuentaSeleccionada(elementHTML) {
     const operacionesbxi: OperacionesBXI = new OperacionesBXI();
     const autenticacion: Autenticacion = new Autenticacion();
 
-
-
+    let nombreDocSel = new Date(this_aux.fechaCorteDoc).getUTCDate();
+console.log("FORMATO DOC" + nombreDocSel )
 
     if (id ===  '1') {
       // Envio por correo
@@ -1887,10 +1890,9 @@ setDatosCuentaSeleccionada(elementHTML) {
                     $('#infoPrinter').modal('show');
 
                   }
-                  $('#_modal_please_wait').modal('hide');
                   setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
 
-              }else {
+              } else {
                 this_aux.showErrorSucces(documento);
                 setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
              }
@@ -1916,45 +1918,60 @@ setDatosCuentaSeleccionada(elementHTML) {
  showErrorPromise(error) {
   // console.log(error);
   // tslint:disable-next-line:max-line-length
-  document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar mas tarde";
-  $('#_modal_please_wait').modal('hide');
-  $('#errorModal').modal('show');
+  setTimeout(() => {
+    document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar mas tarde";
+    $('#_modal_please_wait').modal('hide');
+    $('#errorModal').modal('show');  
+  }, 500);
+  
 }
 
 showErrorPromiseMoney(json) {
   // console.log(json.Id + json.MensajeAUsuario);
-  document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tus datos.";
-  $('#_modal_please_wait').modal('hide');
-  $('#ModalErrorTransaccion').modal('show');
+  setTimeout(() => {
+    document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tus datos.";
+    $('#_modal_please_wait').modal('hide');
+    $('#ModalErrorTransaccion').modal('show');  
+  }, 500);
+  
 }
 
 
 showErrorSucces(json) {
   console.log(json.Id + json.MensajeAUsuario);
-  if (json.Id === "2") {
-    document.getElementById("mnsError").innerHTML =
-      "El servicio no esta disponible, favor de intentar mas tarde";
-  } else {
-    this.validaErr(json);
-  }
-  $('#_modal_please_wait').modal('hide');
-  $("#errorModal").modal("show");
+  setTimeout(() => {
+    if (json.Id === "2") {
+      document.getElementById("mnsError").innerHTML =
+        "El servicio no esta disponible, favor de intentar mas tarde";
+    } else {
+      this.validaErr(json);
+    }
+    $('#_modal_please_wait').modal('hide');
+    $("#errorModal").modal("show");  
+  }, 500);
+  
 }
 
 validaErr(json) {
-  if(json.Id === "0") {
-    document.getElementById("mnsError").innerHTML = json.MensajeAUsuario;
 
-  }
-  else if (json[0].Id === "2") {
-    document.getElementById("mnsError").innerHTML = //json[0].ErrorMsg;
-      "El servicio no esta disponible, favor de intentar mas tarde";
-  } else {
-    document.getElementById("mnsError").innerHTML =
-      "El servicio no esta disponible, favor de intentar mas tarde";
-  }
-  $('#_modal_please_wait').modal('hide');
-  $("#errorModal").modal("show");
+  setTimeout(() => {
+     if(json.Id === "0") {
+      if (json.MensajeAUsuario === "No existe documento") {
+        document.getElementById("mnsError").innerHTML = "No se encontró el archivo " + + " en el repositorio, favor de reportar el problema a un ejecutivo.";
+      } else {
+        document.getElementById("mnsError").innerHTML = json.MensajeAUsuario;
+      }   
+  
+    }
+    else if (json[0].Id === "2") {
+      document.getElementById("mnsError").innerHTML = "El servicio no esta disponible, favor de intentar mas tarde";
+    } else {
+      document.getElementById("mnsError").innerHTML =
+        "El servicio no esta disponible, favor de intentar mas tarde";
+    }
+    $('#_modal_please_wait').modal('hide');
+  }, 500);
+  
 }
 
 cancelarEnvio() {

@@ -15,15 +15,10 @@ declare var $: $;
 })
 export class MenuBxiComponent implements OnInit {
   @ViewChild('rIframe') riframe: ElementRef;
-  responseCampania: any;
-  stringUrl: string;
-  sicCifrado: string;
-  idSucursal: string;
   numeroCuentaTitular: string;
   contenido: any;
-  urlPropertyJson: any;
   urlPropertyHtm: any;
-  sesionBrowser: any;
+  urlFrontCampania: any;
 
   constructor(private service: SesionBxiService, private renderer: Renderer2,  private router: Router, private http: Http ) { }
 
@@ -33,7 +28,6 @@ export class MenuBxiComponent implements OnInit {
     this.setNombreUsuario();    
       if (sessionStorage.getItem("campania") === null) {
         sessionStorage.setItem("campania", "activa");
-        this.getidSesion(); 
       } 
       if (sessionStorage.getItem("campania") === "activa") {
         this.encriptarSic();
@@ -290,62 +284,24 @@ export class MenuBxiComponent implements OnInit {
     }
 }
 
-getidSesion() {
+cargarcampanias(respuesta) {
   const this_aux = this;
-  const resourceRequest = new WLResourceRequest(
-      'adapters/AdapterBanorteSucursAppsBEL/resource/getSessionId',
-      WLResourceRequest.POST);
-  resourceRequest.setTimeout(30000);
-  resourceRequest.send().then(
-      function(response) {
-           this_aux.sesionBrowser = response.responseText;
-          // console.log(this_aux.sesionBrowser);
-          console.log("El servcio de id sesion respondio correctamente");
-          // console.log("SIC BEL: " + this_aux.service.infoUsuarioSIC);
-          sessionStorage.setItem("idSesion", this_aux.sesionBrowser);  
-          this_aux.encriptarSic();   
-      },
-      function(error) {
-          console.error("Ocurrio un error con el servcio de id sesion");
-      });
+
+  if (respuesta !== "false") {
+    let cadena = respuesta;
+    let val1 = cadena.indexOf(",");
+    let val2 = cadena.indexOf(",", val1 + 1);
+    let ancho = cadena.substring(val1 + 1, val2);
+    let alto = cadena.substring(val2 + 1);
+
+   document.getElementById("frameCampania").setAttribute("src", this_aux.urlFrontCampania);
+   document.getElementById("frameCampania").style.height = "100%";
+   document.getElementById("divLargo").style.maxWidth = ancho.toString() + "px";
+   document.getElementById("divAltura").style.maxHeight = alto.toString() + "px";
+   document.getElementById("divAltura").style.height = alto.toString() + "px";
+   $("#campaniaModal").modal("show");   
+   this_aux.clickCamp();
 }
-
-cargarcampanias() {
-  const this_aux = this;
-  let params: URLSearchParams = new URLSearchParams();
-  params.set("param1", decodeURIComponent(this_aux.sicCifrado));
-  params.set("param2", "SUCA");
-  params.set("sesion", sessionStorage.getItem("idSesion"));
-  params.set("param3", this_aux.idSucursal);
-
-  // Http request-
-  // this_aux.stringUrl = this_aux.urlProperty + "/ade-front/existeEvento.json?param1=cGP7ZYTkSjuaCtabUn%2BA2Q%3D%3D";
- //  this_aux.stringUrl = this_aux.urlProperty + "/ade-front/existeEvento.json";
-  // this_aux.urlProperty + "/ade-front/existeEvento.json";
-     
-  this.http
-    .get(this_aux.urlPropertyJson, {
-      search: params
-    })
-    .subscribe(response => (this_aux.responseCampania = response));
-   if (this_aux.responseCampania._body !== "false") {
-      let cadena = this_aux.responseCampania._body;
-      let val1 = cadena.indexOf(",");
-      let val2 = cadena.indexOf(",", val1 + 1);
-      let ancho = cadena.substring(val1 + 1, val2);
-      let alto = cadena.substring(val2 + 1);
-
-     document.getElementById("frameCampania").setAttribute("src", 
-     this_aux.urlPropertyHtm + "?param1=" + this_aux.sicCifrado + 
-    // this_aux.urlProperty + "/ade-front/ade.htm?param1=" + this_aux.sicCifrado + 
-    "&param2=SUCA&sesion=" + sessionStorage.getItem("idSesion") + "&param3=" + this_aux.idSucursal);
-     document.getElementById("frameCampania").style.height = "100%";
-     document.getElementById("divLargo").style.maxWidth = ancho.toString() + "px";
-     document.getElementById("divAltura").style.maxHeight = alto.toString() + "px";
-     document.getElementById("divAltura").style.height = alto.toString() + "px";
-     $("#campaniaModal").modal("show");   
-     this_aux.clickCamp();
-  }
 }
 
 encriptarSic() {
@@ -359,7 +315,7 @@ encriptarSic() {
   };
 
   const resourceRequest = new WLResourceRequest(
-     'adapters/AdapterBanorteSucursApps2/resource/encriptarSic',
+     'adapters/AdapterBanorteSucursAppsBEL2/resource/encriptarSic',
     WLResourceRequest.POST
   );
   resourceRequest.setTimeout(30000);
@@ -367,11 +323,9 @@ encriptarSic() {
     function(response) {
       let DatosJSON = response.responseJSON;
       if (DatosJSON.Id === "1") {
-          this_aux.sicCifrado = DatosJSON.SicEncriptado;
-          this_aux.idSucursal = DatosJSON.idSucursal;
-          this_aux.urlPropertyJson = DatosJSON.urlCampania;
             this_aux.urlPropertyHtm = DatosJSON.urlCampaniaHtm;
-          this_aux.cargarcampanias();
+            this_aux.urlFrontCampania = DatosJSON.urlCampaniaFront;
+          this_aux.cargarcampanias(DatosJSON.respuesta);
       } else {
           console.log("Ocurrio un error al encriptar sic");
       }

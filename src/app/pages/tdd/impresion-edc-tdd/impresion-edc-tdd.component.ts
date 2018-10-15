@@ -95,11 +95,12 @@ export class ImpresionEdcTddComponent implements OnInit {
   constructor(private router: Router, private renderer: Renderer2, private _service: ConsultaSaldosTddService,
     private serviceTdd: ResponseWS) {
     const this_aux = this;
+   // $('div').removeClass('modal-backdrop');
+    $('#_modal_please_wait').modal('show');
     setTimeout(function() {
-      $('div').removeClass('modal-backdrop');
+      
     }, 500);
     this._service.cargarSaldosTDD();
-    $('#_modal_please_wait').modal('show');
     this._service.validarDatosSaldoTdd().then(
       mensaje => {
         const operaciones: consultaCatalogos = new consultaCatalogos();
@@ -114,7 +115,6 @@ export class ImpresionEdcTddComponent implements OnInit {
         }, 2000);
       }
     );
-    setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
   }
 
   ngOnInit() {
@@ -159,7 +159,6 @@ export class ImpresionEdcTddComponent implements OnInit {
 
   mantenimientoEDC() {
     const this_aux = this;
-    $('#_modal_please_wait').modal('show');
     console.log("adentro de mantenimiento EDC");
     const formParameters = {
        ctaO: this_aux.numeroCuentaTitular
@@ -174,27 +173,18 @@ export class ImpresionEdcTddComponent implements OnInit {
     resourceRequest.sendFormParameters(formParameters).then(
       function(response) {
           // console.log(response.responseText);
-          const detalleMant = response.responseJSON;
-          if (detalleMant.Id === '1') {
-            this_aux.obtenerListaDocs();
-          } else {
-            setTimeout(function() {
-              $("#_modal_please_wait").modal("hide");
-              this_aux.showErrorSucces(detalleMant);
-            }, 500);
-          }    
-          $('#_modal_please_wait').modal('hide');
+          this_aux.obtenerListaDocs(); 
       },
         function(error) {
           console.error("Error");
-        $('#_modal_please_wait').modal('hide');
+          $("#_modal_please_wait").modal("hide");
         this_aux.showErrorPromise(error);
+        this_aux.obtenerListaDocs();
         });
   }
 
   obtenerListaDocs() {
     const this_aux = this;
-    $('#_modal_please_wait').modal('show');
     console.log("adentro de obtener Lista Docs");
     const formParameters = {
       documeto: this_aux.numeroCuentaTitular
@@ -213,9 +203,6 @@ export class ImpresionEdcTddComponent implements OnInit {
         let res = response.responseJSON;
         if ( res[0].Id === "1" ) {
           if (res[0].EstadoLista === "OK") {
-            this_aux.consultaCancelacionEDCDomicilio('1');
-
-
             setTimeout(function() {
 
               // console.log(res);
@@ -683,6 +670,9 @@ export class ImpresionEdcTddComponent implements OnInit {
                // objTo.appendChild(this_aux.calendario.nativeElement);
     
                   contFechas --;
+                  if (contFechas < 0) {
+                    break;
+                  }
               }
     
               cont ++;
@@ -990,26 +980,25 @@ export class ImpresionEdcTddComponent implements OnInit {
     
            // console.log(this_aux.obj['fechas']);
               }, 500);
+              setTimeout(() => {
+                this_aux.consultaCancelacionEDCDomicilio('1');
+              }, 500);
           } else {
             document.getElementById('mnsError').innerHTML = res[0].MensajeAUsuario;
+            setTimeout(() => $('#_modal_please_wait').modal('hide'), 500);
             $("#errorModal").modal("show");
           }
         } else{
           setTimeout(function(){
-            $('#_modal_please_wait').modal('hide');
             this_aux.showErrorSucces2(res);
             },500);
         }
-        $('#_modal_please_wait').modal('hide');
    }, function(error) {
-
           console.error("Error");
           setTimeout(function() {
             $("#_modal_please_wait").modal("hide");
             this_aux.showErrorPromise(error);
           }, 500);
-
-
         });
   }
 
@@ -1655,11 +1644,10 @@ operacion(id) {
     this_aux.serviceTdd.fechaCorte = this_aux .fechaCorteDoc;
     this_aux.serviceTdd.numDoc = this_aux .numDocumento;
     this_aux.serviceTdd.idOpe = id;
-      $('#_modal_please_wait').modal('show');
     this_aux.router.navigate(['/impresion-edc-final']);
   } else {
+    $("#_modal_please_wait").modal("show");
     // Imprimir
-    $('#_modal_please_wait').modal('show');
     if ( this_aux .cal_Click_0 === 1 || this_aux.cal_Click_1 === 1 || this_aux.cal_Click_2 === 1 ||
       this_aux.cal_Click_3 === 1 || this_aux.cal_Click_4 === 1 || this_aux.cal_Click_5 === 1 ||
       this_aux.cal_Click_6 === 1 || this_aux.cal_Click_7 === 1 || this_aux.cal_Click_8 === 1 ||
@@ -1684,7 +1672,6 @@ operacion(id) {
             function(response) {
               // console.log(response.responseText);
               const documento = response.responseJSON;
-              $('#_modal_please_wait').modal('show');
 
               if ( documento.Id === '1') {
                   if ( documento.PDF !== undefined) {
@@ -1695,10 +1682,9 @@ operacion(id) {
                     // this.doc_1 = documento.PDF;
                     this_aux.nombreDocumento = documento.NombreDoc;
                     this_aux.serviceTdd.validaMail = "0";
+                    $("#_modal_please_wait").modal("hide");
                     $('#infoPrinter').modal('show');
                   }
-                  $('#_modal_please_wait').modal('hide');
-                  setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);
 
               } else {
                 setTimeout(function() {
@@ -1740,7 +1726,6 @@ consultaCancelacionEDCDomicilio(opcion) {
       resourceRequest.setTimeout(30000);
       resourceRequest.sendFormParameters(formParameters).then(
         function(response) {
-          setTimeout(function() {
             const detalleMant = response.responseJSON;
             let btnCancelarEnvio = document.getElementById('cancelarEnvioDomicilio');
             if (detalleMant.Id === "1") {
@@ -1749,14 +1734,8 @@ consultaCancelacionEDCDomicilio(opcion) {
               } else {
                 btnCancelarEnvio.style.display = 'none';
               }
-            } else {
-              setTimeout(function() {
-                $("#_modal_please_wait").modal("hide");
-                this_aux.showErrorSucces(detalleMant);
-              }, 500);
             }  
-            $("#_modal_please_wait").modal("hide");          
-         }, 3000);
+            $("#_modal_please_wait").modal("hide");       
         },
           function(error) {
             console.error("Error");
@@ -1768,43 +1747,82 @@ consultaCancelacionEDCDomicilio(opcion) {
 showErrorPromise(error) {
   // console.log(error);
   // tslint:disable-next-line:max-line-length
-  document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar mas tarde";
-  $('#_modal_please_wait').modal('hide');
-  $('#errorModal').modal('show');
+  
+  setTimeout(() =>{
+    document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar mas tarde";
+     $('#_modal_please_wait').modal('hide');
+     $('#errorModal').modal('show');
+}, 500);
+ 
 }
 
 showErrorPromiseMoney(json) {
   // console.log(json.Id + json.MensajeAUsuario);
-  document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tus datos.";
-  $('#_modal_please_wait').modal('hide');
-  $('#ModalErrorTransaccion').modal('show');
+ 
+  setTimeout(() =>{ 
+    document.getElementById('msgError').innerHTML =   "No fue posible confirmar la operación. Por favor verifica tus datos.";
+    $('#_modal_please_wait').modal('hide');
+    $('#ModalErrorTransaccion').modal('show');
+}, 500);
+  
 }
 
 showErrorSucces(json) {
   // console.log(json.Id + json.MensajeAUsuario);
-  if (json.Id === "2") {
-    document.getElementById("mnsError").innerHTML =
-      "El servicio no esta disponible, favor de intentar mas tarde";
-  } else {
-    if (json.MensajeAUsuario !== null || json.MensajeAUsuario !== undefined) {
-      document.getElementById("mnsError").innerHTML = json.MensajeAUsuario;
+  
+  setTimeout(() =>{
+    if (json.Id === "2") {
+      document.getElementById("mnsError").innerHTML =
+        "El servicio no esta disponible, favor de intentar mas tarde";
     } else {
-      document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar mas tarde";
+      if (json.MensajeAUsuario !== null || json.MensajeAUsuario !== undefined) {
+        document.getElementById("mnsError").innerHTML = json.MensajeAUsuario;
+      } else {
+        this.validaErr(json);
+      }
+      
     }
-    
-  }
-  $('#_modal_please_wait').modal('hide');
-  $("#errorModal").modal("show");
+    $('#_modal_please_wait').modal('hide')
+    $("#errorModal").modal("show");
+  } , 500);
+  
+}
+
+validaErr(json) {
+
+  setTimeout(() => {
+     if(json.Id === "0") {
+      if (json.MensajeAUsuario === "No existe documento") {
+        document.getElementById("mnsError").innerHTML = "No se encontró el archivo " + + " en el repositorio, favor de reportar el problema a un ejecutivo.";
+      } else {
+        document.getElementById("mnsError").innerHTML = json.MensajeAUsuario;
+      }   
+  
+    }
+    else if (json[0].Id === "2") {
+      document.getElementById("mnsError").innerHTML = "El servicio no esta disponible, favor de intentar mas tarde";
+    } else {
+      document.getElementById("mnsError").innerHTML =
+        "El servicio no esta disponible, favor de intentar mas tarde";
+    }
+    $('#_modal_please_wait').modal('hide');
+  }, 500);
+  
 }
 
 showErrorSucces2(json) {
 
-  console.log(json.Id + json.MensajeAUsuario);
-  if (json[0].Id === '2') {
-    document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar más tarde';
-  } else {
-    document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
-  }
-  $('#errorModal').modal('show');
+ 
+  setTimeout(() => {
+    console.log(json.Id + json.MensajeAUsuario);
+    if (json[0].Id === '2') {
+      document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar más tarde';
+    } else {
+      document.getElementById('mnsError').innerHTML =   json.MensajeAUsuario;
+    }
+    $('#_modal_please_wait').modal('hide');
+    $('#errorModal').modal('show');
+  }, 500);
+  
 }
 }

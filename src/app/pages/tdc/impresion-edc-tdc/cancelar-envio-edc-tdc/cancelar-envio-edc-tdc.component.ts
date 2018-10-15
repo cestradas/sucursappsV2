@@ -57,14 +57,12 @@ export class CancelarEnvioEdcTdcComponent implements OnInit {
         if (jsonRespuesta.Id === '1') {
           if (jsonRespuesta.Email === '') {
             $('#registraCorreo').modal('show');
-            btnContinuar.style.display = 'none';
           } else {
             this_aux.serviceTdd.email = jsonRespuesta.Email;
           }
         } else {
           this_aux.showErrorSucces(jsonRespuesta);
           setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
-          btnContinuar.style.display = 'none';
           console.log("No hay Datos");
         }
 
@@ -72,7 +70,6 @@ export class CancelarEnvioEdcTdcComponent implements OnInit {
       }, function(error) { 
         this_aux.showErrorPromise(error); 
         setTimeout(() => $('#_modal_please_wait').modal('hide'), 1000);
-        btnContinuar.style.display = 'none';
         $('#_modal_please_wait').modal('hide');
       });
   }

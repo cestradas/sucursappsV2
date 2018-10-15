@@ -65,7 +65,18 @@ export class CompraTiempoAireFinalComponent implements OnInit {
 
   convertTime (hora) {
     const d = new Date(hora);
-    const time = d.getHours() + ':' + d.getMinutes(); // + ':' + d.getMilliseconds();
+    let numHora = d.getHours();
+    let formatHora = numHora.toString();
+    let numMinuto = d.getMinutes();
+    let formatMinuto = numMinuto.toString();
+
+    if (formatMinuto.length === 1) {
+      formatMinuto = '0' + formatMinuto;
+    }
+    if (formatHora.length === 1) {
+      formatHora = '0' + formatHora;
+    }
+    const time = formatHora + ':' + formatMinuto; // + ':' + d.getMilliseconds();
     return time;
   }
 

@@ -46,13 +46,15 @@ export class ValidaNipTransaccion {
    if (tr2_serv != null) {
     clearInterval(myTime); 
     // tslint:disable-next-line:max-line-length
-    if (descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card") {
+    if ((descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card"  || descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin") && (tr2_serv === null)) {
         $('#ModalTDDLogin').modal('hide');
        // console.log("Pinpad Trans respondio con " + this.respuestaTrjeta);
        clearInterval(THIS.intervalo);
        // tslint:disable-next-line:max-line-length
        if (descripcion === "ATR error or NO smart card") {
         document.getElementById('mnsError').innerHTML = "Tarjeta no detectada.";
+       } else if (descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin") {
+        document.getElementById('mnsError').innerHTML = "Plástico no válido, por favor verifica que sea un plástico Banorte.";
        } else {
         document.getElementById('mnsError').innerHTML = descripcion;
        }
@@ -83,6 +85,7 @@ export class ValidaNipTransaccion {
                             // console.log("Respuesta desde el Service RES: " , THIS.respuestaNip.res);
                            } else {
                             THIS.respuestaNip.res = response.responseJSON;
+                            $('#ModalTDDLogin').modal('hide');
                             // tslint:disable-next-line:max-line-length                            
                            }
    
@@ -92,6 +95,7 @@ export class ValidaNipTransaccion {
                     function(error) {
                         document.getElementById('mnsError').innerHTML = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
                             $('#errorModal').modal('show');
+                            $('#ModalTDDLogin').modal('hide');
                         // console.log(error.responseText);
    
                     });

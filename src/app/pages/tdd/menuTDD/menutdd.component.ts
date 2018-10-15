@@ -22,15 +22,10 @@ export class MenutddComponent implements OnInit {
 
   @ViewChild('rIframe') riframe: ElementRef;
   loadingM: boolean;
-  responseCampania: any;
-  stringUrl: string;
-  sicCifrado: string;
-  idSucursal: string;
   numeroCuentaTitular: string;
   contenido: any;
-  urlPropertyJson: any;
   urlPropertyHtm: any;
-  sesionBrowser: any;
+  urlFrontCampania: any;
   AlertasActivas = false;
   ArrayAlertasCliente: Array<any> = [];
   Prieba: boolean;
@@ -41,10 +36,9 @@ export class MenutddComponent implements OnInit {
     }
 
   ngOnInit() {
-    // $('div').removeClass('modal-backdrop');
-    if (sessionStorage.getItem("campania") === null)      {
+    $('#ModalTDDLogin').modal('hide');
+    if (sessionStorage.getItem("campania") === null) {
       sessionStorage.setItem("campania", "activa");
-      this.getidSesion(); 
     } 
     if (sessionStorage.getItem("campania") === "activa") {
       this.encriptarSic();
@@ -276,47 +270,29 @@ export class MenutddComponent implements OnInit {
 
   }
 
-  cargarcampanias() {
+  cargarcampanias(respuesta) {
     const this_aux = this;
-    let params: URLSearchParams = new URLSearchParams();
-    params.set("param1", decodeURIComponent(this_aux.sicCifrado));
-    params.set("param2", "SUCA");
-    params.set("sesion", sessionStorage.getItem("idSesion"));
-    params.set("param3", this_aux.idSucursal);
-  
-    // Http request-
-    // this_aux.stringUrl = this_aux.urlPropertyJson + "/ade-front/existeEvento.json";
-    // this_aux.stringUrl = this_aux.urlProperty + "/ExisteEvento";
-       
-    this.http
-      .get(this_aux.urlPropertyJson, {
-        search: params
-      })
-      .subscribe(response => (this_aux.responseCampania = response));
-     if (this_aux.responseCampania._body !== "false") {
-        let cadena = this_aux.responseCampania._body;
-        let val1 = cadena.indexOf(",");
-        let val2 = cadena.indexOf(",", val1 + 1);
-        let ancho = cadena.substring(val1 + 1, val2);
-        let alto = cadena.substring(val2 + 1);
-  
-       document.getElementById("frameCampania").setAttribute("src", 
-       this_aux.urlPropertyHtm + "?param1=" + this_aux.sicCifrado + 
-      "&param2=SUCA&sesion=" + sessionStorage.getItem("idSesion") + "&param3=" + this_aux.idSucursal);
-       document.getElementById("frameCampania").style.height = "100%";
-       document.getElementById("divLargo").style.maxWidth = ancho.toString() + "px";
-       document.getElementById("divAltura").style.maxHeight = alto.toString() + "px";
-       document.getElementById("divAltura").style.height = alto.toString() + "px";
-       $("#campaniaModal").modal("show");   
-       this_aux.clickCamp();
-    }
+    if (respuesta !== "false") {
+      let cadena = respuesta;
+      let val1 = cadena.indexOf(",");
+      let val2 = cadena.indexOf(",", val1 + 1);
+      let ancho = cadena.substring(val1 + 1, val2);
+      let alto = cadena.substring(val2 + 1);
+
+     document.getElementById("frameCampania").setAttribute("src", this_aux.urlFrontCampania);
+     document.getElementById("frameCampania").style.height = "100%";
+     document.getElementById("divLargo").style.maxWidth = ancho.toString() + "px";
+     document.getElementById("divAltura").style.maxHeight = alto.toString() + "px";
+     document.getElementById("divAltura").style.height = alto.toString() + "px";
+     $("#campaniaModal").modal("show");   
+     this_aux.clickCamp();
+  }
   }
 
   encriptarSic() {
 
     const this_aux = this;
     const THIS: any = this;
-   // console.log("adentro encriptar sic: " + this_aux._serviceSesion.datosBreadCroms.sicUsuarioTDD);
 
     const formParameters = {
         sic: this_aux._serviceSesion.datosBreadCroms.sicUsuarioTDD
@@ -331,11 +307,9 @@ export class MenutddComponent implements OnInit {
       function(response) {
         let DatosJSON = response.responseJSON;
         if (DatosJSON.Id === "1") {
-            this_aux.sicCifrado = DatosJSON.SicEncriptado;
-            this_aux.idSucursal = DatosJSON.idSucursal;
-            this_aux.urlPropertyJson = DatosJSON.urlCampania;
             this_aux.urlPropertyHtm = DatosJSON.urlCampaniaHtm;
-            this_aux.cargarcampanias();
+            this_aux.urlFrontCampania = DatosJSON.urlCampaniaFront;
+            this_aux.cargarcampanias(DatosJSON.respuesta);
         } else {
             console.log("Ocurrio un error al encriptar sic");
         }
@@ -347,14 +321,6 @@ export class MenutddComponent implements OnInit {
     );
     console.log("Salió de encriptar sic");
   }
-
-  getidSesion() {
-    const this_aux = this;
-    this_aux.sesionBrowser = this_aux.serviceTdd.sesionTdd;
-    // console.log(this_aux.sesionBrowser);
-    sessionStorage.setItem("idSesion", this_aux.sesionBrowser);  
-    this_aux.encriptarSic(); 
-}
 
 
  send(msg) {
