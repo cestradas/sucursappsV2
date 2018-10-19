@@ -875,7 +875,7 @@ crearListaBeneficiarios(data) {
   this_aux.renderer.addClass(li, 'text-li');
   const a = this.renderer.createElement('a');
   //const textoCuenta = this.renderer.createText( data.Alias);
-  const textoCuenta = this.renderer.createText( data.Alias );
+  const textoCuenta = this.renderer.createText( data.Alias + " - " + data.DescripcionTipoCuenta + " - " + data.DescripcionBanco);
   this.renderer.setProperty(a, 'value', data.NoCuenta);
   this. renderer.listen(a, 'click', (event) => { this_aux.setDatosCuentaBeneficiario(event.target); });
   this.renderer.appendChild(a, textoCuenta),
