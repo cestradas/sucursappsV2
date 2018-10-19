@@ -546,7 +546,8 @@ setCuentasBenficiarioXTipo() {
         const li =  this.renderer.createElement('li');
         this_aux.renderer.addClass(li, 'text-li');
         const a = this.renderer.createElement('a');
-        const textoCuenta = this.renderer.createText( auxcuenta.DescripcionTipoCuenta );
+        // tslint:disable-next-line:max-line-length
+        const textoCuenta = this.renderer.createText(  auxcuenta.DescripcionTipoCuenta + " - " + auxcuenta.NombreSinFormato + " - " + auxcuenta.DescripcionBanco );
         this.renderer.setProperty(a, 'value', auxcuenta.Alias + ','
                                             + auxcuenta.NoCuenta + ','
                                             + auxcuenta.ClaveBanco + ','

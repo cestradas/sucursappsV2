@@ -559,10 +559,9 @@ export class ImpresionEdcTddComponent implements OnInit {
                 && (this_aux.Valida_Seleccion_Calendario10 === 0)
                 && (this_aux.Valida_Seleccion_Calendario11 === 0)) {
                   this_aux.itemSeleccionado = 0;
-                  
+                  this_aux.clickCal4();
                 } else {
                   this_aux.itemSeleccionado = 1;
-                  this_aux.clickCal4();
                   if (this_aux.Valida_Seleccion_Calendario0 === 1) {
                     this_aux.clickCal0();
                   } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
