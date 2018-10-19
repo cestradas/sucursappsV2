@@ -197,6 +197,7 @@ export class BreadcrumbsComponent implements OnInit {
 
   eliminarVariables() {
     const this_aux = this;
+    localStorage.removeItem("fechaDocumentoSeleccionada");
     this_aux.serviceMantenimiento.detalleMantenimiento = undefined;
     this_aux.serviceMantenimiento.datosBeneficiarios = undefined;
     this_aux.serviceMantenimiento.datosTransferenciaSPEI = undefined;

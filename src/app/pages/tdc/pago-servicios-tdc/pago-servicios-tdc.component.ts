@@ -90,8 +90,7 @@ export class PagoServiciosTdcComponent implements OnInit {
       btnContinuar.classList.add("color-botones_Preferente");
     }
 
-    // this.getEmpresas();
-    // $( ".cdk-visually-hidden" ).css( "margin-top", "30%" );
+    $( ".cdk-visually-hidden" ).css( "margin-top", "30%" );
   }
 
 
@@ -325,8 +324,7 @@ consultaSaldosTarjetas() {
           this_aux.SaldoActual = detalleSaldos.SaldoActual;
           this_aux.NumeroTarjeta = detalleSaldos.NumeroTarjeta;
           this_aux.mascaraNumeroCuenta(this_aux.NumeroTarjeta);
-          this_aux.getEmpresas();
-           $( ".cdk-visually-hidden" ).css( "margin-top", "30%" );
+          this_aux.getEmpresas();           
           $('#_modal_please_wait').modal('hide');
 
         } else {

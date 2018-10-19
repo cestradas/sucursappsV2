@@ -42,6 +42,7 @@ let RFCFront = "";
 
 
 
+
 @Component({
   selector: 'app-transferencia-spei',
   templateUrl: './transferencia-spei.component.html',
@@ -106,7 +107,7 @@ export class TransferenciaSpeiComponent implements OnInit {
   fcTokenSp = "";
   fcTokenTef = "";
   fcTokenQuick = "";
-
+  validaExBancoa = 0;
 
   constructor(private _http: Http, private router: Router, public service: SesionBxiService, private renderer: Renderer2, private currencyPipe: CurrencyPipe) {
 
@@ -605,7 +606,7 @@ export class TransferenciaSpeiComponent implements OnInit {
             }, 500);
 
             break;
-          }
+    } 
 
 }
 
@@ -1154,9 +1155,13 @@ setCuentasBenficiarioXTipo() {
       //desactivaCtaDest.setAttribute('disabled','true');
 
       setTimeout(() => $('#_modal_please_wait').modal('hide'), 5000);
-
-       // Consulta bancos
+      this_aux.validaExBancoa++;
+      // Consulta bancos
+      if (this_aux.validaExBancoa === 1){
+       
        this_aux.consultaTablaCorpBancosService();
+      }
+      
 
       document.getElementById('tranTEF').style.display = 'none';
       document.getElementById('tranSPEI').style.display = 'none';
@@ -1469,7 +1474,6 @@ validaDatosBen() {
 
       case '1':  // SPEI
 
-      //this_aux.consultaTablaCorpBancosService();
       $('#_modal_please_wait').modal('show');
 
       autenticacion.autenticaUsuario(token, this_aux.service.metodoAutenticaMayor).then(
@@ -1525,7 +1529,6 @@ validaDatosBen() {
             break;
       case '2':  // TEF
 
-      this_aux.consultaTablaCorpBancosService();
       $('#_modal_please_wait').modal('show');
 
       autenticacion.autenticaUsuario(tokenTef, this_aux.service.metodoAutenticaMayor).then(

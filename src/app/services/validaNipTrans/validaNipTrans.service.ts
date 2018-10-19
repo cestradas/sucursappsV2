@@ -114,7 +114,7 @@ export class ValidaNipTransaccion {
                       clearInterval(THIS.intervalo);
                       $('#ModalTDDLogin').modal('hide');
                       $("#_modal_please_wait").modal("hide");
-                      document.getElementById('mnsError').innerHTML = "Tarjeta no detectada.";
+                      document.getElementById('mnsError').innerHTML = "Error al leer la tarjeta.";
                       $('#errorModal').modal('show');
                     }  
         } // }, 30000);

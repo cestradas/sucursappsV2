@@ -308,7 +308,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
                     '<div value ="'+this_aux.obj['fechas'][contFechas].FechaDoc + '"' + 'id="'+'ItemcalendarioDoc' + cont + '"' + ' class="row no-space">' +
                         '<div class="col-xs-6">' +
                             '<div class="bg-grey-600 white vertical-align height-200 fondo-calendar" >' +
-                                '<div class="vertical-align-middle">' +
+                            '<div id="'+'ItemFormatoFecha' + cont +'" class="vertical-align-middle" value="'+this_aux.obj['fechas'][contFechas].Dia + ' ' + this_aux.obj['fechas'][contFechas].Mes + ' ' + this_aux.obj['fechas'][contFechas].Anio +'">' +
                                     '<span class="icon-calendar size-icon-calendar" align="center" >' + this_aux.obj['fechas'][contFechas].Dia + '</span>' +
                                 '</div>' +
                             '</div>' +
@@ -371,7 +371,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
                       this_aux.clickCal0();
                     } else {
                       this_aux.itemSeleccionado = 1;
-                      this_aux.clickCal0();
+                      
                       if (this_aux.Valida_Seleccion_Calendario1 === 1) {
                         this_aux.clickCal1();
                       } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
@@ -395,6 +395,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
                       } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
                         this_aux.clickCal11();
                       }
+                      this_aux.clickCal0();
                     }
 
               });
@@ -419,7 +420,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
                       this_aux.clickCal1();
                     } else {
                       this_aux.itemSeleccionado = 1;
-                      this_aux.clickCal1();
+                      
                       if (this_aux.Valida_Seleccion_Calendario0 === 1) {
                         this_aux.clickCal0();
                       } else if (this_aux.Valida_Seleccion_Calendario2 === 1) {
@@ -443,6 +444,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
                       } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
                         this_aux.clickCal11();
                       }
+                      this_aux.clickCal1();
                     }
               });
             }
@@ -466,7 +468,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
                       this_aux.clickCal2();
                     } else {
                       this_aux.itemSeleccionado = 1;
-                      this_aux.clickCal2();
+                      
                       if (this_aux.Valida_Seleccion_Calendario0 === 1) {
                         this_aux.clickCal0();
                       } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
@@ -490,6 +492,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
                       } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
                         this_aux.clickCal11();
                       }
+                      this_aux.clickCal2();
                     }
               });
             }
@@ -513,7 +516,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
                   this_aux.clickCal3();
                 } else {
                   this_aux.itemSeleccionado = 1;
-                  this_aux.clickCal3();
+                  
                   if (this_aux.Valida_Seleccion_Calendario0 === 1) {
                     this_aux.clickCal0();
                   } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
@@ -537,6 +540,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
                   } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
                     this_aux.clickCal11();
                   }
+                  this_aux.clickCal3();
                 }
               });
             }
@@ -560,7 +564,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
                   this_aux.clickCal4();
                 } else {
                   this_aux.itemSeleccionado = 1;
-                  this_aux.clickCal4();
+                  
                   if (this_aux.Valida_Seleccion_Calendario0 === 1) {
                     this_aux.clickCal0();
                   } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
@@ -584,6 +588,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
                   } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
                     this_aux.clickCal11();
                   }
+                  this_aux.clickCal4();
                 }
               });
             }
@@ -607,7 +612,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
                   this_aux.clickCal5();
                 } else {
                   this_aux.itemSeleccionado = 1;
-                  this_aux.clickCal5();
+                  
                   if (this_aux.Valida_Seleccion_Calendario0 === 1) {
                     this_aux.clickCal0();
                   } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
@@ -631,6 +636,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
                   } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
                     this_aux.clickCal11();
                   }
+                  this_aux.clickCal5();
                 }
               });
             }
@@ -652,7 +658,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
                     '<div value ="'+this_aux.obj['fechas'][contFechas].FechaDoc + '"' + 'id="'+'ItemcalendarioDoc' + cont + '"' + ' class="row no-space">' +
                         '<div class="col-xs-6">' +
                             '<div class="bg-grey-600 white vertical-align height-200 fondo-calendar" >' +
-                                '<div class="vertical-align-middle">' +
+                            '<div id="'+'ItemFormatoFecha' + cont +'" class="vertical-align-middle" value="'+this_aux.obj['fechas'][contFechas].Dia + ' ' + this_aux.obj['fechas'][contFechas].Mes + ' ' + this_aux.obj['fechas'][contFechas].Anio +'">' +
                                     '<span class="icon-calendar size-icon-calendar" align="center" >' + this_aux.obj['fechas'][contFechas].Dia + '</span>' +
                                 '</div>' +
                             '</div>' +
@@ -711,7 +717,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
                       this_aux.clickCal6();
                     } else {
                       this_aux.itemSeleccionado = 1;
-                      this_aux.clickCal6();
+                      
                       if (this_aux.Valida_Seleccion_Calendario0 === 1) {
                         this_aux.clickCal0();
                       } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
@@ -735,6 +741,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
                       } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
                         this_aux.clickCal11();
                       }
+                      this_aux.clickCal6();
                     }
               });
             }
@@ -758,7 +765,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
                       this_aux.clickCal7();
                     } else {
                       this_aux.itemSeleccionado = 1;
-                      this_aux.clickCal7();
+                      
                       if (this_aux.Valida_Seleccion_Calendario0 === 1) {
                         this_aux.clickCal0();
                       } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
@@ -782,6 +789,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
                       } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
                         this_aux.clickCal11();
                       }
+                      this_aux.clickCal7();
                     }
 
               });
@@ -806,7 +814,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
                       this_aux.clickCal8();
                     } else {
                       this_aux.itemSeleccionado = 1;
-                      this_aux.clickCal8();
+                      
                       if (this_aux.Valida_Seleccion_Calendario0 === 1) {
                         this_aux.clickCal0();
                       } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
@@ -830,6 +838,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
                       } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
                         this_aux.clickCal11();
                       }
+                      this_aux.clickCal8();
                     }
 
               });
@@ -854,7 +863,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
                       this_aux.clickCal9();
                     } else {
                       this_aux.itemSeleccionado = 1;
-                      this_aux.clickCal9();
+                      
                       if (this_aux.Valida_Seleccion_Calendario0 === 1) {
                         this_aux.clickCal0();
                       } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
@@ -878,6 +887,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
                       } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
                         this_aux.clickCal11();
                       }
+                      this_aux.clickCal9();
                     }
 
               });
@@ -902,7 +912,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
                       this_aux.clickCal10();
                     } else {
                       this_aux.itemSeleccionado = 1;
-                      this_aux.clickCal10();
+                      
                       if (this_aux.Valida_Seleccion_Calendario0 === 1) {
                         this_aux.clickCal0();
                       } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
@@ -926,6 +936,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
                       } else if (this_aux.Valida_Seleccion_Calendario11 === 1) {
                         this_aux.clickCal11();
                       }
+                      this_aux.clickCal10();
                     }
 
               });
@@ -950,7 +961,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
                       this_aux.clickCal11();
                     } else {
                       this_aux.itemSeleccionado = 1;
-                      this_aux.clickCal11();
+                      
                       if (this_aux.Valida_Seleccion_Calendario0 === 1) {
                         this_aux.clickCal0();
                       } else if (this_aux.Valida_Seleccion_Calendario1 === 1) {
@@ -974,6 +985,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
                       } else if (this_aux.Valida_Seleccion_Calendario10 === 1) {
                         this_aux.clickCal10();
                       }
+                      this_aux.clickCal11();
                     }
 
               });
@@ -1023,6 +1035,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
        // set docuemto
        this.numDocumento =  document.getElementById('Itemcalendario0').getAttribute('value');
        this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc0').getAttribute('value');
+       localStorage.setItem("fechaDocumentoSeleccionada", document.getElementById('ItemFormatoFecha0').getAttribute('value'));
        this.Valida_Seleccion_Calendario0 ++;
        this.cuadroCalendario = $("#Itemcalendario0");
        this.cuadroCalendario.css({
@@ -1081,6 +1094,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
        // set docuemto
        this.numDocumento =  document.getElementById('Itemcalendario1').getAttribute('value');
        this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc1').getAttribute('value');
+       localStorage.setItem("fechaDocumentoSeleccionada", document.getElementById('ItemFormatoFecha1').getAttribute('value'));
        this.Valida_Seleccion_Calendario1 ++;
        this.cuadroCalendario = $("#Itemcalendario1");
        this.cuadroCalendario.css({
@@ -1133,6 +1147,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
        // set docuemto
        this.numDocumento =  document.getElementById('Itemcalendario2').getAttribute('value');
        this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc2').getAttribute('value');
+       localStorage.setItem("fechaDocumentoSeleccionada", document.getElementById('ItemFormatoFecha2').getAttribute('value'));
        this.Valida_Seleccion_Calendario2 ++;
        this.cuadroCalendario = $("#Itemcalendario2");
        this.cuadroCalendario.css({
@@ -1185,6 +1200,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
        // set docuemto
        this.numDocumento =  document.getElementById('Itemcalendario3').getAttribute('value');
        this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc3').getAttribute('value');
+       localStorage.setItem("fechaDocumentoSeleccionada", document.getElementById('ItemFormatoFecha3').getAttribute('value'));
        this.Valida_Seleccion_Calendario3 ++;
        this.cuadroCalendario = $("#Itemcalendario3");
        this.cuadroCalendario.css({
@@ -1238,6 +1254,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
        // set docuemto
        this.numDocumento =  document.getElementById('Itemcalendario4').getAttribute('value');
        this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc4').getAttribute('value');
+       localStorage.setItem("fechaDocumentoSeleccionada", document.getElementById('ItemFormatoFecha4').getAttribute('value'));
        this.Valida_Seleccion_Calendario4 ++;
        this.cuadroCalendario = $("#Itemcalendario4");
        this.cuadroCalendario.css({
@@ -1290,6 +1307,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
        // set docuemto
        this.numDocumento =  document.getElementById('Itemcalendario5').getAttribute('value');
        this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc5').getAttribute('value');
+       localStorage.setItem("fechaDocumentoSeleccionada", document.getElementById('ItemFormatoFecha5').getAttribute('value'));
        this.Valida_Seleccion_Calendario5 ++;
        this.cuadroCalendario = $("#Itemcalendario5");
        this.cuadroCalendario.css({
@@ -1342,6 +1360,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
        // set docuemto
        this.numDocumento =  document.getElementById('Itemcalendario6').getAttribute('value');
        this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc6').getAttribute('value');
+       localStorage.setItem("fechaDocumentoSeleccionada", document.getElementById('ItemFormatoFecha6').getAttribute('value'));
        this.Valida_Seleccion_Calendario6 ++;
        this.cuadroCalendario = $("#Itemcalendario6");
        this.cuadroCalendario.css({
@@ -1394,6 +1413,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
        // set docuemto
        this.numDocumento =  document.getElementById('Itemcalendario7').getAttribute('value');
        this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc7').getAttribute('value');
+       localStorage.setItem("fechaDocumentoSeleccionada", document.getElementById('ItemFormatoFecha7').getAttribute('value'));
        this.Valida_Seleccion_Calendario7 ++;
        this.cuadroCalendario = $("#Itemcalendario7");
        this.cuadroCalendario.css({
@@ -1446,6 +1466,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
        // set docuemto
        this.numDocumento =  document.getElementById('Itemcalendario8').getAttribute('value');
        this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc8').getAttribute('value');
+       localStorage.setItem("fechaDocumentoSeleccionada", document.getElementById('ItemFormatoFecha8').getAttribute('value'));
        this.Valida_Seleccion_Calendario8 ++;
        this.cuadroCalendario = $("#Itemcalendario8");
        this.cuadroCalendario.css({
@@ -1498,6 +1519,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
        // set docuemto
        this.numDocumento =  document.getElementById('Itemcalendario9').getAttribute('value');
        this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc9').getAttribute('value');
+       localStorage.setItem("fechaDocumentoSeleccionada", document.getElementById('ItemFormatoFecha9').getAttribute('value'));
        this.Valida_Seleccion_Calendario9 ++;
        this.cuadroCalendario = $("#Itemcalendario9");
        this.cuadroCalendario.css({
@@ -1550,6 +1572,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
        // set docuemto
        this.numDocumento =  document.getElementById('Itemcalendario10').getAttribute('value');
        this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc10').getAttribute('value');
+       localStorage.setItem("fechaDocumentoSeleccionada", document.getElementById('ItemFormatoFecha10').getAttribute('value'));
        this.Valida_Seleccion_Calendario10 ++;
        this.cuadroCalendario = $("#Itemcalendario10");
        this.cuadroCalendario.css({
@@ -1602,6 +1625,7 @@ export class ImpresionEdcTdcComponent implements OnInit {
        // set docuemto
        this.numDocumento =  document.getElementById('Itemcalendario11').getAttribute('value');
        this.fechaCorteDoc = document.getElementById('ItemcalendarioDoc11').getAttribute('value');
+       localStorage.setItem("fechaDocumentoSeleccionada", document.getElementById('ItemFormatoFecha11').getAttribute('value'));
        this.Valida_Seleccion_Calendario11 ++;
        this.cuadroCalendario = $("#Itemcalendario11");
        this.cuadroCalendario.css({
@@ -1700,7 +1724,10 @@ operacion(id) {
                   
 
               } else {
-                this_aux.showErrorSucces(documento);
+                setTimeout(function() {
+                  $("#_modal_please_wait").modal("hide");
+                  this_aux.showErrorSucces(documento);
+                }, 500);
                 
              }
            }, function(error) {
@@ -1727,27 +1754,28 @@ showErrorSucces(json) {
   } else {
     this.validaErr(json);
   }
-  $('#errorModal').modal('show');
+  $('#_modal_please_wait').modal('hide');
 }
 validaErr(json) {
 
   setTimeout(() => {
-     if(json.Id === "0") {
-      if (json.MensajeAUsuario === "No existe documento") {
-        document.getElementById("mnsError").innerHTML = "No se encontró el archivo " + + " en el repositorio, favor de reportar el problema a un ejecutivo.";
-      } else {
-        document.getElementById("mnsError").innerHTML = json.MensajeAUsuario;
-      }   
-  
-    }
-    else if (json[0].Id === "2") {
-      document.getElementById("mnsError").innerHTML = "El servicio no esta disponible, favor de intentar mas tarde";
-    } else {
-      document.getElementById("mnsError").innerHTML =
-        "El servicio no esta disponible, favor de intentar mas tarde";
-    }
-    $('#_modal_please_wait').modal('hide');
-  }, 500);
+    if(json.Id === "0") {
+     if (json.MensajeAUsuario === "No existe documento") {
+       document.getElementById("mnsError").innerHTML = "No se encontró el archivo " + localStorage.getItem("fechaDocumentoSeleccionada") + " en el repositorio, favor de reportar el problema a un ejecutivo.";
+     } else {
+       document.getElementById("mnsError").innerHTML = json.MensajeAUsuario;
+     }   
+ 
+   }
+   else if (json[0].Id === "2") {
+     document.getElementById("mnsError").innerHTML = "El servicio no esta disponible, favor de intentar mas tarde";
+   } else {
+     document.getElementById("mnsError").innerHTML =
+       "El servicio no esta disponible, favor de intentar mas tarde";
+   }
+   $('#_modal_please_wait').modal('hide');
+   $("#errorModal").modal("show");
+ }, 500);
   
 }
 

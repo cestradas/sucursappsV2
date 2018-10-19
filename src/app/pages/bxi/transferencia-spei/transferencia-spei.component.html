@@ -1,7 +1,7 @@
 <div ng-cloak class="padding-barToTittle">
     <h2 class="text-center color-letra">Transferencias a otros bancos</h2>
 </div>
-<form [formGroup]="forma" (ngSubmit)="showDetallePago()" class="needs-validation">
+<form [formGroup]="forma" class="needs-validation">
     <fieldset class="padding-TittleToFieldset padding-fieldset-general">
 
         <div class="row sumando-form-group letranegrita padding-InFieldset" style="padding-bottom: 14px;">
@@ -377,16 +377,13 @@
             </div>
             <!-- <button class="btn btn-primary  btn-lg" ng-click="onSiguiente01();" ng-disabled="currentForm.$invalid"> -->
             <div class="col-sm-1">
-                <button disabled="disabled" id="continuarspei" name="continuarspei" class="btn color-botones btn-lg" type="submit">
+                <button disabled="disabled" id="continuarspei" name="continuarspei" class="btn color-botones btn-lg" (click)="showDetallePago()">
                 Continuar</button>
             </div>
         </div>
 
     </fieldset>
 
-
-
-    <!-- Modal -->
 
     <div class="modal fade" id="confirmModalSPEI" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -651,19 +648,16 @@
     </div>
 
 
-    <!-- //////////////////////////////////////////////////////////////////////////////////////////////////// Modal End here-->
-
-
     <div id="modalErrorMessage" class="modal fade" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-error">
             <div class="modal-content">
                 <div class="modal-body text-center">
                     <p>
-                        <label id="errorMensaje"></label>
+                        <label style="text-align: center;" id="errorMensaje" class="letranegrita"></label>
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <button id="cerrar" type="button" class="btn btn-default" data-dismiss="modal">Aceptar</button>
+                    <button id="cerrar" type="button" class="btn btn-danger" data-dismiss="modal">Aceptar</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -672,6 +666,11 @@
     </div>
 
 </form>
+
+
+<!-- Modal -->
+
+
 
 <!-- <div class="modal fade" id="modalErrorMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
 <div class="modal-dialog" role="document">

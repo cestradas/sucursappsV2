@@ -163,15 +163,40 @@ resourceRequest.sendFormParameters(formParameters).then(
   }
 
   showErrorSucces(json) {
-    // console.log(json.Id + json.MensajeAUsuario);
-    if (json.Id === "2") {
-      document.getElementById("mnsError").innerHTML =
-        "El servicio no esta disponible, favor de intentar más tarde";
-    } else {
-      document.getElementById("mnsError").innerHTML = json.MensajeAUsuario;
-    }
-    $('#_modal_please_wait').modal('hide');
-    $("#errorModal").modal("show");
+    console.log(json.Id + json.MensajeAUsuario);
+    setTimeout(() => {
+      if (json.Id === "2") {
+        document.getElementById("mnsError").innerHTML =
+          "El servicio no esta disponible, favor de intentar mas tarde";
+      } else {
+        this.validaErr(json);
+      }
+      $('#_modal_please_wait').modal('hide');    
+    }, 500);
+    
+  }
+  
+  validaErr(json) {
+  
+    setTimeout(() => {
+       if (json.Id === "0") {
+        if (json.MensajeAUsuario === "No existe documento") {
+          // tslint:disable-next-line:max-line-length
+          document.getElementById("mnsError").innerHTML = "No se encontró el archivo " + localStorage.getItem("fechaDocumentoSeleccionada") + " en el repositorio, favor de reportar el problema a un ejecutivo.";
+        } else {
+          document.getElementById("mnsError").innerHTML = json.MensajeAUsuario;
+        }   
+    
+      } else if (json[0].Id === "2") {
+        document.getElementById("mnsError").innerHTML = "El servicio no esta disponible, favor de intentar mas tarde";
+      } else {
+        document.getElementById("mnsError").innerHTML =
+          "El servicio no esta disponible, favor de intentar mas tarde";
+      }
+      $('#_modal_please_wait').modal('hide');
+      $("#errorModal").modal("show"); 
+    }, 500);
+     
   }
 
 }
