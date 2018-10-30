@@ -88,17 +88,12 @@ export class ImpresionEdcFinishComponent implements OnInit {
      //ESTILOS Preferente
      let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
     let btnTerminar = document.getElementById("continuarEdc");
-    let btnAceptar = document.getElementById("aceptar");
 
 
      if (storageTipoClienteTar === "true") {
 
       btnTerminar.classList.remove("color-botones");
       btnTerminar.classList.add("color-botones_Preferente");
-      btnAceptar.classList.remove("color-botones");
-      btnAceptar.classList.add("color-botones_Preferente");
-
-
      }
   }
 

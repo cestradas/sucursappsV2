@@ -53,6 +53,8 @@ export class CancelarEnvioEdcComponent implements OnInit {
               // console.log('Datos contacto' + jsonData);
                 if (jsonData.Email === '' || jsonData.Email === undefined) {
                   $('#registraCorreo').modal('show');
+                } else {
+                  this_aux.service.EmailCliente = jsonData.Email;
                 }
           } else {  
               setTimeout(function() {

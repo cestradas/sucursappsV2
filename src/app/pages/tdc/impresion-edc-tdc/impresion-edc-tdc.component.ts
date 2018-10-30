@@ -1683,7 +1683,7 @@ operacion(id) {
     this_aux.router.navigate(['/impresionEdcTdcFinal']);
   } else {
     // Imprimir
-  
+    $("#_modal_please_wait").modal("show");
     if ( this_aux .cal_Click_0 === 1 || this_aux.cal_Click_1 === 1 || this_aux.cal_Click_2 === 1 ||
       this_aux.cal_Click_3 === 1 || this_aux.cal_Click_4 === 1 || this_aux.cal_Click_5 === 1 ||
       this_aux.cal_Click_6 === 1 || this_aux.cal_Click_7 === 1 || this_aux.cal_Click_8 === 1 ||
@@ -1720,8 +1720,7 @@ operacion(id) {
                     this_aux.nombreDocumento = documento.NombreDoc;
                     $('#infoPrinter').modal('show');
                   }
-                  
-                  
+                  setTimeout(() => $('#_modal_please_wait').modal('hide'), 3000);                
 
               } else {
                 setTimeout(function() {
@@ -1741,7 +1740,7 @@ operacion(id) {
 
     const this_aux = this;
     
-    this_aux.serviceTdd.validaMail = "0";//preguntar tecua
+    this_aux.serviceTdd.validaMail = "0";
 
      this_aux.router.navigate(['/docElectronTdc']);
   }

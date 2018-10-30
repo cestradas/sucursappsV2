@@ -42,7 +42,7 @@ export class ImpresionEdcTdcFinalComponent implements OnInit {
         // console.log('forma', this.forma);
         
         this_aux.correo = data;
-        this_aux.validateFields();
+       // this_aux.validateFields();
       });
 
       this.forma.controls['confCorreo'].valueChanges.subscribe(
@@ -89,14 +89,10 @@ export class ImpresionEdcTdcFinalComponent implements OnInit {
     // ESTILOS Preferente
     let storageTipoClienteTar = localStorage.getItem("tipoClienteTar");
     let btnContinuarCancelacion = document.getElementById("continuarEdc");
-    let btnCerrar = document.getElementById("cerrar");
      
     if (storageTipoClienteTar === "true") {
       btnContinuarCancelacion.classList.remove("color-botones");
       btnContinuarCancelacion.classList.add("color-botones_Preferente");
-      btnCerrar.classList.remove("color-botones");
-      btnCerrar.classList.add("color-botones_Preferente");
-
     }
   }
 
@@ -153,9 +149,9 @@ resourceRequest.sendFormParameters(formParameters).then(
   }
 
   showErrorPromise(error) {
-    console.log(error);
+    // console.log(error);
     // tslint:disable-next-line:max-line-length
-    document.getElementById('mnsError').innerHTML =   "El servicio no esta disponible, favor de intentar más tarde";
+    document.getElementById('mnsError').innerHTML =   "El servicio no está disponible, favor de intentar más tarde";
     $('#_modal_please_wait').modal('hide');
     $('#errorModal').modal('show');
   }
@@ -198,3 +194,4 @@ resourceRequest.sendFormParameters(formParameters).then(
   }
 
 }
+	

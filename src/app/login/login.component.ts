@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
                   if ( (respuestaPin !== null && respuestaTar !== null)) {
                     clearInterval(myTime);
                     // tslint:disable-next-line:max-line-length
-                    if ((descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card" || descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin") && (respuestaTar === null))  {
+                    if ((descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card" || descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin" || descripcion === null) && (respuestaTar === null || respuestaTar === ""))  {
                       this_aux.onPlasticLoginafterSecurity();
                     } else {
                       const securityCheckName = 'banorteSecurityCheckSa';
@@ -111,7 +111,7 @@ export class LoginComponent implements OnInit {
      if ( (respuestaPin !== null && respuestaTar !== null)) {
        clearInterval(myTime);
        // tslint:disable-next-line:max-line-length
-       if ((descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card" || descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin") && (respuestaTar === null)) {
+       if ((descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card" || descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin"  || descripcion === null) && (respuestaTar === null || respuestaTar === ""))  {
          this_aux.onPlasticLoginafterSecuritytdc();
        } else {
         //  console.log("Se detectaron datos Tarjeta: " + localStorage.getItem("tr2"));
@@ -169,7 +169,7 @@ export class LoginComponent implements OnInit {
      this.respuestaTrjeta = respTar;
      let descripcion = localStorage.getItem("des");
 
-      if ((respTar !== "NO_OK") && (respTar !== null) && (descripcion !== "Error lectura pin")) {
+      if ((respTar !== "NO_OK") && (respTar !== null) && (descripcion !== "Error lectura pin") && (tr2 !== "")) {
 
 
         const THIS: any = this;
@@ -277,7 +277,7 @@ export class LoginComponent implements OnInit {
           $('#ModalTDDLogin').modal('hide');
 
         // tslint:disable-next-line:max-line-length
-        if (descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card") {
+        if (descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card" || tr2 === "") {
               //  console.log("Pinpad respondio con " + this.respuestaTrjeta);
                // tslint:disable-next-line:max-line-length
                document.getElementById('mnsError').innerHTML = "Inicio de sesión falló.";
@@ -328,7 +328,7 @@ export class LoginComponent implements OnInit {
 
 
 
-      if ((respTar !== "NO_OK") && (respTar !== null) && (descripcion !== "Error lectura pin")) {
+      if ((respTar !== "NO_OK") && (respTar !== null) && (descripcion !== "Error lectura pin") && (tr2 !== "")) {
 
 
         const THIS: any = this;
@@ -436,7 +436,7 @@ export class LoginComponent implements OnInit {
 
           $('#ModalTDDLogin').modal('hide');
         // tslint:disable-next-line:max-line-length
-        if (descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card") {
+        if (descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card"  || tr2 === "") {
               //  console.log("Pinpad respondio con " + this.respuestaTrjeta);
                // tslint:disable-next-line:max-line-length
                document.getElementById('mnsError').innerHTML = "Inicio de sesión falló.";
