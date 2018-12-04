@@ -678,6 +678,8 @@ export class ImpresionEdcTddComponent implements OnInit {
                   if (contFechas < 0) {
                     break;
                   }
+              } else {
+                break;
               }
     
               cont ++;
@@ -1758,7 +1760,7 @@ consultaCancelacionEDCDomicilio(opcion) {
                 btnCancelarEnvio.style.display = 'none';
               }
             }  
-            $("#_modal_please_wait").modal("hide");       
+            setTimeout(() => $('#_modal_please_wait').modal('hide'), 500);     
         },
           function(error) {
             console.error("Error");

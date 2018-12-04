@@ -333,11 +333,11 @@ setDatosCuentaSeleccionada(elementHTML) {
               btnCancelarEnvio.style.display = 'initial';
             } else {
               btnCancelarEnvio.style.display = 'none';
-            }
-            setTimeout(function() {
-              $("#_modal_please_wait").modal("hide");
-            }, 500);
+            }            
           }
+          setTimeout(function() {
+            $("#_modal_please_wait").modal("hide");
+          }, 500);
       },
         function(error) {
           $('#_modal_please_wait').modal('hide');
@@ -879,6 +879,8 @@ setDatosCuentaSeleccionada(elementHTML) {
                   if (contFechas < 0) {
                     break;
                   }
+              } else {
+                break;
               }
 
               cont ++;

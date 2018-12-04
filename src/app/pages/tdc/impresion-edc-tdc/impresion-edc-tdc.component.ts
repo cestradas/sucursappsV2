@@ -681,6 +681,8 @@ export class ImpresionEdcTdcComponent implements OnInit {
                   if (contFechas < 0) {
                     break;
                   }
+              } else {
+                  break;
               }
     
               cont ++;
