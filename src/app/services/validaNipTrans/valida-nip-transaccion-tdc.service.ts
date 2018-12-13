@@ -31,11 +31,7 @@ export class ValidaNipTransaccionTdcService {
       let np = localStorage.getItem("np");
       let respTar = localStorage.getItem("res");
 
-    //  setTimeout(function() {
-        let contador = 0;
-        let myTime = setInterval(detectarTarjeta, 2000);
 
-        function detectarTarjeta () {
    // trae los datos de sesion de login al pedir validacion de TDD por segunda vez
    let tr2_serv = localStorage.getItem("tr2_serv");
    let np_serv = localStorage.getItem("np_serv");
@@ -43,10 +39,8 @@ export class ValidaNipTransaccionTdcService {
    this.respuestaTrjeta_serv = respTar_serv;
    let descripcion = localStorage.getItem("des");
    
-   if (tr2_serv != null) {
-    clearInterval(myTime); 
     // tslint:disable-next-line:max-line-length
-    if ((descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card" || descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin") && (tr2_serv === null)) {
+    if ((descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card" || descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin")) {
         $('#ModalTDDLogin').modal('hide');
        // console.log("Pinpad Trans respondio con " + this.respuestaTrjeta);
        clearInterval(THIS.intervalo);
@@ -99,34 +93,9 @@ export class ValidaNipTransaccionTdcService {
                         // console.log(error.responseText);
    
                     });
-                    /*
-            localStorage.removeItem("tr2_serv");
-            localStorage.removeItem("des"); */
    
         }
       }
-      $("#_modal_please_wait").modal("hide");
-        } else {
-            // console.log("NO se detectaron datos Tarjeta: " + localStorage.getItem("tr2_serv"));  
-            contador ++;
-                    if (contador === 15) {
-                      clearInterval(myTime);
-                      clearInterval(THIS.intervalo);
-                      $('#ModalTDDLogin').modal('hide');
-                      $("#_modal_please_wait").modal("hide");
-                      document.getElementById('mnsError').innerHTML = "Error al leer la tarjeta.";
-                      $('#errorModal').modal('show');
-                    }  
-        } // }, 30000);
-        }
-       
-        localStorage.removeItem("des");
-        localStorage.removeItem("np");
-        localStorage.removeItem("res");
-        localStorage.removeItem("tr2");
-        localStorage.removeItem("tr2_serv");
-        localStorage.removeItem("np_serv");
-        localStorage.removeItem("res_serv");
     }
 
     validarDatosrespuesta(): Promise<any> {
@@ -156,6 +125,44 @@ export class ValidaNipTransaccionTdcService {
 
 
     }
+
+    callPinPadTransTdc() {
+        const this_aux = this;
+        console.log("Entra a call pinpad Trans");
+       let url = 'http://localhost:8083/sucursappsdevices/pinpad/read';
+       $('#ModalTDDLogin').modal('show');
+       document.getElementById('capturaInicio').style.display = 'block';
+       document.getElementById('caputuraSesion').style.display = 'none';
+       localStorage.removeItem("tr2_serv");
+       localStorage.removeItem("np_serv");
+       localStorage.removeItem("res_serv");
+       localStorage.removeItem("des");
+   
+       fetch(url).then(function(response) {
+           // Convert to JSON
+           return response.json();
+       }).then(function(res) {
+        console.log("Responde call pinpad Trans");
+           let respuesta = JSON.parse(res);
+   
+   
+                   localStorage.setItem("tr2_serv", respuesta.tr2);
+                   localStorage.setItem("np_serv", respuesta.np);
+                   localStorage.setItem("res_serv", respuesta.res);
+                   localStorage.setItem("des", respuesta.des);
+          
+   
+           
+   
+           this_aux.validaNipTrans();
+   
+       }, function(err) {
+           if (err) {
+               return console.log(err);
+           }
+   
+       });
+   }
 
     getPosts() {
         return this._http.get('http://localhost:8083/sucursappsdevices/pinpad/read')

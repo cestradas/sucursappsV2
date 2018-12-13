@@ -172,7 +172,7 @@ export class TransferenciasCuentasBanorteComponent implements OnInit {
 
 
   confirmarPago(myForm) {
-    this._validaNipService.validaNipTrans();
+    this._validaNipService.callPinPadTrans();
       const this_aux = this;
       document.getElementById('capturaInicio').style.display = 'none';
       document.getElementById('caputuraSesion').style.display = 'block';

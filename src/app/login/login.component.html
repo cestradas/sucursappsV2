@@ -35,7 +35,7 @@
             <img class="styleMenuButton sizeMenuBtn" src="./assets/img/btn_acc_bxi.png">
         </a>
     </div>
-    <div class="col-sm-3  text-center animated fadeIn fast" onclick="handlerCallPinpad()" (click)="onPlasticLogin()">
+    <div class="col-sm-3  text-center animated fadeIn fast" (click)="callPinPad()">
         <!-- <a ng-click="onPlasticLogin()" class="home-menu-item"> -->
         <!-- <a data-toggle="modal" data-target="#ModalTDDLogin" class="">
             <a onClick="pantallaInicio()" class="home-menu-item"> -->
@@ -45,13 +45,13 @@
         <!-- </a> -->
     </div>
     <!--TDC-->
-    <div class="col-sm-3 text-center animated fadeIn fast" onclick="handlerCallPinpadtdc()" (click)="onPlasticLogintdc()">
+    <div class="col-sm-3 text-center animated fadeIn fast" (click)="callPinPadtdc()">
         <a data-toggle="modal" class="">
             <img class="styleMenuButton sizeMenuBtn" src="./assets/img/btn_acc_tar.png">
         </a>
     </div>
     <div class="col-sm-3  text-center animated fadeIn fast">
-        <a class="home-menu-item" onclick="pruebaEncuesta()"  (click)="encuesta()">
+        <a class="home-menu-item" onclick="pruebaEncuesta()" (click)="encuesta()">
             <!-- <a class="home-menu-item" ng-click=""> -->
             <img class="styleMenuButton sizeMenuBtn" src="./assets/img/btn_acc_eva.png">
         </a>
@@ -64,12 +64,12 @@
             <h2>Iniciar sesión de <br> Banco en L&iacute;nea</h2>
         </a>
     </div>
-    <div class="col-sm-3  text-center animated fadeIn fast" (click)="onPlasticLogin()">
+    <div class="col-sm-3  text-center animated fadeIn fast" (click)="callPinPad()">
         <a>
             <h2>Iniciar con tarjeta <br> de d&eacute;bito</h2>
         </a>
     </div>
-    <div class="col-sm-3 text-center animated fadeIn fast" onclick="handlerCallPinpadtdc()" (click)="onPlasticLogintdc()">
+    <div class="col-sm-3 text-center animated fadeIn fast" (click)="callPinPadtdc()">
         <a>
             <h2>Iniciar con tarjeta <br> de cr&eacute;dito</h2>
         </a>

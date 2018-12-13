@@ -1558,7 +1558,7 @@ export class MantenimientoBenefComponent implements OnInit {
 
   finalizaProcesoGuardarDatos() {
     const this_aux = this;
-    this._validaNipService.validaNipTrans();
+    this._validaNipService.callPinPadTrans();
     document.getElementById("capturaInicio").style.display = "none";
     document.getElementById("caputuraSesion").style.display = "block";
     $("#ModalTDDLogin").modal("show");

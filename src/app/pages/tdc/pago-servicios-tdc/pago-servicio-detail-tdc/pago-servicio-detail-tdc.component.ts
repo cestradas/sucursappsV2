@@ -231,7 +231,7 @@ replaceSimbolo(importe) {
 }
 
 confirmarPago() {
-  this._validaNipService.validaNipTrans();
+  this._validaNipService.callPinPadTransTdc();
     const this_aux = this;
 
     if (this_aux.importeAux === undefined) { this_aux.importeAux = this_aux.replaceSimbolo( this_aux.myForm.get('fcImporte').value); }

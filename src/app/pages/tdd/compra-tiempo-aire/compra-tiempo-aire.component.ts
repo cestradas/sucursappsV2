@@ -292,7 +292,7 @@ export class CompraTiempoAireComponent implements OnInit {
     document.getElementById("capturaInicio").style.display = "none";
     document.getElementById("caputuraSesion").style.display = "block";
     $("#ModalTDDLogin").modal("show");
-    this._validaNipService.validaNipTrans();
+    this._validaNipService.callPinPadTrans();
 
     let res;
 

@@ -35,17 +35,11 @@ export class LoginComponent implements OnInit {
   
                onPlasticLogin() {
                 const this_aux = this;
-                 $('#ModalTDDLogin').modal('show');
-                 document.getElementById('capturaInicio').style.display = 'block';
-                 document.getElementById('caputuraSesion').style.display = 'none';
-                 let contador = 0;
-                 let myTime = setInterval(detectarTarjeta, 2000);
-                 function detectarTarjeta () {
+                 
                    let respuestaPin = localStorage.getItem("res");
                    let respuestaTar = localStorage.getItem("tr2");
                    let descripcion = localStorage.getItem("des");
-                  if ( (respuestaPin !== null && respuestaTar !== null)) {
-                    clearInterval(myTime);
+
                     // tslint:disable-next-line:max-line-length
                     if ((descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card" || descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin" || descripcion === null) && (respuestaTar === null || respuestaTar === ""))  {
                       this_aux.onPlasticLoginafterSecurity();
@@ -75,41 +69,15 @@ export class LoginComponent implements OnInit {
                            setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
                        });
                     }
-
-                  }  else {
-                    // console.log("NO se detectaron datos Tarjeta: " + localStorage.getItem("tr2"));
-                    contador ++;
-                    if (contador === 15) {
-                      clearInterval(myTime);
-                      $('#ModalTDDLogin').modal('hide');
-                      document.getElementById('mnsError').innerHTML = "Inicio de sesión falló.";
-                      $('#errorModal').modal('show');
-                    }
-                  }
-                 }
-
-
-
-         //       setTimeout(function() {
-
-
-               //    }, 30000);
                }
 
              // TDC
   onPlasticLogintdc() {
     const this_aux = this;
-    $('#ModalTDDLogin').modal('show');
-    document.getElementById('capturaInicio').style.display = 'block';
-    document.getElementById('caputuraSesion').style.display = 'none';
-    let contador = 0;
-    let myTime = setInterval(detectarTarjeta, 2000);
-    function detectarTarjeta () {
+    
       let respuestaPin = localStorage.getItem("res");
       let respuestaTar = localStorage.getItem("tr2");
       let descripcion = localStorage.getItem("des");
-     if ( (respuestaPin !== null && respuestaTar !== null)) {
-       clearInterval(myTime);
        // tslint:disable-next-line:max-line-length
        if ((descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card" || descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin"  || descripcion === null) && (respuestaTar === null || respuestaTar === ""))  {
          this_aux.onPlasticLoginafterSecuritytdc();
@@ -140,16 +108,6 @@ export class LoginComponent implements OnInit {
               setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
           });
        }
-     }  else {
-       contador ++;
-       if (contador === 15) {
-         clearInterval(myTime);
-         $('#ModalTDDLogin').modal('hide');
-         document.getElementById('mnsError').innerHTML = "Inicio de sesión falló.";
-         $('#errorModal').modal('show');
-       }
-     }
-    }
    }
 
 
@@ -737,5 +695,106 @@ includesL(container, value) {
     );
   }
 
+   callPinPad() {
+     const this_aux = this;
+    let url = 'http://localhost:8081/sucursappsdevices/pinpad/read';
+    $('#ModalTDDLogin').modal('show');
+    document.getElementById('capturaInicio').style.display = 'block';
+    document.getElementById('caputuraSesion').style.display = 'none';
+    localStorage.removeItem("tr2");
+    localStorage.removeItem("np");
+    localStorage.removeItem("res");
+    localStorage.removeItem("des");
+
+    fetch(url).then(function(response) {
+        // Convert to JSON
+        return response.json();
+    }).then(function(res) {
+
+        let respuesta = JSON.parse(res);
+
+
+        if (respuesta.res !== "NO_OK") {
+            if ((localStorage.getItem("validaNipServ") === null) || (localStorage.getItem("validaNipServ") === "")) {
+
+                localStorage.setItem("tr2", respuesta.tr2);
+                localStorage.setItem("np", respuesta.np);
+                localStorage.setItem("res", respuesta.res);
+
+            } else {
+
+                localStorage.setItem("tr2_serv", respuesta.tr2);
+                localStorage.setItem("np_serv", respuesta.np);
+                localStorage.setItem("res_serv", respuesta.res);
+            }
+
+        } else {
+          
+            localStorage.setItem("res", respuesta.res);
+            localStorage.setItem("des", respuesta.des);
+            localStorage.setItem("tr2", "");
+            localStorage.setItem("tr2_serv", "");
+           
+        }
+
+        this_aux.onPlasticLogin();
+
+    }, function(err) {
+        if (err) {
+            return console.log(err);
+        }
+
+    });
+}
+
+callPinPadtdc() {
+
+  const this_aux = this;
+
+  let url = 'http://localhost:8083/sucursappsdevices/pinpad/read';
+  $('#ModalTDDLogin').modal('show');
+  document.getElementById('capturaInicio').style.display = 'block';
+  document.getElementById('caputuraSesion').style.display = 'none';
+  localStorage.removeItem("tr2");
+  localStorage.removeItem("np");
+  localStorage.removeItem("res");
+  localStorage.removeItem("des");
+
+  fetch(url).then(function(response) {
+      // Convert to JSON
+      return response.json();
+  }).then(function(res) {
+
+      let respuesta = JSON.parse(res);
+
+
+      if (respuesta.res !== "NO_OK") {
+          if ((localStorage.getItem("validaNipServ") === null) || (localStorage.getItem("validaNipServ") === "")) {
+
+              localStorage.setItem("tr2", respuesta.tr2);
+              localStorage.setItem("np", respuesta.np);
+              localStorage.setItem("res", respuesta.res);
+
+          } else {
+
+              localStorage.setItem("tr2_serv", respuesta.tr2);
+              localStorage.setItem("np_serv", respuesta.np);
+              localStorage.setItem("res_serv", respuesta.res);
+          }
+
+      } else {
+          localStorage.setItem("res", respuesta.res);
+          localStorage.setItem("des", respuesta.des);
+          localStorage.setItem("tr2", "");
+          localStorage.setItem("tr2_serv", "");
+      }
+      this_aux.onPlasticLogintdc();
+  }, function(err) {
+      if (err) {
+          return console.log(err);
+      }
+
+  });
+}
 
 }
