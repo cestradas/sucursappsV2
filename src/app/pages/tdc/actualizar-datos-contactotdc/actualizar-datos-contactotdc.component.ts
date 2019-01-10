@@ -136,12 +136,20 @@ export class ActualizarDatosContactotdcComponent implements OnInit {
 
   }
 
+  iniciaPinpad() {
+
+    const this_aux = this;
+    $('#ModalTDCLogin').modal('show');
+
+  }
+
 validartarjeta() {
   this._validaNipService.callPinPadTransTdc();
   const this_aux = this;
   document.getElementById('capturaInicio').style.display = 'none';
   document.getElementById('caputuraSesion').style.display = 'block';
-  $("#ModalTDDLogin").modal("show");
+  //$("#ModalTDDLogin").modal("show");
+  $('#ModalTDCLogin').modal('hide');
 let res;
 
   this._validaNipService.validarDatosrespuesta().then(

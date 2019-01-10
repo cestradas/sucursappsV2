@@ -36,6 +36,7 @@ export class MantenimientoDatosContactoFinalTdcComponent implements OnInit {
       btnTerminar.classList.add("color-botones_Preferente");
     }
 
+    $("#ModalTDDLogin").modal("hide");
 
     const this_aux = this;
 

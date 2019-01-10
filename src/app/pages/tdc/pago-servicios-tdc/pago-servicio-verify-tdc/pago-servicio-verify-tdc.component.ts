@@ -53,7 +53,9 @@ numCuenta_show: string;
       btnContinuar.classList.remove("color-botones");
       btnContinuar.classList.add("color-botones_Preferente");
     }
-    
+
+    $("#ModalTDDLogin").modal("hide");
+
     const this_aux = this;
     const respPago = this_aux.service.detalleConfirmacionPS;
     const respPagoJson = JSON.parse(respPago);

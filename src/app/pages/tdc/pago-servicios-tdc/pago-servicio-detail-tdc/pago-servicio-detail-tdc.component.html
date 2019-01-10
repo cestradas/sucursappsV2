@@ -195,7 +195,7 @@
 
                     <div class="modal-footer">
                         <button class="btn btn-lg" data-dismiss="modal">Cancelar</button>
-                        <button id="continuar2" class="color-botones btn btn-lg " (click)="confirmarPago()">
+                        <button id="continuar2" class="color-botones btn btn-lg " (click)="iniciaPinpad()">
                             Confirmar
                         </button>
                     </div>
@@ -262,6 +262,60 @@
                     </div>
                 </div> -->
             </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="ModalTDCLogin" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="ModalTDCLogin" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 900px;">
+        <div class="modal-content shadowModal">
+            <div class="modal-header" align="center" style="align-self: center;">
+                <!--<button type="button" class="close bxi-red" data-dismiss="modal" aria-label="Close">
+            <img src="assets/images/close-32-red.png">
+          </button>-->
+
+                <h3 class="modal-title" id="capturaInicio" align="center" style="display: block; color: #B01657;  font-weight: 700;">
+                    Inicie sesión con tu tarjeta
+                    <br> Banorte para continuar
+                </h3>
+                <h3 class="modal-title" id="caputuraSesion" align="center" style="display: none; color: #B01657;  font-weight: 700;">
+                    Captura nuevamente <br> tu NIP para continuar
+                </h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-7" style="color: #080808;">
+
+                        <h4 class="instruccionesMargin"></h4>
+
+                        <div>
+
+                            <br>
+                            <h3>De clic en <b>iniciar</b> y siga las intrucciones de la <b>pantalla del lector de tarjeta.</b> Después de capturar su NIP presione ENTER</h3>
+
+                        </div>
+
+                    </div>
+                    <div class="col-lg-5" style="margin-left: -20px;">
+                        <div>
+                            <img src="assets/img/pin_pad.jpg" class="align-center" alt="Smiley face" height="100%" width="100%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="color-botones btn btn-lg " data-dismiss="modal" style="background: #F1F1F1 !important; color: black;">Cancelar</button>
+                <button type="button" class="color-botones btn btn-lg " style="width: 106px;" (click)="confirmarPago()">Iniciar</button>
+            </div>
+            <!--
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" style="background-color: #eb012a;
+        border-color: #eb012a;">Continuar</button>
+    </div>
+  -->
         </div>
     </div>
 </div>

@@ -230,6 +230,13 @@ replaceSimbolo(importe) {
       return importeAux;
 }
 
+iniciaPinpad() {
+
+  const this_aux = this;
+  $('#ModalTDCLogin').modal('show');
+
+}
+
 confirmarPago() {
   this._validaNipService.callPinPadTransTdc();
     const this_aux = this;
@@ -237,7 +244,8 @@ confirmarPago() {
     if (this_aux.importeAux === undefined) { this_aux.importeAux = this_aux.replaceSimbolo( this_aux.myForm.get('fcImporte').value); }
     document.getElementById('capturaInicio').style.display = 'none';
     document.getElementById('caputuraSesion').style.display = 'block';
-    $("#ModalTDDLogin").modal("show");
+    //$("#ModalTDDLogin").modal("show");
+    $('#ModalTDCLogin').modal('hide');
   let res;
 
     this._validaNipService.validarDatosrespuesta().then(
