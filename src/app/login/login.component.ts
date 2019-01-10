@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
                    let descripcion = localStorage.getItem("des");
 
                     // tslint:disable-next-line:max-line-length
-                    if ((descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card" || descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin" || descripcion === null) && (respuestaTar === null || respuestaTar === ""))  {
+                    if ((descripcion === "El Lector de Tarjetas no esta conectado" || descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card" || descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin" || descripcion === null) && (respuestaTar === null || respuestaTar === ""))  {
                       this_aux.onPlasticLoginafterSecurity();
                     } else {
                       const securityCheckName = 'banorteSecurityCheckSa';
@@ -79,7 +79,7 @@ export class LoginComponent implements OnInit {
       let respuestaTar = localStorage.getItem("tr2");
       let descripcion = localStorage.getItem("des");
        // tslint:disable-next-line:max-line-length
-       if ((descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card" || descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin"  || descripcion === null) && (respuestaTar === null || respuestaTar === ""))  {
+       if ((descripcion === "El Lector de Tarjetas no esta conectado" || descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card" || descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin"  || descripcion === null) && (respuestaTar === null || respuestaTar === ""))  {
          this_aux.onPlasticLoginafterSecuritytdc();
        } else {
         //  console.log("Se detectaron datos Tarjeta: " + localStorage.getItem("tr2"));
