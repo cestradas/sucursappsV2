@@ -36,7 +36,7 @@ export class PagoTarjetaCreditoFinalComponent implements OnInit {
       btnContinuar.classList.remove("color-botones");
       btnContinuar.classList.add("color-botones_Preferente");
     }
-
+    $("#ModalTDDLogin").modal("hide");
     this.showData();
   }
 

@@ -170,13 +170,21 @@ export class TransferenciasCuentasBanorteComponent implements OnInit {
   }
 
 
+  iniciaPinpad() {
+
+    const this_aux = this;
+    $('#ModalTDDLogin2').modal('show');
+
+  }
+
 
   confirmarPago(myForm) {
     this._validaNipService.callPinPadTrans();
       const this_aux = this;
       document.getElementById('capturaInicio').style.display = 'none';
       document.getElementById('caputuraSesion').style.display = 'block';
-      $("#ModalTDDLogin").modal("show");
+      //$("#ModalTDDLogin").modal("show");
+      $('#ModalTDDLogin2').modal('hide');
     let res;
   
       this._validaNipService.validarDatosrespuesta().then(

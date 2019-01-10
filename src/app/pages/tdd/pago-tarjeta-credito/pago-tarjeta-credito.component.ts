@@ -271,12 +271,20 @@ export class PagoTarjetaCreditoComponent implements OnInit {
 
   }
 
+  iniciaPinpad() {
+
+    const this_aux = this;
+    $('#ModalTDDLogin2').modal('show');
+
+  }
+
   pagarTarjetaCredito() {
     this._validaNipService.callPinPadTrans();
     const this_aux = this;
     document.getElementById('capturaInicio').style.display = 'none';
     document.getElementById('caputuraSesion').style.display = 'block';
-    $("#ModalTDDLogin").modal("show");
+    //$("#ModalTDDLogin").modal("show");
+    $('#ModalTDDLogin2').modal('hide');
     let res;
     this._validaNipService.validarDatosrespuesta().then(
       mensaje => {
@@ -285,7 +293,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
         // console.log(res);
 
         if (res === true) {
-          $('#ModalTDDLogin').modal('hide');
+          $('#ModalTDDLogin2').modal('hide');
           $('#_modal_please_wait').modal('show');
           this_aux.pagarTarjetaCreditoTrans();
           this._validaNipService.respuestaNip.res = "";
@@ -294,7 +302,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
           document.getElementById('mnsError').innerHTML =   "Los datos proporcionados son incorrectos, favor de verificar.";
           $('#_modal_please_wait').modal('hide');
           $('#errorModal').modal('show');
-          $('#ModalTDDLogin').modal('hide');
+          $('#ModalTDDLogin2').modal('hide');
           this._validaNipService.respuestaNip.res = "";
         }
       }
@@ -343,7 +351,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
             setTimeout(function() {
               this_aux.showErrorPromiseMoney(error);
             }, 500);
-            $('#ModalTDDLogin').modal('hide');
+            $('#ModalTDDLogin2').modal('hide');
           });
   }
 

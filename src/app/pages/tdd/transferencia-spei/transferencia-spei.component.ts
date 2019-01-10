@@ -458,7 +458,7 @@ limpiarFormulario () {
         // console.log(res);
 
         if (res === true) {
-          $('#ModalTDDLogin2').modal('hide');
+          $('#ModalTDDLogin').modal('hide');
           $('#_modal_please_wait').modal('show');
           if (this_aux.nombreOperacion === "1") {
             this_aux.transferenciaSPEISoap(this_aux.clabe, this_aux.nombreBene, this_aux.referencia,
@@ -473,7 +473,7 @@ limpiarFormulario () {
           document.getElementById('mnsError').innerHTML =   "Los datos proporcionados son incorrectos, favor de verificar.";
           $('#_modal_please_wait').modal('hide');
           $('#errorModal').modal('show');
-          $('#ModalTDDLogin2').modal('hide');
+          $('#ModalTDDLogin').modal('hide');
           this._validaNipService.respuestaNip.res = "";
         }
       }

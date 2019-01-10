@@ -44,6 +44,8 @@ export class MantenimientoBenefDetailComponent implements OnInit {
       btnContinuar.classList.add("color-botones_Preferente");
     }
 
+    $("#ModalTDDLogin").modal("hide");
+
     const this_aux = this;
     this_aux.consultaBeneficiarios();
   }

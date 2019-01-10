@@ -132,7 +132,7 @@ export class ValidaNipTransaccion {
         const this_aux = this;
         console.log("Entra a call pinpad Trans");
        let url = 'http://localhost:8081/sucursappsdevices/pinpad/read';
-       $('#ModalTDDLogin').modal('show');
+       //$('#ModalTDDLogin').modal('show');
        document.getElementById('capturaInicio').style.display = 'block';
        document.getElementById('caputuraSesion').style.display = 'none';
        localStorage.removeItem("tr2_serv");

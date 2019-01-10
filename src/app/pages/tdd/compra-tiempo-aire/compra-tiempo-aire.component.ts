@@ -303,7 +303,7 @@ export class CompraTiempoAireComponent implements OnInit {
       // console.log(res);
 
       if (res === true) {
-        $("#ModalTDDLogin2").modal("hide");
+        $("#ModalTDDLogin").modal("hide");
         $("#_modal_please_wait").modal("show");
         this._validaNipService.respuestaNip.res = "";
         this.recargaTiempoAire();
@@ -313,7 +313,7 @@ export class CompraTiempoAireComponent implements OnInit {
           "Los datos proporcionados son incorrectos, favor de verificar.";
         $("#_modal_please_wait").modal("hide");
         $("#errorModal").modal("show");
-        $("#ModalTDDLogin2").modal("hide");
+        $("#ModalTDDLogin").modal("hide");
         this._validaNipService.respuestaNip.res = "";
       }
     });

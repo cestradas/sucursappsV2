@@ -223,6 +223,14 @@ replaceSimbolo(importe) {
       return importeAux;
 }
 
+iniciaPinpad() {
+
+  const this_aux = this;
+  $('#ModalTDDLogin2').modal('show');
+
+}
+
+
 confirmarPago() {
   this._validaNipService.callPinPadTrans();
     const this_aux = this;
@@ -230,7 +238,8 @@ confirmarPago() {
     if (this_aux.importeAux === undefined) { this_aux.importeAux = this_aux.replaceSimbolo( this_aux.myForm.get('fcImporte').value); }
     document.getElementById('capturaInicio').style.display = 'none';
     document.getElementById('caputuraSesion').style.display = 'block';
-    $("#ModalTDDLogin").modal("show");
+    //$("#ModalTDDLogin").modal("show");
+    $('#ModalTDDLogin2').modal('hide');
   let res;
 
     this._validaNipService.validarDatosrespuesta().then(
@@ -285,11 +294,11 @@ operaciones.pagaServicio(this_aux.service.idFacturador, this_aux.importeAux, thi
         console.log("ya page");
       } else {
         this_aux.showErrorSucces(jsonDetallePago);
-        $('#ModalTDDLogin').modal('hide');
+        $('#ModalTDDLogin2').modal('hide');
         console.log("no page");
       }
     }, function(error) { this_aux.showErrorPromiseMoney(error);
-      $('#ModalTDDLogin').modal('hide'); }
+      $('#ModalTDDLogin2').modal('hide'); }
   );
 
 }
