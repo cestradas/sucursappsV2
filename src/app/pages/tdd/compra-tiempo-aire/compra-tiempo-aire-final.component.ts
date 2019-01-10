@@ -30,6 +30,7 @@ export class CompraTiempoAireFinalComponent implements OnInit {
         btnContinuar.classList.remove("color-botones");
         btnContinuar.classList.add("color-botones_Preferente");
       }
+      $('#ModalTDDLogin').modal('hide');
     const this_aux = this;
     const respPago = this_aux.service.detalleConfirmacionCTA;
     const respPagoJson = JSON.parse(respPago);

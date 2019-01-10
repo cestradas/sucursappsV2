@@ -291,7 +291,9 @@ export class CompraTiempoAireComponent implements OnInit {
   trnasrecargaTA() {    
     document.getElementById("capturaInicio").style.display = "none";
     document.getElementById("caputuraSesion").style.display = "block";
-    $("#ModalTDDLogin").modal("show");
+
+    $('#ModalTDDLogin2').modal('hide');
+
     this._validaNipService.callPinPadTrans();
 
     let res;
@@ -301,20 +303,29 @@ export class CompraTiempoAireComponent implements OnInit {
       // console.log(res);
 
       if (res === true) {
-        $("#ModalTDDLogin").modal("hide");
+        $("#ModalTDDLogin2").modal("hide");
         $("#_modal_please_wait").modal("show");
         this._validaNipService.respuestaNip.res = "";
-        this.recargaTiempoAire();        
+        this.recargaTiempoAire();
       } else {
         console.error("Mostrar modal el nip no es igual");
         document.getElementById("mnsError").innerHTML =
           "Los datos proporcionados son incorrectos, favor de verificar.";
         $("#_modal_please_wait").modal("hide");
         $("#errorModal").modal("show");
-        $("#ModalTDDLogin").modal("hide");
+        $("#ModalTDDLogin2").modal("hide");
         this._validaNipService.respuestaNip.res = "";
       }
     });
+  }
+
+  iniciaPinpad() {
+
+    const this_aux = this;
+
+    $('#ModalTDDLogin2').modal('show');
+
+
   }
 
   confirmarModal() {

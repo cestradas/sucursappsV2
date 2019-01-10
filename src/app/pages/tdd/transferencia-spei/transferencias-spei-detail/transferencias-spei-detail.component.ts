@@ -114,6 +114,7 @@ export class TransferenciasSpeiDetailComponent implements OnInit {
       btnContinuar.classList.remove("color-botones");
       btnContinuar.classList.add("color-botones_Preferente");
     }
+    $('#ModalTDDLogin').modal('hide');
     $("#_modal_please_wait").modal("hide");
   }
 }

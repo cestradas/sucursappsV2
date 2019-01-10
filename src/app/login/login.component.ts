@@ -696,7 +696,12 @@ includesL(container, value) {
   }
 
    callPinPad() {
+
+
      const this_aux = this;
+
+     this_aux.iniciaPinpad();
+
     let url = 'http://localhost:8081/sucursappsdevices/pinpad/read';
     $('#ModalTDDLogin').modal('show');
     document.getElementById('capturaInicio').style.display = 'block';
@@ -751,6 +756,8 @@ callPinPadtdc() {
 
   const this_aux = this;
 
+  this_aux.iniciaPinpadTDC();
+
   let url = 'http://localhost:8083/sucursappsdevices/pinpad/read';
   $('#ModalTDDLogin').modal('show');
   document.getElementById('capturaInicio').style.display = 'block';
@@ -796,5 +803,29 @@ callPinPadtdc() {
 
   });
 }
+
+changeModal() {
+  $('#ModalTDDLogin2').modal('show');
+}
+
+changeModalTDC() {
+  $('#ModalTDCLogin').modal('show');
+}
+
+iniciaPinpad() {
+
+  $('#ModalTDDLogin2').modal('hide');
+  $('#ModalTDDLogin').modal('show');
+
+}
+
+
+iniciaPinpadTDC() {
+
+  $('#ModalTDDLoginTDC').modal('hide');
+  $('#ModalTDDLogin').modal('show');
+
+}
+
 
 }
