@@ -244,6 +244,9 @@ export class LoginComponent implements OnInit {
         } else if (descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin") {
           document.getElementById('mnsError').innerHTML = "Plástico no válido, por favor verifica que sea un plástico Banorte.";
           $('#errorModal').modal('show');
+        } else if (descripcion === "El Lector de Tarjetas no esta conectado") {
+          document.getElementById('mnsError').innerHTML = "El Lector de Tarjetas no esta conectado";
+          $('#errorModal').modal('show');
         } else {
                // tslint:disable-next-line:max-line-length
               //  console.log("Pinpad respondio con " + this.respuestaTrjeta);
@@ -402,6 +405,9 @@ export class LoginComponent implements OnInit {
 
         } else if (descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin") {
           document.getElementById('mnsError').innerHTML = "Plástico no válido, por favor verifica que sea un plástico Banorte.";
+          $('#errorModal').modal('show');
+        } else if (descripcion === "El Lector de Tarjetas no esta conectado") {
+          document.getElementById('mnsError').innerHTML = "El Lector de Tarjetas no esta conectado";
           $('#errorModal').modal('show');
         } else {
                // tslint:disable-next-line:max-line-length
