@@ -238,16 +238,18 @@ export class LoginComponent implements OnInit {
         if (descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card" || tr2 === "") {
               //  console.log("Pinpad respondio con " + this.respuestaTrjeta);
                // tslint:disable-next-line:max-line-length
-               document.getElementById('mnsError').innerHTML = "Inicio de sesión falló.";
-        $('#errorModal').modal('show');
+              if (descripcion === "El Lector de Tarjetas no esta conectado") {
+                document.getElementById('mnsError').innerHTML = "El Lector de Tarjetas no esta conectado";
+                $('#errorModal').modal('show');
+              } else {
+                document.getElementById('mnsError').innerHTML = "Inicio de sesión falló.";
+                $('#errorModal').modal('show');
+              }
 
         } else if (descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin") {
           document.getElementById('mnsError').innerHTML = "Plástico no válido, por favor verifica que sea un plástico Banorte.";
           $('#errorModal').modal('show');
-        } else if (descripcion === "El Lector de Tarjetas no esta conectado") {
-          document.getElementById('mnsError').innerHTML = "El Lector de Tarjetas no esta conectado";
-          $('#errorModal').modal('show');
-        } else {
+        }  else {
                // tslint:disable-next-line:max-line-length
               //  console.log("Pinpad respondio con " + this.respuestaTrjeta);
                // tslint:disable-next-line:max-line-length
@@ -262,7 +264,7 @@ export class LoginComponent implements OnInit {
          }
 
    // }, 50000);
-
+   $('#ModalTDDLogin').modal('hide');
    localStorage.removeItem("des");
    localStorage.removeItem("np");
    localStorage.removeItem("res");
@@ -400,14 +402,18 @@ export class LoginComponent implements OnInit {
         if (descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card"  || tr2 === "") {
               //  console.log("Pinpad respondio con " + this.respuestaTrjeta);
                // tslint:disable-next-line:max-line-length
-               document.getElementById('mnsError').innerHTML = "Inicio de sesión falló.";
-        $('#errorModal').modal('show');
+
+               if (descripcion === "El Lector de Tarjetas no esta conectado") {
+                document.getElementById('mnsError').innerHTML = "El Lector de Tarjetas no esta conectado";
+                $('#errorModal').modal('show');
+              } else {
+                document.getElementById('mnsError').innerHTML = "Inicio de sesión falló.";
+                $('#errorModal').modal('show');
+              }
+
 
         } else if (descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin") {
           document.getElementById('mnsError').innerHTML = "Plástico no válido, por favor verifica que sea un plástico Banorte.";
-          $('#errorModal').modal('show');
-        } else if (descripcion === "El Lector de Tarjetas no esta conectado") {
-          document.getElementById('mnsError').innerHTML = "El Lector de Tarjetas no esta conectado";
           $('#errorModal').modal('show');
         } else {
                // tslint:disable-next-line:max-line-length
@@ -424,6 +430,7 @@ export class LoginComponent implements OnInit {
          }
 
    // }, 50000);
+   $('#ModalTDDLogin').modal('hide');
    localStorage.removeItem("des");
    localStorage.removeItem("np");
    localStorage.removeItem("res");
@@ -750,6 +757,7 @@ includesL(container, value) {
 
         this_aux.onPlasticLogin();
 
+        setTimeout( () => $('#ModalTDDLogin').modal('hide'), 1000 );
     }, function(err) {
         if (err) {
             return console.log(err);
@@ -802,6 +810,7 @@ callPinPadtdc() {
           localStorage.setItem("tr2_serv", "");
       }
       this_aux.onPlasticLogintdc();
+      setTimeout( () => $('#ModalTDDLogin').modal('hide'), 1000 );
   }, function(err) {
       if (err) {
           return console.log(err);
@@ -828,7 +837,7 @@ iniciaPinpad() {
 
 iniciaPinpadTDC() {
 
-  $('#ModalTDDLoginTDC').modal('hide');
+  $('#ModalTDCLogin').modal('hide');
   $('#ModalTDDLogin').modal('show');
 
 }
