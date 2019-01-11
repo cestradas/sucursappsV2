@@ -293,7 +293,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
         // console.log(res);
 
         if (res === true) {
-          $('#ModalTDDLogin2').modal('hide');
+          $('#ModalTDDLogin').modal('hide');
           $('#_modal_please_wait').modal('show');
           this_aux.pagarTarjetaCreditoTrans();
           this._validaNipService.respuestaNip.res = "";
@@ -302,7 +302,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
           document.getElementById('mnsError').innerHTML =   "Los datos proporcionados son incorrectos, favor de verificar.";
           $('#_modal_please_wait').modal('hide');
           $('#errorModal').modal('show');
-          $('#ModalTDDLogin2').modal('hide');
+          $('#ModalTDDLogin').modal('hide');
           this._validaNipService.respuestaNip.res = "";
         }
       }
@@ -351,7 +351,7 @@ export class PagoTarjetaCreditoComponent implements OnInit {
             setTimeout(function() {
               this_aux.showErrorPromiseMoney(error);
             }, 500);
-            $('#ModalTDDLogin2').modal('hide');
+            $('#ModalTDDLogin').modal('hide');
           });
   }
 
