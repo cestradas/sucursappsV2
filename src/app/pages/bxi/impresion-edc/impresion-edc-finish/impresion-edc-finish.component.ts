@@ -23,6 +23,7 @@ export class ImpresionEdcFinishComponent implements OnInit {
   correo: string;
   correosIgual = 0;
   correoIgualAux = 0;
+  escribiendoDatos = 0;
 
   constructor(private router: Router, private service: SesionBxiService, private renderer: Renderer2) {
 
@@ -198,6 +199,19 @@ showErrorPromise(error) {
   document.getElementById('mnsError').innerHTML =   "El servicio no está disponible, favor de intentar más tarde";
   $('#_modal_please_wait').modal('hide');
   $('#errorModal').modal('show');
+}
+
+ingresandoDatos() {  
+  const this_aux = this;
+
+  this_aux.escribiendoDatos = 1;
+
+}
+
+finalizaIngresoDatos() {
+  const this_aux = this;
+
+  this_aux.escribiendoDatos = 0;
 }
 
 }

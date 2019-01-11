@@ -18,6 +18,7 @@ export class ImpresionEdcFinishComponent implements OnInit {
   correo: string;
   correosIgual = 0;
   correoIgualAux = 0;
+  escribiendoDatos = 0;
 
   constructor( private router: Router, private serviceTdd: ResponseWS) { 
 
@@ -192,6 +193,19 @@ resourceRequest.sendFormParameters(formParameters).then(
       $("#errorModal").modal("show"); 
     }, 500);
      
+  }
+
+  ingresandoDatos() {  
+    const this_aux = this;
+
+    this_aux.escribiendoDatos = 1;
+
+  }
+
+  finalizaIngresoDatos() {
+    const this_aux = this;
+
+    this_aux.escribiendoDatos = 0;
   }
 
 }
