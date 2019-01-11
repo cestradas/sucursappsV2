@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
                     // tslint:disable-next-line:max-line-length
                     if ((descripcion === "El Lector de Tarjetas no esta conectado" || descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card" || descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin" || descripcion === null) && (respuestaTar === null || respuestaTar === ""))  {
                       this_aux.onPlasticLoginafterSecurity();
+                      setTimeout( () => $('#ModalTDDLogin').modal('hide'), 1000 );
                     } else {
                       const securityCheckName = 'banorteSecurityCheckSa';
                    const userLoginChallengeHandler = WL.Client
@@ -81,6 +82,7 @@ export class LoginComponent implements OnInit {
        // tslint:disable-next-line:max-line-length
        if ((descripcion === "El Lector de Tarjetas no esta conectado" || descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card" || descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin"  || descripcion === null) && (respuestaTar === null || respuestaTar === ""))  {
          this_aux.onPlasticLoginafterSecuritytdc();
+         setTimeout( () => $('#ModalTDDLogin').modal('hide'), 1000 );
        } else {
         //  console.log("Se detectaron datos Tarjeta: " + localStorage.getItem("tr2"));
          const securityCheckName = 'banorteSecurityCheckSa';
@@ -264,7 +266,7 @@ export class LoginComponent implements OnInit {
          }
 
    // }, 50000);
-   $('#ModalTDDLogin').modal('hide');
+
    localStorage.removeItem("des");
    localStorage.removeItem("np");
    localStorage.removeItem("res");
@@ -430,7 +432,7 @@ export class LoginComponent implements OnInit {
          }
 
    // }, 50000);
-   $('#ModalTDDLogin').modal('hide');
+
    localStorage.removeItem("des");
    localStorage.removeItem("np");
    localStorage.removeItem("res");
@@ -757,7 +759,7 @@ includesL(container, value) {
 
         this_aux.onPlasticLogin();
 
-        setTimeout( () => $('#ModalTDDLogin').modal('hide'), 1000 );
+        //setTimeout( () => $('#ModalTDDLogin').modal('hide'), 1000 );
     }, function(err) {
         if (err) {
             return console.log(err);
@@ -810,7 +812,7 @@ callPinPadtdc() {
           localStorage.setItem("tr2_serv", "");
       }
       this_aux.onPlasticLogintdc();
-      setTimeout( () => $('#ModalTDDLogin').modal('hide'), 1000 );
+      //setTimeout( () => $('#ModalTDDLogin').modal('hide'), 1000 );
   }, function(err) {
       if (err) {
           return console.log(err);
