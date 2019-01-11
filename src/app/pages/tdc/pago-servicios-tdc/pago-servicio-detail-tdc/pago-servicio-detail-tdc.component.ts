@@ -275,6 +275,9 @@ confirmarPago() {
 
 pagoServicio() {
 
+
+$('#_modal_please_wait').modal('show');
+
 console.log("si entre");
 const this_aux = this;
 
@@ -298,6 +301,7 @@ operaciones.pagaServicio(this_aux.service.idFacturador, this_aux.importeAux, thi
         console.log("ya page");
       } else {
         this_aux.showErrorSucces(jsonDetallePago);
+        $('#_modal_please_wait').modal('hide');
         $('#ModalTDDLogin').modal('hide');
         console.log("no page");
       }
