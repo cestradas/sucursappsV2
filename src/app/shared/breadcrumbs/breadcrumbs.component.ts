@@ -4,6 +4,7 @@ import { Component, OnInit ,  ViewChild, ElementRef} from '@angular/core';
 import { Router} from '@angular/router';
 import { SesionTDDService } from '../../services/breadcrums/breadcroms.service';
 import { ResponseWS } from '../../services/service.index';
+import { ConsultaSaldosTddService } from '../../services/saldosTDD/consultaSaldos.service';
 
 declare var jquery: any; // jquery
 declare var $: any;
@@ -19,7 +20,8 @@ export class BreadcrumbsComponent implements OnInit {
 
   constructor(private service: SesionBxiService,
               private _service: SesionTDDService,
-              private router: Router, private serviceMantenimiento: ResponseWS)  {}
+              private router: Router, private serviceMantenimiento: ResponseWS,
+               private consultaSaldosTddService: ConsultaSaldosTddService)  {}
 
   ngOnInit() {
     const this_aux = this;
@@ -297,6 +299,16 @@ export class BreadcrumbsComponent implements OnInit {
     this_aux.service.cambioCorreo = undefined;
     this_aux.service.Fecha = undefined;
     this_aux.service.Tiempo = undefined;
+    // Datos TDD
+    
+    this_aux.consultaSaldosTddService.datosSaldosTDD.ClabeCuenta = '';
+    this_aux.consultaSaldosTddService.datosSaldosTDD.Id = '';
+    this_aux.consultaSaldosTddService.datosSaldosTDD.NumeroCuenta = '';
+    this_aux.consultaSaldosTddService.datosSaldosTDD.Producto = '';
+    this_aux.consultaSaldosTddService.datosSaldosTDD.SaldoDia = '';
+    this_aux.consultaSaldosTddService.datosSaldosTDD.SaldoDisponible = '';
+    this_aux.consultaSaldosTddService.datosSaldosTDD.SaldoMesAnterior = '';
+    this_aux.consultaSaldosTddService.datosSaldosTDD.SaldoRetenido = ''; 
   }
 
 }

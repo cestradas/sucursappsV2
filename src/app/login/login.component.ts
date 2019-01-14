@@ -105,8 +105,8 @@ export class LoginComponent implements OnInit {
                  }, 1000);
 
           }, function(error) {
-              // console.log(error);
-              $('#ModalTDDLogin').modal('hide');
+              // console.log(error);$('#ModalTDDLogin').modal('hide');
+              
               setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
           });
        }

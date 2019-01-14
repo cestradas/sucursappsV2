@@ -18,7 +18,7 @@
                                 <label>Correo electronico: </label>
                             </div>
                             <div class="col-sm-10">
-                                <input id="correo" name="correo" [matKeyboard]="" formControlName="correo" type="text" class="form-control amount input-lg" maxlength="60" required (change)="finalizaIngresoDatos()" (focus)="ingresandoDatos()" />
+                                <input id="correo" name="correo" [matKeyboard]="" formControlName="correo" type="text" class="form-control amount input-lg" maxlength="60" required (blur)="finalizaIngresoDatos()" (focus)="ingresandoDatos()" />
                                 <div *ngIf="escribiendoDatos === 0 && (forma.hasError('pattern', 'correo') || forma.hasError('max', 'correo'))" style="margin-bottom: 0px; padding: 0.5rem 1.20rem;" class="alert alert-danger">
                                     Correo electronico incorrecto.
                                 </div>
@@ -34,8 +34,8 @@
                                 <label>Confirma correo electronico: </label>
                             </div>
                             <div class="col-sm-10">
-                                <input id="confCorreo" name="confCorreo" [matKeyboard]="" formControlName="confCorreo" type="text" class="form-control amount input-lg" maxlength="60" required (change)="finalizaIngresoDatos()" (focus)="ingresandoDatos()" />
-                                <div class="alert-danger" *ngIf="escribiendoDatos === 0 && ((forma.get('confCorreo').errors  && forma.get('confCorreo').touched))">
+                                <input id="confCorreo" name="confCorreo" [matKeyboard]="" formControlName="confCorreo" type="text" class="form-control amount input-lg" maxlength="60" required (blur)="finalizaIngresoDatosConfirma()" (focus)="ingresandoDatosConfirma()" />
+                                <div class="alert-danger" *ngIf="escribiendoDatosConfirma === 0 && ((forma.get('confCorreo').errors  && forma.get('confCorreo').touched))">
                                     <p color="danger" *ngIf="forma.get('confCorreo').hasError('required')">Este dato es obligatorio.</p>
                                     <p color="danger" *ngIf="correosIgual === 1 || forma.get('confCorreo').hasError('pattern') ">Los datos proporcionados son incorrectos, favor de verificar.</p>
                                 </div>

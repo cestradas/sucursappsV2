@@ -23,7 +23,7 @@ export class ConsultaSaldosTddService {
     constructor() {}
 
     showErrorSucces(json) {
-
+        $('#_modal_please_wait').modal('hide');
         // console.log(json.Id + json.MensajeAUsuario);
         if (json.Id === '2') {
           document.getElementById('mnsError').innerHTML =   'El servicio no esta disponible, favor de intentar mas tarde';
@@ -34,6 +34,7 @@ export class ConsultaSaldosTddService {
     }
 
       showErrorPromise(error) {
+        $('#_modal_please_wait').modal('hide');
         $('#errorModal').modal('show');
         if (error.errorCode === 'API_INVOCATION_FAILURE') {
             document.getElementById('mnsError').innerHTML = 'Tu sesión ha expirado';
@@ -46,6 +47,16 @@ export class ConsultaSaldosTddService {
 
         const THIS: any = this;
         const this_aux = this;
+
+        THIS.datosSaldosTDD.Id = '';
+        THIS.datosSaldosTDD.NumeroCuenta = '';
+        THIS.datosSaldosTDD.ClabeCuenta = '';
+        THIS.datosSaldosTDD.SaldoDia = '';
+        THIS.datosSaldosTDD.SaldoDisponible = '';
+        THIS.datosSaldosTDD.SaldoRetenido = '';
+        THIS.datosSaldosTDD.SaldoMesAnterior = '';
+        THIS.datosSaldosTDD.Producto = '';
+
         const resourceRequest = new WLResourceRequest(
             'adapters/AdapterBanorteSucursApps/resource/consultaClabesSaldos',
             WLResourceRequest.POST);

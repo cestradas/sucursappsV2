@@ -22,6 +22,7 @@ export class FinalComponent implements OnInit {
     $('div').removeClass('modal-backdrop');
     setTimeout( function() {
       this_aux.router.navigate(['/login']);  
+      location.reload();
     } 
     , 3000);
     
