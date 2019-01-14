@@ -199,6 +199,7 @@ export class LoginComponent implements OnInit {
           // tslint:disable-next-line:max-line-length
           document.getElementById('mnsError').innerHTML = "Tipo de plástico incorrecto, favor de seleccionar la opción inicio con tarjeta de crédito";
           $('#errorModal').modal('show');
+          setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
         } else {
 
               /*
@@ -363,6 +364,7 @@ export class LoginComponent implements OnInit {
             // tslint:disable-next-line:max-line-length
             document.getElementById('mnsError').innerHTML = "Tipo de plástico incorrecto, favor de seleccionar la opción inicio con tarjeta de débito";
             $('#errorModal').modal('show');
+            setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
           } else {
 
               /*
