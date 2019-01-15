@@ -76,7 +76,8 @@ export class ValidaNipTransaccionTdcService {
                 .sendFormParameters(formParameters)
                 .then(
                     function(response) {
-                        if (response.responseJSON === true) {              
+                      setTimeout( () => $('#ModalTDDLogin').modal('hide'), 1000 );
+                        if (response.responseJSON === true) {
                             THIS.respuestaNip.res = response.responseJSON;
                             // console.log("Respuesta desde el Service RES: " , THIS.respuestaNip.res);
                            } else {

@@ -152,6 +152,8 @@ export class LoginComponent implements OnInit {
 
              let res = response.responseJSON;
 
+             setTimeout( () => $('#ModalTDDLogin').modal('hide'), 1000 );
+
              if (res.Id === "1") {
 
               THIS._service.datosBreadCroms.numeroCliente = res.Tran_NumeroCliente;
@@ -316,6 +318,7 @@ export class LoginComponent implements OnInit {
            function(response) {
 
              let res = response.responseJSON;
+             setTimeout( () => $('#ModalTDDLogin').modal('hide'), 1000 );
 
              if (res.Id === "1") {
 

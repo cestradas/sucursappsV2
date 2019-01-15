@@ -1495,6 +1495,8 @@ export class MantenimientoBenefComponent implements OnInit {
   }
 
   verificaServicios() {
+
+    $('#_modal_please_wait').modal('show');
     const this_aux = this;
     let procesoFinalizado: any = 0;
     this_aux.A = false;
@@ -1556,12 +1558,20 @@ export class MantenimientoBenefComponent implements OnInit {
     }
   }
 
+  iniciaPinpad() {
+
+    const this_aux = this;
+    $('#ModalTDDLogin2').modal('show');
+
+  }
+
   finalizaProcesoGuardarDatos() {
     const this_aux = this;
     this._validaNipService.callPinPadTrans();
     document.getElementById("capturaInicio").style.display = "none";
     document.getElementById("caputuraSesion").style.display = "block";
-    $("#ModalTDDLogin").modal("show");
+    //$("#ModalTDDLogin").modal("show");
+    $('#ModalTDDLogin2').modal('hide');
     let res;
 
     this._validaNipService.validarDatosrespuesta().then(mensaje => {
