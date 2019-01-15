@@ -250,16 +250,19 @@ export class LoginComponent implements OnInit {
                 document.getElementById('mnsError').innerHTML = "Inicio de sesión falló.";
                 $('#errorModal').modal('show');
               }
+              setTimeout( () => $('#ModalTDDLogin').modal('hide'), 1000 );
 
         } else if (descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin") {
           document.getElementById('mnsError').innerHTML = "Plástico no válido, por favor verifica que sea un plástico Banorte.";
           $('#errorModal').modal('show');
+          setTimeout( () => $('#ModalTDDLogin').modal('hide'), 1000 );
         }  else {
                // tslint:disable-next-line:max-line-length
               //  console.log("Pinpad respondio con " + this.respuestaTrjeta);
                // tslint:disable-next-line:max-line-length
                document.getElementById('mnsError').innerHTML = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
         $('#errorModal').modal('show');
+        setTimeout( () => $('#ModalTDDLogin').modal('hide'), 1000 );
         }
         /*
         localStorage.removeItem("tr2");
@@ -417,17 +420,19 @@ export class LoginComponent implements OnInit {
                 document.getElementById('mnsError').innerHTML = "Inicio de sesión falló.";
                 $('#errorModal').modal('show');
               }
-
+              setTimeout( () => $('#ModalTDDLogin').modal('hide'), 1000 );
 
         } else if (descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin") {
           document.getElementById('mnsError').innerHTML = "Plástico no válido, por favor verifica que sea un plástico Banorte.";
           $('#errorModal').modal('show');
+          setTimeout( () => $('#ModalTDDLogin').modal('hide'), 1000 );
         } else {
                // tslint:disable-next-line:max-line-length
               //  console.log("Pinpad respondio con " + this.respuestaTrjeta);
                // tslint:disable-next-line:max-line-length
                document.getElementById('mnsError').innerHTML = "Por el momento este servicio no está disponible, favor de intentar de nuevo más tarde.";
         $('#errorModal').modal('show');
+        setTimeout( () => $('#ModalTDDLogin').modal('hide'), 1000 );
         }
         /*
         localStorage.removeItem("tr2");

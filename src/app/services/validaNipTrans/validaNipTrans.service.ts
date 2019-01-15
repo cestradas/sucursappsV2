@@ -55,6 +55,7 @@ export class ValidaNipTransaccion {
        }
        
         $('#errorModal').modal('show');
+        setTimeout( () => $('#ModalTDDLogin').modal('hide'), 1000 );
                 /* localStorage.removeItem("tr2_serv");
         localStorage.removeItem("des"); */        
       } else {
