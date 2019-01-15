@@ -215,6 +215,7 @@ export class TransferenciasCuentasBanorteComponent implements OnInit {
 
   trasferenciaCuentasBanorte(myForm) {
     const this_aux = this;
+    $('#ModalTDDLogin').modal('hide');
     $('#_modal_please_wait').modal('show');
     const operaciones: consultaCatalogos = new consultaCatalogos();
     let descripcion = this_aux.myForm.get('fcDescripcion').value;

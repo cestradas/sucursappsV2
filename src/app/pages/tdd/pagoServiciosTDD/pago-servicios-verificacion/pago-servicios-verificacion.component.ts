@@ -53,7 +53,7 @@ cuentaClienteTdd: string;
       btnContinuar.classList.add("color-botones_Preferente");
     }
 
-    $("#ModalTDDLogin").modal("hide");
+    $('#_modal_please_wait').modal('hide');
 
     const this_aux = this;
     const respPago = this_aux.service.detalleConfirmacionPS;
@@ -100,9 +100,6 @@ cuentaClienteTdd: string;
 
 
       }
-
-      $('#_modal_please_wait').modal('hide');
-      setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
   }
 
   irMenuTDD() {

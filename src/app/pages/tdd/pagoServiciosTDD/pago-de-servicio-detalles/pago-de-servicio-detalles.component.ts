@@ -268,10 +268,8 @@ confirmarPago() {
 }
 
 pagoServicio() {
-
-  
-
-
+  $('#_modal_please_wait').modal('show');
+  $('#ModalTDDLogin').modal('hide');
 console.log("si entre");
 const this_aux = this;
 if (this_aux.service.idFacturador === '88924') {
@@ -294,11 +292,11 @@ operaciones.pagaServicio(this_aux.service.idFacturador, this_aux.importeAux, thi
         console.log("ya page");
       } else {
         this_aux.showErrorSucces(jsonDetallePago);
-        $('#ModalTDDLogin2').modal('hide');
+        $('#ModalTDDLogin').modal('hide');
         console.log("no page");
       }
     }, function(error) { this_aux.showErrorPromiseMoney(error);
-      $('#ModalTDDLogin2').modal('hide'); }
+      $('#ModalTDDLogin').modal('hide'); }
   );
 
 }

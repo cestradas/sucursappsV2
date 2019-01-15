@@ -96,7 +96,7 @@ export class MantenimientosDatosContactoComponent implements OnInit {
   }
 
   modificarDatos(correo , celular) {
-
+    $('#ModalTDDLogin').modal('hide');
     $('#_modal_please_wait').modal('show');
 
 

@@ -54,7 +54,6 @@ export class MantenimientoDatosContactoFinalComponent implements OnInit {
   this_aux.fechaMesActualFin = (this_aux.dia + "/" + this_aux.mes + "/" + this_aux.anio).toString();
   
   $('#_modal_please_wait').modal('hide');
-  setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
 
   }
 

@@ -43,9 +43,6 @@ if (storageTipoClienteTar === "true") {
  
 }
 
-$("#ModalTDDLogin").modal("hide");
-
-setTimeout( () => $('#ModalTDDLogin').modal('hide'), 500 );
     setTimeout( () => $('#_modal_please_wait').modal('hide'), 500 );
   }
 
