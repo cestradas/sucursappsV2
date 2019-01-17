@@ -135,6 +135,7 @@ export class PagoServiciosIniComponent implements OnInit {
              setTimeout(function() {
               
                this_aux.SaldoOrigen = detalleSaldos.SaldoDisponible;
+               document.getElementById("tipoSaldo").innerHTML = "Saldo Disponible";
                 $('#_modal_please_wait').modal('hide');
                 const facturador = document.getElementById("facturador");
                 this_aux.setValue("");
@@ -166,8 +167,9 @@ export class PagoServiciosIniComponent implements OnInit {
             if ( detalleSaldos.Id === '1') {
 
              setTimeout(function() {
-              
-               this_aux.SaldoOrigen = detalleSaldos.SaldoDisponible;
+
+               this_aux.SaldoOrigen = detalleSaldos.SaldoActual;
+               document.getElementById("tipoSaldo").innerHTML = "Saldo Actual";
                 $('#_modal_please_wait').modal('hide');
                 const facturador = document.getElementById("facturador");
                 this_aux.setValue("");

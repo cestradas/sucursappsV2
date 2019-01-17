@@ -261,6 +261,7 @@ setDatosCuentaSeleccionada(elementHTML) {
           if ( detalleSaldos.Id === '1') {
             setTimeout(function() {
                 this_aux.SaldoOrigen = detalleSaldos.SaldoDisponible;
+                document.getElementById("tipoSaldo").innerHTML = "Saldo Disponible";
                 //const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
                 //lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
                 // $('#_modal_please_wait').modal('hide');
@@ -297,7 +298,8 @@ setDatosCuentaSeleccionada(elementHTML) {
            setTimeout(function() {
             //const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
             //lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
-             this_aux.SaldoOrigen = detalleSaldos.SaldoDisponible;
+             this_aux.SaldoOrigen = detalleSaldos.SaldoActual;
+             document.getElementById("tipoSaldo").innerHTML = "Saldo Actual";
              // $('#_modal_please_wait').modal('hide');
             }, 500);
           } else {
