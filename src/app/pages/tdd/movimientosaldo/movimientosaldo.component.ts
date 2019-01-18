@@ -113,23 +113,32 @@ constructor( private _service: ConsultaSaldosTddService,
     this_aux.arrayNumPag = [];
     this_aux.numeroDatoInicial = 0;
     this_aux.numeroDatoFinal = this_aux.tamPaginas;
-
+    
     if (  this_aux.par === 0 ) {
       this_aux.fechaMesActualFin = (this_aux.anio + "-" + this_aux.mes + "-" + this_aux.dia).toString();
       this_aux.fechaMesActualIni = (this_aux.anio + "-" + this_aux.mes + "-01").toString();
-      this_aux.llamarMovimientos ();
-
+      this.llamarMovimientos();
+    
     } else {
+      if (this_aux.mes === "01") {
+        this_aux.mes = "13";
+        this_aux.anio = this_aux.anio - 1;
+      }
       if ( (this_aux.mes - 1) < 10) {
         this_aux.fechaMesActualFin = (this_aux.anio + "-" + "0" + (this_aux.mes - 1) + "-" + this_aux.diaMesAnterior).toString();
         this_aux.fechaMesActualIni = (this_aux.anio + "-" + "0" + (this_aux.mes - 1) + "-01").toString();
-        this_aux.llamarMovimientos ();
+        this.llamarMovimientos();
       } else {
         this_aux.fechaMesActualFin = (this_aux.anio + "-" + (this_aux.mes - 1) + "-" + this_aux.diaMesAnterior).toString();
         this_aux.fechaMesActualIni = (this_aux.anio + "-" + (this_aux.mes - 1) + "-01").toString();
-        this_aux.llamarMovimientos ();
+        this.llamarMovimientos();
       }
     }
+    if (this_aux.mes === "13") {
+      this_aux.mes = "01";
+      this_aux.anio = new Date().getFullYear();
+    }
+    
   }
 
 cambiarPagina(numeroPag) {

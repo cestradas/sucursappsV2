@@ -150,6 +150,10 @@ export class ConsultaMovimientosDetailComponent implements OnInit {
       this.seleccionarTipoCuenta();
     
     } else {
+      if (this_aux.mes === "01") {
+        this_aux.mes = "13";
+        this_aux.anio = this_aux.anio - 1;
+      }
       if ( (this_aux.mes - 1) < 10) {
         this_aux.fechaMesActualFin = (this_aux.anio + "-" + "0" + (this_aux.mes - 1) + "-" + this_aux.diaMesAnterior).toString();
         this_aux.fechaMesActualIni = (this_aux.anio + "-" + "0" + (this_aux.mes - 1) + "-01").toString();
@@ -160,6 +164,11 @@ export class ConsultaMovimientosDetailComponent implements OnInit {
         this.seleccionarTipoCuenta();
       }
     }
+    if (this_aux.mes === "13") {
+      this_aux.mes = "01";
+      this_aux.anio = new Date().getFullYear();
+    }
+    
   }
 
   seleccionarTipoCuenta() {

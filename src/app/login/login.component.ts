@@ -39,9 +39,9 @@ export class LoginComponent implements OnInit {
                    let respuestaPin = localStorage.getItem("res");
                    let respuestaTar = localStorage.getItem("tr2");
                    let descripcion = localStorage.getItem("des");
-
+                   let respuestaNp = localStorage.getItem("np");
                     // tslint:disable-next-line:max-line-length
-                    if ((descripcion === "El Lector de Tarjetas no esta conectado" || descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card" || descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin" || descripcion === null) && (respuestaTar === null || respuestaTar === ""))  {
+                    if ((descripcion === "El Lector de Tarjetas no esta conectado" || descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card" || descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin" || descripcion === null) && (respuestaNp === null || respuestaNp === ""))  {
                       this_aux.onPlasticLoginafterSecurity();
                       setTimeout( () => $('#ModalTDDLogin').modal('hide'), 1000 );
                     } else {
@@ -79,8 +79,9 @@ export class LoginComponent implements OnInit {
       let respuestaPin = localStorage.getItem("res");
       let respuestaTar = localStorage.getItem("tr2");
       let descripcion = localStorage.getItem("des");
+      let respuestaNp = localStorage.getItem("np");
        // tslint:disable-next-line:max-line-length
-       if ((descripcion === "El Lector de Tarjetas no esta conectado" || descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card" || descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin"  || descripcion === null) && (respuestaTar === null || respuestaTar === ""))  {
+       if ((descripcion === "El Lector de Tarjetas no esta conectado" || descripcion === "Tarjeta no detectada" || descripcion === "Tarjeta no retirada" || descripcion === "Operacion Cancelada por Cliente" || descripcion === "PIN incorrecto debe de ser 4 Digitos" || descripcion === "ATR error or NO smart card" || descripcion === "Error al leer la tarjeta" || descripcion === "Error lectura pin"  || descripcion === null) && (respuestaNp === null || respuestaNp === ""))  {
          this_aux.onPlasticLoginafterSecuritytdc();
          setTimeout( () => $('#ModalTDDLogin').modal('hide'), 1000 );
        } else {

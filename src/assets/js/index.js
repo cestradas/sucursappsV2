@@ -65,7 +65,7 @@ function getContextRoot() {
         }
 
         WL.Client.init(wlInitOptions).then(function() {
-            console.info("VERSION: 5.9, 05/12/2018, Versión Productiva")
+            console.info("VERSION: 6.0, 18/01/2019, Versión Productiva")
 
             if (localStorage.getItem("AmbienteOK") === null) {
                 var usuarioAgent = navigator.userAgent;

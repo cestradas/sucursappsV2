@@ -206,6 +206,7 @@ getSaldoTDDOtras(numCuenta_seleccionada) {
          setTimeout(function() {
           
            this_aux.SaldoOrigen = detalleSaldos.SaldoDisponible;
+           document.getElementById('tipoSaldo').innerHTML = "Saldo Disponible";
             $('#_modal_please_wait').modal('hide');
           }, 500);
         } else {
@@ -237,6 +238,7 @@ getSaldoTDDOtras(numCuenta_seleccionada) {
          setTimeout(function() {
           
            this_aux.SaldoOrigen = detalleSaldos.SaldoDisponible;
+           document.getElementById('tipoSaldo').innerHTML = "Saldo Actual";
             $('#_modal_please_wait').modal('hide');
           }, 500);
         } else {

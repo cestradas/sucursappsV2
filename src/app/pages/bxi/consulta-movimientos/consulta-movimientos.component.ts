@@ -154,6 +154,7 @@ getSaldoDeCuentaTDD(numCuenta_seleccionada) {
           // lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
           this_aux.saldoSeleccionado = detalleSaldos.SaldoDisponible;
           this_aux.service.saldoSeleccionado = this_aux.saldoSeleccionado;
+          document.getElementById('tipoSaldo').innerHTML = "Saldo Disponible";
           this_aux.Cuenta = true;
 
         } else {
@@ -180,9 +181,10 @@ getSaldoDeCuentaTDC(numCuenta_seleccionada) {
         if ( detalleSaldos.Id === '1') {
           // const lblSaldoOrigen = document.getElementById('lblSaldoOrigen');
           // lblSaldoOrigen.innerHTML = detalleSaldos.SaldoDisponible;
-          this_aux.saldoSeleccionado = detalleSaldos.SaldoDisponible;
+          this_aux.saldoSeleccionado = detalleSaldos.SaldoActual;
           this_aux.service.saldoSeleccionado = this_aux.saldoSeleccionado;
           this_aux.service.SaldoActual = detalleSaldos.SaldoActual;
+          document.getElementById('tipoSaldo').innerHTML = "Saldo Actual";
           this_aux.Cuenta = true;
 
         } else {
